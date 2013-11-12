@@ -5,8 +5,6 @@
 # pyramid stuff which is not necessary
 env/production.ini
 env/development.ini
-env/setup.py
-env/setup.cfg
 env/pyramid.wsgi
 env/build
 env/dist

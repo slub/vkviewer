@@ -1,0 +1,11 @@
+import sys, site, os
+
+site.addsitedir('~/repo/vkviewer/env/lib/python2.7/site-packages')
+#site.addsitedir('/usr/lib/python2.7/site-packages')
+
+sys.path.append('~/repo/vkviewer/env')
+os.environ['PYTHON_EGG_CACHE'] = '~/repo/vkviewer/env/dist'
+
+from pyramid.paster import get_app, setup_logging
+application = get_app('~/repo/vkviewer/env/production.ini', 'main')
+
