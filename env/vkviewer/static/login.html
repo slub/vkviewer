@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Virtuelles Kartenforum 2.0</title>
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
+        <link rel="stylesheet" type="text/css" href="./lib/jquery-ui-1.10.3/themes/base/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="./css/vk2/login/styles.css" media="screen" />
+        <script src="./lib/jquery-ui-1.10.3/jquery-1.9.1.js" type="text/javascript"></script>
+        <script src="./lib/jquery-ui-1.10.3/ui/jquery-ui.js" type="text/javascript"></script>
+        <script src="./lib/vk2/utils.js" type="text/javascript"></script>    
+        <script src="./lib/vk2/tools/Login.js" type="text/javascript"></script>  
+        <script>
+        	var validateDialogForm = function(username, email){
+        		var validationTipObj = $(document.getElementById('forgetDialogValidationTips'));
+        		
+        		var isValide = true;
+        		isValide = isValide && checkUsername(username, validationTipObj);
+        		isValide = isValide && checkEmail(email, validationTipObj);
+   		
+        		return isValide;
+        	};
+        	
+        	var validateLoginForm = function(){
+        		var validationTipObj = $(document.getElementById('loginValidationTip'))
+      			var username = $(document.getElementById('loginUsername'));
+        		var password = $(document.getElementById('loginPassword'));       		
+        		
+        		var isValide = true;
+        		isValide = isValide && checkUsername(username, validationTipObj);
+        		isValide = isValide && checkPassword(password, validationTipObj);
+        		
+        		return isValide;
+        	};
+        	
+        	var validateNewLoginForm = function(){
+        		var validationTipObj = $(document.getElementById('loginValidationTip'))
+      			var username = $(document.getElementById('loginNewUsername'));
+        		var email = $(document.getElementById('loginNewEmail'));   
+        		var surname = $(document.getElementById('loginNewVorname'));
+        		var familyname = $(document.getElementById('loginNewNachname'));   
+        		var password = $(document.getElementById('loginNewPassword'));   
+        		
+        		var isValide = true;
+        		isValide = isValide && checkUsername(username, validationTipObj);
+        		isValide = isValide && checkEmail(email, validationTipObj);
+        		isValide = isValide && checkName(surname, validationTipObj, 'Vorname');
+        		isValide = isValide && checkName(familyname, validationTipObj, 'Nachname');
+        		isValide = isValide && checkPassword(password, validationTipObj);
+        		
+        		return isValide;
+        	};
+        	
+        	$(document).ready(function(){
+        		// create reset password dialog
+        		var forgetPwDialog = document.getElementById('forgetPwDialog');
+        		$(forgetPwDialog).dialog({
+        			autoOpen: false,
+        			height: 300,
+        			width: 500,
+        			modal: true,
+        			buttons: {
+        				'Reset Passwort': function(){
+        	        		var username = $(document.getElementById('forgetDialogUsername'));
+        	        		var email = $(document.getElementById('forgetDialogMail'));
+        					var isValide = validateDialogForm(username, email);       					
+        	        		
+        	        		if (isValide){
+        	        			$.ajax({
+        	        				type: 'POST',
+        	        				url: getHost('/vkviewer/sign/reset'),
+        	        				data: {
+        	        					'username': username.val(),
+        	        					'email': email.val(),
+         	        					'form.submitted': 'Reset Passwort', 
+         	        					'came_from': '/vkviewer/static/login.html'
+        	        				},
+        	        				success: function( data ){
+        	        					console.log(data.message);
+        	        					$(document.getElementById('forgetPwDialog')).dialog('close');
+        	        				}
+        	        			})
+        	        		}
+        				}
+        			},
+        			close: function(){
+        				$(document.getElementById('forgetDialogUsername')).val("").removeClass( 'ui-state-error' );
+        				$(document.getElementById('forgetDialogMail')).val("").removeClass( 'ui-state-error' );
+        			}
+        		})
+        		
+        		// create open event for reset password dialog
+				var divBtn = document.getElementById( 'openForgetPwDialog' );
+        		$( divBtn ).click(function(){
+        			$(forgetPwDialog).dialog( 'open' );
+        		});
+        	})
+        </script>
+    </head>
+    <body style="font-family: Arial, Verdana, Helvetica, sans-serif" onload="document.login.username.focus();">
+    <div class="vk2Login">
+    	<div class="loginDiv validationDiv">
+    			<p id="loginValidationTip" class="validationTips">Willkommen im Virtuellen Kartenforum 2.0</p>
+    	</div>
+    	<br>
+    	<div class="loginDiv">
+    		<form name="login" action="/vkviewer/sign/in" method="post" target="_top" onsubmit="return validateLoginForm();">
+		  		<div class="usernameContainer">
+					<input id="loginUsername" class="loginUsername loginInput large" type="text" value="" 
+						name="username" placeholder="Benutzername"/>
+				</div>
+				<div class="passwordContainer">
+					<input id="loginPassword" class="loginPassword loginInput medium" type="password" value="" 
+						name="password" size="10" placeholder="Passwort"/>
+					<input type="submit" name="form.submitted" value="Anmelden" class="btn" />
+				</div>
+				<div class="remember-forgot">
+					<div id="openForgetPwDialog" class="loginForgot">Passwort vergessen?</div>
+				</div>
+				<input type="hidden" name="came_from" value="/vkviewer/static/login.html" />
+			</form>
+		</div>
+		<br>
+		<div class="loginDiv">
+			<div class="header">
+				<center>Neu im Virtuellen Kartenforum 2.0?</center>
+    		</div>
+    		<br>
+    		<form name="loginNew" action="/vkviewer/sign/new" method="post" target="_top"  onsubmit="return validateNewLoginForm();">
+		  		<div class="usernameContainer">
+					<input id="loginNewUsername" class="loginNewUsername loginInput large" type="text" value="" 
+						name="username" placeholder="Benutzername"/>
+				</div>
+				<div class="emailContainer">
+					<input id="loginNewEmail" class="loginNewEmail loginInput large" type="text" value="" 
+						name="email" placeholder="Email"/>
+				</div>
+				<div class="fullnameContainer">
+					<input id="loginNewVorname" class="loginNewFullname loginInput small" type="text" value="" 
+						name="vorname" placeholder="Vorname"/>
+					<input id="loginNewNachname" class="loginNewFullname loginInput small" type="text" value="" 
+						name="nachname" placeholder="Nachname"/>
+
+				</div>
+				<div class="passwordContainer">
+					<input id="loginNewPassword" class="loginNewPassword loginInput medium" type="password" value="" 
+						name="password" placeholder="Passwort" size="10"/>
+					<input type="submit" name="form.submitted" value="Anmelden" class="btn"/>
+				</div>
+				<input type="hidden" name="came_from" value="/vkviewer/static/login.html" />
+			</form>
+		</div>
+	</div>
+	<div id="forgetPwDialog" class="forgetPwDialog" title="Passwort zurücksetzen" onsubmit="return validateDialogForm();">
+		<p id="forgetDialogValidationTips" class="validationTips">Bitte tragen Sie ihren Login und ihre Email Adresse ein.
+				Sie bekommen das neue Passwort dann per Email zugesendet.</p>
+		<form>
+			<fieldset>
+				<input id="forgetDialogUsername" class="" type="text" value="" 
+							name="username" placeholder="Login"/>
+				<input id="forgetDialogMail" class="" type="text" value="" 
+							name="email" placeholder="Email"/>			
+			</fieldset>
+		</form>
+	</div>
+    </body>
+</html>

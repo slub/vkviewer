@@ -1,0 +1,17 @@
+.ui-autocomplete{
+	width: 25em;
+	z-index: 2000;
+}
+
+.ui-autocomplete-loading {
+	background: white url('../../../images/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+
+.vk2GazetteerSearchInput{
+    width: 100%;
+}
+
+.vk2GazetteerSearchDiv{
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 1.1em;
+}

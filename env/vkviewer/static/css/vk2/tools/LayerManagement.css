@@ -1,0 +1,151 @@
+/* 
+    Document   : VK2LayerSwitcher
+    Created on : Sep 5, 2013, 11:10:19 AM
+    Author     : mendt
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.fancybox{
+    z-index: 2000;
+}
+
+.vk2LayerbarPanel{
+    z-index: 1000;
+    padding: 1px;
+    width: 400px;
+    height: 300px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-bottom: 3px;
+    font-size: smaller;
+    color: white;
+    background-color: darkblue;
+}
+
+/**
+ * Layer switcher
+ */
+.vk2LayerbarPanel .overlayLbls{
+    margin-top: 5px;
+    margin-left: 3px;
+    margin-bottom: 5px;
+    height: 20px;
+}
+
+.vk2LayerbarPanel .overlayDivs{
+    overflow-y: auto;
+    padding-left: 10px;
+    height: 260px;
+} 
+
+/*
+Styling of the list elements
+ */
+.layersDiv .overlayElem{
+    list-style-type: none;
+}
+
+/*
+ * Styling of the minimized view of the overlay element
+ */
+.overlayElem .minimize{
+    height: 25px;
+}
+
+.overlayElem .minimize input{
+    position: relative;
+    float: left;
+    top: 2px;
+    left: 2px;
+}
+
+.overlayElem .minimize div{
+    cursor: pointer;
+    position: relative;
+    left: 5px;
+    float: left;
+    margin-top: 4px;
+}
+
+/*
+ * Styling of the body of a layer list element
+ */
+.overlayElem .maximize .container{
+    margin-top: -10px;
+    z-index: 2000;
+    width: 250px;
+    height: 60px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: "Helvectica", "Arial", "sans-serif";
+    line-height: 100%;
+    border-width: 1px;
+    border-style: dotted;
+    border-color: rgb(0, 159,227);
+}
+
+.overlayElem .maximize .thumbnail{
+    position: relative;
+    left: 5px;
+    top: 5px;
+    float: left;
+}
+
+/* Css styles for slider div generic */
+.overlayElem .maximize .slider{
+    z-index: 10000;
+    position: relative;
+    top: 5px;
+    left: 10px;
+    float: left;
+    width: 150px;
+    height: 50px;
+}
+
+.overlayElem .maximize .slider .label{
+    font-size: 10px;
+}
+
+.overlayElem .maximize .slider .toolTip{
+        z-index: 10000;
+	position: absolute;
+	display: block;
+	width: 35px;
+	height: 20px;
+	color: #fff;
+	text-align: center;
+	font: 10pt Tahoma, Arial, sans-serif ;
+	border-radius: 3px;
+	border: 1px solid #333;
+    -webkit-box-shadow:  1px 1px 2px 0px rgba(0, 0, 0, .3);
+    box-shadow:  1px 1px 2px 0px rgba(0, 0, 0, .3);
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	background: -moz-linear-gradient(top,  rgba(69,72,77,0.5) 0%, rgba(0,0,0,0.5) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,72,77,0.5)), color-stop(100%,rgba(0,0,0,0.5))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(69,72,77,0.5) 0%,rgba(0,0,0,0.5) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(69,72,77,0.5) 0%,rgba(0,0,0,0.5) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(69,72,77,0.5) 0%,rgba(0,0,0,0.5) 100%); /* IE10+ */
+	background: linear-gradient(top,  rgba(69,72,77,0.5) 0%,rgba(0,0,0,0.5) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8045484d', endColorstr='#80000000',GradientType=0 ); /* IE6-9 */
+}
+
+/* Css styles slider opacity*/
+.overlayElem .maximize .slider .opacity{
+    position: relative;
+    left: 10px;
+    float: left;
+    width: 100px;
+}
+
+.overlayElem .maximize .slider .time{
+    position: relative;
+    left: 10px;
+    float: left;
+    width: 100px;
+}
+

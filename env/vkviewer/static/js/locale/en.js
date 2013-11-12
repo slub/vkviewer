@@ -1,0 +1,1 @@
+console.log('English locales are loaded!');

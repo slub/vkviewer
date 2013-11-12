@@ -1,0 +1,1 @@
+console.log('German locales are loaded!');

@@ -1,0 +1,54 @@
+@CHARSET "UTF-8";
+
+/* hide the OpenStreetMap sign while debugging */
+#OpenLayers_Control_Attribution_4{
+    z-index: 0 !important;
+}
+
+.vk2LayersearchPanel{
+    width: 520px;
+    height: 520px;
+}
+            
+.vk2LSMainPanel .vk2LSToolbar{
+    position: absolute; 
+    left: 10px; 
+    top: 20px;
+    width: 500; 
+    height: 100;
+}
+
+.vk2LSToolbar .vk2TimeSliderLabel1{
+    border: 0;
+    font-weight: bold;
+    position: absolute; 
+    left: 1px; 
+    width: 40px;
+}
+
+.vk2LSToolbar .vk2TimeSliderLabel2{
+    border: 0;
+    font-weight: bold; 
+    position: absolute; 
+    left: 460px; 
+    width: 40px;
+}
+
+.vk2LSToolbar .vk2TimeSliderDiv{
+    position: absolute; 
+    left: 50px;
+    width: 390px;
+}
+
+.vk2LSToolbar .vk2AddLayerDiv{
+    position: absolute; 
+    top: 30px; 
+    left: 30px;
+    width: 500px;
+}
+
+.vk2LSToolbar .vk2AddLayerInput{
+    font-size: 1em; 
+    height: 30px; 
+    font-weight: bold
+}

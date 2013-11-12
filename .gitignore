@@ -1,0 +1,27 @@
+# eclipse project folder
+.project
+.pydevproject
+
+# pyramid stuff which is not necessary
+env/production.ini
+env/development.ini
+env/setup.py
+env/setup.cfg
+env/pyramid.wsgi
+env/build
+env/dist
+env/vkviewer.egg-info
+env/local
+env/bin
+env/lib
+env/include
+
+# files which are holding sensible information
+env/vkviewer/settings.py
+env/vkviewer/settings.pyc
+
+# test files
+env/vkviewer/static/test/inheritence.html
+
+
+

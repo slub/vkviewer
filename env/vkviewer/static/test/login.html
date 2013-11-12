@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
+        <title>Virtuelles Kartenforum 2.0 - Anmeldung</title>
+    </head>
+    <body style="font-family: Arial, Verdana, Helvetica, sans-serif" onload="document.login.username.focus();">
+		  <form name="login" action="/vkviewer/sign/in" method="post" target="_top">
+				<input type="hidden" name="go" value="login">
+								<table align="center" cellspacing="0" cellpadding="10" border="0" >
+					<tr>
+						<td align="center">
+							<table cellspacing="0" cellpadding="2" border="0">
+								<tr>
+									<td align="center" colspan="2"><h2>Anmeldung</h2></td>
+								</tr>								<tr>
+									<td>Nutzername: </td>
+								</tr>
+								<tr>
+  								<td><input type="text" value="" name="username"/></td>
+								</tr>
+								<tr>
+									<td>Passwort: </td>
+								</tr>
+								<tr>
+									<td><input type="password" value="" name="password" size="10"/></td>
+								</tr><tr>
+									<td colspan="2" align="center"><br><input type="submit" value="Anmelden"/>
+									<sub><input type="checkbox" name="nutzer" value="on"><small>als neuen Nutzer eintragen</small></sub><br>
+									</td>
+								</tr>									
+							</table>
+						</td>
+					</tr>
+				</table>
+			</form>
+    </body>
+</html>
