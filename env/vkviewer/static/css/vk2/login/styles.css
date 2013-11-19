@@ -6,8 +6,8 @@
         Purpose of the stylesheet follows.
 */
 /* generic styling for the login window */
-.vk2Login{
-	width: 290px;
+.loginScreen{
+	width: 320px;
 }
 .loginInput{
 	border: 2px solid #dceef1;
@@ -25,22 +25,22 @@
 	width: 120px;
 }
 
-.vk2Login .btn{
+.loginInput.btn{
 	height: 35px;
 }
 
 /* login of existing user */
 /* placing of the head div */
-.loginDiv{
+.loginScreen{
 	border: 2px solid #ADA79E;
 	padding: 10px;	
 }
 
-.loginDiv.validationDiv{
+.loginScreen.module{
 	padding: 0px;
 }
 
-.vk2Login .header{
+.loginInput .header{
 	font-size: 16px;
 	padding: 5px;
 	border-bottom: 1px dotted;

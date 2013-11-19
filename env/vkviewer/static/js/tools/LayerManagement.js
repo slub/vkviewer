@@ -5,59 +5,7 @@
  * and open the template in the editor.
  */
 
-/**
- * Function: createVk2LayerObject
- * Creates a Vk2Layer object. 
- * 
- * @params: see initConfiguration.timeParameter
- * @return {Vk2Layer}
- */
-var createVk2LayerObject = function(params){
-	var vk2Layer = new OpenLayers.Layer.WMS(params.layer,
-        params.wms,
-        {
-                layers: params.layer,
-                type:	"png",
-                format: "image/png",
-                transparent: 'true',
-                time: params.time
-        },{
-                isBaseLayer: false,
-                visibility: true,
-                projection: new OpenLayers.Projection(params.srsName)
-        }
-    );
-	
-	vk2Layer.wfsLayer = new OpenLayers.Layer.Vector(params.featureType,{
-        'displayInLayerSwitcher':false,
-        styleMap: new OpenLayers.StyleMap({
-            fillColor: "#ee9900",
-            fillOpacity: "0.5"
-        }),
-        strategies: [
-            new OpenLayers.Strategy.BBOX(),
-            new OpenLayers.Strategy.Refresh({force: true, active: true})
-        ],
-        protocol: new OpenLayers.Protocol.WFS({
-            "url": params.wms,
-            "geometryName": params.geometryName,
-            "featureNS" :  params.featureNS,
-            "featurePrefix": params.featurePrefix,
-            "featureType": params.featureType,
-            "srsName": params.srsName,
-            "maxFeatures": params.maxFeatures,
-            "version": params.serviceVersion
-         })
-    });
-	
-	vk2Layer.id = OpenLayers.Util.createUniqueID(params.layer.split(" ").join("_") + "_");
-	vk2Layer.isTime = true;
-	vk2Layer.thumbnail = "/vkviewer/static/images/layer_default.png";
-	vk2Layer.extent = params.extent;
-    return vk2Layer;
-};
-
-Vk2LayerManagement = Class({
+VK2.Tools.LayerManagement = VK2.Class({
     
     /*
      * {DOMElements}
@@ -419,7 +367,7 @@ Vk2LayerManagement = Class({
         var layer = this._getLayerToEvent(event);
         
         // change layer label in the layerswitcher and time value of the layer object
-        var tmpLblDivs = document.getElementsByClassName("vk2HeaderLblDiv");
+        var tmpLblDivs = $(document).find('div.label');
         for(var i = 0; i < tmpLblDivs.length; i++){
             if (tmpLblDivs[i].value == event.target.value){
                 tmpLblDivs[i].innerHTML = layer.params.LAYERS + " " + newTimeValue;
@@ -514,8 +462,8 @@ Vk2LayerManagement = Class({
         overlayElemOuterContainer.className = overlayElemOuterContainer.className + " overlayElemDiv";
      
         // get minimize view which returns a layerElemt object which contains ids of relevant dom elements
-        overlayElemOuterContainer.appendChild(createMinimizeView_forOverlay(layer, this.id));
-        overlayElemOuterContainer.appendChild(createMaximizeView_forOverlay(layer));
+        overlayElemOuterContainer.appendChild(this._createMinimizeView_forOverlay(layer, this.id));
+        overlayElemOuterContainer.appendChild(this._createMaximizeView_forOverlay(layer));
         overlayElem.appendChild(overlayElemOuterContainer);       
         return overlayElem;
     },
@@ -637,6 +585,125 @@ Vk2LayerManagement = Class({
             this.div.appendChild(this.minimizeDiv);
         }
     },
+    
+    /**
+     * Function: _createMinimizeView_forOverlay
+     * This simply creates the dom element which are representing the minimize view of a layer element in 
+     * the layer management object.
+     * 
+     * @param layer - {Vk2Layer}
+     * @param id - {String} Id of the layer management object
+     * @return {DOMElement}
+     */
+    _createMinimizeView_forOverlay: function(layer, id){
+    	
+    	// create the header with div (which should be clickable later) and checkbox
+        var minimizeView = document.createElement("div");
+        minimizeView.value = layer.id;
+        minimizeView.className = minimizeView.className + " minimize";
+        
+        // this checkbox has to be further styled
+        var minimizeViewChBox = document.createElement("input");
+        minimizeViewChBox.id = layer.id;
+        minimizeViewChBox.name = layer.name;
+        minimizeViewChBox.value = layer.name;
+        minimizeViewChBox.checked = layer.getVisibility();
+        minimizeViewChBox.defaultChecked = layer.getVisibility();
+        minimizeViewChBox.className = "olButton";
+        minimizeViewChBox._layer = layer.id;
+        minimizeViewChBox._layerSwitcher = id;
+        minimizeViewChBox.type = "checkbox";
+
+        // disable checkbox if layer is out of view
+        if(!layer.inRange){
+            minimizeViewChBox.disabled = true;
+        }
+
+        // label of the layer encapsulate in div
+        var minimizeViewLbl = document.createElement("div");
+        minimizeViewLbl.value = layer.id;
+        minimizeViewLbl.text = layer.name;
+        minimizeViewLbl.className = minimizeViewLbl.className + " label";
+        minimizeViewLbl.innerHTML =  layer.name;
+
+        // add the header elements to parent container
+        minimizeView.appendChild(minimizeViewChBox);
+        minimizeView.appendChild(minimizeViewLbl);    
+        return minimizeView; 
+    },
+
+    /**
+     * Function: _createMaximizeView_forOverlay
+     * This simply creates the dom element which are representing the minimize view of a layer element in 
+     * the layer management object.
+     * 
+     * @param layer {Vk2Layers}
+     * @return {DOMElement}
+     */
+    _createMaximizeView_forOverlay: function(layer){
+    	
+    	function _createSliderElements(id, lbl, classname){
+    		var container = document.createElement('div');
+    		container.className = container.className + " " +classname;
+    		
+    	    var toolTip = document.createElement("span");
+    	    toolTip.className = toolTip.className + " toolTip";
+    	    container.appendChild(toolTip);
+    	    
+    	    var label = document.createElement("div");
+    	    label.innerHTML = lbl + ":";
+    	    label.className = label.className + " label";
+    	    container.appendChild(label);
+    	    
+    	    // the div for the query slider, the value field has to be set with the
+    	    // id of the connected layerElem, otherwise the events won't work correct
+    	    var sliderContainer = document.createElement("div");
+    	    sliderContainer.className = sliderContainer.className + " sliderContainer";
+    	    sliderContainer.value = layer.id;
+    	    container.appendChild(sliderContainer);    
+    	    return container;
+    	};
+    	
+    	 // creates the body of the layer for more control as list element
+        // right now only if it is a time layer
+        var maximizeViewUnorderedList = document.createElement("ul");
+        maximizeViewUnorderedList.className = maximizeViewUnorderedList.className + " maximize";
+        var maximizeViewContainer = document.createElement("div");
+        maximizeViewContainer.className = maximizeViewContainer.className + " container";
+        
+        // creates an thumbnail container an adds the image which is refered 
+        // through the layer element
+        var thumbDiv = document.createElement("div");
+        thumbDiv.className = thumbDiv.className + " thumbnail";
+
+        var thumbImg = document.createElement("img");
+        thumbImg.alt = "Noimage";
+        thumbImg.src = layer.thumbnail;
+        thumbDiv.appendChild(thumbImg);
+        
+        // creates the slider div
+        // one slider for the opacity and one for the time
+        var sliderDiv = document.createElement("div");
+        sliderDiv.className = sliderDiv.className + " slider";
+
+        //
+        // opacity slider
+        //
+        sliderDiv.appendChild(_createSliderElements(layer.id, 'Opacity', 'opacity'));
+                
+        //
+        // add time slider if it is a time supported layer and also overwrite the
+        // label name
+        //
+        if (layer.isTime){
+        	sliderDiv.appendChild(_createSliderElements(layer.id, 'Time', 'time'));
+        }
+        
+        maximizeViewContainer.appendChild(thumbDiv);
+        maximizeViewContainer.appendChild(sliderDiv);
+        maximizeViewUnorderedList.appendChild(maximizeViewContainer);
+        return maximizeViewUnorderedList;
+    },
             
     /**
      * Method: addLayer
@@ -674,121 +741,3 @@ Vk2LayerManagement = Class({
     CLASS_NAME: "Vk2.LayerManagement"
 });
 
-/**
- * Function: createMinimizeView_forOverlay
- * This simply creates the dom element which are representing the minimize view of a layer element in 
- * the layer management object.
- * 
- * @param layer - {Vk2Layer}
- * @param id - {String} Id of the layer management object
- * @return {DOMElement}
- */
-var createMinimizeView_forOverlay = function(layer, id){
-	
-	// create the header with div (which should be clickable later) and checkbox
-    var minimizeView = document.createElement("div");
-    minimizeView.value = layer.id;
-    minimizeView.className = minimizeView.className + " minimize";
-    
-    // this checkbox has to be further styled
-    var minimizeViewChBox = document.createElement("input");
-    minimizeViewChBox.id = layer.id;
-    minimizeViewChBox.name = layer.name;
-    minimizeViewChBox.value = layer.name;
-    minimizeViewChBox.checked = layer.getVisibility();
-    minimizeViewChBox.defaultChecked = layer.getVisibility();
-    minimizeViewChBox.className = "olButton";
-    minimizeViewChBox._layer = layer.id;
-    minimizeViewChBox._layerSwitcher = id;
-    minimizeViewChBox.type = "checkbox";
-
-    // disable checkbox if layer is out of view
-    if(!layer.inRange){
-        minimizeViewChBox.disabled = true;
-    }
-
-    // label of the layer encapsulate in div
-    var minimizeViewLbl = document.createElement("div");
-    minimizeViewLbl.value = layer.id;
-    minimizeViewLbl.text = layer.name;
-    minimizeViewLbl.className = minimizeViewLbl.className + " label";
-    minimizeViewLbl.innerHTML =  layer.name;
-
-    // add the header elements to parent container
-    minimizeView.appendChild(minimizeViewChBox);
-    minimizeView.appendChild(minimizeViewLbl);    
-    return minimizeView; 
-};
-
-/**
- * Function: createMaximizeView_forOverlay
- * This simply creates the dom element which are representing the minimize view of a layer element in 
- * the layer management object.
- * 
- * @param layer {Vk2Layers}
- * @return {DOMElement}
- */
-var createMaximizeView_forOverlay = function(layer){
-	
-	function _createSliderElements(id, lbl, classname){
-		var container = document.createElement('div');
-		container.className = container.className + " " +classname;
-		
-	    var toolTip = document.createElement("span");
-	    toolTip.className = toolTip.className + " toolTip";
-	    container.appendChild(toolTip);
-	    
-	    var label = document.createElement("div");
-	    label.innerHTML = lbl + ":";
-	    label.className = label.className + " label";
-	    container.appendChild(label);
-	    
-	    // the div for the query slider, the value field has to be set with the
-	    // id of the connected layerElem, otherwise the events won't work correct
-	    var sliderContainer = document.createElement("div");
-	    sliderContainer.className = sliderContainer.className + " sliderContainer";
-	    sliderContainer.value = layer.id;
-	    container.appendChild(sliderContainer);    
-	    return container;
-	};
-	
-	 // creates the body of the layer for more control as list element
-    // right now only if it is a time layer
-    var maximizeViewUnorderedList = document.createElement("ul");
-    maximizeViewUnorderedList.className = maximizeViewUnorderedList.className + " maximize";
-    var maximizeViewContainer = document.createElement("div");
-    maximizeViewContainer.className = maximizeViewContainer.className + " container";
-    
-    // creates an thumbnail container an adds the image which is refered 
-    // through the layer element
-    var thumbDiv = document.createElement("div");
-    thumbDiv.className = thumbDiv.className + " thumbnail";
-
-    var thumbImg = document.createElement("img");
-    thumbImg.alt = "Noimage";
-    thumbImg.src = layer.thumbnail;
-    thumbDiv.appendChild(thumbImg);
-    
-    // creates the slider div
-    // one slider for the opacity and one for the time
-    var sliderDiv = document.createElement("div");
-    sliderDiv.className = sliderDiv.className + " slider";
-
-    //
-    // opacity slider
-    //
-    sliderDiv.appendChild(_createSliderElements(layer.id, 'Opacity', 'opacity'));
-            
-    //
-    // add time slider if it is a time supported layer and also overwrite the
-    // label name
-    //
-    if (layer.isTime){
-    	sliderDiv.appendChild(_createSliderElements(layer.id, 'Time', 'time'));
-    }
-    
-    maximizeViewContainer.appendChild(thumbDiv);
-    maximizeViewContainer.appendChild(sliderDiv);
-    maximizeViewUnorderedList.appendChild(maximizeViewContainer);
-    return maximizeViewUnorderedList;
-}

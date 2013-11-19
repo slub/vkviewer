@@ -5,7 +5,7 @@
  * @TODO Hover when SelectFeature in front!
  */
 
-var VK2LayerSearch = Class({
+VK2.Tools.LayerSearch = VK2.Class({
     
     // publish/subscription handler for publishing add time layer events
     _PubSubHandler: null,
@@ -187,7 +187,7 @@ var VK2LayerSearch = Class({
         }
         
         // modify the handler
-        fixControlConflictsOnOLMap(control);
+        VK2.Utils.fixControlConflictsOnOLMap(control);
     },
 
     /**
@@ -220,7 +220,7 @@ var VK2LayerSearch = Class({
 
         var addLayerBtn = document.createElement("div");
         addLayerBtn.id = "vk2AddLayerButton";
-        addLayerBtn.innerHTML = "Zeitschnitt darstellen";
+        addLayerBtn.innerHTML = VK2.Utils.get_I18n_String('displaytimestamp');
 
         addLayerDiv.appendChild(addLayerInput);
         addLayerDiv.appendChild(addLayerBtn);
@@ -314,9 +314,8 @@ var VK2LayerSearch = Class({
             		xtype: 'grid',
                     store: this._featureStore, //new GeoExt.data.FeatureStore(this._featureStoreOptions),    
                     cm: new Ext.grid.ColumnModel([
-                        {id: "mtbid", header: "MTBID", dataIndex: "mtbid", sortable: false},
-                        {id: "time", header: "Zeitstempel", dataIndex: "time", sortable: true},
-                        {id: "beschreibung", header: "Beschreibung", dataIndex: "beschreibung", sortable: true}
+                        {id: "time", header: VK2.Utils.get_I18n_String('timestamp'), dataIndex: "time", sortable: true},
+                        {id: "beschreibung", header: VK2.Utils.get_I18n_String('description'), dataIndex: "beschreibung", sortable: true}
                     ]),
                     sm: new GeoExt.grid.FeatureSelectionModel({
                         singleSelect: false

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-12 11:13+0100\n"
+"POT-Creation-Date: 2013-11-12 14:34+0100\n"
 "PO-Revision-Date: 2013-11-11 10:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -76,4 +76,57 @@ msgstr "Search Messtischblätter"
 #: vkviewer/templates/index_login.mako:72
 msgid "tool_titel_layer_manage"
 msgstr "Choose Layer"
+
+#: vkviewer/templates/login_screen.mako:22
+msgid "loginScreen_welcome"
+msgstr "Welcome to the Virtuelles Kartenforum 2.0"
+
+#: vkviewer/templates/login_screen.mako:29
+#: vkviewer/templates/login_screen.mako:51
+#: vkviewer/templates/login_screen.mako:80
+msgid "loginScreen_placeholder_username"
+msgstr "Username"
+
+#: vkviewer/templates/login_screen.mako:33
+#: vkviewer/templates/login_screen.mako:66
+msgid "loginScreen_placeholder_password"
+msgstr "Password"
+
+#: vkviewer/templates/login_screen.mako:34
+#: vkviewer/templates/login_screen.mako:67
+msgid "loginScreen_submit_btn"
+msgstr "Login"
+
+#: vkviewer/templates/login_screen.mako:37
+msgid "loginScreen_forgetpassword"
+msgstr "Forget password?"
+
+#: vkviewer/templates/login_screen.mako:45
+msgid "loginScreen_welcome_new"
+msgstr "New to the Virtuelles Kartenforum 2.0?"
+
+#: vkviewer/templates/login_screen.mako:55
+#: vkviewer/templates/login_screen.mako:82
+msgid "loginScreen_placeholder_email"
+msgstr "Email"
+
+#: vkviewer/templates/login_screen.mako:59
+msgid "loginScreen_placeholder_surname"
+msgstr "Surname"
+
+#: vkviewer/templates/login_screen.mako:61
+msgid "loginScreen_placeholder_familyname"
+msgstr "Familyname"
+
+#: vkviewer/templates/login_screen.mako:75
+msgid "loginScreen_reset_pw"
+msgstr "Reset password?"
+
+#: vkviewer/templates/login_screen.mako:76
+msgid "loginScreen_reset_pw_msg"
+msgstr "Please insert your username and your email adresse. You will receive a confirmation email after your password is reset!"
+
+#: vkviewer/templates/login_screen.mako:141
+msgid "loginScreen_reset_pw_btn"
+msgstr "Reset password"
 

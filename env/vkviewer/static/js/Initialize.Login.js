@@ -1,3 +1,43 @@
+var validateDialogForm = function(username, email){
+	var validationTipObj = $(document.getElementById('forgetDialogValidationTips'));
+        		
+    var isValide = true;
+    isValide = isValide && checkUsername(username, validationTipObj);
+    isValide = isValide && checkEmail(email, validationTipObj);
+   		
+    return isValide;
+};
+        	
+var validateLoginForm = function(){
+	var validationTipObj = $(document.getElementById('validationTips'))
+	var username = $(document.getElementById('loginUsername'));
+	var password = $(document.getElementById('loginPassword'));       		
+	
+	var isValide = true;
+	isValide = isValide && checkUsername(username, validationTipObj);
+	isValide = isValide && checkPassword(password, validationTipObj);
+	
+	return isValide;
+};
+
+var validateNewLoginForm = function(){
+	var validationTipObj = $(document.getElementById('validationTips'))
+	var username = $(document.getElementById('loginNewUsername'));
+	var email = $(document.getElementById('loginNewEmail'));   
+	var surname = $(document.getElementById('loginNewVorname'));
+	var familyname = $(document.getElementById('loginNewNachname'));   
+	var password = $(document.getElementById('loginNewPassword'));   
+
+	var isValide = true;
+	isValide = isValide && checkUsername(username, validationTipObj);
+	isValide = isValide && checkEmail(email, validationTipObj);
+	isValide = isValide && checkName(surname, validationTipObj, 'Vorname');
+	isValide = isValide && checkName(familyname, validationTipObj, 'Nachname');
+	isValide = isValide && checkPassword(password, validationTipObj);
+	
+	return isValide;
+};
+
 /**
  * The next code blog contains different functions for evaluation of the login form values
  * 

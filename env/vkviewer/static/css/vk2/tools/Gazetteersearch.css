@@ -1,6 +1,8 @@
 .ui-autocomplete{
 	width: 25em;
 	z-index: 2000;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .ui-autocomplete-loading {

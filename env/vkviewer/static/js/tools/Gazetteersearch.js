@@ -19,7 +19,9 @@ var addGazetteer = function(container, map){
                 	style: "full",
                 	maxRows: 8,
                     format: 'json',
-                    q: request.term
+                    q: request.term,
+                    viewbox: '4.35,58.48,27.78,45.97',
+                    bounded: 1
                 },
     			success: function( data ){
     				response( $.map( data, function( item ){

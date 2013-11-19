@@ -41,7 +41,7 @@ user_id = authenticated_userid(request)
 				<div id="vk2UserToolsDashboard" class="vk2UserToolsDashboard">${_('login_description')}</div>
 			</li>
 			<li>
-				<a href="${request.static_url('vkviewer:static/login.html')}" id="vk2UserToolsLogin" class="vk2UserToolsLogin">${_('login_button')}</a>
+				<a href="${request.route_url('auth',action='getscreen')}" id="vk2UserToolsLogin" class="vk2UserToolsLogin">${_('login_button')}</a>
 			</li>
 			<li class="language_switcher">
 				<a class="switch_de" href="${request.route_url('set_locales')}?language=de"></a>
@@ -72,11 +72,6 @@ user_id = authenticated_userid(request)
 		title="${_('tool_titel_layer_manage')}"></a>
 </div>
 
-##<div id="vk2TimeViewerPanel" class="vk2TimeViewerPanel">
-##	<a id="vk2TimeViewerHandle" class="vk2TimeViewerHandle" title="Öffne TimeViewerModule" 
-##	data-open="${request.static_url('vkviewer:static/images/play.png')}"
-##	data-close="${request.static_url('vkviewer:static/images/close.png')}"></a>
-##</div>
 </%block>
 
 	

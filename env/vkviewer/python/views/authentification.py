@@ -14,6 +14,12 @@ import json
 
 """ this view checks if the login is registered in the database and gets the vorname/nachname and 
     sends it back to client """
+@view_config(route_name='auth', match_param='action=getscreen', renderer='login_screen.mako', http_cache=0)
+def getLoginScreen(request):
+    return {}
+
+""" this view checks if the login is registered in the database and gets the vorname/nachname and 
+    sends it back to client """
 @view_config(route_name='auth', match_param='action=in', request_method='POST')
 def login(request):
     login_url = request.route_url('auth',action='in')

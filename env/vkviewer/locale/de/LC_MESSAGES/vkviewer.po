@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-12 11:13+0100\n"
+"POT-Creation-Date: 2013-11-12 14:34+0100\n"
 "PO-Revision-Date: 2013-11-11 10:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -76,4 +76,60 @@ msgstr "Suche Messtischblätter"
 #: vkviewer/templates/index_login.mako:72
 msgid "tool_titel_layer_manage"
 msgstr "Auswahl Messtischblätter"
+
+#: vkviewer/templates/login_screen.mako:22
+msgid "loginScreen_welcome"
+msgstr "Willkommen im Virtuellen Kartenforum 2.0"
+
+#: vkviewer/templates/login_screen.mako:29
+#: vkviewer/templates/login_screen.mako:51
+#: vkviewer/templates/login_screen.mako:80
+msgid "loginScreen_placeholder_username"
+msgstr "Nutzername"
+
+#: vkviewer/templates/login_screen.mako:33
+#: vkviewer/templates/login_screen.mako:66
+msgid "loginScreen_placeholder_password"
+msgstr "Passwort"
+
+#: vkviewer/templates/login_screen.mako:34
+#: vkviewer/templates/login_screen.mako:67
+msgid "loginScreen_submit_btn"
+msgstr "Anmelden"
+
+#: vkviewer/templates/login_screen.mako:37
+msgid "loginScreen_forgetpassword"
+msgstr "Passwort vergessen?"
+
+#: vkviewer/templates/login_screen.mako:45
+msgid "loginScreen_welcome_new"
+msgstr "Neu im Virtuellen Kartenforum 2.0"
+
+#: vkviewer/templates/login_screen.mako:55
+#: vkviewer/templates/login_screen.mako:82
+msgid "loginScreen_placeholder_email"
+msgstr "Email"
+
+#: vkviewer/templates/login_screen.mako:59
+msgid "loginScreen_placeholder_surname"
+msgstr "Vorname"
+
+#: vkviewer/templates/login_screen.mako:61
+msgid "loginScreen_placeholder_familyname"
+msgstr "Nachname"
+
+#: vkviewer/templates/login_screen.mako:75
+msgid "loginScreen_reset_pw"
+msgstr "Passwort zurücksetzen?"
+
+#: vkviewer/templates/login_screen.mako:76
+msgid "loginScreen_reset_pw_msg"
+msgstr ""
+"Bitte tragen Sie ihren Login und ihre Email Adresse ein. Sie bekommen das"
+" neue Passwort dann per Email zugesendet."
+
+#: vkviewer/templates/login_screen.mako:141
+#| msgid "loginScreen_reset_pw"
+msgid "loginScreen_reset_pw_btn"
+msgstr "Passwort zurücksetzen"
 

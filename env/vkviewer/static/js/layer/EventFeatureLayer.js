@@ -1,4 +1,4 @@
-var EventFeatureLayer = function(){
+VK2.Layer.EventFeatureLayer = function(){
     /*
      * @type Key/Value pair which contains a key (layer.id_time) and the features
      * which are associated with this key;
@@ -103,7 +103,7 @@ var EventFeatureLayer = function(){
         	hover: true,
         	overFeature: $.proxy(function(feature, vectorLayer) {
         		$.ajax({
-        			url: getHost('/vkviewer/gettimestamps'),
+        			url: VK2.Utils.getHost('/vkviewer/gettimestamps'),
         			type: 'GET',
         			data: {
         				'blattnr': feature.data.blattnr
@@ -169,7 +169,7 @@ var EventFeatureLayer = function(){
                 
                 // this two rows are important for allowing click and drag the main map 
                 // on a selection
-                fixControlConflictsOnOLMap(_controls[i]);
+                VK2.Utils.fixControlConflictsOnOLMap(_controls[i]);
         	}
         	return true;
     	};

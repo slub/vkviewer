@@ -150,7 +150,7 @@
  * Copyright (c) 2013 Jacob Mendt
  */
 
-var TimeSlider = Class({
+var TimeSlider = VK2.Class({
 	
 	/*
 	 * attribute: _settings

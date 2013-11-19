@@ -4,16 +4,43 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="vkviewer">
-    <head>
+      
+      <head>
         <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
         <title>Virtuelles Kartenforum 2.0</title>
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/ext-3.4.1/resources/css/ext-all.css')}"></link>
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/GeoExt/resources/css/geoext-all-debug.css')}"></link>
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/themes/base/jquery-ui.css')}" />
+        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/geoext-all.css')}"></link>
+        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/jquery-ui.css')}" />
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/fancyapps-fancyBox/source/jquery.fancybox.css')}" media="screen" />
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
-    </head>
-    <body>
+      </head>
+		
+      <!-- load generic js librarys -->
+      <script src="${request.static_url('vkviewer:static/lib/jquery.js')}"></script>
+      <script src="${request.static_url('vkviewer:static/lib/jquery-ui.js')}"></script>  
+      <script src="${request.static_url('vkviewer:static/lib/jquery.fancybox.js')}"></script>
+      <script src="${request.static_url('vkviewer:static/lib/jquery.tabSlideOut.js')}"></script> 
+      <script src="${request.static_url('vkviewer:static/lib/ext-base.js')}"></script>
+      <script src="${request.static_url('vkviewer:static/lib/ext-all.js')}"></script>
+      <script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script>
+      <script src="${request.static_url('vkviewer:static/lib/GeoExt/GeoExt.js')}"></script>  
+      <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
+      <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+        
+      <!-- vk2 librarys -->
+      <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>
+      <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
+
+      
+      <!-- init the vkviewer application -->
+      <script>        
+            $(document).ready(function(){
+                initVkViewer('mapdiv');
+            });
+      </script>
+      
+         
+      <body>
     	<!-- Header -->
         <div id="vk2Header" class="vk2Header">      	
             <img src="${request.static_url('vkviewer:static/images/searchbg.png')}" class="stretch" alt="" />
@@ -67,35 +94,6 @@
         		</div>
         	</div>
         </div>
-        
-        <!-- load generic js librarys -->
-        <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/jquery-1.9.1.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/ui/jquery-ui.js')}"></script>  
-        <script src="${request.static_url('vkviewer:static/lib/fancyapps-fancyBox/source/jquery.fancybox.pack.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/lib/jquery.tabSlideOut.v1.3.js')}"></script> 
-        <script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/lib/ext-3.4.1/adapter/ext/ext-base.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/lib/ext-3.4.1/ext-all.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/lib/GeoExt/GeoExt.js')}"></script>  
-        <script src="${request.static_url('vkviewer:static/lib/proj4js-combined.js')}"></script>
-        <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
-        
-        <!-- vk2 librarys -->
-        <script src="${request.static_url('vkviewer:static/js/Utils.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/js/Controller.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/js/tools/EventFeatureLayer.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/js/tools/Gazetteersearch.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/js/tools/Georeferencer.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/js/tools/Layersearch.js')}"></script>    
-        <script src="${request.static_url('vkviewer:static/js/tools/LayerManagement.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/js/tools/TimeSlider.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/js/tools/TimeViewer.js')}"></script>
-        <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-        <script>        
-            $(document).ready(function(){
-                initVkViewer('mapdiv');
-            });
-        </script>       
-    </body>
+            
+      </body>
 </html>
