@@ -4,5 +4,6 @@ var lang_dictionary = {
 		// They are assigned to the layersearch module
 		'displaytimestamp': 'Display timestamp',
 		'description': 'Description',
-		'timestamp': 'Timestamp'
+		'timestamp': 'Timestamp',
+		'titel': 'Titel',
 }

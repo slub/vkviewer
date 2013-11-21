@@ -34,6 +34,7 @@ var MapController = (function(){
 	            }				
 			},
 			
+			
 			// event which publish a map moveend event
 			'moveend': function(){
 				var data = {

@@ -241,9 +241,11 @@ var initializeBaseMap = function(mapContainer, mapConfiguration){
 		 );   
 		    
 		 // add the base layers to the map
-		 map.addLayers([gmap,mapnik,mapquest,gphy,gsat]); 
+		 map.addLayers([mapnik,gmap,mapquest,gphy,gsat]); 
 		         
          // zoom to startExtent 
-         map.zoomToExtent(mapConfiguration.startExtent);    
+         map.zoomToExtent(mapConfiguration.startExtent);
+         
          return map;
+         
 }

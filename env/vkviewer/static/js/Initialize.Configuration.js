@@ -2,6 +2,7 @@
  * Attribute: initConfiguration
  * Contains the configuration options for the initialization of the application.
  */
+
 var initConfiguration = {
     mapOptions: {
     		// OL map options
@@ -14,6 +15,7 @@ var initConfiguration = {
             maxResolution: 4891.96981025128025066806,
             // start extent of the OL map 
             startExtent: new OpenLayers.Bounds(1363755.5807007,6493091.556489,1669503.6937989,6737690.0469676)
+            //startExtent: new OpenLayers.Bounds(1582718.2265964,6599560.9210406,1594804.8316924,6605847.8666162)
     },
     // parameter of the time wms
     timeParameter: {

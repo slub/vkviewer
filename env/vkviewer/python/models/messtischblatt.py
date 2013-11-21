@@ -67,7 +67,7 @@ class Messtischblatt(Base):
 class ViewRefGridMtb(Base):
     __tablename__ = 'view_refgridmtb'    
     blattnr = Column(String(255))
-    mtbid = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     time = Column(Integer)
     
     @classmethod

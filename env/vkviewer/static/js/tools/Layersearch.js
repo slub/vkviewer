@@ -297,7 +297,7 @@ VK2.Tools.LayerSearch = VK2.Class({
             fields: [
                 {name: "mtbid", type: "string"},
                 {name: "time", type: "string"},
-                {name: "beschreibung", type: "string"}
+                {name: "titel", type: "string"}
             ]
         });
         
@@ -315,7 +315,7 @@ VK2.Tools.LayerSearch = VK2.Class({
                     store: this._featureStore, //new GeoExt.data.FeatureStore(this._featureStoreOptions),    
                     cm: new Ext.grid.ColumnModel([
                         {id: "time", header: VK2.Utils.get_I18n_String('timestamp'), dataIndex: "time", sortable: true},
-                        {id: "beschreibung", header: VK2.Utils.get_I18n_String('description'), dataIndex: "beschreibung", sortable: true}
+                        {id: "titel", header: VK2.Utils.get_I18n_String('titel'), dataIndex: "titel", sortable: true}
                     ]),
                     sm: new GeoExt.grid.FeatureSelectionModel({
                         singleSelect: false
@@ -330,9 +330,13 @@ VK2.Tools.LayerSearch = VK2.Class({
                         	// jumps to the feature in the map
                         	var feature = grid.store.data.items[rowIndex];
                         	this._map.setCenter(feature.data.feature.bounds.getCenterLonLat(),9);
-                        }, this)
+                        }, this),
+                        sortchange: function(thisGrid, sortinfo){
+                        	console.log("Sort change event!");
+                        }
+                        
                     },
-                    autoExpandColumn: "beschreibung",
+                    autoExpandColumn: "titel",
                     id: 'featureGridPanel',
                     height: 400,
                     width: 520  
@@ -355,10 +359,11 @@ VK2.Tools.LayerSearch = VK2.Class({
 	 * method: _activate
 	 */
 	_activate: function(){
-        this._featureStore.bind(this._timeLayer);            
+        this._featureStore.bind(this._timeLayer);   
         this._timeLayer.setVisibility(true);
         var gridPanel = this._mainPanel.getComponent('featureGridPanel');
         gridPanel.getView().refresh();
+        gridPanel.getStore().sort('titel', 'DESC');
 	},
 
 	/**
