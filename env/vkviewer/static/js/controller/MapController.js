@@ -35,6 +35,12 @@ var MapController = (function(){
 			},
 			
 			
+//			'zoomend': function(){
+//				var x = this.getZoom();
+//				if 
+//			}
+			
+			
 			// event which publish a map moveend event
 			'moveend': function(){
 				var data = {

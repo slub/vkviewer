@@ -20,7 +20,7 @@ VK2.Tools.LayerSearch = VK2.Class({
     _map: null,
     _features: null,
     _timeLayer: null,
-    _timestamps: [],
+    _timestamps: [1868, 1945],
     
     /**
      * attribute: refresh
@@ -41,158 +41,53 @@ VK2.Tools.LayerSearch = VK2.Class({
     _mainPanel: null,
     
     /**
-     * attribute: _updateFeatureEvent
-     * {Object}
+     * Attribute: _restrictedZoomLevel
+     * {Integer}
      */
-    _updateFeatureEvent: null,
+    _restrictedZoomLevel: 9,
     
-	/**
-	 * method: _addTimeSearchLayer
-	 * 
-	 * This method adds a vector layer which represents the search features to the map
-	 * and also adds events to the main layer
-	 */
-	_addTimeSearchLayer: function(){        
-        // add overlay vector layer for displaying where are reference mtbs
-        this._features = new OpenLayers.Protocol.WFS({
-            "url": this._timeParameter.wms,
-            "geometryName": this._timeParameter.geometryName,
-            "featureNS" :  this._timeParameter.featureNS,
-            "featurePrefix": this._timeParameter.featurePrefix,
-            "featureType": this._timeParameter.featureType,
-            "srsName": this._timeParameter.srsName,
-            "maxFeatures": this._timeParameter.maxFeatures,
-            "version": this._timeParameter.serviceVersion
-        });
+    /**
+     * Attribute: _isActive
+     */
+    _isActive: false,
+    
+    /**
+     * Attribute: _eventListeners
+     */
+    _eventListeners: {  	
+        /*
+         * Method: _showSearchResultNumber
+         * The scope of this event has to be the a OpenLayers.Layer.Vector object
+         */
+        showSearchResultNumber: function(){   	
+        	var headerContentDiv = $('#vk2LSHeaderContent');
+        	
+        	headerContentDiv.html(this.features.length+" Messtischblätter gefunden.")	
+        	if (headerContentDiv.hasClass( 'ui-state-error' ))
+        		headerContentDiv.removeClass( 'ui-state-error' );
+        },	
         
-        this._timeLayer = new OpenLayers.Layer.Vector("Messtischblaetter",{
-            'displayInLayerSwitcher':false,
-            visibility: false,
-            strategies: [new OpenLayers.Strategy.BBOX({ratio:2}),this._refresh],
-            protocol: this._features,
-            filters: [
-                new OpenLayers.Filter.Spatial({
-                    type: OpenLayers.Filter.Spatial.BBOX,
-                    value: this._map.getExtent(),
-                    projection: this._timeParameter.srsName
-                })
-            ]
-        });
-        this._map.addLayer(this._timeLayer);
-	},
-
-	/**
-	 * method: _removeTimeSearchLayer
-	 * 
-	 * This method removes a vector layer which represents the search features to the map
-	 * and also removes events to the main layer
-	 */
-	_removeTimeSearchLayer: function(){
-		this._map.removeLayer(this._timeLayer);
-	},
-	
-    /**
-     * method: _buildTimeFilter
-     * 
-     * timestamps -  {Array}
-     * extent - {OpenLayers.Bounds}
-     */
-    _buildTimeFilter: function(timestamps, extent){
-        var newFilter = new OpenLayers.Filter.Logical({
-            type: OpenLayers.Filter.Logical.AND,
-            filters: [
-                new OpenLayers.Filter.Spatial({
-                    type: OpenLayers.Filter.Spatial.BBOX,
-                    value: extent,
-                    projection: "EPSG:900913"
-                }),
-                new OpenLayers.Filter.Logical({
-                    type: OpenLayers.Filter.Logical.AND,
-                    filters: [         
-                        new OpenLayers.Filter.Comparison({
-                            type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO,
-                            property: "time",
-                            value: timestamps[1]
-                        }),
-                        new OpenLayers.Filter.Comparison({
-                            type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO,
-                            property: "time",
-                            value: timestamps[0]
-                        })
-                    ]
-                })
-            ]
-        });
-        return newFilter;
-    },
-      
-    /**
-     * method: _computeExtent
-     * 
-     * Dirty solution for computing a reasonable extent in case of tiling stuff
-     * 
-     * return {OpenLayers.Bounds}
-     */
-    _computeExtent: function(){
-        var extent = this._map.calculateBounds(this._map.getCenter(),
-        		this._map.getResolutionForZoom(this._map.getZoom()+1));
-        return extent;
-    },
-    
-    /**
-     * method: _updateFeatures
-     * 
-     * event - {Event}
-     * timestamps - {String}
-     * 
-     * This function updates the filter of the wfs features for only
-     * displaying features which are conform with the time and spatial 
-     * parameter
-     */
-    _updateFeatures: function(event, timestamps){
-        if (typeof timestamps === 'undefined' && this._timestamps.length == 0){
-            // is called on init when there are no timestamps defined
-            this._refresh.refresh(); 
-        } else{
-            if (typeof timestamps != 'undefined' && event.type == "slidechange"){
-                // is called after new timestamps are defined
-                this._timestamps = timestamps;
-
-                this._timeLayer.filter = this._buildTimeFilter(this._timestamps, 
-                		this._map.getExtent());
-                this._refresh.refresh();  
+        /*
+         * Method: publishAddTimeLayerEvent
+         * @param event {Event}
+         */
+        publishAddTimeLayerEvent: function(timeValue, pubsub, timeParams, map){
+        	if(pubsub != null){
+                if(timeValue.length == 4 && (typeof parseInt(timeValue) === 'number')){
+                	timeParams.extent = map.getExtent();
+                	timeParams.time = timeValue;  
+                    pubsub.publish("addtimelayer",timeParams);
+                } else {
+                    alert('Wähle validien Zeitstempel');
+                }
             } else {
-                // is called after timestamps where defined in the past
-                // but the event is only triggered by an map extent change
-                this._timeLayer.filter = this._buildTimeFilter(this._timestamps, 
-                		this._map.getExtent());
-                this._refresh.refresh();
+                console.log("Missing publish/subscription handler")
             }
-        }
+        },
     },
     
     /**
-     * method: _updateMapControlConfig
-     * 
-     * this two rows are important for allowing click and drag the main map 
-     * on a selection
-     */
-    _updateMapControlConfig: function(){
-        // get the correct control object
-        var control = null;
-        controlId = this._map.getControlsByClass("OpenLayers.Control.SelectFeature")[0].id;
-        for (var i = 0; i<this._map.controls.length;i++){
-            if(this._map.controls[i].id == controlId)
-                control = this._map.controls[i];
-        }
-        
-        // modify the handler
-        VK2.Utils.fixControlConflictsOnOLMap(control);
-    },
-
-    /**
-     * method: _loadToolbar
-     * 
+     * Method: _loadToolbar
      * This function creates the html/javascript content of the toolbar panel
      */
     _loadToolbar: function(){
@@ -235,9 +130,9 @@ VK2.Tools.LayerSearch = VK2.Class({
         // timeSlider with jquery
         var timeSlider = $(sliderDiv).slider({
             range: true,
-            min: 1868,
-            max: 1945,
-            values: [1868, 1945],
+            min: this._timestamps[0],
+            max: this._timestamps[1],
+            values: this._timestamps,
             animate: 'slow',
             orientation: 'horizontal',
             step: 1,
@@ -255,36 +150,33 @@ VK2.Tools.LayerSearch = VK2.Class({
         
         // adding a publish event for sending the timelayer to the main map
         $(addLayerBtn).button().click($.proxy(function( event ){
-            this._btnClickEvent(event);
+        	var timeValue = $('#vk2AddLayerInput').val();
+            this._eventListeners['publishAddTimeLayerEvent'](timeValue, this._PubSubHandler, 
+            		this._timeParameter, this._map );
         },this));
         return divToolbar;
     },
     
     /**
-     * method: _btnClickEvent
-     * 
-     * @param event {Event}
+     * Method: _loadHeader
      */
-    _btnClickEvent: function(event){
-    	if(this._PubSubHandler != null){
-            timeValue = $('#vk2AddLayerInput').val();
-            if(timeValue.length == 4 && (typeof parseInt(timeValue) === 'number')){
-                this._timeParameter.extent = this._map.getExtent();
-                this._timeParameter.time = timeValue;  
-                this._PubSubHandler.publish("addtimelayer",this._timeParameter);
-            } else {
-                alert('Wähle validien Zeitstempel');
-            }
-        } else {
-            console.log("Missing publish/subscription handler")
-        }
+    _loadHeader: function(){
+        var divHeaderContainer = document.createElement("div");
+        divHeaderContainer.className = divHeaderContainer.className + " vk2LSHeaderContainer";
+        divHeaderContainer.id = "vk2LSHeaderContainer";
+        
+        var  divHeaderContent = document.createElement("div");
+        divHeaderContent.className = divHeaderContent.className + " vk2LSHeaderContent";
+        divHeaderContent.id = "vk2LSHeaderContent";
+        divHeaderContainer.appendChild(divHeaderContent);
+        return divHeaderContainer;
     },
     
     /**
-     * method: _loadContent
+     * Method: _loadContent
      * 
-     * container - {DOMElement}
-     * mapOptions - {Object}
+     * @param container - {DOMElement}
+     * @param mapOptions - {Object}
      */
 	_loadContent: function(container, map){
 		// init map object
@@ -301,16 +193,26 @@ VK2.Tools.LayerSearch = VK2.Class({
             ]
         });
         
+        // testing
+        var header = this._loadHeader();
+        container.appendChild(header);
+        
         // panel which contains the elements of the LayerSearch Tool
         var toolbar = this._loadToolbar();
         container.appendChild(toolbar);
         this._mainPanel = new Ext.Panel({
             renderTo: container.getAttribute('id'),
-            height: 520,
+            height: 620,
             width: 520,
             id: "vk2LSMainPanel",
             cls: "vk2LSMainPanel",
             items: [{
+                id: 'testPanel',
+                cls: 'testPanel',
+                contentEl: header.getAttribute('id'),
+                height: 50,
+                width: 520
+            },{
             		xtype: 'grid',
                     store: this._featureStore, //new GeoExt.data.FeatureStore(this._featureStoreOptions),    
                     cm: new Ext.grid.ColumnModel([
@@ -356,14 +258,174 @@ VK2.Tools.LayerSearch = VK2.Class({
 	},
 	
 	/**
+	 * method: _addTimeSearchLayer
+	 * 
+	 * This method adds a vector layer which represents the search features to the map
+	 * and also adds events to the main layer
+	 */
+	_addTimeSearchLayer: function(){        
+        // add overlay vector layer for displaying where are reference mtbs
+        this._features = new OpenLayers.Protocol.WFS({
+            "url": this._timeParameter.wms,
+            "geometryName": this._timeParameter.geometryName,
+            "featureNS" :  this._timeParameter.featureNS,
+            "featurePrefix": this._timeParameter.featurePrefix,
+            "featureType": this._timeParameter.featureType,
+            "srsName": this._timeParameter.srsName,
+            "maxFeatures": this._timeParameter.maxFeatures,
+            "version": this._timeParameter.serviceVersion
+        });
+        
+        this._timeLayer = new OpenLayers.Layer.Vector("Messtischblaetter",{
+            'displayInLayerSwitcher':false,
+            visibility: false,
+            strategies: [new OpenLayers.Strategy.BBOX({ratio:2}),this._refresh],
+            protocol: this._features,
+        });
+        this._map.filter = VK2.Filter.getBoundingBoxFilter(this._map.getExtent(),"EPSG:900913")
+        this._map.addLayer(this._timeLayer);
+	},
+
+
+	
+	/**
+	 * method: _removeTimeSearchLayer
+	 * 
+	 * This method removes a vector layer which represents the search features to the map
+	 * and also removes events to the main layer
+	 */
+	_removeTimeSearchLayer: function(){
+		this._map.removeLayer(this._timeLayer);
+	},
+    
+   /**
+     * method: _updateMapControlConfig
+     * 
+     * this two rows are important for allowing click and drag the main map 
+     * on a selection
+     */
+    _updateMapControlConfig: function(){
+        // get the correct control object
+        var control = null;
+        controlId = this._map.getControlsByClass("OpenLayers.Control.SelectFeature")[0].id;
+        for (var i = 0; i<this._map.controls.length;i++){
+            if(this._map.controls[i].id == controlId)
+                control = this._map.controls[i];
+        }
+        
+        // modify the handler
+        VK2.Utils.fixControlConflictsOnOLMap(control);
+    },
+    
+    /**
+     * method: _btnClickEvent
+     * 
+     * @param event {Event}
+     */
+    _btnClickEvent: function(event){
+    	if(this._PubSubHandler != null){
+            timeValue = $('#vk2AddLayerInput').val();
+            if(timeValue.length == 4 && (typeof parseInt(timeValue) === 'number')){
+                this._timeParameter.extent = this._map.getExtent();
+                this._timeParameter.time = timeValue;  
+                this._PubSubHandler.publish("addtimelayer",this._timeParameter);
+            } else {
+                alert('Wähle validien Zeitstempel');
+            }
+        } else {
+            console.log("Missing publish/subscription handler")
+        }
+    },
+    
+
+	
+	/**
+	 * Method: _showOccurrenceHeaderContent
+	 */
+	_showOccurrenceHeaderContent: function(){
+		if (!this._timeLayer.events.listeners['featuresadded'] || this._timeLayer.events.listeners['featuresadded'].length == 0){
+			this._timeLayer.events.register('featuresadded', this._timeLayer, this._eventListeners['showSearchResultNumber']);
+			this._timeLayer.events.register('featuresremoved', this._timeLayer, this._eventListeners['showSearchResultNumber']);
+			this._timeLayer.events.register('visibilitychanged', this._timeLayer, this._eventListeners['showSearchResultNumber']);
+		}
+		//this._showCountOfMesstischblaetter(featureLayer, callbackShowCount, callbackError)
+
+	},
+	
+	/**
+	 * Method: _showDefaultHeaderContent
+	 */
+	_showDefaultHeaderContent: function(){
+		if (this._timeLayer.events.listeners['featuresadded'] && this._timeLayer.events.listeners['featuresadded'].length > 0){
+			this._timeLayer.events.unregister('featuresadded', this._timeLayer, this._eventListeners['showSearchResultNumber']);
+			this._timeLayer.events.unregister('featuresremoved', this._timeLayer, this._eventListeners['showSearchResultNumber']);
+			this._timeLayer.events.unregister('visibilitychanged', this._timeLayer, this._eventListeners['showSearchResultNumber']);
+		}
+		
+		$('#vk2LSHeaderContent').html("Bitte wählen Sie eine höhere Zoomstufe!")
+			.addClass( 'ui-state-error' );
+		
+	},
+	
+	/**
+	 * Method: _isMtbSearchActive
+	 */
+	_isMtbSearchActive: function(){
+		if (this._map.getZoom() >= this._restrictedZoomLevel)
+			return true;
+		return false;
+	}, 
+	
+    /**
+     * method: _updateFeatures
+     * 
+     * event - {Event}
+     * timestamps - {String}
+     * 
+     * This function updates the filter of the wfs features for only
+     * displaying features which are conform with the time and spatial 
+     * parameter
+     */
+    _updateFeatures: function(event, timestamps){
+        if (typeof timestamps != 'undefined' && event.type == "slidechange"){
+            // is called after new timestamps are defined
+            this._timestamps = timestamps;
+
+            this._timeLayer.filter = VK2.Filter.getTimeFilter(this._map.getExtent(), 'EPSG:900913',
+            		timestamps[0], timestamps[1]);
+            this._refresh.refresh();  
+        } else {
+            // is called after timestamps where defined in the past
+            // but the event is only triggered by an map extent change
+            this._timeLayer.filter = VK2.Filter.getTimeFilter(this._map.getExtent(), 'EPSG:900913',
+            		this._timestamps[0], this._timestamps[1]);
+            this._refresh.refresh();
+        }
+    },  
+
+    /**
+     * Method: _refreshFeatureGrid
+     */
+    _refreshFeatureGrid: function(){
+		// redraw the grid panel
+        var gridPanel = this._mainPanel.getComponent('featureGridPanel');
+        gridPanel.getView().refresh();   	
+    },
+    
+	/**
 	 * method: _activate
 	 */
 	_activate: function(){
-        this._featureStore.bind(this._timeLayer);   
-        this._timeLayer.setVisibility(true);
-        var gridPanel = this._mainPanel.getComponent('featureGridPanel');
-        gridPanel.getView().refresh();
-        gridPanel.getStore().sort('titel', 'DESC');
+		//debugger;
+		if (this._isMtbSearchActive()){
+			this._showOccurrenceHeaderContent();
+			this._timeLayer.setVisibility(true);
+			this._featureStore.bind(this._timeLayer);
+			//this._refreshFeatureGrid();
+		} else {
+    		this._deactivate();
+    		this._showDefaultHeaderContent();
+		}
 	},
 
 	/**
@@ -372,14 +434,12 @@ VK2.Tools.LayerSearch = VK2.Class({
 	_deactivate: function(){
 		// removes the timelayer
 		this._timeLayer.setVisibility(false);
-		
-		// remove the events	
-        this._map.events.unregister("move", this._map, this._updateFeatureEvent);
-        
-        // unbinds and clear the featurestore
-    	this._featureStore.unbind(this._timeLayer);
-    	//var gridPanel = this._mainPanel.getComponent('featureGridPanel');
-    	//gridPanel.store.loadData([], false);
+			        
+	    // unbinds and clear the featurestore
+	    this._featureStore.unbind(this._timeLayer);
+	    this._featureStore.removeAll();
+	    
+	    // set default error help
 	},
 	
 	/**
@@ -397,15 +457,21 @@ VK2.Tools.LayerSearch = VK2.Class({
     },
     
     updateFeatureStore: function(event){
-    	this._updateFeatures(event)
+    	if (this._isActive){
+    		this._updateFeatures(event);
+    		this._activate();
+    	}
     },
     
     activate: function(){
-    	this._activate();
+    	this._updateFeatures();
+    	this._activate();	
+    	this._isActive = true;
     },
     
     deactivate: function(){
     	this._deactivate();
+		this._isActive = false;
     },
     
     isInit: function(){

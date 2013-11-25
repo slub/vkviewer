@@ -49,6 +49,7 @@
     		"utils/Namespace.js",
     		"utils/Utils.js",
     		"utils/Class.js",
+    		"utils/Filter.js",
     		"controller/Mediator.js",
     		"controller/MapController.js",
     		"layer/EventFeatureLayer.js",
