@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-12 14:34+0100\n"
+"POT-Creation-Date: 2013-11-26 16:42+0100\n"
 "PO-Revision-Date: 2013-11-11 10:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -17,37 +17,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: vkviewer/templates/index.mako:25
+#: vkviewer/templates/index.mako:32 vkviewer/templates/login_screen.mako:17
+msgid "js_library"
+msgstr "de"
+
+#: vkviewer/templates/index.mako:52
 msgid "placeholder_town_name"
 msgstr "Ortsname"
 
-#: vkviewer/templates/index.mako:31 vkviewer/templates/index.mako:34
+#: vkviewer/templates/index.mako:58 vkviewer/templates/index.mako:61
 msgid "in_progress"
 msgstr "In arbeit"
 
-#: vkviewer/templates/index.mako:56
+#: vkviewer/templates/index.mako:83
 msgid "footer_project_name"
 msgstr "Virtuelles Kartenforum 2.0"
 
-#: vkviewer/templates/index.mako:57
+#: vkviewer/templates/index.mako:84
 msgid "footer_project_desc_long"
 msgstr "ein Projekt der SLUB Dresden und der Universität Rostock"
 
-#: vkviewer/templates/index.mako:63
+#: vkviewer/templates/index.mako:90
 msgid "footer_contact"
 msgstr "Kontakt"
 
-#: vkviewer/templates/index.mako:64
+#: vkviewer/templates/index.mako:91
 msgid "footer_partners"
 msgstr "Partner"
 
-#: vkviewer/templates/index.mako:65
+#: vkviewer/templates/index.mako:92
 msgid "footer_editorial"
 msgstr "Impressum"
-
-#: vkviewer/templates/index.mako:94
-msgid "js_library"
-msgstr "de"
 
 #: vkviewer/templates/index_georef.mako:7
 msgid "tool_titel_georef"
@@ -77,59 +77,67 @@ msgstr "Suche Messtischblätter"
 msgid "tool_titel_layer_manage"
 msgstr "Auswahl Messtischblätter"
 
-#: vkviewer/templates/login_screen.mako:22
+#: vkviewer/templates/login_screen.mako:30
+msgid "loginScreen_reset_pw_btn"
+msgstr "Passwort zurücksetzen"
+
+#: vkviewer/templates/login_screen.mako:104
 msgid "loginScreen_welcome"
 msgstr "Willkommen im Virtuellen Kartenforum 2.0"
 
-#: vkviewer/templates/login_screen.mako:29
-#: vkviewer/templates/login_screen.mako:51
-#: vkviewer/templates/login_screen.mako:80
+#: vkviewer/templates/login_screen.mako:113
+#: vkviewer/templates/login_screen.mako:136
+#: vkviewer/templates/login_screen.mako:165
 msgid "loginScreen_placeholder_username"
 msgstr "Nutzername"
 
-#: vkviewer/templates/login_screen.mako:33
-#: vkviewer/templates/login_screen.mako:66
+#: vkviewer/templates/login_screen.mako:117
+#: vkviewer/templates/login_screen.mako:151
 msgid "loginScreen_placeholder_password"
 msgstr "Passwort"
 
-#: vkviewer/templates/login_screen.mako:34
-#: vkviewer/templates/login_screen.mako:67
+#: vkviewer/templates/login_screen.mako:118
+#: vkviewer/templates/login_screen.mako:119
+#: vkviewer/templates/login_screen.mako:152
 msgid "loginScreen_submit_btn"
 msgstr "Anmelden"
 
-#: vkviewer/templates/login_screen.mako:37
+#: vkviewer/templates/login_screen.mako:122
 msgid "loginScreen_forgetpassword"
 msgstr "Passwort vergessen?"
 
-#: vkviewer/templates/login_screen.mako:45
+#: vkviewer/templates/login_screen.mako:130
 msgid "loginScreen_welcome_new"
 msgstr "Neu im Virtuellen Kartenforum 2.0"
 
-#: vkviewer/templates/login_screen.mako:55
-#: vkviewer/templates/login_screen.mako:82
+#: vkviewer/templates/login_screen.mako:140
+#: vkviewer/templates/login_screen.mako:167
 msgid "loginScreen_placeholder_email"
 msgstr "Email"
 
-#: vkviewer/templates/login_screen.mako:59
+#: vkviewer/templates/login_screen.mako:144
 msgid "loginScreen_placeholder_surname"
 msgstr "Vorname"
 
-#: vkviewer/templates/login_screen.mako:61
+#: vkviewer/templates/login_screen.mako:146
 msgid "loginScreen_placeholder_familyname"
 msgstr "Nachname"
 
-#: vkviewer/templates/login_screen.mako:75
+#: vkviewer/templates/login_screen.mako:160
 msgid "loginScreen_reset_pw"
 msgstr "Passwort zurücksetzen?"
 
-#: vkviewer/templates/login_screen.mako:76
+#: vkviewer/templates/login_screen.mako:161
 msgid "loginScreen_reset_pw_msg"
 msgstr ""
 "Bitte tragen Sie ihren Login und ihre Email Adresse ein. Sie bekommen das"
 " neue Passwort dann per Email zugesendet."
 
-#: vkviewer/templates/login_screen.mako:141
-#| msgid "loginScreen_reset_pw"
-msgid "loginScreen_reset_pw_btn"
-msgstr "Passwort zurücksetzen"
+#: vkviewer/python/views/authentification.py:46
+msgid "err_wrong_password"
+msgstr "Bitte überprüfen Sie ihren Nutzernamen und ihr Passwort!"
+
+#: vkviewer/python/views/authentification.py:90
+msgid "err_loginid_used"
+msgstr "Ihr Nutzername ist schon vergeben. Bitte wählen Sie einen anderen."
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>My Foo Tests</title>    
+    <link media="screen" href="../lib/qunit/qunit-1.12.0.css" type="text/css" rel="stylesheet"/>    
+    <script language="javascript" src="../lib/jquery.js" type="text/javascript"></script>
+    <script language="javascript" src="../lib/qunit/qunit-1.12.0.js" type="text/javascript"></script>
+    
+    <!-- add a script reference to your library here -->
+    <script language="javascript" src="../js/utils/Namespace.js" type="text/javascript"></script>
+    <script language="javascript" src="../js/utils/Validation.js" type="text/javascript"></script>
+</head>
+<body>
+  	<div id="qunit"></div>
+ 	<div id="qunit-fixture"></div>
+	<script language="javascript" type="text/javascript">
+	
+		test( "isBlattnumber", function() {
+		  ok( VK2.Validation.isBlattnumber('1_10') == true, "Passed!" );
+		  ok( VK2.Validation.isBlattnumber('10_1') == true, "Passed!" );
+		  ok( VK2.Validation.isBlattnumber('12_100') == true, "Passed!" );
+		  ok( VK2.Validation.isBlattnumber('133_10') == true, "Passed!" );
+		  ok( VK2.Validation.isBlattnumber('100_100') == true, "Passed!" );
+		  ok( VK2.Validation.isBlattnumber('1:10') == true, "Passed!" );
+		  ok( VK2.Validation.isBlattnumber('10:1') == true, "Passed!" );
+		  ok( VK2.Validation.isBlattnumber('12:100') == true, "Passed!" );
+		  ok( VK2.Validation.isBlattnumber('133:10') == true, "Passed!" );
+		  ok( VK2.Validation.isBlattnumber('100:100') == true, "Passed!" );
+		  ok( VK2.Validation.isBlattnumber('1000:100') == false, "Number to long!" );
+		  ok( VK2.Validation.isBlattnumber('100:1000') == false, "Number to long!" );
+		  ok( VK2.Validation.isBlattnumber('100s:10s00') == false, "Not a valide blattnumber!" );
+		  ok( VK2.Validation.isBlattnumber('10a0:10a') == false, "Not a valide blattnumber!" );
+		  ok( VK2.Validation.isBlattnumber('adad') == false, "Not a valide blattnumber!" );
+		  
+		});
+		
+		test ("isInt", function() {
+		  ok( VK2.Validation.isInt('10') == true, 'Is a valid integer!');
+		  ok( VK2.Validation.isInt('10s') == false, 'Is not a valid integer!');
+		});
+	
+	</script>
+</body>
+</html>

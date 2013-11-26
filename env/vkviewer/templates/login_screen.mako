@@ -18,103 +18,65 @@
     </head>
     
     <script>
-        	$(document).ready(function(){	
-				// create reset password dialog
-				var forgetPwDialog = document.getElementById('forgetPwDialog');
-				$(forgetPwDialog).dialog({
-					autoOpen: false,
-					height: 300,
-					width: 500,
-					modal: true,
-					buttons: {
-						'${_('loginScreen_reset_pw_btn')}': function(){
-				    		var username = $(document.getElementById('forgetDialogUsername'));
-				    		var email = $(document.getElementById('forgetDialogMail'));
-							var isValide = validateDialogForm(username, email);       					
-				    		
-				    		if (isValide){
-				    			$.ajax({
-				    				type: 'POST',
-				    				url: getHost('/vkviewer/sign/reset'),
-				    				data: {
-				    					'username': username.val(),
-				    					'email': email.val(),
-				    					'form.submitted': 'Reset Passwort', 
-				    					'came_from': '/vkviewer/static/login.html'
-				    				},
-				    				success: function( data ){
-				    					console.log(data.message);
-				    					$(document.getElementById('forgetPwDialog')).dialog('close');
-				    				}
-				    			})
-				    		}
-						}
-					},
-					close: function(){
-						$(document.getElementById('forgetDialogUsername')).val("").removeClass( 'ui-state-error' );
-						$(document.getElementById('forgetDialogMail')).val("").removeClass( 'ui-state-error' );
-					}
-				})
+        	$(document).ready(function(){									
+				// create submit buttons
+				VK2.Login.createSubmitLoginBtn();
+				VK2.Login.createSubmitNewUserBtn();		
+				VK2.Login.initializeForgetPwDialog('${_('loginScreen_reset_pw_btn')}');
 				
-				// create open event for reset password dialog
-				var divBtn = document.getElementById( 'openForgetPwDialog' );
-				$( divBtn ).click(function(){
-					$(forgetPwDialog).dialog( 'open' );
-				});
+				$('#loginUsername').focus();
 			})      	
     </script>  
-	<body style="font-family: Arial, Verdana, Helvetica, sans-serif" onload="document.login.username.focus();">
+	<body style="font-family: Arial, Verdana, Helvetica, sans-serif">
 	    <div class="loginScreen">
+	    	<!-- Header showing error messages -->
 	    	<div class="loginScreen module">
-	    			<p id="validationTips" class="validationTips">${_('loginScreen_welcome')}</p>
+	    		    <p id="validationTips" class="validationTips">${_('loginScreen_welcome')}</p>
 	    	</div>
 	    	<br>
+	    	
+	    	<!--  Login screen for registered users -->
 	    	<div class="loginScreen module">
-	    	<form name="login" action="/vkviewer/sign/in" method="post" target="_top" onsubmit="return validateLoginForm();">
-			  		<div>
-						<input id="loginUsername" class="loginInput large" type="text" value="" 
+	    		<div>
+	    			<input id="loginUsername" class="loginInput large" type="text" value="" 
 							name="username" placeholder="${_('loginScreen_placeholder_username')}"/>
-					</div>
-					<div >
-						<input id="loginPassword" class="loginPassword loginInput medium" type="password" value="" 
+				</div>
+				<div>
+					<input id="loginPassword" class="loginPassword loginInput medium" type="password" value="" 
 							name="password" size="10" placeholder="${_('loginScreen_placeholder_password')}"/>
-						<input type="submit" id="submitPasswortBtn" name="form.submitted" value="${_('loginScreen_submit_btn')}" class="btn" />
-					</div>
-					<div class="remember-forgot">
-						<div id="openForgetPwDialog" class="loginForgot">${_('loginScreen_forgetpassword')}</div>
-					</div>
-					<input type="hidden" name="came_from" value="/vkviewer/static/login.html" />
-				</form>
+					<input type="button" id="submitPasswortBtn" name="form.submitted" value="${_('loginScreen_submit_btn')}" class="btn" />
+				</div>
+				<div class="remember-forgot">
+					<div id="openForgetPwDialog" class="loginForgot">${_('loginScreen_forgetpassword')}</div>
+				</div>
 			</div>
 			<br>
+			
+			<!-- Screen for registering new user -->
 			<div class="loginScreen module">
 				<div class="header">
 					<center>${_('loginScreen_welcome_new')}</center>
 	    		</div>
 	    		<br>
-	    		<form name="loginNew" action="/vkviewer/sign/new" method="post" target="_top"  onsubmit="return validateNewLoginForm();">
-			  		<div class="usernameContainer">
-						<input id="loginNewUsername" class="loginNewUsername loginInput large" type="text" value="" 
+			  	<div class="usernameContainer">
+					<input id="loginNewUsername" class="loginNewUsername loginInput large" type="text" value="" 
 							name="username" placeholder="${_('loginScreen_placeholder_username')}"/>
-					</div>
-					<div class="emailContainer">
-						<input id="loginNewEmail" class="loginNewEmail loginInput large" type="text" value="" 
+				</div>
+				<div class="emailContainer">
+					<input id="loginNewEmail" class="loginNewEmail loginInput large" type="text" value="" 
 							name="email" placeholder="${_('loginScreen_placeholder_email')}"/>
-					</div>
-					<div class="fullnameContainer">
-						<input id="loginNewVorname" class="loginNewFullname loginInput small" type="text" value="" 
+				</div>
+				<div class="fullnameContainer">
+					<input id="loginNewVorname" class="loginNewFullname loginInput small" type="text" value="" 
 							name="vorname" placeholder="${_('loginScreen_placeholder_surname')}"/>
-						<input id="loginNewNachname" class="loginNewFullname loginInput small" type="text" value="" 
+					<input id="loginNewNachname" class="loginNewFullname loginInput small" type="text" value="" 
 							name="nachname" placeholder="${_('loginScreen_placeholder_familyname')}"/>
-	
-					</div>
-					<div class="passwordContainer">
-						<input id="loginNewPassword" class="loginNewPassword loginInput medium" type="password" value="" 
+				</div>
+				<div class="passwordContainer">
+					<input id="loginNewPassword" class="loginNewPassword loginInput medium" type="password" value="" 
 							name="password" placeholder="${_('loginScreen_placeholder_password')}" size="10"/>
-						<input type="submit" name="form.submitted" value="${_('loginScreen_submit_btn')}" class="btn"/>
-					</div>
-					<input type="hidden" name="came_from" value="/vkviewer/static/login.html" />
-				</form>
+					<input type="button" id="submitNewUserBtn" name="form.submitted" value="${_('loginScreen_submit_btn')}" class="btn"/>
+				</div>
 			</div>
 		</div>
 		

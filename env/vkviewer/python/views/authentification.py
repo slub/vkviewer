@@ -20,16 +20,17 @@ def getLoginScreen(request):
 
 """ this view checks if the login is registered in the database and gets the vorname/nachname and 
     sends it back to client """
-@view_config(route_name='auth', match_param='action=in', request_method='POST')
+@view_config(route_name='auth', renderer='string', match_param='action=in', request_method='POST')
 def login(request):
     login_url = request.route_url('auth',action='in')
     referrer = request.url
     if referrer == login_url:
         referrer = '/'
-    came_from = request.params.get('came_from')
+    came_from = request.referer ## request.params.get('came_from')
     message = ''
     login = ''
     password = ''
+    _ = request.translate
     dbsession = request.db
     if 'form.submitted' in request.params:
         login = request.params['username']
@@ -41,18 +42,17 @@ def login(request):
             headers = remember(request, userName)
             # get target url and route to it
             target_url = request.route_url('home_login')
-            return HTTPFound(location = target_url, headers = headers)
-        message = 'Failed login'
+            return HTTPFound(location = target_url, headers = headers)   
+        message = 'err_wrong_password' 
 
-    return dict(
-        message = message,
-        url = request.application_url + '/login',
+    return json.dumps(dict(
+        message = _(message),
         came_from = came_from,
         login = login,
         password = password,
-    )
+    ), ensure_ascii=False, encoding='utf-8')
     
-@view_config(route_name='auth', match_param='action=new', request_method='POST')
+@view_config(route_name='auth', renderer='string', match_param='action=new', request_method='POST')
 def register_new_user(request):
     login_url = request.route_url('auth',action='new')
     referrer = request.url
@@ -62,6 +62,7 @@ def register_new_user(request):
     message = ''
     login = ''
     password = ''
+    _ = request.translate
     if 'form.submitted' in request.params:
         # parse query parameter
         login = request.params['username']
@@ -87,15 +88,14 @@ def register_new_user(request):
             transaction.commit()
             return HTTPFound(location = target_url, headers = headers)
         
-        message = 'Failed login'
+        message = 'err_loginid_used'
 
-    return dict(
-        message = message,
-        url = request.application_url + '/login',
+    return json.dumps(dict(
+        message = _(message),
         came_from = came_from,
         login = login,
         password = password,
-    )
+    ), ensure_ascii=False, encoding='utf-8')
 
 """ this view starts the process for a password reset """
 @view_config(route_name='auth', renderer='string', match_param='action=reset', request_method='POST')
