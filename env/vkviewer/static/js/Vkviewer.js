@@ -50,6 +50,7 @@
     		"utils/Utils.js",
     		"utils/Class.js",
     		"utils/Filter.js",
+    		"utils/Validation.js",
     		"controller/Mediator.js",
     		"controller/MapController.js",
     		"layer/EventFeatureLayer.js",

@@ -6,4 +6,7 @@ var lang_dictionary = {
 		'description': 'Description',
 		'timestamp': 'Timestamp',
 		'titel': 'Titel',
+		
+		// They are assigned to the Gazetteersearch module
+		'noResultsBlattnr': 'This blatt number is not supported by the Virtuelle Kartenforum 2.0!'
 }
