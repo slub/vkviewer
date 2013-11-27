@@ -99,15 +99,20 @@ def main(global_config, **settings):
     # configuration of the database
     loadDB(config, settings)
 
+    print "Load database"
     # configuration of internationalization
     setLocalizationOptions(config)
-    
+    print "Load localization"
     # add routes
     addRoutes(config)
+    
+    print ""
     
     # add views to routes
     config.add_view(proxy_post, route_name='proxy')
     config.scan('python.views')
+    
+    print "Loading done!"
     #config.scan('python.views.georeference')
     
     return config.make_wsgi_app()

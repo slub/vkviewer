@@ -10,6 +10,7 @@ from ..i18n import LOCALES
 """ basic start site """
 @view_config(route_name='home', renderer='index_login.mako', permission='view',http_cache=0)
 def index_page(request):  
+    print "Try to load this site!"
     # checks if already a user cookie is set and if yes gives back the logined view
     if checkIsUser(request):
         target_url = request.route_url('home_login')

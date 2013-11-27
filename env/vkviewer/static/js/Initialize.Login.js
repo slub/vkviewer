@@ -39,7 +39,7 @@ VK2.Login = {
 	
 	createSubmitNewUserBtn: function(){
 		$('#submitNewUserBtn').click(function(){
-			if (validateNewLoginForm()){
+			if (VK2.Login.validateNewLoginForm()){
 				$.ajax({
 					type: 'POST',
 					url: '/vkviewer/sign/new',
