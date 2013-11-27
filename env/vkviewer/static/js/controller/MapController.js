@@ -144,7 +144,7 @@ var MapController = (function(){
 	var _activateVk2Tool = function(vk2ToolKey){
 		if (vk2ToolKey == 'vk2layersearch'){
 			_vk2Tools['vk2layersearch'].activate(_map);
-			_vk2Tools['eventfeaturelayer'].deactivate(_map);
+			_vk2Tools['vk2timefeaturecontrols'].deactivate(_map);
 		};
 		
 //		// generic approach
@@ -165,7 +165,7 @@ var MapController = (function(){
 	var _deactivateVk2Tool = function(vk2ToolKey){
 		if (vk2ToolKey == 'vk2layersearch'){
 			_vk2Tools['vk2layersearch'].deactivate(_map);
-			_vk2Tools['eventfeaturelayer'].activate(_map);
+			_vk2Tools['vk2timefeaturecontrols'].activate(_map);
 		};		
 //		// generic approach
 //		// get vk2tools at list and return false if no vk2tools are registered

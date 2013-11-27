@@ -21,6 +21,20 @@ VK2.Layer.Vk2Layer = function(params){
         }
     );
 	
+	vk2Layer.timeFtLayer = new VK2.Layer.TimeFeatureLayer(	
+			vk2Layer,
+	        new OpenLayers.Protocol.WFS({
+	            "url": params.wms,
+	            "geometryName": params.geometryName,
+	            "featureNS" :  params.featureNS,
+	            "featurePrefix": params.featurePrefix,
+	            "featureType": params.featureType,
+	            "srsName": params.srsName,
+	            "maxFeatures": params.maxFeatures,
+	            "version": params.serviceVersion
+	        })
+	);
+	
 	vk2Layer.wfsLayer = new OpenLayers.Layer.Vector(params.featureType,{
         'displayInLayerSwitcher':false,
         styleMap: new OpenLayers.StyleMap({

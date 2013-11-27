@@ -253,26 +253,6 @@ VK2.Tools.LayerManagement = VK2.Class({
             var layerEntry = this.overlayLayers[i];
             var isVisibile = document.getElementById(layerEntry.id).checked;
             layerEntry.setVisibility(isVisibile);          
-            
-            // update the feature layer
-            this._updateVk2FeatureLayer(layerEntry);
-        }
-    },
-          
-    /**
-     * Method: updateVk2FeatureLayer
-     * 
-     * layer - {Vk2Layer}
-     * 
-     * Update the FeatureLayer which is connect to the raster or time layers
-     * and which contains further information. For managing the FeatureLayer 
-     * methods of the Vk2FeatureLayer object are used. 
-     */
-    _updateVk2FeatureLayer: function(layer){
-        if(layer.getVisibility()){
-            this._vk2FeatureLayer.addFeaturesFromTimeLayer(layer, this.map);
-        } else {
-            this._vk2FeatureLayer.removeFeaturesFromTimeLayer(layer, this.map);
         }
     },
 
@@ -372,11 +352,9 @@ VK2.Tools.LayerManagement = VK2.Class({
             if (tmpLblDivs[i].value == event.target.value){
                 tmpLblDivs[i].innerHTML = layer.params.LAYERS + " " + newTimeValue;
                 layer.oldTime = layer.params.TIME;
-                layer.params.TIME = newTimeValue;  
+                layer.params.TIME = newTimeValue;
+                layer.timeFtLayer.updateFeatures();
                 layer.redraw(true);
-                
-                // if this layer is visible change features
-                this._updateVk2FeatureLayer(layer);
             }
         }    
     },
@@ -721,7 +699,9 @@ VK2.Tools.LayerManagement = VK2.Class({
         if (!layer.isBaseLayer){                       
             // checks if the layer is visible
             if(layer.getVisibility()){
-                this._vk2FeatureLayer.addFeaturesFromTimeLayer(layer, this.map);
+            	//layer.timeFtLayer.display(this.map);
+            	//var timeFtlayer = new VK2.Layer.TimeFeatureLayer(this.map, layer.wfsLayer, layer.params.TIME) 
+                //this._vk2FeatureLayer.addFeaturesFromTimeLayer(layer, this.map);
             }
         }
   

@@ -44,7 +44,7 @@ VK2.Tools.LayerSearch = VK2.Class({
      * Attribute: _restrictedZoomLevel
      * {Integer}
      */
-    _restrictedZoomLevel: 9,
+    _restrictedZoomLevel: 8,
     
     /**
      * Attribute: _isActive

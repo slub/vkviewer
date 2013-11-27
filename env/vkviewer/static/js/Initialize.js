@@ -94,7 +94,7 @@ var addTools = function(map){
 	
 	var layersearch = null;
 	var layermanagement = null;
-	var eventFtLayer = new VK2.Layer.EventFeatureLayer();
+	//var eventFtLayer = new VK2.Layer.EventFeatureLayer();
 
 	// try to initialize a layersearch
 	if (checkIfToolContainerIsInit(toolOptions['vk2layersearch']['container']))
@@ -105,7 +105,7 @@ var addTools = function(map){
 	// try to initialize a layerbar
 	if (checkIfToolContainerIsInit(toolOptions['vk2layermanagement']['container']))
 		var layermanagement = getTool_LayerManagement('vk2layermanagement', toolOptions['vk2layermanagement'], 
-				map, eventFtLayer, MapController);
+				map, VK2.Controller.TimeFeatureControls, MapController);
 	
 	// add Gazetteer
 	if (checkIfToolContainerIsInit(toolOptions['vk2gazetteer']['container']))
@@ -119,7 +119,8 @@ var addTools = function(map){
 	MapController.initialize(map,{
 		'vk2layermanagement': layermanagement,
 		'vk2layersearch': layersearch,
-		'eventfeaturelayer': eventFtLayer
+		'vk2timefeaturecontrols': VK2.Controller.TimeFeatureControls
+
 	})
 }
 
