@@ -1,0 +1,22 @@
+body, html{
+	height: 500px;
+    width:  400px;
+}
+
+.vk2ContactPageContainer {
+    height: 500px;
+    width:  400px;
+    line-height: 160%;
+    font-family: Verdana, Arial, Helvetica, Sans-Serif;
+    font-size: 0.92em;
+}
+
+div h3{
+	padding-top: 20px;
+	margin-bottom: 10px;
+	font-size: 1.33em;
+	font-weight: bold;
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, Sans-Serif;
+	font-style: italic;
+}
+

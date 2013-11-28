@@ -49,8 +49,6 @@ var addEvents = function(){
 	
 	$('.vk2FooterLinks').each(function(){
 		$(this).fancybox({
-			'width': '100%',
-			'height': '100%',
 			'type': 'iframe'
 		});
 	})
