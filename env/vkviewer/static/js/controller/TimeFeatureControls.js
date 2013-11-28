@@ -92,7 +92,8 @@ VK2.Controller.TimeFeatureControls = (function(){
      */
     var _redrawHoverFeature = function(feature, style){
     	feature.style = style;
-    	feature.layer.redraw();
+    	if (feature.layer)
+    		feature.layer.redraw();
     };
     
     /**

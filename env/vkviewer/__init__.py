@@ -36,23 +36,28 @@ log = logging.getLogger(__file__)
 here = os.path.dirname(os.path.abspath(__file__))
 
 def addRoutes(config):
+    routePrefix = 'vkviewer'
     # add routes
-    config.add_static_view('vkviewer/static', 'vkviewer:static/', cache_max_age=0)
-    config.add_route('proxy', 'vkviewer/proxy/')
-    config.add_route('home', '/vkviewer', factory='python.security.EntryFactory')
-    config.add_route('development', '/vkviewer/dev', factory='python.security.EntryFactory')
-    config.add_route('home_login', '/vkviewer/auth', factory='python.security.EntryFactory')
-    config.add_route('georef', '/vkviewer/georef', factory='python.security.EntryFactory')
-    config.add_route('set_locales', '/locales', factory='python.security.EntryFactory')
-    config.add_route('test', '/test', factory='python.security.EntryFactory')
+    config.add_static_view(routePrefix+'/static', 'vkviewer:static/', cache_max_age=0)
+    config.add_route('proxy', routePrefix+'/proxy/')
+    config.add_route('home', routePrefix, factory='python.security.EntryFactory')
+    config.add_route('home_login', routePrefix+'/auth', factory='python.security.EntryFactory')
+    config.add_route('georef', routePrefix+'/georef', factory='python.security.EntryFactory')
+    config.add_route('set_locales', 'locales', factory='python.security.EntryFactory')
     
     # route for authentification
-    config.add_route('auth', '/vkviewer/sign/{action}')
+    config.add_route('auth', routePrefix+'/sign/{action}')
     
     # routes for the georeference process
-    config.add_route('getwms','/vkviewer/getwms', factory='python.security.EntryFactory')
-    config.add_route('gettimestamps','/vkviewer/gettimestamps', factory='python.security.EntryFactory')
-    config.add_route('georeferencer', '/vkviewer/georef/{action}', factory='python.security.EntryFactory')
+    config.add_route('getwms',routePrefix+'/getwms', factory='python.security.EntryFactory')
+    config.add_route('gettimestamps',routePrefix+'/gettimestamps', factory='python.security.EntryFactory')
+    config.add_route('georeferencer', routePrefix+'/georef/{action}', factory='python.security.EntryFactory')
+    
+    # footer routes
+    config.add_route('faq', routePrefix+'/faq', factory='python.security.EntryFactory')
+    config.add_route('contact', routePrefix+'/contact', factory='python.security.EntryFactory')
+    config.add_route('home', routePrefix+'/partner', factory='python.security.EntryFactory')
+    config.add_route('impressum', routePrefix+'/impressum', factory='python.security.EntryFactory')
     
 
 

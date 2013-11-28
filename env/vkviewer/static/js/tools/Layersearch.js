@@ -59,13 +59,34 @@ VK2.Tools.LayerSearch = VK2.Class({
          * Method: _showSearchResultNumber
          * The scope of this event has to be the a OpenLayers.Layer.Vector object
          */
-        showSearchResultNumber: function(){   	
-        	var headerContentDiv = $('#vk2LSHeaderContent');
+        showSearchResultNumber: function(e){  
+        	console.log('Type: '+e.type);
+        	console.log('Features: '+this.features.length);
         	
-        	headerContentDiv.html(this.features.length+" Messtischblätter gefunden.")	
-        	if (headerContentDiv.hasClass( 'ui-state-error' ))
-        		headerContentDiv.removeClass( 'ui-state-error' );
+        	var headerContentDiv = $('#vk2LSHeaderContent');
+
+        	if (this.map.getZoom() >= 8){        	
+	        	headerContentDiv.html(this.features.length+" Messtischblätter gefunden.")	
+	        	if (headerContentDiv.hasClass( 'ui-state-error' ))
+	        		headerContentDiv.removeClass( 'ui-state-error' );
+	        	
+	        	// this is important for triggering a layer refresh if the layer change it visibility
+	        	if (e.type == 'visibilitychanged')
+	        		this.refresh({force:true});
+        	} else {
+        		headerContentDiv.html("Bitte wählen Sie eine höhere Zoomstufe!")
+    				.addClass( 'ui-state-error' );
+        	} 	
         },	
+        
+        loadStarts: function(e){
+        	$('#vk2LSHeaderLoadingContainer').addClass('loading');
+        },
+        
+        loadEnds: function(e){
+        	if ($('#vk2LSHeaderLoadingContainer').hasClass('loading'))
+        		$('#vk2LSHeaderLoadingContainer').removeClass('loading');
+        },
         
         /*
          * Method: publishAddTimeLayerEvent
@@ -165,10 +186,17 @@ VK2.Tools.LayerSearch = VK2.Class({
         divHeaderContainer.className = divHeaderContainer.className + " vk2LSHeaderContainer";
         divHeaderContainer.id = "vk2LSHeaderContainer";
         
+        // div container for the header label
         var  divHeaderContent = document.createElement("div");
         divHeaderContent.className = divHeaderContent.className + " vk2LSHeaderContent";
         divHeaderContent.id = "vk2LSHeaderContent";
         divHeaderContainer.appendChild(divHeaderContent);
+        
+        // div container for loading picture
+        var divHeaderLoading = document.createElement('div');
+        divHeaderLoading.className = divHeaderLoading.className + " vk2LSHeaderLoadingContainer";
+        divHeaderLoading.id = "vk2LSHeaderLoadingContainer";
+        divHeaderContainer.appendChild(divHeaderLoading);
         return divHeaderContainer;
     },
     
@@ -278,12 +306,14 @@ VK2.Tools.LayerSearch = VK2.Class({
         
         this._timeLayer = new OpenLayers.Layer.Vector("Messtischblaetter",{
             'displayInLayerSwitcher':false,
+            'maxResolution': 1222.9924523925781,
             visibility: false,
             strategies: [new OpenLayers.Strategy.BBOX({ratio:2}),this._refresh],
             protocol: this._features,
         });
         this._map.filter = VK2.Filter.getBoundingBoxFilter(this._map.getExtent(),"EPSG:900913")
         this._map.addLayer(this._timeLayer);
+        this._addHeaderContentEvent();
 	},
 
 
@@ -340,32 +370,18 @@ VK2.Tools.LayerSearch = VK2.Class({
 
 	
 	/**
-	 * Method: _showOccurrenceHeaderContent
+	 * Method: _addHeaderContentEvent
 	 */
-	_showOccurrenceHeaderContent: function(){
-		if (!this._timeLayer.events.listeners['featuresadded'] || this._timeLayer.events.listeners['featuresadded'].length == 0){
-			this._timeLayer.events.register('featuresadded', this._timeLayer, this._eventListeners['showSearchResultNumber']);
-			this._timeLayer.events.register('featuresremoved', this._timeLayer, this._eventListeners['showSearchResultNumber']);
-			this._timeLayer.events.register('visibilitychanged', this._timeLayer, this._eventListeners['showSearchResultNumber']);
-		}
-		//this._showCountOfMesstischblaetter(featureLayer, callbackShowCount, callbackError)
+	_addHeaderContentEvent: function(){
+		this._timeLayer.events.register('visibilitychanged', this._timeLayer, this._eventListeners['showSearchResultNumber']);
+		this._timeLayer.events.register('featuresadded', this._timeLayer, this._eventListeners['showSearchResultNumber']);
+		this._timeLayer.events.register('featuresremoved', this._timeLayer, this._eventListeners['showSearchResultNumber']);
+		this._timeLayer.events.register('moveend', this._timeLayer, this._eventListeners['showSearchResultNumber']);
+		
+		this._timeLayer.events.register('loadstart', this._timeLayer, this._eventListeners['loadStarts']);
+		this._timeLayer.events.register('loadend', this._timeLayer, this._eventListeners['loadEnds']);
+	},
 
-	},
-	
-	/**
-	 * Method: _showDefaultHeaderContent
-	 */
-	_showDefaultHeaderContent: function(){
-		if (this._timeLayer.events.listeners['featuresadded'] && this._timeLayer.events.listeners['featuresadded'].length > 0){
-			this._timeLayer.events.unregister('featuresadded', this._timeLayer, this._eventListeners['showSearchResultNumber']);
-			this._timeLayer.events.unregister('featuresremoved', this._timeLayer, this._eventListeners['showSearchResultNumber']);
-			this._timeLayer.events.unregister('visibilitychanged', this._timeLayer, this._eventListeners['showSearchResultNumber']);
-		}
-		
-		$('#vk2LSHeaderContent').html("Bitte wählen Sie eine höhere Zoomstufe!")
-			.addClass( 'ui-state-error' );
-		
-	},
 	
 	/**
 	 * Method: _isMtbSearchActive
@@ -399,7 +415,7 @@ VK2.Tools.LayerSearch = VK2.Class({
             // but the event is only triggered by an map extent change
             this._timeLayer.filter = VK2.Filter.getTimeFilter(this._map.getExtent(), 'EPSG:900913',
             		this._timestamps[0], this._timestamps[1]);
-            this._refresh.refresh();
+            this._refresh.refresh({forc: true});
         }
     },  
 
@@ -416,15 +432,12 @@ VK2.Tools.LayerSearch = VK2.Class({
 	 * method: _activate
 	 */
 	_activate: function(){
-		//debugger;
 		if (this._isMtbSearchActive()){
-			this._showOccurrenceHeaderContent();
 			this._timeLayer.setVisibility(true);
 			this._featureStore.bind(this._timeLayer);
 			//this._refreshFeatureGrid();
 		} else {
     		this._deactivate();
-    		this._showDefaultHeaderContent();
 		}
 	},
 
@@ -457,6 +470,7 @@ VK2.Tools.LayerSearch = VK2.Class({
     },
     
     updateFeatureStore: function(event){
+    	console.log("Update FeatureStore and is activate "+this._isActive)
     	if (this._isActive){
     		this._updateFeatures(event);
     		this._activate();
