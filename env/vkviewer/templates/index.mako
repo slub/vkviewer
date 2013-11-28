@@ -86,10 +86,18 @@
         		</div>
         		<div class="rightside">
         		   	<ul class="footerList">
-        				<li class="listelement leftborder">FAQ</li>
-        				<li class="listelement leftborder">${_('footer_contact')}</li>        				
-        				<li class="listelement leftborder">${_('footer_partners')}</li>
-        				<li class="listelement">${_('footer_editorial')}</li>
+        				<li class="listelement leftborder">
+        					<a href="${request.route_url('faq')}" class="vk2FooterLinks">FAQ</a>        				
+        				</li>
+        				<li class="listelement leftborder">
+         					<a href="${request.route_url('contact')}" class="vk2FooterLinks">${_('footer_contact')}</a>		
+        				</li>        				
+        				<li class="listelement leftborder">
+        					<a href="${request.route_url('contact')}" class="vk2FooterLinks">${_('footer_partners')}</a>    				
+        				</li>
+        				<li class="listelement">
+        					<a href="${request.route_url('impressum')}" class="vk2FooterLinks">${_('footer_editorial')}</a>
+        				</li>
         			</ul>
         		</div>
         	</div>

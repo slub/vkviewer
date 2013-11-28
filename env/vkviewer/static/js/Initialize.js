@@ -46,6 +46,14 @@ var addEvents = function(){
 			'type': 'iframe'
 		});
 	}
+	
+	$('.vk2FooterLinks').each(function(){
+		$(this).fancybox({
+			'width': '100%',
+			'height': '100%',
+			'type': 'iframe'
+		});
+	})
 };
 
 /**
@@ -209,44 +217,31 @@ var initializeBaseMap = function(mapContainer, mapConfiguration){
         
          // loads the base layers
 		 //openstreetmap mapnik
-		 var mapnik = new OpenLayers.Layer.OSM("OSM Mapnik");
-		
-		 // openstreetmap mapquest
-		 var mapquest = new OpenLayers.Layer.OSM( "Mapquest OSM",
-		    "http://otile1.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.png",
-		    { 
-		        displayOutsideMaxExtent: true, 
-		        attribution: 'Map data &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap</a> and contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-		        isBaseLayer: true, 
-		        visibility: false, 
-		        numZoomLevels:17, 
-		        permalink: "mapquest" 
-		    } 
-		 );
-		
-		 // different google maps
-		 var gphy = new OpenLayers.Layer.Google(
-		    "Google Physical",
-		    {type: google.maps.MapTypeId.TERRAIN}
-		    // used to be {type: G_PHYSICAL_MAP}
-		 );
-		 var gmap = new OpenLayers.Layer.Google(
-		    "Google Streets", // the default
-		    {numZoomLevels: 20}
-		    // default type, no change needed here
-		 );
-		 var gsat = new OpenLayers.Layer.Google(
-		    "Google Satellite",
-		    {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22}
-		    // used to be {type: G_SATELLITE_MAP, numZoomLevels: 22}
-		 );   
+         var mapnik = new OpenLayers.Layer.OSM("Mapnik");
+
+//       var mapnik = new OpenLayers.Layer.XYZ("Mapnik",
+//    		   ["http://a.tile.openstreetmap.org/${z}/${x}/${y}.png",
+//    		    "http://b.tile.openstreetmap.org/${z}/${x}/${y}.png",
+//    		    "http://c.tile.openstreetmap.org/${z}/${x}/${y}.png"],
+//    		    {
+//		    	 resolutions: [1222.9924523925781,611.4962261962891,305.74811309814453,152.87405654907226,76.43702827453613,
+//		                   38.218514137268066,19.109257068634033,9.554628534317017,4.777314267158508,2.388657133579254,1.194328566789627
+//		         ],
+////    	   		 zoomOfSet: 10,
+//		    	 serverResolutions : [156543.03390625,78271.516953125,39135.7584765625,19567.87923828125,9783.939619140625,
+//		    	                   2445.9849047851562,1222.9924523925781,611.4962261962891,305.74811309814453,152.87405654907226,76.43702827453613,
+//		    	                   38.218514137268066,19.109257068634033,9.554628534317017,4.777314267158508,2.388657133579254,1.194328566789627,
+//		    	                   ,0.5971642833948135
+//		    	 ]
+//    		    }
+//       );
 		    
 		 // add the base layers to the map
-		 map.addLayers([mapnik,gmap,mapquest,gphy,gsat]); 
+		 map.addLayers([mapnik]); 
 		         
          // zoom to startExtent 
          map.zoomToExtent(mapConfiguration.startExtent);
-         
+		 //map.setCenter(new OpenLayers.LonLat(-9208448.7478114,13344939.50767), 2);
          return map;
          
 }

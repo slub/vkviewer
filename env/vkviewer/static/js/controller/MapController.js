@@ -24,13 +24,29 @@ var MapController = (function(){
 	 * {Object}
 	 */
 	var _mapEventsListeners = {
+			
+//			'movestart': function(e){
+//				if (e.zoomChanged){
+//						console.log('Movestart: '+e.object.getZoom());
+//						console.log(e);
+//						var x = e.object.getZoom();
+//						if( x <= 6) {
+//							console.log('Zoom in!');
+//							e.object.setCenter(e.object.getCenter(), 7);
+//					} else if (x > 17) {
+//						e.object.setCenter(e.object.getCenter(), 17);
+//					}
+//				}
+//			},
+			
 			// event which restricted the zoom
 			'zoomend': function(){
+				console.log("Zoomend: "+this.getZoom())
 				var x = this.getZoom();
 				if( x < 5) {
 					this.setCenter(this.getCenter(), 5);
-				} else if (x > 17) {
-					this.setCenter(this.getCenter(), 17);
+				} else if (x > 15) {
+					this.setCenter(this.getCenter(), 15);
 	            }				
 			},
 			

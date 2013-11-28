@@ -64,8 +64,7 @@ VK2.Tools.LayerSearch = VK2.Class({
         	console.log('Features: '+this.features.length);
         	
         	var headerContentDiv = $('#vk2LSHeaderContent');
-
-        	if (this.map.getZoom() >= 8){        	
+        	if (this.map.getZoom() >= 8 && this.getVisibility()){        	
 	        	headerContentDiv.html(this.features.length+" Messtischblätter gefunden.")	
 	        	if (headerContentDiv.hasClass( 'ui-state-error' ))
 	        		headerContentDiv.removeClass( 'ui-state-error' );
@@ -80,10 +79,12 @@ VK2.Tools.LayerSearch = VK2.Class({
         },	
         
         loadStarts: function(e){
+        	console.log('Loadstarts');
         	$('#vk2LSHeaderLoadingContainer').addClass('loading');
         },
         
         loadEnds: function(e){
+        	console.log('Loadends');
         	if ($('#vk2LSHeaderLoadingContainer').hasClass('loading'))
         		$('#vk2LSHeaderLoadingContainer').removeClass('loading');
         },
@@ -188,8 +189,9 @@ VK2.Tools.LayerSearch = VK2.Class({
         
         // div container for the header label
         var  divHeaderContent = document.createElement("div");
-        divHeaderContent.className = divHeaderContent.className + " vk2LSHeaderContent";
+        divHeaderContent.className = divHeaderContent.className + " vk2LSHeaderContent ui-state-error";
         divHeaderContent.id = "vk2LSHeaderContent";
+        divHeaderContent.innerHTML = "Bitte wählen Sie eine höhere Zoomstufe!";
         divHeaderContainer.appendChild(divHeaderContent);
         
         // div container for loading picture
