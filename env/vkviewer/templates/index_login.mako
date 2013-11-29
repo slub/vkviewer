@@ -74,4 +74,12 @@ user_id = authenticated_userid(request)
 
 </%block>
 
+##
+## appendix
+##
+<%block name="appendix">
+	% if context.get('welcomepage') is not 'off':
+		<a href="${request.route_url('welcome')}" id="vk2WelcomePage"></a>
+	% endif  
+</%block>
 	

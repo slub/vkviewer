@@ -7,3 +7,10 @@ def checkIsUser(request):
         return True
     else:
         return False
+    
+def getCookie(request, cookieName):
+    cookiesDict = request.cookies
+    if cookieName in cookiesDict:
+        return cookiesDict[cookieName]
+    else:
+        return ''

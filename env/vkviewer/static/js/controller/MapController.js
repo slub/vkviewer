@@ -17,7 +17,7 @@ var MapController = (function(){
 	 * attribute: _basicControlls
 	 * {Array}
 	 */
-	var _basicControls = [new OpenLayers.Control.Navigation(), new OpenLayers.Control.PanZoomBar()];                   
+	var _basicControls = [new OpenLayers.Control.Navigation()];                   
 	
 	/*
 	 * attribute: _mapEventsListeners

@@ -61,8 +61,7 @@
     		"tools/Georeferencer.js",
     		"tools/Layersearch.js",
     		"tools/LayerManagement.js",
-    		"tools/TimeSlider.js",
-    		"tools/TimeViewer.js",
+    		"tools/ToolLoader.js",
     		"Initialize.Configuration.js",
     		"Initialize.js"
     );

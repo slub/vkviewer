@@ -59,6 +59,9 @@ def addRoutes(config):
     config.add_route('partner', routePrefix+'/partner', factory='python.security.EntryFactory')
     config.add_route('impressum', routePrefix+'/impressum', factory='python.security.EntryFactory')
     
+    # welcome page
+    config.add_route('welcome', routePrefix+'/welcome', factory='python.security.EntryFactory')
+    config.add_route('set_visitor_cookie', routePrefix+'/welcomeoff', factory='python.security.EntryFactory')
 
 
 def db(request):

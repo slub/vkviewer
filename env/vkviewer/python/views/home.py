@@ -1,21 +1,27 @@
 from pyramid.response import Response
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPNotFound, HTTPFound
+from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPBadRequest
 from pyramid.security import remember, forget
 from pyramid.i18n import get_locale_name
 
-from ..tools import checkIsUser
-from ..i18n import LOCALES
+from vkviewer.python.tools import checkIsUser, getCookie
+from vkviewer.python.i18n import LOCALES
+from vkviewer import log
 
 """ basic start site """
 @view_config(route_name='home', renderer='index_login.mako', permission='view',http_cache=0)
-def index_page(request):  
-    print "Try to load this site!"
-    # checks if already a user cookie is set and if yes gives back the logined view
+def get_index_page(request):  
+    log.info('Call view get_index_page.')
+    
+    # checks if already a user cookie is set and if yes gives back the logged in view
     if checkIsUser(request):
         target_url = request.route_url('home_login')
         return HTTPFound(location = target_url)
-    else:
+    elif getCookie(request, 'welcomepage') == 'off':
+        print "test"
+        return {'welcomepage':'off'}
+    else: 
+        print "testtest"
         return {}
 
 """ basic start site but logged in """
@@ -35,3 +41,39 @@ def set_locale_cookie(request):
         response.set_cookie('_LOCALE_', value=language, max_age=31536000)
         target_url = request.route_url('home')
     return HTTPFound(location = target_url, headers = response.headers)
+
+""" This view allows the user to set a cookie for activating and deactivating the welcome page on the main
+    page. 
+    
+    @param welcomepage - {String} 
+        off - set a cookie for deactivating the welcome page
+        on - set a cookie for activating the welome page 
+"""
+@view_config(route_name='set_visitor_cookie', renderer='string', permission='view',http_cache=0)
+def set_visitor_cookie(request):
+    log.info('Call view set_visitor_cookie with params: %s.'%request.params)
+    
+    # parse query parameter
+    setCookie = ''
+    if 'welcomepage' in request.GET:
+        setCookie = request.GET['welcomepage']
+        
+    # create response
+    if setCookie == 'off':
+        log.debug('Set deactivate welcome page cookie.')
+        response = Response()
+        response.set_cookie('welcomepage', setCookie, max_age=31536000) # max_age = year
+        return response
+    elif setCookie == 'on' and getCookie(request, 'welcomepage') == 'off':
+        log.debug('Set activate welcome page cookie.')
+        response = Response()
+        response.set_cookie('welcomepage', setCookie, max_age=31536000)
+        return response
+    else: 
+        log.debug('Value of query parameter \'welcomepage\' is not supported')
+        response = Response()
+        return HTTPBadRequest(headers = response.headers)      
+
+@view_config(route_name='welcome', renderer='welcome.mako', permission='view',http_cache=0)
+def welcome_page(request):  
+    return {}

@@ -25,6 +25,7 @@ html, body {
     height: 100%;
     width:  100%;
     padding:0;
+    margin-right: auto !important;
     margin: 0;
 }
 
@@ -65,6 +66,10 @@ html, body {
 /* position of the OL zoom/pan control */
 .olControlPanZoomBar{
     top: 80px !important;
+}
+
+.olControlZoom{
+	top: 80px !important;
 }
 
 /* jquery styles */
