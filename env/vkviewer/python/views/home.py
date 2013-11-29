@@ -1,33 +1,31 @@
 from pyramid.response import Response
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPBadRequest
-from pyramid.security import remember, forget
-from pyramid.i18n import get_locale_name
+from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
 
 from vkviewer.python.tools import checkIsUser, getCookie
+from vkviewer.python.models.authentification import Users
+from vkviewer.python.models.messtischblatt import getCountOfGeorefMesstischblaetter
 from vkviewer.python.i18n import LOCALES
 from vkviewer import log
 
 """ basic start site """
-@view_config(route_name='home', renderer='index_login.mako', permission='view',http_cache=0)
+@view_config(route_name='home', renderer='index.mako', permission='view',http_cache=0)
 def get_index_page(request):  
     log.info('Call view get_index_page.')
     
     # checks if already a user cookie is set and if yes gives back the logged in view
     if checkIsUser(request):
-        target_url = request.route_url('home_login')
+        target_url = request.route_url('home')
         return HTTPFound(location = target_url)
     elif getCookie(request, 'welcomepage') == 'off':
-        print "test"
         return {'welcomepage':'off'}
     else: 
-        print "testtest"
         return {}
 
 """ basic start site but logged in """
-@view_config(route_name='home_login', renderer='index_georef.mako', permission='edit',http_cache=0)
-def index_page_login(request):
-    return {}
+@view_config(route_name='home_login', renderer='indexLoggedIn.mako', permission='edit',http_cache=0)
+def get_index_page_loggedIn(request):
+    return {'welcomepage':'off'}
 
 
 """ This is called for checking the localization of the application and sets the correct locales """
@@ -75,5 +73,16 @@ def set_visitor_cookie(request):
         return HTTPBadRequest(headers = response.headers)      
 
 @view_config(route_name='welcome', renderer='welcome.mako', permission='view',http_cache=0)
-def welcome_page(request):  
-    return {}
+def get_welcome_page(request):  
+    log.info('Call view get_welcome_page.')
+    dbsession = request.db
+    # get occurrence of georeferenced messtischblaetter
+    occurrenceGeorefMtbs = getCountOfGeorefMesstischblaetter(dbsession)
+    try:
+        # get paginator for user ranking list
+        paginator = Users.get_paginator(request, dbsession)
+        return {'paginator':paginator,'occurrence_mtbs':occurrenceGeorefMtbs}
+    except Exception:
+        log.debug('Error while creating paginator for user georeference ranking')
+        log.debug(Exception)
+        return {'occurrence_mtbs':occurrenceGeorefMtbs}

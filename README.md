@@ -1,4 +1,4 @@
-vk2-project
+vkviewer
 ===========
 
 Installation
@@ -30,19 +30,40 @@ Installation
 1.4) Run application
 	cd ~/path/to/env/bin/pserve development.ini --reload
 
-TODO
-====
+Deployment on apache server
+===========================
 
-- New Design of Login. Orientation on the SLUB Login with pure Login in the FancyJQuery Style
-- New OpenClose of the Layerbar and LayerSearch
-     
-Have a look
-===========
+1.) Apache configuration (/etc/apache2/sites-available/default)    
 
-http://codebomber.com/jquery/slidepanel/#credits
-http://www.jqeasy.com/jquery-slide-panel-plugin/demo/
+	# Use only 1 Python sub-interpreter. Multiple sub-interpreters
+	WSGIApplicationGroup %{GLOBAL}
+	WSGIPassAuthorization On
+	WSGIDaemonProcess pyramid user=www-data group=www-data threads=4 \
+	   	python-path=/usr/lib/python2.7/site-packages
+	WSGIScriptAlias /vkviewer ~/repo/vk2-project/vkviewer/pyramid.wsgi
 
-TIPS
+	<Directory ~/repo/vk2-project/vkviewer>
+		WSGIProcessGroup pyramid
+		Order allow,deny
+		Allow from all
+	</Directory>
+
+2.) Set up pyramid.wsgi
+
+3.) Install app
+
+	../bin/python setup.py install
+
+Run Tests
+=========
+
+1.) Pyramid Tests
+	
+	~/path/to/env/bin/python setup.py test
+
+Tips
 ====
 
 PYRAMID_RELOAD_TEMPLATES=1 bin/pserve development.ini --reload 
+
+

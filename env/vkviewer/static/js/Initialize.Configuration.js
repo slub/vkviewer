@@ -34,6 +34,27 @@ var initConfiguration = {
             maxFeatures: 10000,
             srsName: "EPSG:900913"
     },
+    georeference_grid: {
+    	wms: new OpenLayers.Layer.WMS("georeferencer_wms_1",
+                "http://194.95.145.43/cgi-bin/mtb_grid",{
+			layers: "mtb_grid_puzzle", 
+			transparent: true
+		}, {
+			"isBaseLayer" : false, 
+			"displayInLayerSwitcher": true,
+			singleTile: true
+		}),
+		wfs: new OpenLayers.Protocol.WFS({
+			"url": "http://194.95.145.43/cgi-bin/mtb_grid",
+            "geometryName": "the_geom",
+            "featureNS" :  "http://mapserver.gis.umn.edu/mapserver",
+			"featurePrefix": "ms",
+			"featureType": "mtb_grid",
+            "srsName": "EPSG:3857",
+            "maxFeatures": 1000,
+            "version": "1.0.0"
+        })
+    },
     // userid for downside compatibility
     // deprecated
     userid: ''

@@ -4,97 +4,83 @@
  * This functions adds a sidebar panel + behavior for getting into the georeference process 
  * on the front page.
  */
-var addGeoreferencer = function(linkElement, map){
-	
-	var _removeGeorefLayer = function(map){
-		console.log("Remove Layer!");
+VK2.Tools.Georeferencer = {
 		
-		// remove the layergrid and select
-		var layerGrid = map.getLayersByName("georeferencer_wms_1")[0];
-		var select = map.getLayersByName("georeferencer_select_1")[0];
-		map.removeLayer(layerGrid);
-		map.removeLayer(select);
-		
-		// remove controls
-		var control = map.getControlsBy('name','georeferencer_control_1')[0]
-		map.removeControl(control);
-	};
-	
-	var _addGeorefLayer = function(map){
-		console.log("Add Layer!");
-		
-		// add the grid as wms 
-		var layerGrid = new OpenLayers.Layer.WMS("georeferencer_wms_1",
-                "http://194.95.145.43/cgi-bin/mtb_grid",{
-					layers: "mtb_grid_puzzle", 
-					transparent: true
-				}, {
-					"isBaseLayer" : false, 
-					"displayInLayerSwitcher": true,
-					singleTile: true
-		});
+		addGeoreferencer: function(linkElement, map){
+			
+			var _removeGeorefLayer = function(map){
+				console.log("Remove Layer!");
+				
+				// remove the layergrid and select
+				var layerGrid = map.getLayersByName("georeferencer_wms_1")[0];
+				var select = map.getLayersByName("georeferencer_select_1")[0];
+				map.removeLayer(layerGrid);
+				map.removeLayer(select);
+				
+				// remove controls
+				var control = map.getControlsBy('name','georeferencer_control_1')[0]
+				map.removeControl(control);
+			};
+			
+			var _addGeorefLayer = function(map){
+				console.log("Add Layer!");
+				
+				// add the grid as wms 
+				var layerGrid = initConfiguration.georeference_grid.wms;
 
-		// add selectlayer to the map
-		var select = new OpenLayers.Layer.Vector("georeferencer_select_1",{
-			styleMap: new OpenLayers.Style(OpenLayers.Feature.Vector.style["select"])
-		});
-		map.addLayers([layerGrid,select]);
-		
-		// create and register control for handling select feature events
-		var control = new OpenLayers.Control.GetFeature({
-			name: "georeferencer_control_1",
-            protocol: new OpenLayers.Protocol.WFS({
-				"url": "http://194.95.145.43/cgi-bin/mtb_grid",
-                "geometryName": "the_geom",
-                "featureNS" :  "http://mapserver.gis.umn.edu/mapserver",
-				"featurePrefix": "ms",
-				"featureType": "mtb_grid",
-                "srsName": "EPSG:3857",
-                "maxFeatures": 1000,
-                "version": "1.0.0"
-            })	
-		});
-		
-		control.events.register("featureselected", this, function(e){
-			select.addFeatures([e.feature]);
-			console.log("MTB "+e.feature.attributes.blattnr+", ID "+e.feature.attributes.id+" holen und anzeigen");
+				// add selectlayer to the map
+				var select = new OpenLayers.Layer.Vector("georeferencer_select_1",{
+					styleMap: new OpenLayers.Style(OpenLayers.Feature.Vector.style["select"])
+				});
+				map.addLayers([layerGrid,select]);
+				
+				// create and register control for handling select feature events
+				var control = new OpenLayers.Control.GetFeature({
+					name: "georeferencer_control_1",
+		            protocol: initConfiguration.georeference_grid.wfs	
+				});
+				
+				control.events.register("featureselected", this, function(e){
+					select.addFeatures([e.feature]);
+					console.log("MTB "+e.feature.attributes.blattnr+", ID "+e.feature.attributes.id+" holen und anzeigen");
 
-            // display data in fancybox
-			var targetHref = getHost('vkviewer/static/georeference_start.html?blattnr=') + e.feature.attributes.blattnr;
-            $.fancybox.open([
-                { 
-                    'href': targetHref,
-        			'width': '95%',
-        			'height': '95%',
-        			'type': 'iframe'
-                }
-            ]);
-		});
-		
-		control.events.register("featureunselected", this, function(e) {
-			select.removeFeatures([e.feature]);
-			console.log("Feature unselected!");
-		});
-		
-		map.addControl(control);
-		control.activate();
-	};
-	
-	// on initialize set the status of the linkElement to disabled
-	$(linkElement).attr('status','disabled');
-	
-	// add start and stop georeferencer behavior to the georeferencer sidebar element
-	$(linkElement).click(function(){
-		var status = $(this).attr('status');
-		
-		if (status == 'disabled'){
-			_addGeorefLayer(map);
-			$(this).attr('status','enabled');
-		} else if (status == 'enabled'){
-			_removeGeorefLayer(map);
-			$(this).attr('status','disabled');
+		            // display data in fancybox
+					var targetHref = VK2.Utils.getHost('vkviewer/choosegeoref?blattnr=') + e.feature.attributes.blattnr;
+		            $.fancybox.open([
+		                { 
+		                    'href': targetHref,
+//		        			'width': '100%',
+//		        			'height': '100%',
+		        			'type': 'iframe'
+		                }
+		            ]);
+				});
+				
+				control.events.register("featureunselected", this, function(e) {
+					select.removeFeatures([e.feature]);
+					console.log("Feature unselected!");
+				});
+				
+				map.addControl(control);
+				control.activate();
+			};
+			
+			// on initialize set the status of the linkElement to disabled
+			$(linkElement).attr('status','disabled');
+			
+			// add start and stop georeferencer behavior to the georeferencer sidebar element
+			$(linkElement).click(function(){
+				var status = $(this).attr('status');
+				
+				if (status == 'disabled'){
+					_addGeorefLayer(map);
+					$(this).attr('status','enabled');
+				} else if (status == 'enabled'){
+					_removeGeorefLayer(map);
+					$(this).attr('status','disabled');
+				}
+			});
 		}
-	});
 }
 
 var initializeGeoreferencerMap = function(){

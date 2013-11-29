@@ -10,20 +10,6 @@ from ..models.messtischblatt import getCollectionForBlattnr, ViewRefGridMtb
 # renderer imports
 import json
 
-""" basic start site 
-@view_config(route_name='development', renderer='index_georef.mako', permission='view',http_cache=0)
-def index_page_development(request):
-    page = int(request.params.get('page', 1))
-    return {}
-"""
-
-""" Returns a json document which contains the wms url, layername, mtbid and the titel of 
-    the mtb for a given blattnr """
-@view_config(route_name='getwms', renderer='string', permission='view',http_cache=0)
-def getwms_forBlattnr(request):
-    session = request.db
-    response = getCollectionForBlattnr(request.GET.get('blattnr'), session)
-    return json.dumps(response, ensure_ascii=False, encoding='utf-8')
 
 
 """ Returns a json document which contains a timestamps string and a occurence value for

@@ -49,7 +49,7 @@ def addRoutes(config):
     config.add_route('auth', routePrefix+'/sign/{action}')
     
     # routes for the georeference process
-    config.add_route('getwms',routePrefix+'/getwms', factory='python.security.EntryFactory')
+    config.add_route('choose_map_georef',routePrefix+'/choosegeoref', factory='python.security.EntryFactory')
     config.add_route('gettimestamps',routePrefix+'/gettimestamps', factory='python.security.EntryFactory')
     config.add_route('georeferencer', routePrefix+'/georef/{action}', factory='python.security.EntryFactory')
     

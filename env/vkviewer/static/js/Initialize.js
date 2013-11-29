@@ -111,11 +111,11 @@ var addTools = function(map){
 	
 	// add Gazetteer
 	if (checkIfToolContainerIsInit(toolOptions['vk2gazetteer']['container']))
-	    addGazetteer(toolOptions['vk2gazetteer']['container'], map);
+		VK2.Tools.addGazetteer(toolOptions['vk2gazetteer']['container'], map);
 	
 	// add Georeferencer
 	if (checkIfToolContainerIsInit(toolOptions['vk2georeferencer']['container']))
-		addGeoreferencer(document.getElementById('vk2GeorefHandle'),map)
+		VK2.Tools.Georeferencer.addGeoreferencer(document.getElementById('vk2GeorefHandle'),map)
 	
 	// initialize MapController
 	MapController.initialize(map,{

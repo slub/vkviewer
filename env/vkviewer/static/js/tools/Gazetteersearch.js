@@ -5,7 +5,7 @@
  * 
  * @TODO - consider the type of the poi (city, country, ...) for the choosing of the zoom level at the select event
  */
-var addGazetteer = function(container, map){
+VK2.Tools.addGazetteer = function(container, map){
 	
 	var _map = map;
     

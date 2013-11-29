@@ -14,12 +14,13 @@ import os
 import json
 
 # own import stuff
+from vkviewer.python.models.messtischblatt import getZoomifyCollectionForBlattnr
+from vkviewer import log
 from ..georef.georeferenceprocess import parsePixelCoordinates
 from ..georef.georeferenceprocess import createGeoreferenceProcess
 from ..georef.utils import getUniqueId
 from ..georef.mapfile import createMapfile
 
-log = logging.getLogger(__file__)
 
 # global parameter
 tmp_dir = '/home/mendt/Documents/tmp/georef'
@@ -226,5 +227,17 @@ class GeoreferenceConfirm(AbstractGeoreference):
         # else return badrequest
         message = "The input query parameter for the georeference validation are not valide."
         log.error(message)
-        raise HTTPBadRequest(message)           
+        raise HTTPBadRequest(message)  
+    
+""" Returns a json document which contains the wms url, layername, mtbid and the titel of 
+    the mtb for a given blattnr """
+@view_config(route_name='choose_map_georef', renderer='chooseGeorefMtb.mako', permission='view',http_cache=0)
+def getPage_chooseGeorefMtb(request):
+    log.info('Call view getPage_chooseGeorefMtb.')
+    if 'blattnr' in request.params:
+        paginator = getZoomifyCollectionForBlattnr(request, request.GET.get('blattnr'), request.db)
+        return {'paginator':paginator} 
+    else: 
+        return {}
+         
         

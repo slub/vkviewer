@@ -3,9 +3,35 @@ import json
  
 from pyramid import testing
 from pyramid.config import Configurator
-from ...views.home import set_visitor_cookie, get_index_page
+from webhelpers.paginate import Page
+from vkviewer.python.views.home import set_visitor_cookie, get_index_page, get_welcome_page
+from vkviewer.python.tests import BaseTestCase
 
- 
+
+class ViewGetWelcomePageTests(BaseTestCase):
+     
+    def setUp(self):     
+        self.config = testing.setUp()   
+        self.config.registry.dbmaker = self.Session       
+         
+    def tearDown(self):
+        testing.tearDown()
+    
+    def testGetWelcomePage_pass_hasPaginator(self):
+        request = self.getRequestWithDb(testing.DummyRequest())
+        result = get_welcome_page(request)
+        print "Test: testGetWelcomePage_pass_hasPaginator - Result: %s"%result
+        self.assertTrue('paginator' in result)
+        self.assertTrue(isinstance(result['paginator'], Page))
+        
+    def testGetWelcomePage_pass_hasOccurrenceMtbs(self):
+        request = self.getRequestWithDb(testing.DummyRequest())
+        result = get_welcome_page(request)
+        print "Test: testGetWelcomePage_pass_hasOccurrenceMtbs - Result: %s"%result
+        self.assertTrue('occurrence_mtbs' in result)
+        
+
+        
 class ViewSetVisitorCookieTests(unittest.TestCase):
      
     def setUp(self):     

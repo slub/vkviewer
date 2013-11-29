@@ -63,7 +63,7 @@ class Messtischblatt(Base):
     def boundingbox(self, session):
         query = 'SELECT st_astext(boundingbox) FROM messtischblatt WHERE id = :id;'
         return session.execute(query,{'id':self.id}).fetchone()[0]
-
+    
 class ViewRefGridMtb(Base):
     __tablename__ = 'view_refgridmtb'    
     blattnr = Column(String(255))
@@ -87,6 +87,7 @@ class MetadatenCore(Base):
     massstab = Column(String(255))
     schlagworte = Column(String(255))
     ppn = Column(String(255))
+    titel_short = Column(String(70))
     
     @classmethod
     def by_id(cls, id, session):
@@ -126,6 +127,38 @@ def getWmsUrlForMtb(mtbid, session):
                     refmtbwms.webmappingservice;'
     result = session.execute(query,{'mtbid':mtbid}).fetchone()
     return result['onlineressource']
+
+"""  This function computes via a SQL Query the occurrence of georeferenced 
+     messtischblaetter. 
+     
+     @param session - {SQLAlchemy.SessionObject}
+"""
+def getCountOfGeorefMesstischblaetter(session):
+    query = 'SELECT count(isttransformiert) FROM messtischblatt WHERE isttransformiert = True'
+    result = session.execute(query).fetchone()
+    return result['count']
+
+""" This function creates a paginator object, which represents a list of messtischblaett objects 
+    plus information over his zoomify representation for a given blattnumber. It will only choose
+    such messtischblaetter which are not georeferenced yet.
+    
+    @param request - {Pyramid.Request}
+    @param blattnr - {Messtischblatt.blattnr}
+    @param session - {SQLAlchemy.SessionObject}
+    @param page - {Integer}
+    @return {Paginator} 
+"""
+def getZoomifyCollectionForBlattnr(request, blattnr, session, page=1):
+    coll = []
+    mtbs = Messtischblatt.allForBlattnr(blattnr, session)
+    for mtb in mtbs:
+        metadata = MetadatenCore.by_id(mtb.id, session)
+        item = {'mtbid':mtb.id,'layername':mtb.dateiname,'titel':metadata.titel,'titel_short':metadata.titel_short,
+                'zoomify_prop':mtb.zoomify_properties,'zoomify_width':mtb.zoomify_width,'zoomify_height':mtb.zoomify_height}
+        coll.append(item)
+    # create paginator
+    page_url = PageURL_WebOb(request)
+    return Page(coll, page, url=page_url, items_per_page=10)
 
 def getCollectionForBlattnr(blattnr, session):
     coll =[]

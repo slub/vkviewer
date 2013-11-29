@@ -19,7 +19,7 @@ env/vkviewer/settings.py
 env/vkviewer/settings.pyc
 
 # test files
-env/vkviewer/static/test/inheritence.html
-
+env/vkviewer/static/test
+env/vkviewer/static/dev
 
 

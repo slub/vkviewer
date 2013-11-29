@@ -1,10 +1,13 @@
 """ This module contains the models which are interconnected with the authentification """
 import os
+import sqlalchemy as sa
 from hashlib import sha1
 from ..models import Base
 from sqlalchemy import Column, Integer, Boolean, String, DateTime, BINARY, Sequence, Unicode
 from sqlalchemy import func, desc, ForeignKey
 from sqlalchemy.orm import relationship, backref
+from webhelpers.paginate import PageURL_WebOb, Page
+
 
 class Users(Base):
     __tablename__ = 'users'
@@ -15,6 +18,7 @@ class Users(Base):
     vorname = Column(String(80))
     nachname = Column(String(80)) 
     groups = Column(String(80))
+    bonuspunkte = Column(Integer)
     
     def __init__(self, login, password, email, vorname, nachname):
         self.login = login
@@ -29,8 +33,17 @@ class Users(Base):
         return dbsession.query(Users).filter(Users.id == userid).first()
     
     @classmethod
+    def all(cls, dbsession):
+        return dbsession.query(Users).order_by(sa.desc(Users.bonuspunkte))
+    
+    @classmethod
     def by_username(cls, login, dbsession):
         return dbsession.query(Users).filter(Users.login == login).first()
+    
+    @classmethod
+    def get_paginator(cls, request, dbsession, page=1):
+        page_url = PageURL_WebOb(request)
+        return Page(Users.all(dbsession), page, url = page_url, items_per_page=5)
     
     def _set_password(self, password):
         hashed_password = password

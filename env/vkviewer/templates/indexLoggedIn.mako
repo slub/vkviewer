@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-<%inherit file="index_login.mako"/>
+<%inherit file="index.mako"/>
 
 <%block name="sidebar">
 ${parent.sidebar()}
