@@ -229,8 +229,7 @@ class GeoreferenceConfirm(AbstractGeoreference):
         log.error(message)
         raise HTTPBadRequest(message)  
     
-""" Returns a json document which contains the wms url, layername, mtbid and the titel of 
-    the mtb for a given blattnr """
+""" Returns a page for choosing a messtischblatt for georeferencering """
 @view_config(route_name='choose_map_georef', renderer='chooseGeorefMtb.mako', permission='view',http_cache=0)
 def getPage_chooseGeorefMtb(request):
     log.info('Call view getPage_chooseGeorefMtb.')
@@ -239,5 +238,14 @@ def getPage_chooseGeorefMtb(request):
         return {'paginator':paginator} 
     else: 
         return {}
+    
+""" Return a page for georeferencing a mtb 
+    
+    @TODO write test so that this site is only called with edit permissions
+"""
+@view_config(route_name='georeference_start', renderer='georeferenceStart.mako', permission='view',http_cache=0)
+def getPage_GeoreferenceStart(request):
+    log.info('Call view getPage_GeoreferenceStart.')
+    return {}
          
         

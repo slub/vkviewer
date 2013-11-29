@@ -6,7 +6,7 @@
  */
 VK2.Tools.Georeferencer = {
 		
-		addGeoreferencer: function(linkElement, map){
+		addChooseGeoreferencerMtb: function(linkElement, map){
 			
 			var _removeGeorefLayer = function(map){
 				console.log("Remove Layer!");
@@ -80,64 +80,43 @@ VK2.Tools.Georeferencer = {
 					$(this).attr('status','disabled');
 				}
 			});
+		},
+		
+		initializeGeoreferencerMap: function(mapContainer){
+			
+			// parse the query parameter from the page call and add a wms to the map
+			// via zoomify
+			var zoomify_prop = VK2.Utils.get_url_param('zoomify_prop');
+			var zoomify_url = VK2.Utils.Georef.getZoomifyUrl(zoomify_prop);
+			var zoomify_width = VK2.Utils.get_url_param('zoomify_width');
+			var zoomify_height = VK2.Utils.get_url_param('zoomify_height');
+			var layer_name = VK2.Utils.get_url_param('layer');
+
+			var zoomify = new OpenLayers.Layer.Zoomify(layer_name, zoomify_url,
+					new OpenLayers.Size( zoomify_width, zoomify_height));
+			
+			// options for the georeferencer map
+			var options = {
+				units: "pixels",
+				maxExtent: new OpenLayers.Bounds(0,0,zoomify_width, zoomify_height),
+				maxResolution: Math.pow(2, zoomify.numberOfTiers-1),
+				numZoomLevels: 10, //zoomify.numberOfTiers,
+		        //resolutions : [12,6,3,1.5,0.75,0.375,0.1875,0.09375],
+		        //maxResolution: 12,
+				controls: [
+		                new OpenLayers.Control.Navigation(),
+		                new OpenLayers.Control.PanZoomBar({zoomWorldIcon:true}),
+		                new OpenLayers.Control.Attribution()]
+			};
+			
+			var map = new OpenLayers.Map( mapContainer, options);
+			map.addLayer(zoomify)
+			map.zoomToMaxExtent();
+		
+			return map;
 		}
+
+		
 }
-
-var initializeGeoreferencerMap = function(){
-	
-	// options for the georeferencer map
-	var options = {
-		numZoomLevels: 9,
-		units: "m",
-		projection: new OpenLayers.Projection("EPSG:31467"),
-		displayProjection: new OpenLayers.Projection("EPSG:31467"),
-		maxExtent: new OpenLayers.Bounds(0,0,8574,9545),
-        resolutions : [12,6,3,1.5,0.75,0.375,0.1875,0.09375],
-        maxResolution: 12,
-		controls: [
-                new OpenLayers.Control.Navigation(),
-                new OpenLayers.Control.LayerSwitcher(),
-                new OpenLayers.Control.PanZoomBar({zoomWorldIcon:true}),
-                new OpenLayers.Control.Attribution(),
-                new OpenLayers.Control.MousePosition()]
-	};
-      
-	var my_style = new OpenLayers.StyleMap({ 
-		"default": new OpenLayers.Style( 
-			{ 
-				pointRadius: 6, 
-				strokeColor: "#ff6103", 
-				fillColor: "#FF0000", 
-				fillOpacity: 0.4, 
-				strokeWidth: 2 
-			}) 
-	});
-  
-	map = new OpenLayers.Map( 'map', options);  
-
- 	// allow testing of specific renderers via "?renderer=Canvas", etc
-    var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
-    renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
-
-		vectors = new OpenLayers.Layer.Vector("Eckpunkte", {
-		styleMap: my_style,
-        renderers: renderer
-    });
-	
-	// parse the query parameter from the page call
-	var wms_url = get_url_param('wms');
-	var layer_name = get_url_param('layer');
-}
-///**
-// * Object: GeoreferenceMesstischblatt
-// * 
-// * This object encapsulte the funcionality and the behavior of georeference site for the mtbs.
-// */
-//var GeoreferenceMesstischblatt = Class({
-//	
-//	initialize: function(){
-//		
-//	}
-//})
 	
 

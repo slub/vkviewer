@@ -42,16 +42,19 @@ def addRoutes(config):
     config.add_route('proxy', routePrefix+'/proxy/')
     config.add_route('home', routePrefix, factory='python.security.EntryFactory')
     config.add_route('home_login', routePrefix+'/auth', factory='python.security.EntryFactory')
-    config.add_route('georef', routePrefix+'/georef', factory='python.security.EntryFactory')
+#    config.add_route('georef', routePrefix+'/georef', factory='python.security.EntryFactory')
     config.add_route('set_locales', 'locales', factory='python.security.EntryFactory')
     
     # route for authentification
     config.add_route('auth', routePrefix+'/sign/{action}')
     
+    # for feedback to events on the main page
+    config.add_route('gettimestamps',routePrefix+'/gettimestamps', factory='python.security.EntryFactory')
+
     # routes for the georeference process
     config.add_route('choose_map_georef',routePrefix+'/choosegeoref', factory='python.security.EntryFactory')
-    config.add_route('gettimestamps',routePrefix+'/gettimestamps', factory='python.security.EntryFactory')
     config.add_route('georeferencer', routePrefix+'/georef/{action}', factory='python.security.EntryFactory')
+    config.add_route('georeference_start', routePrefix+'/georeference/start', factory='python.security.EntryFactory')
     
     # footer routes
     config.add_route('faq', routePrefix+'/faq', factory='python.security.EntryFactory')

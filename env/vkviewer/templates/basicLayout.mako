@@ -23,8 +23,8 @@
       <script src="${request.static_url('vkviewer:static/lib/ext-base.js')}"></script>
       <script src="${request.static_url('vkviewer:static/lib/ext-all.js')}"></script>
       
-      <script src="http://openlayers.org/dev/OpenLayers.js" type="text/javascript"></script>    
-      <!-- <script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script> -->
+      <!-- <script src="http://openlayers.org/dev/OpenLayers.js" type="text/javascript"></script> -->    
+      <script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script> 
       
       <script src="${request.static_url('vkviewer:static/lib/GeoExt/GeoExt.js')}"></script>  
       <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
