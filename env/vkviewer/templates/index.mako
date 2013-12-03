@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-<%inherit file="basicLayout.mako"/>           
+<%inherit file="basicIndexLayout.mako"/>           
 ##
 ## login
 ##
