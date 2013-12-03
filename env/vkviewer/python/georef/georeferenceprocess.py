@@ -3,11 +3,12 @@ Created on May 30, 2013
 
 @author: mendt
 '''
-from ..models.messtischblatt import Messtischblatt, Georeferenzierungsprozess
-from ..georef.georeferenceexceptions import GeoreferenceParameterError, GeoreferenceProcessRunningError
-from ..georef.geometry import createBBoxFromPostGISString
-from ..georef.utils import getTimestampAsPGStr, runCommand
-from ..georef.georeferenceutils import getGCPsAsString, addGCPToTiff, georeferenceTiff, getGCPs
+from vkviewer.python.models.messtischblatt import Messtischblatt, Georeferenzierungsprozess
+from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError, GeoreferenceProcessRunningError
+from vkviewer.python.georef.utils import getTimestampAsPGStr, runCommand
+from vkviewer.python.georef.georeferenceutils import getGCPsAsString, addGCPToTiff, georeferenceTiff, getGCPs
+from vkviewer.settings import srid_database
+import transaction
 
 import shutil
 import tempfile
@@ -47,9 +48,9 @@ def createGeoreferenceProcess(mtbid, dbSession, tmp_dir = None, logger = None):
         except IndexError:
             logger.error("Error while creating georeference process!")
             raise GeoreferenceParameterError("MesstischblattId %s is not valide!"%mtbid)
-        except Exception:
-            logger.error("Error while creating georeference process!")
-            raise GeoreferenceParameterError("Error while creating messtischblatt object for id %s!"%mtbid)
+        except:
+            logger.error("Error while creating georeference process with object id %s."%mtbid)
+            raise 
                   
         # create georeference process and returns it
         return GeoreferenceProcess(messtischblatt, dbSession, tmp_dir, logger);
@@ -59,9 +60,9 @@ class GeoreferenceProcess(object):
 
     
     def __init__(self, mtb, dbSession, tmp_dir = None, logger = None):
-        self.srid = 4314
+        self.srid = srid_database
         self.messtischblatt = mtb;
-        self.boundingbox = createBBoxFromPostGISString(self.messtischblatt.boundingbox, self.srid)
+        self.boundingbox = self.messtischblatt.BoundingBoxObj
         self.dbSession = dbSession;
         if tmp_dir == None:
             self.tmp_dir = ''
@@ -138,23 +139,20 @@ class GeoreferenceProcess(object):
         This method does a fast computation of georeference result. """
     def fastGeoreference(self, userid, clipParams, destPath):
         try:
+            self.logger.debug("Start fast georeferencing process.")
             # create tempory directory 
             tmpDir = tempfile.mkdtemp("", "tmp_", self.tmp_dir) # create dir
             # register georeference process in the database and get a georeference id
             georefid = self.registerGeoreferenceProcess(userid=userid, clipParams=clipParams,
                 isvalide=False,typeValidation='waiting')
-            
             # produce georeference result
             destPath = self.__runGeoreferencing__(clipParams, tmpDir, destPath, type='fast')
-            
-            # commit database changes
-            self.logger.info("Georeferencering successfully!")
-            self.dbSession.commit()
+            self.logger.debug("Fast georeferencering process successfully!")
             return georefid, destPath
-        except:
+        except Exception as e:
             message = "Error while processing a fast georeference result!"
-            self.logger.error(message)
-            raise 
+            self.logger.error(e)
+            raise GeoreferenceProcessRunningError(message)
         finally:
             try:
                 # delete tmp_dir
@@ -178,63 +176,48 @@ class GeoreferenceProcess(object):
     def registerGeoreferenceProcess(self, userid=None, clipParams=None, isvalide=False, typeValidation='none'):
         # get timestamp
         timestamp = getTimestampAsPGStr()
-        # build query for inserting inserting
-        query_regGeorefProc = "INSERT INTO georeferenzierungsprozess(messtischblattid, nutzerid, clipparameter_pure,\
-                 timestamp, isvalide, typevalidierung) VALUES (:mtbid, :userid, :clip_params, :timestamp, \
-                 :isvalide, :type);"
-        values_regGeorefProc = {'mtbid':self.messtischblatt.id,'userid':userid,'clip_params':clipParams,
-                                'timestamp':timestamp,'isvalide':isvalide,'type':typeValidation}
-        self.dbSession.execute(query_regGeorefProc, values_regGeorefProc)
+        georefProcess = Georeferenzierungsprozess(messtischblattid = self.messtischblatt.id, nutzerid = userid, 
+                clipparameter_pure = clipParams, timestamp = timestamp, isvalide = isvalide, typevalidierung = typeValidation)
+        self.dbSession.add(georefProcess)
         self.dbSession.flush()
-        
-        # for getting the georef id
-        query_getGeorefProcNr = "SELECT id FROM georeferenzierungsprozess WHERE timestamp = :timestamp \
-                                     AND messtischblattid = :mtbid;"
-        values_getGeorefProcNr = {'timestamp':timestamp,'mtbid':self.messtischblatt.id}
-        return self.dbSession.execute(query_getGeorefProcNr,values_getGeorefProcNr).fetchone()[0]
+        return georefProcess.id
     
-    """ method: confirmGeoreferenceProcess
-    
-        @param - userid {String}
-        @param - clipParams {Integer:Integer;...} - String list of points which are representing the georeference parameter
-        @param - isvalide {Boolean} - is true if the clipParams are checked for validation
-        @param - typeValidation {String} - could be 'waiting' or 'confirm' or 'disabled'
-        @param - georefid {Integer}
-        @return - georefid {Integer} - georeference process id from database
-        
-        @TODO - refactor to using orm mapper. Problem with the serials
-        
-        This method confirms a given georeference process or register a georeference process confirmed. """       
-    def confirmGeoreferenceProcess(self, userid=None, clipParams=None, isvalide=False, typeValidation='none', georefid=None):
-        # in this case a georeference process has to be registered and also the gcp have to be write 
-        # into the database
-        if userid and clipParams and typeValidation:
-            # register process
-            georefid = self.registerGeoreferenceProcess(userid, clipParams, isvalide, typeValidation)
-            self.logger.info("Georeference process with id %s registered!"%georefid)
-            
-            # register passpunkte
+    def confirmExistingGeoreferenceProcess(self, georefid, isvalide=False, typeValidation='user'):
             # get georef data from database and parse them
-            georefProc = Georeferenzierungsprozess.by_id(georefid)
-            self.updatePasspunkte(georefProc)
-            self.dbSession.commit()
-            self.logger.info("Ground control points for georeference process with id %s registered!"%georefid)
-            return georefid
-        elif georefid and typeValidation:
-            # get georef data from database and parse them
-            georefProc = Georeferenzierungsprozess.by_id(georefid)
+            georefProc = Georeferenzierungsprozess.by_id(georefid, self.dbSession)
             
             # change valdation status of georeference process in database
             georefProc.isvalide = isvalide
             georefProc.typevalidierung = typeValidation
             self.dbSession.flush()
-            self.logger.info("Change validation status of georeference process with id %s!"%georefid)
+            self.logger.debug("Change validation status of georeference process with id %s!"%georefid)
             
             # register passpunkte
-            self.updatePasspunkte(georefProc)
-            self.dbSession.commit()
-            self.logger.info("Ground control points for georeference process with id %s registered!"%georefid)
-            return georefid            
+            #self.updatePasspunkte(georefProc)
+            #self.dbSession.commit()
+            #self.logger.info("Ground control points for georeference process with id %s registered!"%georefid)
+            return georefid       
+             
+    """ method: confirmGeoreferenceProcess        
+        This method confirms a given georeference process or register a georeference process confirmed. 
+        
+        @param - userid {String}
+        @param - clipParams {Integer:Integer;...} - String list of points which are representing the georeference parameter
+        @param - isvalide {Boolean} - is true if the clipParams are checked for validation
+        @param - typeValidation {String} - could be 'waiting' or 'confirm' or 'disabled'
+        @param - georefid {Integer}"""       
+    def confirmNewGeoreferenceProcess(self, userid=None, clipParams=None, isvalide=False, typeValidation='none'):
+        # register process
+        georefid = self.registerGeoreferenceProcess(userid, clipParams, isvalide, typeValidation)
+        self.logger.debug("Georeference process with id %s registered!"%georefid)
+            
+        # register passpunkte
+        # get georef data from database and parse them
+        #georefProc = Georeferenzierungsprozess.by_id(georefid, self.dbSession)
+        #self.updatePasspunkte(georefProc)
+        #self.dbSession.commit()
+        #self.logger.info("Ground control points for georeference process with id %s registered!"%georefid)
+        return georefid         
     
     """ method: updatePasspunkte
     

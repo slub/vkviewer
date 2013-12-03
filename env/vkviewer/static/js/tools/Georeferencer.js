@@ -83,26 +83,17 @@ VK2.Tools.Georeferencer = {
 		},
 		
 		initializeGeoreferencerMap: function(mapContainer){
-			
-			// parse the query parameter from the page call and add a wms to the map
-			// via zoomify
-			var zoomify_prop = VK2.Utils.get_url_param('zoomify_prop');
-			var zoomify_url = VK2.Utils.Georef.getZoomifyUrl(zoomify_prop);
-			var zoomify_width = VK2.Utils.get_url_param('zoomify_width');
-			var zoomify_height = VK2.Utils.get_url_param('zoomify_height');
-			var layer_name = VK2.Utils.get_url_param('layer');
 
-			var zoomify = new OpenLayers.Layer.Zoomify(layer_name, zoomify_url,
-					new OpenLayers.Size( zoomify_width, zoomify_height));
-			
+			var zoomifyParams = VK2.Utils.Georef.parseZoomifyParamsFromUrl();
+			var zoomifyLayer = VK2.Utils.Georef.createZoomifyLayer(zoomifyParams['layer_name'], zoomifyParams['zoomify_url'],
+					zoomifyParams['zoomify_width'], zoomifyParams['zoomify_height'])
+					
 			// options for the georeferencer map
 			var options = {
 				units: "pixels",
-				maxExtent: new OpenLayers.Bounds(0,0,zoomify_width, zoomify_height),
-				maxResolution: Math.pow(2, zoomify.numberOfTiers-1),
+				maxExtent: new OpenLayers.Bounds(0,0,zoomifyParams['zoomify_width'], zoomifyParams['zoomify_height']),
+				maxResolution: Math.pow(2, zoomifyLayer.numberOfTiers-1),
 				numZoomLevels: 10, //zoomify.numberOfTiers,
-		        //resolutions : [12,6,3,1.5,0.75,0.375,0.1875,0.09375],
-		        //maxResolution: 12,
 				controls: [
 		                new OpenLayers.Control.Navigation(),
 		                new OpenLayers.Control.PanZoomBar({zoomWorldIcon:true}),
@@ -110,12 +101,63 @@ VK2.Tools.Georeferencer = {
 			};
 			
 			var map = new OpenLayers.Map( mapContainer, options);
-			map.addLayer(zoomify)
+			map.addLayer(zoomifyLayer)
 			map.zoomToMaxExtent();
 		
 			return map;
-		}
+		}, 
+		
+		getGeoreferenceTools: function(toolsPanel, toolsHandle, map){
+			var vectors = this.loadGeoreferenceTools(map);
+			this.loadGeoreferenceTabSlider(toolsPanel, toolsHandle);
+			return vectors;
+		},
+		
+		loadGeoreferenceTools: function(map){
+			
+			// load vector layer with specific stylemap amd specifc renderer
+			var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
+			renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
+			
+			var vectors = new OpenLayers.Layer.Vector("Eckpunkte", {
+				styleMap: VK2.Styles.FeatureLayerStyles._georeferenceLayerStyles,
+				renderers: renderer
+			});
+			map.addLayer(vectors);
+			this.updateVectorPointLayerFromUrl(vectors, 'points');
+			return vectors;
+		},
+		
+		loadGeoreferenceTabSlider: function(toolsPanel, toolsHandle){
+			$('#'+toolsPanel).tabSlideOut({
+			    tabHandle: '.'+toolsHandle,  
+			    pathToTabImage: $('#'+toolsHandle).attr('data-open'),       
+			    pathToTabImageClose: $('#'+toolsHandle).attr('data-close'),
+			    imageHeight: '40px',                               
+			    imageWidth: '40px',  
+			    speed: 300,           
+			    action: 'click',     
+			    topPos: '250px',      
+			    fixedPosition: false,
+			    onLoadSlideOut: true
+			});
+		},
+		
+		updateVectorPointLayerFromUrl: function(vectors, queryParam){
+			if (VK2.Utils.get_url_param(queryParam) !== ""){
+				returnpoints = VK2.Utils.get_url_param(queryParam).split(",");
+				for (zaehler in returnpoints) {
+					latLon = returnpoints[zaehler];
+					latLon = latLon.replace (/:/g, ",");
+					latLon = latLon.split(",");
+					kringel = new OpenLayers.Geometry.Point(latLon[0], latLon[1]);
+					vectors.addFeatures([new OpenLayers.Feature.Vector(kringel)]);
+				}	
+			}
+		},
+		
 
+		
 		
 }
 	

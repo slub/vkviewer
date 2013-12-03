@@ -2,9 +2,8 @@ import unittest
 import json
  
 from pyramid import testing
-from pyramid.config import Configurator
-from vkviewer.python.views.georeference import getPage_chooseGeorefMtb
 from webhelpers.paginate import Page
+from vkviewer.python.views.georeference.GetPage import getPage_chooseGeorefMtb
 from vkviewer.python.tests import BaseTestCase
  
 class ViewGetPage_chooseGeorefMtbTests(BaseTestCase):
@@ -35,3 +34,4 @@ class ViewGetPage_chooseGeorefMtbTests(BaseTestCase):
         result = getPage_chooseGeorefMtb(request)         
         print "Test: testGetPage_chooseGeorefMtb_Fail_MissingParams - Result: %s"%result        
         self.assertTrue(isinstance(result, dict))
+        

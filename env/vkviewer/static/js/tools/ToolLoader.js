@@ -69,5 +69,5 @@ VK2.Tools.ToolLoader = {
 			// init the layersearch and register it at the mainMap object
 			return new VK2.Tools.LayerSearch(document.getElementById(options.container),map,
 					initConfiguration.timeParameter,controller)
-		}
+		},
 }

@@ -1,4 +1,4 @@
-VK2.Styles.TimeFeatureLayerStyles = {
+VK2.Styles.FeatureLayerStyles = {
 		
 	    _defaultStyle: {
 	    		fillColor: "#ee9900",
@@ -21,6 +21,16 @@ VK2.Styles.TimeFeatureLayerStyles = {
 	    	fillColor: "#ee9900",
 	    	fillOpacity: "0",
 	    }),
+	    
+	    _georeferenceLayerStyles: new OpenLayers.StyleMap({ 
+	    	"default": new OpenLayers.Style({ 
+				pointRadius: 6, 
+				strokeColor: "#ff6103", 
+				fillColor: "#FF0000", 
+				fillOpacity: 0.4, 
+				strokeWidth: 2 
+			}) 
+		})
 	    
 
 }

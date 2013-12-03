@@ -15,7 +15,7 @@ def get_index_page(request):
     
     # checks if already a user cookie is set and if yes gives back the logged in view
     if checkIsUser(request):
-        target_url = request.route_url('home')
+        target_url = request.route_url('home_login')
         return HTTPFound(location = target_url)
     elif getCookie(request, 'welcomepage') == 'off':
         return {'welcomepage':'off'}

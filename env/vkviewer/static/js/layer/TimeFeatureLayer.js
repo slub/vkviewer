@@ -90,7 +90,7 @@ VK2.Layer.TimeFeatureLayer = VK2.Class({
     	
     	this._timeFtLayer = new OpenLayers.Layer.Vector(OpenLayers.Util.createUniqueID("TimeFeatureLayer_"),{
     		'displayInLayerSwitcher': false,
-    		styleMap: VK2.Styles.TimeFeatureLayerStyles._defaultStyleMap,
+    		styleMap: VK2.Styles.FeatureLayerStyles._defaultStyleMap,
             strategies: [
                          new OpenLayers.Strategy.BBOX(),
                          this._refresh

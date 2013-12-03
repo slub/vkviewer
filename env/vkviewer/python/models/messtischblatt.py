@@ -1,4 +1,7 @@
 from ..models import Base
+from vkviewer.python.georef.geometry import createBBoxFromPostGISString
+from vkviewer.settings import srid_database
+
 from sqlalchemy import Column, Integer, Boolean, String, DateTime, BINARY 
 from sqlalchemy.types import UserDefinedType
 from sqlalchemy import func, desc, ForeignKey
@@ -36,6 +39,7 @@ class Messtischblatt(Base):
     zoomify_properties = Column(String(255))
     zoomify_width = Column(Integer)
     zoomify_height = Column(Integer)
+    boundingbox = Column(Geometry)
     
     @classmethod
     def all(cls, session):
@@ -58,16 +62,20 @@ class Messtischblatt(Base):
     @property
     def slug(self):
         return urlify(self.dateiname)
- 
+    
     @property
-    def boundingbox(self, session):
-        query = 'SELECT st_astext(boundingbox) FROM messtischblatt WHERE id = :id;'
-        return session.execute(query,{'id':self.id}).fetchone()[0]
+    def BoundingBoxObj(self):
+        return createBBoxFromPostGISString(self.boundingbox, srid_database)
+ 
+#     @property
+#     def boundingbox(self, session):
+#         query = 'SELECT st_astext(boundingbox) FROM messtischblatt WHERE id = :id;'
+#         return session.execute(query,{'id':self.id}).fetchone()[0]
     
 class ViewRefGridMtb(Base):
     __tablename__ = 'view_refgridmtb'    
     blattnr = Column(String(255))
-    mtbid = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     time = Column(Integer)
     
     @classmethod
@@ -111,6 +119,10 @@ class Georeferenzierungsprozess(Base):
     @classmethod
     def by_id(cls, id, session):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.id == id).first()
+    
+    @classmethod 
+    def by_idAndTimestamps(cls, id, timestamp, session):
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.id == id, Georeferenzierungsprozess.timestamp == timestamp).first()
 
 
 

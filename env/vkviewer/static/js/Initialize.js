@@ -36,11 +36,7 @@ var addEvents = function(){
 	}
 	
 	// links footer
-	$('.vk2FooterLinks').each(function(){
-		$(this).fancybox({
-			'type': 'iframe'
-		});
-	})
+	VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
 	
 	// welcome page
 	if (document.getElementById("vk2WelcomePage")){

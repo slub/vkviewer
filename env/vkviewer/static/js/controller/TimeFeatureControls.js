@@ -108,14 +108,14 @@ VK2.Controller.TimeFeatureControls = (function(){
     	if (_lastSelectedFeatures.length != 0){
     		for (var i=0; i <_lastSelectedFeatures.length; i++) {
     			selectedFeature = _lastSelectedFeatures[i];
-    			_redrawHoverFeature(selectedFeature, VK2.Styles.TimeFeatureLayerStyles._defaultStyle);
+    			_redrawHoverFeature(selectedFeature, VK2.Styles.FeatureLayerStyles._defaultStyle);
     		}
     		_lastSelectedFeatures = [];
     	}
     	
     	if (typeof feature != 'undefined'){
     		// change styling of selected feature
-            var style = VK2.Styles.TimeFeatureLayerStyles._tmpStyle;
+            var style = VK2.Styles.FeatureLayerStyles._tmpStyle;
             style.label = occurence.toString();
             _redrawHoverFeature(feature, style);
             	

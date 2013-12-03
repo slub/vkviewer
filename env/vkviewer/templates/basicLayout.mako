@@ -78,34 +78,6 @@
         <%block name="sidebar" />
         ${next.body()}
         
-        <!-- Footer -->
-        <div id="vk2Footer" class="vk2Footer">
-        	<div class="footerContainer">
-        		<div class="leftside">
-        			<ul class="footerList">
-        				<li class="listelement thick leftborder">${_('footer_project_name')}</li>
-        				<li class="listelement">${_('footer_project_desc_long')}</li>
-        			</ul>
-        		</div>
-        		<div class="rightside">
-        		   	<ul class="footerList">
-        				<li class="listelement leftborder">
-        					<a href="${request.route_url('faq')}" class="vk2FooterLinks">FAQ</a>        				
-        				</li>
-        				<li class="listelement leftborder">
-         					<a href="${request.route_url('contact')}" class="vk2FooterLinks">${_('footer_contact')}</a>		
-        				</li>        				
-        				<li class="listelement leftborder">
-        					<a href="${request.route_url('contact')}" class="vk2FooterLinks">${_('footer_partners')}</a>    				
-        				</li>
-        				<li class="listelement">
-        					<a href="${request.route_url('impressum')}" class="vk2FooterLinks">${_('footer_editorial')}</a>
-        				</li>
-        			</ul>
-        		</div>
-        	</div>
-        </div>
-        
-        <%block name="appendix" />    
+   
       </body>
 </html>

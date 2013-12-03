@@ -38,8 +38,8 @@ def login(request):
         user = Users.by_username(login, dbsession)
         if user and user.validate_password(password):
             # define response header
-            userName = user.vorname+' '+user.nachname
-            headers = remember(request, userName)
+            #userName = user.vorname+' '+user.nachname
+            headers = remember(request, login)
             # get target url and route to it
             target_url = request.route_url('home_login')
             return HTTPFound(location = target_url, headers = headers)   
@@ -81,8 +81,8 @@ def register_new_user(request):
             dbsession.add(newUser)
 
             # define response header
-            userName = newUser.vorname+' '+newUser.nachname
-            headers = remember(request, userName)
+            #userName = newUser.vorname+' '+newUser.nachname
+            headers = remember(request, login)
             # get target url and route to it
             target_url = request.route_url('home_login')
             transaction.commit()

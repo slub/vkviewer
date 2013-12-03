@@ -51,7 +51,7 @@
     		"utils/Class.js",
     		"utils/Filter.js",
     		"utils/Validation.js",
-    		"styles/TimeFeatureLayerStyles.js",
+    		"styles/FeatureLayerStyles.js",
     		"controller/Mediator.js",
     		"controller/MapController.js",
     		"controller/TimeFeatureControls.js",

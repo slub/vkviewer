@@ -1,5 +1,18 @@
 VK2.Utils = {
 		
+		/**
+		 * Method: initializeFancyboxForClass
+		 * 
+		 * @param className {String}
+		 */
+		initializeFancyboxForClass: function(className){
+			// links footer
+			$('.'+className).each(function(){
+				$(this).fancybox({
+					'type': 'iframe'
+				});
+			})
+		},
 		
 		/**
 		 * Function: loadBaseMap

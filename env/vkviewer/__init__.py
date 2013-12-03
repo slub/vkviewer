@@ -40,7 +40,7 @@ def addRoutes(config):
     # add routes
     config.add_static_view(routePrefix+'/static', 'vkviewer:static/', cache_max_age=0)
     config.add_route('proxy', routePrefix+'/proxy/')
-    config.add_route('home', routePrefix, factory='python.security.EntryFactory')
+    config.add_route('home', '/'+routePrefix, factory='python.security.EntryFactory')
     config.add_route('home_login', routePrefix+'/auth', factory='python.security.EntryFactory')
 #    config.add_route('georef', routePrefix+'/georef', factory='python.security.EntryFactory')
     config.add_route('set_locales', 'locales', factory='python.security.EntryFactory')
@@ -106,6 +106,7 @@ def main(global_config, **settings):
     
     # add requiries
     config.include('pyramid_mako')
+    config.include('pyramid_tm')
     
     # configuration of the database
     loadDB(config, settings)
@@ -149,6 +150,7 @@ if __name__ == '__main__':
     
     # add requiries
     config.include('pyramid_mako')
+    config.include('pyramid_tm')
     
     # configuration of the database
     loadDB(config, settings, True)

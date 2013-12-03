@@ -182,12 +182,14 @@
                     slideIn();
                     setTabImage(settings.pathToTabImage,settings.imageWidth,
                         settings.imageWidth);
-                    settings.deactivateCallback(settings.toolKey);
+                    if (settings.deactivateCallback)
+                    	settings.deactivateCallback(settings.toolKey);
                 } else {
                     slideOut();
                     setTabImage(settings.pathToTabImageClose,settings.imageWidth,
                         settings.imageWidth);
-                    settings.activateCallback(settings.toolKey);
+                    if (settings.activateCallback)
+                    	settings.activateCallback(settings.toolKey);
                 }
             });
             
