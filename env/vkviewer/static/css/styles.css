@@ -27,6 +27,7 @@ html, body {
     padding:0;
     margin-right: auto !important;
     margin: 0;
+    overflow: hidden;
 }
 
 /* map stuff */
@@ -76,5 +77,9 @@ html, body {
 .ui-dialog .ui-state-error { padding: .3em; }
 
 .validateTips { border: 1px solid transparent; padding: 0.3em; }
+
+.fancybox-lock{
+	margin-right: 0 !important;
+}
 
 

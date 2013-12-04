@@ -22,6 +22,9 @@
 		</div>
 	</div>
 		
+	<!-- Link back to main page -->
+	<a id="anchorBackToIndexPage" class="anchorBackToIndexPage" target="_top"
+		 href="${request.route_url('home_login')}?georef=on"></a>
 </%block>
 
 <%block name="sidebar">

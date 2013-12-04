@@ -112,6 +112,14 @@ VK2.Utils.Georef = {
 		
 		addChooseGeoreferencerMtb: function(linkElement, map){
 			
+			var _checkIfActive = function(linkElement){
+				var urlParams = VK2.Utils.getAllUrlParams();
+				if ('georef' in urlParams){
+					if (urlParams['georef'] == 'on')
+						$(linkElement).click();
+				}
+			};
+			
 			var _removeGeorefLayer = function(map){
 				console.log("Remove Layer!");
 				
@@ -184,5 +192,7 @@ VK2.Utils.Georef = {
 					$(this).attr('status','disabled');
 				}
 			});
+			
+			_checkIfActive(linkElement);
 		}
 }

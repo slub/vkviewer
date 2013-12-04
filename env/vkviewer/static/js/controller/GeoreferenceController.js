@@ -50,6 +50,7 @@ VK2.Controller.GeoreferenceController = (function(){
 				validatePage: '../georeference/validate',
 				submitPage: '../auth'
 			},
+			anchorIndexPage: 'anchorBackToIndexPage',
 			urlParams: {},
 			status: 'georeference'
 			
@@ -144,6 +145,7 @@ VK2.Controller.GeoreferenceController = (function(){
 						success: function(data){
 							$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
 							console.log(data);
+							document.getElementById(_settings.anchorIndexPage).click();
 						},
 						error: function(data){
 							$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
@@ -178,6 +180,7 @@ VK2.Controller.GeoreferenceController = (function(){
 						success: function(data){
 							$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
 							console.log(data);
+							document.getElementById(_settings.anchorIndexPage).click();
 						},
 						error: function(data){
 							$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
