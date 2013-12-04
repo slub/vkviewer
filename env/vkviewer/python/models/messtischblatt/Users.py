@@ -1,16 +1,14 @@
-""" This module contains the models which are interconnected with the authentification """
 import os
 import sqlalchemy as sa
 from hashlib import sha1
-from ..models import Base
-from sqlalchemy import Column, Integer, Boolean, String, DateTime, BINARY, Sequence, Unicode
-from sqlalchemy import func, desc, ForeignKey
-from sqlalchemy.orm import relationship, backref
+from vkviewer.python.models.Meta import Base
+from sqlalchemy import Column, Integer, String, Sequence, Unicode
 from webhelpers.paginate import PageURL_WebOb, Page
 
 
 class Users(Base):
     __tablename__ = 'users'
+    __table_args__ = {'extend_existing':True}
     id = Column(Integer, Sequence('user_id_seq', optional=True), primary_key=True)
     login = Column(String(80))
     password = Column(Unicode(80))
@@ -68,13 +66,3 @@ class Users(Base):
         hashed_pass = sha1()
         hashed_pass.update(password + self.password[:40])
         return self.password[40:] == hashed_pass.hexdigest()
-
-
-class Fehlermeldung(Base):
-    __tablename__ = 'fehlermeldungen'
-    id = Column(Integer, primary_key=True)
-    fehlerbeschreibung = Column(String(255))
-    objektid = Column(Integer)
-    timestamp = Column(DateTime(timezone=False))
-    referenz = Column(String(255))
-    nutzerid = Column(String(255))  

@@ -1,21 +1,15 @@
-from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest, HTTPInternalServerError
-from pyramid.security import remember, forget
 
 # further tools
 import logging
-import os
 import json
-import transaction 
 
 # own import stuff
 from vkviewer import log
-from vkviewer.settings import tmp_dir, src_mapfilepath, dest_mapfilefolder, mapfileInitParameter
+from vkviewer.settings import tmp_dir
 from vkviewer.python.views.georeference.AbstractGeoreference import AbstractGeoreference
-from vkviewer.python.georef.georeferenceprocess import parsePixelCoordinates
 from vkviewer.python.georef.georeferenceprocess import createGeoreferenceProcess
-
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 
 """ View for handling the georeference process in case of a confirmation action.

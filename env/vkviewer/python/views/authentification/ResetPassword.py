@@ -1,6 +1,7 @@
 from pyramid.view import view_config
 
-from vkviewer.python.models.authentification import Users, Fehlermeldung
+from vkviewer.python.models.messtischblatt.Users import Users
+from vkviewer.python.models.messtischblatt.Fehlermeldung import Fehlermeldung
 from vkviewer.python.georef.utils import getTimestampAsPGStr
 import transaction
 import json

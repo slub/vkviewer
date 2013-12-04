@@ -1,3 +1,5 @@
+@import url("./georeference.css");
+
 html, body{
 	width: 100%;
 	height: 100%;	
@@ -19,27 +21,4 @@ html, body{
 	z-index: 1000;
 }
 
-.vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent{
-	padding: 5px;	
-}
 
-.vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent .ui-button-text {
-	font-size: 10px;
-}
-
-.vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent ul{
-	list-style-type: none;
-}
-
-/* Loading screen styling*/
-.georefLoadingScreen{
-	background-color:rgb(173,167,158);
-    opacity: 0.9;
-	z-index: 0;
-	width: 100%;
-	height: 100%;
-	display: none;
-	top: 0px;
-	left: 0px;
-	position: fixed;
-}

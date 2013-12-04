@@ -4,8 +4,6 @@ Created on Nov 8, 2013
 @author: mendt
 '''
 from pyramid.i18n import get_localizer, TranslationStringFactory
-from pyramid.events import NewRequest, subscriber
-from webob.acceptparse import Accept
 
 tsf = TranslationStringFactory('vkviewer')
 LOCALES = ('en', 'de')

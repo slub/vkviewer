@@ -1,6 +1,6 @@
 from pyramid.view import view_config
-from vkviewer.python.models.authentification import Users
-from vkviewer.python.models.messtischblatt import getCountOfGeorefMesstischblaetter
+from vkviewer.python.models.messtischblatt.Users import Users
+from vkviewer.python.models.messtischblatt.Utils import getCountOfGeorefMesstischblaetter
 from vkviewer import log
 
 @view_config(route_name='welcome', renderer='welcome.mako', permission='view',http_cache=0)

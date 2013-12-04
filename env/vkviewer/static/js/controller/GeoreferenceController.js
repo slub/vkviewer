@@ -45,15 +45,18 @@ VK2.Controller.GeoreferenceController = (function(){
 			},
 			loadingScreen: 'georefLoadingScreen',
 			urls: {
-				validate: '/validates',
-				submit: '/submits'
-			}
+				validate: '../georef/validate',
+				submit: '../georef/confirm',
+				validatePage: '../georeference/validate',
+				submitPage: '../auth'
+			},
+			urlParams: {},
+			status: 'georeference'
 			
 	};
 	
 	var _controls = {};
 
-	
 	var _loadOLControls = function(){
 		_controls = {
 			point: new OpenLayers.Control.DrawFeature(_settings.vectorLayer,
@@ -96,13 +99,108 @@ VK2.Controller.GeoreferenceController = (function(){
 		}
 	};
 	
+	var _goToValidationPage = function(data , points){
+		var href = _settings.urls.validatePage+'?points=' + points + "&";
+		// add old query parameter
+		for (var key in _settings.urlParams){
+			href = href + key + '=' + _settings.urlParams[key] + '&';
+		}
+		
+		// add new query parameter
+		var queryData = JSON.parse(data)
+		for (var key in queryData){
+			href = href + key + '=' + queryData[key] + '&';
+		}
+		
+		// create anchor and click it
+		var anchor = document.createElement('a');
+		anchor.href = href;
+		anchor.click();
+	}
+	
+	var _loadSubmitBtnClickEvents = function(){
+		var vectorLayer = _settings.vectorLayer;
+		
+		if (_settings.status == 'georeference') {
+			// event for confirming the georeference results
+			$('#'+_settings.formElements.btnSubmit).click(function(event){
+				if (_validateInputs(vectorLayer)){
+					var mtbid = _settings.urlParams['mtbid'];
+					var clipParams = document.getElementById(_settings.formElements.hiddenPoints).value;
+					console.log(mtbid);
+					console.log(clipParams);
+					
+					// set loading screen
+					$('#'+_settings.loadingScreen).css({'display':'block','z-index': '2000'});
+					
+					// send ajax request 
+					$.ajax({
+						'url': _settings.urls.submit,
+						'type': 'GET',
+						'data': {
+							'mtbid': mtbid,
+							'points': clipParams
+						},
+						success: function(data){
+							$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
+							console.log(data);
+						},
+						error: function(data){
+							$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
+							alert('Die Georeferenzierungsparameter konnten nicht registriert werden');
+						},
+						complete: function(data){
+							$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
+						}
+					})
+				} else {
+					console.log('inputs are not valide');
+				}
+			})
+		} else if ( _settings.status == 'validate') {
+			// event for confirming the georeference results
+			$('#'+_settings.formElements.btnSubmit).click(function(event){
+				if (_validateInputs(vectorLayer)){
+					var mtbid = _settings.urlParams['mtbid'];
+					var georefid = _settings.urlParams['georefid']
+					
+					// set loading screen
+					$('#'+_settings.loadingScreen).css({'display':'block','z-index': '2000'});
+					
+					// send ajax request 
+					$.ajax({
+						'url': _settings.urls.submit,
+						'type': 'GET',
+						'data': {
+							'mtbid': mtbid,
+							'georefid': georefid
+						},
+						success: function(data){
+							$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
+							console.log(data);
+						},
+						error: function(data){
+							$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
+							alert('Die Georeferenzierungsparameter konnten nicht bestätigt werden');
+						},
+						complete: function(data){
+							$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
+						}
+					})
+				} else {
+					console.log('inputs are not valide');
+				}
+			})
+		}
+	}
+	
 	var _loadBtnClickEvents = function(){
 		var vectorLayer = _settings.vectorLayer;
 		
 		// event for computing validation result
 		$('#'+_settings.formElements.btnValidate).click(function(event){
 			if (_validateInputs(vectorLayer)){
-				var mtbid = document.getElementById(_settings.formElements.hiddenMtbId).value;
+				var mtbid = _settings.urlParams['mtbid'];
 				var clipParams = document.getElementById(_settings.formElements.hiddenPoints).value;
 				console.log(mtbid);
 				console.log(clipParams);
@@ -120,7 +218,7 @@ VK2.Controller.GeoreferenceController = (function(){
 					},
 					success: function(data){
 						$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
-						console.log(data);
+						_goToValidationPage(data, clipParams)
 					},
 					error: function(data){
 						$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
@@ -134,6 +232,8 @@ VK2.Controller.GeoreferenceController = (function(){
 				console.log('inputs are not valide');
 			}
 		})
+		
+		_loadSubmitBtnClickEvents();
 	};
 	
 	var _loadClickEvents = function(){
@@ -147,6 +247,7 @@ VK2.Controller.GeoreferenceController = (function(){
 			return false;
 		} else {
 			var hiddenElement = document.getElementById(_settings.formElements.hiddenPoints);
+			hiddenElement.value = "";
 			for (var i in vectorLayer.features) {
 				hiddenElement.value = hiddenElement.value + vectorLayer.features[i].geometry.x + ":" +
 					vectorLayer.features[i].geometry.y; 

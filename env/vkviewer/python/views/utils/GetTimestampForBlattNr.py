@@ -3,7 +3,7 @@ from pyramid.view import view_config
 
 # database imports
 from sqlalchemy.exc import DBAPIError
-from vkviewer.python.models.messtischblatt import ViewRefGridMtb
+from vkviewer.python.models.messtischblatt.ViewRefGridMtb import ViewRefGridMtb
 
 # renderer imports
 import json

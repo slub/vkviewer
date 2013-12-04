@@ -2,7 +2,7 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.security import remember
 
-from vkviewer.python.models.authentification import Users
+from vkviewer.python.models.messtischblatt.Users import Users
 import json
 
 """ this view checks if the login is registered in the database and gets the vorname/nachname and 

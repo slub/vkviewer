@@ -127,7 +127,18 @@ VK2.Utils = {
 		         }
 		     return plaintext;
 		},
-
+		
+		getAllUrlParams: function(){ 
+			var queryString = window.location.search.substring(1);
+			var vars = queryString.split('&');
+			var queryDict = {}
+			for (var i = 0; i < vars.length; i++){
+				var pair = vars[i].split('=');
+				queryDict[pair[0]] = decodeURIComponent(pair.slice(1).join('='))
+			}
+			return queryDict;
+		},
+		
 		/**
 		 * Function: get_url_param
 		 * This function parse the value for a given query parameter from get request

@@ -3,12 +3,12 @@ Created on May 30, 2013
 
 @author: mendt
 '''
-from vkviewer.python.models.messtischblatt import Messtischblatt, Georeferenzierungsprozess
+from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
+from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError, GeoreferenceProcessRunningError
 from vkviewer.python.georef.utils import getTimestampAsPGStr, runCommand
 from vkviewer.python.georef.georeferenceutils import getGCPsAsString, addGCPToTiff, georeferenceTiff, getGCPs
 from vkviewer.settings import srid_database
-import transaction
 
 import shutil
 import tempfile
@@ -86,14 +86,14 @@ class GeoreferenceProcess(object):
             # parse the pixelcoordinates, match them to the correct geographic corner and create
             # ground control points
             parsedLatLonCoords = parsePixelCoordinates(clipParams)       
-            gcps =  getGCPsAsString(parsedLatLonCoords, self.messtischblatt.archivpfad_vk2,
+            gcps =  getGCPsAsString(parsedLatLonCoords, self.messtischblatt.tmpdir_zoomify_jpg,
                                 self.boundingbox.getCornerPointsAsList())
             return gcps
         else:
             # parse the pixelcoordinates, match them to the correct geographic corner and create
             # ground control points
             parsedLatLonCoords = parsePixelCoordinates(clipParams)       
-            gcps =  getGCPs(parsedLatLonCoords, self.messtischblatt.archivpfad_vk2,
+            gcps =  getGCPs(parsedLatLonCoords, self.messtischblatt.tmpdir_zoomify_jpg,
                                 self.boundingbox.getCornerPointsAsList())
             return gcps
     
@@ -117,7 +117,7 @@ class GeoreferenceProcess(object):
         if type == 'fast':
             # command for adding the ground control points to the tif
             pathAddingGcps = os.path.join(tmpDir,"gcpTiff.tif")
-            commands.append(addGCPToTiff(gcps,self.srid,self.messtischblatt.archivpfad_vk2,
+            commands.append(addGCPToTiff(gcps,self.srid,self.messtischblatt.tmpdir_zoomify_jpg,
                                          pathAddingGcps))
             commands.append(georeferenceTiff(shpPath,self.srid,pathAddingGcps,destPath,'fast'))
         
@@ -173,11 +173,11 @@ class GeoreferenceProcess(object):
         
         @TODO - refactor to using orm mapper. Problem with the serials
         This method register the georeference process in the database. """
-    def registerGeoreferenceProcess(self, userid=None, clipParams=None, isvalide=False, typeValidation='none'):
+    def registerGeoreferenceProcess(self, userid=None, clipParams=None, isvalide=False, typeValidation='none', refzoomify=True):
         # get timestamp
         timestamp = getTimestampAsPGStr()
         georefProcess = Georeferenzierungsprozess(messtischblattid = self.messtischblatt.id, nutzerid = userid, 
-                clipparameter_pure = clipParams, timestamp = timestamp, isvalide = isvalide, typevalidierung = typeValidation)
+                clipparameter_pure = clipParams, timestamp = timestamp, isvalide = isvalide, typevalidierung = typeValidation, refzoomify = refzoomify)
         self.dbSession.add(georefProcess)
         self.dbSession.flush()
         return georefProcess.id

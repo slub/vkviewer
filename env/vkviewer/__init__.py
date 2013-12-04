@@ -25,7 +25,7 @@ from zope.sqlalchemy import ZopeTransactionExtension
 from settings import dbconfig
 from python.security import EntryFactory
 from python.proxy import proxy_post
-from python.models import initialize_sql, Base
+from python.models.Meta import initialize_sql, Base
 from python.i18n import custom_locale_negotiator
 #from python.models.meta import DBSession, Base, initialize_sql
 
@@ -40,7 +40,7 @@ def addRoutes(config):
     # add routes
     config.add_static_view(routePrefix+'/static', 'vkviewer:static/', cache_max_age=0)
     config.add_route('proxy', routePrefix+'/proxy/')
-    config.add_route('home', '/'+routePrefix, factory='python.security.EntryFactory')
+    config.add_route('home', routePrefix, factory='python.security.EntryFactory')
     config.add_route('home_login', routePrefix+'/auth', factory='python.security.EntryFactory')
 #    config.add_route('georef', routePrefix+'/georef', factory='python.security.EntryFactory')
     config.add_route('set_locales', 'locales', factory='python.security.EntryFactory')
@@ -55,6 +55,7 @@ def addRoutes(config):
     config.add_route('choose_map_georef',routePrefix+'/choosegeoref', factory='python.security.EntryFactory')
     config.add_route('georeferencer', routePrefix+'/georef/{action}', factory='python.security.EntryFactory')
     config.add_route('georeference_start', routePrefix+'/georeference/start', factory='python.security.EntryFactory')
+    config.add_route('georeference_validate', routePrefix+'/georeference/validate', factory='python.security.EntryFactory')
     
     # footer routes
     config.add_route('faq', routePrefix+'/faq', factory='python.security.EntryFactory')

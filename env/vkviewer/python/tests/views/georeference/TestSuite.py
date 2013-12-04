@@ -6,6 +6,7 @@ from GetPageTest import ViewGetPage_chooseGeorefMtbTests
 def test_suite():
     suite = unittest.TestSuite()
     loader = unittest.TestLoader()
+    
     suite.addTests(loader.loadTestsFromTestCase(ViewGetPage_chooseGeorefMtbTests))
     suite.addTests(loader.loadTestsFromTestCase(ViewGeoreferenceValidateTest))
     suite.addTests(loader.loadTestsFromTestCase(ViewGeoreferenceConfirmTest_Short))
@@ -13,4 +14,4 @@ def test_suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.TextTestRunner(verbosity=2).run(suite())
+    unittest.TextTestRunner(verbosity=2).run(test_suite())

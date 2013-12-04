@@ -14,8 +14,12 @@
 		<div id="georeferenceMap" class="georeferenceMap"></div>			
 	</div>
 	
+	<!-- Loading overlay screen -->
 	<div id="georefLoadingScreen" class="georefLoadingScreen">
-		<h2>Loading ... </h2>
+		<div class="centerLoading">
+			<center><h2>Loading ... </h2></center>
+			<img src="${request.static_url('vkviewer:static/images/ajax_loader.gif')}" />
+		</div>
 	</div>
 		
 </%block>
@@ -65,13 +69,15 @@
 <script>
 	$(document).ready(function(){
 		VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
-	
-		var map = VK2.Tools.Georeferencer.initializeGeoreferencerMap('georeferenceMap');
-		var vectors = VK2.Tools.Georeferencer.getGeoreferenceTools('vk2GeoreferenceToolsPanel', 'vk2GeoreferenceToolsHandle', map);
-		document.getElementById("mtbid").value = VK2.Utils.get_url_param('mtbid');		
-		VK2.Controller.GeoreferenceController.initialize({
+
+		var urlParams = VK2.Utils.getAllUrlParams();
+		var map = VK2.Utils.Georef.initializeGeoreferencerMap('georeferenceMap', urlParams);
+		var georeferenceTool = new VK2.Tools.Georeferencer({
+			container: 'vk2GeoreferenceToolsPanel',
+			handler: 'vk2GeoreferenceToolsHandle',
 			map: map,
-			vectorLayer: vectors
+			controller: VK2.Controller.GeoreferenceController,
+			urlParams: urlParams
 		});
 	});
 </script>

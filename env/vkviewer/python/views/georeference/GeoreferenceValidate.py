@@ -4,7 +4,6 @@ from pyramid.httpexceptions import HTTPBadRequest, HTTPInternalServerError
 # further tools
 import os
 import json
-import transaction 
 
 # own import stuff
 from vkviewer import log

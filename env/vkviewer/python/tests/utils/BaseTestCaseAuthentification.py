@@ -1,7 +1,7 @@
 import transaction
 from pyramid import testing
 from vkviewer.python.tests.utils.BaseTestCase import BaseTestCase
-from vkviewer.python.models.authentification import Users
+from vkviewer.python.models.messtischblatt.Users import Users
 
 login = 'test_pyramid'
 password = 'test_pyramid'

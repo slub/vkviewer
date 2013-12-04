@@ -111,7 +111,7 @@ var addTools = function(map){
 	
 	// add Georeferencer
 	if (checkIfToolContainerIsInit(toolOptions['vk2georeferencer']['container']))
-		VK2.Tools.Georeferencer.addChooseGeoreferencerMtb(document.getElementById('vk2GeorefHandle'),map)
+		VK2.Utils.Georef.addChooseGeoreferencerMtb(document.getElementById('vk2GeorefHandle'),map)
 	
 	// initialize MapController
 	MapController.initialize(map,{
