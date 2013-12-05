@@ -2,6 +2,8 @@
 <%inherit file="basicFooterLayout.mako"/>       
 
 <%block name="headerJsCss">
+    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
+    	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/tools/Georeferencer.css')}" />  
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/georeferenceValidate.css')}" />
 	<script src="${request.static_url('vkviewer:static/lib/jquery.tabSlideOut.js')}"></script> 
 	<script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script>
@@ -46,35 +48,6 @@
 			title="${_('tool_titel_georeference')}"></a>
 		
 		<!-- Georeference Tools Content -->
-		<div class="vk2GeoreferenceToolsContent">
-
-			<ul id="controlsList" class="controlsList">
-				<li>
-					<input type="radio" name="type" value="none" id="noneToggle" checked="checked" />
-					<label for="noneToggle">Karte verschieben</label>
-				</li>
-				<li>
-					<input type="radio" name="type" value="point" id="pointToggle" />
-					<label for="pointToggle">Eckpunkt setzen</label>
-				</li>
-				<li>
-					<input type="radio" name="type" value="drag" id="dragToggle" />
-					<label for="dragToggle">Eckpunkt verschieben</label>
-				</li>
-				<li>
-					<input type="radio" name="type" value="delete" id="deleteToggle" />
-					<label for="polygonToggle">Eckpunkt löschen</label>
-				</li><br>
-				
-				<input type="hidden" id="points" name="points">
-				<input type="hidden" id="mtbid" name="mtbid">
-				<input type="button" value="Vorschau aktualisieren" id="btnValidate"
-						class="ui-button-text-icon ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-text"><br>
-				<input type="button" value="Georeferenzierung bestätigen" id="btnSubmit"
-				 		class="ui-button-text-icon ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-text">
-			</ul>
-			
-		</div>
 	</div>
 
 </%block>

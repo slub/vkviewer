@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-28 15:42+0100\n"
-"PO-Revision-Date: 2013-11-28 15:49+0100\n"
+"POT-Creation-Date: 2013-12-05 10:26+0100\n"
+"PO-Revision-Date: 2013-12-05 10:28+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -18,9 +18,41 @@ msgstr ""
 "Generated-By: Babel 1.3\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: vkviewer/templates/contact.mako:23 vkviewer/templates/index.mako:93
+#: vkviewer/templates/basicFooterLayout.mako:30
+msgid "footer_project_name"
+msgstr "Virtuelles Kartenforum 2.0"
+
+#: vkviewer/templates/basicFooterLayout.mako:31
+msgid "footer_project_desc_long"
+msgstr "ein Projekt der SLUB Dresden und der Universität Rostock"
+
+#: vkviewer/templates/basicFooterLayout.mako:47
+#: vkviewer/templates/contact.mako:23
 msgid "footer_contact"
 msgstr "Kontakt"
+
+#: vkviewer/templates/basicFooterLayout.mako:50
+msgid "footer_partners"
+msgstr "Partner"
+
+#: vkviewer/templates/basicFooterLayout.mako:53
+#: vkviewer/templates/impressum.mako:23
+msgid "footer_editorial"
+msgstr "Impressum"
+
+#: vkviewer/templates/basicIndexLayout.mako:19
+#: vkviewer/templates/login_screen.mako:17
+msgid "js_library"
+msgstr "de"
+
+#: vkviewer/templates/basicIndexLayout.mako:37
+msgid "placeholder_town_name"
+msgstr "Ortsname"
+
+#: vkviewer/templates/basicIndexLayout.mako:43
+#: vkviewer/templates/basicIndexLayout.mako:46
+msgid "in_progress"
+msgstr "In arbeit"
 
 #: vkviewer/templates/contact.mako:24 vkviewer/templates/impressum.mako:28
 msgid "slubname_start"
@@ -46,9 +78,71 @@ msgstr "Besucheradresse"
 msgid "contact_person"
 msgstr "Ansprechpartner"
 
-#: vkviewer/templates/impressum.mako:23 vkviewer/templates/index.mako:99
-msgid "footer_editorial"
-msgstr "Impressum"
+#: vkviewer/templates/faqGeorefStart.mako:25
+msgid "faq_georef_heading"
+msgstr "FAQ - Georeferenzierung"
+
+#: vkviewer/templates/faqGeorefStart.mako:33
+msgid "faq_georef_body_li_1"
+msgstr ""
+"Auf Kartenbildecke in maximaler Stufe zoomen (mit Doppelklick/Mausrad in "
+"Karte oder Klick in Blattübersich (u.r.))"
+
+#: vkviewer/templates/faqGeorefStart.mako:34
+msgid "faq_georef_body_li_2"
+msgstr ""
+"Kontrollbox (s.o.) selektieren und 'Eckpunkt setzen|verschieben|löschen' "
+"wählen"
+
+#: vkviewer/templates/faqGeorefStart.mako:35
+msgid "faq_georef_body_li_3"
+msgstr ""
+"Innere Kartenbildecken suchen und Punkt setzen. Für alle 4 Kartenbildecken "
+"wiederholen (siehe Abb.)"
+
+#: vkviewer/templates/faqGeorefStart.mako:37
+msgid "faq_georef_body_li_4"
+msgstr ""
+"[Empfohlen]: Auf \"Vorschau Georeferenzierung\" klicken zur Begutachtung der "
+"Punkteauswahl. Das Ergebnis \t\t\t\t der Georeferenzierung wird überlagert "
+"über eine OSM-Karte angezeigt."
+
+#: vkviewer/templates/faqGeorefStart.mako:38
+msgid "faq_georef_body_li_5"
+msgstr ""
+"[Alternativ]: Auf \"Absenden ohne Vorschau\" klicken falls Punkte bereits "
+"optimal gesetzt"
+
+#: vkviewer/templates/faqGeorefStart.mako:40
+#: vkviewer/templates/faqGeorefStart.mako:41
+msgid "faq_georef_body_tip"
+msgstr "Tipp"
+
+#: vkviewer/templates/faqGeorefStart.mako:40
+msgid "faq_georef_body_tip_1"
+msgstr "Schnelles Hereinzoomen mit Shift+Linksklick (Box aufziehen)"
+
+#: vkviewer/templates/faqGeorefStart.mako:41
+msgid "faq_georef_body_tip_2"
+msgstr "Schnelles Herauszoomen mit Klick auf Globus in Kartenkontrolle"
+
+#: vkviewer/templates/faqGeorefValidate.mako:25
+#| msgid "faq_georef_heading"
+msgid "faq_georef_validate_heading"
+msgstr "FAQ - Validierung der Georeferenzierung"
+
+#: vkviewer/templates/faqGeorefValidate.mako:31
+#| msgid "faq_georef_body_li_1"
+msgid "faq_georef_validate_body_li_1"
+msgstr ""
+"Nach Begutachtung der Vorschau (Karte rechts) die bisher gesetzten Punkte "
+"(Karte links) bei Bedarf bearbeiten und 'Vorschau aktualisieren' klicken, "
+"bzw. Georeferenzierung direkt mit 'Georeferenzierung bestätigen' bestätigen."
+
+#: vkviewer/templates/georeferenceStart.mako:36
+#: vkviewer/templates/georeferenceValidate.mako:49
+msgid "tool_titel_georeference"
+msgstr "Starte Georeferenzierung"
 
 #: vkviewer/templates/impressum.mako:25
 msgid "editorial_introduction"
@@ -137,57 +231,33 @@ msgstr ""
 msgid "privacy_policy"
 msgstr "Datenschutzerklärung"
 
-#: vkviewer/templates/index.mako:32 vkviewer/templates/login_screen.mako:17
-msgid "js_library"
-msgstr "de"
-
-#: vkviewer/templates/index.mako:52
-msgid "placeholder_town_name"
-msgstr "Ortsname"
-
-#: vkviewer/templates/index.mako:58 vkviewer/templates/index.mako:61
-msgid "in_progress"
-msgstr "In arbeit"
-
-#: vkviewer/templates/index.mako:83
-msgid "footer_project_name"
-msgstr "Virtuelles Kartenforum 2.0"
-
-#: vkviewer/templates/index.mako:84
-msgid "footer_project_desc_long"
-msgstr "ein Projekt der SLUB Dresden und der Universität Rostock"
-
-#: vkviewer/templates/index.mako:96
-msgid "footer_partners"
-msgstr "Partner"
-
-#: vkviewer/templates/index_georef.mako:7
-msgid "tool_titel_georef"
-msgstr "Starte Georeferenzierung"
-
-#: vkviewer/templates/index_login.mako:19
+#: vkviewer/templates/index.mako:19
 msgid "login_as_who"
 msgstr "angemeldet als"
 
-#: vkviewer/templates/index_login.mako:22
+#: vkviewer/templates/index.mako:22
 msgid "logout_button"
 msgstr "Abmelden"
 
-#: vkviewer/templates/index_login.mako:41
+#: vkviewer/templates/index.mako:41
 msgid "login_description"
 msgstr "Einloggen"
 
-#: vkviewer/templates/index_login.mako:44
+#: vkviewer/templates/index.mako:44
 msgid "login_button"
 msgstr "Anmelden"
 
-#: vkviewer/templates/index_login.mako:66
+#: vkviewer/templates/index.mako:66
 msgid "tool_titel_search"
 msgstr "Suche Messtischblätter"
 
-#: vkviewer/templates/index_login.mako:72
+#: vkviewer/templates/index.mako:72
 msgid "tool_titel_layer_manage"
 msgstr "Auswahl Messtischblätter"
+
+#: vkviewer/templates/indexLoggedIn.mako:7
+msgid "tool_titel_georef"
+msgstr "Starte Georeferenzierung"
 
 #: vkviewer/templates/login_screen.mako:25
 msgid "loginScreen_reset_pw_btn"

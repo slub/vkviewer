@@ -13,8 +13,110 @@ VK2.Tools.Georeferencer = VK2.Class({
 		map: null,
 		controller: VK2.Controller.GeoreferenceController,
 		vectorLayer: null,
-		status: 'georeference'
+		status: 'georeference' // possible characteristics: 'georeference' or 'validate'
 	},
+	
+	_loadHTMLContent: function(){
+		var toolContainer = $('<div/>', {
+			'class': 'GeoreferenceToolsContent'
+		}).appendTo('#vk2GeoreferenceToolsPanel');
+		
+		var unorderedList = $('<ul/>', {
+			'id': 'controlsList',
+			'class': 'controlsList'
+		}).appendTo(toolContainer);
+		
+		// create tool list elements
+		var moveMapEl = $('<li/>').appendTo(unorderedList);
+		$('<input/>', {
+			'type': 'radio',
+			'name': 'type',
+			'value': 'none',
+			'id': 'noneToggle',
+			'checked': 'checked'
+		}).appendTo(moveMapEl);
+		$('<label/>', {
+			'for': 'noneToggle',
+			'html': VK2.Utils.get_I18n_String('moveMap')	
+		}).appendTo(moveMapEl);
+		
+		var setPointEl = $('<li/>').appendTo(unorderedList);
+		$('<input/>', {
+			'type': 'radio',
+			'name': 'type',
+			'value': 'point',
+			'id': 'pointToggle'
+		}).appendTo(setPointEl);
+		$('<label/>', {
+			'for': 'pointToggle',
+			'html': VK2.Utils.get_I18n_String('setCornerPoint')	
+		}).appendTo(setPointEl);
+		
+		var movePointEl = $('<li/>').appendTo(unorderedList);
+		$('<input/>', {
+			'type': 'radio',
+			'name': 'type',
+			'value': 'drag',
+			'id': 'dragToggle'
+		}).appendTo(movePointEl);
+		$('<label/>', {
+			'for': 'dragToggle',
+			'html': VK2.Utils.get_I18n_String('moveCornerPoint')	
+		}).appendTo(movePointEl);
+		
+		var delPointEl = $('<li/>').appendTo(unorderedList);
+		$('<input/>', {
+			'type': 'radio',
+			'name': 'type',
+			'value': 'delete',
+			'id': 'deleteToggle'
+		}).appendTo(delPointEl);
+		$('<label/>', {
+			'for': 'deleteToggle',
+			'html': VK2.Utils.get_I18n_String('deleteCornerPoint')
+		}).appendTo(delPointEl);
+		
+		// append further input elements
+		$('<br/>').appendTo(unorderedList);
+		$('<input/>', {
+			'type':'hidden',
+			'id': 'mtbid',
+			'name': 'mtbid'
+		}).appendTo(unorderedList);
+		
+		$('<input/>', {
+			'type':'hidden',
+			'id': 'points',
+			'name': 'points'
+		}).appendTo(unorderedList);
+		
+		this._loadHTMLEventBtns(unorderedList);
+	},
+	
+	_loadHTMLEventBtns: function(unorderedList){
+		var valueValidateBtn, valueSubmitBtn = '';
+		if (this._settings.status == 'georeference'){
+			valueValidateBtn = VK2.Utils.get_I18n_String('validateBtn_georeference');
+			valueSubmitBtn = VK2.Utils.get_I18n_String('submitBtn_georeference');
+		} else if (this._settings.status == 'validate'){
+			valueValidateBtn = VK2.Utils.get_I18n_String('validateBtn_validate');
+			valueSubmitBtn = VK2.Utils.get_I18n_String('submitBtn_validate');			
+		};		
+			
+		$('<input/>', {
+			'type':'button',
+			'id': 'btnValidate',
+			'class': 'vk2GeorefToolsBtn',
+			'value': valueValidateBtn
+		}).appendTo(unorderedList);
+		
+		$('<input/>', {
+			'type':'button',
+			'id': 'btnSubmit',
+			'class': 'vk2GeorefToolsBtn',
+			'value': valueSubmitBtn
+		}).appendTo(unorderedList);		
+	}, 
 	
 	_loadLayerPointsFromUrl: function(){
 		if ('points' in this._settings.urlParams){		
@@ -80,7 +182,8 @@ VK2.Tools.Georeferencer = VK2.Class({
 	},
 	
 	initialize: function(settings){
-		this._updateSettings(settings);		
+		this._updateSettings(settings);	
+		this._loadHTMLContent();
 		this._loadGeoreferenceTools();
 		document.getElementById("mtbid").value = VK2.Utils.get_url_param('mtbid');
 		this._initializeGeoreferenceController();

@@ -15,8 +15,7 @@
     <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
     
     <!-- vk2 librarys -->
-    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>
-    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>	
+    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>	
     
     <!-- init the vkviewer application -->
     <script>

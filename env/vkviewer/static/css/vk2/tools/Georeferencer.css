@@ -1,0 +1,8 @@
+.vk2GeoreferenceToolsPanel{
+	width: 200px;
+}
+
+.vk2GeoreferenceToolsPanel .vk2GeorefToolsBtn{
+	float:left;
+	position: relative;
+}

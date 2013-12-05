@@ -8,7 +8,18 @@ var lang_dictionary = {
 		'titel': 'Titel',
 		
 		// They are assigned to the Gazetteersearch module
-		'noResultsBlattnr': 'Diese Blattnummer wird vom Virtuellen Kartenforum 2.0 nicht unterstüzt!'
+		'noResultsBlattnr': 'Diese Blattnummer wird vom Virtuellen Kartenforum 2.0 nicht unterstüzt!',
+			
+		// They are assigned to the Georeference Tools
+		'moveMap': 'Karten verschieben',
+		'setCornerPoint': 'Eckpunkt setzen',
+		'moveCornerPoint': 'Eckpunkt verschieben',
+		'deleteCornerPoint': 'Eckpunkt löschen',
+		'validateBtn_georeference': 'Vorschau Georeferenzieren',
+		'submitBtn_georeference': 'Absenden ohne Vorschau',
+		'validateBtn_validate': 'Vorschau aktualisieren',
+		'submitBtn_validate': 'Georeferenzierung bestätigen'
+		
 }
 	
 

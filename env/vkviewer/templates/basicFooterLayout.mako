@@ -15,7 +15,11 @@
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />       
       	<script src="${request.static_url('vkviewer:static/lib/jquery.js')}"></script>
       	<script src="${request.static_url('vkviewer:static/lib/jquery-ui.js')}"></script>
-      	<script src="${request.static_url('vkviewer:static/lib/jquery.fancybox.js')}"></script>    
+      	<script src="${request.static_url('vkviewer:static/lib/jquery.fancybox.js')}"></script> 
+      	
+      	<!-- javascript internationalization --> 
+      	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
+      	  
       	<%block name="headerJsCss" />
       	  	
     </head>
