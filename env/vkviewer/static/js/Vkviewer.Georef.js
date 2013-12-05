@@ -55,6 +55,7 @@
     		"controller/Mediator.js",
     		"controller/GeoreferenceController.js",
     		"tools/Georeferencer.js",
+    		"tools/ReportError.js",
     		"styles/FeatureLayerStyles.js",
     		"Initialize.Configuration.js"
     );

@@ -16,3 +16,4 @@ def getCookie(request, cookieName):
         return cookiesDict[cookieName]
     else:
         return ''
+

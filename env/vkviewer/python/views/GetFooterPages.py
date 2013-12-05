@@ -18,7 +18,7 @@ def kontakt_page(request):
 """"
 FAQ Pages
 """
-@view_config(route_name='faq', renderer='faq.mako', permission='view',http_cache=0)
+@view_config(route_name='faq', renderer='faqMainPage.mako', permission='view',http_cache=0)
 def faq_mainPage(request):
     return {}
 

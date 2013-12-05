@@ -1,9 +1,3 @@
-/**
- * function: addGeoreferencer
- * 
- * This functions adds a sidebar panel + behavior for getting into the georeference process 
- * on the front page.
- */
 VK2.Tools.Georeferencer = VK2.Class({
 	
 	_settings: {

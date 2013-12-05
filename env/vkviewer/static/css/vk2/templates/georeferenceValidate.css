@@ -1,4 +1,7 @@
+@import url("./styles.css");
 @import url("./georeference.css");
+@import url("../tools/ReportError.css");
+@import url("../tools/Georeferencer.css");
 
 html, body{
 	width: 100%;
@@ -49,4 +52,14 @@ html, body{
 	border: 1px solid black;
 	z-index: 1000;
 }
+
+.vk2GeoreferenceReportErrorPanel{
+	position: absolute;
+	top: 400px;
+	left: 0px;
+	width: 40px;
+	heihgt: 40px;
+	z-index: 1000;
+}
+
 

@@ -2,8 +2,6 @@
 <%inherit file="basicFooterLayout.mako"/>       
 
 <%block name="headerJsCss">
-    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
-    	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/tools/Georeferencer.css')}" />  
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/georeferenceValidate.css')}" />
 	<script src="${request.static_url('vkviewer:static/lib/jquery.tabSlideOut.js')}"></script> 
 	<script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script>
@@ -50,6 +48,12 @@
 		<!-- Georeference Tools Content -->
 	</div>
 
+	<!-- report error btn -->
+	<div id="vk2GeoreferenceReportErrorPanel" class="vk2GeoreferenceReportErrorPanel">
+		<img id="vk2GeoreferenceReportErrorHandle" class="vk2GeoreferenceReportErrorHandle" 
+			src="${request.static_url('vkviewer:static/images/close.png')}" 
+			title="${_('report_error_titel')}"></a>
+	</div>
 </%block>
 
 <script>
@@ -74,5 +78,10 @@
 			status: 'validate'
 		});
 
+		// init report error
+		var reportErrorTools = new VK2.Tools.ReportError({});
+		$('#vk2GeoreferenceReportErrorPanel').click(function(){
+			reportErrorTools.reportError(urlParams['mtbid'], 'messtischblatt');
+		});
 	});
 </script>

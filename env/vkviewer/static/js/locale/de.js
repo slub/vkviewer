@@ -18,7 +18,14 @@ var lang_dictionary = {
 		'validateBtn_georeference': 'Vorschau Georeferenzieren',
 		'submitBtn_georeference': 'Absenden ohne Vorschau',
 		'validateBtn_validate': 'Vorschau aktualisieren',
-		'submitBtn_validate': 'Georeferenzierung bestätigen'
+		'submitBtn_validate': 'Georeferenzierung bestätigen',
+		
+		// report error
+		'report_error_alert': 'Fehler konnte nicht gemeldet werden. Bitte wenden Sie sich an die Administrator dieser Seite.',
+		'report_error_titel': 'Fehlerbeschreibung Blatt',
+		'report_error_confirmed': 'Fehler wurde gemeldet',
+		'report_error_btn_submit': 'Senden',
+		'report_error_btn_cancel': 'Abbrechen'
 		
 }
 	

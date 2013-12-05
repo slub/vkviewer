@@ -33,35 +33,35 @@ VK2.Controller.TimeFeatureControls = (function(){
     var _loadControls = function(){
     	_controls = [];
     	
-        var hoverFeatureEvent = new OpenLayers.Control.SelectFeature(_registeredLayer,{
-        	highlightOnly: true,
-        	hover: true,
-        	overFeature: $.proxy(function(feature) {
-        		$.ajax({
-        			url: VK2.Utils.getHost('/vkviewer/gettimestamps'),
-        			type: 'GET',
-        			data: {
-        				'blattnr': feature.data.blattnr
-        			},
-        			success: $.proxy(function( data ){  
-        				// parse response
-        				jsonObj = $.parseJSON(data)
-        				// change styling of selected feature
-        				_changeHoverFeature(feature, jsonObj.occurence);
-		
-        				// add timestamps to feature 
-        				feature.timestamps = jsonObj.timestamps;
-        			}, this)
-        		});
-        	}, this),
-        	outFeature: $.proxy(function(feature) {
-        		_changeHoverFeature();
-
-        		// remove timestamps from feature 
-        		feature.timestamps = '';
-        	},this)
-        });
-        _controls.push(hoverFeatureEvent);
+//        var hoverFeatureEvent = new OpenLayers.Control.SelectFeature(_registeredLayer,{
+//        	highlightOnly: true,
+//        	hover: true,
+//        	overFeature: $.proxy(function(feature) {
+//        		$.ajax({
+//        			url: VK2.Utils.getHost('/vkviewer/gettimestamps'),
+//        			type: 'GET',
+//        			data: {
+//        				'blattnr': feature.data.blattnr
+//        			},
+//        			success: $.proxy(function( data ){  
+//        				// parse response
+//        				jsonObj = $.parseJSON(data)
+//        				// change styling of selected feature
+//        				_changeHoverFeature(feature, jsonObj.occurence);
+//		
+//        				// add timestamps to feature 
+//        				feature.timestamps = jsonObj.timestamps;
+//        			}, this)
+//        		});
+//        	}, this),
+//        	outFeature: $.proxy(function(feature) {
+//        		_changeHoverFeature();
+//
+//        		// remove timestamps from feature 
+//        		feature.timestamps = '';
+//        	},this)
+//        });
+//        _controls.push(hoverFeatureEvent);
         
         var clickFeatureEvent = new OpenLayers.Control.SelectFeature(_registeredLayer,{
             clickout: true,

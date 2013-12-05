@@ -19,4 +19,11 @@ var lang_dictionary = {
 		'submitBtn_georeference': 'Submit without preview',
 		'validateBtn_validate': 'Update preview',
 		'submitBtn_validate': 'Confirm georeferencing'
+			
+		// report error
+		'report_error_alert': 'Problems while notify error. Please contact the administrator.',
+		'report_error_titel': 'Error report for messtischblatt',
+		'report_error_confirmed': 'Error reported!',
+		'report_error_btn_submit': 'Submit',
+		'report_error_btn_cancel': 'Canel'
 }
