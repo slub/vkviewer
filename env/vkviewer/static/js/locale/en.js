@@ -18,7 +18,7 @@ var lang_dictionary = {
 		'validateBtn_georeference': 'Preview georeferencing',
 		'submitBtn_georeference': 'Submit without preview',
 		'validateBtn_validate': 'Update preview',
-		'submitBtn_validate': 'Confirm georeferencing'
+		'submitBtn_validate': 'Confirm georeferencing',
 			
 		// report error
 		'report_error_alert': 'Problems while notify error. Please contact the administrator.',

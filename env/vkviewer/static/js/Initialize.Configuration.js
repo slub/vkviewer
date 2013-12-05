@@ -31,7 +31,9 @@ var initConfiguration = {
     timeParameter: {
             extent: null,
             time: null,
-            wms: "http://194.95.145.43/cgi-bin/mtbows",
+            wms: "http://194.95.145.43/mapcache", //"http://194.95.145.43/cgi-bin/mtbows",
+            wms_layer: "messtischblaetter", //"Historische Messtischblaetter",
+            wfs: "http://194.95.145.43/cgi-bin/mtbows",
             layer: "Historische Messtischblaetter",
             featureType: "Historische_Messtischblaetter_WFS",
             featurePrefix: "ms",

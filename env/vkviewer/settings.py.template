@@ -4,4 +4,18 @@ Created on Nov 1, 2013
 @author: mendt
 '''
 
-dbconfig = ''
+dbconfig = 'postgresql+psycopg2://user:password@host:port/database'
+srid_database = 4314
+
+
+# global parameter georeference process
+tmp_dir = '~/tmp/georef'
+src_mapfilepath = "~/tmp/georef/templates/dynamic_template.map"
+dest_mapfilefolder = "~/tmp/georef/tmp"
+mapfileInitParameter = {"METADATA":{
+        "wms_srs":"epsg:900913 epsg:3857 epsg:4314 epsg:31468 epsg:4326 epsg:25833 epsg:2398",
+        "wms_onlineresource":"http://localhost/cgi-bin/mapserv?",
+        "wms_enable_request":"*","wms_titel":"Temporary Messtischblatt WMS",
+        "wms_contactorganization":"Saxon State and University Library Dresden (SLUB)",
+        "wms_contactperson":"Jacob Mendt", "wms_contactelectronicmailaddress":"Jacob.Mendt@slub-dresden.de",
+        "wms_abstract":"This WMS provides the original Messtischblaetter without an spatial coordinate system."}}

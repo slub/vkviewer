@@ -9,7 +9,7 @@ VK2.Layer.Vk2Layer = function(params){
 	var vk2Layer = new OpenLayers.Layer.WMS(params.layer,
         params.wms,
         {
-                layers: params.layer,
+                layers: params.wms_layer,
                 type:	"png",
                 format: "image/png",
                 transparent: 'true',
@@ -24,7 +24,7 @@ VK2.Layer.Vk2Layer = function(params){
 	vk2Layer.timeFtLayer = new VK2.Layer.TimeFeatureLayer(	
 			vk2Layer,
 	        new OpenLayers.Protocol.WFS({
-	            "url": params.wms,
+	            "url": params.wfs,
 	            "geometryName": params.geometryName,
 	            "featureNS" :  params.featureNS,
 	            "featurePrefix": params.featurePrefix,

@@ -295,7 +295,7 @@ VK2.Tools.LayerSearch = VK2.Class({
 	_addTimeSearchLayer: function(){        
         // add overlay vector layer for displaying where are reference mtbs
         this._features = new OpenLayers.Protocol.WFS({
-            "url": this._timeParameter.wms,
+            "url": this._timeParameter.wfs,
             "geometryName": this._timeParameter.geometryName,
             "featureNS" :  this._timeParameter.featureNS,
             "featurePrefix": this._timeParameter.featurePrefix,
