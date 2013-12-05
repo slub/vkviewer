@@ -56,6 +56,7 @@
     		"controller/Mediator.js",
     		"controller/MapController.js",
     		"controller/TimeFeatureControls.js",
+    		"layer/GeoreferenceSearchLayer.js",
     		"layer/TimeFeatureLayer.js",
     		"layer/Vk2Layer.js",
     		"tools/Gazetteersearch.js",

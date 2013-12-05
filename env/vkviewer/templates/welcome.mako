@@ -47,7 +47,7 @@
 		    	###
 		    	### Occurrence georeferenced messtischblaetter
 		    	###
-		    	% if occurrence_mtbs:
+		    	
 		    	<div class="vk2GeorefResultsOverviewContainer">
 			    	<h4>Aktuelle Georeferenzierungsprojekt</h4>
 			    	<p>

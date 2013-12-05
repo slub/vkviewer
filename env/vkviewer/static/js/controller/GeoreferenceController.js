@@ -115,6 +115,7 @@ VK2.Controller.GeoreferenceController = (function(){
 		
 		// create anchor and click it
 		var anchor = document.createElement('a');
+		document.body.appendChild(anchor);
 		anchor.href = href;
 		anchor.click();
 	}
@@ -221,6 +222,7 @@ VK2.Controller.GeoreferenceController = (function(){
 					},
 					success: function(data){
 						$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
+						console.log(data)
 						_goToValidationPage(data, clipParams)
 					},
 					error: function(data){
@@ -229,6 +231,7 @@ VK2.Controller.GeoreferenceController = (function(){
 					},
 					complete: function(data){
 						$('#'+_settings.loadingScreen).css({'display':'none','z-index': '0'});
+						console.log(data)
 					}
 				})
 			} else {

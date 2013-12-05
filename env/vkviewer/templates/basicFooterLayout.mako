@@ -33,9 +33,16 @@
         		</div>
         		<div class="rightside">
         		   	<ul class="footerList">
+        		   	
+        		   		% if faq_url:
+         				<li class="listelement leftborder">
+        					<a href="${faq_url}" class="vk2FooterLinks">FAQ</a>        				
+        				</li>       		   		
+        		   		% else:
         				<li class="listelement leftborder">
         					<a href="${request.route_url('faq')}" class="vk2FooterLinks">FAQ</a>        				
         				</li>
+        				% endif
         				<li class="listelement leftborder">
          					<a href="${request.route_url('contact')}" class="vk2FooterLinks">${_('footer_contact')}</a>		
         				</li>        				

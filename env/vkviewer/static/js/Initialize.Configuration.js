@@ -5,21 +5,28 @@
 
 var initConfiguration = {
     mapOptions: {
-    		// OL map options
-            projection: new OpenLayers.Projection("EPSG:900913"),
-            displayProjection: new OpenLayers.Projection("EPSG:900913"),
-            units: "m",
-            maxExtent: new OpenLayers.Bounds(649298.418677,6023923.548885,2559976.222682,7538212.572142),
-            restrictedExtent: new OpenLayers.Bounds(649298.418677,6023923.548885,2559976.222682,7538212.572142),
-            resolutions : [4891.969810251280,2445.984905125640,1222.992452562820,611.4962262814100,305.7481131407048,152.8740565703525,76.43702828517624,
-                           38.21851414258813,19.10925707129406,9.554628535647032,4.777314267823516],
-            maxResolution: 4891.96981025128025066806,
-            minResolution: 4.777314267823516,
+    		// OL Map options
+	        maxExtent: new OpenLayers.Bounds(640161.933,5958026.134,2661768.457,7817626.892),
+	        restrictedExtent: new OpenLayers.Bounds(640161.933,5958026.134,2661768.457,7817626.892),
+			projection: new OpenLayers.Projection("EPSG:900913"),
+	        displayProjection: new OpenLayers.Projection("EPSG:900913"),
+	        units: "m",
             // start extent of the OL map 
-            startExtent: new OpenLayers.Bounds(1363755.5807007,6493091.556489,1669503.6937989,6737690.0469676),
-            numZoomLevels: 10,
-            //startExtent: new OpenLayers.Bounds(1582718.2265964,6599560.9210406,1594804.8316924,6605847.8666162)
+            startPoint: new OpenLayers.LonLat(1528150, 6630500)
     },
+    
+    mapnikOptions: {
+    		resolutions: [1222.9924523925781,611.4962261962891,305.74811309814453,152.87405654907226,76.43702827453613,
+           			  38.218514137268066,19.109257068634033,9.554628534317017,4.777314267158508,2.388657133579254,1.194328566789627
+            ],
+            serverResolutions : [156543.03390625,78271.516953125,39135.7584765625,19567.87923828125,9783.939619140625,4891.9698095703125,
+                        2445.9849047851562,1222.9924523925781,611.4962261962891,305.74811309814453,152.87405654907226,76.43702827453613,
+                        38.218514137268066,19.109257068634033,9.554628534317017,4.777314267158508,2.388657133579254,1.194328566789627,
+                        0.5971642833948135
+            ]
+
+    },
+    
     // parameter of the time wms
     timeParameter: {
             extent: null,

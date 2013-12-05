@@ -9,8 +9,8 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
 requires = [
+    'pyramid_mako',
     'pyramid',
-    'pyramid_chameleon',
     'pyramid_debugtoolbar',
     'SQLAlchemy',
     'zope.sqlalchemy',

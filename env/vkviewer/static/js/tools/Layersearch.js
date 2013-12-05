@@ -44,7 +44,7 @@ VK2.Tools.LayerSearch = VK2.Class({
      * Attribute: _restrictedZoomLevel
      * {Integer}
      */
-    _restrictedZoomLevel: 8,
+    _restrictedZoomLevel: 2,
     
     /**
      * Attribute: _isActive
@@ -62,9 +62,8 @@ VK2.Tools.LayerSearch = VK2.Class({
         showSearchResultNumber: function(e){  
         	console.log('Type: '+e.type);
         	console.log('Features: '+this.features.length);
-        	
         	var headerContentDiv = $('#vk2LSHeaderContent');
-        	if (this.map.getZoom() >= 8 && this.getVisibility()){        	
+        	if (this.map.getZoom() >= 2 && this.getVisibility()){        	
 	        	headerContentDiv.html(this.features.length+" Messtischblätter gefunden.")	
 	        	if (headerContentDiv.hasClass( 'ui-state-error' ))
 	        		headerContentDiv.removeClass( 'ui-state-error' );

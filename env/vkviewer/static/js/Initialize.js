@@ -9,7 +9,7 @@ var initVkViewer = function(mapContainer){
 	
     // init the mainMap object
 	VK2.Utils.setGenericOpenLayersPropertys("vkviewer/proxy/?url=");
-    var map = VK2.Utils.loadBaseMap(mapContainer,initConfiguration.mapOptions);
+    var map = VK2.Utils.loadBaseMap(mapContainer,initConfiguration.mapOptions, initConfiguration.mapnikOptions);
     
     // add different behaviour like events to the map
     addEvents();

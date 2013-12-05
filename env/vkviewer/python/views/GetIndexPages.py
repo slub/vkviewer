@@ -20,7 +20,7 @@ def get_index_page(request):
 """ basic start site but logged in """
 @view_config(route_name='home_login', renderer='indexLoggedIn.mako', permission='edit',http_cache=0)
 def get_index_page_loggedIn(request):
-    return {'welcomepage':'off'}
+    return {'welcomepage':'off', 'faq_url': request.route_url('faq')}
 
 
 

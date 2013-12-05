@@ -21,10 +21,10 @@ def getPage_chooseGeorefMtb(request):
 @view_config(route_name='georeference_start', renderer='georeferenceStart.mako', permission='edit',http_cache=0)
 def getPage_GeoreferenceStart(request):
     log.info('Call view getPage_GeoreferenceStart.')
-    return {}
+    return {'faq_url': request.route_url('faq_georef_start')}
 
 
 @view_config(route_name='georeference_validate', renderer='georeferenceValidate.mako', permission='edit',http_cache=0)
 def getPage_GeoreferenceValidate(request):
     log.info('Call view getPage_GeoreferenceStart.')
-    return {}
+    return {'faq_url': request.route_url('faq_georef_validate')}

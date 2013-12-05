@@ -39,16 +39,18 @@ var MapController = (function(){
 //				}
 //			},
 			
-			// event which restricted the zoom
-			'zoomend': function(){
-				console.log("Zoomend: "+this.getZoom())
-				var x = this.getZoom();
-				if( x < 5) {
-					this.setCenter(this.getCenter(), 5);
-				} else if (x > 15) {
-					this.setCenter(this.getCenter(), 15);
-	            }				
-			},
+//			// event which restricted the zoom
+//			// @deprecated because of restricted mapnik resolutions
+//			'zoomend': function(){
+//				console.log("Zoomend: "+this.getZoom())
+//				var x = this.getZoom();
+//				if( x < 5) {
+//					debugger;
+//					this.setCenter(this.getCenter(), 5);
+//				} else if (x > 15) {
+//					this.setCenter(this.getCenter(), 15);
+//	            }				
+//			},
 			
 			
 //			'zoomend': function(){

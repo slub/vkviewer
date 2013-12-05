@@ -120,62 +120,11 @@ VK2.Utils.Georef = {
 				}
 			};
 			
-			var _removeGeorefLayer = function(map){
-				console.log("Remove Layer!");
-				
-				// remove the layergrid and select
-				var layerGrid = map.getLayersByName("georeferencer_wms_1")[0];
-				var select = map.getLayersByName("georeferencer_select_1")[0];
-				map.removeLayer(layerGrid);
-				map.removeLayer(select);
-				
-				// remove controls
-				var control = map.getControlsBy('name','georeferencer_control_1')[0]
-				map.removeControl(control);
-			};
-			
-			var _addGeorefLayer = function(map){
-				console.log("Add Layer!");
-				
-				// add the grid as wms 
-				var layerGrid = initConfiguration.georeference_grid.wms;
-
-				// add selectlayer to the map
-				var select = new OpenLayers.Layer.Vector("georeferencer_select_1",{
-					styleMap: new OpenLayers.Style(OpenLayers.Feature.Vector.style["select"])
-				});
-				map.addLayers([layerGrid,select]);
-				
-				// create and register control for handling select feature events
-				var control = new OpenLayers.Control.GetFeature({
-					name: "georeferencer_control_1",
-		            protocol: initConfiguration.georeference_grid.wfs	
-				});
-				
-				control.events.register("featureselected", this, function(e){
-					select.addFeatures([e.feature]);
-					console.log("MTB "+e.feature.attributes.blattnr+", ID "+e.feature.attributes.id+" holen und anzeigen");
-
-		            // display data in fancybox
-					var targetHref = VK2.Utils.getHost('vkviewer/choosegeoref?blattnr=') + e.feature.attributes.blattnr;
-		            $.fancybox.open([
-		                { 
-		                    'href': targetHref,
-		        			'width': '100%',
-		        			'height': '100%',
-		        			'type': 'iframe'
-		                }
-		            ]);
-				});
-				
-				control.events.register("featureunselected", this, function(e) {
-					select.removeFeatures([e.feature]);
-					console.log("Feature unselected!");
-				});
-				
-				map.addControl(control);
-				control.activate();
-			};
+			var georefLayer = new VK2.Layer.GeoreferenceSearchLayer({
+				wmsLayer: initConfiguration.georeference_grid.wms,
+				requestWfs:  initConfiguration.georeference_grid.wfs,
+				map: map
+			})
 			
 			// on initialize set the status of the linkElement to disabled
 			$(linkElement).attr('status','disabled');
@@ -185,10 +134,12 @@ VK2.Utils.Georef = {
 				var status = $(this).attr('status');
 				
 				if (status == 'disabled'){
-					_addGeorefLayer(map);
+					//_addGeorefLayer(map);
+					georefLayer.activate();
 					$(this).attr('status','enabled');
 				} else if (status == 'enabled'){
-					_removeGeorefLayer(map);
+					//_removeGeorefLayer(map);
+					georefLayer.deactivate();
 					$(this).attr('status','disabled');
 				}
 			});

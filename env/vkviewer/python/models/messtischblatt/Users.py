@@ -25,6 +25,7 @@ class Users(Base):
         self.vorname = vorname
         self.nachname = nachname
         self.groups = 'default'
+        self.bonuspunkte = 0
     
     @classmethod
     def by_id(cls, userid, dbsession):

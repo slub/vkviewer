@@ -20,39 +20,27 @@ VK2.Utils = {
 		 *
 		 * @param mapContainer {DOMElement}
 		 * @param mapConfiguration {Object} OpenLayers.Map.Configuration
+		 * @param mapnikConfiguration {Object} 
 		 * @return {OpenLayers.Map}
 		 */
-		loadBaseMap: function(mapContainer, mapConfiguration){
+		loadBaseMap: function(mapContainer, mapConfiguration, mapnikConfiguration){
 		         // init the map object 
 		         var map = new OpenLayers.Map(mapContainer, mapConfiguration);
 		        
 		         // loads the base layers
 				 //openstreetmap mapnik
-		         var mapnik = new OpenLayers.Layer.OSM("Mapnik");
+		         var mapnik = new OpenLayers.Layer.OSM("Mapnik", "", mapnikConfiguration);
 
-//		       var mapnik = new OpenLayers.Layer.OSM("Mapnik",
-//		    		   ["http://a.tile.openstreetmap.org/${z}/${x}/${y}.png",
-//		    		    "http://b.tile.openstreetmap.org/${z}/${x}/${y}.png",
-//		    		    "http://c.tile.openstreetmap.org/${z}/${x}/${y}.png"],
-//		    		    {
-//				    	 resolutions: [1222.9924523925781,611.4962261962891,305.74811309814453,152.87405654907226,76.43702827453613,
-//				                   38.218514137268066,19.109257068634033,9.554628534317017,4.777314267158508,2.388657133579254,1.194328566789627
-//				         ],
-////		    	   		 zoomOfSet: 10,
-//				    	 serverResolutions : [156543.03390625,78271.516953125,39135.7584765625,19567.87923828125,9783.939619140625,
-//				    	                   2445.9849047851562,1222.9924523925781,611.4962261962891,305.74811309814453,152.87405654907226,76.43702827453613,
-//				    	                   38.218514137268066,19.109257068634033,9.554628534317017,4.777314267158508,2.388657133579254,1.194328566789627,
-//				    	                   ,0.5971642833948135
-//				    	 ]
-//		    		    }
-//		       );
 				    
 				 // add the base layers to the map
 				 map.addLayers([mapnik]); 
 				         
+				 map.addControl(new OpenLayers.Control.MousePosition({element:document.getElementById("idPosition"), numDigits:3, prefix:"EPSG:900913 : "}));
+				 
+				 
 		         // zoom to startExtent 
-		         map.zoomToExtent(mapConfiguration.startExtent);
-				 //map.setCenter(new OpenLayers.LonLat(-9208448.7478114,13344939.50767), 2);
+		        // map.zoomToExtent(mapConfiguration.startExtent);
+				 map.setCenter(mapConfiguration.startPoint, 2);
 		         return map;
 		         
 		},
