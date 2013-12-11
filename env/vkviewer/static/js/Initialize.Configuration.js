@@ -41,7 +41,8 @@ var initConfiguration = {
             geometryName: "boundingbox",
             serviceVersion: "1.0.0",
             maxFeatures: 10000,
-            srsName: "EPSG:900913"
+            srsName: "EPSG:900913",
+            maxResolution: 305.74811309814453
     },
     georeference_grid: {
     	wms: new OpenLayers.Layer.WMS("georeferencer_wms_1",

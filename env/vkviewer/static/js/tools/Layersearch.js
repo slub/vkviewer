@@ -307,7 +307,7 @@ VK2.Tools.LayerSearch = VK2.Class({
         
         this._timeLayer = new OpenLayers.Layer.Vector("Messtischblaetter",{
             'displayInLayerSwitcher':false,
-            'maxResolution': 1222.9924523925781,
+            'maxResolution': this._timeParameter.maxResolution,
             visibility: false,
             strategies: [new OpenLayers.Strategy.BBOX({ratio:2}),this._refresh],
             protocol: this._features,
