@@ -12,5 +12,5 @@ def set_locale_cookie(request):
             language = request.registry.settings.default_locale_name
         response = Response()
         response.set_cookie('_LOCALE_', value=language, max_age=31536000)
-        target_url = request.route_url('home')
+        target_url = request.route_url('home', _query={'welcomepage':'off'})
     return HTTPFound(location = target_url, headers = response.headers)

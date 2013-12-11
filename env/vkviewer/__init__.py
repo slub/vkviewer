@@ -63,6 +63,8 @@ def addRoutes(config):
     config.add_route('partner', routePrefix+'/partner', factory='python.security.EntryFactory')
     config.add_route('impressum', routePrefix+'/impressum', factory='python.security.EntryFactory')
     config.add_route('faq', routePrefix+'/faq', factory='python.security.EntryFactory')
+    config.add_route('faq_loggedIn', routePrefix+'/faq/loggedin', factory='python.security.EntryFactory')
+    
     # further faqs
     config.add_route('faq_georef_start', routePrefix+'/faq/georef/start', factory='python.security.EntryFactory')
     config.add_route('faq_georef_validate', routePrefix+'/faq/georef/validate', factory='python.security.EntryFactory')

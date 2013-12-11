@@ -22,6 +22,10 @@ FAQ Pages
 def faq_mainPage(request):
     return {}
 
+@view_config(route_name='faq_loggedIn', renderer='faqLoggedIn.mako', permission='view',http_cache=0)
+def faq_mainPage_loggedIn(request):
+    return {}
+
 @view_config(route_name='faq_georef_start', renderer='faqGeorefStart.mako', permission='view',http_cache=0)
 def faq_georefStartPage(request):
     return {}

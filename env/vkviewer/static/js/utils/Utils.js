@@ -33,9 +33,8 @@ VK2.Utils = {
 
 				    
 				 // add the base layers to the map
-				 map.addLayers([mapnik]); 
-				         
-				 map.addControl(new OpenLayers.Control.MousePosition({element:document.getElementById("idPosition"), numDigits:3, prefix:"EPSG:900913 : "}));
+				 map.addLayers([mapnik]);       
+				 //map.addControl(new OpenLayers.Control.MousePosition({element:document.getElementById("idPosition"), numDigits:3, prefix:"EPSG:900913 : "}));
 				 
 				 
 		         // zoom to startExtent 

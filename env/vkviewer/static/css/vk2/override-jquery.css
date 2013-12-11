@@ -1,0 +1,7 @@
+/* jquery styles */
+.ui-dialog .ui-state-error { padding: .3em; }
+
+/* disables the background moving of the page in case of an overlay */
+.fancybox-lock{
+	margin-right: 0 !important;
+}

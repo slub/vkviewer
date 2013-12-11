@@ -8,19 +8,24 @@ from vkviewer import log
 def get_index_page(request):  
     log.info('Call view get_index_page.')
     
+    # checks if welcome page is activate
+    withWelcomePage = ''
+    if 'welcomepage' in request.params:
+        withWelcomePage = request.params['welcomepage']
+        
     # checks if already a user cookie is set and if yes gives back the logged in view
     if checkIsUser(request):
         target_url = request.route_url('home_login')
         return HTTPFound(location = target_url)
-    elif getCookie(request, 'welcomepage') == 'off':
-        return {'welcomepage':'off'}
+    elif getCookie(request, 'welcomepage') == 'off' or withWelcomePage == 'off':
+        return {'welcomepage':'off', 'faq_url': request.route_url('faq')}
     else: 
-        return {}
+        return {'faq_url': request.route_url('faq')}
 
 """ basic start site but logged in """
 @view_config(route_name='home_login', renderer='indexLoggedIn.mako', permission='edit',http_cache=0)
 def get_index_page_loggedIn(request):
-    return {'welcomepage':'off', 'faq_url': request.route_url('faq')}
+    return {'welcomepage':'off', 'faq_url': request.route_url('faq_loggedIn')}
 
 
 

@@ -1,0 +1,17 @@
+.olControlAttribution{
+	display: none !important;
+}
+
+.olControlMousePosition{
+	bottom: 40px !important;
+	right: 20px !important;
+}
+
+/* position of the OL zoom/pan control */
+.olControlPanZoomBar{
+    top: 80px !important;
+}
+
+.olControlZoom{
+	top: 80px !important;
+}

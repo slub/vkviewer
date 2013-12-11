@@ -5,7 +5,8 @@
     Description:
         Purpose of the stylesheet follows.
 */
-/*@import url("./zeitschnitt_styles.css");*/
+@import url("./vk2/override-ol.css");
+@import url("./vk2/override-jquery.css");
 @import url("./vk2/tools/header.css");
 @import url("./vk2/tools/footer.css");
 @import url("./vk2/tools/LayerManagement.css");
@@ -15,10 +16,7 @@
 @import url("./vk2/tools/georef.css");
 @import url("./vk2/tools/TimeViewer.css");
 
-.olControlMousePosition{
-	bottom: 40px !important;
-	right: 20px !important;
-}
+
 
 html, body {
     font-family: Arial;
@@ -64,22 +62,11 @@ html, body {
 	top: 250px !important;
 }
 
-/* position of the OL zoom/pan control */
-.olControlPanZoomBar{
-    top: 80px !important;
-}
 
-.olControlZoom{
-	top: 80px !important;
-}
 
-/* jquery styles */
-.ui-dialog .ui-state-error { padding: .3em; }
+
 
 .validateTips { border: 1px solid transparent; padding: 0.3em; }
 
-.fancybox-lock{
-	margin-right: 0 !important;
-}
 
 
