@@ -84,7 +84,7 @@ VK2.Tools.ReportError = VK2.Class({
 	},
 	
 	initialize: function(settings){
-		this._updateSettings();
+		this._updateSettings(settings);
 		this._loadHTMLContent();
 		this._loadJQDialog();
 	},
