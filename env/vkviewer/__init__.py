@@ -59,7 +59,7 @@ def addRoutes(config):
     
     # footer routes
     config.add_route('contact', routePrefix+'/contact', factory='python.security.EntryFactory')
-    config.add_route('partner', routePrefix+'/partner', factory='python.security.EntryFactory')
+    config.add_route('project', routePrefix+'/project', factory='python.security.EntryFactory')
     config.add_route('impressum', routePrefix+'/impressum', factory='python.security.EntryFactory')
     config.add_route('faq', routePrefix+'/faq', factory='python.security.EntryFactory')
     config.add_route('faq_loggedIn', routePrefix+'/faq/loggedin', factory='python.security.EntryFactory')

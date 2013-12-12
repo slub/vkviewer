@@ -44,33 +44,7 @@
 					Tel.: +49 351 4677-123
 					<br />  
 					E-Mail: <a href="mailto:Generaldirektion@slub-dresden.de">Generaldirektion@slub-dresden.de</a> 
-					 <br /> 
-					 <br />
-					 ${_('tax_identification_number')}:  DE 190021717 
 				</p>
-				<h4 class="slubcolor">${_('bank_connection')}</h4>
-				<table class="zebratable">
-					<tr>
-						<th scope="col">Ostsächsische Sparkasse Dresden</th>
-						<th scope="col"></th>
-					</tr>
-					<tr>
-						<td>Kto.-Nr.</td>
-						<td>31 55 82 5005</td>
-					</tr>
-					<tr>
-						<td>BLZ</td>
-						<td>850 503 00</td>
-					</tr>
-					<tr>
-						<td>IBAN</td>
-						<td>DE 09 8505 0300 3155 825005</td> 
-					</tr>
-					<tr>
-						<td>BIC</td>
-						<td>OSDD DE81</td>
-					</tr>
-				</table>
 				<h4 class="slubcolor">${_('representative')}</h4>
 				<p>
 					${_('representative_first')}

@@ -51,7 +51,7 @@
          					<a href="${request.route_url('contact')}" class="vk2FooterLinks">${_('footer_contact')}</a>		
         				</li>        				
         				<li class="listelement leftborder">
-        					<a href="${request.route_url('partner')}" class="vk2FooterLinks">${_('footer_partners')}</a>    				
+        					<a href="${request.route_url('project')}" class="vk2FooterLinks">${_('footer_project')}</a>    				
         				</li>
         				<li class="listelement">
         					<a href="${request.route_url('impressum')}" class="vk2FooterLinks">${_('footer_editorial')}</a>

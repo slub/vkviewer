@@ -35,7 +35,23 @@
 	            <div class="vk2Menubar">
 	            	<div class="vk2MenubarDropDowns">
 		            	<div id="vk2GeneralDiv" class="vk2GeneralDiv">
-							<a id="vk2GeneralLink" class="vk2GeneralLink" title="${_('in_progress')}"></a>
+		            		<ul id="vk2GeneralDropDown" class="vk2GeneralDropDown">
+		            			<li>
+									<a id="vk2GeneralLink" class="vk2GeneralLink" title="${_('dropdown_menu')}"></a>
+									<div id="vk2GeneralDropDownContent" class="vk2GeneralDropDownContent">
+										
+										% if faq_url:
+         									<a href="${faq_url}" class="vk2FooterLinks">FAQ</a>        				
+        						       	% else:
+        									<a href="${request.route_url('faq')}" class="vk2FooterLinks">FAQ</a>
+        								% endif
+        								
+         								<a href="${request.route_url('contact')}" class="vk2FooterLinks">${_('footer_contact')}</a>		
+        								<a href="${request.route_url('project')}" class="vk2FooterLinks">${_('footer_project')}</a>
+        								<a href="${request.route_url('impressum')}" class="vk2FooterLinks">${_('footer_editorial')}</a>    				
+									</div>
+								</li>
+							</ul>
 						</div>
 						<div id="vk2UserDiv" class="vk2UserDiv">
 							<a id="vk2UserLink" class="vk2UserLink" title="${_('in_progress')}"></a>

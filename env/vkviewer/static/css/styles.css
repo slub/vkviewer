@@ -7,11 +7,10 @@
 */
 @import url("./vk2/override-ol.css");
 @import url("./vk2/override-jquery.css");
-@import url("./vk2/tools/header.css");
-@import url("./vk2/tools/footer.css");
+@import url("./vk2/tools/Header.css");
 @import url("./vk2/tools/Layerbar.css");
 @import url("./vk2/tools/Layersearch.css");
-@import url("./vk2/tools/login.css");
+@import url("./vk2/tools/Login.css");
 @import url("./vk2/tools/Gazetteersearch.css");
 @import url("./vk2/tools/Georeferencer.css");
 @import url("./vk2/tools/TimeViewer.css");
@@ -43,6 +42,10 @@ html, body {
 }  
 
 .validateTips { border: 1px solid transparent; padding: 0.3em; }
+
+
+
+
 
 
 

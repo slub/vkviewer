@@ -6,7 +6,7 @@ def impressum_page(request):
     return {}
 
 
-@view_config(route_name='partner', renderer='partner.mako', permission='view',http_cache=0)
+@view_config(route_name='project', renderer='project.mako', permission='view',http_cache=0)
 def partner_page(request):
     return {}
 

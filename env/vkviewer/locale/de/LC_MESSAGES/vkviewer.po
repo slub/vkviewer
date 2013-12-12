@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-05 12:53+0100\n"
-"PO-Revision-Date: 2013-12-05 12:55+0100\n"
+"POT-Creation-Date: 2013-12-12 16:47+0100\n"
+"PO-Revision-Date: 2013-12-12 16:52+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -37,22 +37,39 @@ msgid "footer_contact"
 msgstr "Kontakt"
 
 #: vkviewer/templates/basicFooterLayout.mako:54
-msgid "footer_partners"
-msgstr "Partner"
+#| msgid "footer_project_name"
+msgid "footer_project"
+msgstr "Projekt"
 
 #: vkviewer/templates/basicFooterLayout.mako:57
 #: vkviewer/templates/impressum.mako:23
 msgid "footer_editorial"
 msgstr "Impressum"
 
-#: vkviewer/templates/basicIndexLayout.mako:36
+#: vkviewer/templates/basicIndexLayout.mako:32
 msgid "placeholder_town_name"
 msgstr "Ortsname"
 
-#: vkviewer/templates/basicIndexLayout.mako:42
-#: vkviewer/templates/basicIndexLayout.mako:45
+#: vkviewer/templates/basicIndexLayout.mako:38
+#: vkviewer/templates/basicIndexLayout.mako:41
 msgid "in_progress"
 msgstr "In arbeit"
+
+#: vkviewer/templates/basicIndexLayout.mako:57
+msgid "login_as_who"
+msgstr "angemeldet als"
+
+#: vkviewer/templates/basicIndexLayout.mako:60
+msgid "logout_button"
+msgstr "Abmelden"
+
+#: vkviewer/templates/basicIndexLayout.mako:79
+msgid "login_description"
+msgstr "Einloggen"
+
+#: vkviewer/templates/basicIndexLayout.mako:82
+msgid "login_button"
+msgstr "Anmelden"
 
 #: vkviewer/templates/contact.mako:24 vkviewer/templates/impressum.mako:28
 msgid "slubname_start"
@@ -77,56 +94,6 @@ msgstr "Besucheradresse"
 #: vkviewer/templates/contact.mako:33
 msgid "contact_person"
 msgstr "Ansprechpartner"
-
-#: vkviewer/templates/faq.mako:23
-#| msgid "faq_georef_heading"
-msgid "faq_main_heading"
-msgstr "FAQ "
-
-#: vkviewer/templates/faq.mako:27
-#| msgid "faq_georef_heading"
-msgid "faq_main_georef_heading"
-msgstr "Anleitung: Starte Georeferenzierung"
-
-#: vkviewer/templates/faq.mako:30
-#| msgid "faq_georef_body_li_1"
-msgid "faq_main_georef_1"
-msgstr "Kartenblatt suchen (per Übersicht, Ortsname oder Blattnummer)"
-
-#: vkviewer/templates/faq.mako:31
-#| msgid "faq_georef_body_li_2"
-msgid "faq_main_georef_2"
-msgstr ""
-"Kartenblatt per Klick auf auf Blattschnittzelle in Karte selektieren (blauer "
-"Rahmen auf Karte erscheint, Feld \"Auswahl\" zeigt Blattnummer.)"
-
-#: vkviewer/templates/faq.mako:32
-#| msgid "faq_georef_body_li_1"
-msgid "faq_main_georef_3_1"
-msgstr ""
-"Auswahl bestätigen durch Klicken auf \"Georeferenzieren\". Blatt wird "
-"geladen und kann bearbeitet werden."
-
-#: vkviewer/templates/faq.mako:33 vkviewer/templates/faq.mako:34
-#| msgid "faq_georef_heading"
-msgid "faq_main_georef_hint"
-msgstr "Hinweis"
-
-#: vkviewer/templates/faq.mako:33
-#| msgid "faq_georef_body_li_2"
-msgid "faq_main_georef_3_2"
-msgstr ""
-"Je dunkler das Grau einer Blattschnittzelle, desto mehr Blätter "
-"(Zeitschnitte) liegen für diesen Raumausschnitt vor"
-
-#: vkviewer/templates/faq.mako:34
-#| msgid "faq_georef_body_li_3"
-msgid "faq_main_georef_3_3"
-msgstr ""
-"Blattschnittzellen mit bereits georeferenzierten Blättern erhalten einen "
-"grünen Rahmen. Komplett\t\t\t\tbearbeitete Blattschnittzellen tragen einen "
-"grünen Rahmen, sind komplett durchsichtig und können in der Übersicht nicht "
-"mehr als Auswahl selektiert werden"
 
 #: vkviewer/templates/faqGeorefStart.mako:25
 msgid "faq_georef_heading"
@@ -187,10 +154,57 @@ msgstr ""
 "(Karte links) bei Bedarf bearbeiten und 'Vorschau aktualisieren' klicken, "
 "bzw. Georeferenzierung direkt mit 'Georeferenzierung bestätigen' bestätigen."
 
+#: vkviewer/templates/faqLoggedIn.mako:25
+msgid "faq_main_heading"
+msgstr "FAQ "
+
+#: vkviewer/templates/faqLoggedIn.mako:29
+msgid "faq_main_georef_heading"
+msgstr "Anleitung: Starte Georeferenzierung"
+
+#: vkviewer/templates/faqLoggedIn.mako:32
+msgid "faq_main_georef_1"
+msgstr "Kartenblatt suchen (per Übersicht, Ortsname oder Blattnummer)"
+
+#: vkviewer/templates/faqLoggedIn.mako:33
+msgid "faq_main_georef_2"
+msgstr ""
+"Kartenblatt per Klick auf auf Blattschnittzelle in Karte selektieren (blauer "
+"Rahmen auf Karte erscheint, Feld \"Auswahl\" zeigt Blattnummer.)"
+
+#: vkviewer/templates/faqLoggedIn.mako:34
+msgid "faq_main_georef_3_1"
+msgstr ""
+"Auswahl bestätigen durch Klicken auf \"Georeferenzieren\". Blatt wird "
+"geladen und kann bearbeitet werden."
+
+#: vkviewer/templates/faqLoggedIn.mako:35
+#: vkviewer/templates/faqLoggedIn.mako:36
+msgid "faq_main_georef_hint"
+msgstr "Hinweis"
+
+#: vkviewer/templates/faqLoggedIn.mako:35
+msgid "faq_main_georef_3_2"
+msgstr ""
+"Je dunkler das Grau einer Blattschnittzelle, desto mehr Blätter "
+"(Zeitschnitte) liegen für diesen Raumausschnitt vor"
+
+#: vkviewer/templates/faqLoggedIn.mako:36
+msgid "faq_main_georef_3_3"
+msgstr ""
+"Blattschnittzellen mit bereits georeferenzierten Blättern erhalten einen "
+"grünen Rahmen. Komplett\t\t\t\tbearbeitete Blattschnittzellen tragen einen "
+"grünen Rahmen, sind komplett durchsichtig und können in der Übersicht nicht "
+"mehr als Auswahl selektiert werden"
+
 #: vkviewer/templates/georeferenceStart.mako:37
-#: vkviewer/templates/georeferenceValidate.mako:48
+#: vkviewer/templates/georeferenceValidate.mako:46
 msgid "tool_titel_georeference"
 msgstr "Starte Georeferenzierung"
+
+#: vkviewer/templates/georeferenceValidate.mako:55
+msgid "report_error_titel"
+msgstr ""
 
 #: vkviewer/templates/impressum.mako:25
 msgid "editorial_introduction"
@@ -279,34 +293,6 @@ msgstr ""
 msgid "privacy_policy"
 msgstr "Datenschutzerklärung"
 
-#: vkviewer/templates/index.mako:19
-msgid "login_as_who"
-msgstr "angemeldet als"
-
-#: vkviewer/templates/index.mako:22
-msgid "logout_button"
-msgstr "Abmelden"
-
-#: vkviewer/templates/index.mako:41
-msgid "login_description"
-msgstr "Einloggen"
-
-#: vkviewer/templates/index.mako:44
-msgid "login_button"
-msgstr "Anmelden"
-
-#: vkviewer/templates/index.mako:66
-msgid "tool_titel_search"
-msgstr "Suche Messtischblätter"
-
-#: vkviewer/templates/index.mako:72
-msgid "tool_titel_layer_manage"
-msgstr "Auswahl Messtischblätter"
-
-#: vkviewer/templates/indexLoggedIn.mako:7
-msgid "tool_titel_georef"
-msgstr "Starte Georeferenzierung"
-
 #: vkviewer/templates/login_screen.mako:25
 msgid "loginScreen_reset_pw_btn"
 msgstr "Passwort zurücksetzen"
@@ -362,8 +348,113 @@ msgstr ""
 "Bitte tragen Sie ihren Login und ihre Email Adresse ein. Sie bekommen das "
 "neue Passwort dann per Email zugesendet."
 
+#: vkviewer/templates/project.mako:23
+#| msgid "footer_project_name"
+msgid "project_name_short"
+msgstr "Projekt Virtuelles Kartenforum 2.0"
+
+#: vkviewer/templates/project.mako:24
+#| msgid "footer_project_desc_long"
+msgid "project_name_long"
+msgstr ""
+"Virtuelles Kartenforum 2.0 - Eine Service-orientierte virtuelle "
+"Forschungsumgebung in der Deutschen Fotothek"
+
+#: vkviewer/templates/project.mako:25
+#| msgid "footer_project_name"
+msgid "footer_project_summary"
+msgstr "Projektzusammenfassung"
+
+#: vkviewer/templates/project.mako:27
+#| msgid "footer_project_desc_long"
+msgid "footer_project_description"
+msgstr "Beschreibung"
+
+#: vkviewer/templates/project.mako:28
+#| msgid "footer_project_desc_long"
+msgid "footer_project_description_content_start"
+msgstr ""
+"Die Digitalisierung von Altkarten in Deutschland sowie die bestehenden "
+"Geodateninfrastrukturen benötigen als Grundlagen einer dauerhaft zu "
+"betreibenden Virtuellen Forschungsumgebung eine Bündelung von Kompetenzen. "
+"In Kooperation eines fachwissenschaftlichen und eines infrastrukturellen "
+"Partners sollen vorhandene Angebote zu einem fachwissenschaftlich "
+"adressierten und doch allgemein nachnutzbaren und nachhaltig betriebenem "
+"Service zusammengefasst werden:"
+
+#: vkviewer/templates/project.mako:35
+#| msgid "footer_project_desc_long"
+msgid "footer_project_description_content_li1"
+msgstr ""
+"Das Kartenforum der SLUB umfasst einen umfangreichen digitalen "
+"Kartenbestand, der jedoch nicht georeferenziert und somit nicht per "
+"interoperabler Dienste verfügbar ist."
+
+#: vkviewer/templates/project.mako:39
+#| msgid "footer_project_desc_long"
+msgid "footer_project_description_content_li2"
+msgstr ""
+"Die virtuelle Forschungsumgebung VKLandLab der Professur für Geodäsie und "
+"Geoinformatik beinhaltet Lösungsansätze zur Behebung genau dieser Defizite."
+
+#: vkviewer/templates/project.mako:44
+#| msgid "footer_project_desc_long"
+msgid "footer_project_description_content_end"
+msgstr ""
+"Im Forschungsprojekt soll eine betriebsfähige virtuelle Arbeitsplattform für "
+"Raum-Zeitforscherf lächendeckend für die Bundesrepublik entwickelt werden. "
+"Dazu bedarf es einerseits der Entwicklung von Werkzeugen zur "
+"Georeferenzierung von Altkarten und zur Erstellung eines deutschlandweiten  "
+"Ortsnamensverzeichnisses. Andererseits muss auf Anbieterseite ein Betriebs- "
+"und Geschäftsmodell für eine Nationale Hostingstelle zur Bereitstellung und "
+"Aufnahme von digitalen Altkartenbeständen entwickelt werden. In "
+"wissenschaftlichen Fallstudien sollen die virtuelle Forschungsplattform und "
+"die entstehenden Mehrwerte in der Datenbereitstellung, Analyse und "
+"Visualisierung getestet werden."
+
+#: vkviewer/templates/project.mako:55
+#| msgid "footer_project_desc_long"
+msgid "footer_project_duration"
+msgstr "Laufzeit"
+
+#: vkviewer/templates/project.mako:59
+#| msgid "footer_project_name"
+msgid "footer_project_patron"
+msgstr "Förderer"
+
+#: vkviewer/templates/project.mako:61
+msgid "dfg"
+msgstr "Deutsche Forschungsgemeinschaft"
+
+#: vkviewer/templates/project.mako:67
+#| msgid "footer_partners"
+msgid "footer_projectpartners"
+msgstr "Projektpartner"
+
+#: vkviewer/templates/project.mako:70
+#| msgid "slubname_end"
+msgid "slubname"
+msgstr ""
+"Sächsische Landesbibliothek - Staats- und Universitätsbibliothek Dresden "
+"(SLUB)"
+
+#: vkviewer/templates/project.mako:73
+msgid "rostockname"
+msgstr ""
+"Universität Rostock - Agrar- und Umweltwissenschaftliche Fakultät - "
+"Professur für Geodäsie und Geoinformatik"
+
 #~ msgid "err_wrong_password"
 #~ msgstr "Bitte überprüfen Sie ihren Nutzernamen und ihr Passwort!"
 
 #~ msgid "err_loginid_used"
 #~ msgstr "Ihr Nutzername ist schon vergeben. Bitte wählen Sie einen anderen."
+
+#~ msgid "tool_titel_search"
+#~ msgstr "Suche Messtischblätter"
+
+#~ msgid "tool_titel_layer_manage"
+#~ msgstr "Auswahl Messtischblätter"
+
+#~ msgid "tool_titel_georef"
+#~ msgstr "Starte Georeferenzierung"

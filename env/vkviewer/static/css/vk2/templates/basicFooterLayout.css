@@ -3,7 +3,7 @@
     opacity: 0.9;
     z-index: 1000;
     width:100%; 
-    height: 15px;
+    height: 3%;
     right: 0px;
     bottom: 0px;
     position: absolute; 
@@ -22,8 +22,9 @@
 /* font styling */
 .vk2Footer .footerContainer{
 	font-family: Verdana, Arial, Helvetica, Sans-Serif;
-	font-size: 10px;
+	font-size: 11px;
 	color: #fff;	
+	margin-top: 0.15%;
 }
 
 .vk2Footer .footerContainer .footerList{

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-05 12:53+0100\n"
+"POT-Creation-Date: 2013-12-12 16:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgid "footer_contact"
 msgstr ""
 
 #: vkviewer/templates/basicFooterLayout.mako:54
-msgid "footer_partners"
+msgid "footer_project"
 msgstr ""
 
 #: vkviewer/templates/basicFooterLayout.mako:57
@@ -43,13 +43,29 @@ msgstr ""
 msgid "footer_editorial"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:36
+#: vkviewer/templates/basicIndexLayout.mako:32
 msgid "placeholder_town_name"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:42
-#: vkviewer/templates/basicIndexLayout.mako:45
+#: vkviewer/templates/basicIndexLayout.mako:38
+#: vkviewer/templates/basicIndexLayout.mako:41
 msgid "in_progress"
+msgstr ""
+
+#: vkviewer/templates/basicIndexLayout.mako:57
+msgid "login_as_who"
+msgstr ""
+
+#: vkviewer/templates/basicIndexLayout.mako:60
+msgid "logout_button"
+msgstr ""
+
+#: vkviewer/templates/basicIndexLayout.mako:79
+msgid "login_description"
+msgstr ""
+
+#: vkviewer/templates/basicIndexLayout.mako:82
+msgid "login_button"
 msgstr ""
 
 #: vkviewer/templates/contact.mako:24 vkviewer/templates/impressum.mako:28
@@ -74,38 +90,6 @@ msgstr ""
 
 #: vkviewer/templates/contact.mako:33
 msgid "contact_person"
-msgstr ""
-
-#: vkviewer/templates/faq.mako:23
-msgid "faq_main_heading"
-msgstr ""
-
-#: vkviewer/templates/faq.mako:27
-msgid "faq_main_georef_heading"
-msgstr ""
-
-#: vkviewer/templates/faq.mako:30
-msgid "faq_main_georef_1"
-msgstr ""
-
-#: vkviewer/templates/faq.mako:31
-msgid "faq_main_georef_2"
-msgstr ""
-
-#: vkviewer/templates/faq.mako:32
-msgid "faq_main_georef_3_1"
-msgstr ""
-
-#: vkviewer/templates/faq.mako:33 vkviewer/templates/faq.mako:34
-msgid "faq_main_georef_hint"
-msgstr ""
-
-#: vkviewer/templates/faq.mako:33
-msgid "faq_main_georef_3_2"
-msgstr ""
-
-#: vkviewer/templates/faq.mako:34
-msgid "faq_main_georef_3_3"
 msgstr ""
 
 #: vkviewer/templates/faqGeorefStart.mako:25
@@ -153,9 +137,45 @@ msgstr ""
 msgid "faq_georef_validate_body_li_1"
 msgstr ""
 
+#: vkviewer/templates/faqLoggedIn.mako:25
+msgid "faq_main_heading"
+msgstr ""
+
+#: vkviewer/templates/faqLoggedIn.mako:29
+msgid "faq_main_georef_heading"
+msgstr ""
+
+#: vkviewer/templates/faqLoggedIn.mako:32
+msgid "faq_main_georef_1"
+msgstr ""
+
+#: vkviewer/templates/faqLoggedIn.mako:33
+msgid "faq_main_georef_2"
+msgstr ""
+
+#: vkviewer/templates/faqLoggedIn.mako:34
+msgid "faq_main_georef_3_1"
+msgstr ""
+
+#: vkviewer/templates/faqLoggedIn.mako:35 vkviewer/templates/faqLoggedIn.mako:36
+msgid "faq_main_georef_hint"
+msgstr ""
+
+#: vkviewer/templates/faqLoggedIn.mako:35
+msgid "faq_main_georef_3_2"
+msgstr ""
+
+#: vkviewer/templates/faqLoggedIn.mako:36
+msgid "faq_main_georef_3_3"
+msgstr ""
+
 #: vkviewer/templates/georeferenceStart.mako:37
-#: vkviewer/templates/georeferenceValidate.mako:48
+#: vkviewer/templates/georeferenceValidate.mako:46
 msgid "tool_titel_georeference"
+msgstr ""
+
+#: vkviewer/templates/georeferenceValidate.mako:55
+msgid "report_error_titel"
 msgstr ""
 
 #: vkviewer/templates/impressum.mako:25
@@ -226,34 +246,6 @@ msgstr ""
 msgid "privacy_policy"
 msgstr ""
 
-#: vkviewer/templates/index.mako:19
-msgid "login_as_who"
-msgstr ""
-
-#: vkviewer/templates/index.mako:22
-msgid "logout_button"
-msgstr ""
-
-#: vkviewer/templates/index.mako:41
-msgid "login_description"
-msgstr ""
-
-#: vkviewer/templates/index.mako:44
-msgid "login_button"
-msgstr ""
-
-#: vkviewer/templates/index.mako:66
-msgid "tool_titel_search"
-msgstr ""
-
-#: vkviewer/templates/index.mako:72
-msgid "tool_titel_layer_manage"
-msgstr ""
-
-#: vkviewer/templates/indexLoggedIn.mako:7
-msgid "tool_titel_georef"
-msgstr ""
-
 #: vkviewer/templates/login_screen.mako:25
 msgid "loginScreen_reset_pw_btn"
 msgstr ""
@@ -301,5 +293,61 @@ msgstr ""
 
 #: vkviewer/templates/login_screen.mako:85
 msgid "loginScreen_reset_pw_msg"
+msgstr ""
+
+#: vkviewer/templates/project.mako:23
+msgid "project_name_short"
+msgstr ""
+
+#: vkviewer/templates/project.mako:24
+msgid "project_name_long"
+msgstr ""
+
+#: vkviewer/templates/project.mako:25
+msgid "footer_project_summary"
+msgstr ""
+
+#: vkviewer/templates/project.mako:27
+msgid "footer_project_description"
+msgstr ""
+
+#: vkviewer/templates/project.mako:28
+msgid "footer_project_description_content_start"
+msgstr ""
+
+#: vkviewer/templates/project.mako:35
+msgid "footer_project_description_content_li1"
+msgstr ""
+
+#: vkviewer/templates/project.mako:39
+msgid "footer_project_description_content_li2"
+msgstr ""
+
+#: vkviewer/templates/project.mako:44
+msgid "footer_project_description_content_end"
+msgstr ""
+
+#: vkviewer/templates/project.mako:55
+msgid "footer_project_duration"
+msgstr ""
+
+#: vkviewer/templates/project.mako:59
+msgid "footer_project_patron"
+msgstr ""
+
+#: vkviewer/templates/project.mako:61
+msgid "dfg"
+msgstr ""
+
+#: vkviewer/templates/project.mako:67
+msgid "footer_projectpartners"
+msgstr ""
+
+#: vkviewer/templates/project.mako:70
+msgid "slubname"
+msgstr ""
+
+#: vkviewer/templates/project.mako:73
+msgid "rostockname"
 msgstr ""
 

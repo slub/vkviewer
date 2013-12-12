@@ -36,6 +36,11 @@
 					<br>
 					E-Mail: <a href="mailto:Jacob.Mendt@slub-dresden.de">Jacob.Mendt(at)slub-dresden.de</a>
 			</p>
+			<p>
+					Kai Walter
+					<br>
+					E-Mail: <a href="mailto:kai.walter@uni-rostock.de">kai.walter(at)uni-rostock.de</a>
+			</p>
 	    </div>
     </body>
 </html>
