@@ -56,14 +56,17 @@
     		"controller/Mediator.js",
     		"controller/MapController.js",
     		"controller/TimeFeatureControls.js",
-    		"layer/GeoreferenceSearchLayer.js",
+    		"controller/SidebarController.js",
+    		"layer/GeoreferencerSearchLayer.js",
     		"layer/TimeFeatureLayer.js",
     		"layer/Vk2Layer.js",
     		"tools/Gazetteersearch.js",
+    		"tools/GeoreferencerChooser.js",
     		"tools/Georeferencer.js",
     		"tools/Layersearch.js",
     		"tools/LayerManagement.js",
     		"tools/ToolLoader.js",
+    		"tools/Sidebar.js",
     		"Initialize.Configuration.js",
     		"Initialize.js"
     );

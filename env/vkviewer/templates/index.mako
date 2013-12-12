@@ -59,18 +59,23 @@ user_id = authenticated_userid(request)
 ## sidebar 
 ##
 <%block name="sidebar">
-<div id="vk2LayersearchPanel" class="vk2LayersearchPanel">
-	<a id="vk2LayersearchHandle" class="vk2LayersearchHandle" 
-		data-open="${request.static_url('vkviewer:static/images/search.png')}" 
-		data-close="${request.static_url('vkviewer:static/images/close.png')}"
-		title="${_('tool_titel_search')}"></a>
-</div>
-<div id="vk2LayerbarPanel" class="vk2LayerbarPanel">
-	<a id="vk2LayerbarHandle" class="vk2LayerbarHandle" 
-		data-open="${request.static_url('vkviewer:static/images/layerbar.png')}" 
-		data-close="${request.static_url('vkviewer:static/images/close.png')}"
-		title="${_('tool_titel_layer_manage')}"></a>
-</div>
+    <div id="vk2SBPanel" class="vk2SBPanel">
+		<div id="vk2SBContentPanel" class="vk2SBContentPanel">
+	    	<!-- Sidebar content -->    		
+	    	<div id="vk2SBHeaderPanel" class="vk2SBHeaderPanel">
+	    		<div id="vk2SBHeaderLabel" class="vk2SBHeaderLabel">
+	    			<h4>Überschrift</h4>
+	    		</div>
+	    		<span id="vk2SBClose" class="vk2SBClose vk2SidebarIcon"></span>
+	    	</div>
+	    	<div id="vk2SidebarBodyPanel" class="vk2SidebarBodyPanel">
+	    		<div id="vk2LayersearchPanel" class="vk2LayersearchPanel"></div>
+	    		<div id="vk2LayerbarPanel" class="vk2LayerbarPanel"></div>
+			</div>
+	    </div>
+    </div>
+    
+
 </%block>
 
 ##

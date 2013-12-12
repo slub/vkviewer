@@ -4,10 +4,10 @@
 .vk2SBPanel{
 	z-index: 1000;
 	position: absolute;
-	top: 0px;
-	right: -300px;
-	width: 300px;
-	height: 100%;
+	top: 10%;
+	right: -420px;
+	width: 420px;
+	height: 87%;
 	display: block;
 	background: white;
 }
@@ -16,46 +16,8 @@
 	display: none;
 }
 
-.icon{
-	display: inline-block;
-	vertical-align: top;
-	width: 40px;
-	height: 40px;
-	text-indent: -9999px;
-	overflow: hidden;	
-}
-
-/*
-	Slidebar Btns
-*/
-.vk2LayerSearchBtn{
-	z-index: 1000;
-	position: absolute;
-	top:40px;
-	left:-40px;
-	display: block;
-	outline: none;
-	width: 40px;
-	height: 40px;
-	text-indent: -99999px;	
-	background-image: url(/vkviewer/static/images/georef.png);
-	background-position: intitial initial;
-	background-repeat: no-repeat no-repeat;
-}
-
-.vk2LayerSearchBtn1{
-	z-index: 1000;
-	position: absolute;
-	top:100px;
-	left:-40px;
-	display: block;
-	outline: none;
-	width: 40px;
-	height: 40px;
-	text-indent: -99999px;	
-	background-image: url(/vkviewer/static/images/georef.png);
-	background-position: intitial initial;
-	background-repeat: no-repeat no-repeat;
+.vk2SidebarBodyPanel{
+	margin:10px;
 }
 
 /* 
@@ -63,12 +25,15 @@
 */
 .vk2SBHeaderPanel{
 	position: relative;
-	padding: 10px 20px;
-	height: 60px;
+	padding: 8px;
+	height: 40px;
+	border: 2px solid #ADA79E;
+	margin: 10px;
 }
 
 .vk2SBHeaderPanel .vk2SBHeaderLabel{
 	width: 200px;
+	margin-top: 10px;
 	float: left;
 }
 
@@ -76,9 +41,12 @@
 	float:right;
 	margin-top 2px;
 	cursor: pointer;
-	background: url(/vkviewer/static/images/close.png) no-repeat 0 0;
+	background-position: -200px 0;
 }
 
+.vk2SBHeaderPanel .vk2SBClose.hover{
+	background-position: -200px -20px;
+}
 /*
 	Body
 */
@@ -89,19 +57,20 @@
 .vk2LayerManagementContent{
 	display: none;
 }
+
 /*
-	Test
+	Control buttons
 */
-.btnTest{
-	position: absolute;
-	top:40px;
-	left:40px;
+.vk2SidebarIcon{
+	text-indent: -9999px;
 	display: inline-block;
 	vertical-align: top;
-	width: 40px;
-	height: 40px;
-	text-indent: -9999px;
-	overflow: hidden;	
-	background: url(/vkviewer/static/images/georef.png) no-repeat 0 0;
-	z-index: 1000;
+	width: 20px;
+	height: 20px;
+	background: transparent url(/vkviewer/static/images/controls.png) no-repeat 0 0;
+	margin: 10px;	
+}
+
+.vk2SBControlBtn.open{
+	background-color: #9ed485;
 }

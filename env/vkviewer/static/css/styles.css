@@ -13,8 +13,9 @@
 @import url("./vk2/tools/Layersearch.css");
 @import url("./vk2/tools/login.css");
 @import url("./vk2/tools/Gazetteersearch.css");
-@import url("./vk2/tools/georef.css");
+@import url("./vk2/tools/Georeferencer.css");
 @import url("./vk2/tools/TimeViewer.css");
+@import url("./vk2/tools/Sidebar.css");
 
 
 
@@ -40,31 +41,6 @@ html, body {
     z-index: 0 !important;
     background-color:#B3C6D4;
 }  
-
-/* Layersearch */
-#vk2LayersearchPanel{
-    position: absolute;
-    top: 150px !important;
-    right: 0px;
-    z-index: 1000;
-}
-
-/* Layerbar */
-#vk2LayerbarPanel{
-    position: absolute;
-    top: 100px !important;
-    right: 0px;
-}
-
-#vk2TimeViewerPanel{
-	position: absolute;
-	right:0px;
-	top: 250px !important;
-}
-
-
-
-
 
 .validateTips { border: 1px solid transparent; padding: 0.3em; }
 

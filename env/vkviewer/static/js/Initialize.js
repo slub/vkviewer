@@ -89,32 +89,63 @@ var addTools = function(map){
 			return false;
 		}
 	}
-	
-	var layersearch = null;
-	var layermanagement = null;
-	//var eventFtLayer = new VK2.Layer.EventFeatureLayer();
 
-	// try to initialize a layersearch
-	if (checkIfToolContainerIsInit(toolOptions['vk2layersearch']['container']))
-		var layersearch = VK2.Tools.ToolLoader.getTool_LayerSearch('vk2layersearch', toolOptions['vk2layersearch'], 
-				map, MapController);
-
-	
-	// try to initialize a layerbar
-	if (checkIfToolContainerIsInit(toolOptions['vk2layermanagement']['container']))
-		var layermanagement = VK2.Tools.ToolLoader.getTool_LayerManagement('vk2layermanagement', toolOptions['vk2layermanagement'], 
-				map, VK2.Controller.TimeFeatureControls, MapController);
-	
 	// add Gazetteer
 	if (checkIfToolContainerIsInit(toolOptions['vk2gazetteer']['container']))
 		VK2.Tools.addGazetteer(toolOptions['vk2gazetteer']['container'], map);
+
+	var sidebar = new VK2.Tools.Sidebar({}, VK2.Controller.MapController);
+	var layersearch = new VK2.Tools.LayerSearch(document.getElementById('vk2LayersearchPanel'),map,
+			initConfiguration.timeParameter,VK2.Controller.MapController);
+	sidebar.appendControl('vk2LayerSearchBtn', 'vk2LayersearchPanel',layersearch);	
 	
-	// add Georeferencer
-	if (checkIfToolContainerIsInit(toolOptions['vk2georeferencer']['container']))
-		VK2.Utils.Georef.addChooseGeoreferencerMtb(document.getElementById('vk2GeorefHandle'),map)
+	var options = {
+			map: map,
+			div: document.getElementById('vk2LayerbarPanel'),
+			id: 'layerbar_1',
+			vk2featurelayer: VK2.Controller.TimeFeatureControls
+	}
+	var layermanagement = new VK2.Tools.LayerManagement(options);
+	sidebar.appendControl('vk2LayerbarBtn', 'vk2LayerbarPanel',layermanagement);
+
+	var georeferencerChooser = new VK2.Tools.GeoreferencerChooser({
+		wmsLayer: initConfiguration.georeference_grid.wms,
+		requestWfs:  initConfiguration.georeference_grid.wfs,
+		map: map
+	});
+	sidebar.appendSlimControl('vk2GeoreferenceBtn',georeferencerChooser)
 	
-	// initialize MapController
-	MapController.initialize(map,{
+	var urlParams = VK2.Utils.getAllUrlParams();
+	if ('georef' in urlParams){
+		if (urlParams['georef'] == 'on')
+			$('#vk2GeoreferenceBtn').click();
+	}
+//	if (checkIfToolContainerIsInit(toolOptions['vk2georeferencer']['container']))
+//	
+	
+//	var layersearch = null;
+//	var layermanagement = null;
+//	//var eventFtLayer = new VK2.Layer.EventFeatureLayer();
+//
+//	// try to initialize a layersearch
+//	if (checkIfToolContainerIsInit(toolOptions['vk2layersearch']['container']))
+//		var layersearch = VK2.Tools.ToolLoader.getTool_LayerSearch('vk2layersearch', toolOptions['vk2layersearch'], 
+//				map, MapController);
+//
+//	
+//	// try to initialize a layerbar
+//	if (checkIfToolContainerIsInit(toolOptions['vk2layermanagement']['container']))
+//		var layermanagement = VK2.Tools.ToolLoader.getTool_LayerManagement('vk2layermanagement', toolOptions['vk2layermanagement'], 
+//				map, VK2.Controller.TimeFeatureControls, MapController);
+//	
+//
+//	
+//	// add Georeferencer
+//	if (checkIfToolContainerIsInit(toolOptions['vk2georeferencer']['container']))
+//		VK2.Utils.Georef.addChooseGeoreferencerMtb(document.getElementById('vk2GeorefHandle'),map)
+//	
+//	// initialize MapController
+	VK2.Controller.MapController.initialize(map,{
 		'vk2layermanagement': layermanagement,
 		'vk2layersearch': layersearch,
 		'vk2timefeaturecontrols': VK2.Controller.TimeFeatureControls

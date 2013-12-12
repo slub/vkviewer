@@ -4,12 +4,15 @@ VK2.Controller.SidebarController = VK2.Class({
 		speed: 300,
 		panelLocation: 'right',
 		sidebarPanel: 'vk2SBPanel',
+		sidebarHeaderLabel: 'vk2SBHeaderLabel',
 		sidebarContentPanel: 'vk2SBContentPanel',
 		sidebarPanelWidth: 300,
 		sidebarCloseBtn: 'vk2SBClose'
 	},
 	
 	_sidebar: $('#vk2SBPanel'),
+	
+	_mapController: null,
 	
 	_controls: [],
 
@@ -22,17 +25,32 @@ VK2.Controller.SidebarController = VK2.Class({
 		
 		// now only activate the choosen control
 		controlObject.activate();
+		this._changeHeader(controlObject.NAME);
+		
 		controlElement.addClass('open');
 		$('#'+controlElement.attr('value')).css('display','block');
+	},
+	
+	_changeHeader: function(headerContent){
+		var headerContentContainer = $('#'+this._settings.sidebarHeaderLabel)
+		headerContentContainer.empty();
+		$('<h4/>', {
+			'html': headerContent
+		}).appendTo(headerContentContainer);
+	},
+	
+	_closeSlidebar: function(){
+		this._deactivateControls();
+		this._deactivateControlElements();
+		this._slideIn();
+		this._mapController.activateTimeFeatureControl();
 	},
 	
 	_createControlBehavior: function(controlId, controlObject){
 		$('#'+controlId).click($.proxy(function(event){
 			var controlElement = $(event.currentTarget);
 			if (controlElement.hasClass('open')){
-				this._deactivateControls();
-				this._deactivateControlElements();
-				this._slideIn();
+				this._closeSlidebar();
 			} else {
 				this._activateControl(controlElement, controlObject);
 				this._slideOut();
@@ -40,6 +58,18 @@ VK2.Controller.SidebarController = VK2.Class({
 		}, this));
 	},
 
+	_createSlimControlBehavior: function(controlId, controlObject){
+		$('#'+controlId).click($.proxy(function(event){
+			var controlElement = $(event.currentTarget);
+			if (controlElement.hasClass('open')){
+				this._closeSlidebar();
+			} else {
+				this._activateControl(controlElement, controlObject);
+				this._slideIn();
+			}
+		}, this));
+	},
+	
 	_deactivateControls: function(){
 		for (var i = 0; i < this._controls.length; i++){
 			this._controls[i].deactivate();
@@ -64,14 +94,29 @@ VK2.Controller.SidebarController = VK2.Class({
 	
 	_loadCloseBehavior: function(){
 		if (document.getElementById(this._settings.sidebarCloseBtn) != null){
-			$(document.getElementById(this._settings.sidebarCloseBtn)).click($.proxy(function(){
-				this._slideIn();
-			}, this))
+			$(document.getElementById(this._settings.sidebarCloseBtn))
+				.click($.proxy(function(){
+					this._closeSlidebar();
+				}, this))
+				.hover(
+					function(){
+						$(this).addClass('hover');
+					}, 
+					function(){
+						$(this).removeClass('hover');
+					}
+			)
 		}
 	},
 	
 	_registerControl: function(controlId, controlObject){
 		this._createControlBehavior(controlId, controlObject);
+		this._controls.push(controlObject);
+		this._controlElements.push($('#'+controlId));
+	},
+	
+	_registerSlimControl: function(controlId, controlObject){
+		this._createSlimControlBehavior(controlId, controlObject);
 		this._controls.push(controlObject);
 		this._controlElements.push($('#'+controlId));
 	},
@@ -101,7 +146,8 @@ VK2.Controller.SidebarController = VK2.Class({
 		}
 	},
 	
-	initialize: function(settings){
+	initialize: function(settings, MapController){
+		this._mapController = MapController;
 		this._updateSettings(settings);
 		this._loadCloseBehavior();
 	}

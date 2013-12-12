@@ -7,6 +7,7 @@
 
 VK2.Tools.LayerManagement = VK2.Class({
     
+	NAME: VK2.Utils.get_I18n_String('toolname_layerbar'),
     /*
      * {DOMElements}
      */
@@ -711,11 +712,11 @@ VK2.Tools.LayerManagement = VK2.Class({
     },  
     
     activate: function(){
-    	//this._addTimeSearchLayer();
+    	this._vk2FeatureLayer.activate(this.map)
     },
     
     deactivate: function(){
-    	//this._removeTimeSearchLayer();
+    	this._vk2FeatureLayer.deactivate(this.map)
     },
             
     CLASS_NAME: "Vk2.LayerManagement"

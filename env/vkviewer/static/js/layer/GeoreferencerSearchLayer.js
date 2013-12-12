@@ -1,4 +1,4 @@
-VK2.Layer.GeoreferenceSearchLayer = VK2.Class({
+VK2.Layer.GeoreferencerSearchLayer = VK2.Class({
 	
 	_settings: {
 		wmsLayer: null,
@@ -83,8 +83,11 @@ VK2.Layer.GeoreferenceSearchLayer = VK2.Class({
 	},
 	
 	deactivate: function(){
-		this._removeLayersToMap();
-		this._removeGetFeaturesControlToMap();
+		// only deactivate if not active
+		if (this._settings.wmsLayer.map != null || this._settings.wmsLayer.map == 'undefined'){
+			this._removeLayersToMap();
+			this._removeGetFeaturesControlToMap();
+		}
 	}
 	
 })

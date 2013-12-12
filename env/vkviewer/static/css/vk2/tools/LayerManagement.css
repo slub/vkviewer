@@ -6,23 +6,15 @@
         Purpose of the stylesheet follows.
 */
 
-.fancybox{
-    z-index: 2000;
-}
+
 
 .vk2LayerbarPanel{
-    z-index: 1000;
-    padding: 1px;
-    width: 400px;
-    height: 300px;
+	padding: 8px;
+    height: 500px;
     font-family: sans-serif;
     font-weight: bold;
-    margin-top: 3px;
-    margin-left: 3px;
-    margin-bottom: 3px;
     font-size: smaller;
-    color: white;
-    background-color: darkblue;
+    border: 2px solid #ADA79E;
 }
 
 /**
@@ -74,10 +66,9 @@ Styling of the list elements
  * Styling of the body of a layer list element
  */
 .overlayElem .maximize .container{
-    margin-top: -10px;
-    z-index: 2000;
-    width: 250px;
-    height: 60px;
+    margin-left: 10px;
+    width: 300px;
+    height: 70px;
     border-radius: 6px;
     font-size: 12px;
     font-family: "Helvectica", "Arial", "sans-serif";
@@ -89,20 +80,17 @@ Styling of the list elements
 
 .overlayElem .maximize .thumbnail{
     position: relative;
-    left: 5px;
-    top: 5px;
+	margin: 10px;
     float: left;
 }
 
 /* Css styles for slider div generic */
 .overlayElem .maximize .slider{
-    z-index: 10000;
     position: relative;
-    top: 5px;
-    left: 10px;
+	margin-top: 8px;	
     float: left;
     width: 150px;
-    height: 50px;
+    height: 60px;
 }
 
 .overlayElem .maximize .slider .label{
@@ -110,8 +98,9 @@ Styling of the list elements
 }
 
 .overlayElem .maximize .slider .toolTip{
-        z-index: 10000;
-	position: absolute;
+	position: relative;
+	float: right;
+	margin-top: 10px;
 	display: block;
 	width: 35px;
 	height: 20px;
@@ -134,18 +123,35 @@ Styling of the list elements
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8045484d', endColorstr='#80000000',GradientType=0 ); /* IE6-9 */
 }
 
-/* Css styles slider opacity*/
-.overlayElem .maximize .slider .opacity{
-    position: relative;
-    left: 10px;
-    float: left;
-    width: 100px;
+.overlayElem .maximize .slider .sliderContainer{
+	width: 100px;
 }
 
+/* Css styles slider */
+.overlayElem .maximize .slider{
+    position: relative;
+    left: 10px;
+    width: 140px;
+}
+
+/* CSS styles slider time */
 .overlayElem .maximize .slider .time{
-    position: relative;
-    left: 10px;
-    float: left;
-    width: 100px;
+	margin-top: 5px;
 }
 
+/*
+	Button for open the LayerSearch
+*/
+.vk2LayerbarBtn{
+	position: absolute;
+	top: 85px;
+	left:-40px;
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	cursor: default;
+	border-radius: 0;
+}
+
+.vk2LayerbarBtn .vk2SidebarIcon{
+	background-position: -100px 0;
+}

@@ -7,6 +7,8 @@
 
 VK2.Tools.LayerSearch = VK2.Class({
     
+	NAME: VK2.Utils.get_I18n_String('toolname_layersearch'),
+	
     // publish/subscription handler for publishing add time layer events
     _PubSubHandler: null,
     
@@ -63,17 +65,18 @@ VK2.Tools.LayerSearch = VK2.Class({
         	console.log('Type: '+e.type);
         	console.log('Features: '+this.features.length);
         	var headerContentDiv = $('#vk2LSHeaderContent');
+        	var headerContainerDiv = $('#vk2LSHeaderContainer')
         	if (this.map.getZoom() >= 2 && this.getVisibility()){        	
-	        	headerContentDiv.html(this.features.length+" Messtischblätter gefunden.")	
-	        	if (headerContentDiv.hasClass( 'ui-state-error' ))
-	        		headerContentDiv.removeClass( 'ui-state-error' );
+	        	headerContentDiv.html(this.features.length+" Messtischblätter gefunden.")
+	        	if (headerContainerDiv.hasClass( 'ui-state-error' ))
+	        		headerContainerDiv.removeClass( 'ui-state-error' );
 	        	
 	        	// this is important for triggering a layer refresh if the layer change it visibility
 	        	if (e.type == 'visibilitychanged')
 	        		this.refresh({force:true});
         	} else {
         		headerContentDiv.html("Bitte wählen Sie eine höhere Zoomstufe!")
-    				.addClass( 'ui-state-error' );
+    			headerContainerDiv.addClass( 'ui-state-error' );
         	} 	
         },	
         
@@ -183,12 +186,12 @@ VK2.Tools.LayerSearch = VK2.Class({
      */
     _loadHeader: function(){
         var divHeaderContainer = document.createElement("div");
-        divHeaderContainer.className = divHeaderContainer.className + " vk2LSHeaderContainer";
+        divHeaderContainer.className = divHeaderContainer.className + " vk2LSHeaderContainer ui-state-error";
         divHeaderContainer.id = "vk2LSHeaderContainer";
         
         // div container for the header label
         var  divHeaderContent = document.createElement("div");
-        divHeaderContent.className = divHeaderContent.className + " vk2LSHeaderContent ui-state-error";
+        divHeaderContent.className = divHeaderContent.className + " vk2LSHeaderContent";
         divHeaderContent.id = "vk2LSHeaderContent";
         divHeaderContent.innerHTML = "Bitte wählen Sie eine höhere Zoomstufe!";
         divHeaderContainer.appendChild(divHeaderContent);
@@ -231,18 +234,19 @@ VK2.Tools.LayerSearch = VK2.Class({
         container.appendChild(toolbar);
         this._mainPanel = new Ext.Panel({
             renderTo: container.getAttribute('id'),
-            height: 620,
-            width: 520,
             id: "vk2LSMainPanel",
             cls: "vk2LSMainPanel",
+            width: 400,
+            height: 570,
             items: [{
-                id: 'testPanel',
-                cls: 'testPanel',
+                id: 'vk2HeaderPanel',
+                cls: 'vk2HeaderPanel',
+                height: 45,
                 contentEl: header.getAttribute('id'),
-                height: 50,
-                width: 520
             },{
             		xtype: 'grid',
+                    width: 400,
+                    height: 400,
                     store: this._featureStore, //new GeoExt.data.FeatureStore(this._featureStoreOptions),    
                     cm: new Ext.grid.ColumnModel([
                         {id: "time", header: VK2.Utils.get_I18n_String('timestamp'), dataIndex: "time", sortable: true},
@@ -269,14 +273,13 @@ VK2.Tools.LayerSearch = VK2.Class({
                     },
                     autoExpandColumn: "titel",
                     id: 'featureGridPanel',
-                    height: 400,
-                    width: 520  
+                    cls: 'featureGridPanel'
             },{
                     id: 'vk2LSToolPanel',
                     cls: 'vk2LSToolPanel',
                     contentEl: 'vk2LSToolbar',
-                    height: 120,
-                    width: 520
+                    width: 400,
+                    height: 130
             }],
             listeners: {
                 afterlayout: $.proxy(function(){

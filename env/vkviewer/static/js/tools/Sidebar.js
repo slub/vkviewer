@@ -2,7 +2,8 @@ VK2.Tools.Sidebar = VK2.Class({
 	
 	_settings: {
 		sidebarPanel: 'vk2SBPanel',
-		sidebarContentPanel: 'vk2SidebarBodyPanel'
+		sidebarContentPanel: 'vk2SidebarBodyPanel',
+		sidebarHeaderLabel: 'vk2SBHeaderLabel'
 	},
 	
 	_sidebarController: null,
@@ -16,7 +17,7 @@ VK2.Tools.Sidebar = VK2.Class({
 
 
 	
-	_loadSidebarController: function(){
+	_loadSidebarController: function(MapController){
 		// find out panel width
 		var panelWidth = $('#'+this._settings.sidebarPanel).css('width');
 		
@@ -24,17 +25,21 @@ VK2.Tools.Sidebar = VK2.Class({
 			speed: 300,
 			panelLocation: 'right',
 			sidebarPanel: this._settings.sidebarPanel,
+			sidebarHeaderLabel: this._settings.sidebarHeaderLabel,
 			sidebarPanelWidth: panelWidth,
 			sidebarCloseBtn: 'vk2SBClose'
-		});
+		}, MapController);
 	},
 	
 	_createControlElement: function(controlId, controlPanel){
-		$('<a/>', {
-			'id': controlId,
-			'class': controlId,
-			'value': controlPanel
-		}).appendTo($('#'+this._settings.sidebarPanel));
+		$('<span/>', {
+			'class': 'vk2SidebarIcon'
+		}).appendTo($('<a/>', {
+				'id': controlId,
+				'class': controlId + ' vk2SBControlBtn',
+				'value': controlPanel
+			}).appendTo($('#'+this._settings.sidebarPanel))
+		);
 	},
 	
 	_appendControlPanel: function(panel){
@@ -44,15 +49,28 @@ VK2.Tools.Sidebar = VK2.Class({
 	
 
 	
-	initialize: function(settings){
+	initialize: function(settings, MapController){
 		this._updateSettings(settings);
-		this._loadSidebarController();
+		this._loadSidebarController(MapController);
 	},
 	
+	/**
+	 * Method: appendControl
+	 * Append a control element with panel content
+	 */
 	appendControl: function(controlId, controlPanel, controlObject){
 		this._createControlElement(controlId, controlPanel);
 		this._appendControlPanel(controlPanel);
 		this._sidebarController._registerControl(controlId, controlObject)
+	},
+	
+	/**
+	 * Method: appendSlimControl
+	 * Append a control element without panel content
+	 */
+	appendSlimControl: function(controlId, controlObject){
+		this._createControlElement(controlId, '');
+		this._sidebarController._registerSlimControl(controlId, controlObject)
 	},
 	
 	open: function(event){

@@ -5,3 +5,7 @@
 .fancybox-lock{
 	margin-right: 0 !important;
 }
+
+.fancybox{
+    z-index: 2000;
+}

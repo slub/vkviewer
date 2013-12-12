@@ -6,3 +6,17 @@
 	float:left;
 	position: relative;
 }
+
+.vk2GeoreferenceBtn{
+	position: absolute;
+	top:160px;
+	left:-40px;
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	cursor: default;
+	border-radius: 0;
+}
+
+.vk2GeoreferenceBtn .vk2SidebarIcon{
+	background-position: -120px 0;
+}
