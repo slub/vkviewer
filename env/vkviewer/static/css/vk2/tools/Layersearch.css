@@ -101,7 +101,7 @@
 /*
 	Button for open the LayerSearch
 */
-.vk2LayerSearchBtn{
+.vk2LayersearchControl{
 	z-index: 1000;
 	position: absolute;
 	top:40px;
@@ -112,6 +112,6 @@
 	border-radius: 0;
 }
 
-.vk2LayerSearchBtn .vk2SidebarIcon{
+.vk2LayersearchControl .vk2SidebarIcon{
 	background-position: 0px 0;
 }

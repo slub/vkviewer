@@ -5,7 +5,7 @@
  * @TODO Hover when SelectFeature in front!
  */
 
-VK2.Tools.LayerSearch = VK2.Class({
+VK2.Tools.Layersearch = VK2.Class({
     
 	NAME: VK2.Utils.get_I18n_String('toolname_layersearch'),
 	

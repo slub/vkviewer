@@ -3,6 +3,6 @@
 
 <script>
 	$(document).ready(function(){ 
-    	initVkViewerFat('mapdiv'); 
+    	initVkViewerSlim('mapdiv'); 
     });
 </script>

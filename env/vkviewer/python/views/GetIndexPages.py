@@ -4,7 +4,7 @@ from vkviewer.python.tools import checkIsUser, getCookie
 from vkviewer import log
 
 """ basic start site """
-@view_config(route_name='home', renderer='index.mako', permission='view',http_cache=0)
+@view_config(route_name='home', renderer='indexLoggedOut.mako', permission='view',http_cache=0)
 def get_index_page(request):  
     log.info('Call view get_index_page.')
     

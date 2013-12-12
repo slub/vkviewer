@@ -142,7 +142,7 @@ Styling of the list elements
 /*
 	Button for open the LayerSearch
 */
-.vk2LayerbarBtn{
+.vk2LayerbarControl{
 	position: absolute;
 	top: 85px;
 	left:-40px;
@@ -152,6 +152,6 @@ Styling of the list elements
 	border-radius: 0;
 }
 
-.vk2LayerbarBtn .vk2SidebarIcon{
+.vk2LayerbarControl .vk2SidebarIcon{
 	background-position: -100px 0;
 }

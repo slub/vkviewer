@@ -108,42 +108,5 @@ VK2.Utils.Georef = {
 			this.loadValidationLayer(map, urlParams);
 			this.zommToBBoxFromWMSLayer(map, urlParams['wms_url'], urlParams['layer_id']);
 			return map;
-		},
-		
-		addChooseGeoreferencerMtb: function(linkElement, map){
-			
-			var _checkIfActive = function(linkElement){
-				var urlParams = VK2.Utils.getAllUrlParams();
-				if ('georef' in urlParams){
-					if (urlParams['georef'] == 'on')
-						$(linkElement).click();
-				}
-			};
-			
-			var georefLayer = new VK2.Layer.GeoreferenceSearchLayer({
-				wmsLayer: initConfiguration.georeference_grid.wms,
-				requestWfs:  initConfiguration.georeference_grid.wfs,
-				map: map
-			})
-			
-			// on initialize set the status of the linkElement to disabled
-			$(linkElement).attr('status','disabled');
-			
-			// add start and stop georeferencer behavior to the georeferencer sidebar element
-			$(linkElement).click(function(){
-				var status = $(this).attr('status');
-				
-				if (status == 'disabled'){
-					//_addGeorefLayer(map);
-					georefLayer.activate();
-					$(this).attr('status','enabled');
-				} else if (status == 'enabled'){
-					//_removeGeorefLayer(map);
-					georefLayer.deactivate();
-					$(this).attr('status','disabled');
-				}
-			});
-			
-			_checkIfActive(linkElement);
 		}
 }

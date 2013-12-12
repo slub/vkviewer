@@ -2,8 +2,16 @@ VK2.Tools.Sidebar = VK2.Class({
 	
 	_settings: {
 		sidebarPanel: 'vk2SBPanel',
-		sidebarContentPanel: 'vk2SidebarBodyPanel',
-		sidebarHeaderLabel: 'vk2SBHeaderLabel'
+		sidebarContentPanel: 'vk2SBContentPanel',
+		sidebarBodyPanel: 'vk2SidebarBodyPanel',
+		sidebarHeaderPanel: 'vk2SBHeaderPanel', 
+		sidebarHeaderLabel: 'vk2SBHeaderLabel',
+		sidebarHeaderClose: 'vk2SBClose',
+		
+		// for control elements
+		sidebarIcon: 'vk2SidebarIcon',
+		sidebarControlBtn: 'vk2SBControlBtn',
+		sidebarToolActive: 'vk2ToolActivate',
 	},
 	
 	_sidebarController: null,
@@ -14,8 +22,44 @@ VK2.Tools.Sidebar = VK2.Class({
 		}	
 	},
 	
-
-
+	_loadHtmlElements: function(toolPanels){
+		var mainContainer = $('#'+this._settings.sidebarPanel);
+		
+		var contentContainer = $('<div/>', {
+			'id': this._settings.sidebarContentPanel,
+			'class': this._settings.sidebarContentPanel
+		}).appendTo(mainContainer);
+		
+		
+		// create header elements
+		var headerContainer = $('<div/>', {
+			'id': this._settings.sidebarHeaderPanel,
+			'class': this._settings.sidebarHeaderPanel			
+		}).appendTo(contentContainer);
+		
+		$('<div/>', {
+			'id': this._settings.sidebarHeaderLabel,
+			'class': this._settings.sidebarHeaderLabel
+		}).appendTo(headerContainer);
+		
+		$('<div/>', {
+			'id': this._settings.sidebarHeaderClose,
+			'class': this._settings.sidebarHeaderClose + ' ' + this._settings.sidebarIcon
+		}).appendTo(headerContainer);
+		
+		// body 
+		var bodyContainer = $('<div/>', {
+			'id': this._settings.sidebarBodyPanel,
+			'class': this._settings.sidebarBodyPanel			
+		}).appendTo(contentContainer);
+		
+		for (var i = 0; i < toolPanels.length; i++){
+			$('<div/>', {
+				'id': toolPanels[i],
+				'class': toolPanels[i]
+			}).appendTo(bodyContainer);
+		}
+	},
 	
 	_loadSidebarController: function(MapController){
 		// find out panel width
@@ -27,30 +71,31 @@ VK2.Tools.Sidebar = VK2.Class({
 			sidebarPanel: this._settings.sidebarPanel,
 			sidebarHeaderLabel: this._settings.sidebarHeaderLabel,
 			sidebarPanelWidth: panelWidth,
-			sidebarCloseBtn: 'vk2SBClose'
+			sidebarCloseBtn: this._settings.sidebarHeaderClose
 		}, MapController);
 	},
 	
 	_createControlElement: function(controlId, controlPanel){
 		$('<span/>', {
-			'class': 'vk2SidebarIcon'
+			'class': this._settings.sidebarIcon
 		}).appendTo($('<a/>', {
 				'id': controlId,
-				'class': controlId + ' vk2SBControlBtn',
+				'class': controlId + ' ' +this._settings.sidebarControlBtn,
 				'value': controlPanel
 			}).appendTo($('#'+this._settings.sidebarPanel))
 		);
 	},
 	
 	_appendControlPanel: function(panel){
-		$('#'+panel).appendTo($('#'+this._settings.sidebarContentPanel));
-		$('#'+panel).addClass('vk2ToolActivate')
+		$('#'+panel).appendTo($('#'+this._settings.sidebarBodyPanel));
+		$('#'+panel).addClass(this._settings.sidebarToolActive)
 	},
 	
 
 	
-	initialize: function(settings, MapController){
+	initialize: function(settings, MapController, toolPanels){
 		this._updateSettings(settings);
+		this._loadHtmlElements(toolPanels);
 		this._loadSidebarController(MapController);
 	},
 	

@@ -10,7 +10,7 @@
         
         <!-- vk2 librarys -->
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/themes/base/jquery-ui.css')}" />
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/login/styles.css')}" />
+        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/login_screen.css')}" />
       	<script src="${request.static_url('vkviewer:static/lib/jquery.js')}"></script>
       	<script src="${request.static_url('vkviewer:static/lib/jquery-ui.js')}"></script>
       	<script src="${request.static_url('vkviewer:static/js/Initialize.Login.js')}"></script>  

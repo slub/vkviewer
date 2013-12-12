@@ -46,12 +46,14 @@
     };
 
     var jsfiles = new Array(
+    		"Initialize.Configuration.js",
     		"utils/Namespace.js",
     		"utils/Utils.js",
     		"utils/Class.js",
     		"utils/Filter.js",
     		"utils/Validation.js",
     		"utils/Georef.js",
+    		"utils/AppLoader.js",
     		"styles/FeatureLayerStyles.js",
     		"controller/Mediator.js",
     		"controller/MapController.js",
@@ -64,10 +66,8 @@
     		"tools/GeoreferencerChooser.js",
     		"tools/Georeferencer.js",
     		"tools/Layersearch.js",
-    		"tools/LayerManagement.js",
-    		"tools/ToolLoader.js",
+    		"tools/Layerbar.js",
     		"tools/Sidebar.js",
-    		"Initialize.Configuration.js",
     		"Initialize.js"
     );
     

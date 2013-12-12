@@ -22,7 +22,7 @@ from zope.sqlalchemy import ZopeTransactionExtension
 
 
 # import of own python classes
-from settings import dbconfig
+from settings import dbconfig, routePrefix
 from python.security import EntryFactory
 from python.proxy import proxy_post
 from python.models.Meta import initialize_sql, Base
@@ -36,7 +36,6 @@ log = logging.getLogger(__file__)
 here = os.path.dirname(os.path.abspath(__file__))
 
 def addRoutes(config):
-    routePrefix = 'vkviewer'
     # add routes
     config.add_static_view(routePrefix+'/static', 'vkviewer:static/', cache_max_age=0)
     config.add_route('proxy', routePrefix+'/proxy/')

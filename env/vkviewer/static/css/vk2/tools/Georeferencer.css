@@ -7,7 +7,7 @@
 	position: relative;
 }
 
-.vk2GeoreferenceBtn{
+.vk2GeorefControl{
 	position: absolute;
 	top:160px;
 	left:-40px;
@@ -17,6 +17,6 @@
 	border-radius: 0;
 }
 
-.vk2GeoreferenceBtn .vk2SidebarIcon{
+.vk2GeorefControl .vk2SidebarIcon{
 	background-position: -120px 0;
 }

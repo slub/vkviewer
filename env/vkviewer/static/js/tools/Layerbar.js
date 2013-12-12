@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-VK2.Tools.LayerManagement = VK2.Class({
+VK2.Tools.Layerbar = VK2.Class({
     
 	NAME: VK2.Utils.get_I18n_String('toolname_layerbar'),
     /*
