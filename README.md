@@ -59,7 +59,9 @@ Run Tests
 
 1.) Pyramid Tests
 	
-	~/path/to/env/bin/python setup.py test
+	~/path/to/env/bin/python setup.py test	## runs all tests
+	~/path/to/env/bin/python setup.py test --test-module vkviewer.python.tests.views.utils.TestSuite ## runs specific TestSuite
+
 
 Tips
 ====

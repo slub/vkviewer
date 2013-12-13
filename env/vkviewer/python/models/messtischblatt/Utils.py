@@ -12,6 +12,16 @@ def getWmsUrlForMtb(mtbid, session):
     result = session.execute(query,{'mtbid':mtbid}).fetchone()
     return result['onlineressource']
 
+""" This function computes via a SQL Query the total number of messtischblaetter, which
+    are right now published for georeferencing
+    @parma session - {SQLAlchemy.SessionObject} 
+"""
+
+def getCountOfPublishedMesstischblaetter(session):
+    query = 'SELECT count(istaktiv) FROM messtischblatt WHERE istaktiv = True'
+    result = session.execute(query).fetchone()
+    return result['count']    
+
 """  This function computes via a SQL Query the occurrence of georeferenced 
      messtischblaetter. 
      

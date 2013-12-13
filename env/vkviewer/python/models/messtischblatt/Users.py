@@ -40,9 +40,9 @@ class Users(Base):
         return dbsession.query(Users).filter(Users.login == login).first()
     
     @classmethod
-    def get_paginator(cls, request, dbsession, page=1):
+    def get_paginator(cls, request, dbsession, page=1, items_per_page=3):
         page_url = PageURL_WebOb(request)
-        return Page(Users.all(dbsession), page, url = page_url, items_per_page=5)
+        return Page(Users.all(dbsession), page, url = page_url, items_per_page=items_per_page)
     
     def _set_password(self, password):
         hashed_password = password

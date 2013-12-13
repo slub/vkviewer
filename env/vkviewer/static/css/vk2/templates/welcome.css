@@ -1,4 +1,156 @@
 body, html{
+	height: 500px;
+	width: 800px;
+}
+
+.vk2WelcomePage div{
+	position: relative;
+	float: left;
+}
+
+.vk2WelcomePage .vk2WelcomePageBody{
+	height: 400px;
+	width: 800px;
+}
+
+.vk2WelcomePage .vk2WelcomePageFooter{
+	height: 100px;
+	width: 800px;
+	background: url(/vkviewer/static/images/fancybox_overlay.png)
+}
+
+/*
+	Styling of the main body elements
+*/
+.vk2WelcomePage .vk2WelcomePageBody .leftContainer{
+	width: 60%;
+	height: 70%;
+	padding-top: 5%;
+	padding-bottom: 5%;
+}
+
+.vk2WelcomePage .vk2WelcomePageBody .leftContainer .inner{	
+	margin-right: -1px;
+	border-right: 1px dotted #525266;
 	width: 100%;
+}
+
+.vk2WelcomePage .vk2WelcomePageBody .leftContainer .inner .logo{
+	padding: 15%;
+}
+
+.vk2WelcomePage .vk2WelcomePageBody .rightContainer{
+	width: 40%;
+	height: 70%;
+	padding-top: 5%;
+	padding-bottom: 5%;
+}
+
+.vk2WelcomePage .vk2WelcomePageBody .rightContainer .inner{
+	padding: 5%;
+}
+
+.vk2WelcomePage .vk2WelcomePageBody .footerContainer{
+	width: 100%;
+	height: 10%;
+}
+
+/*
+ 	Styling georeference progress
+ */
+.vk2WelcomePage .vk2WelcomePageBody .footerContainer .vk2GeoreferenceProgressText{
+	width: 100%;
+	height:80%;
+}
+
+.vk2WelcomePage .vk2WelcomePageBody .footerContainer .vk2GeoreferenceProgressBar{
+	width: 100%;
+	height:20%;
+	overflow:hidden;
+}
+
+.vk2GeoreferenceProgressText .contentContainer{
+	margin-top: 1%	
+}
+
+.vk2GeoreferenceProgressText .contentContainer .content{
+	
+}
+
+.vk2GeoreferenceProgressBar .done{
 	height: 100%;
+	margin-right: -1px;
+	border-right: 1px solid #FFFFFF;
+	background-color: #c00;
+}
+ 
+.vk2GeoreferenceProgressBar .todo{
+	height: 100%;
+	background-color: #B2B2B2;
+	width: 100%;
+	position:absolute;
+}
+
+/*
+	Footer styling 
+*/
+
+.vk2WelcomePage .vk2WelcomePageFooter div, p, ol, li, a, span{
+	color: white;
+	font-size: 12px;
+}
+
+.vk2WelcomePage .vk2WelcomePageFooter .RankingContainer{
+	height: 40%;
+	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	border-bottom: 1px dotted #fff;
+	border-top: 1px dotted #fff;
+}
+
+.vk2WelcomePage .vk2WelcomePageFooter .RankingContainer .vk2GeoreferenceRanking{
+	width: 70%;
+	height: 90%;
+	margin-top: 5px;
+}
+
+.vk2GeoreferenceRanking ol li{
+    list-style-position: inside;
+    position: relative;
+    float: left;
+    margin-left: 1.5em;
+}
+
+.vk2GeoreferenceRanking .furtherItems{
+	padding-left: 5px;
+}
+
+.vk2GeoreferenceRanking ol li span{
+	padding-right: 5px;
+    border-right: 1px dotted #fff;
+}
+
+.vk2WelcomePage .vk2WelcomePageFooter .RankingContainer .closeContainer{
+	width: 30%;
+	height: 90%;
+	margin-top: 5px;
+}
+
+.vk2WelcomePage .vk2WelcomePageFooter .RankingContainer .closeContainer a{
+	float: right;
+}
+
+.vk2WelcomePage .vk2WelcomePageFooter .RankingContainer .closeContainer span{
+	float: right;
+	cursor: pointer;
+}
+
+.vk2WelcomePage .vk2WelcomePageFooter .SkipPageContainer{
+	width: 100%;
+	height: 25%;
+}
+
+.vk2WelcomePage .vk2WelcomePageFooter .SkipPageContainer .inner{
+	margin-left: 5px;
 }

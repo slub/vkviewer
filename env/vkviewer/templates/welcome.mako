@@ -18,6 +18,7 @@
     
     <script>
     	$(document).ready(function(){
+    		// event behavior for deactivation welcome page
 			$('#deactivateWelcomePage').change(function(){
 				var queryValue = $(this).prop('checked') ? 'off' : 'on';
 	   			$.ajax({
@@ -36,53 +37,83 @@
         			}
 	   			});
 	   		});
+	   		
+	   		$('#vk2WelcomePageStart').click(function(event){
+	   			parent.$.fancybox.close();
+	   		});	   		
 	   	});
     </script>  
 	<body>
 		<div class="vk2WelcomePage">
-		    <h2 class="slubcolor">Willkommen im Virtuellen Kartenforum 2.0</h2>
-		    <br>
-		    <div class="vk2GeorefOverview">
-		    	
-		    	###
-		    	### Occurrence georeferenced messtischblaetter
-		    	###
-		    	% if occurrence_mtbs:
-		    	<div class="vk2GeorefResultsOverviewContainer">
-			    	<h4>Aktuelle Georeferenzierungsprojekt</h4>
-			    	<p>
-			    		Aktuell werden ca. 6000 Messtischblätter des historischen Deutschlands georeferenziert. Von diesen sind bisher ${occurrence_mtbs} georeferenziert.
-			    		Helfen Sie mit damit es noch mehr werden. 
-			    	</p>
-		    	</div>
-		    	% endif
-		    	
-		    	##
-		    	## List of users ranked by there georeference achievments
-		    	##
-		    	% if paginator.items:
-		    	
-		    	
-		    	<div class="vk2GeorefUserRankingContainer">
-			    	<h4>Aktivste Georeferenzierer</h4>
-			    	
-			    	<ol class="vk2GeorefUserRanking">
-							
-							% for user in paginator.items:
-				    		<li>
-				    			<span class="name">${user.vorname} ${user.nachname}</span>
-				    			<span class="points">${user.bonuspunkte}</span>
-				    		</li>
-				    		% endfor
-			    	</ol>	
-			    </div>   
-			    % endif
-			     		
-		    </div>
-		    <div>
-		    	<span>Willkommensseite in Zukunft nicht mehr anzeigen</span>
-		    	<input type="checkbox" id="deactivateWelcomePage" name="deactivateWelcomePage"> 
-		    </div>
-		</div>
+			<div class="vk2WelcomePageBody">
+				<div class="leftContainer">
+					<div class="inner">
+						<img class="logo" src="${request.static_url('vkviewer:static/images/welcome_logo.png')}" />
+					</div>
+				</div>
+				
+				<div class="rightContainer">
+					<div class="inner">
+						<span class="slubcolor heading"><b>Willkommen im neuen virtuellen Kartenforum.</b></span><br>
+						<p>
+							Hier ein Introtext der kurz erklärt was es hier zu gewinnen gibt und was wir besser können als alle Anderen.
+						</p>
+					</div>
+				</div>
+				
+				<div class="footerContainer">
+				
+					##
+					## Progress visualisation of the georeferencing
+					##
+					% if occurrence_mtbs and possible_mtbs and georef_rel:
+					<div class="vk2GeoreferenceProgressText">
+						<div class="contentContainer" style="margin-left: ${georef_rel}%;">
+							<div class="content" style="margin-left: -${georef_rel}%;">Bereits <b>${occurrence_mtbs}</b> von <b>${possible_mtbs}</b> Messtischblättern georeferenziert.</div>
+						</div>
+					</div>
+					<div class="vk2GeoreferenceProgressBar">
+						<div class="done" style="width: ${georef_rel}%;"></div>
+						<div class="todo" style="margin-left: ${georef_rel}%;"></div>
+					</div>
+					% endif
+				</div>
+			</div>
+			
+			<div class="vk2WelcomePageFooter">
+				<div class="RankingContainer">
+					<div class="vk2GeoreferenceRanking">
+						<p>Die Top-Georeferenzierer:</p>
+						
+						<ol>
+						
+							##
+		    				## List of users ranked by there georeference achievments
+		    				##
+		    				% if paginator.items:
+		    				
+		    					% for user in paginator.items:
+									<li>
+										<span><b>${user.vorname} ${user.nachname}:</b> ${user.bonuspunkte} Punkte</span> 
+									</li>
+								% endfor
+								
+							% endif
+							<span class="furtherItems">[...]</span> 
+						</ol>
+					</div>
+					<div class="closeContainer">
+						<span id="vk2WelcomePageStart" class="vk2WelcomePageStart">Jetzt mithelfen und selbst Punkte sammeln.</span>
+						<a href="${request.route_url('faq')}" class="vk2FooterLinks">So einfach geht's</a>
+					</div>
+				</div>
+				<div class="SkipPageContainer">
+					<div class="inner">
+						<input type="checkbox" id="deactivateWelcomePage" name="deactivateWelcomePage"> 
+		    			<span>Diese Begrüßung zukünftig nicht mehr anzeigen.</span>	    			
+		    		</div>
+				</div>
+			</div>
+		</div>    
     </body>
 </html>
