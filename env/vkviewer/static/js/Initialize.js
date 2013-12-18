@@ -66,7 +66,8 @@ var addEvents = function(){
 	// welcome page
 	if (document.getElementById("vk2WelcomePage")){
 		$("#vk2WelcomePage").fancybox({
-			'type': 'iframe'
+			'type': 'iframe',
+			'padding' : 0
 		}).click();
 	}
 	
