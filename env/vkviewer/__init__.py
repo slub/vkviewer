@@ -95,7 +95,11 @@ def setLocalizationOptions(config):
     config.add_subscriber('vkviewer.python.i18n.add_localizer',
                       'pyramid.events.NewRequest')
     config.set_locale_negotiator(custom_locale_negotiator)
-           
+
+def getAuthenticationPolicy():
+    authPolicy = AuthTktAuthenticationPolicy('somesecret')
+    return authPolicy
+              
 def main(global_config, **settings):
     # configuration settings
     settings['mako.directories'] = os.path.join(here, 'templates')
@@ -104,7 +108,7 @@ def main(global_config, **settings):
     
     
     #  configuration setup
-    authentication_policy = AuthTktAuthenticationPolicy('somesecret')
+    authentication_policy = getAuthenticationPolicy()
     authorization_policy = ACLAuthorizationPolicy()
     config = Configurator(settings=settings,
                       authentication_policy=authentication_policy,
@@ -147,7 +151,7 @@ if __name__ == '__main__':
     #session_factory = UnencryptedCookieSessionFactoryConfig('itsaseekreet')
     
     #  configuration setup
-    authentication_policy = AuthTktAuthenticationPolicy('somesecret')
+    authentication_policy = getAuthenticationPolicy()
     authorization_policy = ACLAuthorizationPolicy()
     config = Configurator(settings=settings,
                       authentication_policy=authentication_policy,

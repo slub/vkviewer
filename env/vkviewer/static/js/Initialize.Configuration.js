@@ -26,7 +26,6 @@ var initConfiguration = {
             ]
 
     },
-    
     // parameter of the time wms
     timeParameter: {
             extent: null,
