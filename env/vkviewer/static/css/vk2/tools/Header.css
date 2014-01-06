@@ -37,14 +37,21 @@
 	position: relative;
 }
 
+.vk2-navbar-user{
+	margin-right: 0px !important;
+}
+.vk2Navbar{
+	/* background: transparent url(/vkviewer/static/images/searchbg.png) repeat 0 0; */
+	background-color: #A60000;
+}
 .vk2Gazetteer{
 	position: relative;
-	float: left;
 	display: inline-block;
 	padding-left: 1%;
 	padding-right: 1%;
+/* 	float: left;
 	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 10px; */
 	height: 50px;
 	width: 48%;
 	z-index: 10000;
