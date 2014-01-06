@@ -34,16 +34,16 @@ VK2.Tools.Layerbar = VK2.Class({
      * Constructor: OpenLayers.Control.LayerSwitcher
      *
      * Parameters:
-     * arguments - {Object} they have to contain a {<OpenLayers.Map>}, a div container 
+     * settings - {Object} they have to contain a {<OpenLayers.Map>}, a div container 
      *              and an id. 
      */
-    initialize: function(arguments){
-        this.map = arguments.map;
-        this.div = arguments.div;
-        this.id = arguments.id;
+    initialize: function(settings){
+        this.map = settings.map;
+        this.div = settings.div;
+        this.id = settings.id;
         
-        if (arguments.vk2featurelayer){
-        	this._vk2FeatureLayer = arguments.vk2featurelayer
+        if (settings.vk2featurelayer){
+        	this._vk2FeatureLayer = settings.vk2featurelayer
         } else {
         	this._vk2FeatureLayer = new Vk2FeatureLayer();
         }
@@ -51,8 +51,8 @@ VK2.Tools.Layerbar = VK2.Class({
         
         // this displayBtn is set to true the class assumes that there is an
         // extern control of the minimize maximaze behavior
-        if (arguments.displayBtn)
-            this.displayBtn = arguments.displayBtn;
+        if (settings.displayBtn)
+            this.displayBtn = settings.displayBtn;
         else this.displayBtn = false;
 
         this.layerStates = [];
@@ -272,9 +272,6 @@ VK2.Tools.Layerbar = VK2.Class({
         this.div.style.height = "";
 
         this.showControls(false);
-
-        if (e != null) {
-        }
     },
 
     /**
@@ -295,9 +292,6 @@ VK2.Tools.Layerbar = VK2.Class({
         this.div.style.height = "0px";
 
         this.showControls(true);
-
-        if (e != null) {
-        }
     },
 
     /**
@@ -452,23 +446,23 @@ VK2.Tools.Layerbar = VK2.Class({
     /**
      * Method: _addSliderBehaviour
      * 
-     * arguments - {Object} contains different arguments for the configuration
+     * sliderSettings - {Object} contains different arguments for the configuration
      *              of the slider
      * eventHandler - {Object} function which is called in case of a event
      *  
      * Cycles Creates an default body for a layer element
      */
      
-    _addSliderBehaviour: function(arguments, eventHandler){
+    _addSliderBehaviour: function(sliderSettings, eventHandler){
         // initialize tooltip 
-        var tooltipTime = $(arguments.tooltipDiv);
+        var tooltipTime = $(sliderSettings.tooltipDiv);
         tooltipTime.hide();
         
         // initialize timeslider
-        var timeSlider = $(arguments.sliderDiv).slider({
-            min: arguments.min,
-            max: arguments.max,
-            value: arguments.value,
+        var timeSlider = $(sliderSettings.sliderDiv).slider({
+            min: sliderSettings.min,
+            max: sliderSettings.max,
+            value: sliderSettings.value,
             animate: 'slow',
             orientation: 'horizontal',
             step: 1,
@@ -478,7 +472,7 @@ VK2.Tools.Layerbar = VK2.Class({
             },
             slide: function(event, ui){
                 var value = timeSlider.slider('value');
-                var valueCss = (arguments.min - value)*-1;
+                var valueCss = (sliderSettings.min - value)*-1;
                 tooltipTime.css('left',valueCss).text(ui.value);
             },
             stop: function(event, ui){

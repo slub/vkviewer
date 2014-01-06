@@ -1,4 +1,4 @@
-/* 
+/** 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  * 
@@ -91,7 +91,7 @@ VK2.Tools.Layersearch = VK2.Class({
         		$('#vk2LSHeaderLoadingContainer').removeClass('loading');
         },
         
-        /*
+        /**
          * Method: publishAddTimeLayerEvent
          * @param event {Event}
          */

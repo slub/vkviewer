@@ -18,7 +18,7 @@ VK2.Utils.AppLoader = VK2.Class({
 	
 	_sidebar: null,
 	
-	/*
+	/**
 	 * Function: checkIfToolContainerIsInit
 	 * Checks if the DOM container for tool is initialize
 	 * 
