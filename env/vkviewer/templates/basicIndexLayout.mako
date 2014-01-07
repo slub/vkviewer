@@ -19,21 +19,21 @@
 	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
     
 	    <!-- load generic js librarys -->
-	    <script src="${request.static_url('vkviewer:static/lib/jquery.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/jquery.fancybox.js')}"></script> 
-	    <script src="${request.static_url('vkviewer:static/lib/ext-base.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/ext-all.js')}"></script>    
+	    <script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/jquery.fancybox.min.js')}"></script> 
+	    <script src="${request.static_url('vkviewer:static/lib/ext-base.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/ext-all.min.js')}"></script>    
 	    <script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script> 
-	    <script src="${request.static_url('vkviewer:static/lib/GeoExt/GeoExt.js')}"></script>  
+	    <script src="${request.static_url('vkviewer:static/lib/GeoExt.min.js')}"></script>  
 	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/bootstrap-3.0.3/js/bootstrap.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
     
          <!-- javascript internationalization --> 
       	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
 	    
 	    <!-- vk2 librarys -->
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>	
+	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script>	
 	</head>
 	
 	<body>

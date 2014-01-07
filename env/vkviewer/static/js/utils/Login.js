@@ -234,5 +234,4 @@ VK2.Login.Utils = {
 			
 			return isValide;
 		}
-	}
 }
