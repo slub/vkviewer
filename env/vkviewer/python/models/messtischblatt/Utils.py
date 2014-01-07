@@ -47,9 +47,10 @@ def getZoomifyCollectionForBlattnr(request, blattnr, session, page=1):
     mtbs = Messtischblatt.allForBlattnr(blattnr, session)
     for mtb in mtbs:
         metadata = MetadatenCore.by_id(mtb.id, session)
-        item = {'mtbid':mtb.id,'layername':mtb.dateiname,'titel':metadata.titel,'titel_short':metadata.titel_short,
-                'zoomify_prop':mtb.zoomify_properties,'zoomify_width':mtb.zoomify_width,'zoomify_height':mtb.zoomify_height}
-        coll.append(item)
+        if mtb.mdtype == 'M' and mtb.istaktiv:
+            item = {'mtbid':mtb.id,'layername':mtb.dateiname,'titel':metadata.titel,'titel_short':metadata.titel_short,
+                    'zoomify_prop':mtb.zoomify_properties,'zoomify_width':mtb.zoomify_width,'zoomify_height':mtb.zoomify_height}
+            coll.append(item)
     # create paginator
     page_url = PageURL_WebOb(request)
     return Page(coll, page, url=page_url, items_per_page=10)

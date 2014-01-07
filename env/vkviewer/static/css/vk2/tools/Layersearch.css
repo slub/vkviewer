@@ -6,24 +6,25 @@
 }
 
 .vk2LayersearchPanel{
-    width: 400px;
+    width: 385px;
     height: 470px;
+    margin-right: 20px;
     /* overflow: scroll; */
 }
 
 .vk2LSMainPanel{
-	width: 400px;
+	width: 385px;
 	height: 350px;
 }
 
 .vk2LSMainPanel .vk2HeaderPanel{
-	width: 400px;	
+	width: 385px;	
 	height: 45px;
 }
 
 .vk2LSMainPanel .vk2HeaderPanel .vk2LSHeaderContainer{
 	height: 41px;
-	width: 395px;
+	width: 385px;
 }
 
 .vk2LSMainPanel .vk2LSHeaderContainer .vk2LSHeaderContent{
@@ -52,12 +53,12 @@
 }
 
 .vk2LSMainPanel .featureGridPanel{
-	width: 400px;
+	width: 385px;
 	height: 300px;
 }
 
 .vk2LSMainPanel .vk2LSToolPanel{
-    width: 400px; 
+    width: 385px; 
     height: 120px;
 }
 

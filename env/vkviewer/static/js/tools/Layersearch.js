@@ -248,7 +248,7 @@ VK2.Tools.Layersearch = VK2.Class({
                 contentEl: header.getAttribute('id'),
             },{
             		xtype: 'grid',
-                    width: 400,
+                    width: 385,
                     height: 300,
                     store: this._featureStore, //new GeoExt.data.FeatureStore(this._featureStoreOptions),    
                     cm: new Ext.grid.ColumnModel([
@@ -281,7 +281,7 @@ VK2.Tools.Layersearch = VK2.Class({
                     id: 'vk2LSToolPanel',
                     cls: 'vk2LSToolPanel',
                     contentEl: 'vk2LSToolbar',
-                    width: 400,
+                    width: 385,
                     height: 130
             }],
             listeners: {

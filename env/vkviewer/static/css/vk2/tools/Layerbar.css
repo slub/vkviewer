@@ -60,6 +60,7 @@ Styling of the list elements
     left: 5px;
     float: left;
     margin-top: 4px;
+    
 }
 
 /*
@@ -93,7 +94,7 @@ Styling of the list elements
     height: 60px;
 }
 
-.overlayElem .maximize .slider .label{
+.overlayElem .maximize .slider .vk2Label{
     font-size: 10px;
 }
 

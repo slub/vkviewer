@@ -342,7 +342,7 @@ VK2.Tools.Layerbar = VK2.Class({
         var layer = this._getLayerToEvent(event);
         
         // change layer label in the layerswitcher and time value of the layer object
-        var tmpLblDivs = $(document).find('div.label');
+        var tmpLblDivs = $(document).find('div.vk2Label');
         for(var i = 0; i < tmpLblDivs.length; i++){
             if (tmpLblDivs[i].value == event.target.value){
                 tmpLblDivs[i].innerHTML = layer.params.LAYERS + " " + newTimeValue;
@@ -375,7 +375,7 @@ VK2.Tools.Layerbar = VK2.Class({
     _createEventBehaviorToLayerElem: function(overlayElem, layer){
         // add events and behavior to the list elements
         $(overlayElem).find('ul').hide();
-        $(overlayElem).find('.minimize').find('.label').click(function(event){
+        $(overlayElem).find('.minimize').find('.vk2Label').click(function(event){
             $(overlayElem).find('ul').slideToggle();
         }); 
         
@@ -411,7 +411,7 @@ VK2.Tools.Layerbar = VK2.Class({
             
             // change label to time labe in the minimize view;
             var layerLbl = layer.name+" "+layer.params.TIME;
-            $(overlayElem).find('.minimize').find('.label').html(layerLbl);
+            $(overlayElem).find('.minimize').find('.vk2Label').html(layerLbl);
         }
         
         return layer;
@@ -596,7 +596,7 @@ VK2.Tools.Layerbar = VK2.Class({
         var minimizeViewLbl = document.createElement("div");
         minimizeViewLbl.value = layer.id;
         minimizeViewLbl.text = layer.name;
-        minimizeViewLbl.className = minimizeViewLbl.className + " label";
+        minimizeViewLbl.className = minimizeViewLbl.className + " vk2Label";
         minimizeViewLbl.innerHTML =  layer.name;
 
         // add the header elements to parent container
@@ -625,7 +625,7 @@ VK2.Tools.Layerbar = VK2.Class({
     	    
     	    var label = document.createElement("div");
     	    label.innerHTML = lbl + ":";
-    	    label.className = label.className + " label";
+    	    label.className = label.className + " vk2Label";
     	    container.appendChild(label);
     	    
     	    // the div for the query slider, the value field has to be set with the
