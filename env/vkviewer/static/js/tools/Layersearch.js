@@ -67,7 +67,7 @@ VK2.Tools.Layersearch = VK2.Class({
         	var headerContentDiv = $('#vk2LSHeaderContent');
         	var headerContainerDiv = $('#vk2LSHeaderContainer')
         	if (this.map.getZoom() >= 2 && this.getVisibility()){        	
-	        	headerContentDiv.html(this.features.length+" Messtischblätter gefunden.")
+	        	headerContentDiv.html(this.features.length+" "+VK2.Utils.get_I18n_String('found_mtb'))
 	        	if (headerContainerDiv.hasClass( 'ui-state-error' ))
 	        		headerContainerDiv.removeClass( 'ui-state-error' );
 	        	
@@ -75,7 +75,7 @@ VK2.Tools.Layersearch = VK2.Class({
 	        	if (e.type == 'visibilitychanged')
 	        		this.refresh({force:true});
         	} else {
-        		headerContentDiv.html("Bitte wählen Sie eine höhere Zoomstufe!")
+        		headerContentDiv.html(VK2.Utils.get_I18n_String('change_zoomlevel'))
     			headerContainerDiv.addClass( 'ui-state-error' );
         	} 	
         },	
@@ -102,7 +102,7 @@ VK2.Tools.Layersearch = VK2.Class({
                 	timeParams.time = timeValue;  
                     pubsub.publish("addtimelayer",timeParams);
                 } else {
-                    alert('Wähle validien Zeitstempel');
+                    alert(VK2.Utils.get_I18n_String('choose_valide_timestamp'));
                 }
             } else {
                 console.log("Missing publish/subscription handler")
@@ -236,8 +236,11 @@ VK2.Tools.Layersearch = VK2.Class({
             renderTo: container.getAttribute('id'),
             id: "vk2LSMainPanel",
             cls: "vk2LSMainPanel",
-            width: 400,
-            height: 570,
+//            autoScroll: true,
+//            autoHeight: true,
+//            monitorResize: true,
+//            width: 400,
+//            height: 570,
             items: [{
                 id: 'vk2HeaderPanel',
                 cls: 'vk2HeaderPanel',
@@ -246,7 +249,7 @@ VK2.Tools.Layersearch = VK2.Class({
             },{
             		xtype: 'grid',
                     width: 400,
-                    height: 400,
+                    height: 300,
                     store: this._featureStore, //new GeoExt.data.FeatureStore(this._featureStoreOptions),    
                     cm: new Ext.grid.ColumnModel([
                         {id: "time", header: VK2.Utils.get_I18n_String('timestamp'), dataIndex: "time", sortable: true},

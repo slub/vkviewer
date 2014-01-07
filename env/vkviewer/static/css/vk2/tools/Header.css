@@ -57,146 +57,40 @@
 	z-index: 10000;
 }
 
-.vk2Menubar{
-	position: relative;
-	float: left;
-	padding-left: 1%;
-	padding-right: 1%;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	width: 27%;
-	height: 50px;
-	border-left: 1px dotted #fff;
-}
-
-
 /* background image for the header */
 .stretch{
     width:100%;
     height:100%;
 }
 
-/* user menu styling */
-.vk2MenubarDropDowns{
-	margin: 10px;
-	width: 80px;
-	height: 30px;
-	position: relative;
-	float:left;
-}
-
-.vk2MenubarDropDowns .vk2GeneralDiv{
+/* Language switcher symbols */
+.language_switcher{
 	position: relative;
 	float: left;
-}
-
-.vk2MenubarDropDowns .vk2UserDiv{
-	position: relative;
-	float: left;	
-}
-
-.vk2UserDiv .vk2UserLink{
-	background-image: url(/vkviewer/static/images/platzhalter.png);
-	background-repeat: no-repeat no-repeat;
-	width:40px;
-	height: 40px;
-	display: block;
-	outline: none;
-}
-
-/* login menu styles */
-.vk2Menubar .userLogin{
-	margin:10px;
-	font-family: Verdana, Arial, Helvetica, Sans-Serif;
-	font-size: 11px;
-	color: #fff;
-	float: left;
-}
-
-
-.loginElement{
-	margin: 1px;
-}
-
-.loginId.loginElement{
-	margin-bottom: 3px;
-	margin-top: 3px;
-	font-size: 16px;
-}
-
-/* .vk2Menubar{ */
-/* 	border-right: 1px dotted #fff; */
-/* } */
-
-/*
-	DropDownMenu GeneralLinks
-*/
-.vk2GeneralDiv{
-	width:40px;
-	height: 40px;
-}
-
-.vk2GeneralDiv .vk2GeneralLink{
-	background-image: url(/vkviewer/static/images/platzhalter.png);
-	background-repeat: no-repeat no-repeat;
-	display: block;
-	outline: none;
-	width:30px;
-	height: 30px;
-	margin-left: 5px;
-	margin-right: 5px;
-}
-
-.vk2GeneralDropDown{
-	margin: 0;
-	padding: 0;
-}
-
-.vk2GeneralDropDown li{
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	float: left;
-	font: bold 11px arial
-}
-
-.vk2GeneralDropDown li a{	
-	display: block;
-}
-
-.vk2GeneralDropDown li a:hover{	
-/* 	background: #49A3FF */
-}
-
-.vk2GeneralDropDown div{	
-	position: absolute;
-	visibility: hidden;
 	margin-top: 5px;
-	margin-left: -30px;
-	width: 100px;
-	padding: 0;
-	background: white;
-	border: 1px solid #ADA79E;
-}
-
-.vk2GeneralDropDown div a	{
-	position: relative;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	height: 11px;
+	width: 16px;
 	display: block;
-	margin: 0;
-	padding: 5px 10px;
-	width: auto;
-	white-space: nowrap;
-	text-align: left;
-	text-decoration: none;
-	background: white;
-	color: #2875DE;
-	font: 11px arial
+	overflow: hidden;
+	text-indent: -9000px;
+	background: url('../../../images/flags.png') no-repeat;	
 }
 
-.vk2GeneralDropDown div a:hover{	
-	background: #49A3FF;
-	color: #FFF
+
+.language_switcher.switch_de{
+	background-position: 0 0; 
 }
+
+.language_switcher.switch_en{
+	background-position: 0 -11px; 
+}
+
+
+
+
+
 
 
 

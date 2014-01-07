@@ -7,7 +7,13 @@
 
 .vk2LayersearchPanel{
     width: 400px;
-    height: 570px;
+    height: 470px;
+    /* overflow: scroll; */
+}
+
+.vk2LSMainPanel{
+	width: 400px;
+	height: 350px;
 }
 
 .vk2LSMainPanel .vk2HeaderPanel{
@@ -47,7 +53,7 @@
 
 .vk2LSMainPanel .featureGridPanel{
 	width: 400px;
-	height: 400px;
+	height: 300px;
 }
 
 .vk2LSMainPanel .vk2LSToolPanel{

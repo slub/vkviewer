@@ -6,6 +6,22 @@
         Purpose of the stylesheet follows.
 */
 /* generic styling for the login window */
+.container{
+	width: 320px;
+}
+.vk2LoginLayout div{
+	position: relative;
+	float: left;
+}
+
+.vk2RegisterUserLayoutInner{
+	/* clear: both; */
+}
+
+.registerElement.form-group{
+	position: relative;
+	float: left;
+}
 .loginScreen{
 	width: 320px;
 }
@@ -16,14 +32,17 @@
 }
 
 .loginInput.large{
-	width: 250px;
+	width: 220px;
 }
+
 .loginInput.medium{
 	width: 170px;
 }
+
 .loginInput.small{
 	width: 120px;
 }
+
 
 .loginInput.btn{
 	height: 35px;
@@ -46,9 +65,14 @@
 	border-bottom: 1px dotted;
 }
 
+.vkLoginBtn{
+	padding: 2px;
+}
+
 /* forget pw div */
-.openForgetPwDialog{
+.loginForgot{
 	cursor: pointer;
+	clear: both;
 }
 
 /* forget pw dialog */

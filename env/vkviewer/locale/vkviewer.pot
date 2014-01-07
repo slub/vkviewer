@@ -1,14 +1,14 @@
 # Translations template for vkviewer.
-# Copyright (C) 2013 ORGANIZATION
+# Copyright (C) 2014 ORGANIZATION
 # This file is distributed under the same license as the vkviewer project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-12 16:47+0100\n"
+"POT-Creation-Date: 2014-01-07 12:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,53 +18,65 @@ msgstr ""
 "Generated-By: Babel 1.3\n"
 
 #: vkviewer/templates/basicFooterLayout.mako:21
-#: vkviewer/templates/login_screen.mako:17
+#: vkviewer/templates/basicIndexLayout.mako:33
+#: vkviewer/templates/login_screen.mako:18
 msgid "js_library"
 msgstr ""
 
 #: vkviewer/templates/basicFooterLayout.mako:34
+#: vkviewer/templates/basicIndexLayout.mako:138
 msgid "footer_project_name"
 msgstr ""
 
 #: vkviewer/templates/basicFooterLayout.mako:35
+#: vkviewer/templates/basicIndexLayout.mako:139
 msgid "footer_project_desc_long"
 msgstr ""
 
-#: vkviewer/templates/basicFooterLayout.mako:51 vkviewer/templates/contact.mako:23
+#: vkviewer/templates/basicFooterLayout.mako:51
+#: vkviewer/templates/basicIndexLayout.mako:78
+#: vkviewer/templates/basicIndexLayout.mako:155 vkviewer/templates/contact.mako:23
 msgid "footer_contact"
 msgstr ""
 
 #: vkviewer/templates/basicFooterLayout.mako:54
+#: vkviewer/templates/basicIndexLayout.mako:79
+#: vkviewer/templates/basicIndexLayout.mako:158
 msgid "footer_project"
 msgstr ""
 
 #: vkviewer/templates/basicFooterLayout.mako:57
+#: vkviewer/templates/basicIndexLayout.mako:80
+#: vkviewer/templates/basicIndexLayout.mako:161
 #: vkviewer/templates/impressum.mako:23
 msgid "footer_editorial"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:32
+#: vkviewer/templates/basicIndexLayout.mako:61
 msgid "placeholder_town_name"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:38
-#: vkviewer/templates/basicIndexLayout.mako:41
-msgid "in_progress"
+#: vkviewer/templates/basicIndexLayout.mako:69
+msgid "header_service"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:57
-msgid "login_as_who"
+#: vkviewer/templates/basicIndexLayout.mako:86
+msgid "header_language"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:60
+#: vkviewer/templates/basicIndexLayout.mako:88
+msgid "header_language_de"
+msgstr ""
+
+#: vkviewer/templates/basicIndexLayout.mako:89
+msgid "header_language_en"
+msgstr ""
+
+#: vkviewer/templates/basicIndexLayout.mako:109
 msgid "logout_button"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:79
-msgid "login_description"
-msgstr ""
-
-#: vkviewer/templates/basicIndexLayout.mako:82
+#: vkviewer/templates/basicIndexLayout.mako:113
 msgid "login_button"
 msgstr ""
 
@@ -137,36 +149,8 @@ msgstr ""
 msgid "faq_georef_validate_body_li_1"
 msgstr ""
 
-#: vkviewer/templates/faqLoggedIn.mako:25
+#: vkviewer/templates/faqLoggedIn.mako:27
 msgid "faq_main_heading"
-msgstr ""
-
-#: vkviewer/templates/faqLoggedIn.mako:29
-msgid "faq_main_georef_heading"
-msgstr ""
-
-#: vkviewer/templates/faqLoggedIn.mako:32
-msgid "faq_main_georef_1"
-msgstr ""
-
-#: vkviewer/templates/faqLoggedIn.mako:33
-msgid "faq_main_georef_2"
-msgstr ""
-
-#: vkviewer/templates/faqLoggedIn.mako:34
-msgid "faq_main_georef_3_1"
-msgstr ""
-
-#: vkviewer/templates/faqLoggedIn.mako:35 vkviewer/templates/faqLoggedIn.mako:36
-msgid "faq_main_georef_hint"
-msgstr ""
-
-#: vkviewer/templates/faqLoggedIn.mako:35
-msgid "faq_main_georef_3_2"
-msgstr ""
-
-#: vkviewer/templates/faqLoggedIn.mako:36
-msgid "faq_main_georef_3_3"
 msgstr ""
 
 #: vkviewer/templates/georeferenceStart.mako:37
@@ -194,59 +178,51 @@ msgstr ""
 msgid "agency"
 msgstr ""
 
-#: vkviewer/templates/impressum.mako:49
-msgid "tax_identification_number"
-msgstr ""
-
-#: vkviewer/templates/impressum.mako:51
-msgid "bank_connection"
-msgstr ""
-
-#: vkviewer/templates/impressum.mako:74
+#: vkviewer/templates/impressum.mako:48
 msgid "representative"
 msgstr ""
 
-#: vkviewer/templates/impressum.mako:76
+#: vkviewer/templates/impressum.mako:50
 msgid "representative_first"
 msgstr ""
 
-#: vkviewer/templates/impressum.mako:78
+#: vkviewer/templates/impressum.mako:52
 msgid "representative_second"
 msgstr ""
 
-#: vkviewer/templates/impressum.mako:80
+#: vkviewer/templates/impressum.mako:54
 msgid "representative_third"
 msgstr ""
 
-#: vkviewer/templates/impressum.mako:82
+#: vkviewer/templates/impressum.mako:56
 msgid "editorial_team"
 msgstr ""
 
-#: vkviewer/templates/impressum.mako:93
+#: vkviewer/templates/impressum.mako:67
 msgid "technical_realisation"
 msgstr ""
 
-#: vkviewer/templates/impressum.mako:109
+#: vkviewer/templates/impressum.mako:83
 msgid "information_law"
 msgstr ""
 
-#: vkviewer/templates/impressum.mako:111
+#: vkviewer/templates/impressum.mako:85
 msgid "information_law_content"
 msgstr ""
 
-#: vkviewer/templates/impressum.mako:113
+#: vkviewer/templates/impressum.mako:87
 msgid "information_copyright"
 msgstr ""
 
-#: vkviewer/templates/impressum.mako:115
+#: vkviewer/templates/impressum.mako:89
 msgid "information_copyright_content"
 msgstr ""
 
-#: vkviewer/templates/impressum.mako:117
+#: vkviewer/templates/impressum.mako:91
 msgid "privacy_policy"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:25
+#: vkviewer/templates/login_screen.mako:26
 msgid "loginScreen_reset_pw_btn"
 msgstr ""
 
@@ -254,44 +230,44 @@ msgstr ""
 msgid "loginScreen_welcome"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:42 vkviewer/templates/login_screen.mako:63
-#: vkviewer/templates/login_screen.mako:89
+#: vkviewer/templates/login_screen.mako:44 vkviewer/templates/login_screen.mako:66
+#: vkviewer/templates/login_screen.mako:109
 msgid "loginScreen_placeholder_username"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:46 vkviewer/templates/login_screen.mako:77
+#: vkviewer/templates/login_screen.mako:48 vkviewer/templates/login_screen.mako:70
 msgid "loginScreen_placeholder_password"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:47 vkviewer/templates/login_screen.mako:78
+#: vkviewer/templates/login_screen.mako:51 vkviewer/templates/login_screen.mako:91
 msgid "loginScreen_submit_btn"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:50
+#: vkviewer/templates/login_screen.mako:53
 msgid "loginScreen_forgetpassword"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:58
+#: vkviewer/templates/login_screen.mako:60
 msgid "loginScreen_welcome_new"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:67 vkviewer/templates/login_screen.mako:91
-msgid "loginScreen_placeholder_email"
-msgstr ""
-
-#: vkviewer/templates/login_screen.mako:71
+#: vkviewer/templates/login_screen.mako:77
 msgid "loginScreen_placeholder_surname"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:73
+#: vkviewer/templates/login_screen.mako:81
 msgid "loginScreen_placeholder_familyname"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:84
+#: vkviewer/templates/login_screen.mako:88 vkviewer/templates/login_screen.mako:111
+msgid "loginScreen_placeholder_email"
+msgstr ""
+
+#: vkviewer/templates/login_screen.mako:104
 msgid "loginScreen_reset_pw"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:85
+#: vkviewer/templates/login_screen.mako:105
 msgid "loginScreen_reset_pw_msg"
 msgstr ""
 
@@ -315,39 +291,39 @@ msgstr ""
 msgid "footer_project_description_content_start"
 msgstr ""
 
-#: vkviewer/templates/project.mako:35
+#: vkviewer/templates/project.mako:30
 msgid "footer_project_description_content_li1"
 msgstr ""
 
-#: vkviewer/templates/project.mako:39
+#: vkviewer/templates/project.mako:31
 msgid "footer_project_description_content_li2"
 msgstr ""
 
-#: vkviewer/templates/project.mako:44
+#: vkviewer/templates/project.mako:33
 msgid "footer_project_description_content_end"
 msgstr ""
 
-#: vkviewer/templates/project.mako:55
+#: vkviewer/templates/project.mako:36
 msgid "footer_project_duration"
 msgstr ""
 
-#: vkviewer/templates/project.mako:59
+#: vkviewer/templates/project.mako:40
 msgid "footer_project_patron"
 msgstr ""
 
-#: vkviewer/templates/project.mako:61
+#: vkviewer/templates/project.mako:42
 msgid "dfg"
 msgstr ""
 
-#: vkviewer/templates/project.mako:67
+#: vkviewer/templates/project.mako:48
 msgid "footer_projectpartners"
 msgstr ""
 
-#: vkviewer/templates/project.mako:70
+#: vkviewer/templates/project.mako:51
 msgid "slubname"
 msgstr ""
 
-#: vkviewer/templates/project.mako:73
+#: vkviewer/templates/project.mako:54
 msgid "rostockname"
 msgstr ""
 

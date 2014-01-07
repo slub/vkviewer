@@ -7,6 +7,9 @@ var lang_dictionary = {
 		'description': 'Beschreibung',
 		'timestamp': 'Zeitstempel',
 		'titel': 'Titel',
+		'found_mtb': 'Messtischblätter gefunden',
+		'change_zoomlevel': 'Bitte wählen Sie eine höhere Zoomstufe!',
+		'choose_valide_timestamp': 'Wählen Sie validien Zeitstempel',
 		
 		'toolname_layerbar': 'Auswahl Kartenlayer',
 		

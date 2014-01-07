@@ -4,6 +4,7 @@ VK2.Login = {
 		
 	createSubmitLoginBtn: function(){
 		$('#submitPasswortBtn').click(function(){
+			debugger;
 			if (VK2.Login.validateLoginForm()){
 				$.ajax({
 					type: 'POST',

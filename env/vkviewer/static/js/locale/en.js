@@ -7,6 +7,9 @@ var lang_dictionary = {
 		'description': 'Description',
 		'timestamp': 'Timestamp',
 		'titel': 'Titel',
+		'found_mtb': 'Messtischblaetter available.',
+		'change_zoomlevel': 'Please zoom in!',
+		'choose_valide_timestamp': 'Please choose valide timestamp',
 		
 		'toolname_layerbar': 'Choose map layer',
 		

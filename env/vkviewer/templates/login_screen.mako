@@ -11,6 +11,7 @@
         <!-- vk2 librarys -->
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/themes/base/jquery-ui.css')}" />
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/login_screen.css')}" />
+        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/bootstrap-3.0.3/css/bootstrap.css')}"></link>
       	<script src="${request.static_url('vkviewer:static/lib/jquery.js')}"></script>
       	<script src="${request.static_url('vkviewer:static/lib/jquery-ui.js')}"></script>
       	<script src="${request.static_url('vkviewer:static/js/Initialize.Login.js')}"></script>  
@@ -28,54 +29,73 @@
 			})      	
     </script>  
 	<body style="font-family: Arial, Verdana, Helvetica, sans-serif">
-	    <div class="loginScreen">
-	    	<!-- Header showing error messages -->
-	    	<div class="loginScreen module">
-	    		    <p id="validationTips" class="validationTips">${_('loginScreen_welcome')}</p>
-	    	</div>
-	    	<br>
-	    	
-	    	<!--  Login screen for registered users -->
-	    	<div class="loginScreen module">
-	    		<div>
-	    			<input id="loginUsername" class="loginInput large" type="text" value="" 
-							name="username" placeholder="${_('loginScreen_placeholder_username')}"/>
-				</div>
-				<div>
-					<input id="loginPassword" class="loginPassword loginInput medium" type="password" value="" 
-							name="password" size="10" placeholder="${_('loginScreen_placeholder_password')}"/>
-					<input type="button" id="submitPasswortBtn" name="form.submitted" value="${_('loginScreen_submit_btn')}" class="btn" />
-				</div>
-				<div class="remember-forgot">
-					<div id="openForgetPwDialog" class="loginForgot">${_('loginScreen_forgetpassword')}</div>
-				</div>
-			</div>
-			<br>
-			
-			<!-- Screen for registering new user -->
-			<div class="loginScreen module">
-				<div class="header">
-					<center>${_('loginScreen_welcome_new')}</center>
-	    		</div>
-	    		<br>
-			  	<div class="usernameContainer">
-					<input id="loginNewUsername" class="loginNewUsername loginInput large" type="text" value="" 
-							name="username" placeholder="${_('loginScreen_placeholder_username')}"/>
-				</div>
-				<div class="emailContainer">
-					<input id="loginNewEmail" class="loginNewEmail loginInput large" type="text" value="" 
-							name="email" placeholder="${_('loginScreen_placeholder_email')}"/>
-				</div>
-				<div class="fullnameContainer">
-					<input id="loginNewVorname" class="loginNewFullname loginInput small" type="text" value="" 
-							name="vorname" placeholder="${_('loginScreen_placeholder_surname')}"/>
-					<input id="loginNewNachname" class="loginNewFullname loginInput small" type="text" value="" 
-							name="nachname" placeholder="${_('loginScreen_placeholder_familyname')}"/>
-				</div>
-				<div class="passwordContainer">
-					<input id="loginNewPassword" class="loginNewPassword loginInput medium" type="password" value="" 
-							name="password" placeholder="${_('loginScreen_placeholder_password')}" size="10"/>
-					<input type="button" id="submitNewUserBtn" name="form.submitted" value="${_('loginScreen_submit_btn')}" class="btn"/>
+		<div class="container">
+			<div class="panel panel-default">
+				<div class="panel-heading" id="panelHeading"><p id="validationTips" class="validationTips">${_('loginScreen_welcome')}</p></div>
+				
+				<div class="panel-body">
+				
+					<!-- Anmeldung für existierende Nutzer -->
+					<div class="panel panel-default panel-vk2Login">
+						<div class="panel-body panel-body-vk2Login">
+							<div class="vk2LoginLayout">
+								<div class="form-group">
+						    		<input id="loginUsername" class="loginInput large form-control" type="text" value="" 
+										name="username" placeholder="${_('loginScreen_placeholder_username')}"/>								
+								</div>
+								<div class="form-group">
+									<input id="loginPassword" class="loginPassword loginInput small form-control" type="password" value="" 
+										name="password" size="10" placeholder="${_('loginScreen_placeholder_password')}"/>						
+								</div>
+								<div class="form-group vkLoginBtn">
+									<button type="button" id="submitPasswortBtn" name="form.submitted" class="btn btn-primary">${_('loginScreen_submit_btn')}</button>
+								</div>
+								<div id="openForgetPwDialog" class="loginForgot">${_('loginScreen_forgetpassword')}</div>
+							</div>
+						</div>
+					</div> 
+					
+					<!-- Neue registrierung für Nutzer -->
+					<div class="panel panel-default panel-vk2RegisterNewUser">
+						<div class="panel-heading">${_('loginScreen_welcome_new')}</div>
+						<div class="panel-body">
+							<div class"vk2RegisterNewUserLayout">
+								<div class="vk2RegisterUserLayoutInner">
+									<div class="registerElement form-group">
+										<input id="loginNewUsername" class="loginNewUsername loginInput large form-control" type="text" value=""
+											name="username" placeholder="${_('loginScreen_placeholder_username')}"/>
+									</div>
+									<div class="registerElement form-group">
+										<input id="loginNewPassword" class="loginNewPassword loginInput small form-control" type="password" value="" style="width: 120px;"
+											name="password" placeholder="${_('loginScreen_placeholder_password')}" size="10" />
+									</div>
+								</div>
+								
+								<div class="vk2RegisterUserLayoutInner">
+									<div class="registerElement form-group">
+										<input id="loginNewVorname" class="loginNewFullname loginInput medium form-control" type="text" value="" style="width: 160px;"
+											name="vorname" placeholder="${_('loginScreen_placeholder_surname')}"/>
+									</div>
+									<div class="registerElement form-group">
+										<input id="loginNewNachname" class="loginNewFullname loginInput medium form-control" type="text" value="" style="width: 160px;"
+											name="nachname" placeholder="${_('loginScreen_placeholder_familyname')}"/>
+									</div>
+								</div>
+								
+								<div class="vk2RegisterUserLayoutInner">
+									<div class="registerElement form-group">
+										<input id="loginNewEmail" class="loginNewEmail loginInput large form-control" type="text" value="" style="width: 200px;"
+											name="email" placeholder="${_('loginScreen_placeholder_email')}"/>	
+									</div>
+									<div class="registerElement form-group vkLoginBtn">
+										<button type="button" id="submitNewUserBtn" name="form.submitted" class="btn btn-primary " style="width: 120px;">${_('loginScreen_submit_btn')}</button>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</div>
