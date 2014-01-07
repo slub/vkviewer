@@ -1,39 +1,9 @@
-/* defining the bootstrap breakpoint for collapsing */
+
 body{
 	padding-top: 50px;
 }
 
-@media (max-width: 1045px) {
-    .navbar-header {
-        float: none;
-    }
-    .navbar-toggle {
-        display: block;
-    }
-    .navbar-collapse {
-        border-top: 1px solid transparent;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-    }
-    .navbar-collapse.collapse {
-        display: none!important;
-    }
-    .navbar-nav {
-        float: none!important;
-        margin: 7.5px -15px;
-    }
-    .navbar-nav>li {
-        float: none;
-    }
-    .navbar-nav>li>a {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-}
 
-/* navbar layout */
-.vk2HeaderNavBar{
-	height: 50px;
-}
 
 /* body layout */
 .vk2BodyContainer{
@@ -43,26 +13,38 @@ body{
 	padding-left: 0px;
 }
 
-.vk2BodyPanel{
+.vk2MapPanel{
+	position: absolute; 
+	box-sizing:border-box; 
+	-moz-box-sizing:border-box; 
+	padding-bottom: 75px; 
 	width: 100%;
 	height: 100%;
 }
 
-.vk2MapPanel{
-	width: 100%;
-	height: 97%;
-	padding: 0;
-}
-
 .vk2FooterPanel{
+	position: absolute;
+	bottom: 0;
 	width: 100%;
-	height: 20px;
+	height: 25px;
 	padding: 0;
 	overflow:hidden;
 	background-color:rgb(173,167,158);
     opacity: 0.9;
+    z-index:1001;
 }
 
+.vk2SBPanel{
+	top: 0px;
+	padding-bottom: 75px;
+	height: 100%;
+	z-index: 1000;
+	position: absolute;
+	right: -420px;
+	width: 420px;
+	display: block;
+	background: white;
+}
 /* map stuff */
 
 #mapdiv  { 

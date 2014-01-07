@@ -1,17 +1,6 @@
 /* 
 	Generic stuff 
 */
-.vk2SBPanel{
-	z-index: 1000;
-	position: absolute;
-	top: 10%;
-	right: -420px;
-	width: 420px;
-	height: 500px;
-	height: 87%;
-	display: block;
-	background: white;
-}
 
 .vk2SBContentPanel{
 	display: none;

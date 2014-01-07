@@ -123,14 +123,14 @@
         <div class="container vk2BodyContainer">
         			
         			<!-- Map panel -->
-        			<div class="panel panel-default vk2BodyPanel">
-        				<div class="panel-body vk2MapPanel">
+
+        				<div class="vk2MapPanel">
 			        		<div id="mapdiv" class="olMap" tabindex="0"></div>
 			        		<div id="vk2SBPanel" class="vk2SBPanel"></div>
 			        	</div>
       	
 			        	<!-- Footer panel -->
-			        	<div class="panel-footer vk2FooterPanel">
+			        	<div class="vk2FooterPanel">
 			        		<div id="vk2Footer" class="vk2Footer">
 			        			<div class="footerContainer">
         							<div class="leftside">
@@ -165,7 +165,7 @@
         						</div>
         					</div>
 			        	</div>
-			        </div>
+
 			      			        
 		</div>
 		

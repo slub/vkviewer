@@ -7,6 +7,7 @@
 */
 @import url("./vk2/override-ol.css");
 @import url("./vk2/override-jquery.css");
+@import url("./vk2/override-bootstrap.css");
 @import url("./vk2/tools/Header.css");
 @import url("./vk2/tools/Layerbar.css");
 @import url("./vk2/tools/Layersearch.css");
