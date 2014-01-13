@@ -8,7 +8,7 @@
  * full text of the license.
  */
  (function() {
-
+		
 	 /**
 	   * The relative path of this script.
 	   */

@@ -68,12 +68,13 @@ VK2.Utils.Georef = {
 		initializeGeoreferencerMap: function(mapContainer, urlParams){
 			var zoomifyLayer = this.createZoomifyLayer(urlParams);
 					
+			console.log('NumberOfTiers: '+zoomifyLayer.numberOfTiers);
 			// options for the georeferencer map
 			var options = {
 				units: "pixels",
 				maxExtent: new OpenLayers.Bounds(0,0,urlParams['zoomify_width'], urlParams['zoomify_height']),
 				maxResolution: Math.pow(2, zoomifyLayer.numberOfTiers-1),
-				numZoomLevels: 10, //zoomify.numberOfTiers,
+				numZoomLevels: 10, //zoomifyLayer.numberOfTiers-1,
 				controls: [
 		                new OpenLayers.Control.Navigation(),
 		                new OpenLayers.Control.PanZoomBar({zoomWorldIcon:true}),
@@ -82,8 +83,11 @@ VK2.Utils.Georef = {
 			
 			var map = new OpenLayers.Map( mapContainer, options);
 			map.addLayer(zoomifyLayer)
+			map.setBaseLayer(zoomifyLayer);
 			map.zoomToMaxExtent();
-		
+			//map.zoomTo(0);
+			
+			//debugger;
 			return map;
 		},
 		

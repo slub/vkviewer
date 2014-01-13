@@ -75896,7 +75896,7 @@ OpenLayers.Layer.Zoomify = OpenLayers.Class(OpenLayers.Layer.Grid, {
      */
     initialize: function(name, url, size, options) {
 
-    	//debugger;
+    	debugger;
         // initilize the Zoomify pyramid for given size
         this.initializeZoomify(size);
 
@@ -75932,12 +75932,6 @@ OpenLayers.Layer.Zoomify = OpenLayers.Class(OpenLayers.Layer.Grid, {
                 Math.floor( imageSize.w / 2 ),
                 Math.floor( imageSize.h / 2 )
                 );
-            
-//            var w = Math.ceil( imageSize.w / this.standardTileSize );
-//            var h = Math.ceil( imageSize.h / this.standardTileSize );
-//            var tileSize = w > h ? w : h;
-//            tiles = new OpenLayers.Size( tileSize, tileSize);
-            
             tiles = new OpenLayers.Size(
                 Math.ceil( imageSize.w / this.standardTileSize ),
                 Math.ceil( imageSize.h / this.standardTileSize )
@@ -75946,12 +75940,7 @@ OpenLayers.Layer.Zoomify = OpenLayers.Class(OpenLayers.Layer.Grid, {
             this.tierImageSize.push( imageSize );
         }
 
-//        debugger;
-//        this.tierSizeInTiles.push(new OpenLayers.Size(0,0));
         this.tierSizeInTiles.reverse();
-//        this.tierSizeInTiles.pop();
-        
-
         this.tierImageSize.reverse();
 
         this.numberOfTiers = this.tierSizeInTiles.length;
@@ -75967,12 +75956,6 @@ OpenLayers.Layer.Zoomify = OpenLayers.Class(OpenLayers.Layer.Grid, {
         if (!this.serverResolutions) {
             this.serverResolutions = resolutions;
         }
-        
-        console.log('Resolutions: '+resolutions);
-        console.log('TileCountUpToTier: '+this.tileCountUpToTier);
-        console.log('tierSizeInTiles: '+this.tierSizeInTiles);
-        console.log('tierImageSize: '+this.tierImageSize);
-        //debugger;
     },
 
     /**
@@ -76027,7 +76010,6 @@ OpenLayers.Layer.Zoomify = OpenLayers.Class(OpenLayers.Layer.Grid, {
      *          parameters
      */
     getURL: function (bounds) {
-    	//debugger;
         bounds = this.adjustBounds(bounds);
         var res = this.getServerResolution();
         var x = Math.round((bounds.left - this.tileOrigin.lon) / (res * this.tileSize.w));
@@ -76060,14 +76042,10 @@ OpenLayers.Layer.Zoomify = OpenLayers.Class(OpenLayers.Layer.Grid, {
             var w = this.standardTileSize;
             var h = this.standardTileSize;
             if (x == this.tierSizeInTiles[z].w -1 ) {
-                //var w = this.tierImageSize[z].w % this.standardTileSize;
-            	var wEdge = this.tierImageSize[z].w % this.standardTileSize;
-            	w = wEdge == 0 ? this.standardTileSize : wEdge;
+                var w = this.tierImageSize[z].w % this.standardTileSize;
             }
             if (y == this.tierSizeInTiles[z].h -1 ) {
-                //var h = this.tierImageSize[z].h % this.standardTileSize;
-            	  var hEdge = this.tierImageSize[z].h % this.standardTileSize; 
-            	  h = hEdge == 0 ? this.standardTileSize : hEdge
+                var h = this.tierImageSize[z].h % this.standardTileSize;
             }
             return (new OpenLayers.Size(w, h));
         } else {
@@ -80106,7 +80084,6 @@ OpenLayers.TileManager = OpenLayers.Class({
      * evt - {Object} Listener argument of the tile's beforedraw event
      */
     queueTileDraw: function(evt) {
-    	//debugger;
         var tile = evt.object;
         var queued = false;
         var layer = tile.layer;

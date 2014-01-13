@@ -199,6 +199,7 @@ OpenLayers.Layer.Zoomify = OpenLayers.Class(OpenLayers.Layer.Grid, {
      *          parameters
      */
     getURL: function (bounds) {
+    	
         bounds = this.adjustBounds(bounds);
         var res = this.getServerResolution();
         var x = Math.round((bounds.left - this.tileOrigin.lon) / (res * this.tileSize.w));
@@ -231,10 +232,14 @@ OpenLayers.Layer.Zoomify = OpenLayers.Class(OpenLayers.Layer.Grid, {
             var w = this.standardTileSize;
             var h = this.standardTileSize;
             if (x == this.tierSizeInTiles[z].w -1 ) {
-                var w = this.tierImageSize[z].w % this.standardTileSize;
+                //var w = this.tierImageSize[z].w % this.standardTileSize;
+            	var wEdge = this.tierImageSize[z].w % this.standardTileSize;
+            	w = wEdge == 0 ? this.standardTileSize : wEdge;
             }
             if (y == this.tierSizeInTiles[z].h -1 ) {
-                var h = this.tierImageSize[z].h % this.standardTileSize;
+                //var h = this.tierImageSize[z].h % this.standardTileSize;
+          	  var hEdge = this.tierImageSize[z].h % this.standardTileSize; 
+        	  h = hEdge == 0 ? this.standardTileSize : hEdge;
             }
             return (new OpenLayers.Size(w, h));
         } else {

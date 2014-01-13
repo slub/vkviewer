@@ -7,6 +7,13 @@
 	<script src="${request.static_url('vkviewer:static/lib/jquery.tabSlideOut.js')}"></script> 
 	<script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/Vkviewer.Georef.js')}"></script>   	
+	
+	<style>
+		.olImageLoadError { 
+    /* when OL encounters a 404, don't display the pink image */
+    display: none !important;
+} 
+	</style>
 </%block>
 
 <%block name="bodyBlock">
@@ -43,11 +50,12 @@
 </%block>
 
 <script>
-	$(document).ready(function(){
+	var map = null;
+	$(document).ready(function(){ 
 		VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
 
 		var urlParams = VK2.Utils.getAllUrlParams();
-		var map = VK2.Utils.Georef.initializeGeoreferencerMap('georeferenceMap', urlParams);
+		map = VK2.Utils.Georef.initializeGeoreferencerMap('georeferenceMap', urlParams);
 		var georeferenceTool = new VK2.Tools.Georeferencer({
 			container: 'vk2GeoreferenceToolsPanel',
 			handler: 'vk2GeoreferenceToolsHandle',

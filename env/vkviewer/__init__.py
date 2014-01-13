@@ -147,7 +147,7 @@ if __name__ == '__main__':
     settings['reload_all'] = True
     settings['debug_all'] = True
  
-     # session factory
+    # session factory
     #session_factory = UnencryptedCookieSessionFactoryConfig('itsaseekreet')
     
     #  configuration setup

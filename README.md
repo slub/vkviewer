@@ -68,4 +68,29 @@ Tips
 
 PYRAMID_RELOAD_TEMPLATES=1 bin/pserve development.ini --reload 
 
+Deploy on server (without update of the pyramid properties files)
+=================================================================
+
+1.) Create backup on server 
+
+	cp -r ~/path/to/env/vkviewer ~/path/to/env/vkviewer.backup
+	cp ~/path/to/env/vkviewer/settings.py ~/path/to/env/settings.py
+
+2.) Remove old files from server
+
+	rm -r ~/path/to/env/vkviewer
+
+3.) Copy new files in right position
+
+	cp -r ~/path/to/env/newvkviewer_app ~/path/to/env/vkviewer
+	cp ~/path/to/env/settings.py ~/path/to/env/vkviewer/
+
+4.) Build pyramid application
+
+	~/path/to/env/bin/python setup.py install
+
+5.) Restart apache2
+
+	service apache2 restart
+
 
