@@ -18,4 +18,8392 @@ at http://www.sencha.com/contact.
 
 Build date: 2013-04-03 15:07:25
 */
-(function(){var h=Ext.util,j=Ext.each,g=true,i=false;h.Observable=function(){var k=this,l=k.events;if(k.listeners){k.on(k.listeners);delete k.listeners}k.events=l||{}};h.Observable.prototype={filterOptRe:/^(?:scope|delay|buffer|single)$/,fireEvent:function(){var k=Array.prototype.slice.call(arguments,0),m=k[0].toLowerCase(),n=this,l=g,p=n.events[m],s,o,r;if(n.eventsSuspended===g){if(o=n.eventQueue){o.push(k)}}else{if(typeof p=="object"){if(p.bubble){if(p.fire.apply(p,k.slice(1))===i){return i}r=n.getBubbleTarget&&n.getBubbleTarget();if(r&&r.enableBubble){s=r.events[m];if(!s||typeof s!="object"||!s.bubble){r.enableBubble(m)}return r.fireEvent.apply(r,k)}}else{k.shift();l=p.fire.apply(p,k)}}}return l},addListener:function(k,m,l,r){var n=this,q,s,p;if(typeof k=="object"){r=k;for(q in r){s=r[q];if(!n.filterOptRe.test(q)){n.addListener(q,s.fn||s,s.scope||r.scope,s.fn?s:r)}}}else{k=k.toLowerCase();p=n.events[k]||g;if(typeof p=="boolean"){n.events[k]=p=new h.Event(n,k)}p.addListener(m,l,typeof r=="object"?r:{})}},removeListener:function(k,m,l){var n=this.events[k.toLowerCase()];if(typeof n=="object"){n.removeListener(m,l)}},purgeListeners:function(){var m=this.events,k,l;for(l in m){k=m[l];if(typeof k=="object"){k.clearListeners()}}},addEvents:function(n){var m=this;m.events=m.events||{};if(typeof n=="string"){var k=arguments,l=k.length;while(l--){m.events[k[l]]=m.events[k[l]]||g}}else{Ext.applyIf(m.events,n)}},hasListener:function(k){var l=this.events[k.toLowerCase()];return typeof l=="object"&&l.listeners.length>0},suspendEvents:function(k){this.eventsSuspended=g;if(k&&!this.eventQueue){this.eventQueue=[]}},resumeEvents:function(){var k=this,l=k.eventQueue||[];k.eventsSuspended=i;delete k.eventQueue;j(l,function(m){k.fireEvent.apply(k,m)})}};var d=h.Observable.prototype;d.on=d.addListener;d.un=d.removeListener;h.Observable.releaseCapture=function(k){k.fireEvent=d.fireEvent};function e(l,m,k){return function(){if(m.target==arguments[0]){l.apply(k,Array.prototype.slice.call(arguments,0))}}}function b(n,p,k,m){k.task=new h.DelayedTask();return function(){k.task.delay(p.buffer,n,m,Array.prototype.slice.call(arguments,0))}}function c(m,n,l,k){return function(){n.removeListener(l,k);return m.apply(k,arguments)}}function a(n,p,k,m){return function(){var l=new h.DelayedTask(),o=Array.prototype.slice.call(arguments,0);if(!k.tasks){k.tasks=[]}k.tasks.push(l);l.delay(p.delay||10,function(){k.tasks.remove(l);n.apply(m,o)},m)}}h.Event=function(l,k){this.name=k;this.obj=l;this.listeners=[]};h.Event.prototype={addListener:function(o,n,m){var p=this,k;n=n||p.obj;if(!p.isListening(o,n)){k=p.createListener(o,n,m);if(p.firing){p.listeners=p.listeners.slice(0)}p.listeners.push(k)}},createListener:function(p,n,q){q=q||{};n=n||this.obj;var k={fn:p,scope:n,options:q},m=p;if(q.target){m=e(m,q,n)}if(q.delay){m=a(m,q,k,n)}if(q.single){m=c(m,this,p,n)}if(q.buffer){m=b(m,q,k,n)}k.fireFn=m;return k},findListener:function(o,n){var p=this.listeners,m=p.length,k;n=n||this.obj;while(m--){k=p[m];if(k){if(k.fn==o&&k.scope==n){return m}}}return -1},isListening:function(l,k){return this.findListener(l,k)!=-1},removeListener:function(r,q){var p,m,n,s=this,o=i;if((p=s.findListener(r,q))!=-1){if(s.firing){s.listeners=s.listeners.slice(0)}m=s.listeners[p];if(m.task){m.task.cancel();delete m.task}n=m.tasks&&m.tasks.length;if(n){while(n--){m.tasks[n].cancel()}delete m.tasks}s.listeners.splice(p,1);o=g}return o},clearListeners:function(){var n=this,k=n.listeners,m=k.length;while(m--){n.removeListener(k[m].fn,k[m].scope)}},fire:function(){var q=this,p=q.listeners,k=p.length,o=0,m;if(k>0){q.firing=g;var n=Array.prototype.slice.call(arguments,0);for(;o<k;o++){m=p[o];if(m&&m.fireFn.apply(m.scope||q.obj||window,n)===i){return(q.firing=i)}}}q.firing=i;return g}}})();Ext.DomHelper=function(){var x=null,k=/^(?:br|frame|hr|img|input|link|meta|range|spacer|wbr|area|param|col)$/i,m=/^table|tbody|tr|td$/i,d=/tag|children|cn|html$/i,t=/td|tr|tbody/i,o=/([a-z0-9-]+)\s*:\s*([^;\s]+(?:\s*[^;\s]+)*);?/gi,v=/end/i,r,n="afterbegin",p="afterend",c="beforebegin",q="beforeend",a="<table>",i="</table>",b=a+"<tbody>",j="</tbody>"+i,l=b+"<tr>",w="</tr>"+j;function h(B,D,C,E,A,y){var z=r.insertHtml(E,Ext.getDom(B),u(D));return C?Ext.get(z,true):z}function u(D){var z="",y,C,B,E;if(typeof D=="string"){z=D}else{if(Ext.isArray(D)){for(var A=0;A<D.length;A++){if(D[A]){z+=u(D[A])}}}else{z+="<"+(D.tag=D.tag||"div");for(y in D){C=D[y];if(!d.test(y)){if(typeof C=="object"){z+=" "+y+'="';for(B in C){z+=B+":"+C[B]+";"}z+='"'}else{z+=" "+({cls:"class",htmlFor:"for"}[y]||y)+'="'+C+'"'}}}if(k.test(D.tag)){z+="/>"}else{z+=">";if((E=D.children||D.cn)){z+=u(E)}else{if(D.html){z+=D.html}}z+="</"+D.tag+">"}}}return z}function g(F,C,B,D){x.innerHTML=[C,B,D].join("");var y=-1,A=x,z;while(++y<F){A=A.firstChild}if(z=A.nextSibling){var E=document.createDocumentFragment();while(A){z=A.nextSibling;E.appendChild(A);A=z}A=E}return A}function e(y,z,B,A){var C,D;x=x||document.createElement("div");if(y=="td"&&(z==n||z==q)||!t.test(y)&&(z==c||z==p)){return}D=z==c?B:z==p?B.nextSibling:z==n?B.firstChild:null;if(z==c||z==p){B=B.parentNode}if(y=="td"||(y=="tr"&&(z==q||z==n))){C=g(4,l,A,w)}else{if((y=="tbody"&&(z==q||z==n))||(y=="tr"&&(z==c||z==p))){C=g(3,b,A,j)}else{C=g(2,a,A,i)}}B.insertBefore(C,D);return C}function s(A){var D=document.createElement("div"),y=document.createDocumentFragment(),z=0,B,C;D.innerHTML=A;C=D.childNodes;B=C.length;for(;z<B;z++){y.appendChild(C[z].cloneNode(true))}return y}r={markup:function(y){return u(y)},applyStyles:function(y,z){if(z){var A;y=Ext.fly(y);if(typeof z=="function"){z=z.call()}if(typeof z=="string"){o.lastIndex=0;while((A=o.exec(z))){y.setStyle(A[1],A[2])}}else{if(typeof z=="object"){y.setStyle(z)}}}},insertHtml:function(D,y,E){var B={},A,F,C,G,H,z;D=D.toLowerCase();B[c]=["BeforeBegin","previousSibling"];B[p]=["AfterEnd","nextSibling"];if(y.insertAdjacentHTML){if(m.test(y.tagName)&&(z=e(y.tagName.toLowerCase(),D,y,E))){return z}B[n]=["AfterBegin","firstChild"];B[q]=["BeforeEnd","lastChild"];if((A=B[D])){y.insertAdjacentHTML(A[0],E);return y[A[1]]}}else{F=y.ownerDocument.createRange();G="setStart"+(v.test(D)?"After":"Before");if(B[D]){F[G](y);if(!F.createContextualFragment){H=s(E)}else{H=F.createContextualFragment(E)}y.parentNode.insertBefore(H,D==c?y:y.nextSibling);return y[(D==c?"previous":"next")+"Sibling"]}else{C=(D==n?"first":"last")+"Child";if(y.firstChild){F[G](y[C]);if(!F.createContextualFragment){H=s(E)}else{H=F.createContextualFragment(E)}if(D==n){y.insertBefore(H,y.firstChild)}else{y.appendChild(H)}}else{y.innerHTML=E}return y[C]}}throw'Illegal insertion point -> "'+D+'"'},insertBefore:function(y,A,z){return h(y,A,z,c)},insertAfter:function(y,A,z){return h(y,A,z,p,"nextSibling")},insertFirst:function(y,A,z){return h(y,A,z,n,"firstChild")},append:function(y,A,z){return h(y,A,z,q,"",true)},overwrite:function(y,A,z){y=Ext.getDom(y);y.innerHTML=u(A);return z?Ext.get(y.firstChild):y.firstChild},createHtml:u};return r}();Ext.Template=function(h){var j=this,c=arguments,e=[],d;if(Ext.isArray(h)){h=h.join("")}else{if(c.length>1){for(var g=0,b=c.length;g<b;g++){d=c[g];if(typeof d=="object"){Ext.apply(j,d)}else{e.push(d)}}h=e.join("")}}j.html=h;if(j.compiled){j.compile()}};Ext.Template.prototype={re:/\{([\w\-]+)\}/g,applyTemplate:function(a){var b=this;return b.compiled?b.compiled(a):b.html.replace(b.re,function(c,d){return a[d]!==undefined?a[d]:""})},set:function(a,c){var b=this;b.html=a;b.compiled=null;return c?b.compile():b},compile:function(){var me=this,sep=Ext.isGecko?"+":",";function fn(m,name){name="values['"+name+"']";return"'"+sep+"("+name+" == undefined ? '' : "+name+")"+sep+"'"}eval("this.compiled = function(values){ return "+(Ext.isGecko?"'":"['")+me.html.replace(/\\/g,"\\\\").replace(/(\r\n|\n)/g,"\\n").replace(/'/g,"\\'").replace(this.re,fn)+(Ext.isGecko?"';};":"'].join('');};"));return me},insertFirst:function(b,a,c){return this.doInsert("afterBegin",b,a,c)},insertBefore:function(b,a,c){return this.doInsert("beforeBegin",b,a,c)},insertAfter:function(b,a,c){return this.doInsert("afterEnd",b,a,c)},append:function(b,a,c){return this.doInsert("beforeEnd",b,a,c)},doInsert:function(c,e,b,a){e=Ext.getDom(e);var d=Ext.DomHelper.insertHtml(c,e,this.applyTemplate(b));return a?Ext.get(d,true):d},overwrite:function(b,a,c){b=Ext.getDom(b);b.innerHTML=this.applyTemplate(a);return c?Ext.get(b.firstChild,true):b.firstChild}};Ext.Template.prototype.apply=Ext.Template.prototype.applyTemplate;Ext.Template.from=function(b,a){b=Ext.getDom(b);return new Ext.Template(b.value||b.innerHTML,a||"")};Ext.DomQuery=function(){var cache={},simpleCache={},valueCache={},nonSpace=/\S/,trimRe=/^\s+|\s+$/g,tplRe=/\{(\d+)\}/g,modeRe=/^(\s?[\/>+~]\s?|\s|$)/,tagTokenRe=/^(#)?([\w\-\*]+)/,nthRe=/(\d*)n\+?(\d*)/,nthRe2=/\D/,isIE=window.ActiveXObject?true:false,key=30803;eval("var batch = 30803;");function child(parent,index){var i=0,n=parent.firstChild;while(n){if(n.nodeType==1){if(++i==index){return n}}n=n.nextSibling}return null}function next(n){while((n=n.nextSibling)&&n.nodeType!=1){}return n}function prev(n){while((n=n.previousSibling)&&n.nodeType!=1){}return n}function children(parent){var n=parent.firstChild,nodeIndex=-1,nextNode;while(n){nextNode=n.nextSibling;if(n.nodeType==3&&!nonSpace.test(n.nodeValue)){parent.removeChild(n)}else{n.nodeIndex=++nodeIndex}n=nextNode}return this}function byClassName(nodeSet,cls){if(!cls){return nodeSet}var result=[],ri=-1;for(var i=0,ci;ci=nodeSet[i];i++){if((" "+ci.className+" ").indexOf(cls)!=-1){result[++ri]=ci}}return result}function attrValue(n,attr){if(!n.tagName&&typeof n.length!="undefined"){n=n[0]}if(!n){return null}if(attr=="for"){return n.htmlFor}if(attr=="class"||attr=="className"){return n.className}return n.getAttribute(attr)||n[attr]}function getNodes(ns,mode,tagName){var result=[],ri=-1,cs;if(!ns){return result}tagName=tagName||"*";if(typeof ns.getElementsByTagName!="undefined"){ns=[ns]}if(!mode){for(var i=0,ni;ni=ns[i];i++){cs=ni.getElementsByTagName(tagName);for(var j=0,ci;ci=cs[j];j++){result[++ri]=ci}}}else{if(mode=="/"||mode==">"){var utag=tagName.toUpperCase();for(var i=0,ni,cn;ni=ns[i];i++){cn=ni.childNodes;for(var j=0,cj;cj=cn[j];j++){if(cj.nodeName==utag||cj.nodeName==tagName||tagName=="*"){result[++ri]=cj}}}}else{if(mode=="+"){var utag=tagName.toUpperCase();for(var i=0,n;n=ns[i];i++){while((n=n.nextSibling)&&n.nodeType!=1){}if(n&&(n.nodeName==utag||n.nodeName==tagName||tagName=="*")){result[++ri]=n}}}else{if(mode=="~"){var utag=tagName.toUpperCase();for(var i=0,n;n=ns[i];i++){while((n=n.nextSibling)){if(n.nodeName==utag||n.nodeName==tagName||tagName=="*"){result[++ri]=n}}}}}}}return result}function concat(a,b){if(b.slice){return a.concat(b)}for(var i=0,l=b.length;i<l;i++){a[a.length]=b[i]}return a}function byTag(cs,tagName){if(cs.tagName||cs==document){cs=[cs]}if(!tagName){return cs}var result=[],ri=-1;tagName=tagName.toLowerCase();for(var i=0,ci;ci=cs[i];i++){if(ci.nodeType==1&&ci.tagName.toLowerCase()==tagName){result[++ri]=ci}}return result}function byId(cs,id){if(cs.tagName||cs==document){cs=[cs]}if(!id){return cs}var result=[],ri=-1;for(var i=0,ci;ci=cs[i];i++){if(ci&&ci.id==id){result[++ri]=ci;return result}}return result}function byAttribute(cs,attr,value,op,custom){var result=[],ri=-1,useGetStyle=custom=="{",fn=Ext.DomQuery.operators[op],a,xml,hasXml;for(var i=0,ci;ci=cs[i];i++){if(ci.nodeType!=1){continue}if(!hasXml){xml=Ext.DomQuery.isXml(ci);hasXml=true}if(!xml){if(useGetStyle){a=Ext.DomQuery.getStyle(ci,attr)}else{if(attr=="class"||attr=="className"){a=ci.className}else{if(attr=="for"){a=ci.htmlFor}else{if(attr=="href"){a=ci.getAttribute("href",2)}else{a=ci.getAttribute(attr)}}}}}else{a=ci.getAttribute(attr)}if((fn&&fn(a,value))||(!fn&&a)){result[++ri]=ci}}return result}function byPseudo(cs,name,value){return Ext.DomQuery.pseudos[name](cs,value)}function nodupIEXml(cs){var d=++key,r;cs[0].setAttribute("_nodup",d);r=[cs[0]];for(var i=1,len=cs.length;i<len;i++){var c=cs[i];if(!c.getAttribute("_nodup")!=d){c.setAttribute("_nodup",d);r[r.length]=c}}for(var i=0,len=cs.length;i<len;i++){cs[i].removeAttribute("_nodup")}return r}function nodup(cs){if(!cs){return[]}var len=cs.length,c,i,r=cs,cj,ri=-1;if(!len||typeof cs.nodeType!="undefined"||len==1){return cs}if(isIE&&typeof cs[0].selectSingleNode!="undefined"){return nodupIEXml(cs)}var d=++key;cs[0]._nodup=d;for(i=1;c=cs[i];i++){if(c._nodup!=d){c._nodup=d}else{r=[];for(var j=0;j<i;j++){r[++ri]=cs[j]}for(j=i+1;cj=cs[j];j++){if(cj._nodup!=d){cj._nodup=d;r[++ri]=cj}}return r}}return r}function quickDiffIEXml(c1,c2){var d=++key,r=[];for(var i=0,len=c1.length;i<len;i++){c1[i].setAttribute("_qdiff",d)}for(var i=0,len=c2.length;i<len;i++){if(c2[i].getAttribute("_qdiff")!=d){r[r.length]=c2[i]}}for(var i=0,len=c1.length;i<len;i++){c1[i].removeAttribute("_qdiff")}return r}function quickDiff(c1,c2){var len1=c1.length,d=++key,r=[];if(!len1){return c2}if(isIE&&typeof c1[0].selectSingleNode!="undefined"){return quickDiffIEXml(c1,c2)}for(var i=0;i<len1;i++){c1[i]._qdiff=d}for(var i=0,len=c2.length;i<len;i++){if(c2[i]._qdiff!=d){r[r.length]=c2[i]}}return r}function quickId(ns,mode,root,id){if(ns==root){var d=root.ownerDocument||root;return d.getElementById(id)}ns=getNodes(ns,mode,"*");return byId(ns,id)}return{getStyle:function(el,name){return Ext.fly(el).getStyle(name)},compile:function(path,type){type=type||"select";var fn=["var f = function(root){\n var mode; ++batch; var n = root || document;\n"],mode,lastPath,matchers=Ext.DomQuery.matchers,matchersLn=matchers.length,modeMatch,lmode=path.match(modeRe);if(lmode&&lmode[1]){fn[fn.length]='mode="'+lmode[1].replace(trimRe,"")+'";';path=path.replace(lmode[1],"")}while(path.substr(0,1)=="/"){path=path.substr(1)}while(path&&lastPath!=path){lastPath=path;var tokenMatch=path.match(tagTokenRe);if(type=="select"){if(tokenMatch){if(tokenMatch[1]=="#"){fn[fn.length]='n = quickId(n, mode, root, "'+tokenMatch[2]+'");'}else{fn[fn.length]='n = getNodes(n, mode, "'+tokenMatch[2]+'");'}path=path.replace(tokenMatch[0],"")}else{if(path.substr(0,1)!="@"){fn[fn.length]='n = getNodes(n, mode, "*");'}}}else{if(tokenMatch){if(tokenMatch[1]=="#"){fn[fn.length]='n = byId(n, "'+tokenMatch[2]+'");'}else{fn[fn.length]='n = byTag(n, "'+tokenMatch[2]+'");'}path=path.replace(tokenMatch[0],"")}}while(!(modeMatch=path.match(modeRe))){var matched=false;for(var j=0;j<matchersLn;j++){var t=matchers[j];var m=path.match(t.re);if(m){fn[fn.length]=t.select.replace(tplRe,function(x,i){return m[i]});path=path.replace(m[0],"");matched=true;break}}if(!matched){throw'Error parsing selector, parsing failed at "'+path+'"'}}if(modeMatch[1]){fn[fn.length]='mode="'+modeMatch[1].replace(trimRe,"")+'";';path=path.replace(modeMatch[1],"")}}fn[fn.length]="return nodup(n);\n}";eval(fn.join(""));return f},jsSelect:function(path,root,type){root=root||document;if(typeof root=="string"){root=document.getElementById(root)}var paths=path.split(","),results=[];for(var i=0,len=paths.length;i<len;i++){var subPath=paths[i].replace(trimRe,"");if(!cache[subPath]){cache[subPath]=Ext.DomQuery.compile(subPath);if(!cache[subPath]){throw subPath+" is not a valid selector"}}var result=cache[subPath](root);if(result&&result!=document){results=results.concat(result)}}if(paths.length>1){return nodup(results)}return results},isXml:function(el){var docEl=(el?el.ownerDocument||el:0).documentElement;return docEl?docEl.nodeName!=="HTML":false},select:document.querySelectorAll?function(path,root,type){root=root||document;if(!Ext.DomQuery.isXml(root)){try{var cs=root.querySelectorAll(path);return Ext.toArray(cs)}catch(ex){}}return Ext.DomQuery.jsSelect.call(this,path,root,type)}:function(path,root,type){return Ext.DomQuery.jsSelect.call(this,path,root,type)},selectNode:function(path,root){return Ext.DomQuery.select(path,root)[0]},selectValue:function(path,root,defaultValue){path=path.replace(trimRe,"");if(!valueCache[path]){valueCache[path]=Ext.DomQuery.compile(path,"select")}var n=valueCache[path](root),v;n=n[0]?n[0]:n;if(typeof n.normalize=="function"){n.normalize()}v=(n&&n.firstChild?n.firstChild.nodeValue:null);return((v===null||v===undefined||v==="")?defaultValue:v)},selectNumber:function(path,root,defaultValue){var v=Ext.DomQuery.selectValue(path,root,defaultValue||0);return parseFloat(v)},is:function(el,ss){if(typeof el=="string"){el=document.getElementById(el)}var isArray=Ext.isArray(el),result=Ext.DomQuery.filter(isArray?el:[el],ss);return isArray?(result.length==el.length):(result.length>0)},filter:function(els,ss,nonMatches){ss=ss.replace(trimRe,"");if(!simpleCache[ss]){simpleCache[ss]=Ext.DomQuery.compile(ss,"simple")}var result=simpleCache[ss](els);return nonMatches?quickDiff(result,els):result},matchers:[{re:/^\.([\w\-]+)/,select:'n = byClassName(n, " {1} ");'},{re:/^\:([\w\-]+)(?:\(((?:[^\s>\/]*|.*?))\))?/,select:'n = byPseudo(n, "{1}", "{2}");'},{re:/^(?:([\[\{])(?:@)?([\w\-]+)\s?(?:(=|.=)\s?(["']?)(.*?)\4)?[\]\}])/,select:'n = byAttribute(n, "{2}", "{5}", "{3}", "{1}");'},{re:/^#([\w\-]+)/,select:'n = byId(n, "{1}");'},{re:/^@([\w\-]+)/,select:'return {firstChild:{nodeValue:attrValue(n, "{1}")}};'}],operators:{"=":function(a,v){return a==v},"!=":function(a,v){return a!=v},"^=":function(a,v){return a&&a.substr(0,v.length)==v},"$=":function(a,v){return a&&a.substr(a.length-v.length)==v},"*=":function(a,v){return a&&a.indexOf(v)!==-1},"%=":function(a,v){return(a%v)==0},"|=":function(a,v){return a&&(a==v||a.substr(0,v.length+1)==v+"-")},"~=":function(a,v){return a&&(" "+a+" ").indexOf(" "+v+" ")!=-1}},pseudos:{"first-child":function(c){var r=[],ri=-1,n;for(var i=0,ci;ci=n=c[i];i++){while((n=n.previousSibling)&&n.nodeType!=1){}if(!n){r[++ri]=ci}}return r},"last-child":function(c){var r=[],ri=-1,n;for(var i=0,ci;ci=n=c[i];i++){while((n=n.nextSibling)&&n.nodeType!=1){}if(!n){r[++ri]=ci}}return r},"nth-child":function(c,a){var r=[],ri=-1,m=nthRe.exec(a=="even"&&"2n"||a=="odd"&&"2n+1"||!nthRe2.test(a)&&"n+"+a||a),f=(m[1]||1)-0,l=m[2]-0;for(var i=0,n;n=c[i];i++){var pn=n.parentNode;if(batch!=pn._batch){var j=0;for(var cn=pn.firstChild;cn;cn=cn.nextSibling){if(cn.nodeType==1){cn.nodeIndex=++j}}pn._batch=batch}if(f==1){if(l==0||n.nodeIndex==l){r[++ri]=n}}else{if((n.nodeIndex+l)%f==0){r[++ri]=n}}}return r},"only-child":function(c){var r=[],ri=-1;for(var i=0,ci;ci=c[i];i++){if(!prev(ci)&&!next(ci)){r[++ri]=ci}}return r},empty:function(c){var r=[],ri=-1;for(var i=0,ci;ci=c[i];i++){var cns=ci.childNodes,j=0,cn,empty=true;while(cn=cns[j]){++j;if(cn.nodeType==1||cn.nodeType==3){empty=false;break}}if(empty){r[++ri]=ci}}return r},contains:function(c,v){var r=[],ri=-1;for(var i=0,ci;ci=c[i];i++){if((ci.textContent||ci.innerText||"").indexOf(v)!=-1){r[++ri]=ci}}return r},nodeValue:function(c,v){var r=[],ri=-1;for(var i=0,ci;ci=c[i];i++){if(ci.firstChild&&ci.firstChild.nodeValue==v){r[++ri]=ci}}return r},checked:function(c){var r=[],ri=-1;for(var i=0,ci;ci=c[i];i++){if(ci.checked==true){r[++ri]=ci}}return r},not:function(c,ss){return Ext.DomQuery.filter(c,ss,true)},any:function(c,selectors){var ss=selectors.split("|"),r=[],ri=-1,s;for(var i=0,ci;ci=c[i];i++){for(var j=0;s=ss[j];j++){if(Ext.DomQuery.is(ci,s)){r[++ri]=ci;break}}}return r},odd:function(c){return this["nth-child"](c,"odd")},even:function(c){return this["nth-child"](c,"even")},nth:function(c,a){return c[a-1]||[]},first:function(c){return c[0]||[]},last:function(c){return c[c.length-1]||[]},has:function(c,ss){var s=Ext.DomQuery.select,r=[],ri=-1;for(var i=0,ci;ci=c[i];i++){if(s(ss,ci).length>0){r[++ri]=ci}}return r},next:function(c,ss){var is=Ext.DomQuery.is,r=[],ri=-1;for(var i=0,ci;ci=c[i];i++){var n=next(ci);if(n&&is(n,ss)){r[++ri]=ci}}return r},prev:function(c,ss){var is=Ext.DomQuery.is,r=[],ri=-1;for(var i=0,ci;ci=c[i];i++){var n=prev(ci);if(n&&is(n,ss)){r[++ri]=ci}}return r}}}}();Ext.query=Ext.DomQuery.select;Ext.util.DelayedTask=function(d,c,a){var e=this,g,b=function(){clearInterval(g);g=null;d.apply(c,a||[])};e.delay=function(i,k,j,h){e.cancel();d=k||d;c=j||c;a=h||a;g=setInterval(b,i)};e.cancel=function(){if(g){clearInterval(g);g=null}}};(function(){var h=document;Ext.Element=function(l,m){var n=typeof l=="string"?h.getElementById(l):l,o;if(!n){return null}o=n.id;if(!m&&o&&Ext.elCache[o]){return Ext.elCache[o].el}this.dom=n;this.id=o||Ext.id(n)};var d=Ext.DomHelper,e=Ext.Element,a=Ext.elCache;e.prototype={set:function(q,m){var n=this.dom,l,p,m=(m!==false)&&!!n.setAttribute;for(l in q){if(q.hasOwnProperty(l)){p=q[l];if(l=="style"){d.applyStyles(n,p)}else{if(l=="cls"){n.className=p}else{if(m){n.setAttribute(l,p)}else{n[l]=p}}}}}return this},defaultUnit:"px",is:function(l){return Ext.DomQuery.is(this.dom,l)},focus:function(o,n){var l=this,n=n||l.dom;try{if(Number(o)){l.focus.defer(o,null,[null,n])}else{n.focus()}}catch(m){}return l},blur:function(){try{this.dom.blur()}catch(l){}return this},getValue:function(l){var m=this.dom.value;return l?parseInt(m,10):m},addListener:function(l,o,n,m){Ext.EventManager.on(this.dom,l,o,n||this,m);return this},removeListener:function(l,n,m){Ext.EventManager.removeListener(this.dom,l,n,m||this);return this},removeAllListeners:function(){Ext.EventManager.removeAll(this.dom);return this},purgeAllListeners:function(){Ext.EventManager.purgeElement(this,true);return this},addUnits:function(l){if(l===""||l=="auto"||l===undefined){l=l||""}else{if(!isNaN(l)||!i.test(l)){l=l+(this.defaultUnit||"px")}}return l},load:function(m,n,l){Ext.Ajax.request(Ext.apply({params:n,url:m.url||m,callback:l,el:this.dom,indicatorText:m.indicatorText||""},Ext.isObject(m)?m:{}));return this},isBorderBox:function(){return Ext.isBorderBox||Ext.isForcedBorderBox||g[(this.dom.tagName||"").toLowerCase()]},remove:function(){var l=this,m=l.dom;if(m){delete l.dom;Ext.removeNode(m)}},hover:function(m,l,o,n){var p=this;p.on("mouseenter",m,o||p.dom,n);p.on("mouseleave",l,o||p.dom,n);return p},contains:function(l){return !l?false:Ext.lib.Dom.isAncestor(this.dom,l.dom?l.dom:l)},getAttributeNS:function(m,l){return this.getAttribute(l,m)},getAttribute:(function(){var p=document.createElement("table"),o=false,m="getAttribute" in p,l=/undefined|unknown/;if(m){try{p.getAttribute("ext:qtip")}catch(n){o=true}return function(q,s){var r=this.dom,t;if(r.getAttributeNS){t=r.getAttributeNS(s,q)||null}if(t==null){if(s){if(o&&r.tagName.toUpperCase()=="TABLE"){try{t=r.getAttribute(s+":"+q)}catch(u){t=""}}else{t=r.getAttribute(s+":"+q)}}else{t=r.getAttribute(q)||r[q]}}return t||""}}else{return function(q,s){var r=this.om,u,t;if(s){t=r[s+":"+q];u=l.test(typeof t)?undefined:t}else{u=r[q]}return u||""}}p=null})(),update:function(l){if(this.dom){this.dom.innerHTML=l}return this}};var k=e.prototype;e.addMethods=function(l){Ext.apply(k,l)};k.on=k.addListener;k.un=k.removeListener;k.autoBoxAdjust=true;var i=/\d+(px|em|%|en|ex|pt|in|cm|mm|pc)$/i,c;e.get=function(m){var l,p,o;if(!m){return null}if(typeof m=="string"){if(!(p=h.getElementById(m))){return null}if(a[m]&&a[m].el){l=a[m].el;l.dom=p}else{l=e.addToCache(new e(p))}return l}else{if(m.tagName){if(!(o=m.id)){o=Ext.id(m)}if(a[o]&&a[o].el){l=a[o].el;l.dom=m}else{l=e.addToCache(new e(m))}return l}else{if(m instanceof e){if(m!=c){if(Ext.isIE&&(m.id==undefined||m.id=="")){m.dom=m.dom}else{m.dom=h.getElementById(m.id)||m.dom}}return m}else{if(m.isComposite){return m}else{if(Ext.isArray(m)){return e.select(m)}else{if(m==h){if(!c){var n=function(){};n.prototype=e.prototype;c=new n();c.dom=h}return c}}}}}}return null};e.addToCache=function(l,m){m=m||l.id;a[m]={el:l,data:{},events:{}};return l};e.data=function(m,l,n){m=e.get(m);if(!m){return null}var o=a[m.id].data;if(arguments.length==2){return o[l]}else{return(o[l]=n)}};function j(){if(!Ext.enableGarbageCollector){clearInterval(e.collectorThreadId)}else{var l,n,q,p;for(l in a){p=a[l];if(p.skipGC){Ext.EventManager.removeFromSpecialCache(p.el);continue}n=p.el;q=n.dom;if(!q||!q.parentNode||(!q.offsetParent&&!h.getElementById(l))){if(Ext.enableListenerCollection){Ext.EventManager.removeAll(q)}delete a[l]}}if(Ext.isIE){var m={};for(l in a){m[l]=a[l]}a=Ext.elCache=m}}}e.collectorThreadId=setInterval(j,30000);var b=function(){};b.prototype=e.prototype;e.Flyweight=function(l){this.dom=l};e.Flyweight.prototype=new b();e.Flyweight.prototype.isFlyweight=true;e._flyweights={};e.fly=function(n,l){var m=null;l=l||"_global";if(n=Ext.getDom(n)){(e._flyweights[l]=e._flyweights[l]||new e.Flyweight()).dom=n;m=e._flyweights[l]}return m};Ext.get=e.get;Ext.fly=e.fly;var g=Ext.isStrict?{select:1}:{input:1,select:1,textarea:1};if(Ext.isIE||Ext.isGecko){g.button=1}})();Ext.Element.addMethods(function(){var d="parentNode",b="nextSibling",c="previousSibling",e=Ext.DomQuery,a=Ext.get;return{findParent:function(m,l,h){var j=this.dom,g=document.body,k=0,i;if(Ext.isGecko&&Object.prototype.toString.call(j)=="[object XULElement]"){return null}l=l||50;if(isNaN(l)){i=Ext.getDom(l);l=Number.MAX_VALUE}while(j&&j.nodeType==1&&k<l&&j!=g&&j!=i){if(e.is(j,m)){return h?a(j):j}k++;j=j.parentNode}return null},findParentNode:function(j,i,g){var h=Ext.fly(this.dom.parentNode,"_internal");return h?h.findParent(j,i,g):null},up:function(h,g){return this.findParentNode(h,g,true)},select:function(g){return Ext.Element.select(g,this.dom)},query:function(g){return e.select(g,this.dom)},child:function(g,h){var i=e.selectNode(g,this.dom);return h?i:a(i)},down:function(g,h){var i=e.selectNode(" > "+g,this.dom);return h?i:a(i)},parent:function(g,h){return this.matchNode(d,d,g,h)},next:function(g,h){return this.matchNode(b,b,g,h)},prev:function(g,h){return this.matchNode(c,c,g,h)},first:function(g,h){return this.matchNode(b,"firstChild",g,h)},last:function(g,h){return this.matchNode(c,"lastChild",g,h)},matchNode:function(h,k,g,i){var j=this.dom[k];while(j){if(j.nodeType==1&&(!g||e.is(j,g))){return !i?a(j):j}j=j[h]}return null}}}());Ext.Element.addMethods(function(){var c=Ext.getDom,a=Ext.get,b=Ext.DomHelper;return{appendChild:function(d){return a(d).appendTo(this)},appendTo:function(d){c(d).appendChild(this.dom);return this},insertBefore:function(d){(d=c(d)).parentNode.insertBefore(this.dom,d);return this},insertAfter:function(d){(d=c(d)).parentNode.insertBefore(this.dom,d.nextSibling);return this},insertFirst:function(e,d){e=e||{};if(e.nodeType||e.dom||typeof e=="string"){e=c(e);this.dom.insertBefore(e,this.dom.firstChild);return !d?a(e):e}else{return this.createChild(e,this.dom.firstChild,d)}},replace:function(d){d=a(d);this.insertBefore(d);d.remove();return this},replaceWith:function(d){var e=this;if(d.nodeType||d.dom||typeof d=="string"){d=c(d);e.dom.parentNode.insertBefore(d,e.dom)}else{d=b.insertBefore(e.dom,d)}delete Ext.elCache[e.id];Ext.removeNode(e.dom);e.id=Ext.id(e.dom=d);Ext.Element.addToCache(e.isFlyweight?new Ext.Element(e.dom):e);return e},createChild:function(e,d,g){e=e||{tag:"div"};return d?b.insertBefore(d,e,g!==true):b[!this.dom.firstChild?"overwrite":"append"](this.dom,e,g!==true)},wrap:function(d,e){var g=b.insertBefore(this.dom,d||{tag:"div"},!e);g.dom?g.dom.appendChild(this.dom):g.appendChild(this.dom);return g},insertHtml:function(e,g,d){var h=b.insertHtml(e,this.dom,g);return d?Ext.get(h):h}}}());Ext.Element.addMethods(function(){var A=Ext.supports,h={},x=/(-[a-z])/gi,s=document.defaultView,D=/alpha\(opacity=(.*)\)/i,l=/^\s+|\s+$/g,B=Ext.Element,u=/\s+/,b=/\w/g,d="padding",c="margin",y="border",t="-left",q="-right",w="-top",o="-bottom",j="-width",r=Math,z="hidden",e="isClipped",k="overflow",n="overflow-x",m="overflow-y",C="originalClip",i={l:y+t+j,r:y+q+j,t:y+w+j,b:y+o+j},g={l:d+t,r:d+q,t:d+w,b:d+o},a={l:c+t,r:c+q,t:c+w,b:c+o},E=Ext.Element.data;function p(F,G){return G.charAt(1).toUpperCase()}function v(F){return h[F]||(h[F]=F=="float"?(A.cssFloat?"cssFloat":"styleFloat"):F.replace(x,p))}return{adjustWidth:function(F){var G=this;var H=(typeof F=="number");if(H&&G.autoBoxAdjust&&!G.isBorderBox()){F-=(G.getBorderWidth("lr")+G.getPadding("lr"))}return(H&&F<0)?0:F},adjustHeight:function(F){var G=this;var H=(typeof F=="number");if(H&&G.autoBoxAdjust&&!G.isBorderBox()){F-=(G.getBorderWidth("tb")+G.getPadding("tb"))}return(H&&F<0)?0:F},addClass:function(J){var K=this,I,F,H,G=[];if(!Ext.isArray(J)){if(typeof J=="string"&&!this.hasClass(J)){K.dom.className+=" "+J}}else{for(I=0,F=J.length;I<F;I++){H=J[I];if(typeof H=="string"&&(" "+K.dom.className+" ").indexOf(" "+H+" ")==-1){G.push(H)}}if(G.length){K.dom.className+=" "+G.join(" ")}}return K},removeClass:function(K){var L=this,J,G,F,I,H;if(!Ext.isArray(K)){K=[K]}if(L.dom&&L.dom.className){H=L.dom.className.replace(l,"").split(u);for(J=0,F=K.length;J<F;J++){I=K[J];if(typeof I=="string"){I=I.replace(l,"");G=H.indexOf(I);if(G!=-1){H.splice(G,1)}}}L.dom.className=H.join(" ")}return L},radioClass:function(I){var J=this.dom.parentNode.childNodes,G,H,F;I=Ext.isArray(I)?I:[I];for(H=0,F=J.length;H<F;H++){G=J[H];if(G&&G.nodeType==1){Ext.fly(G,"_internal").removeClass(I)}}return this.addClass(I)},toggleClass:function(F){return this.hasClass(F)?this.removeClass(F):this.addClass(F)},hasClass:function(F){return F&&(" "+this.dom.className+" ").indexOf(" "+F+" ")!=-1},replaceClass:function(G,F){return this.removeClass(G).addClass(F)},isStyle:function(F,G){return this.getStyle(F)==G},getStyle:function(){return s&&s.getComputedStyle?function(K){var I=this.dom,F,H,G,J;if(I==document){return null}K=v(K);G=(F=I.style[K])?F:(H=s.getComputedStyle(I,""))?H[K]:null;if(K=="marginRight"&&G!="0px"&&!A.correctRightMargin){J=I.style.display;I.style.display="inline-block";G=s.getComputedStyle(I,"").marginRight;I.style.display=J}if(K=="backgroundColor"&&G=="rgba(0, 0, 0, 0)"&&!A.correctTransparentColor){G="transparent"}return G}:function(J){var H=this.dom,F,G;if(H==document){return null}if(J=="opacity"){if(H.style.filter.match){if(F=H.style.filter.match(D)){var I=parseFloat(F[1]);if(!isNaN(I)){return I?I/100:0}}}return 1}J=v(J);return H.style[J]||((G=H.currentStyle)?G[J]:null)}}(),getColor:function(F,G,K){var I=this.getStyle(F),H=(typeof K!="undefined")?K:"#",J;if(!I||(/transparent|inherit/.test(I))){return G}if(/^r/.test(I)){Ext.each(I.slice(4,I.length-1).split(","),function(L){J=parseInt(L,10);H+=(J<16?"0":"")+J.toString(16)})}else{I=I.replace("#","");H+=I.length==3?I.replace(/^(\w)(\w)(\w)$/,"$1$1$2$2$3$3"):I}return(H.length>5?H.toLowerCase():G)},setStyle:function(I,H){var F,G;if(typeof I!="object"){F={};F[I]=H;I=F}for(G in I){H=I[G];G=="opacity"?this.setOpacity(H):this.dom.style[v(G)]=H}return this},setOpacity:function(G,F){var J=this,H=J.dom.style;if(!F||!J.anim){if(Ext.isIE9m){var I=G<1?"alpha(opacity="+G*100+")":"",K=H.filter.replace(D,"").replace(l,"");H.zoom=1;H.filter=K+(K.length>0?" ":"")+I}else{H.opacity=G}}else{J.anim({opacity:{to:G}},J.preanim(arguments,1),null,0.35,"easeIn")}return J},clearOpacity:function(){var F=this.dom.style;if(Ext.isIE9m){if(!Ext.isEmpty(F.filter)){F.filter=F.filter.replace(D,"").replace(l,"")}}else{F.opacity=F["-moz-opacity"]=F["-khtml-opacity"]=""}return this},getHeight:function(H){var G=this,J=G.dom,I=Ext.isIE9m&&G.isStyle("display","none"),F=r.max(J.offsetHeight,I?0:J.clientHeight)||0;F=!H?F:F-G.getBorderWidth("tb")-G.getPadding("tb");return F<0?0:F},getWidth:function(G){var H=this,J=H.dom,I=Ext.isIE9m&&H.isStyle("display","none"),F=r.max(J.offsetWidth,I?0:J.clientWidth)||0;F=!G?F:F-H.getBorderWidth("lr")-H.getPadding("lr");return F<0?0:F},setWidth:function(G,F){var H=this;G=H.adjustWidth(G);!F||!H.anim?H.dom.style.width=H.addUnits(G):H.anim({width:{to:G}},H.preanim(arguments,1));return H},setHeight:function(F,G){var H=this;F=H.adjustHeight(F);!G||!H.anim?H.dom.style.height=H.addUnits(F):H.anim({height:{to:F}},H.preanim(arguments,1));return H},getBorderWidth:function(F){return this.addStyles(F,i)},getPadding:function(F){return this.addStyles(F,g)},clip:function(){var F=this,G=F.dom;if(!E(G,e)){E(G,e,true);E(G,C,{o:F.getStyle(k),x:F.getStyle(n),y:F.getStyle(m)});F.setStyle(k,z);F.setStyle(n,z);F.setStyle(m,z)}return F},unclip:function(){var F=this,H=F.dom;if(E(H,e)){E(H,e,false);var G=E(H,C);if(G.o){F.setStyle(k,G.o)}if(G.x){F.setStyle(n,G.x)}if(G.y){F.setStyle(m,G.y)}}return F},addStyles:function(M,L){var J=0,K=M.match(b),I,H,G,F=K.length;for(G=0;G<F;G++){I=K[G];H=I&&parseInt(this.getStyle(L[I]),10);if(H){J+=r.abs(H)}}return J},margins:a}}());(function(){var a=Ext.lib.Dom,b="left",g="right",d="top",i="bottom",h="position",c="static",e="relative",j="auto",k="z-index";Ext.Element.addMethods({getX:function(){return a.getX(this.dom)},getY:function(){return a.getY(this.dom)},getXY:function(){return a.getXY(this.dom)},getOffsetsTo:function(l){var n=this.getXY(),m=Ext.fly(l,"_internal").getXY();return[n[0]-m[0],n[1]-m[1]]},setX:function(l,m){return this.setXY([l,this.getY()],this.animTest(arguments,m,1))},setY:function(m,l){return this.setXY([this.getX(),m],this.animTest(arguments,l,1))},setLeft:function(l){this.setStyle(b,this.addUnits(l));return this},setTop:function(l){this.setStyle(d,this.addUnits(l));return this},setRight:function(l){this.setStyle(g,this.addUnits(l));return this},setBottom:function(l){this.setStyle(i,this.addUnits(l));return this},setXY:function(n,l){var m=this;if(!l||!m.anim){a.setXY(m.dom,n)}else{m.anim({points:{to:n}},m.preanim(arguments,1),"motion")}return m},setLocation:function(l,n,m){return this.setXY([l,n],this.animTest(arguments,m,2))},moveTo:function(l,n,m){return this.setXY([l,n],this.animTest(arguments,m,2))},getLeft:function(l){return !l?this.getX():parseInt(this.getStyle(b),10)||0},getRight:function(l){var m=this;return !l?m.getX()+m.getWidth():(m.getLeft(true)+m.getWidth())||0},getTop:function(l){return !l?this.getY():parseInt(this.getStyle(d),10)||0},getBottom:function(l){var m=this;return !l?m.getY()+m.getHeight():(m.getTop(true)+m.getHeight())||0},position:function(p,o,l,n){var m=this;if(!p&&m.isStyle(h,c)){m.setStyle(h,e)}else{if(p){m.setStyle(h,p)}}if(o){m.setStyle(k,o)}if(l||n){m.setXY([l||false,n||false])}},clearPositioning:function(l){l=l||"";this.setStyle({left:l,right:l,top:l,bottom:l,"z-index":"",position:c});return this},getPositioning:function(){var m=this.getStyle(b);var n=this.getStyle(d);return{position:this.getStyle(h),left:m,right:m?"":this.getStyle(g),top:n,bottom:n?"":this.getStyle(i),"z-index":this.getStyle(k)}},setPositioning:function(l){var n=this,m=n.dom.style;n.setStyle(l);if(l.right==j){m.right=""}if(l.bottom==j){m.bottom=""}return n},translatePoints:function(m,u){u=isNaN(m[1])?u:m[1];m=isNaN(m[0])?m:m[0];var q=this,r=q.isStyle(h,e),s=q.getXY(),n=parseInt(q.getStyle(b),10),p=parseInt(q.getStyle(d),10);n=!isNaN(n)?n:(r?0:q.dom.offsetLeft);p=!isNaN(p)?p:(r?0:q.dom.offsetTop);return{left:(m-s[0]+n),top:(u-s[1]+p)}},animTest:function(m,l,n){return !!l&&this.preanim?this.preanim(m,n):false}})})();Ext.Element.addMethods({isScrollable:function(){var a=this.dom;return a.scrollHeight>a.clientHeight||a.scrollWidth>a.clientWidth},scrollTo:function(a,b){this.dom["scroll"+(/top/i.test(a)?"Top":"Left")]=b;return this},getScroll:function(){var i=this.dom,h=document,a=h.body,c=h.documentElement,b,g,e;if(i==h||i==a){if(Ext.isIE&&Ext.isStrict){b=c.scrollLeft;g=c.scrollTop}else{b=window.pageXOffset;g=window.pageYOffset}e={left:b||(a?a.scrollLeft:0),top:g||(a?a.scrollTop:0)}}else{e={left:i.scrollLeft,top:i.scrollTop}}return e}});Ext.Element.VISIBILITY=1;Ext.Element.DISPLAY=2;Ext.Element.OFFSETS=3;Ext.Element.ASCLASS=4;Ext.Element.visibilityCls="x-hide-nosize";Ext.Element.addMethods(function(){var e=Ext.Element,p="opacity",j="visibility",g="display",d="hidden",n="offsets",k="asclass",m="none",a="nosize",b="originalDisplay",c="visibilityMode",h="isVisible",i=e.data,l=function(r){var q=i(r,b);if(q===undefined){i(r,b,q="")}return q},o=function(r){var q=i(r,c);if(q===undefined){i(r,c,q=1)}return q};return{originalDisplay:"",visibilityMode:1,setVisibilityMode:function(q){i(this.dom,c,q);return this},animate:function(r,t,s,u,q){this.anim(r,{duration:t,callback:s,easing:u},q);return this},anim:function(t,u,r,w,s,q){r=r||"run";u=u||{};var v=this,x=Ext.lib.Anim[r](v.dom,t,(u.duration||w)||0.35,(u.easing||s)||"easeOut",function(){if(q){q.call(v)}if(u.callback){u.callback.call(u.scope||v,v,u)}},v);u.anim=x;return x},preanim:function(q,r){return !q[r]?false:(typeof q[r]=="object"?q[r]:{duration:q[r+1],callback:q[r+2],easing:q[r+3]})},isVisible:function(){var q=this,s=q.dom,r=i(s,h);if(typeof r=="boolean"){return r}r=!q.isStyle(j,d)&&!q.isStyle(g,m)&&!((o(s)==e.ASCLASS)&&q.hasClass(q.visibilityCls||e.visibilityCls));i(s,h,r);return r},setVisible:function(t,q){var w=this,r,y,x,v,u=w.dom,s=o(u);if(typeof q=="string"){switch(q){case g:s=e.DISPLAY;break;case j:s=e.VISIBILITY;break;case n:s=e.OFFSETS;break;case a:case k:s=e.ASCLASS;break}w.setVisibilityMode(s);q=false}if(!q||!w.anim){if(s==e.ASCLASS){w[t?"removeClass":"addClass"](w.visibilityCls||e.visibilityCls)}else{if(s==e.DISPLAY){return w.setDisplayed(t)}else{if(s==e.OFFSETS){if(!t){w.hideModeStyles={position:w.getStyle("position"),top:w.getStyle("top"),left:w.getStyle("left")};w.applyStyles({position:"absolute",top:"-10000px",left:"-10000px"})}else{w.applyStyles(w.hideModeStyles||{position:"",top:"",left:""});delete w.hideModeStyles}}else{w.fixDisplay();u.style.visibility=t?"visible":d}}}}else{if(t){w.setOpacity(0.01);w.setVisible(true)}w.anim({opacity:{to:(t?1:0)}},w.preanim(arguments,1),null,0.35,"easeIn",function(){t||w.setVisible(false).setOpacity(1)})}i(u,h,t);return w},hasMetrics:function(){var q=this.dom;return this.isVisible()||(o(q)==e.VISIBILITY)},toggle:function(q){var r=this;r.setVisible(!r.isVisible(),r.preanim(arguments,0));return r},setDisplayed:function(q){if(typeof q=="boolean"){q=q?l(this.dom):m}this.setStyle(g,q);return this},fixDisplay:function(){var q=this;if(q.isStyle(g,m)){q.setStyle(j,d);q.setStyle(g,l(this.dom));if(q.isStyle(g,m)){q.setStyle(g,"block")}}},hide:function(q){if(typeof q=="string"){this.setVisible(false,q);return this}this.setVisible(false,this.preanim(arguments,0));return this},show:function(q){if(typeof q=="string"){this.setVisible(true,q);return this}this.setVisible(true,this.preanim(arguments,0));return this}}}());(function(){var y=null,A=undefined,k=true,t=false,j="setX",h="setY",a="setXY",n="left",l="bottom",s="top",m="right",q="height",g="width",i="points",w="hidden",z="absolute",u="visible",e="motion",o="position",r="easeOut",d=new Ext.Element.Flyweight(),v={},x=function(B){return B||{}},p=function(B){d.dom=B;d.id=Ext.id(B);return d},c=function(B){if(!v[B]){v[B]=[]}return v[B]},b=function(C,B){v[C]=B};Ext.enableFx=k;Ext.Fx={switchStatements:function(C,D,B){return D.apply(this,B[C])},slideIn:function(H,E){E=x(E);var J=this,G=J.dom,M=G.style,O,B,L,D,C,M,I,N,K,F;H=H||"t";J.queueFx(E,function(){O=p(G).getXY();p(G).fixDisplay();B=p(G).getFxRestore();L={x:O[0],y:O[1],0:O[0],1:O[1],width:G.offsetWidth,height:G.offsetHeight};L.right=L.x+L.width;L.bottom=L.y+L.height;p(G).setWidth(L.width).setHeight(L.height);D=p(G).fxWrap(B.pos,E,w);M.visibility=u;M.position=z;function P(){p(G).fxUnwrap(D,B.pos,E);M.width=B.width;M.height=B.height;p(G).afterFx(E)}N={to:[L.x,L.y]};K={to:L.width};F={to:L.height};function Q(U,R,V,S,X,Z,ac,ab,aa,W,T){var Y={};p(U).setWidth(V).setHeight(S);if(p(U)[X]){p(U)[X](Z)}R[ac]=R[ab]="0";if(aa){Y.width=aa}if(W){Y.height=W}if(T){Y.points=T}return Y}I=p(G).switchStatements(H.toLowerCase(),Q,{t:[D,M,L.width,0,y,y,n,l,y,F,y],l:[D,M,0,L.height,y,y,m,s,K,y,y],r:[D,M,L.width,L.height,j,L.right,n,s,y,y,N],b:[D,M,L.width,L.height,h,L.bottom,n,s,y,F,N],tl:[D,M,0,0,y,y,m,l,K,F,N],bl:[D,M,0,0,h,L.y+L.height,m,s,K,F,N],br:[D,M,0,0,a,[L.right,L.bottom],n,s,K,F,N],tr:[D,M,0,0,j,L.x+L.width,n,l,K,F,N]});M.visibility=u;p(D).show();arguments.callee.anim=p(D).fxanim(I,E,e,0.5,r,P)});return J},slideOut:function(F,D){D=x(D);var H=this,E=H.dom,K=E.style,L=H.getXY(),C,B,I,J,G={to:0};F=F||"t";H.queueFx(D,function(){B=p(E).getFxRestore();I={x:L[0],y:L[1],0:L[0],1:L[1],width:E.offsetWidth,height:E.offsetHeight};I.right=I.x+I.width;I.bottom=I.y+I.height;p(E).setWidth(I.width).setHeight(I.height);C=p(E).fxWrap(B.pos,D,u);K.visibility=u;K.position=z;p(C).setWidth(I.width).setHeight(I.height);function M(){D.useDisplay?p(E).setDisplayed(t):p(E).hide();p(E).fxUnwrap(C,B.pos,D);K.width=B.width;K.height=B.height;p(E).afterFx(D)}function N(O,W,U,X,S,V,R,T,Q){var P={};O[W]=O[U]="0";P[X]=S;if(V){P[V]=R}if(T){P[T]=Q}return P}J=p(E).switchStatements(F.toLowerCase(),N,{t:[K,n,l,q,G],l:[K,m,s,g,G],r:[K,n,s,g,G,i,{to:[I.right,I.y]}],b:[K,n,s,q,G,i,{to:[I.x,I.bottom]}],tl:[K,m,l,g,G,q,G],bl:[K,m,s,g,G,q,G,i,{to:[I.x,I.bottom]}],br:[K,n,s,g,G,q,G,i,{to:[I.x+I.width,I.bottom]}],tr:[K,n,l,g,G,q,G,i,{to:[I.right,I.y]}]});arguments.callee.anim=p(C).fxanim(J,D,e,0.5,r,M)});return H},puff:function(H){H=x(H);var F=this,G=F.dom,C=G.style,D,B,E;F.queueFx(H,function(){D=p(G).getWidth();B=p(G).getHeight();p(G).clearOpacity();p(G).show();E=p(G).getFxRestore();function I(){H.useDisplay?p(G).setDisplayed(t):p(G).hide();p(G).clearOpacity();p(G).setPositioning(E.pos);C.width=E.width;C.height=E.height;C.fontSize="";p(G).afterFx(H)}arguments.callee.anim=p(G).fxanim({width:{to:p(G).adjustWidth(D*2)},height:{to:p(G).adjustHeight(B*2)},points:{by:[-D*0.5,-B*0.5]},opacity:{to:0},fontSize:{to:200,unit:"%"}},H,e,0.5,r,I)});return F},switchOff:function(F){F=x(F);var D=this,E=D.dom,B=E.style,C;D.queueFx(F,function(){p(E).clearOpacity();p(E).clip();C=p(E).getFxRestore();function G(){F.useDisplay?p(E).setDisplayed(t):p(E).hide();p(E).clearOpacity();p(E).setPositioning(C.pos);B.width=C.width;B.height=C.height;p(E).afterFx(F)}p(E).fxanim({opacity:{to:0.3}},y,y,0.1,y,function(){p(E).clearOpacity();(function(){p(E).fxanim({height:{to:1},points:{by:[0,p(E).getHeight()*0.5]}},F,e,0.3,"easeIn",G)}).defer(100)})});return D},highlight:function(D,H){H=x(H);var F=this,G=F.dom,B=H.attr||"backgroundColor",C={},E;F.queueFx(H,function(){p(G).clearOpacity();p(G).show();function I(){G.style[B]=E;p(G).afterFx(H)}E=G.style[B];C[B]={from:D||"ffff9c",to:H.endColor||p(G).getColor(B)||"ffffff"};arguments.callee.anim=p(G).fxanim(C,H,"color",1,"easeIn",I)});return F},frame:function(B,E,H){H=x(H);var D=this,G=D.dom,C,F;D.queueFx(H,function(){B=B||"#C3DAF9";if(B.length==6){B="#"+B}E=E||1;p(G).show();var L=p(G).getXY(),J={x:L[0],y:L[1],0:L[0],1:L[1],width:G.offsetWidth,height:G.offsetHeight},I=function(){C=p(document.body||document.documentElement).createChild({style:{position:z,"z-index":35000,border:"0px solid "+B}});return C.queueFx({},K)};arguments.callee.anim={isAnimated:true,stop:function(){E=0;C.stopFx()}};function K(){var M=Ext.isBorderBox?2:1;F=C.anim({top:{from:J.y,to:J.y-20},left:{from:J.x,to:J.x-20},borderWidth:{from:0,to:10},opacity:{from:1,to:0},height:{from:J.height,to:J.height+20*M},width:{from:J.width,to:J.width+20*M}},{duration:H.duration||1,callback:function(){C.remove();--E>0?I():p(G).afterFx(H)}});arguments.callee.anim={isAnimated:true,stop:function(){F.stop()}}}I()});return D},pause:function(D){var C=this.dom,B;this.queueFx({},function(){B=setTimeout(function(){p(C).afterFx({})},D*1000);arguments.callee.anim={isAnimated:true,stop:function(){clearTimeout(B);p(C).afterFx({})}}});return this},fadeIn:function(D){D=x(D);var B=this,C=B.dom,E=D.endOpacity||1;B.queueFx(D,function(){p(C).setOpacity(0);p(C).fixDisplay();C.style.visibility=u;arguments.callee.anim=p(C).fxanim({opacity:{to:E}},D,y,0.5,r,function(){if(E==1){p(C).clearOpacity()}p(C).afterFx(D)})});return B},fadeOut:function(E){E=x(E);var C=this,D=C.dom,B=D.style,F=E.endOpacity||0;C.queueFx(E,function(){arguments.callee.anim=p(D).fxanim({opacity:{to:F}},E,y,0.5,r,function(){if(F==0){Ext.Element.data(D,"visibilityMode")==Ext.Element.DISPLAY||E.useDisplay?B.display="none":B.visibility=w;p(D).clearOpacity()}p(D).afterFx(E)})});return C},scale:function(B,C,D){this.shift(Ext.apply({},D,{width:B,height:C}));return this},shift:function(D){D=x(D);var C=this.dom,B={};this.queueFx(D,function(){for(var E in D){if(D[E]!=A){B[E]={to:D[E]}}}B.width?B.width.to=p(C).adjustWidth(D.width):B;B.height?B.height.to=p(C).adjustWidth(D.height):B;if(B.x||B.y||B.xy){B.points=B.xy||{to:[B.x?B.x.to:p(C).getX(),B.y?B.y.to:p(C).getY()]}}arguments.callee.anim=p(C).fxanim(B,D,e,0.35,r,function(){p(C).afterFx(D)})});return this},ghost:function(E,C){C=x(C);var G=this,D=G.dom,J=D.style,H={opacity:{to:0},points:{}},K=H.points,B,I,F;E=E||"b";G.queueFx(C,function(){B=p(D).getFxRestore();I=p(D).getWidth();F=p(D).getHeight();function L(){C.useDisplay?p(D).setDisplayed(t):p(D).hide();p(D).clearOpacity();p(D).setPositioning(B.pos);J.width=B.width;J.height=B.height;p(D).afterFx(C)}K.by=p(D).switchStatements(E.toLowerCase(),function(N,M){return[N,M]},{t:[0,-F],l:[-I,0],r:[I,0],b:[0,F],tl:[-I,-F],bl:[-I,F],br:[I,F],tr:[I,-F]});arguments.callee.anim=p(D).fxanim(H,C,e,0.5,r,L)});return G},syncFx:function(){var B=this;B.fxDefaults=Ext.apply(B.fxDefaults||{},{block:t,concurrent:k,stopFx:t});return B},sequenceFx:function(){var B=this;B.fxDefaults=Ext.apply(B.fxDefaults||{},{block:t,concurrent:t,stopFx:t});return B},nextFx:function(){var B=c(this.dom.id)[0];if(B){B.call(this)}},hasActiveFx:function(){return c(this.dom.id)[0]},stopFx:function(B){var C=this,E=C.dom.id;if(C.hasActiveFx()){var D=c(E)[0];if(D&&D.anim){if(D.anim.isAnimated){b(E,[D]);D.anim.stop(B!==undefined?B:k)}else{b(E,[])}}}return C},beforeFx:function(B){if(this.hasActiveFx()&&!B.concurrent){if(B.stopFx){this.stopFx();return k}return t}return k},hasFxBlock:function(){var B=c(this.dom.id);return B&&B[0]&&B[0].block},queueFx:function(E,B){var C=p(this.dom);if(!C.hasFxBlock()){Ext.applyIf(E,C.fxDefaults);if(!E.concurrent){var D=C.beforeFx(E);B.block=E.block;c(C.dom.id).push(B);if(D){C.nextFx()}}else{B.call(C)}}return C},fxWrap:function(H,F,D){var E=this.dom,C,B;if(!F.wrap||!(C=Ext.getDom(F.wrap))){if(F.fixPosition){B=p(E).getXY()}var G=document.createElement("div");G.style.visibility=D;C=E.parentNode.insertBefore(G,E);p(C).setPositioning(H);if(p(C).isStyle(o,"static")){p(C).position("relative")}p(E).clearPositioning("auto");p(C).clip();C.appendChild(E);if(B){p(C).setXY(B)}}return C},fxUnwrap:function(C,F,E){var D=this.dom;p(D).clearPositioning();p(D).setPositioning(F);if(!E.wrap){var B=p(C).dom.parentNode;B.insertBefore(D,C);p(C).remove()}},getFxRestore:function(){var B=this.dom.style;return{pos:this.getPositioning(),width:B.width,height:B.height}},afterFx:function(C){var B=this.dom,D=B.id;if(C.afterStyle){p(B).setStyle(C.afterStyle)}if(C.afterCls){p(B).addClass(C.afterCls)}if(C.remove==k){p(B).remove()}if(C.callback){C.callback.call(C.scope,p(B))}if(!C.concurrent){c(D).shift();p(B).nextFx()}},fxanim:function(E,F,C,G,D,B){C=C||"run";F=F||{};var H=Ext.lib.Anim[C](this.dom,E,(F.duration||G)||0.35,(F.easing||D)||r,B,this);F.anim=H;return H}};Ext.Fx.resize=Ext.Fx.scale;Ext.Element.addMethods(Ext.Fx)})();Ext.CompositeElementLite=function(b,a){this.elements=[];this.add(b,a);this.el=new Ext.Element.Flyweight()};Ext.CompositeElementLite.prototype={isComposite:true,getElement:function(a){var b=this.el;b.dom=a;b.id=a.id;return b},transformElement:function(a){return Ext.getDom(a)},getCount:function(){return this.elements.length},add:function(d,b){var e=this,g=e.elements;if(!d){return this}if(typeof d=="string"){d=Ext.Element.selectorFunction(d,b)}else{if(d.isComposite){d=d.elements}else{if(!Ext.isIterable(d)){d=[d]}}}for(var c=0,a=d.length;c<a;++c){g.push(e.transformElement(d[c]))}return e},invoke:function(g,b){var h=this,d=h.elements,a=d.length,j,c;for(c=0;c<a;c++){j=d[c];if(j){Ext.Element.prototype[g].apply(h.getElement(j),b)}}return h},item:function(b){var d=this,c=d.elements[b],a=null;if(c){a=d.getElement(c)}return a},addListener:function(b,j,h,g){var d=this.elements,a=d.length,c,k;for(c=0;c<a;c++){k=d[c];if(k){Ext.EventManager.on(k,b,j,h||k,g)}}return this},each:function(g,d){var h=this,c=h.elements,a=c.length,b,j;for(b=0;b<a;b++){j=c[b];if(j){j=this.getElement(j);if(g.call(d||j,j,h,b)===false){break}}}return h},fill:function(a){var b=this;b.elements=[];b.add(a);return b},filter:function(a){var b=[],d=this,c=Ext.isFunction(a)?a:function(e){return e.is(a)};d.each(function(h,e,g){if(c(h,g)!==false){b[b.length]=d.transformElement(h)}});d.elements=b;return d},indexOf:function(a){return this.elements.indexOf(this.transformElement(a))},replaceElement:function(e,c,a){var b=!isNaN(e)?e:this.indexOf(e),g;if(b>-1){c=Ext.getDom(c);if(a){g=this.elements[b];g.parentNode.insertBefore(c,g);Ext.removeNode(g)}this.elements.splice(b,1,c)}return this},clear:function(){this.elements=[]}};Ext.CompositeElementLite.prototype.on=Ext.CompositeElementLite.prototype.addListener;Ext.CompositeElementLite.importElementMethods=function(){var c,b=Ext.Element.prototype,a=Ext.CompositeElementLite.prototype;for(c in b){if(typeof b[c]=="function"){(function(d){a[d]=a[d]||function(){return this.invoke(d,arguments)}}).call(a,c)}}};Ext.CompositeElementLite.importElementMethods();if(Ext.DomQuery){Ext.Element.selectorFunction=Ext.DomQuery.select}Ext.Element.select=function(a,b){var c;if(typeof a=="string"){c=Ext.Element.selectorFunction(a,b)}else{if(a.length!==undefined){c=a}else{throw"Invalid selector"}}return new Ext.CompositeElementLite(c)};Ext.select=Ext.Element.select;(function(){var b="beforerequest",e="requestcomplete",d="requestexception",h=undefined,c="load",i="POST",a="GET",g=window;Ext.data.Connection=function(j){Ext.apply(this,j);this.addEvents(b,e,d);Ext.data.Connection.superclass.constructor.call(this)};Ext.extend(Ext.data.Connection,Ext.util.Observable,{timeout:30000,autoAbort:false,disableCaching:true,disableCachingParam:"_dc",request:function(n){var s=this;if(s.fireEvent(b,s,n)){if(n.el){if(!Ext.isEmpty(n.indicatorText)){s.indicatorText='<div class="loading-indicator">'+n.indicatorText+"</div>"}if(s.indicatorText){Ext.getDom(n.el).innerHTML=s.indicatorText}n.success=(Ext.isFunction(n.success)?n.success:function(){}).createInterceptor(function(o){Ext.getDom(n.el).innerHTML=o.responseText})}var l=n.params,k=n.url||s.url,j,q={success:s.handleResponse,failure:s.handleFailure,scope:s,argument:{options:n},timeout:Ext.num(n.timeout,s.timeout)},m,t;if(Ext.isFunction(l)){l=l.call(n.scope||g,n)}l=Ext.urlEncode(s.extraParams,Ext.isObject(l)?Ext.urlEncode(l):l);if(Ext.isFunction(k)){k=k.call(n.scope||g,n)}if((m=Ext.getDom(n.form))){k=k||m.action;if(n.isUpload||(/multipart\/form-data/i.test(m.getAttribute("enctype")))){return s.doFormUpload.call(s,n,l,k)}t=Ext.lib.Ajax.serializeForm(m);l=l?(l+"&"+t):t}j=n.method||s.method||((l||n.xmlData||n.jsonData)?i:a);if(j===a&&(s.disableCaching&&n.disableCaching!==false)||n.disableCaching===true){var r=n.disableCachingParam||s.disableCachingParam;k=Ext.urlAppend(k,r+"="+(new Date().getTime()))}n.headers=Ext.applyIf(n.headers||{},s.defaultHeaders||{});if(n.autoAbort===true||s.autoAbort){s.abort()}if((j==a||n.xmlData||n.jsonData)&&l){k=Ext.urlAppend(k,l);l=""}return(s.transId=Ext.lib.Ajax.request(j,k,q,l,n))}else{return n.callback?n.callback.apply(n.scope,[n,h,h]):null}},isLoading:function(j){return j?Ext.lib.Ajax.isCallInProgress(j):!!this.transId},abort:function(j){if(j||this.isLoading()){Ext.lib.Ajax.abort(j||this.transId)}},handleResponse:function(j){this.transId=false;var k=j.argument.options;j.argument=k?k.argument:null;this.fireEvent(e,this,j,k);if(k.success){k.success.call(k.scope,j,k)}if(k.callback){k.callback.call(k.scope,k,true,j)}},handleFailure:function(j,l){this.transId=false;var k=j.argument.options;j.argument=k?k.argument:null;this.fireEvent(d,this,j,k,l);if(k.failure){k.failure.call(k.scope,j,k)}if(k.callback){k.callback.call(k.scope,k,false,j)}},doFormUpload:function(q,j,k){var l=Ext.id(),v=document,r=v.createElement("iframe"),m=Ext.getDom(q.form),u=[],t,p="multipart/form-data",n={target:m.target,method:m.method,encoding:m.encoding,enctype:m.enctype,action:m.action};Ext.fly(r).set({id:l,name:l,cls:"x-hidden",src:Ext.SSL_SECURE_URL});v.body.appendChild(r);if(Ext.isIE){document.frames[l].name=l}Ext.fly(m).set({target:l,method:i,enctype:p,encoding:p,action:k||n.action});Ext.iterate(Ext.urlDecode(j,false),function(w,o){t=v.createElement("input");Ext.fly(t).set({type:"hidden",value:o,name:w});m.appendChild(t);u.push(t)});function s(){var x=this,w={responseText:"",responseXML:null,argument:q.argument},A,z;try{A=r.contentWindow.document||r.contentDocument||g.frames[l].document;if(A){if(A.body){if(/textarea/i.test((z=A.body.firstChild||{}).tagName)){w.responseText=z.value}else{w.responseText=A.body.innerHTML}}w.responseXML=A.XMLDocument||A}}catch(y){}Ext.EventManager.removeListener(r,c,s,x);x.fireEvent(e,x,w,q);function o(D,C,B){if(Ext.isFunction(D)){D.apply(C,B)}}o(q.success,q.scope,[w,q]);o(q.callback,q.scope,[q,true,w]);if(!x.debugUploads){setTimeout(function(){Ext.removeNode(r)},100)}}Ext.EventManager.on(r,c,s,this);m.submit();Ext.fly(m).set(n);Ext.each(u,function(o){Ext.removeNode(o)})}})})();Ext.Ajax=new Ext.data.Connection({autoAbort:false,serializeForm:function(a){return Ext.lib.Ajax.serializeForm(a)}});Ext.util.JSON=new (function(){var useHasOwn=!!{}.hasOwnProperty,isNative=function(){var useNative=null;return function(){if(useNative===null){useNative=Ext.USE_NATIVE_JSON&&window.JSON&&JSON.toString()=="[object JSON]"}return useNative}}(),pad=function(n){return n<10?"0"+n:n},doDecode=function(json){return json?eval("("+json+")"):""},doEncode=function(o){if(!Ext.isDefined(o)||o===null){return"null"}else{if(Ext.isArray(o)){return encodeArray(o)}else{if(Ext.isDate(o)){return Ext.util.JSON.encodeDate(o)}else{if(Ext.isString(o)){return encodeString(o)}else{if(typeof o=="number"){return isFinite(o)?String(o):"null"}else{if(Ext.isBoolean(o)){return String(o)}else{var a=["{"],b,i,v;for(i in o){if(!o.getElementsByTagName){if(!useHasOwn||o.hasOwnProperty(i)){v=o[i];switch(typeof v){case"undefined":case"function":case"unknown":break;default:if(b){a.push(",")}a.push(doEncode(i),":",v===null?"null":doEncode(v));b=true}}}}a.push("}");return a.join("")}}}}}}},m={"\b":"\\b","\t":"\\t","\n":"\\n","\f":"\\f","\r":"\\r",'"':'\\"',"\\":"\\\\"},encodeString=function(s){if(/["\\\x00-\x1f]/.test(s)){return'"'+s.replace(/([\x00-\x1f\\"])/g,function(a,b){var c=m[b];if(c){return c}c=b.charCodeAt();return"\\u00"+Math.floor(c/16).toString(16)+(c%16).toString(16)})+'"'}return'"'+s+'"'},encodeArray=function(o){var a=["["],b,i,l=o.length,v;for(i=0;i<l;i+=1){v=o[i];switch(typeof v){case"undefined":case"function":case"unknown":break;default:if(b){a.push(",")}a.push(v===null?"null":Ext.util.JSON.encode(v));b=true}}a.push("]");return a.join("")};this.encodeDate=function(o){return'"'+o.getFullYear()+"-"+pad(o.getMonth()+1)+"-"+pad(o.getDate())+"T"+pad(o.getHours())+":"+pad(o.getMinutes())+":"+pad(o.getSeconds())+'"'};this.encode=function(){var ec;return function(o){if(!ec){ec=isNative()?JSON.stringify:doEncode}return ec(o)}}();this.decode=function(){var dc;return function(json){if(!dc){dc=isNative()?JSON.parse:doDecode}return dc(json)}}()})();Ext.encode=Ext.util.JSON.encode;Ext.decode=Ext.util.JSON.decode;Ext.EventManager=function(){var z,p,j=false,l=Ext.isGecko||Ext.isWebKit||Ext.isSafari||Ext.isIE10p,o=Ext.lib.Event,q=Ext.lib.Dom,c=document,A=window,r="DOMContentLoaded",t="complete",g=/^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/,u=[];function n(E){var H=false,D=0,C=u.length,F=false,G;if(E){if(E.getElementById||E.navigator){for(;D<C;++D){G=u[D];if(G.el===E){H=G.id;break}}if(!H){H=Ext.id(E);u.push({id:H,el:E});F=true}}else{H=Ext.id(E)}if(!Ext.elCache[H]){Ext.Element.addToCache(new Ext.Element(E),H);if(F){Ext.elCache[H].skipGC=true}}}return H}function m(E,G,J,F,D,L){E=Ext.getDom(E);var C=n(E),K=Ext.elCache[C].events,H;H=o.on(E,G,D);K[G]=K[G]||[];K[G].push([J,D,L,H,F]);if(E.addEventListener&&G=="mousewheel"){var I=["DOMMouseScroll",D,false];E.addEventListener.apply(E,I);Ext.EventManager.addListener(A,"unload",function(){E.removeEventListener.apply(E,I)})}if(E==c&&G=="mousedown"){Ext.EventManager.stoppedMouseDownEvent.addListener(D)}}function d(){if(window!=top){return false}try{c.documentElement.doScroll("left")}catch(C){return false}b();return true}function B(C){if(Ext.isIE9m&&d()){return true}if(c.readyState==t){b();return true}j||(p=setTimeout(arguments.callee,2));return false}var k;function i(C){k||(k=Ext.query("style, link[rel=stylesheet]"));if(k.length==c.styleSheets.length){b();return true}j||(p=setTimeout(arguments.callee,2));return false}function y(C){c.removeEventListener(r,arguments.callee,false);i()}function b(C){if(!j){j=true;if(p){clearTimeout(p)}if(l){c.removeEventListener(r,b,false)}if(Ext.isIE9m&&B.bindIE){c.detachEvent("onreadystatechange",B)}o.un(A,"load",arguments.callee)}if(z&&!Ext.isReady){Ext.isReady=true;z.fire();z.listeners=[]}}function a(){z||(z=new Ext.util.Event());if(l){c.addEventListener(r,b,false)}if(Ext.isIE9m){if(!B()){B.bindIE=true;c.attachEvent("onreadystatechange",B)}}else{if(Ext.isOpera){(c.readyState==t&&i())||c.addEventListener(r,y,false)}else{if(Ext.isWebKit){B()}}}o.on(A,"load",b)}function x(C,D){return function(){var E=Ext.toArray(arguments);if(D.target==Ext.EventObject.setEvent(E[0]).target){C.apply(this,E)}}}function w(D,E,C){return function(F){C.delay(E.buffer,D,null,[new Ext.EventObjectImpl(F)])}}function s(G,F,C,E,D){return function(H){Ext.EventManager.removeListener(F,C,E,D);G(H)}}function e(D,E,C){return function(G){var F=new Ext.util.DelayedTask(D);if(!C.tasks){C.tasks=[]}C.tasks.push(F);F.delay(E.delay||10,D,null,[new Ext.EventObjectImpl(G)])}}function h(H,G,C,J,K){var D=(!C||typeof C=="boolean")?{}:C,E=Ext.getDom(H),F;J=J||D.fn;K=K||D.scope;if(!E){throw'Error listening for "'+G+'". Element "'+H+"\" doesn't exist."}function I(M){if(!Ext){return}M=Ext.EventObject.setEvent(M);var L;if(D.delegate){if(!(L=M.getTarget(D.delegate,E))){return}}else{L=M.target}if(D.stopEvent){M.stopEvent()}if(D.preventDefault){M.preventDefault()}if(D.stopPropagation){M.stopPropagation()}if(D.normalized===false){M=M.browserEvent}J.call(K||E,M,L,D)}if(D.target){I=x(I,D)}if(D.delay){I=e(I,D,J)}if(D.single){I=s(I,E,G,J,K)}if(D.buffer){F=new Ext.util.DelayedTask(I);I=w(I,D,F)}m(E,G,J,F,I,K);return I}var v={addListener:function(E,C,G,F,D){if(typeof C=="object"){var J=C,H,I;for(H in J){I=J[H];if(!g.test(H)){if(Ext.isFunction(I)){h(E,H,J,I,J.scope)}else{h(E,H,I)}}}}else{h(E,C,D,G,F)}},removeListener:function(E,I,M,N){E=Ext.getDom(E);var C=n(E),K=E&&(Ext.elCache[C].events)[I]||[],D,H,F,G,J,L;for(H=0,J=K.length;H<J;H++){if(Ext.isArray(L=K[H])&&L[0]==M&&(!N||L[2]==N)){if(L[4]){L[4].cancel()}G=M.tasks&&M.tasks.length;if(G){while(G--){M.tasks[G].cancel()}delete M.tasks}D=L[1];o.un(E,I,o.extAdapter?L[3]:D);if(D&&E.addEventListener&&I=="mousewheel"){E.removeEventListener("DOMMouseScroll",D,false)}if(D&&E==c&&I=="mousedown"){Ext.EventManager.stoppedMouseDownEvent.removeListener(D)}K.splice(H,1);if(K.length===0){delete Ext.elCache[C].events[I]}for(G in Ext.elCache[C].events){return false}Ext.elCache[C].events={};return false}}},removeAll:function(E){E=Ext.getDom(E);var D=n(E),J=Ext.elCache[D]||{},M=J.events||{},I,H,K,F,L,G,C;for(F in M){if(M.hasOwnProperty(F)){I=M[F];for(H=0,K=I.length;H<K;H++){L=I[H];if(L[4]){L[4].cancel()}if(L[0].tasks&&(G=L[0].tasks.length)){while(G--){L[0].tasks[G].cancel()}delete L.tasks}C=L[1];o.un(E,F,o.extAdapter?L[3]:C);if(E.addEventListener&&C&&F=="mousewheel"){E.removeEventListener("DOMMouseScroll",C,false)}if(C&&E==c&&F=="mousedown"){Ext.EventManager.stoppedMouseDownEvent.removeListener(C)}}}}if(Ext.elCache[D]){Ext.elCache[D].events={}}},getListeners:function(F,C){F=Ext.getDom(F);var H=n(F),D=Ext.elCache[H]||{},G=D.events||{},E=[];if(G&&G[C]){return G[C]}else{return null}},removeFromSpecialCache:function(E){var D=0,C=u.length;for(;D<C;++D){if(u[D].el==E){u.splice(D,1)}}},purgeElement:function(E,C,G){E=Ext.getDom(E);var D=n(E),J=Ext.elCache[D]||{},K=J.events||{},F,I,H;if(G){if(K&&K.hasOwnProperty(G)){I=K[G];for(F=0,H=I.length;F<H;F++){Ext.EventManager.removeListener(E,G,I[F][0])}}}else{Ext.EventManager.removeAll(E)}if(C&&E&&E.childNodes){for(F=0,H=E.childNodes.length;F<H;F++){Ext.EventManager.purgeElement(E.childNodes[F],C,G)}}},_unload:function(){var C;for(C in Ext.elCache){Ext.EventManager.removeAll(C)}delete Ext.elCache;delete Ext.Element._flyweights;var G,D,F,E=Ext.lib.Ajax;(typeof E.conn=="object")?D=E.conn:D={};for(F in D){G=D[F];if(G){E.abort({conn:G,tId:F})}}},onDocumentReady:function(E,D,C){if(Ext.isReady){z||(z=new Ext.util.Event());z.addListener(E,D,C);z.fire();z.listeners=[]}else{if(!z){a()}C=C||{};C.delay=C.delay||1;z.addListener(E,D,C)}},fireDocReady:b};v.on=v.addListener;v.un=v.removeListener;v.stoppedMouseDownEvent=new Ext.util.Event();return v}();Ext.onReady=Ext.EventManager.onDocumentReady;(function(){var a=function(){var c=document.body||document.getElementsByTagName("body")[0];if(!c){return false}var b=[];if(Ext.isIE){if(!Ext.isIE10p){b.push("ext-ie")}if(Ext.isIE6){b.push("ext-ie6")}else{if(Ext.isIE7){b.push("ext-ie7","ext-ie7m")}else{if(Ext.isIE8){b.push("ext-ie8","ext-ie8m")}else{if(Ext.isIE9){b.push("ext-ie9","ext-ie9m")}else{if(Ext.isIE10){b.push("ext-ie10")}}}}}}if(Ext.isGecko){if(Ext.isGecko2){b.push("ext-gecko2")}else{b.push("ext-gecko3")}}if(Ext.isOpera){b.push("ext-opera")}if(Ext.isWebKit){b.push("ext-webkit")}if(Ext.isSafari){b.push("ext-safari "+(Ext.isSafari2?"ext-safari2":(Ext.isSafari3?"ext-safari3":"ext-safari4")))}else{if(Ext.isChrome){b.push("ext-chrome")}}if(Ext.isMac){b.push("ext-mac")}if(Ext.isLinux){b.push("ext-linux")}if(Ext.isStrict||Ext.isBorderBox){var d=c.parentNode;if(d){if(!Ext.isStrict){Ext.fly(d,"_internal").addClass("x-quirks");if(Ext.isIE9m&&!Ext.isStrict){Ext.isIEQuirks=true}}Ext.fly(d,"_internal").addClass(((Ext.isStrict&&Ext.isIE)||(!Ext.enableForcedBoxModel&&!Ext.isIE))?" ext-strict":" ext-border-box")}}if(Ext.enableForcedBoxModel&&!Ext.isIE){Ext.isForcedBorderBox=true;b.push("ext-forced-border-box")}Ext.fly(c,"_internal").addClass(b);return true};if(!a()){Ext.onReady(a)}})();(function(){var b=Ext.apply(Ext.supports,{correctRightMargin:true,correctTransparentColor:true,cssFloat:true});var a=function(){var g=document.createElement("div"),e=document,c,d;g.innerHTML='<div style="height:30px;width:50px;"><div style="height:20px;width:20px;"></div></div><div style="float:left;background-color:transparent;">';e.body.appendChild(g);d=g.lastChild;if((c=e.defaultView)){if(c.getComputedStyle(g.firstChild.firstChild,null).marginRight!="0px"){b.correctRightMargin=false}if(c.getComputedStyle(d,null).backgroundColor!="transparent"){b.correctTransparentColor=false}}b.cssFloat=!!d.style.cssFloat;e.body.removeChild(g)};if(Ext.isReady){a()}else{Ext.onReady(a)}})();Ext.EventObject=function(){var b=Ext.lib.Event,c=/(dbl)?click/,a={3:13,63234:37,63235:39,63232:38,63233:40,63276:33,63277:34,63272:46,63273:36,63275:35},d=Ext.isIE?{1:0,4:1,2:2}:{0:0,1:1,2:2};Ext.EventObjectImpl=function(g){if(g){this.setEvent(g.browserEvent||g)}};Ext.EventObjectImpl.prototype={setEvent:function(h){var g=this;if(h==g||(h&&h.browserEvent)){return h}g.browserEvent=h;if(h){g.button=h.button?d[h.button]:(h.which?h.which-1:-1);if(c.test(h.type)&&g.button==-1){g.button=0}g.type=h.type;g.shiftKey=h.shiftKey;g.ctrlKey=h.ctrlKey||h.metaKey||false;g.altKey=h.altKey;g.keyCode=h.keyCode;g.charCode=h.charCode;g.target=b.getTarget(h);g.xy=b.getXY(h)}else{g.button=-1;g.shiftKey=false;g.ctrlKey=false;g.altKey=false;g.keyCode=0;g.charCode=0;g.target=null;g.xy=[0,0]}return g},stopEvent:function(){var e=this;if(e.browserEvent){if(e.browserEvent.type=="mousedown"){Ext.EventManager.stoppedMouseDownEvent.fire(e)}b.stopEvent(e.browserEvent)}},preventDefault:function(){if(this.browserEvent){b.preventDefault(this.browserEvent)}},stopPropagation:function(){var e=this;if(e.browserEvent){if(e.browserEvent.type=="mousedown"){Ext.EventManager.stoppedMouseDownEvent.fire(e)}b.stopPropagation(e.browserEvent)}},getCharCode:function(){return this.charCode||this.keyCode},getKey:function(){return this.normalizeKey(this.keyCode||this.charCode)},normalizeKey:function(e){return Ext.isSafari?(a[e]||e):e},getPageX:function(){return this.xy[0]},getPageY:function(){return this.xy[1]},getXY:function(){return this.xy},getTarget:function(g,h,e){return g?Ext.fly(this.target).findParent(g,h,e):(e?Ext.get(this.target):this.target)},getRelatedTarget:function(){return this.browserEvent?b.getRelatedTarget(this.browserEvent):null},getWheelDelta:function(){var g=this.browserEvent;var h=0;if(g.wheelDelta){h=g.wheelDelta/120}else{if(g.detail){h=-g.detail/3}}return h},within:function(h,i,e){if(h){var g=this[i?"getRelatedTarget":"getTarget"]();return g&&((e?(g==Ext.getDom(h)):false)||Ext.fly(h).contains(g))}return false}};return new Ext.EventObjectImpl()}();Ext.Loader=Ext.apply({},{load:function(j,i,k,c){var k=k||this,g=document.getElementsByTagName("head")[0],b=document.createDocumentFragment(),a=j.length,h=0,e=this;var l=function(m){g.appendChild(e.buildScriptTag(j[m],d))};var d=function(){h++;if(a==h&&typeof i=="function"){i.call(k)}else{if(c===true){l(h)}}};if(c===true){l.call(this,0)}else{Ext.each(j,function(n,m){b.appendChild(this.buildScriptTag(n,d))},this);g.appendChild(b)}},buildScriptTag:function(b,c){var a=document.createElement("script");a.type="text/javascript";a.src=b;if(a.readyState){a.onreadystatechange=function(){if(a.readyState=="loaded"||a.readyState=="complete"){a.onreadystatechange=null;c()}}}else{a.onload=c}return a}});
+(function(){
+
+var EXTUTIL = Ext.util,
+    EACH = Ext.each,
+    TRUE = true,
+    FALSE = false;
+/**
+ * @class Ext.util.Observable
+ * Base class that provides a common interface for publishing events. Subclasses are expected to
+ * to have a property "events" with all the events defined, and, optionally, a property "listeners"
+ * with configured listeners defined.<br>
+ * For example:
+ * <pre><code>
+Employee = Ext.extend(Ext.util.Observable, {
+    constructor: function(config){
+        this.name = config.name;
+        this.addEvents({
+            "fired" : true,
+            "quit" : true
+        });
+
+        // Copy configured listeners into *this* object so that the base class&#39;s
+        // constructor will add them.
+        this.listeners = config.listeners;
+
+        // Call our superclass constructor to complete construction process.
+        Employee.superclass.constructor.call(this, config)
+    }
+});
+</code></pre>
+ * This could then be used like this:<pre><code>
+var newEmployee = new Employee({
+    name: employeeName,
+    listeners: {
+        quit: function() {
+            // By default, "this" will be the object that fired the event.
+            alert(this.name + " has quit!");
+        }
+    }
+});
+</code></pre>
+ */
+EXTUTIL.Observable = function(){
+    /**
+     * @cfg {Object} listeners (optional) <p>A config object containing one or more event handlers to be added to this
+     * object during initialization.  This should be a valid listeners config object as specified in the
+     * {@link #addListener} example for attaching multiple handlers at once.</p>
+     * <br><p><b><u>DOM events from ExtJs {@link Ext.Component Components}</u></b></p>
+     * <br><p>While <i>some</i> ExtJs Component classes export selected DOM events (e.g. "click", "mouseover" etc), this
+     * is usually only done when extra value can be added. For example the {@link Ext.DataView DataView}'s
+     * <b><code>{@link Ext.DataView#click click}</code></b> event passing the node clicked on. To access DOM
+     * events directly from a Component's HTMLElement, listeners must be added to the <i>{@link Ext.Component#getEl Element}</i> after the Component
+     * has been rendered. A plugin can simplify this step:<pre><code>
+// Plugin is configured with a listeners config object.
+// The Component is appended to the argument list of all handler functions.
+Ext.DomObserver = Ext.extend(Object, {
+    constructor: function(config) {
+        this.listeners = config.listeners ? config.listeners : config;
+    },
+
+    // Component passes itself into plugin&#39;s init method
+    init: function(c) {
+        var p, l = this.listeners;
+        for (p in l) {
+            if (Ext.isFunction(l[p])) {
+                l[p] = this.createHandler(l[p], c);
+            } else {
+                l[p].fn = this.createHandler(l[p].fn, c);
+            }
+        }
+
+        // Add the listeners to the Element immediately following the render call
+        c.render = c.render.{@link Function#createSequence createSequence}(function() {
+            var e = c.getEl();
+            if (e) {
+                e.on(l);
+            }
+        });
+    },
+
+    createHandler: function(fn, c) {
+        return function(e) {
+            fn.call(this, e, c);
+        };
+    }
+});
+
+var combo = new Ext.form.ComboBox({
+
+    // Collapse combo when its element is clicked on
+    plugins: [ new Ext.DomObserver({
+        click: function(evt, comp) {
+            comp.collapse();
+        }
+    })],
+    store: myStore,
+    typeAhead: true,
+    mode: 'local',
+    triggerAction: 'all'
+});
+     * </code></pre></p>
+     */
+    var me = this, e = me.events;
+    if(me.listeners){
+        me.on(me.listeners);
+        delete me.listeners;
+    }
+    me.events = e || {};
+};
+
+EXTUTIL.Observable.prototype = {
+    // private
+    filterOptRe : /^(?:scope|delay|buffer|single)$/,
+
+    /**
+     * <p>Fires the specified event with the passed parameters (minus the event name).</p>
+     * <p>An event may be set to bubble up an Observable parent hierarchy (See {@link Ext.Component#getBubbleTarget})
+     * by calling {@link #enableBubble}.</p>
+     * @param {String} eventName The name of the event to fire.
+     * @param {Object...} args Variable number of parameters are passed to handlers.
+     * @return {Boolean} returns false if any of the handlers return false otherwise it returns true.
+     */
+    fireEvent : function(){
+        var a = Array.prototype.slice.call(arguments, 0),
+            ename = a[0].toLowerCase(),
+            me = this,
+            ret = TRUE,
+            ce = me.events[ename],
+            cc,
+            q,
+            c;
+        if (me.eventsSuspended === TRUE) {
+            if (q = me.eventQueue) {
+                q.push(a);
+            }
+        }
+        else if(typeof ce == 'object') {
+            if (ce.bubble){
+                if(ce.fire.apply(ce, a.slice(1)) === FALSE) {
+                    return FALSE;
+                }
+                c = me.getBubbleTarget && me.getBubbleTarget();
+                if(c && c.enableBubble) {
+                    cc = c.events[ename];
+                    if(!cc || typeof cc != 'object' || !cc.bubble) {
+                        c.enableBubble(ename);
+                    }
+                    return c.fireEvent.apply(c, a);
+                }
+            }
+            else {
+                a.shift();
+                ret = ce.fire.apply(ce, a);
+            }
+        }
+        return ret;
+    },
+
+    /**
+     * Appends an event handler to this object.
+     * @param {String}   eventName The name of the event to listen for.
+     * @param {Function} handler The method the event invokes.
+     * @param {Object}   scope (optional) The scope (<code><b>this</b></code> reference) in which the handler function is executed.
+     * <b>If omitted, defaults to the object which fired the event.</b>
+     * @param {Object}   options (optional) An object containing handler configuration.
+     * properties. This may contain any of the following properties:<ul>
+     * <li><b>scope</b> : Object<div class="sub-desc">The scope (<code><b>this</b></code> reference) in which the handler function is executed.
+     * <b>If omitted, defaults to the object which fired the event.</b></div></li>
+     * <li><b>delay</b> : Number<div class="sub-desc">The number of milliseconds to delay the invocation of the handler after the event fires.</div></li>
+     * <li><b>single</b> : Boolean<div class="sub-desc">True to add a handler to handle just the next firing of the event, and then remove itself.</div></li>
+     * <li><b>buffer</b> : Number<div class="sub-desc">Causes the handler to be scheduled to run in an {@link Ext.util.DelayedTask} delayed
+     * by the specified number of milliseconds. If the event fires again within that time, the original
+     * handler is <em>not</em> invoked, but the new handler is scheduled in its place.</div></li>
+     * <li><b>target</b> : Observable<div class="sub-desc">Only call the handler if the event was fired on the target Observable, <i>not</i>
+     * if the event was bubbled up from a child Observable.</div></li>
+     * </ul><br>
+     * <p>
+     * <b>Combining Options</b><br>
+     * Using the options argument, it is possible to combine different types of listeners:<br>
+     * <br>
+     * A delayed, one-time listener.
+     * <pre><code>
+myDataView.on('click', this.onClick, this, {
+single: true,
+delay: 100
+});</code></pre>
+     * <p>
+     * <b>Attaching multiple handlers in 1 call</b><br>
+     * The method also allows for a single argument to be passed which is a config object containing properties
+     * which specify multiple handlers.
+     * <p>
+     * <pre><code>
+myGridPanel.on({
+'click' : {
+    fn: this.onClick,
+    scope: this,
+    delay: 100
+},
+'mouseover' : {
+    fn: this.onMouseOver,
+    scope: this
+},
+'mouseout' : {
+    fn: this.onMouseOut,
+    scope: this
+}
+});</code></pre>
+ * <p>
+ * Or a shorthand syntax:<br>
+ * <pre><code>
+myGridPanel.on({
+'click' : this.onClick,
+'mouseover' : this.onMouseOver,
+'mouseout' : this.onMouseOut,
+ scope: this
+});</code></pre>
+     */
+    addListener : function(eventName, fn, scope, o){
+        var me = this,
+            e,
+            oe,
+            ce;
+            
+        if (typeof eventName == 'object') {
+            o = eventName;
+            for (e in o) {
+                oe = o[e];
+                if (!me.filterOptRe.test(e)) {
+                    me.addListener(e, oe.fn || oe, oe.scope || o.scope, oe.fn ? oe : o);
+                }
+            }
+        } else {
+            eventName = eventName.toLowerCase();
+            ce = me.events[eventName] || TRUE;
+            if (typeof ce == 'boolean') {
+                me.events[eventName] = ce = new EXTUTIL.Event(me, eventName);
+            }
+            ce.addListener(fn, scope, typeof o == 'object' ? o : {});
+        }
+    },
+
+    /**
+     * Removes an event handler.
+     * @param {String}   eventName The type of event the handler was associated with.
+     * @param {Function} handler   The handler to remove. <b>This must be a reference to the function passed into the {@link #addListener} call.</b>
+     * @param {Object}   scope     (optional) The scope originally specified for the handler.
+     */
+    removeListener : function(eventName, fn, scope){
+        var ce = this.events[eventName.toLowerCase()];
+        if (typeof ce == 'object') {
+            ce.removeListener(fn, scope);
+        }
+    },
+
+    /**
+     * Removes all listeners for this object
+     */
+    purgeListeners : function(){
+        var events = this.events,
+            evt,
+            key;
+        for(key in events){
+            evt = events[key];
+            if(typeof evt == 'object'){
+                evt.clearListeners();
+            }
+        }
+    },
+
+    /**
+     * Adds the specified events to the list of events which this Observable may fire.
+     * @param {Object|String} o Either an object with event names as properties with a value of <code>true</code>
+     * or the first event name string if multiple event names are being passed as separate parameters.
+     * @param {string} Optional. Event name if multiple event names are being passed as separate parameters.
+     * Usage:<pre><code>
+this.addEvents('storeloaded', 'storecleared');
+</code></pre>
+     */
+    addEvents : function(o){
+        var me = this;
+        me.events = me.events || {};
+        if (typeof o == 'string') {
+            var a = arguments,
+                i = a.length;
+            while(i--) {
+                me.events[a[i]] = me.events[a[i]] || TRUE;
+            }
+        } else {
+            Ext.applyIf(me.events, o);
+        }
+    },
+
+    /**
+     * Checks to see if this object has any listeners for a specified event
+     * @param {String} eventName The name of the event to check for
+     * @return {Boolean} True if the event is being listened for, else false
+     */
+    hasListener : function(eventName){
+        var e = this.events[eventName.toLowerCase()];
+        return typeof e == 'object' && e.listeners.length > 0;
+    },
+
+    /**
+     * Suspend the firing of all events. (see {@link #resumeEvents})
+     * @param {Boolean} queueSuspended Pass as true to queue up suspended events to be fired
+     * after the {@link #resumeEvents} call instead of discarding all suspended events;
+     */
+    suspendEvents : function(queueSuspended){
+        this.eventsSuspended = TRUE;
+        if(queueSuspended && !this.eventQueue){
+            this.eventQueue = [];
+        }
+    },
+
+    /**
+     * Resume firing events. (see {@link #suspendEvents})
+     * If events were suspended using the <tt><b>queueSuspended</b></tt> parameter, then all
+     * events fired during event suspension will be sent to any listeners now.
+     */
+    resumeEvents : function(){
+        var me = this,
+            queued = me.eventQueue || [];
+        me.eventsSuspended = FALSE;
+        delete me.eventQueue;
+        EACH(queued, function(e) {
+            me.fireEvent.apply(me, e);
+        });
+    }
+};
+
+var OBSERVABLE = EXTUTIL.Observable.prototype;
+/**
+ * Appends an event handler to this object (shorthand for {@link #addListener}.)
+ * @param {String}   eventName     The type of event to listen for
+ * @param {Function} handler       The method the event invokes
+ * @param {Object}   scope         (optional) The scope (<code><b>this</b></code> reference) in which the handler function is executed.
+ * <b>If omitted, defaults to the object which fired the event.</b>
+ * @param {Object}   options       (optional) An object containing handler configuration.
+ * @method
+ */
+OBSERVABLE.on = OBSERVABLE.addListener;
+/**
+ * Removes an event handler (shorthand for {@link #removeListener}.)
+ * @param {String}   eventName     The type of event the handler was associated with.
+ * @param {Function} handler       The handler to remove. <b>This must be a reference to the function passed into the {@link #addListener} call.</b>
+ * @param {Object}   scope         (optional) The scope originally specified for the handler.
+ * @method
+ */
+OBSERVABLE.un = OBSERVABLE.removeListener;
+
+/**
+ * Removes <b>all</b> added captures from the Observable.
+ * @param {Observable} o The Observable to release
+ * @static
+ */
+EXTUTIL.Observable.releaseCapture = function(o){
+    o.fireEvent = OBSERVABLE.fireEvent;
+};
+
+function createTargeted(h, o, scope){
+    return function(){
+        if(o.target == arguments[0]){
+            h.apply(scope, Array.prototype.slice.call(arguments, 0));
+        }
+    };
+};
+
+function createBuffered(h, o, l, scope){
+    l.task = new EXTUTIL.DelayedTask();
+    return function(){
+        l.task.delay(o.buffer, h, scope, Array.prototype.slice.call(arguments, 0));
+    };
+};
+
+function createSingle(h, e, fn, scope){
+    return function(){
+        e.removeListener(fn, scope);
+        return h.apply(scope, arguments);
+    };
+};
+
+function createDelayed(h, o, l, scope){
+    return function(){
+        var task = new EXTUTIL.DelayedTask(),
+            args = Array.prototype.slice.call(arguments, 0);
+        if(!l.tasks) {
+            l.tasks = [];
+        }
+        l.tasks.push(task);
+        task.delay(o.delay || 10, function(){
+            l.tasks.remove(task);
+            h.apply(scope, args);
+        }, scope);
+    };
+};
+
+EXTUTIL.Event = function(obj, name){
+    this.name = name;
+    this.obj = obj;
+    this.listeners = [];
+};
+
+EXTUTIL.Event.prototype = {
+    addListener : function(fn, scope, options){
+        var me = this,
+            l;
+        scope = scope || me.obj;
+        if(!me.isListening(fn, scope)){
+            l = me.createListener(fn, scope, options);
+            if(me.firing){ // if we are currently firing this event, don't disturb the listener loop
+                me.listeners = me.listeners.slice(0);
+            }
+            me.listeners.push(l);
+        }
+    },
+
+    createListener: function(fn, scope, o){
+        o = o || {};
+        scope = scope || this.obj;
+        var l = {
+            fn: fn,
+            scope: scope,
+            options: o
+        }, h = fn;
+        if(o.target){
+            h = createTargeted(h, o, scope);
+        }
+        if(o.delay){
+            h = createDelayed(h, o, l, scope);
+        }
+        if(o.single){
+            h = createSingle(h, this, fn, scope);
+        }
+        if(o.buffer){
+            h = createBuffered(h, o, l, scope);
+        }
+        l.fireFn = h;
+        return l;
+    },
+
+    findListener : function(fn, scope){
+        var list = this.listeners,
+            i = list.length,
+            l;
+
+        scope = scope || this.obj;
+        while(i--){
+            l = list[i];
+            if(l){
+                if(l.fn == fn && l.scope == scope){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    },
+
+    isListening : function(fn, scope){
+        return this.findListener(fn, scope) != -1;
+    },
+
+    removeListener : function(fn, scope){
+        var index,
+            l,
+            k,
+            me = this,
+            ret = FALSE;
+        if((index = me.findListener(fn, scope)) != -1){
+            if (me.firing) {
+                me.listeners = me.listeners.slice(0);
+            }
+            l = me.listeners[index];
+            if(l.task) {
+                l.task.cancel();
+                delete l.task;
+            }
+            k = l.tasks && l.tasks.length;
+            if(k) {
+                while(k--) {
+                    l.tasks[k].cancel();
+                }
+                delete l.tasks;
+            }
+            me.listeners.splice(index, 1);
+            ret = TRUE;
+        }
+        return ret;
+    },
+
+    // Iterate to stop any buffered/delayed events
+    clearListeners : function(){
+        var me = this,
+            l = me.listeners,
+            i = l.length;
+        while(i--) {
+            me.removeListener(l[i].fn, l[i].scope);
+        }
+    },
+
+    fire : function(){
+        var me = this,
+            listeners = me.listeners,
+            len = listeners.length,
+            i = 0,
+            l;
+
+        if(len > 0){
+            me.firing = TRUE;
+            var args = Array.prototype.slice.call(arguments, 0);
+            for (; i < len; i++) {
+                l = listeners[i];
+                if(l && l.fireFn.apply(l.scope || me.obj || window, args) === FALSE) {
+                    return (me.firing = FALSE);
+                }
+            }
+        }
+        me.firing = FALSE;
+        return TRUE;
+    }
+
+};
+})();
+
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.DomHelper
+ * <p>The DomHelper class provides a layer of abstraction from DOM and transparently supports creating
+ * elements via DOM or using HTML fragments. It also has the ability to create HTML fragment templates
+ * from your DOM building code.</p>
+ *
+ * <p><b><u>DomHelper element specification object</u></b></p>
+ * <p>A specification object is used when creating elements. Attributes of this object
+ * are assumed to be element attributes, except for 4 special attributes:
+ * <div class="mdetail-params"><ul>
+ * <li><b><tt>tag</tt></b> : <div class="sub-desc">The tag name of the element</div></li>
+ * <li><b><tt>children</tt></b> : or <tt>cn</tt><div class="sub-desc">An array of the
+ * same kind of element definition objects to be created and appended. These can be nested
+ * as deep as you want.</div></li>
+ * <li><b><tt>cls</tt></b> : <div class="sub-desc">The class attribute of the element.
+ * This will end up being either the "class" attribute on a HTML fragment or className
+ * for a DOM node, depending on whether DomHelper is using fragments or DOM.</div></li>
+ * <li><b><tt>html</tt></b> : <div class="sub-desc">The innerHTML for the element</div></li>
+ * </ul></div></p>
+ *
+ * <p><b><u>Insertion methods</u></b></p>
+ * <p>Commonly used insertion methods:
+ * <div class="mdetail-params"><ul>
+ * <li><b><tt>{@link #append}</tt></b> : <div class="sub-desc"></div></li>
+ * <li><b><tt>{@link #insertBefore}</tt></b> : <div class="sub-desc"></div></li>
+ * <li><b><tt>{@link #insertAfter}</tt></b> : <div class="sub-desc"></div></li>
+ * <li><b><tt>{@link #overwrite}</tt></b> : <div class="sub-desc"></div></li>
+ * <li><b><tt>{@link #createTemplate}</tt></b> : <div class="sub-desc"></div></li>
+ * <li><b><tt>{@link #insertHtml}</tt></b> : <div class="sub-desc"></div></li>
+ * </ul></div></p>
+ *
+ * <p><b><u>Example</u></b></p>
+ * <p>This is an example, where an unordered list with 3 children items is appended to an existing
+ * element with id <tt>'my-div'</tt>:<br>
+ <pre><code>
+var dh = Ext.DomHelper; // create shorthand alias
+// specification object
+var spec = {
+    id: 'my-ul',
+    tag: 'ul',
+    cls: 'my-list',
+    // append children after creating
+    children: [     // may also specify 'cn' instead of 'children'
+        {tag: 'li', id: 'item0', html: 'List Item 0'},
+        {tag: 'li', id: 'item1', html: 'List Item 1'},
+        {tag: 'li', id: 'item2', html: 'List Item 2'}
+    ]
+};
+var list = dh.append(
+    'my-div', // the context element 'my-div' can either be the id or the actual node
+    spec      // the specification object
+);
+ </code></pre></p>
+ * <p>Element creation specification parameters in this class may also be passed as an Array of
+ * specification objects. This can be used to insert multiple sibling nodes into an existing
+ * container very efficiently. For example, to add more list items to the example above:<pre><code>
+dh.append('my-ul', [
+    {tag: 'li', id: 'item3', html: 'List Item 3'},
+    {tag: 'li', id: 'item4', html: 'List Item 4'}
+]);
+ * </code></pre></p>
+ *
+ * <p><b><u>Templating</u></b></p>
+ * <p>The real power is in the built-in templating. Instead of creating or appending any elements,
+ * <tt>{@link #createTemplate}</tt> returns a Template object which can be used over and over to
+ * insert new elements. Revisiting the example above, we could utilize templating this time:
+ * <pre><code>
+// create the node
+var list = dh.append('my-div', {tag: 'ul', cls: 'my-list'});
+// get template
+var tpl = dh.createTemplate({tag: 'li', id: 'item{0}', html: 'List Item {0}'});
+
+for(var i = 0; i < 5, i++){
+    tpl.append(list, [i]); // use template to append to the actual node
+}
+ * </code></pre></p>
+ * <p>An example using a template:<pre><code>
+var html = '<a id="{0}" href="{1}" class="nav">{2}</a>';
+
+var tpl = new Ext.DomHelper.createTemplate(html);
+tpl.append('blog-roll', ['link1', 'http://www.jackslocum.com/', "Jack&#39;s Site"]);
+tpl.append('blog-roll', ['link2', 'http://www.dustindiaz.com/', "Dustin&#39;s Site"]);
+ * </code></pre></p>
+ *
+ * <p>The same example using named parameters:<pre><code>
+var html = '<a id="{id}" href="{url}" class="nav">{text}</a>';
+
+var tpl = new Ext.DomHelper.createTemplate(html);
+tpl.append('blog-roll', {
+    id: 'link1',
+    url: 'http://www.jackslocum.com/',
+    text: "Jack&#39;s Site"
+});
+tpl.append('blog-roll', {
+    id: 'link2',
+    url: 'http://www.dustindiaz.com/',
+    text: "Dustin&#39;s Site"
+});
+ * </code></pre></p>
+ *
+ * <p><b><u>Compiling Templates</u></b></p>
+ * <p>Templates are applied using regular expressions. The performance is great, but if
+ * you are adding a bunch of DOM elements using the same template, you can increase
+ * performance even further by {@link Ext.Template#compile "compiling"} the template.
+ * The way "{@link Ext.Template#compile compile()}" works is the template is parsed and
+ * broken up at the different variable points and a dynamic function is created and eval'ed.
+ * The generated function performs string concatenation of these parts and the passed
+ * variables instead of using regular expressions.
+ * <pre><code>
+var html = '<a id="{id}" href="{url}" class="nav">{text}</a>';
+
+var tpl = new Ext.DomHelper.createTemplate(html);
+tpl.compile();
+
+//... use template like normal
+ * </code></pre></p>
+ *
+ * <p><b><u>Performance Boost</u></b></p>
+ * <p>DomHelper will transparently create HTML fragments when it can. Using HTML fragments instead
+ * of DOM can significantly boost performance.</p>
+ * <p>Element creation specification parameters may also be strings. If {@link #useDom} is <tt>false</tt>,
+ * then the string is used as innerHTML. If {@link #useDom} is <tt>true</tt>, a string specification
+ * results in the creation of a text node. Usage:</p>
+ * <pre><code>
+Ext.DomHelper.useDom = true; // force it to use DOM; reduces performance
+ * </code></pre>
+ * @singleton
+ */
+Ext.DomHelper = function(){
+    var tempTableEl = null,
+        emptyTags = /^(?:br|frame|hr|img|input|link|meta|range|spacer|wbr|area|param|col)$/i,
+        tableRe = /^table|tbody|tr|td$/i,
+        confRe = /tag|children|cn|html$/i,
+        tableElRe = /td|tr|tbody/i,
+        cssRe = /([a-z0-9-]+)\s*:\s*([^;\s]+(?:\s*[^;\s]+)*);?/gi,
+        endRe = /end/i,
+        pub,
+        // kill repeat to save bytes
+        afterbegin = 'afterbegin',
+        afterend = 'afterend',
+        beforebegin = 'beforebegin',
+        beforeend = 'beforeend',
+        ts = '<table>',
+        te = '</table>',
+        tbs = ts+'<tbody>',
+        tbe = '</tbody>'+te,
+        trs = tbs + '<tr>',
+        tre = '</tr>'+tbe;
+
+    // private
+    function doInsert(el, o, returnElement, pos, sibling, append){
+        var newNode = pub.insertHtml(pos, Ext.getDom(el), createHtml(o));
+        return returnElement ? Ext.get(newNode, true) : newNode;
+    }
+
+    // build as innerHTML where available
+    function createHtml(o){
+        var b = '',
+            attr,
+            val,
+            key,
+            cn;
+
+        if(typeof o == "string"){
+            b = o;
+        } else if (Ext.isArray(o)) {
+            for (var i=0; i < o.length; i++) {
+                if(o[i]) {
+                    b += createHtml(o[i]);
+                }
+            };
+        } else {
+            b += '<' + (o.tag = o.tag || 'div');
+            for (attr in o) {
+                val = o[attr];
+                if(!confRe.test(attr)){
+                    if (typeof val == "object") {
+                        b += ' ' + attr + '="';
+                        for (key in val) {
+                            b += key + ':' + val[key] + ';';
+                        };
+                        b += '"';
+                    }else{
+                        b += ' ' + ({cls : 'class', htmlFor : 'for'}[attr] || attr) + '="' + val + '"';
+                    }
+                }
+            };
+            // Now either just close the tag or try to add children and close the tag.
+            if (emptyTags.test(o.tag)) {
+                b += '/>';
+            } else {
+                b += '>';
+                if ((cn = o.children || o.cn)) {
+                    b += createHtml(cn);
+                } else if(o.html){
+                    b += o.html;
+                }
+                b += '</' + o.tag + '>';
+            }
+        }
+        return b;
+    }
+
+    function ieTable(depth, s, h, e){
+        tempTableEl.innerHTML = [s, h, e].join('');
+        var i = -1,
+            el = tempTableEl,
+            ns;
+        while(++i < depth){
+            el = el.firstChild;
+        }
+//      If the result is multiple siblings, then encapsulate them into one fragment.
+        if(ns = el.nextSibling){
+            var df = document.createDocumentFragment();
+            while(el){
+                ns = el.nextSibling;
+                df.appendChild(el);
+                el = ns;
+            }
+            el = df;
+        }
+        return el;
+    }
+
+    /**
+     * @ignore
+     * Nasty code for IE's broken table implementation
+     */
+    function insertIntoTable(tag, where, el, html) {
+        var node,
+            before;
+
+        tempTableEl = tempTableEl || document.createElement('div');
+
+        if(tag == 'td' && (where == afterbegin || where == beforeend) ||
+           !tableElRe.test(tag) && (where == beforebegin || where == afterend)) {
+            return;
+        }
+        before = where == beforebegin ? el :
+                 where == afterend ? el.nextSibling :
+                 where == afterbegin ? el.firstChild : null;
+
+        if (where == beforebegin || where == afterend) {
+            el = el.parentNode;
+        }
+
+        if (tag == 'td' || (tag == 'tr' && (where == beforeend || where == afterbegin))) {
+            node = ieTable(4, trs, html, tre);
+        } else if ((tag == 'tbody' && (where == beforeend || where == afterbegin)) ||
+                   (tag == 'tr' && (where == beforebegin || where == afterend))) {
+            node = ieTable(3, tbs, html, tbe);
+        } else {
+            node = ieTable(2, ts, html, te);
+        }
+        el.insertBefore(node, before);
+        return node;
+    }
+
+    /**
+     * @ignore
+     * Fix for IE9 createContextualFragment missing method
+     */   
+    function createContextualFragment(html){
+        var div = document.createElement("div"),
+            fragment = document.createDocumentFragment(),
+            i = 0,
+            length, childNodes;
+        
+        div.innerHTML = html;
+        childNodes = div.childNodes;
+        length = childNodes.length;
+        
+        for (; i < length; i++) {
+            fragment.appendChild(childNodes[i].cloneNode(true));
+        }
+        
+        return fragment;
+    }
+    
+    pub = {
+        /**
+         * Returns the markup for the passed Element(s) config.
+         * @param {Object} o The DOM object spec (and children)
+         * @return {String}
+         */
+        markup : function(o){
+            return createHtml(o);
+        },
+
+        /**
+         * Applies a style specification to an element.
+         * @param {String/HTMLElement} el The element to apply styles to
+         * @param {String/Object/Function} styles A style specification string e.g. 'width:100px', or object in the form {width:'100px'}, or
+         * a function which returns such a specification.
+         */
+        applyStyles : function(el, styles){
+            if (styles) {
+                var matches;
+
+                el = Ext.fly(el);
+                if (typeof styles == "function") {
+                    styles = styles.call();
+                }
+                if (typeof styles == "string") {
+                    /**
+                     * Since we're using the g flag on the regex, we need to set the lastIndex.
+                     * This automatically happens on some implementations, but not others, see:
+                     * http://stackoverflow.com/questions/2645273/javascript-regular-expression-literal-persists-between-function-calls
+                     * http://blog.stevenlevithan.com/archives/fixing-javascript-regexp
+                     */
+                    cssRe.lastIndex = 0;
+                    while ((matches = cssRe.exec(styles))) {
+                        el.setStyle(matches[1], matches[2]);
+                    }
+                } else if (typeof styles == "object") {
+                    el.setStyle(styles);
+                }
+            }
+        },
+        /**
+         * Inserts an HTML fragment into the DOM.
+         * @param {String} where Where to insert the html in relation to el - beforeBegin, afterBegin, beforeEnd, afterEnd.
+         * @param {HTMLElement} el The context element
+         * @param {String} html The HTML fragment
+         * @return {HTMLElement} The new node
+         */
+        insertHtml : function(where, el, html){
+            var hash = {},
+                hashVal,
+                range,
+                rangeEl,
+                setStart,
+                frag,
+                rs;
+
+            where = where.toLowerCase();
+            // add these here because they are used in both branches of the condition.
+            hash[beforebegin] = ['BeforeBegin', 'previousSibling'];
+            hash[afterend] = ['AfterEnd', 'nextSibling'];
+
+            if (el.insertAdjacentHTML) {
+                if(tableRe.test(el.tagName) && (rs = insertIntoTable(el.tagName.toLowerCase(), where, el, html))){
+                    return rs;
+                }
+                // add these two to the hash.
+                hash[afterbegin] = ['AfterBegin', 'firstChild'];
+                hash[beforeend] = ['BeforeEnd', 'lastChild'];
+                if ((hashVal = hash[where])) {
+                    el.insertAdjacentHTML(hashVal[0], html);
+                    return el[hashVal[1]];
+                }
+            } else {
+                range = el.ownerDocument.createRange();
+                setStart = 'setStart' + (endRe.test(where) ? 'After' : 'Before');
+                if (hash[where]) {
+                    range[setStart](el);
+                    if (!range.createContextualFragment) {
+                        frag = createContextualFragment(html);
+                    }
+                    else {
+                        frag = range.createContextualFragment(html);
+                    }
+                    el.parentNode.insertBefore(frag, where == beforebegin ? el : el.nextSibling);
+                    return el[(where == beforebegin ? 'previous' : 'next') + 'Sibling'];
+                } else {
+                    rangeEl = (where == afterbegin ? 'first' : 'last') + 'Child';
+                    if (el.firstChild) {
+                        range[setStart](el[rangeEl]);
+                        if (!range.createContextualFragment) {
+                            frag = createContextualFragment(html);
+                        }
+                        else {
+                            frag = range.createContextualFragment(html);
+                        }
+                        if(where == afterbegin){
+                            el.insertBefore(frag, el.firstChild);
+                        }else{
+                            el.appendChild(frag);
+                        }
+                    } else {
+                        el.innerHTML = html;
+                    }
+                    return el[rangeEl];
+                }
+            }
+            throw 'Illegal insertion point -> "' + where + '"';
+        },
+
+        /**
+         * Creates new DOM element(s) and inserts them before el.
+         * @param {Mixed} el The context element
+         * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
+         * @param {Boolean} returnElement (optional) true to return a Ext.Element
+         * @return {HTMLElement/Ext.Element} The new node
+         */
+        insertBefore : function(el, o, returnElement){
+            return doInsert(el, o, returnElement, beforebegin);
+        },
+
+        /**
+         * Creates new DOM element(s) and inserts them after el.
+         * @param {Mixed} el The context element
+         * @param {Object} o The DOM object spec (and children)
+         * @param {Boolean} returnElement (optional) true to return a Ext.Element
+         * @return {HTMLElement/Ext.Element} The new node
+         */
+        insertAfter : function(el, o, returnElement){
+            return doInsert(el, o, returnElement, afterend, 'nextSibling');
+        },
+
+        /**
+         * Creates new DOM element(s) and inserts them as the first child of el.
+         * @param {Mixed} el The context element
+         * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
+         * @param {Boolean} returnElement (optional) true to return a Ext.Element
+         * @return {HTMLElement/Ext.Element} The new node
+         */
+        insertFirst : function(el, o, returnElement){
+            return doInsert(el, o, returnElement, afterbegin, 'firstChild');
+        },
+
+        /**
+         * Creates new DOM element(s) and appends them to el.
+         * @param {Mixed} el The context element
+         * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
+         * @param {Boolean} returnElement (optional) true to return a Ext.Element
+         * @return {HTMLElement/Ext.Element} The new node
+         */
+        append : function(el, o, returnElement){
+            return doInsert(el, o, returnElement, beforeend, '', true);
+        },
+
+        /**
+         * Creates new DOM element(s) and overwrites the contents of el with them.
+         * @param {Mixed} el The context element
+         * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
+         * @param {Boolean} returnElement (optional) true to return a Ext.Element
+         * @return {HTMLElement/Ext.Element} The new node
+         */
+        overwrite : function(el, o, returnElement){
+            el = Ext.getDom(el);
+            el.innerHTML = createHtml(o);
+            return returnElement ? Ext.get(el.firstChild) : el.firstChild;
+        },
+
+        createHtml : createHtml
+    };
+    return pub;
+}();
+
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.Template
+ * <p>Represents an HTML fragment template. Templates may be {@link #compile precompiled}
+ * for greater performance.</p>
+ * <p>For example usage {@link #Template see the constructor}.</p>
+ *
+ * @constructor
+ * An instance of this class may be created by passing to the constructor either
+ * a single argument, or multiple arguments:
+ * <div class="mdetail-params"><ul>
+ * <li><b>single argument</b> : String/Array
+ * <div class="sub-desc">
+ * The single argument may be either a String or an Array:<ul>
+ * <li><tt>String</tt> : </li><pre><code>
+var t = new Ext.Template("&lt;div>Hello {0}.&lt;/div>");
+t.{@link #append}('some-element', ['foo']);
+ * </code></pre>
+ * <li><tt>Array</tt> : </li>
+ * An Array will be combined with <code>join('')</code>.
+<pre><code>
+var t = new Ext.Template([
+    '&lt;div name="{id}"&gt;',
+        '&lt;span class="{cls}"&gt;{name:trim} {value:ellipsis(10)}&lt;/span&gt;',
+    '&lt;/div&gt;',
+]);
+t.{@link #compile}();
+t.{@link #append}('some-element', {id: 'myid', cls: 'myclass', name: 'foo', value: 'bar'});
+</code></pre>
+ * </ul></div></li>
+ * <li><b>multiple arguments</b> : String, Object, Array, ...
+ * <div class="sub-desc">
+ * Multiple arguments will be combined with <code>join('')</code>.
+ * <pre><code>
+var t = new Ext.Template(
+    '&lt;div name="{id}"&gt;',
+        '&lt;span class="{cls}"&gt;{name} {value}&lt;/span&gt;',
+    '&lt;/div&gt;',
+    // a configuration object:
+    {
+        compiled: true,      // {@link #compile} immediately
+        disableFormats: true // See Notes below.
+    }
+);
+ * </code></pre>
+ * <p><b>Notes</b>:</p>
+ * <div class="mdetail-params"><ul>
+ * <li>Formatting and <code>disableFormats</code> are not applicable for Ext Core.</li>
+ * <li>For a list of available format functions, see {@link Ext.util.Format}.</li>
+ * <li><code>disableFormats</code> reduces <code>{@link #apply}</code> time
+ * when no formatting is required.</li>
+ * </ul></div>
+ * </div></li>
+ * </ul></div>
+ * @param {Mixed} config
+ */
+Ext.Template = function(html){
+    var me = this,
+        a = arguments,
+        buf = [],
+        v;
+
+    if (Ext.isArray(html)) {
+        html = html.join("");
+    } else if (a.length > 1) {
+        for(var i = 0, len = a.length; i < len; i++){
+            v = a[i];
+            if(typeof v == 'object'){
+                Ext.apply(me, v);
+            } else {
+                buf.push(v);
+            }
+        };
+        html = buf.join('');
+    }
+
+    /**@private*/
+    me.html = html;
+    /**
+     * @cfg {Boolean} compiled Specify <tt>true</tt> to compile the template
+     * immediately (see <code>{@link #compile}</code>).
+     * Defaults to <tt>false</tt>.
+     */
+    if (me.compiled) {
+        me.compile();
+    }
+};
+Ext.Template.prototype = {
+    /**
+     * @cfg {RegExp} re The regular expression used to match template variables.
+     * Defaults to:<pre><code>
+     * re : /\{([\w\-]+)\}/g                                     // for Ext Core
+     * re : /\{([\w\-]+)(?:\:([\w\.]*)(?:\((.*?)?\))?)?\}/g      // for Ext JS
+     * </code></pre>
+     */
+    re : /\{([\w\-]+)\}/g,
+    /**
+     * See <code>{@link #re}</code>.
+     * @type RegExp
+     * @property re
+     */
+
+    /**
+     * Returns an HTML fragment of this template with the specified <code>values</code> applied.
+     * @param {Object/Array} values
+     * The template values. Can be an array if the params are numeric (i.e. <code>{0}</code>)
+     * or an object (i.e. <code>{foo: 'bar'}</code>).
+     * @return {String} The HTML fragment
+     */
+    applyTemplate : function(values){
+        var me = this;
+
+        return me.compiled ?
+                me.compiled(values) :
+                me.html.replace(me.re, function(m, name){
+                    return values[name] !== undefined ? values[name] : "";
+                });
+    },
+
+    /**
+     * Sets the HTML used as the template and optionally compiles it.
+     * @param {String} html
+     * @param {Boolean} compile (optional) True to compile the template (defaults to undefined)
+     * @return {Ext.Template} this
+     */
+    set : function(html, compile){
+        var me = this;
+        me.html = html;
+        me.compiled = null;
+        return compile ? me.compile() : me;
+    },
+
+    /**
+     * Compiles the template into an internal function, eliminating the RegEx overhead.
+     * @return {Ext.Template} this
+     */
+    compile : function(){
+        var me = this,
+            sep = Ext.isGecko ? "+" : ",";
+
+        function fn(m, name){
+            name = "values['" + name + "']";
+            return "'"+ sep + '(' + name + " == undefined ? '' : " + name + ')' + sep + "'";
+        }
+
+        eval("this.compiled = function(values){ return " + (Ext.isGecko ? "'" : "['") +
+             me.html.replace(/\\/g, '\\\\').replace(/(\r\n|\n)/g, '\\n').replace(/'/g, "\\'").replace(this.re, fn) +
+             (Ext.isGecko ?  "';};" : "'].join('');};"));
+        return me;
+    },
+
+    /**
+     * Applies the supplied values to the template and inserts the new node(s) as the first child of el.
+     * @param {Mixed} el The context element
+     * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
+     * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
+     * @return {HTMLElement/Ext.Element} The new node or Element
+     */
+    insertFirst: function(el, values, returnElement){
+        return this.doInsert('afterBegin', el, values, returnElement);
+    },
+
+    /**
+     * Applies the supplied values to the template and inserts the new node(s) before el.
+     * @param {Mixed} el The context element
+     * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
+     * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
+     * @return {HTMLElement/Ext.Element} The new node or Element
+     */
+    insertBefore: function(el, values, returnElement){
+        return this.doInsert('beforeBegin', el, values, returnElement);
+    },
+
+    /**
+     * Applies the supplied values to the template and inserts the new node(s) after el.
+     * @param {Mixed} el The context element
+     * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
+     * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
+     * @return {HTMLElement/Ext.Element} The new node or Element
+     */
+    insertAfter : function(el, values, returnElement){
+        return this.doInsert('afterEnd', el, values, returnElement);
+    },
+
+    /**
+     * Applies the supplied <code>values</code> to the template and appends
+     * the new node(s) to the specified <code>el</code>.
+     * <p>For example usage {@link #Template see the constructor}.</p>
+     * @param {Mixed} el The context element
+     * @param {Object/Array} values
+     * The template values. Can be an array if the params are numeric (i.e. <code>{0}</code>)
+     * or an object (i.e. <code>{foo: 'bar'}</code>).
+     * @param {Boolean} returnElement (optional) true to return an Ext.Element (defaults to undefined)
+     * @return {HTMLElement/Ext.Element} The new node or Element
+     */
+    append : function(el, values, returnElement){
+        return this.doInsert('beforeEnd', el, values, returnElement);
+    },
+
+    doInsert : function(where, el, values, returnEl){
+        el = Ext.getDom(el);
+        var newNode = Ext.DomHelper.insertHtml(where, el, this.applyTemplate(values));
+        return returnEl ? Ext.get(newNode, true) : newNode;
+    },
+
+    /**
+     * Applies the supplied values to the template and overwrites the content of el with the new node(s).
+     * @param {Mixed} el The context element
+     * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
+     * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
+     * @return {HTMLElement/Ext.Element} The new node or Element
+     */
+    overwrite : function(el, values, returnElement){
+        el = Ext.getDom(el);
+        el.innerHTML = this.applyTemplate(values);
+        return returnElement ? Ext.get(el.firstChild, true) : el.firstChild;
+    }
+};
+/**
+ * Alias for {@link #applyTemplate}
+ * Returns an HTML fragment of this template with the specified <code>values</code> applied.
+ * @param {Object/Array} values
+ * The template values. Can be an array if the params are numeric (i.e. <code>{0}</code>)
+ * or an object (i.e. <code>{foo: 'bar'}</code>).
+ * @return {String} The HTML fragment
+ * @member Ext.Template
+ * @method apply
+ */
+Ext.Template.prototype.apply = Ext.Template.prototype.applyTemplate;
+
+/**
+ * Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.
+ * @param {String/HTMLElement} el A DOM element or its id
+ * @param {Object} config A configuration object
+ * @return {Ext.Template} The created template
+ * @static
+ */
+Ext.Template.from = function(el, config){
+    el = Ext.getDom(el);
+    return new Ext.Template(el.value || el.innerHTML, config || '');
+};
+
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/*
+ * This is code is also distributed under MIT license for use
+ * with jQuery and prototype JavaScript libraries.
+ */
+/**
+ * @class Ext.DomQuery
+Provides high performance selector/xpath processing by compiling queries into reusable functions. New pseudo classes and matchers can be plugged. It works on HTML and XML documents (if a content node is passed in).
+<p>
+DomQuery supports most of the <a href="http://www.w3.org/TR/2005/WD-css3-selectors-20051215/#selectors">CSS3 selectors spec</a>, along with some custom selectors and basic XPath.</p>
+
+<p>
+All selectors, attribute filters and pseudos below can be combined infinitely in any order. For example "div.foo:nth-child(odd)[@foo=bar].bar:first" would be a perfectly valid selector. Node filters are processed in the order in which they appear, which allows you to optimize your queries for your document structure.
+</p>
+<h4>Element Selectors:</h4>
+<ul class="list">
+    <li> <b>*</b> any element</li>
+    <li> <b>E</b> an element with the tag E</li>
+    <li> <b>E F</b> All descendent elements of E that have the tag F</li>
+    <li> <b>E > F</b> or <b>E/F</b> all direct children elements of E that have the tag F</li>
+    <li> <b>E + F</b> all elements with the tag F that are immediately preceded by an element with the tag E</li>
+    <li> <b>E ~ F</b> all elements with the tag F that are preceded by a sibling element with the tag E</li>
+</ul>
+<h4>Attribute Selectors:</h4>
+<p>The use of &#64; and quotes are optional. For example, div[&#64;foo='bar'] is also a valid attribute selector.</p>
+<ul class="list">
+    <li> <b>E[foo]</b> has an attribute "foo"</li>
+    <li> <b>E[foo=bar]</b> has an attribute "foo" that equals "bar"</li>
+    <li> <b>E[foo^=bar]</b> has an attribute "foo" that starts with "bar"</li>
+    <li> <b>E[foo$=bar]</b> has an attribute "foo" that ends with "bar"</li>
+    <li> <b>E[foo*=bar]</b> has an attribute "foo" that contains the substring "bar"</li>
+    <li> <b>E[foo%=2]</b> has an attribute "foo" that is evenly divisible by 2</li>
+    <li> <b>E[foo!=bar]</b> attribute "foo" does not equal "bar"</li>
+</ul>
+<h4>Pseudo Classes:</h4>
+<ul class="list">
+    <li> <b>E:first-child</b> E is the first child of its parent</li>
+    <li> <b>E:last-child</b> E is the last child of its parent</li>
+    <li> <b>E:nth-child(<i>n</i>)</b> E is the <i>n</i>th child of its parent (1 based as per the spec)</li>
+    <li> <b>E:nth-child(odd)</b> E is an odd child of its parent</li>
+    <li> <b>E:nth-child(even)</b> E is an even child of its parent</li>
+    <li> <b>E:only-child</b> E is the only child of its parent</li>
+    <li> <b>E:checked</b> E is an element that is has a checked attribute that is true (e.g. a radio or checkbox) </li>
+    <li> <b>E:first</b> the first E in the resultset</li>
+    <li> <b>E:last</b> the last E in the resultset</li>
+    <li> <b>E:nth(<i>n</i>)</b> the <i>n</i>th E in the resultset (1 based)</li>
+    <li> <b>E:odd</b> shortcut for :nth-child(odd)</li>
+    <li> <b>E:even</b> shortcut for :nth-child(even)</li>
+    <li> <b>E:contains(foo)</b> E's innerHTML contains the substring "foo"</li>
+    <li> <b>E:nodeValue(foo)</b> E contains a textNode with a nodeValue that equals "foo"</li>
+    <li> <b>E:not(S)</b> an E element that does not match simple selector S</li>
+    <li> <b>E:has(S)</b> an E element that has a descendent that matches simple selector S</li>
+    <li> <b>E:next(S)</b> an E element whose next sibling matches simple selector S</li>
+    <li> <b>E:prev(S)</b> an E element whose previous sibling matches simple selector S</li>
+    <li> <b>E:any(S1|S2|S2)</b> an E element which matches any of the simple selectors S1, S2 or S3//\\</li>
+</ul>
+<h4>CSS Value Selectors:</h4>
+<ul class="list">
+    <li> <b>E{display=none}</b> css value "display" that equals "none"</li>
+    <li> <b>E{display^=none}</b> css value "display" that starts with "none"</li>
+    <li> <b>E{display$=none}</b> css value "display" that ends with "none"</li>
+    <li> <b>E{display*=none}</b> css value "display" that contains the substring "none"</li>
+    <li> <b>E{display%=2}</b> css value "display" that is evenly divisible by 2</li>
+    <li> <b>E{display!=none}</b> css value "display" that does not equal "none"</li>
+</ul>
+ * @singleton
+ */
+Ext.DomQuery = function(){
+    var cache = {}, 
+    	simpleCache = {}, 
+    	valueCache = {},
+    	nonSpace = /\S/,
+    	trimRe = /^\s+|\s+$/g,
+    	tplRe = /\{(\d+)\}/g,
+    	modeRe = /^(\s?[\/>+~]\s?|\s|$)/,
+    	tagTokenRe = /^(#)?([\w\-\*]+)/,
+    	nthRe = /(\d*)n\+?(\d*)/, 
+    	nthRe2 = /\D/,
+    	// This is for IE MSXML which does not support expandos.
+	// IE runs the same speed using setAttribute, however FF slows way down
+	// and Safari completely fails so they need to continue to use expandos.
+	isIE = window.ActiveXObject ? true : false,
+	key = 30803;
+    
+    // this eval is stop the compressor from
+    // renaming the variable to something shorter
+    eval("var batch = 30803;");    	
+
+    // Retrieve the child node from a particular
+    // parent at the specified index.
+    function child(parent, index){
+        var i = 0,
+            n = parent.firstChild;
+        while(n){
+            if(n.nodeType == 1){
+               if(++i == index){
+                   return n;
+               }
+            }
+            n = n.nextSibling;
+        }
+        return null;
+    }
+
+    // retrieve the next element node
+    function next(n){	
+        while((n = n.nextSibling) && n.nodeType != 1);
+        return n;
+    }
+
+    // retrieve the previous element node 
+    function prev(n){
+        while((n = n.previousSibling) && n.nodeType != 1);
+        return n;
+    }
+
+    // Mark each child node with a nodeIndex skipping and
+    // removing empty text nodes.
+    function children(parent){
+        var n = parent.firstChild,
+	    nodeIndex = -1,
+	    nextNode;
+	while(n){
+	    nextNode = n.nextSibling;
+	    // clean worthless empty nodes.
+	    if(n.nodeType == 3 && !nonSpace.test(n.nodeValue)){
+		parent.removeChild(n);
+	    }else{
+		// add an expando nodeIndex
+		n.nodeIndex = ++nodeIndex;
+	    }
+	    n = nextNode;
+	}
+	return this;
+    }
+
+
+    // nodeSet - array of nodes
+    // cls - CSS Class
+    function byClassName(nodeSet, cls){
+        if(!cls){
+            return nodeSet;
+        }
+        var result = [], ri = -1;
+        for(var i = 0, ci; ci = nodeSet[i]; i++){
+            if((' '+ci.className+' ').indexOf(cls) != -1){
+                result[++ri] = ci;
+            }
+        }
+        return result;
+    };
+
+    function attrValue(n, attr){
+	// if its an array, use the first node.
+        if(!n.tagName && typeof n.length != "undefined"){
+            n = n[0];
+        }
+        if(!n){
+            return null;
+        }
+
+        if(attr == "for"){
+            return n.htmlFor;
+        }
+        if(attr == "class" || attr == "className"){
+            return n.className;
+        }
+        return n.getAttribute(attr) || n[attr];
+
+    };
+
+
+    // ns - nodes
+    // mode - false, /, >, +, ~
+    // tagName - defaults to "*"
+    function getNodes(ns, mode, tagName){
+        var result = [], ri = -1, cs;
+        if(!ns){
+            return result;
+        }
+        tagName = tagName || "*";
+	// convert to array
+        if(typeof ns.getElementsByTagName != "undefined"){
+            ns = [ns];
+        }
+	
+	// no mode specified, grab all elements by tagName
+	// at any depth
+        if(!mode){
+            for(var i = 0, ni; ni = ns[i]; i++){
+                cs = ni.getElementsByTagName(tagName);
+                for(var j = 0, ci; ci = cs[j]; j++){
+                    result[++ri] = ci;
+                }
+            }
+	// Direct Child mode (/ or >)
+	// E > F or E/F all direct children elements of E that have the tag 	
+        } else if(mode == "/" || mode == ">"){
+            var utag = tagName.toUpperCase();
+            for(var i = 0, ni, cn; ni = ns[i]; i++){
+                cn = ni.childNodes;
+                for(var j = 0, cj; cj = cn[j]; j++){
+                    if(cj.nodeName == utag || cj.nodeName == tagName  || tagName == '*'){
+                        result[++ri] = cj;
+                    }
+                }
+            }
+	// Immediately Preceding mode (+)
+	// E + F all elements with the tag F that are immediately preceded by an element with the tag E
+        }else if(mode == "+"){
+            var utag = tagName.toUpperCase();
+            for(var i = 0, n; n = ns[i]; i++){
+                while((n = n.nextSibling) && n.nodeType != 1);
+                if(n && (n.nodeName == utag || n.nodeName == tagName || tagName == '*')){
+                    result[++ri] = n;
+                }
+            }
+	// Sibling mode (~)
+	// E ~ F all elements with the tag F that are preceded by a sibling element with the tag E
+        }else if(mode == "~"){
+            var utag = tagName.toUpperCase();
+            for(var i = 0, n; n = ns[i]; i++){
+                while((n = n.nextSibling)){
+                    if (n.nodeName == utag || n.nodeName == tagName || tagName == '*'){
+                        result[++ri] = n;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    function concat(a, b){
+        if(b.slice){
+            return a.concat(b);
+        }
+        for(var i = 0, l = b.length; i < l; i++){
+            a[a.length] = b[i];
+        }
+        return a;
+    }
+
+    function byTag(cs, tagName){
+        if(cs.tagName || cs == document){
+            cs = [cs];
+        }
+        if(!tagName){
+            return cs;
+        }
+        var result = [], ri = -1;
+        tagName = tagName.toLowerCase();
+        for(var i = 0, ci; ci = cs[i]; i++){
+            if(ci.nodeType == 1 && ci.tagName.toLowerCase() == tagName){
+                result[++ri] = ci;
+            }
+        }
+        return result;
+    }
+
+    function byId(cs, id){
+        if(cs.tagName || cs == document){
+            cs = [cs];
+        }
+        if(!id){
+            return cs;
+        }
+        var result = [], ri = -1;
+        for(var i = 0, ci; ci = cs[i]; i++){
+            if(ci && ci.id == id){
+                result[++ri] = ci;
+                return result;
+            }
+        }
+        return result;
+    }
+
+    // operators are =, !=, ^=, $=, *=, %=, |= and ~=
+    // custom can be "{"
+    function byAttribute(cs, attr, value, op, custom){
+        var result = [], 
+            ri = -1, 
+            useGetStyle = custom == "{",	    
+            fn = Ext.DomQuery.operators[op],	    
+            a,
+            xml,
+            hasXml;
+            
+        for(var i = 0, ci; ci = cs[i]; i++){
+	    // skip non-element nodes.
+            if(ci.nodeType != 1){
+                continue;
+            }
+            // only need to do this for the first node
+            if(!hasXml){
+                xml = Ext.DomQuery.isXml(ci);
+                hasXml = true;
+            }
+	    
+            // we only need to change the property names if we're dealing with html nodes, not XML
+            if(!xml){
+                if(useGetStyle){
+                    a = Ext.DomQuery.getStyle(ci, attr);
+                } else if (attr == "class" || attr == "className"){
+                    a = ci.className;
+                } else if (attr == "for"){
+                    a = ci.htmlFor;
+                } else if (attr == "href"){
+		    // getAttribute href bug
+		    // http://www.glennjones.net/Post/809/getAttributehrefbug.htm
+                    a = ci.getAttribute("href", 2);
+                } else{
+                    a = ci.getAttribute(attr);
+                }
+            }else{
+                a = ci.getAttribute(attr);
+            }
+            if((fn && fn(a, value)) || (!fn && a)){
+                result[++ri] = ci;
+            }
+        }
+        return result;
+    }
+
+    function byPseudo(cs, name, value){
+        return Ext.DomQuery.pseudos[name](cs, value);
+    }
+
+    function nodupIEXml(cs){
+        var d = ++key, 
+            r;
+        cs[0].setAttribute("_nodup", d);
+        r = [cs[0]];
+        for(var i = 1, len = cs.length; i < len; i++){
+            var c = cs[i];
+            if(!c.getAttribute("_nodup") != d){
+                c.setAttribute("_nodup", d);
+                r[r.length] = c;
+            }
+        }
+        for(var i = 0, len = cs.length; i < len; i++){
+            cs[i].removeAttribute("_nodup");
+        }
+        return r;
+    }
+
+    function nodup(cs){
+        if(!cs){
+            return [];
+        }
+        var len = cs.length, c, i, r = cs, cj, ri = -1;
+        if(!len || typeof cs.nodeType != "undefined" || len == 1){
+            return cs;
+        }
+        if(isIE && typeof cs[0].selectSingleNode != "undefined"){
+            return nodupIEXml(cs);
+        }
+        var d = ++key;
+        cs[0]._nodup = d;
+        for(i = 1; c = cs[i]; i++){
+            if(c._nodup != d){
+                c._nodup = d;
+            }else{
+                r = [];
+                for(var j = 0; j < i; j++){
+                    r[++ri] = cs[j];
+                }
+                for(j = i+1; cj = cs[j]; j++){
+                    if(cj._nodup != d){
+                        cj._nodup = d;
+                        r[++ri] = cj;
+                    }
+                }
+                return r;
+            }
+        }
+        return r;
+    }
+
+    function quickDiffIEXml(c1, c2){
+        var d = ++key,
+            r = [];
+        for(var i = 0, len = c1.length; i < len; i++){
+            c1[i].setAttribute("_qdiff", d);
+        }        
+        for(var i = 0, len = c2.length; i < len; i++){
+            if(c2[i].getAttribute("_qdiff") != d){
+                r[r.length] = c2[i];
+            }
+        }
+        for(var i = 0, len = c1.length; i < len; i++){
+           c1[i].removeAttribute("_qdiff");
+        }
+        return r;
+    }
+
+    function quickDiff(c1, c2){
+        var len1 = c1.length,
+        	d = ++key,
+        	r = [];
+        if(!len1){
+            return c2;
+        }
+        if(isIE && typeof c1[0].selectSingleNode != "undefined"){
+            return quickDiffIEXml(c1, c2);
+        }        
+        for(var i = 0; i < len1; i++){
+            c1[i]._qdiff = d;
+        }        
+        for(var i = 0, len = c2.length; i < len; i++){
+            if(c2[i]._qdiff != d){
+                r[r.length] = c2[i];
+            }
+        }
+        return r;
+    }
+
+    function quickId(ns, mode, root, id){
+        if(ns == root){
+           var d = root.ownerDocument || root;
+           return d.getElementById(id);
+        }
+        ns = getNodes(ns, mode, "*");
+        return byId(ns, id);
+    }
+
+    return {
+        getStyle : function(el, name){
+            return Ext.fly(el).getStyle(name);
+        },
+        /**
+         * Compiles a selector/xpath query into a reusable function. The returned function
+         * takes one parameter "root" (optional), which is the context node from where the query should start.
+         * @param {String} selector The selector/xpath query
+         * @param {String} type (optional) Either "select" (the default) or "simple" for a simple selector match
+         * @return {Function}
+         */
+        compile : function(path, type){
+            type = type || "select";
+
+    	    // setup fn preamble
+            var fn = ["var f = function(root){\n var mode; ++batch; var n = root || document;\n"],
+        		mode,		
+        		lastPath,
+            	matchers = Ext.DomQuery.matchers,
+            	matchersLn = matchers.length,
+            	modeMatch,
+            	// accept leading mode switch
+            	lmode = path.match(modeRe);
+            
+            if(lmode && lmode[1]){
+                fn[fn.length] = 'mode="'+lmode[1].replace(trimRe, "")+'";';
+                path = path.replace(lmode[1], "");
+            }
+	    
+            // strip leading slashes
+            while(path.substr(0, 1)=="/"){
+                path = path.substr(1);
+            }
+
+            while(path && lastPath != path){
+                lastPath = path;
+                var tokenMatch = path.match(tagTokenRe);
+                if(type == "select"){
+                    if(tokenMatch){
+			// ID Selector
+                        if(tokenMatch[1] == "#"){
+                            fn[fn.length] = 'n = quickId(n, mode, root, "'+tokenMatch[2]+'");';			
+                        }else{
+                            fn[fn.length] = 'n = getNodes(n, mode, "'+tokenMatch[2]+'");';
+                        }
+                        path = path.replace(tokenMatch[0], "");
+                    }else if(path.substr(0, 1) != '@'){
+                        fn[fn.length] = 'n = getNodes(n, mode, "*");';
+                    }
+		// type of "simple"
+                }else{
+                    if(tokenMatch){
+                        if(tokenMatch[1] == "#"){
+                            fn[fn.length] = 'n = byId(n, "'+tokenMatch[2]+'");';
+                        }else{
+                            fn[fn.length] = 'n = byTag(n, "'+tokenMatch[2]+'");';
+                        }
+                        path = path.replace(tokenMatch[0], "");
+                    }
+                }
+                while(!(modeMatch = path.match(modeRe))){
+                    var matched = false;
+                    for(var j = 0; j < matchersLn; j++){
+                        var t = matchers[j];
+                        var m = path.match(t.re);
+                        if(m){
+                            fn[fn.length] = t.select.replace(tplRe, function(x, i){
+				return m[i];
+			    });
+                            path = path.replace(m[0], "");
+                            matched = true;
+                            break;
+                        }
+                    }
+                    // prevent infinite loop on bad selector
+                    if(!matched){
+                        throw 'Error parsing selector, parsing failed at "' + path + '"';
+                    }
+                }
+                if(modeMatch[1]){
+                    fn[fn.length] = 'mode="'+modeMatch[1].replace(trimRe, "")+'";';
+                    path = path.replace(modeMatch[1], "");
+                }
+            }
+	    // close fn out
+            fn[fn.length] = "return nodup(n);\n}";
+	    
+	    // eval fn and return it
+            eval(fn.join(""));
+            return f;
+        },
+
+        /**
+         * Selects a group of elements.
+         * @param {String} selector The selector/xpath query (can be a comma separated list of selectors)
+         * @param {Node/String} root (optional) The start of the query (defaults to document).
+         * @return {Array} An Array of DOM elements which match the selector. If there are
+         * no matches, and empty Array is returned.
+         */
+	jsSelect: function(path, root, type){
+	    // set root to doc if not specified.
+	    root = root || document;
+	    
+            if(typeof root == "string"){
+                root = document.getElementById(root);
+            }
+            var paths = path.split(","),
+            	results = [];
+		
+	    // loop over each selector
+            for(var i = 0, len = paths.length; i < len; i++){		
+                var subPath = paths[i].replace(trimRe, "");
+		// compile and place in cache
+                if(!cache[subPath]){
+                    cache[subPath] = Ext.DomQuery.compile(subPath);
+                    if(!cache[subPath]){
+                        throw subPath + " is not a valid selector";
+                    }
+                }
+                var result = cache[subPath](root);
+                if(result && result != document){
+                    results = results.concat(result);
+                }
+            }
+	    
+	    // if there were multiple selectors, make sure dups
+	    // are eliminated
+            if(paths.length > 1){
+                return nodup(results);
+            }
+            return results;
+        },
+	isXml: function(el) {
+	    var docEl = (el ? el.ownerDocument || el : 0).documentElement;
+	    return docEl ? docEl.nodeName !== "HTML" : false;
+	},
+        select : document.querySelectorAll ? function(path, root, type) {
+	    root = root || document;
+	    if (!Ext.DomQuery.isXml(root)) {
+		try {
+		    var cs = root.querySelectorAll(path);
+		    return Ext.toArray(cs);
+		}
+		catch (ex) {}		
+	    }	    
+	    return Ext.DomQuery.jsSelect.call(this, path, root, type);
+	} : function(path, root, type) {
+	    return Ext.DomQuery.jsSelect.call(this, path, root, type);
+	},
+
+        /**
+         * Selects a single element.
+         * @param {String} selector The selector/xpath query
+         * @param {Node} root (optional) The start of the query (defaults to document).
+         * @return {Element} The DOM element which matched the selector.
+         */
+        selectNode : function(path, root){
+            return Ext.DomQuery.select(path, root)[0];
+        },
+
+        /**
+         * Selects the value of a node, optionally replacing null with the defaultValue.
+         * @param {String} selector The selector/xpath query
+         * @param {Node} root (optional) The start of the query (defaults to document).
+         * @param {String} defaultValue (optional)
+         * @return {String}
+         */
+        selectValue : function(path, root, defaultValue){
+            path = path.replace(trimRe, "");
+            if(!valueCache[path]){
+                valueCache[path] = Ext.DomQuery.compile(path, "select");
+            }
+            var n = valueCache[path](root), v;
+            n = n[0] ? n[0] : n;
+            	    
+	    // overcome a limitation of maximum textnode size
+	    // Rumored to potentially crash IE6 but has not been confirmed.
+	    // http://reference.sitepoint.com/javascript/Node/normalize
+	    // https://developer.mozilla.org/En/DOM/Node.normalize	    
+            if (typeof n.normalize == 'function') n.normalize();
+            
+            v = (n && n.firstChild ? n.firstChild.nodeValue : null);
+            return ((v === null||v === undefined||v==='') ? defaultValue : v);
+        },
+
+        /**
+         * Selects the value of a node, parsing integers and floats. Returns the defaultValue, or 0 if none is specified.
+         * @param {String} selector The selector/xpath query
+         * @param {Node} root (optional) The start of the query (defaults to document).
+         * @param {Number} defaultValue (optional)
+         * @return {Number}
+         */
+        selectNumber : function(path, root, defaultValue){
+            var v = Ext.DomQuery.selectValue(path, root, defaultValue || 0);
+            return parseFloat(v);
+        },
+
+        /**
+         * Returns true if the passed element(s) match the passed simple selector (e.g. div.some-class or span:first-child)
+         * @param {String/HTMLElement/Array} el An element id, element or array of elements
+         * @param {String} selector The simple selector to test
+         * @return {Boolean}
+         */
+        is : function(el, ss){
+            if(typeof el == "string"){
+                el = document.getElementById(el);
+            }
+            var isArray = Ext.isArray(el),
+            	result = Ext.DomQuery.filter(isArray ? el : [el], ss);
+            return isArray ? (result.length == el.length) : (result.length > 0);
+        },
+
+        /**
+         * Filters an array of elements to only include matches of a simple selector (e.g. div.some-class or span:first-child)
+         * @param {Array} el An array of elements to filter
+         * @param {String} selector The simple selector to test
+         * @param {Boolean} nonMatches If true, it returns the elements that DON'T match
+         * the selector instead of the ones that match
+         * @return {Array} An Array of DOM elements which match the selector. If there are
+         * no matches, and empty Array is returned.
+         */
+        filter : function(els, ss, nonMatches){
+            ss = ss.replace(trimRe, "");
+            if(!simpleCache[ss]){
+                simpleCache[ss] = Ext.DomQuery.compile(ss, "simple");
+            }
+            var result = simpleCache[ss](els);
+            return nonMatches ? quickDiff(result, els) : result;
+        },
+
+        /**
+         * Collection of matching regular expressions and code snippets.
+         * Each capture group within () will be replace the {} in the select
+         * statement as specified by their index.
+         */
+        matchers : [{
+                re: /^\.([\w\-]+)/,
+                select: 'n = byClassName(n, " {1} ");'
+            }, {
+                re: /^\:([\w\-]+)(?:\(((?:[^\s>\/]*|.*?))\))?/,
+                select: 'n = byPseudo(n, "{1}", "{2}");'
+            },{
+                re: /^(?:([\[\{])(?:@)?([\w\-]+)\s?(?:(=|.=)\s?(["']?)(.*?)\4)?[\]\}])/,
+                select: 'n = byAttribute(n, "{2}", "{5}", "{3}", "{1}");'
+            }, {
+                re: /^#([\w\-]+)/,
+                select: 'n = byId(n, "{1}");'
+            },{
+                re: /^@([\w\-]+)/,
+                select: 'return {firstChild:{nodeValue:attrValue(n, "{1}")}};'
+            }
+        ],
+
+        /**
+         * Collection of operator comparison functions. The default operators are =, !=, ^=, $=, *=, %=, |= and ~=.
+         * New operators can be added as long as the match the format <i>c</i>= where <i>c</i> is any character other than space, &gt; &lt;.
+         */
+        operators : {
+            "=" : function(a, v){
+                return a == v;
+            },
+            "!=" : function(a, v){
+                return a != v;
+            },
+            "^=" : function(a, v){
+                return a && a.substr(0, v.length) == v;
+            },
+            "$=" : function(a, v){
+                return a && a.substr(a.length-v.length) == v;
+            },
+            "*=" : function(a, v){
+                return a && a.indexOf(v) !== -1;
+            },
+            "%=" : function(a, v){
+                return (a % v) == 0;
+            },
+            "|=" : function(a, v){
+                return a && (a == v || a.substr(0, v.length+1) == v+'-');
+            },
+            "~=" : function(a, v){
+                return a && (' '+a+' ').indexOf(' '+v+' ') != -1;
+            }
+        },
+
+        /**
+         * <p>Object hash of "pseudo class" filter functions which are used when filtering selections. Each function is passed
+         * two parameters:</p><div class="mdetail-params"><ul>
+         * <li><b>c</b> : Array<div class="sub-desc">An Array of DOM elements to filter.</div></li>
+         * <li><b>v</b> : String<div class="sub-desc">The argument (if any) supplied in the selector.</div></li>
+         * </ul></div>
+         * <p>A filter function returns an Array of DOM elements which conform to the pseudo class.</p>
+         * <p>In addition to the provided pseudo classes listed above such as <code>first-child</code> and <code>nth-child</code>,
+         * developers may add additional, custom psuedo class filters to select elements according to application-specific requirements.</p>
+         * <p>For example, to filter <code>&lt;a></code> elements to only return links to <i>external</i> resources:</p>
+         * <code><pre>
+Ext.DomQuery.pseudos.external = function(c, v){
+    var r = [], ri = -1;
+    for(var i = 0, ci; ci = c[i]; i++){
+//      Include in result set only if it's a link to an external resource
+        if(ci.hostname != location.hostname){
+            r[++ri] = ci;
+        }
+    }
+    return r;
+};</pre></code>
+         * Then external links could be gathered with the following statement:<code><pre>
+var externalLinks = Ext.select("a:external");
+</code></pre>
+         */
+        pseudos : {
+            "first-child" : function(c){
+                var r = [], ri = -1, n;
+                for(var i = 0, ci; ci = n = c[i]; i++){
+                    while((n = n.previousSibling) && n.nodeType != 1);
+                    if(!n){
+                        r[++ri] = ci;
+                    }
+                }
+                return r;
+            },
+
+            "last-child" : function(c){
+                var r = [], ri = -1, n;
+                for(var i = 0, ci; ci = n = c[i]; i++){
+                    while((n = n.nextSibling) && n.nodeType != 1);
+                    if(!n){
+                        r[++ri] = ci;
+                    }
+                }
+                return r;
+            },
+
+            "nth-child" : function(c, a) {
+                var r = [], ri = -1,
+                	m = nthRe.exec(a == "even" && "2n" || a == "odd" && "2n+1" || !nthRe2.test(a) && "n+" + a || a),
+                	f = (m[1] || 1) - 0, l = m[2] - 0;
+                for(var i = 0, n; n = c[i]; i++){
+                    var pn = n.parentNode;
+                    if (batch != pn._batch) {
+                        var j = 0;
+                        for(var cn = pn.firstChild; cn; cn = cn.nextSibling){
+                            if(cn.nodeType == 1){
+                               cn.nodeIndex = ++j;
+                            }
+                        }
+                        pn._batch = batch;
+                    }
+                    if (f == 1) {
+                        if (l == 0 || n.nodeIndex == l){
+                            r[++ri] = n;
+                        }
+                    } else if ((n.nodeIndex + l) % f == 0){
+                        r[++ri] = n;
+                    }
+                }
+
+                return r;
+            },
+
+            "only-child" : function(c){
+                var r = [], ri = -1;;
+                for(var i = 0, ci; ci = c[i]; i++){
+                    if(!prev(ci) && !next(ci)){
+                        r[++ri] = ci;
+                    }
+                }
+                return r;
+            },
+
+            "empty" : function(c){
+                var r = [], ri = -1;
+                for(var i = 0, ci; ci = c[i]; i++){
+                    var cns = ci.childNodes, j = 0, cn, empty = true;
+                    while(cn = cns[j]){
+                        ++j;
+                        if(cn.nodeType == 1 || cn.nodeType == 3){
+                            empty = false;
+                            break;
+                        }
+                    }
+                    if(empty){
+                        r[++ri] = ci;
+                    }
+                }
+                return r;
+            },
+
+            "contains" : function(c, v){
+                var r = [], ri = -1;
+                for(var i = 0, ci; ci = c[i]; i++){
+                    if((ci.textContent||ci.innerText||'').indexOf(v) != -1){
+                        r[++ri] = ci;
+                    }
+                }
+                return r;
+            },
+
+            "nodeValue" : function(c, v){
+                var r = [], ri = -1;
+                for(var i = 0, ci; ci = c[i]; i++){
+                    if(ci.firstChild && ci.firstChild.nodeValue == v){
+                        r[++ri] = ci;
+                    }
+                }
+                return r;
+            },
+
+            "checked" : function(c){
+                var r = [], ri = -1;
+                for(var i = 0, ci; ci = c[i]; i++){
+                    if(ci.checked == true){
+                        r[++ri] = ci;
+                    }
+                }
+                return r;
+            },
+
+            "not" : function(c, ss){
+                return Ext.DomQuery.filter(c, ss, true);
+            },
+
+            "any" : function(c, selectors){
+                var ss = selectors.split('|'),
+                	r = [], ri = -1, s;
+                for(var i = 0, ci; ci = c[i]; i++){
+                    for(var j = 0; s = ss[j]; j++){
+                        if(Ext.DomQuery.is(ci, s)){
+                            r[++ri] = ci;
+                            break;
+                        }
+                    }
+                }
+                return r;
+            },
+
+            "odd" : function(c){
+                return this["nth-child"](c, "odd");
+            },
+
+            "even" : function(c){
+                return this["nth-child"](c, "even");
+            },
+
+            "nth" : function(c, a){
+                return c[a-1] || [];
+            },
+
+            "first" : function(c){
+                return c[0] || [];
+            },
+
+            "last" : function(c){
+                return c[c.length-1] || [];
+            },
+
+            "has" : function(c, ss){
+                var s = Ext.DomQuery.select,
+                	r = [], ri = -1;
+                for(var i = 0, ci; ci = c[i]; i++){
+                    if(s(ss, ci).length > 0){
+                        r[++ri] = ci;
+                    }
+                }
+                return r;
+            },
+
+            "next" : function(c, ss){
+                var is = Ext.DomQuery.is,
+                	r = [], ri = -1;
+                for(var i = 0, ci; ci = c[i]; i++){
+                    var n = next(ci);
+                    if(n && is(n, ss)){
+                        r[++ri] = ci;
+                    }
+                }
+                return r;
+            },
+
+            "prev" : function(c, ss){
+                var is = Ext.DomQuery.is,
+                	r = [], ri = -1;
+                for(var i = 0, ci; ci = c[i]; i++){
+                    var n = prev(ci);
+                    if(n && is(n, ss)){
+                        r[++ri] = ci;
+                    }
+                }
+                return r;
+            }
+        }
+    };
+}();
+
+/**
+ * Selects an array of DOM nodes by CSS/XPath selector. Shorthand of {@link Ext.DomQuery#select}
+ * @param {String} path The selector/xpath query
+ * @param {Node} root (optional) The start of the query (defaults to document).
+ * @return {Array}
+ * @member Ext
+ * @method query
+ */
+Ext.query = Ext.DomQuery.select;
+
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.util.DelayedTask
+ * <p> The DelayedTask class provides a convenient way to "buffer" the execution of a method,
+ * performing setTimeout where a new timeout cancels the old timeout. When called, the
+ * task will wait the specified time period before executing. If durng that time period,
+ * the task is called again, the original call will be cancelled. This continues so that
+ * the function is only called a single time for each iteration.</p>
+ * <p>This method is especially useful for things like detecting whether a user has finished
+ * typing in a text field. An example would be performing validation on a keypress. You can
+ * use this class to buffer the keypress events for a certain number of milliseconds, and
+ * perform only if they stop for that amount of time.  Usage:</p><pre><code>
+var task = new Ext.util.DelayedTask(function(){
+    alert(Ext.getDom('myInputField').value.length);
+});
+// Wait 500ms before calling our function. If the user presses another key 
+// during that 500ms, it will be cancelled and we'll wait another 500ms.
+Ext.get('myInputField').on('keypress', function(){
+    task.{@link #delay}(500); 
+});
+ * </code></pre> 
+ * <p>Note that we are using a DelayedTask here to illustrate a point. The configuration
+ * option <tt>buffer</tt> for {@link Ext.util.Observable#addListener addListener/on} will
+ * also setup a delayed task for you to buffer events.</p> 
+ * @constructor The parameters to this constructor serve as defaults and are not required.
+ * @param {Function} fn (optional) The default function to call.
+ * @param {Object} scope (optional) The default scope (The <code><b>this</b></code> reference) in which the
+ * function is called. If not specified, <code>this</code> will refer to the browser window.
+ * @param {Array} args (optional) The default Array of arguments.
+ */
+Ext.util.DelayedTask = function(fn, scope, args){
+    var me = this,
+    	id,    	
+    	call = function(){
+    		clearInterval(id);
+	        id = null;
+	        fn.apply(scope, args || []);
+	    };
+	    
+    /**
+     * Cancels any pending timeout and queues a new one
+     * @param {Number} delay The milliseconds to delay
+     * @param {Function} newFn (optional) Overrides function passed to constructor
+     * @param {Object} newScope (optional) Overrides scope passed to constructor. Remember that if no scope
+     * is specified, <code>this</code> will refer to the browser window.
+     * @param {Array} newArgs (optional) Overrides args passed to constructor
+     */
+    me.delay = function(delay, newFn, newScope, newArgs){
+        me.cancel();
+        fn = newFn || fn;
+        scope = newScope || scope;
+        args = newArgs || args;
+        id = setInterval(call, delay);
+    };
+
+    /**
+     * Cancel the last queued timeout
+     */
+    me.cancel = function(){
+        if(id){
+            clearInterval(id);
+            id = null;
+        }
+    };
+};
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.Element
+ * <p>Encapsulates a DOM element, adding simple DOM manipulation facilities, normalizing for browser differences.</p>
+ * <p>All instances of this class inherit the methods of {@link Ext.Fx} making visual effects easily available to all DOM elements.</p>
+ * <p>Note that the events documented in this class are not Ext events, they encapsulate browser events. To
+ * access the underlying browser event, see {@link Ext.EventObject#browserEvent}. Some older
+ * browsers may not support the full range of events. Which events are supported is beyond the control of ExtJs.</p>
+ * Usage:<br>
+<pre><code>
+// by id
+var el = Ext.get("my-div");
+
+// by DOM element reference
+var el = Ext.get(myDivElement);
+</code></pre>
+ * <b>Animations</b><br />
+ * <p>When an element is manipulated, by default there is no animation.</p>
+ * <pre><code>
+var el = Ext.get("my-div");
+
+// no animation
+el.setWidth(100);
+ * </code></pre>
+ * <p>Many of the functions for manipulating an element have an optional "animate" parameter.  This
+ * parameter can be specified as boolean (<tt>true</tt>) for default animation effects.</p>
+ * <pre><code>
+// default animation
+el.setWidth(100, true);
+ * </code></pre>
+ *
+ * <p>To configure the effects, an object literal with animation options to use as the Element animation
+ * configuration object can also be specified. Note that the supported Element animation configuration
+ * options are a subset of the {@link Ext.Fx} animation options specific to Fx effects.  The supported
+ * Element animation configuration options are:</p>
+<pre>
+Option    Default   Description
+--------- --------  ---------------------------------------------
+{@link Ext.Fx#duration duration}  .35       The duration of the animation in seconds
+{@link Ext.Fx#easing easing}    easeOut   The easing method
+{@link Ext.Fx#callback callback}  none      A function to execute when the anim completes
+{@link Ext.Fx#scope scope}     this      The scope (this) of the callback function
+</pre>
+ *
+ * <pre><code>
+// Element animation options object
+var opt = {
+    {@link Ext.Fx#duration duration}: 1,
+    {@link Ext.Fx#easing easing}: 'elasticIn',
+    {@link Ext.Fx#callback callback}: this.foo,
+    {@link Ext.Fx#scope scope}: this
+};
+// animation with some options set
+el.setWidth(100, opt);
+ * </code></pre>
+ * <p>The Element animation object being used for the animation will be set on the options
+ * object as "anim", which allows you to stop or manipulate the animation. Here is an example:</p>
+ * <pre><code>
+// using the "anim" property to get the Anim object
+if(opt.anim.isAnimated()){
+    opt.anim.stop();
+}
+ * </code></pre>
+ * <p>Also see the <tt>{@link #animate}</tt> method for another animation technique.</p>
+ * <p><b> Composite (Collections of) Elements</b></p>
+ * <p>For working with collections of Elements, see {@link Ext.CompositeElement}</p>
+ * @constructor Create a new Element directly.
+ * @param {String/HTMLElement} element
+ * @param {Boolean} forceNew (optional) By default the constructor checks to see if there is already an instance of this element in the cache and if there is it returns the same instance. This will skip that check (useful for extending this class).
+ */
+(function(){
+var DOC = document;
+
+Ext.Element = function(element, forceNew){
+    var dom = typeof element == "string" ?
+              DOC.getElementById(element) : element,
+        id;
+
+    if(!dom) return null;
+
+    id = dom.id;
+
+    if(!forceNew && id && Ext.elCache[id]){ // element object already exists
+        return Ext.elCache[id].el;
+    }
+
+    /**
+     * The DOM element
+     * @type HTMLElement
+     */
+    this.dom = dom;
+
+    /**
+     * The DOM element ID
+     * @type String
+     */
+    this.id = id || Ext.id(dom);
+};
+
+var DH = Ext.DomHelper,
+    El = Ext.Element,
+    EC = Ext.elCache;
+
+El.prototype = {
+    /**
+     * Sets the passed attributes as attributes of this element (a style attribute can be a string, object or function)
+     * @param {Object} o The object with the attributes
+     * @param {Boolean} useSet (optional) false to override the default setAttribute to use expandos.
+     * @return {Ext.Element} this
+     */
+    set : function(o, useSet){
+        var el = this.dom,
+            attr,
+            val,
+            useSet = (useSet !== false) && !!el.setAttribute;
+
+        for (attr in o) {
+            if (o.hasOwnProperty(attr)) {
+                val = o[attr];
+                if (attr == 'style') {
+                    DH.applyStyles(el, val);
+                } else if (attr == 'cls') {
+                    el.className = val;
+                } else if (useSet) {
+                    el.setAttribute(attr, val);
+                } else {
+                    el[attr] = val;
+                }
+            }
+        }
+        return this;
+    },
+
+//  Mouse events
+    /**
+     * @event click
+     * Fires when a mouse click is detected within the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event contextmenu
+     * Fires when a right click is detected within the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event dblclick
+     * Fires when a mouse double click is detected within the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event mousedown
+     * Fires when a mousedown is detected within the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event mouseup
+     * Fires when a mouseup is detected within the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event mouseover
+     * Fires when a mouseover is detected within the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event mousemove
+     * Fires when a mousemove is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event mouseout
+     * Fires when a mouseout is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event mouseenter
+     * Fires when the mouse enters the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event mouseleave
+     * Fires when the mouse leaves the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+
+//  Keyboard events
+    /**
+     * @event keypress
+     * Fires when a keypress is detected within the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event keydown
+     * Fires when a keydown is detected within the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event keyup
+     * Fires when a keyup is detected within the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+
+
+//  HTML frame/object events
+    /**
+     * @event load
+     * Fires when the user agent finishes loading all content within the element. Only supported by window, frames, objects and images.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event unload
+     * Fires when the user agent removes all content from a window or frame. For elements, it fires when the target element or any of its content has been removed.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event abort
+     * Fires when an object/image is stopped from loading before completely loaded.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event error
+     * Fires when an object/image/frame cannot be loaded properly.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event resize
+     * Fires when a document view is resized.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event scroll
+     * Fires when a document view is scrolled.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+
+//  Form events
+    /**
+     * @event select
+     * Fires when a user selects some text in a text field, including input and textarea.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event change
+     * Fires when a control loses the input focus and its value has been modified since gaining focus.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event submit
+     * Fires when a form is submitted.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event reset
+     * Fires when a form is reset.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event focus
+     * Fires when an element receives focus either via the pointing device or by tab navigation.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event blur
+     * Fires when an element loses focus either via the pointing device or by tabbing navigation.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+
+//  User Interface events
+    /**
+     * @event DOMFocusIn
+     * Where supported. Similar to HTML focus event, but can be applied to any focusable element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event DOMFocusOut
+     * Where supported. Similar to HTML blur event, but can be applied to any focusable element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event DOMActivate
+     * Where supported. Fires when an element is activated, for instance, through a mouse click or a keypress.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+
+//  DOM Mutation events
+    /**
+     * @event DOMSubtreeModified
+     * Where supported. Fires when the subtree is modified.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event DOMNodeInserted
+     * Where supported. Fires when a node has been added as a child of another node.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event DOMNodeRemoved
+     * Where supported. Fires when a descendant node of the element is removed.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event DOMNodeRemovedFromDocument
+     * Where supported. Fires when a node is being removed from a document.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event DOMNodeInsertedIntoDocument
+     * Where supported. Fires when a node is being inserted into a document.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event DOMAttrModified
+     * Where supported. Fires when an attribute has been modified.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+    /**
+     * @event DOMCharacterDataModified
+     * Where supported. Fires when the character data has been modified.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     * @param {HtmlElement} t The target of the event.
+     * @param {Object} o The options configuration passed to the {@link #addListener} call.
+     */
+
+    /**
+     * The default unit to append to CSS values where a unit isn't provided (defaults to px).
+     * @type String
+     */
+    defaultUnit : "px",
+
+    /**
+     * Returns true if this element matches the passed simple selector (e.g. div.some-class or span:first-child)
+     * @param {String} selector The simple selector to test
+     * @return {Boolean} True if this element matches the selector, else false
+     */
+    is : function(simpleSelector){
+        return Ext.DomQuery.is(this.dom, simpleSelector);
+    },
+
+    /**
+     * Tries to focus the element. Any exceptions are caught and ignored.
+     * @param {Number} defer (optional) Milliseconds to defer the focus
+     * @return {Ext.Element} this
+     */
+    focus : function(defer, /* private */ dom) {
+        var me = this,
+            dom = dom || me.dom;
+        try{
+            if(Number(defer)){
+                me.focus.defer(defer, null, [null, dom]);
+            }else{
+                dom.focus();
+            }
+        }catch(e){}
+        return me;
+    },
+
+    /**
+     * Tries to blur the element. Any exceptions are caught and ignored.
+     * @return {Ext.Element} this
+     */
+    blur : function() {
+        try{
+            this.dom.blur();
+        }catch(e){}
+        return this;
+    },
+
+    /**
+     * Returns the value of the "value" attribute
+     * @param {Boolean} asNumber true to parse the value as a number
+     * @return {String/Number}
+     */
+    getValue : function(asNumber){
+        var val = this.dom.value;
+        return asNumber ? parseInt(val, 10) : val;
+    },
+
+    /**
+     * Appends an event handler to this element.  The shorthand version {@link #on} is equivalent.
+     * @param {String} eventName The name of event to handle.
+     * @param {Function} fn The handler function the event invokes. This function is passed
+     * the following parameters:<ul>
+     * <li><b>evt</b> : EventObject<div class="sub-desc">The {@link Ext.EventObject EventObject} describing the event.</div></li>
+     * <li><b>el</b> : HtmlElement<div class="sub-desc">The DOM element which was the target of the event.
+     * Note that this may be filtered by using the <tt>delegate</tt> option.</div></li>
+     * <li><b>o</b> : Object<div class="sub-desc">The options object from the addListener call.</div></li>
+     * </ul>
+     * @param {Object} scope (optional) The scope (<code><b>this</b></code> reference) in which the handler function is executed.
+     * <b>If omitted, defaults to this Element.</b>.
+     * @param {Object} options (optional) An object containing handler configuration properties.
+     * This may contain any of the following properties:<ul>
+     * <li><b>scope</b> Object : <div class="sub-desc">The scope (<code><b>this</b></code> reference) in which the handler function is executed.
+     * <b>If omitted, defaults to this Element.</b></div></li>
+     * <li><b>delegate</b> String: <div class="sub-desc">A simple selector to filter the target or look for a descendant of the target. See below for additional details.</div></li>
+     * <li><b>stopEvent</b> Boolean: <div class="sub-desc">True to stop the event. That is stop propagation, and prevent the default action.</div></li>
+     * <li><b>preventDefault</b> Boolean: <div class="sub-desc">True to prevent the default action</div></li>
+     * <li><b>stopPropagation</b> Boolean: <div class="sub-desc">True to prevent event propagation</div></li>
+     * <li><b>normalized</b> Boolean: <div class="sub-desc">False to pass a browser event to the handler function instead of an Ext.EventObject</div></li>
+     * <li><b>target</b> Ext.Element: <div class="sub-desc">Only call the handler if the event was fired on the target Element, <i>not</i> if the event was bubbled up from a child node.</div></li>
+     * <li><b>delay</b> Number: <div class="sub-desc">The number of milliseconds to delay the invocation of the handler after the event fires.</div></li>
+     * <li><b>single</b> Boolean: <div class="sub-desc">True to add a handler to handle just the next firing of the event, and then remove itself.</div></li>
+     * <li><b>buffer</b> Number: <div class="sub-desc">Causes the handler to be scheduled to run in an {@link Ext.util.DelayedTask} delayed
+     * by the specified number of milliseconds. If the event fires again within that time, the original
+     * handler is <em>not</em> invoked, but the new handler is scheduled in its place.</div></li>
+     * </ul><br>
+     * <p>
+     * <b>Combining Options</b><br>
+     * In the following examples, the shorthand form {@link #on} is used rather than the more verbose
+     * addListener.  The two are equivalent.  Using the options argument, it is possible to combine different
+     * types of listeners:<br>
+     * <br>
+     * A delayed, one-time listener that auto stops the event and adds a custom argument (forumId) to the
+     * options object. The options object is available as the third parameter in the handler function.<div style="margin: 5px 20px 20px;">
+     * Code:<pre><code>
+el.on('click', this.onClick, this, {
+    single: true,
+    delay: 100,
+    stopEvent : true,
+    forumId: 4
+});</code></pre></p>
+     * <p>
+     * <b>Attaching multiple handlers in 1 call</b><br>
+     * The method also allows for a single argument to be passed which is a config object containing properties
+     * which specify multiple handlers.</p>
+     * <p>
+     * Code:<pre><code>
+el.on({
+    'click' : {
+        fn: this.onClick,
+        scope: this,
+        delay: 100
+    },
+    'mouseover' : {
+        fn: this.onMouseOver,
+        scope: this
+    },
+    'mouseout' : {
+        fn: this.onMouseOut,
+        scope: this
+    }
+});</code></pre>
+     * <p>
+     * Or a shorthand syntax:<br>
+     * Code:<pre><code></p>
+el.on({
+    'click' : this.onClick,
+    'mouseover' : this.onMouseOver,
+    'mouseout' : this.onMouseOut,
+    scope: this
+});
+     * </code></pre></p>
+     * <p><b>delegate</b></p>
+     * <p>This is a configuration option that you can pass along when registering a handler for
+     * an event to assist with event delegation. Event delegation is a technique that is used to
+     * reduce memory consumption and prevent exposure to memory-leaks. By registering an event
+     * for a container element as opposed to each element within a container. By setting this
+     * configuration option to a simple selector, the target element will be filtered to look for
+     * a descendant of the target.
+     * For example:<pre><code>
+// using this markup:
+&lt;div id='elId'>
+    &lt;p id='p1'>paragraph one&lt;/p>
+    &lt;p id='p2' class='clickable'>paragraph two&lt;/p>
+    &lt;p id='p3'>paragraph three&lt;/p>
+&lt;/div>
+// utilize event delegation to registering just one handler on the container element:
+el = Ext.get('elId');
+el.on(
+    'click',
+    function(e,t) {
+        // handle click
+        console.info(t.id); // 'p2'
+    },
+    this,
+    {
+        // filter the target element to be a descendant with the class 'clickable'
+        delegate: '.clickable'
+    }
+);
+     * </code></pre></p>
+     * @return {Ext.Element} this
+     */
+    addListener : function(eventName, fn, scope, options){
+        Ext.EventManager.on(this.dom,  eventName, fn, scope || this, options);
+        return this;
+    },
+
+    /**
+     * Removes an event handler from this element.  The shorthand version {@link #un} is equivalent.
+     * <b>Note</b>: if a <i>scope</i> was explicitly specified when {@link #addListener adding} the
+     * listener, the same scope must be specified here.
+     * Example:
+     * <pre><code>
+el.removeListener('click', this.handlerFn);
+// or
+el.un('click', this.handlerFn);
+</code></pre>
+     * @param {String} eventName The name of the event from which to remove the handler.
+     * @param {Function} fn The handler function to remove. <b>This must be a reference to the function passed into the {@link #addListener} call.</b>
+     * @param {Object} scope If a scope (<b><code>this</code></b> reference) was specified when the listener was added,
+     * then this must refer to the same object.
+     * @return {Ext.Element} this
+     */
+    removeListener : function(eventName, fn, scope){
+        Ext.EventManager.removeListener(this.dom,  eventName, fn, scope || this);
+        return this;
+    },
+
+    /**
+     * Removes all previous added listeners from this element
+     * @return {Ext.Element} this
+     */
+    removeAllListeners : function(){
+        Ext.EventManager.removeAll(this.dom);
+        return this;
+    },
+
+    /**
+     * Recursively removes all previous added listeners from this element and its children
+     * @return {Ext.Element} this
+     */
+    purgeAllListeners : function() {
+        Ext.EventManager.purgeElement(this, true);
+        return this;
+    },
+    /**
+     * @private Test if size has a unit, otherwise appends the default
+     */
+    addUnits : function(size){
+        if(size === "" || size == "auto" || size === undefined){
+            size = size || '';
+        } else if(!isNaN(size) || !unitPattern.test(size)){
+            size = size + (this.defaultUnit || 'px');
+        }
+        return size;
+    },
+
+    /**
+     * <p>Updates the <a href="http://developer.mozilla.org/en/DOM/element.innerHTML">innerHTML</a> of this Element
+     * from a specified URL. Note that this is subject to the <a href="http://en.wikipedia.org/wiki/Same_origin_policy">Same Origin Policy</a></p>
+     * <p>Updating innerHTML of an element will <b>not</b> execute embedded <tt>&lt;script></tt> elements. This is a browser restriction.</p>
+     * @param {Mixed} options. Either a sring containing the URL from which to load the HTML, or an {@link Ext.Ajax#request} options object specifying
+     * exactly how to request the HTML.
+     * @return {Ext.Element} this
+     */
+    load : function(url, params, cb){
+        Ext.Ajax.request(Ext.apply({
+            params: params,
+            url: url.url || url,
+            callback: cb,
+            el: this.dom,
+            indicatorText: url.indicatorText || ''
+        }, Ext.isObject(url) ? url : {}));
+        return this;
+    },
+
+    /**
+     * Tests various css rules/browsers to determine if this element uses a border box
+     * @return {Boolean}
+     */
+    isBorderBox : function(){
+        return Ext.isBorderBox || Ext.isForcedBorderBox || noBoxAdjust[(this.dom.tagName || "").toLowerCase()];
+    },
+
+    /**
+     * <p>Removes this element's dom reference.  Note that event and cache removal is handled at {@link Ext#removeNode}</p>
+     */
+    remove : function(){
+        var me = this,
+            dom = me.dom;
+
+        if (dom) {
+            delete me.dom;
+            Ext.removeNode(dom);
+        }
+    },
+
+    /**
+     * Sets up event handlers to call the passed functions when the mouse is moved into and out of the Element.
+     * @param {Function} overFn The function to call when the mouse enters the Element.
+     * @param {Function} outFn The function to call when the mouse leaves the Element.
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the functions are executed. Defaults to the Element's DOM element.
+     * @param {Object} options (optional) Options for the listener. See {@link Ext.util.Observable#addListener the <tt>options</tt> parameter}.
+     * @return {Ext.Element} this
+     */
+    hover : function(overFn, outFn, scope, options){
+        var me = this;
+        me.on('mouseenter', overFn, scope || me.dom, options);
+        me.on('mouseleave', outFn, scope || me.dom, options);
+        return me;
+    },
+
+    /**
+     * Returns true if this element is an ancestor of the passed element
+     * @param {HTMLElement/String} el The element to check
+     * @return {Boolean} True if this element is an ancestor of el, else false
+     */
+    contains : function(el){
+        return !el ? false : Ext.lib.Dom.isAncestor(this.dom, el.dom ? el.dom : el);
+    },
+
+    /**
+     * Returns the value of a namespaced attribute from the element's underlying DOM node.
+     * @param {String} namespace The namespace in which to look for the attribute
+     * @param {String} name The attribute name
+     * @return {String} The attribute value
+     * @deprecated
+     */
+    getAttributeNS : function(ns, name){
+        return this.getAttribute(name, ns);
+    },
+
+    /**
+     * Returns the value of an attribute from the element's underlying DOM node.
+     * @param {String} name The attribute name
+     * @param {String} namespace (optional) The namespace in which to look for the attribute
+     * @return {String} The attribute value
+     */
+    getAttribute: (function(){
+        var test = document.createElement('table'),
+            isBrokenOnTable = false,
+            hasGetAttribute = 'getAttribute' in test,
+            unknownRe = /undefined|unknown/;
+
+        if (hasGetAttribute) {
+
+            try {
+                test.getAttribute('ext:qtip');
+            } catch (e) {
+                isBrokenOnTable = true;
+            }
+
+            return function(name, ns) {
+                var el = this.dom,
+                    value;
+
+                if (el.getAttributeNS) {
+                    value  = el.getAttributeNS(ns, name) || null;
+                }
+
+                if (value == null) {
+                    if (ns) {
+                        if (isBrokenOnTable && el.tagName.toUpperCase() == 'TABLE') {
+                            try {
+                                value = el.getAttribute(ns + ':' + name);
+                            } catch (e) {
+                                value = '';
+                            }
+                        } else {
+                            value = el.getAttribute(ns + ':' + name);
+                        }
+                    } else {
+                        value = el.getAttribute(name) || el[name];
+                    }
+                }
+                return value || '';
+            };
+        } else {
+            return function(name, ns) {
+                var el = this.om,
+                    value,
+                    attribute;
+
+                if (ns) {
+                    attribute = el[ns + ':' + name];
+                    value = unknownRe.test(typeof attribute) ? undefined : attribute;
+                } else {
+                    value = el[name];
+                }
+                return value || '';
+            };
+        }
+        test = null;
+    })(),
+
+    /**
+    * Update the innerHTML of this element
+    * @param {String} html The new HTML
+    * @return {Ext.Element} this
+     */
+    update : function(html) {
+        if (this.dom) {
+            this.dom.innerHTML = html;
+        }
+        return this;
+    }
+};
+
+var ep = El.prototype;
+
+El.addMethods = function(o){
+   Ext.apply(ep, o);
+};
+
+/**
+ * Appends an event handler (shorthand for {@link #addListener}).
+ * @param {String} eventName The name of event to handle.
+ * @param {Function} fn The handler function the event invokes.
+ * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the handler function is executed.
+ * @param {Object} options (optional) An object containing standard {@link #addListener} options
+ * @member Ext.Element
+ * @method on
+ */
+ep.on = ep.addListener;
+
+/**
+ * Removes an event handler from this element (see {@link #removeListener} for additional notes).
+ * @param {String} eventName The name of the event from which to remove the handler.
+ * @param {Function} fn The handler function to remove. <b>This must be a reference to the function passed into the {@link #addListener} call.</b>
+ * @param {Object} scope If a scope (<b><code>this</code></b> reference) was specified when the listener was added,
+ * then this must refer to the same object.
+ * @return {Ext.Element} this
+ * @member Ext.Element
+ * @method un
+ */
+ep.un = ep.removeListener;
+
+/**
+ * true to automatically adjust width and height settings for box-model issues (default to true)
+ */
+ep.autoBoxAdjust = true;
+
+// private
+var unitPattern = /\d+(px|em|%|en|ex|pt|in|cm|mm|pc)$/i,
+    docEl;
+
+/**
+ * Retrieves Ext.Element objects.
+ * <p><b>This method does not retrieve {@link Ext.Component Component}s.</b> This method
+ * retrieves Ext.Element objects which encapsulate DOM elements. To retrieve a Component by
+ * its ID, use {@link Ext.ComponentMgr#get}.</p>
+ * <p>Uses simple caching to consistently return the same object. Automatically fixes if an
+ * object was recreated with the same id via AJAX or DOM.</p>
+ * @param {Mixed} el The id of the node, a DOM Node or an existing Element.
+ * @return {Element} The Element object (or null if no matching element was found)
+ * @static
+ * @member Ext.Element
+ * @method get
+ */
+El.get = function(el){
+    var ex,
+        elm,
+        id;
+    if(!el){ return null; }
+    if (typeof el == "string") { // element id
+        if (!(elm = DOC.getElementById(el))) {
+            return null;
+        }
+        if (EC[el] && EC[el].el) {
+            ex = EC[el].el;
+            ex.dom = elm;
+        } else {
+            ex = El.addToCache(new El(elm));
+        }
+        return ex;
+    } else if (el.tagName) { // dom element
+        if(!(id = el.id)){
+            id = Ext.id(el);
+        }
+        if (EC[id] && EC[id].el) {
+            ex = EC[id].el;
+            ex.dom = el;
+        } else {
+            ex = El.addToCache(new El(el));
+        }
+        return ex;
+    } else if (el instanceof El) {
+        if(el != docEl){
+            // refresh dom element in case no longer valid,
+            // catch case where it hasn't been appended
+
+            // If an el instance is passed, don't pass to getElementById without some kind of id
+            if (Ext.isIE && (el.id == undefined || el.id == '')) {
+                el.dom = el.dom;
+            } else {
+                el.dom = DOC.getElementById(el.id) || el.dom;
+            }
+        }
+        return el;
+    } else if(el.isComposite) {
+        return el;
+    } else if(Ext.isArray(el)) {
+        return El.select(el);
+    } else if(el == DOC) {
+        // create a bogus element object representing the document object
+        if(!docEl){
+            var f = function(){};
+            f.prototype = El.prototype;
+            docEl = new f();
+            docEl.dom = DOC;
+        }
+        return docEl;
+    }
+    return null;
+};
+
+El.addToCache = function(el, id){
+    id = id || el.id;
+    EC[id] = {
+        el:  el,
+        data: {},
+        events: {}
+    };
+    return el;
+};
+
+// private method for getting and setting element data
+El.data = function(el, key, value){
+    el = El.get(el);
+    if (!el) {
+        return null;
+    }
+    var c = EC[el.id].data;
+    if(arguments.length == 2){
+        return c[key];
+    }else{
+        return (c[key] = value);
+    }
+};
+
+// private
+// Garbage collection - uncache elements/purge listeners on orphaned elements
+// so we don't hold a reference and cause the browser to retain them
+function garbageCollect(){
+    if(!Ext.enableGarbageCollector){
+        clearInterval(El.collectorThreadId);
+    } else {
+        var eid,
+            el,
+            d,
+            o;
+
+        for(eid in EC){
+            o = EC[eid];
+            if(o.skipGC){
+                Ext.EventManager.removeFromSpecialCache(o.el);
+                continue;
+            }
+            el = o.el;
+            d = el.dom;
+            // -------------------------------------------------------
+            // Determining what is garbage:
+            // -------------------------------------------------------
+            // !d
+            // dom node is null, definitely garbage
+            // -------------------------------------------------------
+            // !d.parentNode
+            // no parentNode == direct orphan, definitely garbage
+            // -------------------------------------------------------
+            // !d.offsetParent && !document.getElementById(eid)
+            // display none elements have no offsetParent so we will
+            // also try to look it up by it's id. However, check
+            // offsetParent first so we don't do unneeded lookups.
+            // This enables collection of elements that are not orphans
+            // directly, but somewhere up the line they have an orphan
+            // parent.
+            // -------------------------------------------------------
+            if(!d || !d.parentNode || (!d.offsetParent && !DOC.getElementById(eid))){
+                if(Ext.enableListenerCollection){
+                    Ext.EventManager.removeAll(d);
+                }
+                delete EC[eid];
+            }
+        }
+        // Cleanup IE Object leaks
+        if (Ext.isIE) {
+            var t = {};
+            for (eid in EC) {
+                t[eid] = EC[eid];
+            }
+            EC = Ext.elCache = t;
+        }
+    }
+}
+El.collectorThreadId = setInterval(garbageCollect, 30000);
+
+var flyFn = function(){};
+flyFn.prototype = El.prototype;
+
+// dom is optional
+El.Flyweight = function(dom){
+    this.dom = dom;
+};
+
+El.Flyweight.prototype = new flyFn();
+El.Flyweight.prototype.isFlyweight = true;
+El._flyweights = {};
+
+/**
+ * <p>Gets the globally shared flyweight Element, with the passed node as the active element. Do not store a reference to this element -
+ * the dom node can be overwritten by other code. Shorthand of {@link Ext.Element#fly}</p>
+ * <p>Use this to make one-time references to DOM elements which are not going to be accessed again either by
+ * application code, or by Ext's classes. If accessing an element which will be processed regularly, then {@link Ext#get}
+ * will be more appropriate to take advantage of the caching provided by the Ext.Element class.</p>
+ * @param {String/HTMLElement} el The dom node or id
+ * @param {String} named (optional) Allows for creation of named reusable flyweights to prevent conflicts
+ * (e.g. internally Ext uses "_global")
+ * @return {Element} The shared Element object (or null if no matching element was found)
+ * @member Ext.Element
+ * @method fly
+ */
+El.fly = function(el, named){
+    var ret = null;
+    named = named || '_global';
+
+    if (el = Ext.getDom(el)) {
+        (El._flyweights[named] = El._flyweights[named] || new El.Flyweight()).dom = el;
+        ret = El._flyweights[named];
+    }
+    return ret;
+};
+
+/**
+ * Retrieves Ext.Element objects.
+ * <p><b>This method does not retrieve {@link Ext.Component Component}s.</b> This method
+ * retrieves Ext.Element objects which encapsulate DOM elements. To retrieve a Component by
+ * its ID, use {@link Ext.ComponentMgr#get}.</p>
+ * <p>Uses simple caching to consistently return the same object. Automatically fixes if an
+ * object was recreated with the same id via AJAX or DOM.</p>
+ * Shorthand of {@link Ext.Element#get}
+ * @param {Mixed} el The id of the node, a DOM Node or an existing Element.
+ * @return {Element} The Element object (or null if no matching element was found)
+ * @member Ext
+ * @method get
+ */
+Ext.get = El.get;
+
+/**
+ * <p>Gets the globally shared flyweight Element, with the passed node as the active element. Do not store a reference to this element -
+ * the dom node can be overwritten by other code. Shorthand of {@link Ext.Element#fly}</p>
+ * <p>Use this to make one-time references to DOM elements which are not going to be accessed again either by
+ * application code, or by Ext's classes. If accessing an element which will be processed regularly, then {@link Ext#get}
+ * will be more appropriate to take advantage of the caching provided by the Ext.Element class.</p>
+ * @param {String/HTMLElement} el The dom node or id
+ * @param {String} named (optional) Allows for creation of named reusable flyweights to prevent conflicts
+ * (e.g. internally Ext uses "_global")
+ * @return {Element} The shared Element object (or null if no matching element was found)
+ * @member Ext
+ * @method fly
+ */
+Ext.fly = El.fly;
+
+// speedy lookup for elements never to box adjust
+var noBoxAdjust = Ext.isStrict ? {
+    select:1
+} : {
+    input:1, select:1, textarea:1
+};
+if(Ext.isIE || Ext.isGecko){
+    noBoxAdjust['button'] = 1;
+}
+
+})();
+
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.Element
+ */
+Ext.Element.addMethods(function(){
+	var PARENTNODE = 'parentNode',
+		NEXTSIBLING = 'nextSibling',
+		PREVIOUSSIBLING = 'previousSibling',
+		DQ = Ext.DomQuery,
+		GET = Ext.get;
+	
+	return {
+		/**
+	     * Looks at this node and then at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
+	     * @param {String} selector The simple selector to test
+	     * @param {Number/Mixed} maxDepth (optional) The max depth to search as a number or element (defaults to 50 || document.body)
+	     * @param {Boolean} returnEl (optional) True to return a Ext.Element object instead of DOM node
+	     * @return {HTMLElement} The matching DOM node (or null if no match was found)
+	     */
+	    findParent : function(simpleSelector, maxDepth, returnEl){
+	        var p = this.dom,
+	        	b = document.body, 
+	        	depth = 0, 	        	
+	        	stopEl;	        
+            if(Ext.isGecko && Object.prototype.toString.call(p) == '[object XULElement]') {
+                return null;
+            }
+	        maxDepth = maxDepth || 50;
+	        if (isNaN(maxDepth)) {
+	            stopEl = Ext.getDom(maxDepth);
+	            maxDepth = Number.MAX_VALUE;
+	        }
+	        while(p && p.nodeType == 1 && depth < maxDepth && p != b && p != stopEl){
+	            if(DQ.is(p, simpleSelector)){
+	                return returnEl ? GET(p) : p;
+	            }
+	            depth++;
+	            p = p.parentNode;
+	        }
+	        return null;
+	    },
+	
+	    /**
+	     * Looks at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
+	     * @param {String} selector The simple selector to test
+	     * @param {Number/Mixed} maxDepth (optional) The max depth to
+	            search as a number or element (defaults to 10 || document.body)
+	     * @param {Boolean} returnEl (optional) True to return a Ext.Element object instead of DOM node
+	     * @return {HTMLElement} The matching DOM node (or null if no match was found)
+	     */
+	    findParentNode : function(simpleSelector, maxDepth, returnEl){
+	        var p = Ext.fly(this.dom.parentNode, '_internal');
+	        return p ? p.findParent(simpleSelector, maxDepth, returnEl) : null;
+	    },
+	
+	    /**
+	     * Walks up the dom looking for a parent node that matches the passed simple selector (e.g. div.some-class or span:first-child).
+	     * This is a shortcut for findParentNode() that always returns an Ext.Element.
+	     * @param {String} selector The simple selector to test
+	     * @param {Number/Mixed} maxDepth (optional) The max depth to
+	            search as a number or element (defaults to 10 || document.body)
+	     * @return {Ext.Element} The matching DOM node (or null if no match was found)
+	     */
+	    up : function(simpleSelector, maxDepth){
+	        return this.findParentNode(simpleSelector, maxDepth, true);
+	    },
+	
+	    /**
+	     * Creates a {@link Ext.CompositeElement} for child nodes based on the passed CSS selector (the selector should not contain an id).
+	     * @param {String} selector The CSS selector
+	     * @return {CompositeElement/CompositeElementLite} The composite element
+	     */
+	    select : function(selector){
+	        return Ext.Element.select(selector, this.dom);
+	    },
+	
+	    /**
+	     * Selects child nodes based on the passed CSS selector (the selector should not contain an id).
+	     * @param {String} selector The CSS selector
+	     * @return {Array} An array of the matched nodes
+	     */
+	    query : function(selector){
+	        return DQ.select(selector, this.dom);
+	    },
+	
+	    /**
+	     * Selects a single child at any depth below this element based on the passed CSS selector (the selector should not contain an id).
+	     * @param {String} selector The CSS selector
+	     * @param {Boolean} returnDom (optional) True to return the DOM node instead of Ext.Element (defaults to false)
+	     * @return {HTMLElement/Ext.Element} The child Ext.Element (or DOM node if returnDom = true)
+	     */
+	    child : function(selector, returnDom){
+	        var n = DQ.selectNode(selector, this.dom);
+	        return returnDom ? n : GET(n);
+	    },
+	
+	    /**
+	     * Selects a single *direct* child based on the passed CSS selector (the selector should not contain an id).
+	     * @param {String} selector The CSS selector
+	     * @param {Boolean} returnDom (optional) True to return the DOM node instead of Ext.Element (defaults to false)
+	     * @return {HTMLElement/Ext.Element} The child Ext.Element (or DOM node if returnDom = true)
+	     */
+	    down : function(selector, returnDom){
+	        var n = DQ.selectNode(" > " + selector, this.dom);
+	        return returnDom ? n : GET(n);
+	    },
+	
+		 /**
+	     * Gets the parent node for this element, optionally chaining up trying to match a selector
+	     * @param {String} selector (optional) Find a parent node that matches the passed simple selector
+	     * @param {Boolean} returnDom (optional) True to return a raw dom node instead of an Ext.Element
+	     * @return {Ext.Element/HTMLElement} The parent node or null
+		 */
+	    parent : function(selector, returnDom){
+	        return this.matchNode(PARENTNODE, PARENTNODE, selector, returnDom);
+	    },
+	
+	     /**
+	     * Gets the next sibling, skipping text nodes
+	     * @param {String} selector (optional) Find the next sibling that matches the passed simple selector
+	     * @param {Boolean} returnDom (optional) True to return a raw dom node instead of an Ext.Element
+	     * @return {Ext.Element/HTMLElement} The next sibling or null
+		 */
+	    next : function(selector, returnDom){
+	        return this.matchNode(NEXTSIBLING, NEXTSIBLING, selector, returnDom);
+	    },
+	
+	    /**
+	     * Gets the previous sibling, skipping text nodes
+	     * @param {String} selector (optional) Find the previous sibling that matches the passed simple selector
+	     * @param {Boolean} returnDom (optional) True to return a raw dom node instead of an Ext.Element
+	     * @return {Ext.Element/HTMLElement} The previous sibling or null
+		 */
+	    prev : function(selector, returnDom){
+	        return this.matchNode(PREVIOUSSIBLING, PREVIOUSSIBLING, selector, returnDom);
+	    },
+	
+	
+	    /**
+	     * Gets the first child, skipping text nodes
+	     * @param {String} selector (optional) Find the next sibling that matches the passed simple selector
+	     * @param {Boolean} returnDom (optional) True to return a raw dom node instead of an Ext.Element
+	     * @return {Ext.Element/HTMLElement} The first child or null
+		 */
+	    first : function(selector, returnDom){
+	        return this.matchNode(NEXTSIBLING, 'firstChild', selector, returnDom);
+	    },
+	
+	    /**
+	     * Gets the last child, skipping text nodes
+	     * @param {String} selector (optional) Find the previous sibling that matches the passed simple selector
+	     * @param {Boolean} returnDom (optional) True to return a raw dom node instead of an Ext.Element
+	     * @return {Ext.Element/HTMLElement} The last child or null
+		 */
+	    last : function(selector, returnDom){
+	        return this.matchNode(PREVIOUSSIBLING, 'lastChild', selector, returnDom);
+	    },
+	    
+	    matchNode : function(dir, start, selector, returnDom){
+	        var n = this.dom[start];
+	        while(n){
+	            if(n.nodeType == 1 && (!selector || DQ.is(n, selector))){
+	                return !returnDom ? GET(n) : n;
+	            }
+	            n = n[dir];
+	        }
+	        return null;
+	    }	
+    };
+}());
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.Element
+ */
+Ext.Element.addMethods(
+function() {
+	var GETDOM = Ext.getDom,
+		GET = Ext.get,
+		DH = Ext.DomHelper;
+	
+	return {
+	    /**
+	     * Appends the passed element(s) to this element
+	     * @param {String/HTMLElement/Array/Element/CompositeElement} el
+	     * @return {Ext.Element} this
+	     */
+	    appendChild: function(el){        
+	        return GET(el).appendTo(this);        
+	    },
+	
+	    /**
+	     * Appends this element to the passed element
+	     * @param {Mixed} el The new parent element
+	     * @return {Ext.Element} this
+	     */
+	    appendTo: function(el){        
+	        GETDOM(el).appendChild(this.dom);        
+	        return this;
+	    },
+	
+	    /**
+	     * Inserts this element before the passed element in the DOM
+	     * @param {Mixed} el The element before which this element will be inserted
+	     * @return {Ext.Element} this
+	     */
+	    insertBefore: function(el){  	          
+	        (el = GETDOM(el)).parentNode.insertBefore(this.dom, el);
+	        return this;
+	    },
+	
+	    /**
+	     * Inserts this element after the passed element in the DOM
+	     * @param {Mixed} el The element to insert after
+	     * @return {Ext.Element} this
+	     */
+	    insertAfter: function(el){
+	        (el = GETDOM(el)).parentNode.insertBefore(this.dom, el.nextSibling);
+	        return this;
+	    },
+	
+	    /**
+	     * Inserts (or creates) an element (or DomHelper config) as the first child of this element
+	     * @param {Mixed/Object} el The id or element to insert or a DomHelper config to create and insert
+	     * @return {Ext.Element} The new child
+	     */
+	    insertFirst: function(el, returnDom){
+            el = el || {};
+            if(el.nodeType || el.dom || typeof el == 'string'){ // element
+                el = GETDOM(el);
+                this.dom.insertBefore(el, this.dom.firstChild);
+                return !returnDom ? GET(el) : el;
+            }else{ // dh config
+                return this.createChild(el, this.dom.firstChild, returnDom);
+            }
+        },
+	
+	    /**
+	     * Replaces the passed element with this element
+	     * @param {Mixed} el The element to replace
+	     * @return {Ext.Element} this
+	     */
+	    replace: function(el){
+	        el = GET(el);
+	        this.insertBefore(el);
+	        el.remove();
+	        return this;
+	    },
+	
+	    /**
+	     * Replaces this element with the passed element
+	     * @param {Mixed/Object} el The new element or a DomHelper config of an element to create
+	     * @return {Ext.Element} this
+	     */
+	    replaceWith: function(el){
+		    var me = this;
+                
+            if(el.nodeType || el.dom || typeof el == 'string'){
+                el = GETDOM(el);
+                me.dom.parentNode.insertBefore(el, me.dom);
+            }else{
+                el = DH.insertBefore(me.dom, el);
+            }
+	        
+	        delete Ext.elCache[me.id];
+	        Ext.removeNode(me.dom);      
+	        me.id = Ext.id(me.dom = el);
+	        Ext.Element.addToCache(me.isFlyweight ? new Ext.Element(me.dom) : me);     
+            return me;
+	    },
+	    
+		/**
+		 * Creates the passed DomHelper config and appends it to this element or optionally inserts it before the passed child element.
+		 * @param {Object} config DomHelper element config object.  If no tag is specified (e.g., {tag:'input'}) then a div will be
+		 * automatically generated with the specified attributes.
+		 * @param {HTMLElement} insertBefore (optional) a child element of this element
+		 * @param {Boolean} returnDom (optional) true to return the dom node instead of creating an Element
+		 * @return {Ext.Element} The new child element
+		 */
+		createChild: function(config, insertBefore, returnDom){
+		    config = config || {tag:'div'};
+		    return insertBefore ? 
+		    	   DH.insertBefore(insertBefore, config, returnDom !== true) :	
+		    	   DH[!this.dom.firstChild ? 'overwrite' : 'append'](this.dom, config,  returnDom !== true);
+		},
+		
+		/**
+		 * Creates and wraps this element with another element
+		 * @param {Object} config (optional) DomHelper element config object for the wrapper element or null for an empty div
+		 * @param {Boolean} returnDom (optional) True to return the raw DOM element instead of Ext.Element
+		 * @return {HTMLElement/Element} The newly created wrapper element
+		 */
+		wrap: function(config, returnDom){        
+		    var newEl = DH.insertBefore(this.dom, config || {tag: "div"}, !returnDom);
+		    newEl.dom ? newEl.dom.appendChild(this.dom) : newEl.appendChild(this.dom);
+		    return newEl;
+		},
+		
+		/**
+		 * Inserts an html fragment into this element
+		 * @param {String} where Where to insert the html in relation to this element - beforeBegin, afterBegin, beforeEnd, afterEnd.
+		 * @param {String} html The HTML fragment
+		 * @param {Boolean} returnEl (optional) True to return an Ext.Element (defaults to false)
+		 * @return {HTMLElement/Ext.Element} The inserted node (or nearest related if more than 1 inserted)
+		 */
+		insertHtml : function(where, html, returnEl){
+		    var el = DH.insertHtml(where, this.dom, html);
+		    return returnEl ? Ext.get(el) : el;
+		}
+	};
+}());
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.Element
+ */
+Ext.Element.addMethods(function(){
+    // local style camelizing for speed
+    var supports = Ext.supports,
+        propCache = {},
+        camelRe = /(-[a-z])/gi,
+        view = document.defaultView,
+        opacityRe = /alpha\(opacity=(.*)\)/i,
+        trimRe = /^\s+|\s+$/g,
+        EL = Ext.Element,
+        spacesRe = /\s+/,
+        wordsRe = /\w/g,
+        PADDING = "padding",
+        MARGIN = "margin",
+        BORDER = "border",
+        LEFT = "-left",
+        RIGHT = "-right",
+        TOP = "-top",
+        BOTTOM = "-bottom",
+        WIDTH = "-width",
+        MATH = Math,
+        HIDDEN = 'hidden',
+        ISCLIPPED = 'isClipped',
+        OVERFLOW = 'overflow',
+        OVERFLOWX = 'overflow-x',
+        OVERFLOWY = 'overflow-y',
+        ORIGINALCLIP = 'originalClip',
+        // special markup used throughout Ext when box wrapping elements
+        borders = {l: BORDER + LEFT + WIDTH, r: BORDER + RIGHT + WIDTH, t: BORDER + TOP + WIDTH, b: BORDER + BOTTOM + WIDTH},
+        paddings = {l: PADDING + LEFT, r: PADDING + RIGHT, t: PADDING + TOP, b: PADDING + BOTTOM},
+        margins = {l: MARGIN + LEFT, r: MARGIN + RIGHT, t: MARGIN + TOP, b: MARGIN + BOTTOM},
+        data = Ext.Element.data;
+
+
+    // private
+    function camelFn(m, a) {
+        return a.charAt(1).toUpperCase();
+    }
+
+    function chkCache(prop) {
+        return propCache[prop] || (propCache[prop] = prop == 'float' ? (supports.cssFloat ? 'cssFloat' : 'styleFloat') : prop.replace(camelRe, camelFn));
+    }
+
+    return {
+        // private  ==> used by Fx
+        adjustWidth : function(width) {
+            var me = this;
+            var isNum = (typeof width == "number");
+            if(isNum && me.autoBoxAdjust && !me.isBorderBox()){
+               width -= (me.getBorderWidth("lr") + me.getPadding("lr"));
+            }
+            return (isNum && width < 0) ? 0 : width;
+        },
+
+        // private   ==> used by Fx
+        adjustHeight : function(height) {
+            var me = this;
+            var isNum = (typeof height == "number");
+            if(isNum && me.autoBoxAdjust && !me.isBorderBox()){
+               height -= (me.getBorderWidth("tb") + me.getPadding("tb"));
+            }
+            return (isNum && height < 0) ? 0 : height;
+        },
+
+
+        /**
+         * Adds one or more CSS classes to the element. Duplicate classes are automatically filtered out.
+         * @param {String/Array} className The CSS class to add, or an array of classes
+         * @return {Ext.Element} this
+         */
+        addClass : function(className){
+            var me = this,
+                i,
+                len,
+                v,
+                cls = [];
+            // Separate case is for speed
+            if (!Ext.isArray(className)) {
+                if (typeof className == 'string' && !this.hasClass(className)) {
+                    me.dom.className += " " + className;
+                }
+            }
+            else {
+                for (i = 0, len = className.length; i < len; i++) {
+                    v = className[i];
+                    if (typeof v == 'string' && (' ' + me.dom.className + ' ').indexOf(' ' + v + ' ') == -1) {
+                        cls.push(v);
+                    }
+                }
+                if (cls.length) {
+                    me.dom.className += " " + cls.join(" ");
+                }
+            }
+            return me;
+        },
+
+        /**
+         * Removes one or more CSS classes from the element.
+         * @param {String/Array} className The CSS class to remove, or an array of classes
+         * @return {Ext.Element} this
+         */
+        removeClass : function(className){
+            var me = this,
+                i,
+                idx,
+                len,
+                cls,
+                elClasses;
+            if (!Ext.isArray(className)){
+                className = [className];
+            }
+            if (me.dom && me.dom.className) {
+                elClasses = me.dom.className.replace(trimRe, '').split(spacesRe);
+                for (i = 0, len = className.length; i < len; i++) {
+                    cls = className[i];
+                    if (typeof cls == 'string') {
+                        cls = cls.replace(trimRe, '');
+                        idx = elClasses.indexOf(cls);
+                        if (idx != -1) {
+                            elClasses.splice(idx, 1);
+                        }
+                    }
+                }
+                me.dom.className = elClasses.join(" ");
+            }
+            return me;
+        },
+
+        /**
+         * Adds one or more CSS classes to this element and removes the same class(es) from all siblings.
+         * @param {String/Array} className The CSS class to add, or an array of classes
+         * @return {Ext.Element} this
+         */
+        radioClass : function(className){
+            var cn = this.dom.parentNode.childNodes,
+                v,
+                i,
+                len;
+            className = Ext.isArray(className) ? className : [className];
+            for (i = 0, len = cn.length; i < len; i++) {
+                v = cn[i];
+                if (v && v.nodeType == 1) {
+                    Ext.fly(v, '_internal').removeClass(className);
+                }
+            };
+            return this.addClass(className);
+        },
+
+        /**
+         * Toggles the specified CSS class on this element (removes it if it already exists, otherwise adds it).
+         * @param {String} className The CSS class to toggle
+         * @return {Ext.Element} this
+         */
+        toggleClass : function(className){
+            return this.hasClass(className) ? this.removeClass(className) : this.addClass(className);
+        },
+
+        /**
+         * Checks if the specified CSS class exists on this element's DOM node.
+         * @param {String} className The CSS class to check for
+         * @return {Boolean} True if the class exists, else false
+         */
+        hasClass : function(className){
+            return className && (' '+this.dom.className+' ').indexOf(' '+className+' ') != -1;
+        },
+
+        /**
+         * Replaces a CSS class on the element with another.  If the old name does not exist, the new name will simply be added.
+         * @param {String} oldClassName The CSS class to replace
+         * @param {String} newClassName The replacement CSS class
+         * @return {Ext.Element} this
+         */
+        replaceClass : function(oldClassName, newClassName){
+            return this.removeClass(oldClassName).addClass(newClassName);
+        },
+
+        isStyle : function(style, val) {
+            return this.getStyle(style) == val;
+        },
+
+        /**
+         * Normalizes currentStyle and computedStyle.
+         * @param {String} property The style property whose value is returned.
+         * @return {String} The current value of the style property for this element.
+         */
+        getStyle : function(){
+            return view && view.getComputedStyle ?
+                function(prop){
+                    var el = this.dom,
+                        v,
+                        cs,
+                        out,
+                        display;
+
+                    if(el == document){
+                        return null;
+                    }
+                    prop = chkCache(prop);
+                    out = (v = el.style[prop]) ? v :
+                           (cs = view.getComputedStyle(el, "")) ? cs[prop] : null;
+                           
+                    // Ignore cases when the margin is correctly reported as 0, the bug only shows
+                    // numbers larger.
+                    if(prop == 'marginRight' && out != '0px' && !supports.correctRightMargin){
+                        display = el.style.display;
+                        el.style.display = 'inline-block';
+                        out = view.getComputedStyle(el, '').marginRight;
+                        el.style.display = display;
+                    }
+                    
+                    if(prop == 'backgroundColor' && out == 'rgba(0, 0, 0, 0)' && !supports.correctTransparentColor){
+                        out = 'transparent';
+                    }
+                    return out;
+                } :
+                function(prop){
+                    var el = this.dom,
+                        m,
+                        cs;
+
+                    if(el == document) return null;
+                    if (prop == 'opacity') {
+                        if (el.style.filter.match) {
+                            if(m = el.style.filter.match(opacityRe)){
+                                var fv = parseFloat(m[1]);
+                                if(!isNaN(fv)){
+                                    return fv ? fv / 100 : 0;
+                                }
+                            }
+                        }
+                        return 1;
+                    }
+                    prop = chkCache(prop);
+                    return el.style[prop] || ((cs = el.currentStyle) ? cs[prop] : null);
+                };
+        }(),
+
+        /**
+         * Return the CSS color for the specified CSS attribute. rgb, 3 digit (like #fff) and valid values
+         * are convert to standard 6 digit hex color.
+         * @param {String} attr The css attribute
+         * @param {String} defaultValue The default value to use when a valid color isn't found
+         * @param {String} prefix (optional) defaults to #. Use an empty string when working with
+         * color anims.
+         */
+        getColor : function(attr, defaultValue, prefix){
+            var v = this.getStyle(attr),
+                color = (typeof prefix != 'undefined') ? prefix : '#',
+                h;
+
+            if(!v || (/transparent|inherit/.test(v))) {
+                return defaultValue;
+            }
+            if(/^r/.test(v)){
+                Ext.each(v.slice(4, v.length -1).split(','), function(s){
+                    h = parseInt(s, 10);
+                    color += (h < 16 ? '0' : '') + h.toString(16);
+                });
+            }else{
+                v = v.replace('#', '');
+                color += v.length == 3 ? v.replace(/^(\w)(\w)(\w)$/, '$1$1$2$2$3$3') : v;
+            }
+            return(color.length > 5 ? color.toLowerCase() : defaultValue);
+        },
+
+        /**
+         * Wrapper for setting style properties, also takes single object parameter of multiple styles.
+         * @param {String/Object} property The style property to be set, or an object of multiple styles.
+         * @param {String} value (optional) The value to apply to the given property, or null if an object was passed.
+         * @return {Ext.Element} this
+         */
+        setStyle : function(prop, value){
+            var tmp, style;
+            
+            if (typeof prop != 'object') {
+                tmp = {};
+                tmp[prop] = value;
+                prop = tmp;
+            }
+            for (style in prop) {
+                value = prop[style];
+                style == 'opacity' ?
+                    this.setOpacity(value) :
+                    this.dom.style[chkCache(style)] = value;
+            }
+            return this;
+        },
+
+        /**
+         * Set the opacity of the element
+         * @param {Float} opacity The new opacity. 0 = transparent, .5 = 50% visibile, 1 = fully visible, etc
+         * @param {Boolean/Object} animate (optional) a standard Element animation config object or <tt>true</tt> for
+         * the default animation (<tt>{duration: .35, easing: 'easeIn'}</tt>)
+         * @return {Ext.Element} this
+         */
+         setOpacity : function(opacity, animate){
+            var me = this,
+                s = me.dom.style;
+
+            if(!animate || !me.anim){
+                if(Ext.isIE9m){
+                    var opac = opacity < 1 ? 'alpha(opacity=' + opacity * 100 + ')' : '',
+                    val = s.filter.replace(opacityRe, '').replace(trimRe, '');
+
+                    s.zoom = 1;
+                    s.filter = val + (val.length > 0 ? ' ' : '') + opac;
+                }else{
+                    s.opacity = opacity;
+                }
+            }else{
+                me.anim({opacity: {to: opacity}}, me.preanim(arguments, 1), null, .35, 'easeIn');
+            }
+            return me;
+        },
+
+        /**
+         * Clears any opacity settings from this element. Required in some cases for IE.
+         * @return {Ext.Element} this
+         */
+        clearOpacity : function(){
+            var style = this.dom.style;
+            if(Ext.isIE9m){
+                if(!Ext.isEmpty(style.filter)){
+                    style.filter = style.filter.replace(opacityRe, '').replace(trimRe, '');
+                }
+            }else{
+                style.opacity = style['-moz-opacity'] = style['-khtml-opacity'] = '';
+            }
+            return this;
+        },
+
+        /**
+         * Returns the offset height of the element
+         * @param {Boolean} contentHeight (optional) true to get the height minus borders and padding
+         * @return {Number} The element's height
+         */
+        getHeight : function(contentHeight){
+            var me = this,
+                dom = me.dom,
+                hidden = Ext.isIE9m && me.isStyle('display', 'none'),
+                h = MATH.max(dom.offsetHeight, hidden ? 0 : dom.clientHeight) || 0;
+
+            h = !contentHeight ? h : h - me.getBorderWidth("tb") - me.getPadding("tb");
+            return h < 0 ? 0 : h;
+        },
+
+        /**
+         * Returns the offset width of the element
+         * @param {Boolean} contentWidth (optional) true to get the width minus borders and padding
+         * @return {Number} The element's width
+         */
+        getWidth : function(contentWidth){
+            var me = this,
+                dom = me.dom,
+                hidden = Ext.isIE9m && me.isStyle('display', 'none'),
+                w = MATH.max(dom.offsetWidth, hidden ? 0 : dom.clientWidth) || 0;
+            w = !contentWidth ? w : w - me.getBorderWidth("lr") - me.getPadding("lr");
+            return w < 0 ? 0 : w;
+        },
+
+        /**
+         * Set the width of this Element.
+         * @param {Mixed} width The new width. This may be one of:<div class="mdetail-params"><ul>
+         * <li>A Number specifying the new width in this Element's {@link #defaultUnit}s (by default, pixels).</li>
+         * <li>A String used to set the CSS width style. Animation may <b>not</b> be used.
+         * </ul></div>
+         * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+         * @return {Ext.Element} this
+         */
+        setWidth : function(width, animate){
+            var me = this;
+            width = me.adjustWidth(width);
+            !animate || !me.anim ?
+                me.dom.style.width = me.addUnits(width) :
+                me.anim({width : {to : width}}, me.preanim(arguments, 1));
+            return me;
+        },
+
+        /**
+         * Set the height of this Element.
+         * <pre><code>
+// change the height to 200px and animate with default configuration
+Ext.fly('elementId').setHeight(200, true);
+
+// change the height to 150px and animate with a custom configuration
+Ext.fly('elId').setHeight(150, {
+    duration : .5, // animation will have a duration of .5 seconds
+    // will change the content to "finished"
+    callback: function(){ this.{@link #update}("finished"); }
+});
+         * </code></pre>
+         * @param {Mixed} height The new height. This may be one of:<div class="mdetail-params"><ul>
+         * <li>A Number specifying the new height in this Element's {@link #defaultUnit}s (by default, pixels.)</li>
+         * <li>A String used to set the CSS height style. Animation may <b>not</b> be used.</li>
+         * </ul></div>
+         * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+         * @return {Ext.Element} this
+         */
+         setHeight : function(height, animate){
+            var me = this;
+            height = me.adjustHeight(height);
+            !animate || !me.anim ?
+                me.dom.style.height = me.addUnits(height) :
+                me.anim({height : {to : height}}, me.preanim(arguments, 1));
+            return me;
+        },
+
+        /**
+         * Gets the width of the border(s) for the specified side(s)
+         * @param {String} side Can be t, l, r, b or any combination of those to add multiple values. For example,
+         * passing <tt>'lr'</tt> would get the border <b><u>l</u></b>eft width + the border <b><u>r</u></b>ight width.
+         * @return {Number} The width of the sides passed added together
+         */
+        getBorderWidth : function(side){
+            return this.addStyles(side, borders);
+        },
+
+        /**
+         * Gets the width of the padding(s) for the specified side(s)
+         * @param {String} side Can be t, l, r, b or any combination of those to add multiple values. For example,
+         * passing <tt>'lr'</tt> would get the padding <b><u>l</u></b>eft + the padding <b><u>r</u></b>ight.
+         * @return {Number} The padding of the sides passed added together
+         */
+        getPadding : function(side){
+            return this.addStyles(side, paddings);
+        },
+
+        /**
+         *  Store the current overflow setting and clip overflow on the element - use <tt>{@link #unclip}</tt> to remove
+         * @return {Ext.Element} this
+         */
+        clip : function(){
+            var me = this,
+                dom = me.dom;
+
+            if(!data(dom, ISCLIPPED)){
+                data(dom, ISCLIPPED, true);
+                data(dom, ORIGINALCLIP, {
+                    o: me.getStyle(OVERFLOW),
+                    x: me.getStyle(OVERFLOWX),
+                    y: me.getStyle(OVERFLOWY)
+                });
+                me.setStyle(OVERFLOW, HIDDEN);
+                me.setStyle(OVERFLOWX, HIDDEN);
+                me.setStyle(OVERFLOWY, HIDDEN);
+            }
+            return me;
+        },
+
+        /**
+         *  Return clipping (overflow) to original clipping before <tt>{@link #clip}</tt> was called
+         * @return {Ext.Element} this
+         */
+        unclip : function(){
+            var me = this,
+                dom = me.dom;
+
+            if(data(dom, ISCLIPPED)){
+                data(dom, ISCLIPPED, false);
+                var o = data(dom, ORIGINALCLIP);
+                if(o.o){
+                    me.setStyle(OVERFLOW, o.o);
+                }
+                if(o.x){
+                    me.setStyle(OVERFLOWX, o.x);
+                }
+                if(o.y){
+                    me.setStyle(OVERFLOWY, o.y);
+                }
+            }
+            return me;
+        },
+
+        // private
+        addStyles : function(sides, styles){
+            var ttlSize = 0,
+                sidesArr = sides.match(wordsRe),
+                side,
+                size,
+                i,
+                len = sidesArr.length;
+            for (i = 0; i < len; i++) {
+                side = sidesArr[i];
+                size = side && parseInt(this.getStyle(styles[side]), 10);
+                if (size) {
+                    ttlSize += MATH.abs(size);
+                }
+            }
+            return ttlSize;
+        },
+
+        margins : margins
+    };
+}()
+);
+
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.Element
+ */
+(function(){
+var D = Ext.lib.Dom,
+        LEFT = "left",
+        RIGHT = "right",
+        TOP = "top",
+        BOTTOM = "bottom",
+        POSITION = "position",
+        STATIC = "static",
+        RELATIVE = "relative",
+        AUTO = "auto",
+        ZINDEX = "z-index";
+
+Ext.Element.addMethods({
+	/**
+      * Gets the current X position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+      * @return {Number} The X position of the element
+      */
+    getX : function(){
+        return D.getX(this.dom);
+    },
+
+    /**
+      * Gets the current Y position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+      * @return {Number} The Y position of the element
+      */
+    getY : function(){
+        return D.getY(this.dom);
+    },
+
+    /**
+      * Gets the current position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+      * @return {Array} The XY position of the element
+      */
+    getXY : function(){
+        return D.getXY(this.dom);
+    },
+
+    /**
+      * Returns the offsets of this element from the passed element. Both element must be part of the DOM tree and not have display:none to have page coordinates.
+      * @param {Mixed} element The element to get the offsets from.
+      * @return {Array} The XY page offsets (e.g. [100, -200])
+      */
+    getOffsetsTo : function(el){
+        var o = this.getXY(),
+        	e = Ext.fly(el, '_internal').getXY();
+        return [o[0]-e[0],o[1]-e[1]];
+    },
+
+    /**
+     * Sets the X position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+     * @param {Number} The X position of the element
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
+     * @return {Ext.Element} this
+     */
+    setX : function(x, animate){	    
+	    return this.setXY([x, this.getY()], this.animTest(arguments, animate, 1));
+    },
+
+    /**
+     * Sets the Y position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+     * @param {Number} The Y position of the element
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
+     * @return {Ext.Element} this
+     */
+    setY : function(y, animate){	    
+	    return this.setXY([this.getX(), y], this.animTest(arguments, animate, 1));
+    },
+
+    /**
+     * Sets the element's left position directly using CSS style (instead of {@link #setX}).
+     * @param {String} left The left CSS property value
+     * @return {Ext.Element} this
+     */
+    setLeft : function(left){
+        this.setStyle(LEFT, this.addUnits(left));
+        return this;
+    },
+
+    /**
+     * Sets the element's top position directly using CSS style (instead of {@link #setY}).
+     * @param {String} top The top CSS property value
+     * @return {Ext.Element} this
+     */
+    setTop : function(top){
+        this.setStyle(TOP, this.addUnits(top));
+        return this;
+    },
+
+    /**
+     * Sets the element's CSS right style.
+     * @param {String} right The right CSS property value
+     * @return {Ext.Element} this
+     */
+    setRight : function(right){
+        this.setStyle(RIGHT, this.addUnits(right));
+        return this;
+    },
+
+    /**
+     * Sets the element's CSS bottom style.
+     * @param {String} bottom The bottom CSS property value
+     * @return {Ext.Element} this
+     */
+    setBottom : function(bottom){
+        this.setStyle(BOTTOM, this.addUnits(bottom));
+        return this;
+    },
+
+    /**
+     * Sets the position of the element in page coordinates, regardless of how the element is positioned.
+     * The element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+     * @param {Array} pos Contains X & Y [x, y] values for new position (coordinates are page-based)
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
+     * @return {Ext.Element} this
+     */
+    setXY : function(pos, animate){
+	    var me = this;
+        if(!animate || !me.anim){
+            D.setXY(me.dom, pos);
+        }else{
+            me.anim({points: {to: pos}}, me.preanim(arguments, 1), 'motion');
+        }
+        return me;
+    },
+
+    /**
+     * Sets the position of the element in page coordinates, regardless of how the element is positioned.
+     * The element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+     * @param {Number} x X value for new position (coordinates are page-based)
+     * @param {Number} y Y value for new position (coordinates are page-based)
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
+     * @return {Ext.Element} this
+     */
+    setLocation : function(x, y, animate){
+        return this.setXY([x, y], this.animTest(arguments, animate, 2));
+    },
+
+    /**
+     * Sets the position of the element in page coordinates, regardless of how the element is positioned.
+     * The element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+     * @param {Number} x X value for new position (coordinates are page-based)
+     * @param {Number} y Y value for new position (coordinates are page-based)
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
+     * @return {Ext.Element} this
+     */
+    moveTo : function(x, y, animate){
+        return this.setXY([x, y], this.animTest(arguments, animate, 2));        
+    },    
+    
+    /**
+     * Gets the left X coordinate
+     * @param {Boolean} local True to get the local css position instead of page coordinate
+     * @return {Number}
+     */
+    getLeft : function(local){
+	    return !local ? this.getX() : parseInt(this.getStyle(LEFT), 10) || 0;
+    },
+
+    /**
+     * Gets the right X coordinate of the element (element X position + element width)
+     * @param {Boolean} local True to get the local css position instead of page coordinate
+     * @return {Number}
+     */
+    getRight : function(local){
+	    var me = this;
+	    return !local ? me.getX() + me.getWidth() : (me.getLeft(true) + me.getWidth()) || 0;
+    },
+
+    /**
+     * Gets the top Y coordinate
+     * @param {Boolean} local True to get the local css position instead of page coordinate
+     * @return {Number}
+     */
+    getTop : function(local) {
+	    return !local ? this.getY() : parseInt(this.getStyle(TOP), 10) || 0;
+    },
+
+    /**
+     * Gets the bottom Y coordinate of the element (element Y position + element height)
+     * @param {Boolean} local True to get the local css position instead of page coordinate
+     * @return {Number}
+     */
+    getBottom : function(local){
+	    var me = this;
+	    return !local ? me.getY() + me.getHeight() : (me.getTop(true) + me.getHeight()) || 0;
+    },
+
+    /**
+    * Initializes positioning on this element. If a desired position is not passed, it will make the
+    * the element positioned relative IF it is not already positioned.
+    * @param {String} pos (optional) Positioning to use "relative", "absolute" or "fixed"
+    * @param {Number} zIndex (optional) The zIndex to apply
+    * @param {Number} x (optional) Set the page X position
+    * @param {Number} y (optional) Set the page Y position
+    */
+    position : function(pos, zIndex, x, y){
+	    var me = this;
+	    
+        if(!pos && me.isStyle(POSITION, STATIC)){           
+            me.setStyle(POSITION, RELATIVE);           
+        } else if(pos) {
+            me.setStyle(POSITION, pos);
+        }
+        if(zIndex){
+            me.setStyle(ZINDEX, zIndex);
+        }
+        if(x || y) me.setXY([x || false, y || false]);
+    },
+
+    /**
+    * Clear positioning back to the default when the document was loaded
+    * @param {String} value (optional) The value to use for the left,right,top,bottom, defaults to '' (empty string). You could use 'auto'.
+    * @return {Ext.Element} this
+     */
+    clearPositioning : function(value){
+        value = value || '';
+        this.setStyle({
+            left : value,
+            right : value,
+            top : value,
+            bottom : value,
+            "z-index" : "",
+            position : STATIC
+        });
+        return this;
+    },
+
+    /**
+    * Gets an object with all CSS positioning properties. Useful along with setPostioning to get
+    * snapshot before performing an update and then restoring the element.
+    * @return {Object}
+    */
+    getPositioning : function(){
+        var l = this.getStyle(LEFT);
+        var t = this.getStyle(TOP);
+        return {
+            "position" : this.getStyle(POSITION),
+            "left" : l,
+            "right" : l ? "" : this.getStyle(RIGHT),
+            "top" : t,
+            "bottom" : t ? "" : this.getStyle(BOTTOM),
+            "z-index" : this.getStyle(ZINDEX)
+        };
+    },
+    
+    /**
+    * Set positioning with an object returned by getPositioning().
+    * @param {Object} posCfg
+    * @return {Ext.Element} this
+     */
+    setPositioning : function(pc){
+	    var me = this,
+	    	style = me.dom.style;
+	    	
+        me.setStyle(pc);
+        
+        if(pc.right == AUTO){
+            style.right = "";
+        }
+        if(pc.bottom == AUTO){
+            style.bottom = "";
+        }
+        
+        return me;
+    },    
+	
+    /**
+     * Translates the passed page coordinates into left/top css values for this element
+     * @param {Number/Array} x The page x or an array containing [x, y]
+     * @param {Number} y (optional) The page y, required if x is not an array
+     * @return {Object} An object with left and top properties. e.g. {left: (value), top: (value)}
+     */
+    translatePoints : function(x, y){        	     
+	    y = isNaN(x[1]) ? y : x[1];
+        x = isNaN(x[0]) ? x : x[0];
+        var me = this,
+        	relative = me.isStyle(POSITION, RELATIVE),
+        	o = me.getXY(),
+        	l = parseInt(me.getStyle(LEFT), 10),
+        	t = parseInt(me.getStyle(TOP), 10);
+        
+        l = !isNaN(l) ? l : (relative ? 0 : me.dom.offsetLeft);
+        t = !isNaN(t) ? t : (relative ? 0 : me.dom.offsetTop);        
+
+        return {left: (x - o[0] + l), top: (y - o[1] + t)}; 
+    },
+    
+    animTest : function(args, animate, i) {
+        return !!animate && this.preanim ? this.preanim(args, i) : false;
+    }
+});
+})();
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.Element
+ */
+Ext.Element.addMethods({
+    /**
+     * Returns true if this element is scrollable.
+     * @return {Boolean}
+     */
+    isScrollable : function(){
+        var dom = this.dom;
+        return dom.scrollHeight > dom.clientHeight || dom.scrollWidth > dom.clientWidth;
+    },
+
+    /**
+     * Scrolls this element the specified scroll point. It does NOT do bounds checking so if you scroll to a weird value it will try to do it. For auto bounds checking, use scroll().
+     * @param {String} side Either "left" for scrollLeft values or "top" for scrollTop values.
+     * @param {Number} value The new scroll value.
+     * @return {Element} this
+     */
+    scrollTo : function(side, value){
+        this.dom["scroll" + (/top/i.test(side) ? "Top" : "Left")] = value;
+        return this;
+    },
+
+    /**
+     * Returns the current scroll position of the element.
+     * @return {Object} An object containing the scroll position in the format {left: (scrollLeft), top: (scrollTop)}
+     */
+    getScroll : function(){
+        var d = this.dom, 
+            doc = document,
+            body = doc.body,
+            docElement = doc.documentElement,
+            l,
+            t,
+            ret;
+
+        if(d == doc || d == body){
+            if(Ext.isIE && Ext.isStrict){
+                l = docElement.scrollLeft; 
+                t = docElement.scrollTop;
+            }else{
+                l = window.pageXOffset;
+                t = window.pageYOffset;
+            }
+            ret = {left: l || (body ? body.scrollLeft : 0), top: t || (body ? body.scrollTop : 0)};
+        }else{
+            ret = {left: d.scrollLeft, top: d.scrollTop};
+        }
+        return ret;
+    }
+});
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.Element
+ */
+/**
+ * Visibility mode constant for use with {@link #setVisibilityMode}. Use visibility to hide element
+ * @static
+ * @type Number
+ */
+Ext.Element.VISIBILITY = 1;
+/**
+ * Visibility mode constant for use with {@link #setVisibilityMode}. Use display to hide element
+ * @static
+ * @type Number
+ */
+Ext.Element.DISPLAY = 2;
+
+/**
+ * Visibility mode constant for use with {@link #setVisibilityMode}. Use offsets (x and y positioning offscreen)
+ * to hide element.
+ * @static
+ * @type Number
+ */
+Ext.Element.OFFSETS = 3;
+
+
+Ext.Element.ASCLASS = 4;
+
+/**
+ * Defaults to 'x-hide-nosize'
+ * @static
+ * @type String
+ */
+Ext.Element.visibilityCls = 'x-hide-nosize';
+
+Ext.Element.addMethods(function(){
+    var El = Ext.Element,
+        OPACITY = "opacity",
+        VISIBILITY = "visibility",
+        DISPLAY = "display",
+        HIDDEN = "hidden",
+        OFFSETS = "offsets",
+        ASCLASS = "asclass",
+        NONE = "none",
+        NOSIZE = 'nosize',
+        ORIGINALDISPLAY = 'originalDisplay',
+        VISMODE = 'visibilityMode',
+        ISVISIBLE = 'isVisible',
+        data = El.data,
+        getDisplay = function(dom){
+            var d = data(dom, ORIGINALDISPLAY);
+            if(d === undefined){
+                data(dom, ORIGINALDISPLAY, d = '');
+            }
+            return d;
+        },
+        getVisMode = function(dom){
+            var m = data(dom, VISMODE);
+            if(m === undefined){
+                data(dom, VISMODE, m = 1);
+            }
+            return m;
+        };
+
+    return {
+        /**
+         * The element's default display mode  (defaults to "")
+         * @type String
+         */
+        originalDisplay : "",
+        visibilityMode : 1,
+
+        /**
+         * Sets the element's visibility mode. When setVisible() is called it
+         * will use this to determine whether to set the visibility or the display property.
+         * @param {Number} visMode Ext.Element.VISIBILITY or Ext.Element.DISPLAY
+         * @return {Ext.Element} this
+         */
+        setVisibilityMode : function(visMode){
+            data(this.dom, VISMODE, visMode);
+            return this;
+        },
+
+        /**
+         * Perform custom animation on this element.
+         * <div><ul class="mdetail-params">
+         * <li><u>Animation Properties</u></li>
+         *
+         * <p>The Animation Control Object enables gradual transitions for any member of an
+         * element's style object that takes a numeric value including but not limited to
+         * these properties:</p><div><ul class="mdetail-params">
+         * <li><tt>bottom, top, left, right</tt></li>
+         * <li><tt>height, width</tt></li>
+         * <li><tt>margin, padding</tt></li>
+         * <li><tt>borderWidth</tt></li>
+         * <li><tt>opacity</tt></li>
+         * <li><tt>fontSize</tt></li>
+         * <li><tt>lineHeight</tt></li>
+         * </ul></div>
+         *
+         *
+         * <li><u>Animation Property Attributes</u></li>
+         *
+         * <p>Each Animation Property is a config object with optional properties:</p>
+         * <div><ul class="mdetail-params">
+         * <li><tt>by</tt>*  : relative change - start at current value, change by this value</li>
+         * <li><tt>from</tt> : ignore current value, start from this value</li>
+         * <li><tt>to</tt>*  : start at current value, go to this value</li>
+         * <li><tt>unit</tt> : any allowable unit specification</li>
+         * <p>* do not specify both <tt>to</tt> and <tt>by</tt> for an animation property</p>
+         * </ul></div>
+         *
+         * <li><u>Animation Types</u></li>
+         *
+         * <p>The supported animation types:</p><div><ul class="mdetail-params">
+         * <li><tt>'run'</tt> : Default
+         * <pre><code>
+var el = Ext.get('complexEl');
+el.animate(
+    // animation control object
+    {
+        borderWidth: {to: 3, from: 0},
+        opacity: {to: .3, from: 1},
+        height: {to: 50, from: el.getHeight()},
+        width: {to: 300, from: el.getWidth()},
+        top  : {by: - 100, unit: 'px'},
+    },
+    0.35,      // animation duration
+    null,      // callback
+    'easeOut', // easing method
+    'run'      // animation type ('run','color','motion','scroll')
+);
+         * </code></pre>
+         * </li>
+         * <li><tt>'color'</tt>
+         * <p>Animates transition of background, text, or border colors.</p>
+         * <pre><code>
+el.animate(
+    // animation control object
+    {
+        color: { to: '#06e' },
+        backgroundColor: { to: '#e06' }
+    },
+    0.35,      // animation duration
+    null,      // callback
+    'easeOut', // easing method
+    'color'    // animation type ('run','color','motion','scroll')
+);
+         * </code></pre>
+         * </li>
+         *
+         * <li><tt>'motion'</tt>
+         * <p>Animates the motion of an element to/from specific points using optional bezier
+         * way points during transit.</p>
+         * <pre><code>
+el.animate(
+    // animation control object
+    {
+        borderWidth: {to: 3, from: 0},
+        opacity: {to: .3, from: 1},
+        height: {to: 50, from: el.getHeight()},
+        width: {to: 300, from: el.getWidth()},
+        top  : {by: - 100, unit: 'px'},
+        points: {
+            to: [50, 100],  // go to this point
+            control: [      // optional bezier way points
+                [ 600, 800],
+                [-100, 200]
+            ]
+        }
+    },
+    3000,      // animation duration (milliseconds!)
+    null,      // callback
+    'easeOut', // easing method
+    'motion'   // animation type ('run','color','motion','scroll')
+);
+         * </code></pre>
+         * </li>
+         * <li><tt>'scroll'</tt>
+         * <p>Animate horizontal or vertical scrolling of an overflowing page element.</p>
+         * <pre><code>
+el.animate(
+    // animation control object
+    {
+        scroll: {to: [400, 300]}
+    },
+    0.35,      // animation duration
+    null,      // callback
+    'easeOut', // easing method
+    'scroll'   // animation type ('run','color','motion','scroll')
+);
+         * </code></pre>
+         * </li>
+         * </ul></div>
+         *
+         * </ul></div>
+         *
+         * @param {Object} args The animation control args
+         * @param {Float} duration (optional) How long the animation lasts in seconds (defaults to <tt>.35</tt>)
+         * @param {Function} onComplete (optional) Function to call when animation completes
+         * @param {String} easing (optional) {@link Ext.Fx#easing} method to use (defaults to <tt>'easeOut'</tt>)
+         * @param {String} animType (optional) <tt>'run'</tt> is the default. Can also be <tt>'color'</tt>,
+         * <tt>'motion'</tt>, or <tt>'scroll'</tt>
+         * @return {Ext.Element} this
+         */
+        animate : function(args, duration, onComplete, easing, animType){
+            this.anim(args, {duration: duration, callback: onComplete, easing: easing}, animType);
+            return this;
+        },
+
+        /*
+         * @private Internal animation call
+         */
+        anim : function(args, opt, animType, defaultDur, defaultEase, cb){
+            animType = animType || 'run';
+            opt = opt || {};
+            var me = this,
+                anim = Ext.lib.Anim[animType](
+                    me.dom,
+                    args,
+                    (opt.duration || defaultDur) || .35,
+                    (opt.easing || defaultEase) || 'easeOut',
+                    function(){
+                        if(cb) cb.call(me);
+                        if(opt.callback) opt.callback.call(opt.scope || me, me, opt);
+                    },
+                    me
+                );
+            opt.anim = anim;
+            return anim;
+        },
+
+        // private legacy anim prep
+        preanim : function(a, i){
+            return !a[i] ? false : (typeof a[i] == 'object' ? a[i]: {duration: a[i+1], callback: a[i+2], easing: a[i+3]});
+        },
+
+        /**
+         * Checks whether the element is currently visible using both visibility and display properties.
+         * @return {Boolean} True if the element is currently visible, else false
+         */
+        isVisible : function() {
+            var me = this,
+                dom = me.dom,
+                visible = data(dom, ISVISIBLE);
+
+            if(typeof visible == 'boolean'){ //return the cached value if registered
+                return visible;
+            }
+            //Determine the current state based on display states
+            visible = !me.isStyle(VISIBILITY, HIDDEN) &&
+                      !me.isStyle(DISPLAY, NONE) &&
+                      !((getVisMode(dom) == El.ASCLASS) && me.hasClass(me.visibilityCls || El.visibilityCls));
+
+            data(dom, ISVISIBLE, visible);
+            return visible;
+        },
+
+        /**
+         * Sets the visibility of the element (see details). If the visibilityMode is set to Element.DISPLAY, it will use
+         * the display property to hide the element, otherwise it uses visibility. The default is to hide and show using the visibility property.
+         * @param {Boolean} visible Whether the element is visible
+         * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
+         * @return {Ext.Element} this
+         */
+        setVisible : function(visible, animate){
+            var me = this, isDisplay, isVisibility, isOffsets, isNosize,
+                dom = me.dom,
+                visMode = getVisMode(dom);
+
+
+            // hideMode string override
+            if (typeof animate == 'string'){
+                switch (animate) {
+                    case DISPLAY:
+                        visMode = El.DISPLAY;
+                        break;
+                    case VISIBILITY:
+                        visMode = El.VISIBILITY;
+                        break;
+                    case OFFSETS:
+                        visMode = El.OFFSETS;
+                        break;
+                    case NOSIZE:
+                    case ASCLASS:
+                        visMode = El.ASCLASS;
+                        break;
+                }
+                me.setVisibilityMode(visMode);
+                animate = false;
+            }
+
+            if (!animate || !me.anim) {
+                if(visMode == El.ASCLASS ){
+
+                    me[visible?'removeClass':'addClass'](me.visibilityCls || El.visibilityCls);
+
+                } else if (visMode == El.DISPLAY){
+
+                    return me.setDisplayed(visible);
+
+                } else if (visMode == El.OFFSETS){
+
+                    if (!visible){
+                        me.hideModeStyles = {
+                            position: me.getStyle('position'),
+                            top: me.getStyle('top'),
+                            left: me.getStyle('left')
+                        };
+                        me.applyStyles({position: 'absolute', top: '-10000px', left: '-10000px'});
+                    } else {
+                        me.applyStyles(me.hideModeStyles || {position: '', top: '', left: ''});
+                        delete me.hideModeStyles;
+                    }
+
+                }else{
+                    me.fixDisplay();
+                    dom.style.visibility = visible ? "visible" : HIDDEN;
+                }
+            }else{
+                // closure for composites
+                if(visible){
+                    me.setOpacity(.01);
+                    me.setVisible(true);
+                }
+                me.anim({opacity: { to: (visible?1:0) }},
+                        me.preanim(arguments, 1),
+                        null,
+                        .35,
+                        'easeIn',
+                        function(){
+                            visible || me.setVisible(false).setOpacity(1);
+                        });
+            }
+            data(dom, ISVISIBLE, visible);  //set logical visibility state
+            return me;
+        },
+
+
+        /**
+         * @private
+         * Determine if the Element has a relevant height and width available based
+         * upon current logical visibility state
+         */
+        hasMetrics  : function(){
+            var dom = this.dom;
+            return this.isVisible() || (getVisMode(dom) == El.VISIBILITY);
+        },
+
+        /**
+         * Toggles the element's visibility or display, depending on visibility mode.
+         * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
+         * @return {Ext.Element} this
+         */
+        toggle : function(animate){
+            var me = this;
+            me.setVisible(!me.isVisible(), me.preanim(arguments, 0));
+            return me;
+        },
+
+        /**
+         * Sets the CSS display property. Uses originalDisplay if the specified value is a boolean true.
+         * @param {Mixed} value Boolean value to display the element using its default display, or a string to set the display directly.
+         * @return {Ext.Element} this
+         */
+        setDisplayed : function(value) {
+            if(typeof value == "boolean"){
+               value = value ? getDisplay(this.dom) : NONE;
+            }
+            this.setStyle(DISPLAY, value);
+            return this;
+        },
+
+        // private
+        fixDisplay : function(){
+            var me = this;
+            if(me.isStyle(DISPLAY, NONE)){
+                me.setStyle(VISIBILITY, HIDDEN);
+                me.setStyle(DISPLAY, getDisplay(this.dom)); // first try reverting to default
+                if(me.isStyle(DISPLAY, NONE)){ // if that fails, default to block
+                    me.setStyle(DISPLAY, "block");
+                }
+            }
+        },
+
+        /**
+         * Hide this element - Uses display mode to determine whether to use "display" or "visibility". See {@link #setVisible}.
+         * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+         * @return {Ext.Element} this
+         */
+        hide : function(animate){
+            // hideMode override
+            if (typeof animate == 'string'){
+                this.setVisible(false, animate);
+                return this;
+            }
+            this.setVisible(false, this.preanim(arguments, 0));
+            return this;
+        },
+
+        /**
+        * Show this element - Uses display mode to determine whether to use "display" or "visibility". See {@link #setVisible}.
+        * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+         * @return {Ext.Element} this
+         */
+        show : function(animate){
+            // hideMode override
+            if (typeof animate == 'string'){
+                this.setVisible(true, animate);
+                return this;
+            }
+            this.setVisible(true, this.preanim(arguments, 0));
+            return this;
+        }
+    };
+}());
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+(function(){
+    // contants
+    var NULL = null,
+        UNDEFINED = undefined,
+        TRUE = true,
+        FALSE = false,
+        SETX = "setX",
+        SETY = "setY",
+        SETXY = "setXY",
+        LEFT = "left",
+        BOTTOM = "bottom",
+        TOP = "top",
+        RIGHT = "right",
+        HEIGHT = "height",
+        WIDTH = "width",
+        POINTS = "points",
+        HIDDEN = "hidden",
+        ABSOLUTE = "absolute",
+        VISIBLE = "visible",
+        MOTION = "motion",
+        POSITION = "position",
+        EASEOUT = "easeOut",
+        /*
+         * Use a light flyweight here since we are using so many callbacks and are always assured a DOM element
+         */
+        flyEl = new Ext.Element.Flyweight(),
+        queues = {},
+        getObject = function(o){
+            return o || {};
+        },
+        fly = function(dom){
+            flyEl.dom = dom;
+            flyEl.id = Ext.id(dom);
+            return flyEl;
+        },
+        /*
+         * Queueing now stored outside of the element due to closure issues
+         */
+        getQueue = function(id){
+            if(!queues[id]){
+                queues[id] = [];
+            }
+            return queues[id];
+        },
+        setQueue = function(id, value){
+            queues[id] = value;
+        };
+        
+//Notifies Element that fx methods are available
+Ext.enableFx = TRUE;
+
+/**
+ * @class Ext.Fx
+ * <p>A class to provide basic animation and visual effects support.  <b>Note:</b> This class is automatically applied
+ * to the {@link Ext.Element} interface when included, so all effects calls should be performed via {@link Ext.Element}.
+ * Conversely, since the effects are not actually defined in {@link Ext.Element}, Ext.Fx <b>must</b> be
+ * {@link Ext#enableFx included} in order for the Element effects to work.</p><br/>
+ * 
+ * <p><b><u>Method Chaining</u></b></p>
+ * <p>It is important to note that although the Fx methods and many non-Fx Element methods support "method chaining" in that
+ * they return the Element object itself as the method return value, it is not always possible to mix the two in a single
+ * method chain.  The Fx methods use an internal effects queue so that each effect can be properly timed and sequenced.
+ * Non-Fx methods, on the other hand, have no such internal queueing and will always execute immediately.  For this reason,
+ * while it may be possible to mix certain Fx and non-Fx method calls in a single chain, it may not always provide the
+ * expected results and should be done with care.  Also see <tt>{@link #callback}</tt>.</p><br/>
+ *
+ * <p><b><u>Anchor Options for Motion Effects</u></b></p>
+ * <p>Motion effects support 8-way anchoring, meaning that you can choose one of 8 different anchor points on the Element
+ * that will serve as either the start or end point of the animation.  Following are all of the supported anchor positions:</p>
+<pre>
+Value  Description
+-----  -----------------------------
+tl     The top left corner
+t      The center of the top edge
+tr     The top right corner
+l      The center of the left edge
+r      The center of the right edge
+bl     The bottom left corner
+b      The center of the bottom edge
+br     The bottom right corner
+</pre>
+ * <b>Note</b>: some Fx methods accept specific custom config parameters.  The options shown in the Config Options
+ * section below are common options that can be passed to any Fx method unless otherwise noted.</b>
+ * 
+ * @cfg {Function} callback A function called when the effect is finished.  Note that effects are queued internally by the
+ * Fx class, so a callback is not required to specify another effect -- effects can simply be chained together
+ * and called in sequence (see note for <b><u>Method Chaining</u></b> above), for example:<pre><code>
+ * el.slideIn().highlight();
+ * </code></pre>
+ * The callback is intended for any additional code that should run once a particular effect has completed. The Element
+ * being operated upon is passed as the first parameter.
+ * 
+ * @cfg {Object} scope The scope (<code>this</code> reference) in which the <tt>{@link #callback}</tt> function is executed. Defaults to the browser window.
+ * 
+ * @cfg {String} easing A valid Ext.lib.Easing value for the effect:</p><div class="mdetail-params"><ul>
+ * <li><b><tt>backBoth</tt></b></li>
+ * <li><b><tt>backIn</tt></b></li>
+ * <li><b><tt>backOut</tt></b></li>
+ * <li><b><tt>bounceBoth</tt></b></li>
+ * <li><b><tt>bounceIn</tt></b></li>
+ * <li><b><tt>bounceOut</tt></b></li>
+ * <li><b><tt>easeBoth</tt></b></li>
+ * <li><b><tt>easeBothStrong</tt></b></li>
+ * <li><b><tt>easeIn</tt></b></li>
+ * <li><b><tt>easeInStrong</tt></b></li>
+ * <li><b><tt>easeNone</tt></b></li>
+ * <li><b><tt>easeOut</tt></b></li>
+ * <li><b><tt>easeOutStrong</tt></b></li>
+ * <li><b><tt>elasticBoth</tt></b></li>
+ * <li><b><tt>elasticIn</tt></b></li>
+ * <li><b><tt>elasticOut</tt></b></li>
+ * </ul></div>
+ *
+ * @cfg {String} afterCls A css class to apply after the effect
+ * @cfg {Number} duration The length of time (in seconds) that the effect should last
+ * 
+ * @cfg {Number} endOpacity Only applicable for {@link #fadeIn} or {@link #fadeOut}, a number between
+ * <tt>0</tt> and <tt>1</tt> inclusive to configure the ending opacity value.
+ *  
+ * @cfg {Boolean} remove Whether the Element should be removed from the DOM and destroyed after the effect finishes
+ * @cfg {Boolean} useDisplay Whether to use the <i>display</i> CSS property instead of <i>visibility</i> when hiding Elements (only applies to 
+ * effects that end with the element being visually hidden, ignored otherwise)
+ * @cfg {String/Object/Function} afterStyle A style specification string, e.g. <tt>"width:100px"</tt>, or an object
+ * in the form <tt>{width:"100px"}</tt>, or a function which returns such a specification that will be applied to the
+ * Element after the effect finishes.
+ * @cfg {Boolean} block Whether the effect should block other effects from queueing while it runs
+ * @cfg {Boolean} concurrent Whether to allow subsequently-queued effects to run at the same time as the current effect, or to ensure that they run in sequence
+ * @cfg {Boolean} stopFx Whether preceding effects should be stopped and removed before running current effect (only applies to non blocking effects)
+ */
+Ext.Fx = {
+    
+    // private - calls the function taking arguments from the argHash based on the key.  Returns the return value of the function.
+    //           this is useful for replacing switch statements (for example).
+    switchStatements : function(key, fn, argHash){
+        return fn.apply(this, argHash[key]);
+    },
+    
+    /**
+     * Slides the element into view.  An anchor point can be optionally passed to set the point of
+     * origin for the slide effect.  This function automatically handles wrapping the element with
+     * a fixed-size container if needed.  See the Fx class overview for valid anchor point options.
+     * Usage:
+     *<pre><code>
+// default: slide the element in from the top
+el.slideIn();
+
+// custom: slide the element in from the right with a 2-second duration
+el.slideIn('r', { duration: 2 });
+
+// common config options shown with default values
+el.slideIn('t', {
+    easing: 'easeOut',
+    duration: .5
+});
+</code></pre>
+     * @param {String} anchor (optional) One of the valid Fx anchor positions (defaults to top: 't')
+     * @param {Object} options (optional) Object literal with any of the Fx config options
+     * @return {Ext.Element} The Element
+     */
+    slideIn : function(anchor, o){ 
+        o = getObject(o);
+        var me = this,
+            dom = me.dom,
+            st = dom.style,
+            xy,
+            r,
+            b,              
+            wrap,               
+            after,
+            st,
+            args, 
+            pt,
+            bw,
+            bh;
+            
+        anchor = anchor || "t";
+
+        me.queueFx(o, function(){            
+            xy = fly(dom).getXY();
+            // fix display to visibility
+            fly(dom).fixDisplay();            
+            
+            // restore values after effect
+            r = fly(dom).getFxRestore();      
+            b = {x: xy[0], y: xy[1], 0: xy[0], 1: xy[1], width: dom.offsetWidth, height: dom.offsetHeight};
+            b.right = b.x + b.width;
+            b.bottom = b.y + b.height;
+            
+            // fixed size for slide
+            fly(dom).setWidth(b.width).setHeight(b.height);            
+            
+            // wrap if needed
+            wrap = fly(dom).fxWrap(r.pos, o, HIDDEN);
+            
+            st.visibility = VISIBLE;
+            st.position = ABSOLUTE;
+            
+            // clear out temp styles after slide and unwrap
+            function after(){
+                 fly(dom).fxUnwrap(wrap, r.pos, o);
+                 st.width = r.width;
+                 st.height = r.height;
+                 fly(dom).afterFx(o);
+            }
+            
+            // time to calculate the positions        
+            pt = {to: [b.x, b.y]}; 
+            bw = {to: b.width};
+            bh = {to: b.height};
+                
+            function argCalc(wrap, style, ww, wh, sXY, sXYval, s1, s2, w, h, p){                    
+                var ret = {};
+                fly(wrap).setWidth(ww).setHeight(wh);
+                if(fly(wrap)[sXY]){
+                    fly(wrap)[sXY](sXYval);                  
+                }
+                style[s1] = style[s2] = "0";                    
+                if(w){
+                    ret.width = w;
+                }
+                if(h){
+                    ret.height = h;
+                }
+                if(p){
+                    ret.points = p;
+                }
+                return ret;
+            };
+
+            args = fly(dom).switchStatements(anchor.toLowerCase(), argCalc, {
+                    t  : [wrap, st, b.width, 0, NULL, NULL, LEFT, BOTTOM, NULL, bh, NULL],
+                    l  : [wrap, st, 0, b.height, NULL, NULL, RIGHT, TOP, bw, NULL, NULL],
+                    r  : [wrap, st, b.width, b.height, SETX, b.right, LEFT, TOP, NULL, NULL, pt],
+                    b  : [wrap, st, b.width, b.height, SETY, b.bottom, LEFT, TOP, NULL, bh, pt],
+                    tl : [wrap, st, 0, 0, NULL, NULL, RIGHT, BOTTOM, bw, bh, pt],
+                    bl : [wrap, st, 0, 0, SETY, b.y + b.height, RIGHT, TOP, bw, bh, pt],
+                    br : [wrap, st, 0, 0, SETXY, [b.right, b.bottom], LEFT, TOP, bw, bh, pt],
+                    tr : [wrap, st, 0, 0, SETX, b.x + b.width, LEFT, BOTTOM, bw, bh, pt]
+                });
+            
+            st.visibility = VISIBLE;
+            fly(wrap).show();
+
+            arguments.callee.anim = fly(wrap).fxanim(args,
+                o,
+                MOTION,
+                .5,
+                EASEOUT, 
+                after);
+        });
+        return me;
+    },
+    
+    /**
+     * Slides the element out of view.  An anchor point can be optionally passed to set the end point
+     * for the slide effect.  When the effect is completed, the element will be hidden (visibility = 
+     * 'hidden') but block elements will still take up space in the document.  The element must be removed
+     * from the DOM using the 'remove' config option if desired.  This function automatically handles 
+     * wrapping the element with a fixed-size container if needed.  See the Fx class overview for valid anchor point options.
+     * Usage:
+     *<pre><code>
+// default: slide the element out to the top
+el.slideOut();
+
+// custom: slide the element out to the right with a 2-second duration
+el.slideOut('r', { duration: 2 });
+
+// common config options shown with default values
+el.slideOut('t', {
+    easing: 'easeOut',
+    duration: .5,
+    remove: false,
+    useDisplay: false
+});
+</code></pre>
+     * @param {String} anchor (optional) One of the valid Fx anchor positions (defaults to top: 't')
+     * @param {Object} options (optional) Object literal with any of the Fx config options
+     * @return {Ext.Element} The Element
+     */
+    slideOut : function(anchor, o){
+        o = getObject(o);
+        var me = this,
+            dom = me.dom,
+            st = dom.style,
+            xy = me.getXY(),
+            wrap,
+            r,
+            b,
+            a,
+            zero = {to: 0}; 
+                    
+        anchor = anchor || "t";
+
+        me.queueFx(o, function(){
+            
+            // restore values after effect
+            r = fly(dom).getFxRestore(); 
+            b = {x: xy[0], y: xy[1], 0: xy[0], 1: xy[1], width: dom.offsetWidth, height: dom.offsetHeight};
+            b.right = b.x + b.width;
+            b.bottom = b.y + b.height;
+                
+            // fixed size for slide   
+            fly(dom).setWidth(b.width).setHeight(b.height);
+
+            // wrap if needed
+            wrap = fly(dom).fxWrap(r.pos, o, VISIBLE);
+                
+            st.visibility = VISIBLE;
+            st.position = ABSOLUTE;
+            fly(wrap).setWidth(b.width).setHeight(b.height);            
+
+            function after(){
+                o.useDisplay ? fly(dom).setDisplayed(FALSE) : fly(dom).hide();                
+                fly(dom).fxUnwrap(wrap, r.pos, o);
+                st.width = r.width;
+                st.height = r.height;
+                fly(dom).afterFx(o);
+            }            
+            
+            function argCalc(style, s1, s2, p1, v1, p2, v2, p3, v3){                    
+                var ret = {};
+                
+                style[s1] = style[s2] = "0";
+                ret[p1] = v1;               
+                if(p2){
+                    ret[p2] = v2;               
+                }
+                if(p3){
+                    ret[p3] = v3;
+                }
+                
+                return ret;
+            };
+            
+            a = fly(dom).switchStatements(anchor.toLowerCase(), argCalc, {
+                t  : [st, LEFT, BOTTOM, HEIGHT, zero],
+                l  : [st, RIGHT, TOP, WIDTH, zero],
+                r  : [st, LEFT, TOP, WIDTH, zero, POINTS, {to : [b.right, b.y]}],
+                b  : [st, LEFT, TOP, HEIGHT, zero, POINTS, {to : [b.x, b.bottom]}],
+                tl : [st, RIGHT, BOTTOM, WIDTH, zero, HEIGHT, zero],
+                bl : [st, RIGHT, TOP, WIDTH, zero, HEIGHT, zero, POINTS, {to : [b.x, b.bottom]}],
+                br : [st, LEFT, TOP, WIDTH, zero, HEIGHT, zero, POINTS, {to : [b.x + b.width, b.bottom]}],
+                tr : [st, LEFT, BOTTOM, WIDTH, zero, HEIGHT, zero, POINTS, {to : [b.right, b.y]}]
+            });
+            
+            arguments.callee.anim = fly(wrap).fxanim(a,
+                o,
+                MOTION,
+                .5,
+                EASEOUT, 
+                after);
+        });
+        return me;
+    },
+
+    /**
+     * Fades the element out while slowly expanding it in all directions.  When the effect is completed, the 
+     * element will be hidden (visibility = 'hidden') but block elements will still take up space in the document. 
+     * The element must be removed from the DOM using the 'remove' config option if desired.
+     * Usage:
+     *<pre><code>
+// default
+el.puff();
+
+// common config options shown with default values
+el.puff({
+    easing: 'easeOut',
+    duration: .5,
+    remove: false,
+    useDisplay: false
+});
+</code></pre>
+     * @param {Object} options (optional) Object literal with any of the Fx config options
+     * @return {Ext.Element} The Element
+     */
+    puff : function(o){
+        o = getObject(o);
+        var me = this,
+            dom = me.dom,
+            st = dom.style,
+            width,
+            height,
+            r;
+
+        me.queueFx(o, function(){
+            width = fly(dom).getWidth();
+            height = fly(dom).getHeight();
+            fly(dom).clearOpacity();
+            fly(dom).show();
+
+            // restore values after effect
+            r = fly(dom).getFxRestore();                   
+            
+            function after(){
+                o.useDisplay ? fly(dom).setDisplayed(FALSE) : fly(dom).hide();                  
+                fly(dom).clearOpacity();  
+                fly(dom).setPositioning(r.pos);
+                st.width = r.width;
+                st.height = r.height;
+                st.fontSize = '';
+                fly(dom).afterFx(o);
+            }   
+
+            arguments.callee.anim = fly(dom).fxanim({
+                    width : {to : fly(dom).adjustWidth(width * 2)},
+                    height : {to : fly(dom).adjustHeight(height * 2)},
+                    points : {by : [-width * .5, -height * .5]},
+                    opacity : {to : 0},
+                    fontSize: {to : 200, unit: "%"}
+                },
+                o,
+                MOTION,
+                .5,
+                EASEOUT,
+                 after);
+        });
+        return me;
+    },
+
+    /**
+     * Blinks the element as if it was clicked and then collapses on its center (similar to switching off a television).
+     * When the effect is completed, the element will be hidden (visibility = 'hidden') but block elements will still 
+     * take up space in the document. The element must be removed from the DOM using the 'remove' config option if desired.
+     * Usage:
+     *<pre><code>
+// default
+el.switchOff();
+
+// all config options shown with default values
+el.switchOff({
+    easing: 'easeIn',
+    duration: .3,
+    remove: false,
+    useDisplay: false
+});
+</code></pre>
+     * @param {Object} options (optional) Object literal with any of the Fx config options
+     * @return {Ext.Element} The Element
+     */
+    switchOff : function(o){
+        o = getObject(o);
+        var me = this,
+            dom = me.dom,
+            st = dom.style,
+            r;
+
+        me.queueFx(o, function(){
+            fly(dom).clearOpacity();
+            fly(dom).clip();
+
+            // restore values after effect
+            r = fly(dom).getFxRestore();
+                
+            function after(){
+                o.useDisplay ? fly(dom).setDisplayed(FALSE) : fly(dom).hide();  
+                fly(dom).clearOpacity();
+                fly(dom).setPositioning(r.pos);
+                st.width = r.width;
+                st.height = r.height;   
+                fly(dom).afterFx(o);
+            };
+
+            fly(dom).fxanim({opacity : {to : 0.3}}, 
+                NULL, 
+                NULL, 
+                .1, 
+                NULL, 
+                function(){                                 
+                    fly(dom).clearOpacity();
+                        (function(){                            
+                            fly(dom).fxanim({
+                                height : {to : 1},
+                                points : {by : [0, fly(dom).getHeight() * .5]}
+                            }, 
+                            o, 
+                            MOTION, 
+                            0.3, 
+                            'easeIn', 
+                            after);
+                        }).defer(100);
+                });
+        });
+        return me;
+    },
+
+    /**
+     * Highlights the Element by setting a color (applies to the background-color by default, but can be
+     * changed using the "attr" config option) and then fading back to the original color. If no original
+     * color is available, you should provide the "endColor" config option which will be cleared after the animation.
+     * Usage:
+<pre><code>
+// default: highlight background to yellow
+el.highlight();
+
+// custom: highlight foreground text to blue for 2 seconds
+el.highlight("0000ff", { attr: 'color', duration: 2 });
+
+// common config options shown with default values
+el.highlight("ffff9c", {
+    attr: "background-color", //can be any valid CSS property (attribute) that supports a color value
+    endColor: (current color) or "ffffff",
+    easing: 'easeIn',
+    duration: 1
+});
+</code></pre>
+     * @param {String} color (optional) The highlight color. Should be a 6 char hex color without the leading # (defaults to yellow: 'ffff9c')
+     * @param {Object} options (optional) Object literal with any of the Fx config options
+     * @return {Ext.Element} The Element
+     */ 
+    highlight : function(color, o){
+        o = getObject(o);
+        var me = this,
+            dom = me.dom,
+            attr = o.attr || "backgroundColor",
+            a = {},
+            restore;
+
+        me.queueFx(o, function(){
+            fly(dom).clearOpacity();
+            fly(dom).show();
+
+            function after(){
+                dom.style[attr] = restore;
+                fly(dom).afterFx(o);
+            }            
+            restore = dom.style[attr];
+            a[attr] = {from: color || "ffff9c", to: o.endColor || fly(dom).getColor(attr) || "ffffff"};
+            arguments.callee.anim = fly(dom).fxanim(a,
+                o,
+                'color',
+                1,
+                'easeIn', 
+                after);
+        });
+        return me;
+    },
+
+   /**
+    * Shows a ripple of exploding, attenuating borders to draw attention to an Element.
+    * Usage:
+<pre><code>
+// default: a single light blue ripple
+el.frame();
+
+// custom: 3 red ripples lasting 3 seconds total
+el.frame("ff0000", 3, { duration: 3 });
+
+// common config options shown with default values
+el.frame("C3DAF9", 1, {
+    duration: 1 //duration of each individual ripple.
+    // Note: Easing is not configurable and will be ignored if included
+});
+</code></pre>
+    * @param {String} color (optional) The color of the border.  Should be a 6 char hex color without the leading # (defaults to light blue: 'C3DAF9').
+    * @param {Number} count (optional) The number of ripples to display (defaults to 1)
+    * @param {Object} options (optional) Object literal with any of the Fx config options
+    * @return {Ext.Element} The Element
+    */
+    frame : function(color, count, o){
+        o = getObject(o);
+        var me = this,
+            dom = me.dom,
+            proxy,
+            active;
+
+        me.queueFx(o, function(){
+            color = color || '#C3DAF9';
+            if(color.length == 6){
+                color = '#' + color;
+            }            
+            count = count || 1;
+            fly(dom).show();
+
+            var xy = fly(dom).getXY(),
+                b = {x: xy[0], y: xy[1], 0: xy[0], 1: xy[1], width: dom.offsetWidth, height: dom.offsetHeight},
+                queue = function(){
+                    proxy = fly(document.body || document.documentElement).createChild({
+                        style:{
+                            position : ABSOLUTE,
+                            'z-index': 35000, // yee haw
+                            border : '0px solid ' + color
+                        }
+                    });
+                    return proxy.queueFx({}, animFn);
+                };
+            
+            
+            arguments.callee.anim = {
+                isAnimated: true,
+                stop: function() {
+                    count = 0;
+                    proxy.stopFx();
+                }
+            };
+            
+            function animFn(){
+                var scale = Ext.isBorderBox ? 2 : 1;
+                active = proxy.anim({
+                    top : {from : b.y, to : b.y - 20},
+                    left : {from : b.x, to : b.x - 20},
+                    borderWidth : {from : 0, to : 10},
+                    opacity : {from : 1, to : 0},
+                    height : {from : b.height, to : b.height + 20 * scale},
+                    width : {from : b.width, to : b.width + 20 * scale}
+                },{
+                    duration: o.duration || 1,
+                    callback: function() {
+                        proxy.remove();
+                        --count > 0 ? queue() : fly(dom).afterFx(o);
+                    }
+                });
+                arguments.callee.anim = {
+                    isAnimated: true,
+                    stop: function(){
+                        active.stop();
+                    }
+                };
+            };
+            queue();
+        });
+        return me;
+    },
+
+   /**
+    * Creates a pause before any subsequent queued effects begin.  If there are
+    * no effects queued after the pause it will have no effect.
+    * Usage:
+<pre><code>
+el.pause(1);
+</code></pre>
+    * @param {Number} seconds The length of time to pause (in seconds)
+    * @return {Ext.Element} The Element
+    */
+    pause : function(seconds){        
+        var dom = this.dom,
+            t;
+
+        this.queueFx({}, function(){
+            t = setTimeout(function(){
+                fly(dom).afterFx({});
+            }, seconds * 1000);
+            arguments.callee.anim = {
+                isAnimated: true,
+                stop: function(){
+                    clearTimeout(t);
+                    fly(dom).afterFx({});
+                }
+            };
+        });
+        return this;
+    },
+
+   /**
+    * Fade an element in (from transparent to opaque).  The ending opacity can be specified
+    * using the <tt>{@link #endOpacity}</tt> config option.
+    * Usage:
+<pre><code>
+// default: fade in from opacity 0 to 100%
+el.fadeIn();
+
+// custom: fade in from opacity 0 to 75% over 2 seconds
+el.fadeIn({ endOpacity: .75, duration: 2});
+
+// common config options shown with default values
+el.fadeIn({
+    endOpacity: 1, //can be any value between 0 and 1 (e.g. .5)
+    easing: 'easeOut',
+    duration: .5
+});
+</code></pre>
+    * @param {Object} options (optional) Object literal with any of the Fx config options
+    * @return {Ext.Element} The Element
+    */
+    fadeIn : function(o){
+        o = getObject(o);
+        var me = this,
+            dom = me.dom,
+            to = o.endOpacity || 1;
+        
+        me.queueFx(o, function(){
+            fly(dom).setOpacity(0);
+            fly(dom).fixDisplay();
+            dom.style.visibility = VISIBLE;
+            arguments.callee.anim = fly(dom).fxanim({opacity:{to:to}},
+                o, NULL, .5, EASEOUT, function(){
+                if(to == 1){
+                    fly(dom).clearOpacity();
+                }
+                fly(dom).afterFx(o);
+            });
+        });
+        return me;
+    },
+
+   /**
+    * Fade an element out (from opaque to transparent).  The ending opacity can be specified
+    * using the <tt>{@link #endOpacity}</tt> config option.  Note that IE may require
+    * <tt>{@link #useDisplay}:true</tt> in order to redisplay correctly.
+    * Usage:
+<pre><code>
+// default: fade out from the element's current opacity to 0
+el.fadeOut();
+
+// custom: fade out from the element's current opacity to 25% over 2 seconds
+el.fadeOut({ endOpacity: .25, duration: 2});
+
+// common config options shown with default values
+el.fadeOut({
+    endOpacity: 0, //can be any value between 0 and 1 (e.g. .5)
+    easing: 'easeOut',
+    duration: .5,
+    remove: false,
+    useDisplay: false
+});
+</code></pre>
+    * @param {Object} options (optional) Object literal with any of the Fx config options
+    * @return {Ext.Element} The Element
+    */
+    fadeOut : function(o){
+        o = getObject(o);
+        var me = this,
+            dom = me.dom,
+            style = dom.style,
+            to = o.endOpacity || 0;         
+        
+        me.queueFx(o, function(){  
+            arguments.callee.anim = fly(dom).fxanim({ 
+                opacity : {to : to}},
+                o, 
+                NULL, 
+                .5, 
+                EASEOUT, 
+                function(){
+                    if(to == 0){
+                        Ext.Element.data(dom, 'visibilityMode') == Ext.Element.DISPLAY || o.useDisplay ? 
+                            style.display = "none" :
+                            style.visibility = HIDDEN;
+                            
+                        fly(dom).clearOpacity();
+                    }
+                    fly(dom).afterFx(o);
+            });
+        });
+        return me;
+    },
+
+   /**
+    * Animates the transition of an element's dimensions from a starting height/width
+    * to an ending height/width.  This method is a convenience implementation of {@link shift}.
+    * Usage:
+<pre><code>
+// change height and width to 100x100 pixels
+el.scale(100, 100);
+
+// common config options shown with default values.  The height and width will default to
+// the element&#39;s existing values if passed as null.
+el.scale(
+    [element&#39;s width],
+    [element&#39;s height], {
+        easing: 'easeOut',
+        duration: .35
+    }
+);
+</code></pre>
+    * @param {Number} width  The new width (pass undefined to keep the original width)
+    * @param {Number} height  The new height (pass undefined to keep the original height)
+    * @param {Object} options (optional) Object literal with any of the Fx config options
+    * @return {Ext.Element} The Element
+    */
+    scale : function(w, h, o){
+        this.shift(Ext.apply({}, o, {
+            width: w,
+            height: h
+        }));
+        return this;
+    },
+
+   /**
+    * Animates the transition of any combination of an element's dimensions, xy position and/or opacity.
+    * Any of these properties not specified in the config object will not be changed.  This effect 
+    * requires that at least one new dimension, position or opacity setting must be passed in on
+    * the config object in order for the function to have any effect.
+    * Usage:
+<pre><code>
+// slide the element horizontally to x position 200 while changing the height and opacity
+el.shift({ x: 200, height: 50, opacity: .8 });
+
+// common config options shown with default values.
+el.shift({
+    width: [element&#39;s width],
+    height: [element&#39;s height],
+    x: [element&#39;s x position],
+    y: [element&#39;s y position],
+    opacity: [element&#39;s opacity],
+    easing: 'easeOut',
+    duration: .35
+});
+</code></pre>
+    * @param {Object} options  Object literal with any of the Fx config options
+    * @return {Ext.Element} The Element
+    */
+    shift : function(o){
+        o = getObject(o);
+        var dom = this.dom,
+            a = {};
+                
+        this.queueFx(o, function(){
+            for (var prop in o) {
+                if (o[prop] != UNDEFINED) {                                                 
+                    a[prop] = {to : o[prop]};                   
+                }
+            } 
+            
+            a.width ? a.width.to = fly(dom).adjustWidth(o.width) : a;
+            a.height ? a.height.to = fly(dom).adjustWidth(o.height) : a;   
+            
+            if (a.x || a.y || a.xy) {
+                a.points = a.xy || 
+                           {to : [ a.x ? a.x.to : fly(dom).getX(),
+                                   a.y ? a.y.to : fly(dom).getY()]};                  
+            }
+
+            arguments.callee.anim = fly(dom).fxanim(a,
+                o, 
+                MOTION, 
+                .35, 
+                EASEOUT, 
+                function(){
+                    fly(dom).afterFx(o);
+                });
+        });
+        return this;
+    },
+
+    /**
+     * Slides the element while fading it out of view.  An anchor point can be optionally passed to set the 
+     * ending point of the effect.
+     * Usage:
+     *<pre><code>
+// default: slide the element downward while fading out
+el.ghost();
+
+// custom: slide the element out to the right with a 2-second duration
+el.ghost('r', { duration: 2 });
+
+// common config options shown with default values
+el.ghost('b', {
+    easing: 'easeOut',
+    duration: .5,
+    remove: false,
+    useDisplay: false
+});
+</code></pre>
+     * @param {String} anchor (optional) One of the valid Fx anchor positions (defaults to bottom: 'b')
+     * @param {Object} options (optional) Object literal with any of the Fx config options
+     * @return {Ext.Element} The Element
+     */
+    ghost : function(anchor, o){
+        o = getObject(o);
+        var me = this,
+            dom = me.dom,
+            st = dom.style,
+            a = {opacity: {to: 0}, points: {}},
+            pt = a.points,
+            r,
+            w,
+            h;
+            
+        anchor = anchor || "b";
+
+        me.queueFx(o, function(){
+            // restore values after effect
+            r = fly(dom).getFxRestore();
+            w = fly(dom).getWidth();
+            h = fly(dom).getHeight();
+            
+            function after(){
+                o.useDisplay ? fly(dom).setDisplayed(FALSE) : fly(dom).hide();   
+                fly(dom).clearOpacity();
+                fly(dom).setPositioning(r.pos);
+                st.width = r.width;
+                st.height = r.height;
+                fly(dom).afterFx(o);
+            }
+                
+            pt.by = fly(dom).switchStatements(anchor.toLowerCase(), function(v1,v2){ return [v1, v2];}, {
+               t  : [0, -h],
+               l  : [-w, 0],
+               r  : [w, 0],
+               b  : [0, h],
+               tl : [-w, -h],
+               bl : [-w, h],
+               br : [w, h],
+               tr : [w, -h] 
+            });
+                
+            arguments.callee.anim = fly(dom).fxanim(a,
+                o,
+                MOTION,
+                .5,
+                EASEOUT, after);
+        });
+        return me;
+    },
+
+    /**
+     * Ensures that all effects queued after syncFx is called on the element are
+     * run concurrently.  This is the opposite of {@link #sequenceFx}.
+     * @return {Ext.Element} The Element
+     */
+    syncFx : function(){
+        var me = this;
+        me.fxDefaults = Ext.apply(me.fxDefaults || {}, {
+            block : FALSE,
+            concurrent : TRUE,
+            stopFx : FALSE
+        });
+        return me;
+    },
+
+    /**
+     * Ensures that all effects queued after sequenceFx is called on the element are
+     * run in sequence.  This is the opposite of {@link #syncFx}.
+     * @return {Ext.Element} The Element
+     */
+    sequenceFx : function(){
+        var me = this;
+        me.fxDefaults = Ext.apply(me.fxDefaults || {}, {
+            block : FALSE,
+            concurrent : FALSE,
+            stopFx : FALSE
+        });
+        return me;
+    },
+
+    /* @private */
+    nextFx : function(){        
+        var ef = getQueue(this.dom.id)[0];
+        if(ef){
+            ef.call(this);
+        }
+    },
+
+    /**
+     * Returns true if the element has any effects actively running or queued, else returns false.
+     * @return {Boolean} True if element has active effects, else false
+     */
+    hasActiveFx : function(){
+        return getQueue(this.dom.id)[0];
+    },
+
+    /**
+     * Stops any running effects and clears the element's internal effects queue if it contains
+     * any additional effects that haven't started yet.
+     * @return {Ext.Element} The Element
+     */
+    stopFx : function(finish){
+        var me = this,
+            id = me.dom.id;
+        if(me.hasActiveFx()){
+            var cur = getQueue(id)[0];
+            if(cur && cur.anim){
+                if(cur.anim.isAnimated){
+                    setQueue(id, [cur]); //clear
+                    cur.anim.stop(finish !== undefined ? finish : TRUE);
+                }else{
+                    setQueue(id, []);
+                }
+            }
+        }
+        return me;
+    },
+
+    /* @private */
+    beforeFx : function(o){
+        if(this.hasActiveFx() && !o.concurrent){
+           if(o.stopFx){
+               this.stopFx();
+               return TRUE;
+           }
+           return FALSE;
+        }
+        return TRUE;
+    },
+
+    /**
+     * Returns true if the element is currently blocking so that no other effect can be queued
+     * until this effect is finished, else returns false if blocking is not set.  This is commonly
+     * used to ensure that an effect initiated by a user action runs to completion prior to the
+     * same effect being restarted (e.g., firing only one effect even if the user clicks several times).
+     * @return {Boolean} True if blocking, else false
+     */
+    hasFxBlock : function(){
+        var q = getQueue(this.dom.id);
+        return q && q[0] && q[0].block;
+    },
+
+    /* @private */
+    queueFx : function(o, fn){
+        var me = fly(this.dom);
+        if(!me.hasFxBlock()){
+            Ext.applyIf(o, me.fxDefaults);
+            if(!o.concurrent){
+                var run = me.beforeFx(o);
+                fn.block = o.block;
+                getQueue(me.dom.id).push(fn);
+                if(run){
+                    me.nextFx();
+                }
+            }else{
+                fn.call(me);
+            }
+        }
+        return me;
+    },
+
+    /* @private */
+    fxWrap : function(pos, o, vis){ 
+        var dom = this.dom,
+            wrap,
+            wrapXY;
+        if(!o.wrap || !(wrap = Ext.getDom(o.wrap))){            
+            if(o.fixPosition){
+                wrapXY = fly(dom).getXY();
+            }
+            var div = document.createElement("div");
+            div.style.visibility = vis;
+            wrap = dom.parentNode.insertBefore(div, dom);
+            fly(wrap).setPositioning(pos);
+            if(fly(wrap).isStyle(POSITION, "static")){
+                fly(wrap).position("relative");
+            }
+            fly(dom).clearPositioning('auto');
+            fly(wrap).clip();
+            wrap.appendChild(dom);
+            if(wrapXY){
+                fly(wrap).setXY(wrapXY);
+            }
+        }
+        return wrap;
+    },
+
+    /* @private */
+    fxUnwrap : function(wrap, pos, o){      
+        var dom = this.dom;
+        fly(dom).clearPositioning();
+        fly(dom).setPositioning(pos);
+        if(!o.wrap){
+            var pn = fly(wrap).dom.parentNode;
+            pn.insertBefore(dom, wrap); 
+            fly(wrap).remove();
+        }
+    },
+
+    /* @private */
+    getFxRestore : function(){
+        var st = this.dom.style;
+        return {pos: this.getPositioning(), width: st.width, height : st.height};
+    },
+
+    /* @private */
+    afterFx : function(o){
+        var dom = this.dom,
+            id = dom.id;
+        if(o.afterStyle){
+            fly(dom).setStyle(o.afterStyle);            
+        }
+        if(o.afterCls){
+            fly(dom).addClass(o.afterCls);
+        }
+        if(o.remove == TRUE){
+            fly(dom).remove();
+        }
+        if(o.callback){
+            o.callback.call(o.scope, fly(dom));
+        }
+        if(!o.concurrent){
+            getQueue(id).shift();
+            fly(dom).nextFx();
+        }
+    },
+
+    /* @private */
+    fxanim : function(args, opt, animType, defaultDur, defaultEase, cb){
+        animType = animType || 'run';
+        opt = opt || {};
+        var anim = Ext.lib.Anim[animType](
+                this.dom, 
+                args,
+                (opt.duration || defaultDur) || .35,
+                (opt.easing || defaultEase) || EASEOUT,
+                cb,            
+                this
+            );
+        opt.anim = anim;
+        return anim;
+    }
+};
+
+// backwards compat
+Ext.Fx.resize = Ext.Fx.scale;
+
+//When included, Ext.Fx is automatically applied to Element so that all basic
+//effects are available directly via the Element API
+Ext.Element.addMethods(Ext.Fx);
+})();
+
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.CompositeElementLite
+ * <p>This class encapsulates a <i>collection</i> of DOM elements, providing methods to filter
+ * members, or to perform collective actions upon the whole set.</p>
+ * <p>Although they are not listed, this class supports all of the methods of {@link Ext.Element} and
+ * {@link Ext.Fx}. The methods from these classes will be performed on all the elements in this collection.</p>
+ * Example:<pre><code>
+var els = Ext.select("#some-el div.some-class");
+// or select directly from an existing element
+var el = Ext.get('some-el');
+el.select('div.some-class');
+
+els.setWidth(100); // all elements become 100 width
+els.hide(true); // all elements fade out and hide
+// or
+els.setWidth(100).hide(true);
+</code>
+ */
+Ext.CompositeElementLite = function(els, root){
+    /**
+     * <p>The Array of DOM elements which this CompositeElement encapsulates. Read-only.</p>
+     * <p>This will not <i>usually</i> be accessed in developers' code, but developers wishing
+     * to augment the capabilities of the CompositeElementLite class may use it when adding
+     * methods to the class.</p>
+     * <p>For example to add the <code>nextAll</code> method to the class to <b>add</b> all
+     * following siblings of selected elements, the code would be</p><code><pre>
+Ext.override(Ext.CompositeElementLite, {
+    nextAll: function() {
+        var els = this.elements, i, l = els.length, n, r = [], ri = -1;
+
+//      Loop through all elements in this Composite, accumulating
+//      an Array of all siblings.
+        for (i = 0; i < l; i++) {
+            for (n = els[i].nextSibling; n; n = n.nextSibling) {
+                r[++ri] = n;
+            }
+        }
+
+//      Add all found siblings to this Composite
+        return this.add(r);
+    }
+});</pre></code>
+     * @type Array
+     * @property elements
+     */
+    this.elements = [];
+    this.add(els, root);
+    this.el = new Ext.Element.Flyweight();
+};
+
+Ext.CompositeElementLite.prototype = {
+    isComposite: true,
+
+    // private
+    getElement : function(el){
+        // Set the shared flyweight dom property to the current element
+        var e = this.el;
+        e.dom = el;
+        e.id = el.id;
+        return e;
+    },
+
+    // private
+    transformElement : function(el){
+        return Ext.getDom(el);
+    },
+
+    /**
+     * Returns the number of elements in this Composite.
+     * @return Number
+     */
+    getCount : function(){
+        return this.elements.length;
+    },
+    /**
+     * Adds elements to this Composite object.
+     * @param {Mixed} els Either an Array of DOM elements to add, or another Composite object who's elements should be added.
+     * @return {CompositeElement} This Composite object.
+     */
+    add : function(els, root){
+        var me = this,
+            elements = me.elements;
+        if(!els){
+            return this;
+        }
+        if(typeof els == "string"){
+            els = Ext.Element.selectorFunction(els, root);
+        }else if(els.isComposite){
+            els = els.elements;
+        }else if(!Ext.isIterable(els)){
+            els = [els];
+        }
+
+        for(var i = 0, len = els.length; i < len; ++i){
+            elements.push(me.transformElement(els[i]));
+        }
+        return me;
+    },
+
+    invoke : function(fn, args){
+        var me = this,
+            els = me.elements,
+            len = els.length,
+            e,
+            i;
+
+        for(i = 0; i < len; i++) {
+            e = els[i];
+            if(e){
+                Ext.Element.prototype[fn].apply(me.getElement(e), args);
+            }
+        }
+        return me;
+    },
+    /**
+     * Returns a flyweight Element of the dom element object at the specified index
+     * @param {Number} index
+     * @return {Ext.Element}
+     */
+    item : function(index){
+        var me = this,
+            el = me.elements[index],
+            out = null;
+
+        if(el){
+            out = me.getElement(el);
+        }
+        return out;
+    },
+
+    // fixes scope with flyweight
+    addListener : function(eventName, handler, scope, opt){
+        var els = this.elements,
+            len = els.length,
+            i, e;
+
+        for(i = 0; i<len; i++) {
+            e = els[i];
+            if(e) {
+                Ext.EventManager.on(e, eventName, handler, scope || e, opt);
+            }
+        }
+        return this;
+    },
+    /**
+     * <p>Calls the passed function for each element in this composite.</p>
+     * @param {Function} fn The function to call. The function is passed the following parameters:<ul>
+     * <li><b>el</b> : Element<div class="sub-desc">The current Element in the iteration.
+     * <b>This is the flyweight (shared) Ext.Element instance, so if you require a
+     * a reference to the dom node, use el.dom.</b></div></li>
+     * <li><b>c</b> : Composite<div class="sub-desc">This Composite object.</div></li>
+     * <li><b>idx</b> : Number<div class="sub-desc">The zero-based index in the iteration.</div></li>
+     * </ul>
+     * @param {Object} scope (optional) The scope (<i>this</i> reference) in which the function is executed. (defaults to the Element)
+     * @return {CompositeElement} this
+     */
+    each : function(fn, scope){
+        var me = this,
+            els = me.elements,
+            len = els.length,
+            i, e;
+
+        for(i = 0; i<len; i++) {
+            e = els[i];
+            if(e){
+                e = this.getElement(e);
+                if(fn.call(scope || e, e, me, i) === false){
+                    break;
+                }
+            }
+        }
+        return me;
+    },
+
+    /**
+    * Clears this Composite and adds the elements passed.
+    * @param {Mixed} els Either an array of DOM elements, or another Composite from which to fill this Composite.
+    * @return {CompositeElement} this
+    */
+    fill : function(els){
+        var me = this;
+        me.elements = [];
+        me.add(els);
+        return me;
+    },
+
+    /**
+     * Filters this composite to only elements that match the passed selector.
+     * @param {String/Function} selector A string CSS selector or a comparison function.
+     * The comparison function will be called with the following arguments:<ul>
+     * <li><code>el</code> : Ext.Element<div class="sub-desc">The current DOM element.</div></li>
+     * <li><code>index</code> : Number<div class="sub-desc">The current index within the collection.</div></li>
+     * </ul>
+     * @return {CompositeElement} this
+     */
+    filter : function(selector){
+        var els = [],
+            me = this,
+            fn = Ext.isFunction(selector) ? selector
+                : function(el){
+                    return el.is(selector);
+                };
+
+        me.each(function(el, self, i) {
+            if (fn(el, i) !== false) {
+                els[els.length] = me.transformElement(el);
+            }
+        });
+        
+        me.elements = els;
+        return me;
+    },
+
+    /**
+     * Find the index of the passed element within the composite collection.
+     * @param el {Mixed} The id of an element, or an Ext.Element, or an HtmlElement to find within the composite collection.
+     * @return Number The index of the passed Ext.Element in the composite collection, or -1 if not found.
+     */
+    indexOf : function(el){
+        return this.elements.indexOf(this.transformElement(el));
+    },
+
+    /**
+    * Replaces the specified element with the passed element.
+    * @param {Mixed} el The id of an element, the Element itself, the index of the element in this composite
+    * to replace.
+    * @param {Mixed} replacement The id of an element or the Element itself.
+    * @param {Boolean} domReplace (Optional) True to remove and replace the element in the document too.
+    * @return {CompositeElement} this
+    */
+    replaceElement : function(el, replacement, domReplace){
+        var index = !isNaN(el) ? el : this.indexOf(el),
+            d;
+        if(index > -1){
+            replacement = Ext.getDom(replacement);
+            if(domReplace){
+                d = this.elements[index];
+                d.parentNode.insertBefore(replacement, d);
+                Ext.removeNode(d);
+            }
+            this.elements.splice(index, 1, replacement);
+        }
+        return this;
+    },
+
+    /**
+     * Removes all elements.
+     */
+    clear : function(){
+        this.elements = [];
+    }
+};
+
+Ext.CompositeElementLite.prototype.on = Ext.CompositeElementLite.prototype.addListener;
+
+/**
+ * @private
+ * Copies all of the functions from Ext.Element's prototype onto CompositeElementLite's prototype.
+ * This is called twice - once immediately below, and once again after additional Ext.Element
+ * are added in Ext JS
+ */
+Ext.CompositeElementLite.importElementMethods = function() {
+    var fnName,
+        ElProto = Ext.Element.prototype,
+        CelProto = Ext.CompositeElementLite.prototype;
+
+    for (fnName in ElProto) {
+        if (typeof ElProto[fnName] == 'function'){
+            (function(fnName) {
+                CelProto[fnName] = CelProto[fnName] || function() {
+                    return this.invoke(fnName, arguments);
+                };
+            }).call(CelProto, fnName);
+
+        }
+    }
+};
+
+Ext.CompositeElementLite.importElementMethods();
+
+if(Ext.DomQuery){
+    Ext.Element.selectorFunction = Ext.DomQuery.select;
+}
+
+/**
+ * Selects elements based on the passed CSS selector to enable {@link Ext.Element Element} methods
+ * to be applied to many related elements in one statement through the returned {@link Ext.CompositeElement CompositeElement} or
+ * {@link Ext.CompositeElementLite CompositeElementLite} object.
+ * @param {String/Array} selector The CSS selector or an array of elements
+ * @param {HTMLElement/String} root (optional) The root element of the query or id of the root
+ * @return {CompositeElementLite/CompositeElement}
+ * @member Ext.Element
+ * @method select
+ * @static
+ */
+Ext.Element.select = function(selector, root){
+    var els;
+    if(typeof selector == "string"){
+        els = Ext.Element.selectorFunction(selector, root);
+    }else if(selector.length !== undefined){
+        els = selector;
+    }else{
+        throw "Invalid selector";
+    }
+    return new Ext.CompositeElementLite(els);
+};
+/**
+ * Selects elements based on the passed CSS selector to enable {@link Ext.Element Element} methods
+ * to be applied to many related elements in one statement through the returned {@link Ext.CompositeElement CompositeElement} or
+ * {@link Ext.CompositeElementLite CompositeElementLite} object.
+ * @param {String/Array} selector The CSS selector or an array of elements
+ * @param {HTMLElement/String} root (optional) The root element of the query or id of the root
+ * @return {CompositeElementLite/CompositeElement}
+ * @member Ext
+ * @method select
+ */
+Ext.select = Ext.Element.select;
+
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+(function(){
+    var BEFOREREQUEST = "beforerequest",
+        REQUESTCOMPLETE = "requestcomplete",
+        REQUESTEXCEPTION = "requestexception",
+        UNDEFINED = undefined,
+        LOAD = 'load',
+        POST = 'POST',
+        GET = 'GET',
+        WINDOW = window;
+
+    /**
+     * @class Ext.data.Connection
+     * @extends Ext.util.Observable
+     * <p>The class encapsulates a connection to the page's originating domain, allowing requests to be made
+     * either to a configured URL, or to a URL specified at request time.</p>
+     * <p>Requests made by this class are asynchronous, and will return immediately. No data from
+     * the server will be available to the statement immediately following the {@link #request} call.
+     * To process returned data, use a
+     * <a href="#request-option-success" ext:member="request-option-success" ext:cls="Ext.data.Connection">success callback</a>
+     * in the request options object,
+     * or an {@link #requestcomplete event listener}.</p>
+     * <p><h3>File Uploads</h3><a href="#request-option-isUpload" ext:member="request-option-isUpload" ext:cls="Ext.data.Connection">File uploads</a> are not performed using normal "Ajax" techniques, that
+     * is they are <b>not</b> performed using XMLHttpRequests. Instead the form is submitted in the standard
+     * manner with the DOM <tt>&lt;form></tt> element temporarily modified to have its
+     * <a href="http://www.w3.org/TR/REC-html40/present/frames.html#adef-target">target</a> set to refer
+     * to a dynamically generated, hidden <tt>&lt;iframe></tt> which is inserted into the document
+     * but removed after the return data has been gathered.</p>
+     * <p>The server response is parsed by the browser to create the document for the IFRAME. If the
+     * server is using JSON to send the return object, then the
+     * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> header
+     * must be set to "text/html" in order to tell the browser to insert the text unchanged into the document body.</p>
+     * <p>Characters which are significant to an HTML parser must be sent as HTML entities, so encode
+     * "&lt;" as "&amp;lt;", "&amp;" as "&amp;amp;" etc.</p>
+     * <p>The response text is retrieved from the document, and a fake XMLHttpRequest object
+     * is created containing a <tt>responseText</tt> property in order to conform to the
+     * requirements of event handlers and callbacks.</p>
+     * <p>Be aware that file upload packets are sent with the content type <a href="http://www.faqs.org/rfcs/rfc2388.html">multipart/form</a>
+     * and some server technologies (notably JEE) may require some custom processing in order to
+     * retrieve parameter names and parameter values from the packet content.</p>
+     * <p>Also note that it's not possible to check the response code of the hidden iframe, so the success handler will ALWAYS fire.</p>
+     * @constructor
+     * @param {Object} config a configuration object.
+     */
+    Ext.data.Connection = function(config){
+        Ext.apply(this, config);
+        this.addEvents(
+            /**
+             * @event beforerequest
+             * Fires before a network request is made to retrieve a data object.
+             * @param {Connection} conn This Connection object.
+             * @param {Object} options The options config object passed to the {@link #request} method.
+             */
+            BEFOREREQUEST,
+            /**
+             * @event requestcomplete
+             * Fires if the request was successfully completed.
+             * @param {Connection} conn This Connection object.
+             * @param {Object} response The XHR object containing the response data.
+             * See <a href="http://www.w3.org/TR/XMLHttpRequest/">The XMLHttpRequest Object</a>
+             * for details.
+             * @param {Object} options The options config object passed to the {@link #request} method.
+             */
+            REQUESTCOMPLETE,
+            /**
+             * @event requestexception
+             * Fires if an error HTTP status was returned from the server.
+             * See <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP Status Code Definitions</a>
+             * for details of HTTP status codes.
+             * @param {Connection} conn This Connection object.
+             * @param {Object} response The XHR object containing the response data.
+             * See <a href="http://www.w3.org/TR/XMLHttpRequest/">The XMLHttpRequest Object</a>
+             * for details.
+             * @param {Object} options The options config object passed to the {@link #request} method.
+             */
+            REQUESTEXCEPTION
+        );
+        Ext.data.Connection.superclass.constructor.call(this);
+    };
+
+    Ext.extend(Ext.data.Connection, Ext.util.Observable, {
+        /**
+         * @cfg {String} url (Optional) <p>The default URL to be used for requests to the server. Defaults to undefined.</p>
+         * <p>The <code>url</code> config may be a function which <i>returns</i> the URL to use for the Ajax request. The scope
+         * (<code><b>this</b></code> reference) of the function is the <code>scope</code> option passed to the {@link #request} method.</p>
+         */
+        /**
+         * @cfg {Object} extraParams (Optional) An object containing properties which are used as
+         * extra parameters to each request made by this object. (defaults to undefined)
+         */
+        /**
+         * @cfg {Object} defaultHeaders (Optional) An object containing request headers which are added
+         *  to each request made by this object. (defaults to undefined)
+         */
+        /**
+         * @cfg {String} method (Optional) The default HTTP method to be used for requests.
+         * (defaults to undefined; if not set, but {@link #request} params are present, POST will be used;
+         * otherwise, GET will be used.)
+         */
+        /**
+         * @cfg {Number} timeout (Optional) The timeout in milliseconds to be used for requests. (defaults to 30000)
+         */
+        timeout : 30000,
+        /**
+         * @cfg {Boolean} autoAbort (Optional) Whether this request should abort any pending requests. (defaults to false)
+         * @type Boolean
+         */
+        autoAbort:false,
+
+        /**
+         * @cfg {Boolean} disableCaching (Optional) True to add a unique cache-buster param to GET requests. (defaults to true)
+         * @type Boolean
+         */
+        disableCaching: true,
+
+        /**
+         * @cfg {String} disableCachingParam (Optional) Change the parameter which is sent went disabling caching
+         * through a cache buster. Defaults to '_dc'
+         * @type String
+         */
+        disableCachingParam: '_dc',
+
+        /**
+         * <p>Sends an HTTP request to a remote server.</p>
+         * <p><b>Important:</b> Ajax server requests are asynchronous, and this call will
+         * return before the response has been received. Process any returned data
+         * in a callback function.</p>
+         * <pre><code>
+Ext.Ajax.request({
+   url: 'ajax_demo/sample.json',
+   success: function(response, opts) {
+      var obj = Ext.decode(response.responseText);
+      console.dir(obj);
+   },
+   failure: function(response, opts) {
+      console.log('server-side failure with status code ' + response.status);
+   }
+});
+         * </code></pre>
+         * <p>To execute a callback function in the correct scope, use the <tt>scope</tt> option.</p>
+         * @param {Object} options An object which may contain the following properties:<ul>
+         * <li><b>url</b> : String/Function (Optional)<div class="sub-desc">The URL to
+         * which to send the request, or a function to call which returns a URL string. The scope of the
+         * function is specified by the <tt>scope</tt> option. Defaults to the configured
+         * <tt>{@link #url}</tt>.</div></li>
+         * <li><b>params</b> : Object/String/Function (Optional)<div class="sub-desc">
+         * An object containing properties which are used as parameters to the
+         * request, a url encoded string or a function to call to get either. The scope of the function
+         * is specified by the <tt>scope</tt> option.</div></li>
+         * <li><b>method</b> : String (Optional)<div class="sub-desc">The HTTP method to use
+         * for the request. Defaults to the configured method, or if no method was configured,
+         * "GET" if no parameters are being sent, and "POST" if parameters are being sent.  Note that
+         * the method name is case-sensitive and should be all caps.</div></li>
+         * <li><b>callback</b> : Function (Optional)<div class="sub-desc">The
+         * function to be called upon receipt of the HTTP response. The callback is
+         * called regardless of success or failure and is passed the following
+         * parameters:<ul>
+         * <li><b>options</b> : Object<div class="sub-desc">The parameter to the request call.</div></li>
+         * <li><b>success</b> : Boolean<div class="sub-desc">True if the request succeeded.</div></li>
+         * <li><b>response</b> : Object<div class="sub-desc">The XMLHttpRequest object containing the response data.
+         * See <a href="http://www.w3.org/TR/XMLHttpRequest/">http://www.w3.org/TR/XMLHttpRequest/</a> for details about
+         * accessing elements of the response.</div></li>
+         * </ul></div></li>
+         * <li><a id="request-option-success"></a><b>success</b> : Function (Optional)<div class="sub-desc">The function
+         * to be called upon success of the request. The callback is passed the following
+         * parameters:<ul>
+         * <li><b>response</b> : Object<div class="sub-desc">The XMLHttpRequest object containing the response data.</div></li>
+         * <li><b>options</b> : Object<div class="sub-desc">The parameter to the request call.</div></li>
+         * </ul></div></li>
+         * <li><b>failure</b> : Function (Optional)<div class="sub-desc">The function
+         * to be called upon failure of the request. The callback is passed the
+         * following parameters:<ul>
+         * <li><b>response</b> : Object<div class="sub-desc">The XMLHttpRequest object containing the response data.</div></li>
+         * <li><b>options</b> : Object<div class="sub-desc">The parameter to the request call.</div></li>
+         * </ul></div></li>
+         * <li><b>scope</b> : Object (Optional)<div class="sub-desc">The scope in
+         * which to execute the callbacks: The "this" object for the callback function. If the <tt>url</tt>, or <tt>params</tt> options were
+         * specified as functions from which to draw values, then this also serves as the scope for those function calls.
+         * Defaults to the browser window.</div></li>
+         * <li><b>timeout</b> : Number (Optional)<div class="sub-desc">The timeout in milliseconds to be used for this request. Defaults to 30 seconds.</div></li>
+         * <li><b>form</b> : Element/HTMLElement/String (Optional)<div class="sub-desc">The <tt>&lt;form&gt;</tt>
+         * Element or the id of the <tt>&lt;form&gt;</tt> to pull parameters from.</div></li>
+         * <li><a id="request-option-isUpload"></a><b>isUpload</b> : Boolean (Optional)<div class="sub-desc"><b>Only meaningful when used
+         * with the <tt>form</tt> option</b>.
+         * <p>True if the form object is a file upload (will be set automatically if the form was
+         * configured with <b><tt>enctype</tt></b> "multipart/form-data").</p>
+         * <p>File uploads are not performed using normal "Ajax" techniques, that is they are <b>not</b>
+         * performed using XMLHttpRequests. Instead the form is submitted in the standard manner with the
+         * DOM <tt>&lt;form></tt> element temporarily modified to have its
+         * <a href="http://www.w3.org/TR/REC-html40/present/frames.html#adef-target">target</a> set to refer
+         * to a dynamically generated, hidden <tt>&lt;iframe></tt> which is inserted into the document
+         * but removed after the return data has been gathered.</p>
+         * <p>The server response is parsed by the browser to create the document for the IFRAME. If the
+         * server is using JSON to send the return object, then the
+         * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> header
+         * must be set to "text/html" in order to tell the browser to insert the text unchanged into the document body.</p>
+         * <p>The response text is retrieved from the document, and a fake XMLHttpRequest object
+         * is created containing a <tt>responseText</tt> property in order to conform to the
+         * requirements of event handlers and callbacks.</p>
+         * <p>Be aware that file upload packets are sent with the content type <a href="http://www.faqs.org/rfcs/rfc2388.html">multipart/form</a>
+         * and some server technologies (notably JEE) may require some custom processing in order to
+         * retrieve parameter names and parameter values from the packet content.</p>
+         * </div></li>
+         * <li><b>headers</b> : Object (Optional)<div class="sub-desc">Request
+         * headers to set for the request.</div></li>
+         * <li><b>xmlData</b> : Object (Optional)<div class="sub-desc">XML document
+         * to use for the post. Note: This will be used instead of params for the post
+         * data. Any params will be appended to the URL.</div></li>
+         * <li><b>jsonData</b> : Object/String (Optional)<div class="sub-desc">JSON
+         * data to use as the post. Note: This will be used instead of params for the post
+         * data. Any params will be appended to the URL.</div></li>
+         * <li><b>disableCaching</b> : Boolean (Optional)<div class="sub-desc">True
+         * to add a unique cache-buster param to GET requests.</div></li>
+         * </ul></p>
+         * <p>The options object may also contain any other property which might be needed to perform
+         * postprocessing in a callback because it is passed to callback functions.</p>
+         * @return {Number} transactionId The id of the server transaction. This may be used
+         * to cancel the request.
+         */
+        request : function(o){
+            var me = this;
+            if(me.fireEvent(BEFOREREQUEST, me, o)){
+                if (o.el) {
+                    if(!Ext.isEmpty(o.indicatorText)){
+                        me.indicatorText = '<div class="loading-indicator">'+o.indicatorText+"</div>";
+                    }
+                    if(me.indicatorText) {
+                        Ext.getDom(o.el).innerHTML = me.indicatorText;
+                    }
+                    o.success = (Ext.isFunction(o.success) ? o.success : function(){}).createInterceptor(function(response) {
+                        Ext.getDom(o.el).innerHTML = response.responseText;
+                    });
+                }
+
+                var p = o.params,
+                    url = o.url || me.url,
+                    method,
+                    cb = {success: me.handleResponse,
+                          failure: me.handleFailure,
+                          scope: me,
+                          argument: {options: o},
+                          timeout : Ext.num(o.timeout, me.timeout)
+                    },
+                    form,
+                    serForm;
+
+
+                if (Ext.isFunction(p)) {
+                    p = p.call(o.scope||WINDOW, o);
+                }
+
+                p = Ext.urlEncode(me.extraParams, Ext.isObject(p) ? Ext.urlEncode(p) : p);
+
+                if (Ext.isFunction(url)) {
+                    url = url.call(o.scope || WINDOW, o);
+                }
+
+                if((form = Ext.getDom(o.form))){
+                    url = url || form.action;
+                     if(o.isUpload || (/multipart\/form-data/i.test(form.getAttribute("enctype")))) {
+                         return me.doFormUpload.call(me, o, p, url);
+                     }
+                    serForm = Ext.lib.Ajax.serializeForm(form);
+                    p = p ? (p + '&' + serForm) : serForm;
+                }
+
+                method = o.method || me.method || ((p || o.xmlData || o.jsonData) ? POST : GET);
+
+                if(method === GET && (me.disableCaching && o.disableCaching !== false) || o.disableCaching === true){
+                    var dcp = o.disableCachingParam || me.disableCachingParam;
+                    url = Ext.urlAppend(url, dcp + '=' + (new Date().getTime()));
+                }
+
+                o.headers = Ext.applyIf(o.headers || {}, me.defaultHeaders || {});
+
+                if(o.autoAbort === true || me.autoAbort) {
+                    me.abort();
+                }
+
+                if((method == GET || o.xmlData || o.jsonData) && p){
+                    url = Ext.urlAppend(url, p);
+                    p = '';
+                }
+                return (me.transId = Ext.lib.Ajax.request(method, url, cb, p, o));
+            }else{
+                return o.callback ? o.callback.apply(o.scope, [o,UNDEFINED,UNDEFINED]) : null;
+            }
+        },
+
+        /**
+         * Determine whether this object has a request outstanding.
+         * @param {Number} transactionId (Optional) defaults to the last transaction
+         * @return {Boolean} True if there is an outstanding request.
+         */
+        isLoading : function(transId){
+            return transId ? Ext.lib.Ajax.isCallInProgress(transId) : !! this.transId;
+        },
+
+        /**
+         * Aborts any outstanding request.
+         * @param {Number} transactionId (Optional) defaults to the last transaction
+         */
+        abort : function(transId){
+            if(transId || this.isLoading()){
+                Ext.lib.Ajax.abort(transId || this.transId);
+            }
+        },
+
+        // private
+        handleResponse : function(response){
+            this.transId = false;
+            var options = response.argument.options;
+            response.argument = options ? options.argument : null;
+            this.fireEvent(REQUESTCOMPLETE, this, response, options);
+            if(options.success){
+                options.success.call(options.scope, response, options);
+            }
+            if(options.callback){
+                options.callback.call(options.scope, options, true, response);
+            }
+        },
+
+        // private
+        handleFailure : function(response, e){
+            this.transId = false;
+            var options = response.argument.options;
+            response.argument = options ? options.argument : null;
+            this.fireEvent(REQUESTEXCEPTION, this, response, options, e);
+            if(options.failure){
+                options.failure.call(options.scope, response, options);
+            }
+            if(options.callback){
+                options.callback.call(options.scope, options, false, response);
+            }
+        },
+
+        // private
+        doFormUpload : function(o, ps, url){
+            var id = Ext.id(),
+                doc = document,
+                frame = doc.createElement('iframe'),
+                form = Ext.getDom(o.form),
+                hiddens = [],
+                hd,
+                encoding = 'multipart/form-data',
+                buf = {
+                    target: form.target,
+                    method: form.method,
+                    encoding: form.encoding,
+                    enctype: form.enctype,
+                    action: form.action
+                };
+
+            /*
+             * Originally this behaviour was modified for Opera 10 to apply the secure URL after
+             * the frame had been added to the document. It seems this has since been corrected in
+             * Opera so the behaviour has been reverted, the URL will be set before being added.
+             */
+            Ext.fly(frame).set({
+                id: id,
+                name: id,
+                cls: 'x-hidden',
+                src: Ext.SSL_SECURE_URL
+            }); 
+
+            doc.body.appendChild(frame);
+
+            // This is required so that IE doesn't pop the response up in a new window.
+            if(Ext.isIE){
+               document.frames[id].name = id;
+            }
+
+
+            Ext.fly(form).set({
+                target: id,
+                method: POST,
+                enctype: encoding,
+                encoding: encoding,
+                action: url || buf.action
+            });
+
+            // add dynamic params
+            Ext.iterate(Ext.urlDecode(ps, false), function(k, v){
+                hd = doc.createElement('input');
+                Ext.fly(hd).set({
+                    type: 'hidden',
+                    value: v,
+                    name: k
+                });
+                form.appendChild(hd);
+                hiddens.push(hd);
+            });
+
+            function cb(){
+                var me = this,
+                    // bogus response object
+                    r = {responseText : '',
+                         responseXML : null,
+                         argument : o.argument},
+                    doc,
+                    firstChild;
+
+                try{
+                    doc = frame.contentWindow.document || frame.contentDocument || WINDOW.frames[id].document;
+                    if(doc){
+                        if(doc.body){
+                            if(/textarea/i.test((firstChild = doc.body.firstChild || {}).tagName)){ // json response wrapped in textarea
+                                r.responseText = firstChild.value;
+                            }else{
+                                r.responseText = doc.body.innerHTML;
+                            }
+                        }
+                        //in IE the document may still have a body even if returns XML.
+                        r.responseXML = doc.XMLDocument || doc;
+                    }
+                }
+                catch(e) {}
+
+                Ext.EventManager.removeListener(frame, LOAD, cb, me);
+
+                me.fireEvent(REQUESTCOMPLETE, me, r, o);
+
+                function runCallback(fn, scope, args){
+                    if(Ext.isFunction(fn)){
+                        fn.apply(scope, args);
+                    }
+                }
+
+                runCallback(o.success, o.scope, [r, o]);
+                runCallback(o.callback, o.scope, [o, true, r]);
+
+                if(!me.debugUploads){
+                    setTimeout(function(){Ext.removeNode(frame);}, 100);
+                }
+            }
+
+            Ext.EventManager.on(frame, LOAD, cb, this);
+            form.submit();
+
+            Ext.fly(form).set(buf);
+            Ext.each(hiddens, function(h) {
+                Ext.removeNode(h);
+            });
+        }
+    });
+})();
+
+/**
+ * @class Ext.Ajax
+ * @extends Ext.data.Connection
+ * <p>The global Ajax request class that provides a simple way to make Ajax requests
+ * with maximum flexibility.</p>
+ * <p>Since Ext.Ajax is a singleton, you can set common properties/events for it once
+ * and override them at the request function level only if necessary.</p>
+ * <p>Common <b>Properties</b> you may want to set are:<div class="mdetail-params"><ul>
+ * <li><b><tt>{@link #method}</tt></b><p class="sub-desc"></p></li>
+ * <li><b><tt>{@link #extraParams}</tt></b><p class="sub-desc"></p></li>
+ * <li><b><tt>{@link #url}</tt></b><p class="sub-desc"></p></li>
+ * </ul></div>
+ * <pre><code>
+// Default headers to pass in every request
+Ext.Ajax.defaultHeaders = {
+    'Powered-By': 'Ext'
+};
+ * </code></pre>
+ * </p>
+ * <p>Common <b>Events</b> you may want to set are:<div class="mdetail-params"><ul>
+ * <li><b><tt>{@link Ext.data.Connection#beforerequest beforerequest}</tt></b><p class="sub-desc"></p></li>
+ * <li><b><tt>{@link Ext.data.Connection#requestcomplete requestcomplete}</tt></b><p class="sub-desc"></p></li>
+ * <li><b><tt>{@link Ext.data.Connection#requestexception requestexception}</tt></b><p class="sub-desc"></p></li>
+ * </ul></div>
+ * <pre><code>
+// Example: show a spinner during all Ajax requests
+Ext.Ajax.on('beforerequest', this.showSpinner, this);
+Ext.Ajax.on('requestcomplete', this.hideSpinner, this);
+Ext.Ajax.on('requestexception', this.hideSpinner, this);
+ * </code></pre>
+ * </p>
+ * <p>An example request:</p>
+ * <pre><code>
+// Basic request
+Ext.Ajax.{@link Ext.data.Connection#request request}({
+   url: 'foo.php',
+   success: someFn,
+   failure: otherFn,
+   headers: {
+       'my-header': 'foo'
+   },
+   params: { foo: 'bar' }
+});
+
+// Simple ajax form submission
+Ext.Ajax.{@link Ext.data.Connection#request request}({
+    form: 'some-form',
+    params: 'foo=bar'
+});
+ * </code></pre>
+ * </p>
+ * @singleton
+ */
+Ext.Ajax = new Ext.data.Connection({
+    /**
+     * @cfg {String} url @hide
+     */
+    /**
+     * @cfg {Object} extraParams @hide
+     */
+    /**
+     * @cfg {Object} defaultHeaders @hide
+     */
+    /**
+     * @cfg {String} method (Optional) @hide
+     */
+    /**
+     * @cfg {Number} timeout (Optional) @hide
+     */
+    /**
+     * @cfg {Boolean} autoAbort (Optional) @hide
+     */
+
+    /**
+     * @cfg {Boolean} disableCaching (Optional) @hide
+     */
+
+    /**
+     * @property  disableCaching
+     * True to add a unique cache-buster param to GET requests. (defaults to true)
+     * @type Boolean
+     */
+    /**
+     * @property  url
+     * The default URL to be used for requests to the server. (defaults to undefined)
+     * If the server receives all requests through one URL, setting this once is easier than
+     * entering it on every request.
+     * @type String
+     */
+    /**
+     * @property  extraParams
+     * An object containing properties which are used as extra parameters to each request made
+     * by this object (defaults to undefined). Session information and other data that you need
+     * to pass with each request are commonly put here.
+     * @type Object
+     */
+    /**
+     * @property  defaultHeaders
+     * An object containing request headers which are added to each request made by this object
+     * (defaults to undefined).
+     * @type Object
+     */
+    /**
+     * @property  method
+     * The default HTTP method to be used for requests. Note that this is case-sensitive and
+     * should be all caps (defaults to undefined; if not set but params are present will use
+     * <tt>"POST"</tt>, otherwise will use <tt>"GET"</tt>.)
+     * @type String
+     */
+    /**
+     * @property  timeout
+     * The timeout in milliseconds to be used for requests. (defaults to 30000)
+     * @type Number
+     */
+
+    /**
+     * @property  autoAbort
+     * Whether a new request should abort any pending requests. (defaults to false)
+     * @type Boolean
+     */
+    autoAbort : false,
+
+    /**
+     * Serialize the passed form into a url encoded string
+     * @param {String/HTMLElement} form
+     * @return {String}
+     */
+    serializeForm : function(form){
+        return Ext.lib.Ajax.serializeForm(form);
+    }
+});
+
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.util.JSON
+ * Modified version of Douglas Crockford"s json.js that doesn"t
+ * mess with the Object prototype
+ * http://www.json.org/js.html
+ * @singleton
+ */
+Ext.util.JSON = new (function(){
+    var useHasOwn = !!{}.hasOwnProperty,
+        isNative = function() {
+            var useNative = null;
+
+            return function() {
+                if (useNative === null) {
+                    useNative = Ext.USE_NATIVE_JSON && window.JSON && JSON.toString() == '[object JSON]';
+                }
+        
+                return useNative;
+            };
+        }(),
+        pad = function(n) {
+            return n < 10 ? "0" + n : n;
+        },
+        doDecode = function(json){
+            return json ? eval("(" + json + ")") : "";    
+        },
+        doEncode = function(o){
+            if(!Ext.isDefined(o) || o === null){
+                return "null";
+            }else if(Ext.isArray(o)){
+                return encodeArray(o);
+            }else if(Ext.isDate(o)){
+                return Ext.util.JSON.encodeDate(o);
+            }else if(Ext.isString(o)){
+                return encodeString(o);
+            }else if(typeof o == "number"){
+                //don't use isNumber here, since finite checks happen inside isNumber
+                return isFinite(o) ? String(o) : "null";
+            }else if(Ext.isBoolean(o)){
+                return String(o);
+            }else {
+                var a = ["{"], b, i, v;
+                for (i in o) {
+                    // don't encode DOM objects
+                    if(!o.getElementsByTagName){
+                        if(!useHasOwn || o.hasOwnProperty(i)) {
+                            v = o[i];
+                            switch (typeof v) {
+                            case "undefined":
+                            case "function":
+                            case "unknown":
+                                break;
+                            default:
+                                if(b){
+                                    a.push(',');
+                                }
+                                a.push(doEncode(i), ":",
+                                        v === null ? "null" : doEncode(v));
+                                b = true;
+                            }
+                        }
+                    }
+                }
+                a.push("}");
+                return a.join("");
+            }    
+        },
+        m = {
+            "\b": '\\b',
+            "\t": '\\t',
+            "\n": '\\n',
+            "\f": '\\f',
+            "\r": '\\r',
+            '"' : '\\"',
+            "\\": '\\\\'
+        },
+        encodeString = function(s){
+            if (/["\\\x00-\x1f]/.test(s)) {
+                return '"' + s.replace(/([\x00-\x1f\\"])/g, function(a, b) {
+                    var c = m[b];
+                    if(c){
+                        return c;
+                    }
+                    c = b.charCodeAt();
+                    return "\\u00" +
+                        Math.floor(c / 16).toString(16) +
+                        (c % 16).toString(16);
+                }) + '"';
+            }
+            return '"' + s + '"';
+        },
+        encodeArray = function(o){
+            var a = ["["], b, i, l = o.length, v;
+                for (i = 0; i < l; i += 1) {
+                    v = o[i];
+                    switch (typeof v) {
+                        case "undefined":
+                        case "function":
+                        case "unknown":
+                            break;
+                        default:
+                            if (b) {
+                                a.push(',');
+                            }
+                            a.push(v === null ? "null" : Ext.util.JSON.encode(v));
+                            b = true;
+                    }
+                }
+                a.push("]");
+                return a.join("");
+        };
+
+    /**
+     * <p>Encodes a Date. This returns the actual string which is inserted into the JSON string as the literal expression.
+     * <b>The returned value includes enclosing double quotation marks.</b></p>
+     * <p>The default return format is "yyyy-mm-ddThh:mm:ss".</p>
+     * <p>To override this:</p><pre><code>
+Ext.util.JSON.encodeDate = function(d) {
+    return d.format('"Y-m-d"');
+};
+</code></pre>
+     * @param {Date} d The Date to encode
+     * @return {String} The string literal to use in a JSON string.
+     */
+    this.encodeDate = function(o){
+        return '"' + o.getFullYear() + "-" +
+                pad(o.getMonth() + 1) + "-" +
+                pad(o.getDate()) + "T" +
+                pad(o.getHours()) + ":" +
+                pad(o.getMinutes()) + ":" +
+                pad(o.getSeconds()) + '"';
+    };
+
+    /**
+     * Encodes an Object, Array or other value
+     * @param {Mixed} o The variable to encode
+     * @return {String} The JSON string
+     */
+    this.encode = function() {
+        var ec;
+        return function(o) {
+            if (!ec) {
+                // setup encoding function on first access
+                ec = isNative() ? JSON.stringify : doEncode;
+            }
+            return ec(o);
+        };
+    }();
+
+
+    /**
+     * Decodes (parses) a JSON string to an object. If the JSON is invalid, this function throws a SyntaxError unless the safe option is set.
+     * @param {String} json The JSON string
+     * @return {Object} The resulting object
+     */
+    this.decode = function() {
+        var dc;
+        return function(json) {
+            if (!dc) {
+                // setup decoding function on first access
+                dc = isNative() ? JSON.parse : doDecode;
+            }
+            return dc(json);
+        };
+    }();
+
+})();
+/**
+ * Shorthand for {@link Ext.util.JSON#encode}
+ * @param {Mixed} o The variable to encode
+ * @return {String} The JSON string
+ * @member Ext
+ * @method encode
+ */
+Ext.encode = Ext.util.JSON.encode;
+/**
+ * Shorthand for {@link Ext.util.JSON#decode}
+ * @param {String} json The JSON string
+ * @param {Boolean} safe (optional) Whether to return null or throw an exception if the JSON is invalid.
+ * @return {Object} The resulting object
+ * @member Ext
+ * @method decode
+ */
+Ext.decode = Ext.util.JSON.decode;
+
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.EventManager
+ * Registers event handlers that want to receive a normalized EventObject instead of the standard browser event and provides
+ * several useful events directly.
+ * See {@link Ext.EventObject} for more details on normalized event objects.
+ * @singleton
+ */
+Ext.EventManager = function(){
+    var docReadyEvent,
+        docReadyProcId,
+        docReadyState = false,
+        DETECT_NATIVE = Ext.isGecko || Ext.isWebKit || Ext.isSafari || Ext.isIE10p,
+        E = Ext.lib.Event,
+        D = Ext.lib.Dom,
+        DOC = document,
+        WINDOW = window,
+        DOMCONTENTLOADED = "DOMContentLoaded",
+        COMPLETE = 'complete',
+        propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/,
+        /*
+         * This cache is used to hold special js objects, the document and window, that don't have an id. We need to keep
+         * a reference to them so we can look them up at a later point.
+         */
+        specialElCache = [];
+
+     function getId(el){
+        var id = false,
+            i = 0,
+            len = specialElCache.length,
+            skip = false,
+            o;
+
+        if (el) {
+            if (el.getElementById || el.navigator) {
+                // look up the id
+                for(; i < len; ++i){
+                    o = specialElCache[i];
+                    if(o.el === el){
+                        id = o.id;
+                        break;
+                    }
+                }
+                if(!id){
+                    // for browsers that support it, ensure that give the el the same id
+                    id = Ext.id(el);
+                    specialElCache.push({
+                        id: id,
+                        el: el
+                    });
+                    skip = true;
+                }
+            }else{
+                id = Ext.id(el);
+            }
+            if(!Ext.elCache[id]){
+                Ext.Element.addToCache(new Ext.Element(el), id);
+                if(skip){
+                    Ext.elCache[id].skipGC = true;
+                }
+            }
+        }
+        return id;
+     }
+
+    /// There is some jquery work around stuff here that isn't needed in Ext Core.
+    function addListener(el, ename, fn, task, wrap, scope){
+        el = Ext.getDom(el);
+        var id = getId(el),
+            es = Ext.elCache[id].events,
+            wfn;
+
+        wfn = E.on(el, ename, wrap);
+        es[ename] = es[ename] || [];
+
+        /* 0 = Original Function,
+           1 = Event Manager Wrapped Function,
+           2 = Scope,
+           3 = Adapter Wrapped Function,
+           4 = Buffered Task
+        */
+        es[ename].push([fn, wrap, scope, wfn, task]);
+
+        // this is a workaround for jQuery and should somehow be removed from Ext Core in the future
+        // without breaking ExtJS.
+
+        // workaround for jQuery
+        if(el.addEventListener && ename == "mousewheel"){
+            var args = ["DOMMouseScroll", wrap, false];
+            el.addEventListener.apply(el, args);
+            Ext.EventManager.addListener(WINDOW, 'unload', function(){
+                el.removeEventListener.apply(el, args);
+            });
+        }
+
+        // fix stopped mousedowns on the document
+        if(el == DOC && ename == "mousedown"){
+            Ext.EventManager.stoppedMouseDownEvent.addListener(wrap);
+        }
+    }
+
+    function doScrollChk(){
+        /* Notes:
+             'doScroll' will NOT work in a IFRAME/FRAMESET.
+             The method succeeds but, a DOM query done immediately after -- FAILS.
+          */
+        if(window != top){
+            return false;
+        }
+
+        try{
+            DOC.documentElement.doScroll('left');
+        }catch(e){
+             return false;
+        }
+
+        fireDocReady();
+        return true;
+    }
+    /**
+     * @return {Boolean} True if the document is in a 'complete' state (or was determined to
+     * be true by other means). If false, the state is evaluated again until canceled.
+     */
+    function checkReadyState(e){
+
+        if(Ext.isIE9m && doScrollChk()){
+            return true;
+        }
+        if(DOC.readyState == COMPLETE){
+            fireDocReady();
+            return true;
+        }
+        docReadyState || (docReadyProcId = setTimeout(arguments.callee, 2));
+        return false;
+    }
+
+    var styles;
+    function checkStyleSheets(e){
+        styles || (styles = Ext.query('style, link[rel=stylesheet]'));
+        if(styles.length == DOC.styleSheets.length){
+            fireDocReady();
+            return true;
+        }
+        docReadyState || (docReadyProcId = setTimeout(arguments.callee, 2));
+        return false;
+    }
+
+    function OperaDOMContentLoaded(e){
+        DOC.removeEventListener(DOMCONTENTLOADED, arguments.callee, false);
+        checkStyleSheets();
+    }
+
+    function fireDocReady(e){
+        if(!docReadyState){
+            docReadyState = true; //only attempt listener removal once
+
+            if(docReadyProcId){
+                clearTimeout(docReadyProcId);
+            }
+            if(DETECT_NATIVE) {
+                DOC.removeEventListener(DOMCONTENTLOADED, fireDocReady, false);
+            }
+            if(Ext.isIE9m && checkReadyState.bindIE){  //was this was actually set ??
+                DOC.detachEvent('onreadystatechange', checkReadyState);
+            }
+            E.un(WINDOW, "load", arguments.callee);
+        }
+        if(docReadyEvent && !Ext.isReady){
+            Ext.isReady = true;
+            docReadyEvent.fire();
+            docReadyEvent.listeners = [];
+        }
+
+    }
+
+    function initDocReady(){
+        docReadyEvent || (docReadyEvent = new Ext.util.Event());
+        if (DETECT_NATIVE) {
+            DOC.addEventListener(DOMCONTENTLOADED, fireDocReady, false);
+        }
+        /*
+         * Handle additional (exceptional) detection strategies here
+         */
+        if (Ext.isIE9m){
+            //Use readystatechange as a backup AND primary detection mechanism for a FRAME/IFRAME
+            //See if page is already loaded
+            if(!checkReadyState()){
+                checkReadyState.bindIE = true;
+                DOC.attachEvent('onreadystatechange', checkReadyState);
+            }
+
+        }else if(Ext.isOpera ){
+            /* Notes:
+               Opera needs special treatment needed here because CSS rules are NOT QUITE
+               available after DOMContentLoaded is raised.
+            */
+
+            //See if page is already loaded and all styleSheets are in place
+            (DOC.readyState == COMPLETE && checkStyleSheets()) ||
+                DOC.addEventListener(DOMCONTENTLOADED, OperaDOMContentLoaded, false);
+
+        }else if (Ext.isWebKit){
+            //Fallback for older Webkits without DOMCONTENTLOADED support
+            checkReadyState();
+        }
+        // no matter what, make sure it fires on load
+        E.on(WINDOW, "load", fireDocReady);
+    }
+
+    function createTargeted(h, o){
+        return function(){
+            var args = Ext.toArray(arguments);
+            if(o.target == Ext.EventObject.setEvent(args[0]).target){
+                h.apply(this, args);
+            }
+        };
+    }
+
+    function createBuffered(h, o, task){
+        return function(e){
+            // create new event object impl so new events don't wipe out properties
+            task.delay(o.buffer, h, null, [new Ext.EventObjectImpl(e)]);
+        };
+    }
+
+    function createSingle(h, el, ename, fn, scope){
+        return function(e){
+            Ext.EventManager.removeListener(el, ename, fn, scope);
+            h(e);
+        };
+    }
+
+    function createDelayed(h, o, fn){
+        return function(e){
+            var task = new Ext.util.DelayedTask(h);
+            if(!fn.tasks) {
+                fn.tasks = [];
+            }
+            fn.tasks.push(task);
+            task.delay(o.delay || 10, h, null, [new Ext.EventObjectImpl(e)]);
+        };
+    }
+
+    function listen(element, ename, opt, fn, scope){
+        var o = (!opt || typeof opt == "boolean") ? {} : opt,
+            el = Ext.getDom(element), task;
+
+        fn = fn || o.fn;
+        scope = scope || o.scope;
+
+        if(!el){
+            throw "Error listening for \"" + ename + '\". Element "' + element + '" doesn\'t exist.';
+        }
+        function h(e){
+            // prevent errors while unload occurring
+            if(!Ext){// !window[xname]){  ==> can't we do this?
+                return;
+            }
+            e = Ext.EventObject.setEvent(e);
+            var t;
+            if (o.delegate) {
+                if(!(t = e.getTarget(o.delegate, el))){
+                    return;
+                }
+            } else {
+                t = e.target;
+            }
+            if (o.stopEvent) {
+                e.stopEvent();
+            }
+            if (o.preventDefault) {
+               e.preventDefault();
+            }
+            if (o.stopPropagation) {
+                e.stopPropagation();
+            }
+            if (o.normalized === false) {
+                e = e.browserEvent;
+            }
+
+            fn.call(scope || el, e, t, o);
+        }
+        if(o.target){
+            h = createTargeted(h, o);
+        }
+        if(o.delay){
+            h = createDelayed(h, o, fn);
+        }
+        if(o.single){
+            h = createSingle(h, el, ename, fn, scope);
+        }
+        if(o.buffer){
+            task = new Ext.util.DelayedTask(h);
+            h = createBuffered(h, o, task);
+        }
+
+        addListener(el, ename, fn, task, h, scope);
+        return h;
+    }
+
+    var pub = {
+        /**
+         * Appends an event handler to an element.  The shorthand version {@link #on} is equivalent.  Typically you will
+         * use {@link Ext.Element#addListener} directly on an Element in favor of calling this version.
+         * @param {String/HTMLElement} el The html element or id to assign the event handler to.
+         * @param {String} eventName The name of the event to listen for.
+         * @param {Function} handler The handler function the event invokes. This function is passed
+         * the following parameters:<ul>
+         * <li>evt : EventObject<div class="sub-desc">The {@link Ext.EventObject EventObject} describing the event.</div></li>
+         * <li>t : Element<div class="sub-desc">The {@link Ext.Element Element} which was the target of the event.
+         * Note that this may be filtered by using the <tt>delegate</tt> option.</div></li>
+         * <li>o : Object<div class="sub-desc">The options object from the addListener call.</div></li>
+         * </ul>
+         * @param {Object} scope (optional) The scope (<b><code>this</code></b> reference) in which the handler function is executed. <b>Defaults to the Element</b>.
+         * @param {Object} options (optional) An object containing handler configuration properties.
+         * This may contain any of the following properties:<ul>
+         * <li>scope : Object<div class="sub-desc">The scope (<b><code>this</code></b> reference) in which the handler function is executed. <b>Defaults to the Element</b>.</div></li>
+         * <li>delegate : String<div class="sub-desc">A simple selector to filter the target or look for a descendant of the target</div></li>
+         * <li>stopEvent : Boolean<div class="sub-desc">True to stop the event. That is stop propagation, and prevent the default action.</div></li>
+         * <li>preventDefault : Boolean<div class="sub-desc">True to prevent the default action</div></li>
+         * <li>stopPropagation : Boolean<div class="sub-desc">True to prevent event propagation</div></li>
+         * <li>normalized : Boolean<div class="sub-desc">False to pass a browser event to the handler function instead of an Ext.EventObject</div></li>
+         * <li>delay : Number<div class="sub-desc">The number of milliseconds to delay the invocation of the handler after te event fires.</div></li>
+         * <li>single : Boolean<div class="sub-desc">True to add a handler to handle just the next firing of the event, and then remove itself.</div></li>
+         * <li>buffer : Number<div class="sub-desc">Causes the handler to be scheduled to run in an {@link Ext.util.DelayedTask} delayed
+         * by the specified number of milliseconds. If the event fires again within that time, the original
+         * handler is <em>not</em> invoked, but the new handler is scheduled in its place.</div></li>
+         * <li>target : Element<div class="sub-desc">Only call the handler if the event was fired on the target Element, <i>not</i> if the event was bubbled up from a child node.</div></li>
+         * </ul><br>
+         * <p>See {@link Ext.Element#addListener} for examples of how to use these options.</p>
+         */
+        addListener : function(element, eventName, fn, scope, options){
+            if(typeof eventName == 'object'){
+                var o = eventName, e, val;
+                for(e in o){
+                    val = o[e];
+                    if(!propRe.test(e)){
+                        if(Ext.isFunction(val)){
+                            // shared options
+                            listen(element, e, o, val, o.scope);
+                        }else{
+                            // individual options
+                            listen(element, e, val);
+                        }
+                    }
+                }
+            } else {
+                listen(element, eventName, options, fn, scope);
+            }
+        },
+
+        /**
+         * Removes an event handler from an element.  The shorthand version {@link #un} is equivalent.  Typically
+         * you will use {@link Ext.Element#removeListener} directly on an Element in favor of calling this version.
+         * @param {String/HTMLElement} el The id or html element from which to remove the listener.
+         * @param {String} eventName The name of the event.
+         * @param {Function} fn The handler function to remove. <b>This must be a reference to the function passed into the {@link #addListener} call.</b>
+         * @param {Object} scope If a scope (<b><code>this</code></b> reference) was specified when the listener was added,
+         * then this must refer to the same object.
+         */
+        removeListener : function(el, eventName, fn, scope){
+            el = Ext.getDom(el);
+            var id = getId(el),
+                f = el && (Ext.elCache[id].events)[eventName] || [],
+                wrap, i, l, k, len, fnc;
+
+            for (i = 0, len = f.length; i < len; i++) {
+
+                /* 0 = Original Function,
+                   1 = Event Manager Wrapped Function,
+                   2 = Scope,
+                   3 = Adapter Wrapped Function,
+                   4 = Buffered Task
+                */
+                if (Ext.isArray(fnc = f[i]) && fnc[0] == fn && (!scope || fnc[2] == scope)) {
+                    if(fnc[4]) {
+                        fnc[4].cancel();
+                    }
+                    k = fn.tasks && fn.tasks.length;
+                    if(k) {
+                        while(k--) {
+                            fn.tasks[k].cancel();
+                        }
+                        delete fn.tasks;
+                    }
+                    wrap = fnc[1];
+                    E.un(el, eventName, E.extAdapter ? fnc[3] : wrap);
+
+                    // jQuery workaround that should be removed from Ext Core
+                    if(wrap && el.addEventListener && eventName == "mousewheel"){
+                        el.removeEventListener("DOMMouseScroll", wrap, false);
+                    }
+
+                    // fix stopped mousedowns on the document
+                    if(wrap && el == DOC && eventName == "mousedown"){
+                        Ext.EventManager.stoppedMouseDownEvent.removeListener(wrap);
+                    }
+
+                    f.splice(i, 1);
+                    if (f.length === 0) {
+                        delete Ext.elCache[id].events[eventName];
+                    }
+                    for (k in Ext.elCache[id].events) {
+                        return false;
+                    }
+                    Ext.elCache[id].events = {};
+                    return false;
+                }
+            }
+        },
+
+        /**
+         * Removes all event handers from an element.  Typically you will use {@link Ext.Element#removeAllListeners}
+         * directly on an Element in favor of calling this version.
+         * @param {String/HTMLElement} el The id or html element from which to remove all event handlers.
+         */
+        removeAll : function(el){
+            el = Ext.getDom(el);
+            var id = getId(el),
+                ec = Ext.elCache[id] || {},
+                es = ec.events || {},
+                f, i, len, ename, fn, k, wrap;
+
+            for(ename in es){
+                if(es.hasOwnProperty(ename)){
+                    f = es[ename];
+                    /* 0 = Original Function,
+                       1 = Event Manager Wrapped Function,
+                       2 = Scope,
+                       3 = Adapter Wrapped Function,
+                       4 = Buffered Task
+                    */
+                    for (i = 0, len = f.length; i < len; i++) {
+                        fn = f[i];
+                        if(fn[4]) {
+                            fn[4].cancel();
+                        }
+                        if(fn[0].tasks && (k = fn[0].tasks.length)) {
+                            while(k--) {
+                                fn[0].tasks[k].cancel();
+                            }
+                            delete fn.tasks;
+                        }
+                        wrap =  fn[1];
+                        E.un(el, ename, E.extAdapter ? fn[3] : wrap);
+
+                        // jQuery workaround that should be removed from Ext Core
+                        if(el.addEventListener && wrap && ename == "mousewheel"){
+                            el.removeEventListener("DOMMouseScroll", wrap, false);
+                        }
+
+                        // fix stopped mousedowns on the document
+                        if(wrap && el == DOC &&  ename == "mousedown"){
+                            Ext.EventManager.stoppedMouseDownEvent.removeListener(wrap);
+                        }
+                    }
+                }
+            }
+            if (Ext.elCache[id]) {
+                Ext.elCache[id].events = {};
+            }
+        },
+
+        getListeners : function(el, eventName) {
+            el = Ext.getDom(el);
+            var id = getId(el),
+                ec = Ext.elCache[id] || {},
+                es = ec.events || {},
+                results = [];
+            if (es && es[eventName]) {
+                return es[eventName];
+            } else {
+                return null;
+            }
+        },
+        
+        removeFromSpecialCache: function(o) {
+            var i = 0,
+                len = specialElCache.length;
+                
+            for (; i < len; ++i) {
+                if (specialElCache[i].el == o) {
+                    specialElCache.splice(i, 1); 
+                }
+            }
+        },
+
+        purgeElement : function(el, recurse, eventName) {
+            el = Ext.getDom(el);
+            var id = getId(el),
+                ec = Ext.elCache[id] || {},
+                es = ec.events || {},
+                i, f, len;
+            if (eventName) {
+                if (es && es.hasOwnProperty(eventName)) {
+                    f = es[eventName];
+                    for (i = 0, len = f.length; i < len; i++) {
+                        Ext.EventManager.removeListener(el, eventName, f[i][0]);
+                    }
+                }
+            } else {
+                Ext.EventManager.removeAll(el);
+            }
+            if (recurse && el && el.childNodes) {
+                for (i = 0, len = el.childNodes.length; i < len; i++) {
+                    Ext.EventManager.purgeElement(el.childNodes[i], recurse, eventName);
+                }
+            }
+        },
+
+        _unload : function() {
+            var el;
+            for (el in Ext.elCache) {
+                Ext.EventManager.removeAll(el);
+            }
+            delete Ext.elCache;
+            delete Ext.Element._flyweights;
+
+            // Abort any outstanding Ajax requests
+            var c,
+                conn,
+                tid,
+                ajax = Ext.lib.Ajax;
+            (typeof ajax.conn == 'object') ? conn = ajax.conn : conn = {};
+            for (tid in conn) {
+                c = conn[tid];
+                if (c) {
+                    ajax.abort({conn: c, tId: tid});
+                }
+            }
+        },
+        /**
+         * Adds a listener to be notified when the document is ready (before onload and before images are loaded). Can be
+         * accessed shorthanded as Ext.onReady().
+         * @param {Function} fn The method the event invokes.
+         * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the handler function executes. Defaults to the browser window.
+         * @param {boolean} options (optional) Options object as passed to {@link Ext.Element#addListener}. It is recommended that the options
+         * <code>{single: true}</code> be used so that the handler is removed on first invocation.
+         */
+        onDocumentReady : function(fn, scope, options){
+            if (Ext.isReady) { // if it already fired or document.body is present
+                docReadyEvent || (docReadyEvent = new Ext.util.Event());
+                docReadyEvent.addListener(fn, scope, options);
+                docReadyEvent.fire();
+                docReadyEvent.listeners = [];
+            } else {
+                if (!docReadyEvent) {
+                    initDocReady();
+                }
+                options = options || {};
+                options.delay = options.delay || 1;
+                docReadyEvent.addListener(fn, scope, options);
+            }
+        },
+
+        /**
+         * Forces a document ready state transition for the framework.  Used when Ext is loaded
+         * into a DOM structure AFTER initial page load (Google API or other dynamic load scenario.
+         * Any pending 'onDocumentReady' handlers will be fired (if not already handled).
+         */
+        fireDocReady  : fireDocReady
+    };
+     /**
+     * Appends an event handler to an element.  Shorthand for {@link #addListener}.
+     * @param {String/HTMLElement} el The html element or id to assign the event handler to
+     * @param {String} eventName The name of the event to listen for.
+     * @param {Function} handler The handler function the event invokes.
+     * @param {Object} scope (optional) (<code>this</code> reference) in which the handler function executes. <b>Defaults to the Element</b>.
+     * @param {Object} options (optional) An object containing standard {@link #addListener} options
+     * @member Ext.EventManager
+     * @method on
+     */
+    pub.on = pub.addListener;
+    /**
+     * Removes an event handler from an element.  Shorthand for {@link #removeListener}.
+     * @param {String/HTMLElement} el The id or html element from which to remove the listener.
+     * @param {String} eventName The name of the event.
+     * @param {Function} fn The handler function to remove. <b>This must be a reference to the function passed into the {@link #on} call.</b>
+     * @param {Object} scope If a scope (<b><code>this</code></b> reference) was specified when the listener was added,
+     * then this must refer to the same object.
+     * @member Ext.EventManager
+     * @method un
+     */
+    pub.un = pub.removeListener;
+
+    pub.stoppedMouseDownEvent = new Ext.util.Event();
+    return pub;
+}();
+/**
+  * Adds a listener to be notified when the document is ready (before onload and before images are loaded). Shorthand of {@link Ext.EventManager#onDocumentReady}.
+  * @param {Function} fn The method the event invokes.
+  * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the handler function executes. Defaults to the browser window.
+  * @param {boolean} options (optional) Options object as passed to {@link Ext.Element#addListener}. It is recommended that the options
+  * <code>{single: true}</code> be used so that the handler is removed on first invocation.
+  * @member Ext
+  * @method onReady
+ */
+Ext.onReady = Ext.EventManager.onDocumentReady;
+
+
+//Initialize doc classes
+(function(){
+    var initExtCss = function() {
+        // find the body element
+        var bd = document.body || document.getElementsByTagName('body')[0];
+        if (!bd) {
+            return false;
+        }
+
+        var cls = [];
+        
+        if (Ext.isIE) {
+            // Only treat IE9 and less like IE in the css
+            if (!Ext.isIE10p) {
+                cls.push('ext-ie');
+            }
+            if (Ext.isIE6) {
+                cls.push('ext-ie6');
+            } else if (Ext.isIE7) {
+                cls.push('ext-ie7', 'ext-ie7m');
+            } else if (Ext.isIE8) {
+                cls.push('ext-ie8', 'ext-ie8m');
+            } else if (Ext.isIE9) {
+                cls.push('ext-ie9', 'ext-ie9m');
+            } else if (Ext.isIE10) {
+                cls.push('ext-ie10');
+            }
+        }
+        
+        if (Ext.isGecko) {
+            if (Ext.isGecko2) {
+                cls.push('ext-gecko2');
+            } else {
+                cls.push('ext-gecko3');
+            }
+        }
+        
+        if (Ext.isOpera) {
+            cls.push('ext-opera');
+        }
+        
+        if (Ext.isWebKit) {
+            cls.push('ext-webkit');
+        }
+
+        if (Ext.isSafari) {
+            cls.push("ext-safari " + (Ext.isSafari2 ? 'ext-safari2' : (Ext.isSafari3 ? 'ext-safari3' : 'ext-safari4')));
+        } else if(Ext.isChrome) {
+            cls.push("ext-chrome");
+        }
+
+        if (Ext.isMac) {
+            cls.push("ext-mac");
+        }
+        if (Ext.isLinux) {
+            cls.push("ext-linux");
+        }
+
+        // add to the parent to allow for selectors like ".ext-strict .ext-ie"
+        if (Ext.isStrict || Ext.isBorderBox) {
+            var p = bd.parentNode;
+            if (p) {
+                if (!Ext.isStrict) {
+                    Ext.fly(p, '_internal').addClass('x-quirks');
+                    if (Ext.isIE9m && !Ext.isStrict) {
+                        Ext.isIEQuirks = true;
+                    }
+                }
+                Ext.fly(p, '_internal').addClass(((Ext.isStrict && Ext.isIE ) || (!Ext.enableForcedBoxModel && !Ext.isIE)) ? ' ext-strict' : ' ext-border-box');
+            }
+        }
+        // Forced border box model class applied to all elements. Bypassing javascript based box model adjustments
+        // in favor of css.  This is for non-IE browsers.
+        if (Ext.enableForcedBoxModel && !Ext.isIE) {
+            Ext.isForcedBorderBox = true;
+            cls.push("ext-forced-border-box");
+        }
+
+        Ext.fly(bd, '_internal').addClass(cls);
+        return true;
+    };
+
+    if (!initExtCss()) {
+        Ext.onReady(initExtCss);
+    }
+})();
+
+// Code used to detect certain browser feature/quirks/bugs at startup.
+(function(){
+    /**
+     * @class Ext.supports
+     * @ignore
+     */
+    var supports = Ext.apply(Ext.supports, {
+        /**
+         * In Webkit, there is an issue with getting the margin right property, see
+         * https://bugs.webkit.org/show_bug.cgi?id=13343
+         */
+        correctRightMargin: true,
+
+        /**
+         * Webkit browsers return rgba(0, 0, 0) when a transparent color is used
+         */
+        correctTransparentColor: true,
+
+        /**
+         * IE uses styleFloat, not cssFloat for the float property.
+         */
+        cssFloat: true
+    });
+
+    var supportTests = function(){
+            var div = document.createElement('div'),
+                doc = document,
+                view,
+                last;
+
+            div.innerHTML = '<div style="height:30px;width:50px;"><div style="height:20px;width:20px;"></div></div><div style="float:left;background-color:transparent;">';
+            doc.body.appendChild(div);
+            last = div.lastChild;
+
+            if((view = doc.defaultView)){
+                if(view.getComputedStyle(div.firstChild.firstChild, null).marginRight != '0px'){
+                    supports.correctRightMargin = false;
+                }
+                if(view.getComputedStyle(last, null).backgroundColor != 'transparent'){
+                    supports.correctTransparentColor = false;
+                }
+            }
+            supports.cssFloat = !!last.style.cssFloat;
+            doc.body.removeChild(div);
+    };
+
+    if (Ext.isReady) {
+        supportTests();
+    } else {
+        Ext.onReady(supportTests);
+    }
+})();
+
+
+/**
+ * @class Ext.EventObject
+ * Just as {@link Ext.Element} wraps around a native DOM node, Ext.EventObject
+ * wraps the browser's native event-object normalizing cross-browser differences,
+ * such as which mouse button is clicked, keys pressed, mechanisms to stop
+ * event-propagation along with a method to prevent default actions from taking place.
+ * <p>For example:</p>
+ * <pre><code>
+function handleClick(e, t){ // e is not a standard event object, it is a Ext.EventObject
+    e.preventDefault();
+    var target = e.getTarget(); // same as t (the target HTMLElement)
+    ...
+}
+var myDiv = {@link Ext#get Ext.get}("myDiv");  // get reference to an {@link Ext.Element}
+myDiv.on(         // 'on' is shorthand for addListener
+    "click",      // perform an action on click of myDiv
+    handleClick   // reference to the action handler
+);
+// other methods to do the same:
+Ext.EventManager.on("myDiv", 'click', handleClick);
+Ext.EventManager.addListener("myDiv", 'click', handleClick);
+ </code></pre>
+ * @singleton
+ */
+Ext.EventObject = function(){
+    var E = Ext.lib.Event,
+        clickRe = /(dbl)?click/,
+        // safari keypress events for special keys return bad keycodes
+        safariKeys = {
+            3 : 13, // enter
+            63234 : 37, // left
+            63235 : 39, // right
+            63232 : 38, // up
+            63233 : 40, // down
+            63276 : 33, // page up
+            63277 : 34, // page down
+            63272 : 46, // delete
+            63273 : 36, // home
+            63275 : 35  // end
+        },
+        // normalize button clicks
+        btnMap = Ext.isIE ? {1:0,4:1,2:2} : {0:0,1:1,2:2};
+
+    Ext.EventObjectImpl = function(e){
+        if(e){
+            this.setEvent(e.browserEvent || e);
+        }
+    };
+
+    Ext.EventObjectImpl.prototype = {
+           /** @private */
+        setEvent : function(e){
+            var me = this;
+            if(e == me || (e && e.browserEvent)){ // already wrapped
+                return e;
+            }
+            me.browserEvent = e;
+            if(e){
+                // normalize buttons
+                me.button = e.button ? btnMap[e.button] : (e.which ? e.which - 1 : -1);
+                if(clickRe.test(e.type) && me.button == -1){
+                    me.button = 0;
+                }
+                me.type = e.type;
+                me.shiftKey = e.shiftKey;
+                // mac metaKey behaves like ctrlKey
+                me.ctrlKey = e.ctrlKey || e.metaKey || false;
+                me.altKey = e.altKey;
+                // in getKey these will be normalized for the mac
+                me.keyCode = e.keyCode;
+                me.charCode = e.charCode;
+                // cache the target for the delayed and or buffered events
+                me.target = E.getTarget(e);
+                // same for XY
+                me.xy = E.getXY(e);
+            }else{
+                me.button = -1;
+                me.shiftKey = false;
+                me.ctrlKey = false;
+                me.altKey = false;
+                me.keyCode = 0;
+                me.charCode = 0;
+                me.target = null;
+                me.xy = [0, 0];
+            }
+            return me;
+        },
+
+        /**
+         * Stop the event (preventDefault and stopPropagation)
+         */
+        stopEvent : function(){
+            var me = this;
+            if(me.browserEvent){
+                if(me.browserEvent.type == 'mousedown'){
+                    Ext.EventManager.stoppedMouseDownEvent.fire(me);
+                }
+                E.stopEvent(me.browserEvent);
+            }
+        },
+
+        /**
+         * Prevents the browsers default handling of the event.
+         */
+        preventDefault : function(){
+            if(this.browserEvent){
+                E.preventDefault(this.browserEvent);
+            }
+        },
+
+        /**
+         * Cancels bubbling of the event.
+         */
+        stopPropagation : function(){
+            var me = this;
+            if(me.browserEvent){
+                if(me.browserEvent.type == 'mousedown'){
+                    Ext.EventManager.stoppedMouseDownEvent.fire(me);
+                }
+                E.stopPropagation(me.browserEvent);
+            }
+        },
+
+        /**
+         * Gets the character code for the event.
+         * @return {Number}
+         */
+        getCharCode : function(){
+            return this.charCode || this.keyCode;
+        },
+
+        /**
+         * Returns a normalized keyCode for the event.
+         * @return {Number} The key code
+         */
+        getKey : function(){
+            return this.normalizeKey(this.keyCode || this.charCode);
+        },
+
+        // private
+        normalizeKey: function(k){
+            return Ext.isSafari ? (safariKeys[k] || k) : k;
+        },
+
+        /**
+         * Gets the x coordinate of the event.
+         * @return {Number}
+         */
+        getPageX : function(){
+            return this.xy[0];
+        },
+
+        /**
+         * Gets the y coordinate of the event.
+         * @return {Number}
+         */
+        getPageY : function(){
+            return this.xy[1];
+        },
+
+        /**
+         * Gets the page coordinates of the event.
+         * @return {Array} The xy values like [x, y]
+         */
+        getXY : function(){
+            return this.xy;
+        },
+
+        /**
+         * Gets the target for the event.
+         * @param {String} selector (optional) A simple selector to filter the target or look for an ancestor of the target
+         * @param {Number/Mixed} maxDepth (optional) The max depth to
+                search as a number or element (defaults to 10 || document.body)
+         * @param {Boolean} returnEl (optional) True to return a Ext.Element object instead of DOM node
+         * @return {HTMLelement}
+         */
+        getTarget : function(selector, maxDepth, returnEl){
+            return selector ? Ext.fly(this.target).findParent(selector, maxDepth, returnEl) : (returnEl ? Ext.get(this.target) : this.target);
+        },
+
+        /**
+         * Gets the related target.
+         * @return {HTMLElement}
+         */
+        getRelatedTarget : function(){
+            return this.browserEvent ? E.getRelatedTarget(this.browserEvent) : null;
+        },
+
+        /**
+         * Normalizes mouse wheel delta across browsers
+         * @return {Number} The delta
+         */
+        getWheelDelta : function(){
+            var e = this.browserEvent;
+            var delta = 0;
+            if(e.wheelDelta){ /* IE/Opera. */
+                delta = e.wheelDelta/120;
+            }else if(e.detail){ /* Mozilla case. */
+                delta = -e.detail/3;
+            }
+            return delta;
+        },
+
+        /**
+        * Returns true if the target of this event is a child of el.  Unless the allowEl parameter is set, it will return false if if the target is el.
+        * Example usage:<pre><code>
+        // Handle click on any child of an element
+        Ext.getBody().on('click', function(e){
+            if(e.within('some-el')){
+                alert('Clicked on a child of some-el!');
+            }
+        });
+
+        // Handle click directly on an element, ignoring clicks on child nodes
+        Ext.getBody().on('click', function(e,t){
+            if((t.id == 'some-el') && !e.within(t, true)){
+                alert('Clicked directly on some-el!');
+            }
+        });
+        </code></pre>
+         * @param {Mixed} el The id, DOM element or Ext.Element to check
+         * @param {Boolean} related (optional) true to test if the related target is within el instead of the target
+         * @param {Boolean} allowEl (optional) true to also check if the passed element is the target or related target
+         * @return {Boolean}
+         */
+        within : function(el, related, allowEl){
+            if(el){
+                var t = this[related ? "getRelatedTarget" : "getTarget"]();
+                return t && ((allowEl ? (t == Ext.getDom(el)) : false) || Ext.fly(el).contains(t));
+            }
+            return false;
+        }
+     };
+
+    return new Ext.EventObjectImpl();
+}();
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.Loader
+ * @singleton
+ * Simple class to help load JavaScript files on demand
+ */
+Ext.Loader = Ext.apply({}, {
+    /**
+     * Loads a given set of .js files. Calls the callback function when all files have been loaded
+     * Set preserveOrder to true to ensure non-parallel loading of files if load order is important
+     * @param {Array} fileList Array of all files to load
+     * @param {Function} callback Callback to call after all files have been loaded
+     * @param {Object} scope The scope to call the callback in
+     * @param {Boolean} preserveOrder True to make files load in serial, one after the other (defaults to false)
+     */
+    load: function(fileList, callback, scope, preserveOrder) {
+        var scope       = scope || this,
+            head        = document.getElementsByTagName("head")[0],
+            fragment    = document.createDocumentFragment(),
+            numFiles    = fileList.length,
+            loadedFiles = 0,
+            me          = this;
+        
+        /**
+         * Loads a particular file from the fileList by index. This is used when preserving order
+         */
+        var loadFileIndex = function(index) {
+            head.appendChild(
+                me.buildScriptTag(fileList[index], onFileLoaded)
+            );
+        };
+        
+        /**
+         * Callback function which is called after each file has been loaded. This calls the callback
+         * passed to load once the final file in the fileList has been loaded
+         */
+        var onFileLoaded = function() {
+            loadedFiles ++;
+            
+            //if this was the last file, call the callback, otherwise load the next file
+            if (numFiles == loadedFiles && typeof callback == 'function') {
+                callback.call(scope);
+            } else {
+                if (preserveOrder === true) {
+                    loadFileIndex(loadedFiles);
+                }
+            }
+        };
+        
+        if (preserveOrder === true) {
+            loadFileIndex.call(this, 0);
+        } else {
+            //load each file (most browsers will do this in parallel)
+            Ext.each(fileList, function(file, index) {
+                fragment.appendChild(
+                    this.buildScriptTag(file, onFileLoaded)
+                );  
+            }, this);
+            
+            head.appendChild(fragment);
+        }
+    },
+    
+    /**
+     * @private
+     * Creates and returns a script tag, but does not place it into the document. If a callback function
+     * is passed, this is called when the script has been loaded
+     * @param {String} filename The name of the file to create a script tag for
+     * @param {Function} callback Optional callback, which is called when the script has been loaded
+     * @return {Element} The new script ta
+     */
+    buildScriptTag: function(filename, callback) {
+        var script  = document.createElement('script');
+        script.type = "text/javascript";
+        script.src  = filename;
+        
+        //IE has a different way of handling &lt;script&gt; loads, so we need to check for it here
+        if (script.readyState) {
+            script.onreadystatechange = function() {
+                if (script.readyState == "loaded" || script.readyState == "complete") {
+                    script.onreadystatechange = null;
+                    callback();
+                }
+            };
+        } else {
+            script.onload = callback;
+        }    
+        
+        return script;
+    }
+});
+

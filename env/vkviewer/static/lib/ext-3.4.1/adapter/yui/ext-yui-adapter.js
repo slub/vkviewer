@@ -18,4 +18,2081 @@ at http://www.sencha.com/contact.
 
 Build date: 2013-04-03 15:07:25
 */
-window.undefined=window.undefined;Ext={version:"3.4.1.1",versionDetail:{major:3,minor:4,patch:1.1}};Ext.apply=function(d,e,b){if(b){Ext.apply(d,b)}if(d&&e&&typeof e=="object"){for(var a in e){d[a]=e[a]}}return d};(function(){var g=0,f=Object.prototype.toString,y=navigator.userAgent.toLowerCase(),n=function(e){return e.test(y)},s=document,q=s.documentMode,u=s.compatMode=="CSS1Compat",a=n(/opera/),H=n(/\bchrome\b/),z=n(/webkit/),d=!H&&n(/safari/),F=d&&n(/applewebkit\/4/),D=d&&n(/version\/3/),B=d&&n(/version\/4/),j=!a&&n(/msie/),G=j&&((n(/msie 7/)&&q!=8&&q!=9&&q!=10)||q==7),E=j&&((n(/msie 8/)&&q!=7&&q!=9&&q!=10)||q==8),C=j&&((n(/msie 9/)&&q!=7&&q!=8&&q!=10)||q==9),i=j&&((n(/msie 10/)&&q!=7&&q!=8&&q!=9)||q==10),J=j&&n(/msie 6/),K=j&&(J||G||E||C),c=!z&&n(/gecko/),M=c&&n(/rv:1\.8/),L=c&&n(/rv:1\.9/),m=K&&!u,h=n(/windows|win32/),A=n(/macintosh|mac os x/),p=n(/adobeair/),v=n(/linux/),r=/^https/i.test(window.location.protocol),b=[],w=[],o=Ext.emptyFn,x=Ext.apply({},{constructor:o,toString:o,valueOf:o}),l=function(){var e=l.caller.caller;return e.$owner.prototype[e.$name].apply(this,arguments)};if(x.constructor!==o){w.push("constructor")}if(x.toString!==o){w.push("toString")}if(x.valueOf!==o){w.push("valueOf")}if(!w.length){w=null}function k(){}Ext.apply(k,{$isClass:true,callParent:function(e){var t;return(t=this.callParent.caller)&&(t.$previous||((t=t.$owner?t:t.caller)&&t.$owner.superclass.self[t.$name])).apply(this,e||b)}});k.prototype={constructor:function(){},callParent:function(t){var N,e=(N=this.callParent.caller)&&(N.$previous||((N=N.$owner?N:N.caller)&&N.$owner.superclass[N.$name]));return e.apply(this,t||b)}};if(J){try{s.execCommand("BackgroundImageCache",false,true)}catch(I){}}Ext.apply(Ext,{SSL_SECURE_URL:r&&j?'javascript:""':"about:blank",isStrict:u,isSecure:r,isReady:false,enableForcedBoxModel:false,enableGarbageCollector:true,enableListenerCollection:false,enableNestedListenerRemoval:false,USE_NATIVE_JSON:false,applyIf:function(t,N){if(t){for(var e in N){if(!Ext.isDefined(t[e])){t[e]=N[e]}}}return t},id:function(e,t){e=Ext.getDom(e,true)||{};if(!e.id){e.id=(t||"ext-gen")+(++g)}return e.id},extend:function(){var t=function(O){for(var N in O){this[N]=O[N]}};var e=Object.prototype.constructor;return function(S,P,R){if(typeof P=="object"){R=P;P=S;S=R.constructor!=e?R.constructor:function(){P.apply(this,arguments)}}var O=function(){},Q,N=P.prototype;O.prototype=N;Q=S.prototype=new O();Q.constructor=S;S.superclass=N;if(N.constructor==e){N.constructor=P}S.override=function(T){Ext.override(S,T)};Q.superclass=Q.supr=(function(){return N});Q.override=t;Ext.override(S,R);S.extend=function(T){return Ext.extend(S,T)};return S}}(),global:(function(){return this})(),Base:k,namespaceCache:{},createNamespace:function(R,O){var e=Ext.namespaceCache,P=O?R.substring(0,R.lastIndexOf(".")):R,U=e[P],S,N,t,Q,T;if(!U){U=Ext.global;if(P){T=[];Q=P.split(".");for(S=0,N=Q.length;S<N;++S){t=Q[S];U=U[t]||(U[t]={});T.push(t);e[T.join(".")]=U}}}return U},getClassByName:function(N){var O=N.split("."),e=Ext.global,P=O.length,t;for(t=0;e&&t<P;++t){e=e[O[t]]}return e||null},addMembers:function(t,Q,N,e){var P,O,R;for(O in N){if(N.hasOwnProperty(O)){R=N[O];if(typeof R=="function"){R.$owner=t;R.$name=O}Q[O]=R}}if(e&&w){for(P=w.length;P-->0;){O=w[P];if(N.hasOwnProperty(O)){R=N[O];if(typeof R=="function"){R.$owner=t;R.$name=O}Q[O]=R}}}},define:function(R,P,N){var t=P.override,T,Q,e,O;if(t){delete P.override;T=Ext.getClassByName(t);Ext.override(T,P)}else{if(R){O=Ext.createNamespace(R,true);e=R.substring(R.lastIndexOf(".")+1)}T=function S(){this.constructor.apply(this,arguments)};if(R){T.displayName=R}T.$isClass=true;T.callParent=Ext.Base.callParent;if(typeof P=="function"){P=P(T)}Q=P.extend;if(Q){delete P.extend;if(typeof Q=="string"){Q=Ext.getClassByName(Q)}}else{Q=k}Ext.extend(T,Q,P);if(T.prototype.constructor===T){delete T.prototype.constructor}if(!T.prototype.$isClass){Ext.applyIf(T.prototype,k.prototype)}T.prototype.self=T;if(P.xtype){Ext.reg(P.xtype,T)}T=P.singleton?new T():T;if(R){O[e]=T}}if(N){N.call(T)}return T},override:function(P,R){var N,Q;if(R){if(P.$isClass){Q=R.statics;if(Q){delete R.statics}Ext.addMembers(P,P.prototype,R,true);if(Q){Ext.addMembers(P,P,Q)}}else{if(typeof P=="function"){N=P.prototype;Ext.apply(N,R);if(Ext.isIE&&R.hasOwnProperty("toString")){N.toString=R.toString}}else{var e=P.self,t,O;if(e&&e.$isClass){for(t in R){if(R.hasOwnProperty(t)){O=R[t];if(typeof O=="function"){if(e.$className){O.displayName=e.$className+"#"+t}O.$name=t;O.$owner=e;O.$previous=P.hasOwnProperty(t)?P[t]:l}P[t]=O}}}else{Ext.apply(P,R);if(!P.constructor.$isClass){P.constructor.prototype.callParent=k.prototype.callParent;P.constructor.callParent=k.callParent}}}}}},namespace:function(){var O=arguments.length,P=0,t,N,e,R,Q,S;for(;P<O;++P){e=arguments[P];R=arguments[P].split(".");S=window[R[0]];if(S===undefined){S=window[R[0]]={}}Q=R.slice(1);t=Q.length;for(N=0;N<t;++N){S=S[Q[N]]=S[Q[N]]||{}}}return S},urlEncode:function(Q,P){var N,t=[],O=encodeURIComponent;Ext.iterate(Q,function(e,R){N=Ext.isEmpty(R);Ext.each(N?e:R,function(S){t.push("&",O(e),"=",(!Ext.isEmpty(S)&&(S!=e||!N))?(Ext.isDate(S)?Ext.encode(S).replace(/"/g,""):O(S)):"")})});if(!P){t.shift();P=""}return P+t.join("")},urlDecode:function(N,t){if(Ext.isEmpty(N)){return{}}var Q={},P=N.split("&"),R=decodeURIComponent,e,O;Ext.each(P,function(S){S=S.split("=");e=R(S[0]);O=R(S[1]);Q[e]=t||!Q[e]?O:[].concat(Q[e]).concat(O)});return Q},urlAppend:function(e,t){if(!Ext.isEmpty(t)){return e+(e.indexOf("?")===-1?"?":"&")+t}return e},toArray:function(){return j?function(N,Q,O,P){P=[];for(var t=0,e=N.length;t<e;t++){P.push(N[t])}return P.slice(Q||0,O||P.length)}:function(e,N,t){return Array.prototype.slice.call(e,N||0,t||e.length)}}(),isIterable:function(e){if(Ext.isArray(e)||e.callee){return true}if(/NodeList|HTMLCollection/.test(f.call(e))){return true}return((typeof e.nextNode!="undefined"||e.item)&&Ext.isNumber(e.length))},each:function(P,O,N){if(Ext.isEmpty(P,true)){return}if(!Ext.isIterable(P)||Ext.isPrimitive(P)){P=[P]}for(var t=0,e=P.length;t<e;t++){if(O.call(N||P[t],P[t],t,P)===false){return t}}},iterate:function(N,t,e){if(Ext.isEmpty(N)){return}if(Ext.isIterable(N)){Ext.each(N,t,e);return}else{if(typeof N=="object"){for(var O in N){if(N.hasOwnProperty(O)){if(t.call(e||N,O,N[O],N)===false){return}}}}}},getDom:function(N,t){if(!N||!s){return null}if(N.dom){return N.dom}else{if(typeof N=="string"){var O=s.getElementById(N);if(O&&j&&t){if(N==O.getAttribute("id")){return O}else{return null}}return O}else{return N}}},getBody:function(){return Ext.get(s.body||s.documentElement)},getHead:function(){var e;return function(){if(e==undefined){e=Ext.get(s.getElementsByTagName("head")[0])}return e}}(),removeNode:j&&!E?function(){var e;return function(t){if(t&&t.tagName!="BODY"){(Ext.enableNestedListenerRemoval)?Ext.EventManager.purgeElement(t,true):Ext.EventManager.removeAll(t);e=e||s.createElement("div");e.appendChild(t);e.innerHTML="";delete Ext.elCache[t.id]}}}():function(e){if(e&&e.parentNode&&e.tagName!="BODY"){(Ext.enableNestedListenerRemoval)?Ext.EventManager.purgeElement(e,true):Ext.EventManager.removeAll(e);e.parentNode.removeChild(e);delete Ext.elCache[e.id]}},isEmpty:function(t,e){return t===null||t===undefined||((Ext.isArray(t)&&!t.length))||(!e?t==="":false)},isArray:function(e){return f.apply(e)==="[object Array]"},isDate:function(e){return f.apply(e)==="[object Date]"},isObject:function(e){return !!e&&Object.prototype.toString.call(e)==="[object Object]"},isPrimitive:function(e){return Ext.isString(e)||Ext.isNumber(e)||Ext.isBoolean(e)},isFunction:function(e){return f.apply(e)==="[object Function]"},isNumber:function(e){return typeof e==="number"&&isFinite(e)},isString:function(e){return typeof e==="string"},isBoolean:function(e){return typeof e==="boolean"},isElement:function(e){return e?!!e.tagName:false},isDefined:function(e){return typeof e!=="undefined"},isOpera:a,isWebKit:z,isChrome:H,isSafari:d,isSafari3:D,isSafari4:B,isSafari2:F,isIE:j,isIE6:J,isIE7:G,isIE8:E,isIE9:C,isIE10:i,isIE9m:K,isIE10p:j&&!(J||G||E||C),isIEQuirks:j&&(!u&&(J||G||E||C)),isGecko:c,isGecko2:M,isGecko3:L,isBorderBox:m,isLinux:v,isWindows:h,isMac:A,isAir:p});Ext.ns=Ext.namespace})();Ext.ns("Ext.util","Ext.lib","Ext.data","Ext.supports");Ext.elCache={};Ext.apply(Function.prototype,{createInterceptor:function(b,a){var c=this;return !Ext.isFunction(b)?this:function(){var e=this,d=arguments;b.target=e;b.method=c;return(b.apply(a||e||window,d)!==false)?c.apply(e||window,d):null}},createCallback:function(){var a=arguments,b=this;return function(){return b.apply(window,a)}},createDelegate:function(c,b,a){var d=this;return function(){var f=b||arguments;if(a===true){f=Array.prototype.slice.call(arguments,0);f=f.concat(b)}else{if(Ext.isNumber(a)){f=Array.prototype.slice.call(arguments,0);var e=[a,0].concat(b);Array.prototype.splice.apply(f,e)}}return d.apply(c||window,f)}},defer:function(c,e,b,a){var d=this.createDelegate(e,b,a);if(c>0){return setTimeout(d,c)}d();return 0}});Ext.applyIf(String,{format:function(b){var a=Ext.toArray(arguments,1);return b.replace(/\{(\d+)\}/g,function(c,d){return a[d]})}});Ext.applyIf(Array.prototype,{indexOf:function(b,c){var a=this.length;c=c||0;c+=(c<0)?a:0;for(;c<a;++c){if(this[c]===b){return c}}return -1},remove:function(b){var a=this.indexOf(b);if(a!=-1){this.splice(a,1)}return this}});Ext.util.TaskRunner=function(e){e=e||10;var f=[],a=[],b=0,g=false,d=function(){g=false;clearInterval(b);b=0},h=function(){if(!g){g=true;b=setInterval(i,e)}},c=function(j){a.push(j);if(j.onStop){j.onStop.apply(j.scope||j)}},i=function(){var l=a.length,n=new Date().getTime();if(l>0){for(var p=0;p<l;p++){f.remove(a[p])}a=[];if(f.length<1){d();return}}for(var p=0,o,k,m,j=f.length;p<j;++p){o=f[p];k=n-o.taskRunTime;if(o.interval<=k){m=o.run.apply(o.scope||o,o.args||[++o.taskRunCount]);o.taskRunTime=n;if(m===false||o.taskRunCount===o.repeat){c(o);return}}if(o.duration&&o.duration<=(n-o.taskStartTime)){c(o)}}};this.start=function(j){f.push(j);j.taskStartTime=new Date().getTime();j.taskRunTime=0;j.taskRunCount=0;h();return j};this.stop=function(j){c(j);return j};this.stopAll=function(){d();for(var k=0,j=f.length;k<j;k++){if(f[k].onStop){f[k].onStop()}}f=[];a=[]}};Ext.TaskMgr=new Ext.util.TaskRunner();if(typeof YAHOO=="undefined"){throw"Unable to load Ext, core YUI utilities (yahoo, dom, event) not found."}(function(){var m=YAHOO.util.Event,b=YAHOO.util.Dom,f=YAHOO.util.Connect,h=YAHOO.util.Easing,c=YAHOO.util.Anim,j,k=YAHOO.env.getVersion("yahoo").version.split("."),a=parseInt(k[0],10)>=3,l={},e=function(n,o){if(n&&n.firstChild){while(o){if(o===n){return true}o=o.parentNode;if(o&&(o.nodeType!=1)){o=null}}}return false},i=function(n){return !e(n.currentTarget,Ext.lib.Event.getRelatedTarget(n))};Ext.lib.Dom={getViewWidth:function(n){return n?b.getDocumentWidth():b.getViewportWidth()},getViewHeight:function(n){return n?b.getDocumentHeight():b.getViewportHeight()},isAncestor:function(n,o){return b.isAncestor(n,o)},getRegion:function(n){return b.getRegion(n)},getY:function(n){return this.getXY(n)[1]},getX:function(n){return this.getXY(n)[0]},getXY:function(q){var o,u,w,z,t=(document.body||document.documentElement);q=Ext.getDom(q);if(q==t){return[0,0]}if(q.getBoundingClientRect){w=q.getBoundingClientRect();z=g(document).getScroll();return[Math.round(w.left+z.left),Math.round(w.top+z.top)]}var A=0,v=0;o=q;var n=g(q).getStyle("position")=="absolute";while(o){A+=o.offsetLeft;v+=o.offsetTop;if(!n&&g(o).getStyle("position")=="absolute"){n=true}if(Ext.isGecko){u=g(o);var B=parseInt(u.getStyle("borderTopWidth"),10)||0;var r=parseInt(u.getStyle("borderLeftWidth"),10)||0;A+=r;v+=B;if(o!=q&&u.getStyle("overflow")!="visible"){A+=r;v+=B}}o=o.offsetParent}if(Ext.isSafari&&n){A-=t.offsetLeft;v-=t.offsetTop}if(Ext.isGecko&&!n){var s=g(t);A+=parseInt(s.getStyle("borderLeftWidth"),10)||0;v+=parseInt(s.getStyle("borderTopWidth"),10)||0}o=q.parentNode;while(o&&o!=t){if(!Ext.isOpera||(o.tagName!="TR"&&g(o).getStyle("display")!="inline")){A-=o.scrollLeft;v-=o.scrollTop}o=o.parentNode}return[A,v]},setXY:function(n,o){n=Ext.fly(n,"_setXY");n.position();var p=n.translatePoints(o);if(o[0]!==false){n.dom.style.left=p.left+"px"}if(o[1]!==false){n.dom.style.top=p.top+"px"}},setX:function(o,n){this.setXY(o,[n,false])},setY:function(n,o){this.setXY(n,[false,o])}};Ext.lib.Event={getPageX:function(n){return m.getPageX(n.browserEvent||n)},getPageY:function(n){return m.getPageY(n.browserEvent||n)},getXY:function(n){return m.getXY(n.browserEvent||n)},getTarget:function(n){return m.getTarget(n.browserEvent||n)},getRelatedTarget:function(n){return m.getRelatedTarget(n.browserEvent||n)},on:function(r,n,q,p,o){if((n=="mouseenter"||n=="mouseleave")&&!a){var s=l[r.id]||(l[r.id]={});s[n]=q;q=q.createInterceptor(i);n=(n=="mouseenter")?"mouseover":"mouseout"}m.on(r,n,q,p,o)},un:function(p,n,o){if((n=="mouseenter"||n=="mouseleave")&&!a){var r=l[p.id],q=r&&r[n];if(q){o=q.fn;delete r[n];n=(n=="mouseenter")?"mouseover":"mouseout"}}m.removeListener(p,n,o)},purgeElement:function(n){m.purgeElement(n)},preventDefault:function(n){m.preventDefault(n.browserEvent||n)},stopPropagation:function(n){m.stopPropagation(n.browserEvent||n)},stopEvent:function(n){m.stopEvent(n.browserEvent||n)},onAvailable:function(q,p,o,n){return m.onAvailable(q,p,o,n)}};Ext.lib.Ajax={request:function(t,r,n,s,o){if(o){var p=o.headers;if(p){for(var q in p){if(p.hasOwnProperty(q)){f.initHeader(q,p[q],false)}}}if(o.xmlData){if(!p||!p["Content-Type"]){f.initHeader("Content-Type","text/xml",false)}t=(t?t:(o.method?o.method:"POST"));s=o.xmlData}else{if(o.jsonData){if(!p||!p["Content-Type"]){f.initHeader("Content-Type","application/json",false)}t=(t?t:(o.method?o.method:"POST"));s=typeof o.jsonData=="object"?Ext.encode(o.jsonData):o.jsonData}}}return f.asyncRequest(t,r,n,s)},formRequest:function(r,q,o,s,n,p){f.setForm(r,n,p);return f.asyncRequest(Ext.getDom(r).method||"POST",q,o,s)},isCallInProgress:function(n){return f.isCallInProgress(n)},abort:function(n){return f.abort(n)},serializeForm:function(n){var o=f.setForm(n.dom||n);f.resetFormState();return o}};Ext.lib.Region=YAHOO.util.Region;Ext.lib.Point=YAHOO.util.Point;Ext.lib.Anim={scroll:function(q,o,r,s,n,p){this.run(q,o,r,s,n,p,YAHOO.util.Scroll)},motion:function(q,o,r,s,n,p){this.run(q,o,r,s,n,p,YAHOO.util.Motion)},color:function(q,o,r,s,n,p){this.run(q,o,r,s,n,p,YAHOO.util.ColorAnim)},run:function(r,o,t,u,n,q,p){p=p||YAHOO.util.Anim;if(typeof u=="string"){u=YAHOO.util.Easing[u]}var s=new p(r,o,t,u);s.animateX(function(){Ext.callback(n,q)});return s}};function g(n){if(!j){j=new Ext.Element.Flyweight()}j.dom=n;return j}if(Ext.isIE){function d(){var n=Function.prototype;delete n.createSequence;delete n.defer;delete n.createDelegate;delete n.createCallback;delete n.createInterceptor;window.detachEvent("onunload",d)}window.attachEvent("onunload",d)}if(YAHOO.util.Anim){YAHOO.util.Anim.prototype.animateX=function(p,n){var o=function(){this.onComplete.unsubscribe(o);if(typeof p=="function"){p.call(n||this,this)}};this.onComplete.subscribe(o,this,true);this.animate()}}if(YAHOO.util.DragDrop&&Ext.dd.DragDrop){YAHOO.util.DragDrop.defaultPadding=Ext.dd.DragDrop.defaultPadding;YAHOO.util.DragDrop.constrainTo=Ext.dd.DragDrop.constrainTo}YAHOO.util.Dom.getXY=function(n){var o=function(p){return Ext.lib.Dom.getXY(p)};return YAHOO.util.Dom.batch(n,o,YAHOO.util.Dom,true)};if(YAHOO.util.AnimMgr){YAHOO.util.AnimMgr.fps=1000}YAHOO.util.Region.prototype.adjust=function(p,o,n,q){this.top+=p;this.left+=o;this.right+=q;this.bottom+=n;return this};YAHOO.util.Region.prototype.constrainTo=function(n){this.top=this.top.constrain(n.top,n.bottom);this.bottom=this.bottom.constrain(n.top,n.bottom);this.left=this.left.constrain(n.left,n.right);this.right=this.right.constrain(n.left,n.right);return this}})();
+// for old browsers
+window.undefined = window.undefined;
+
+/**
+ * @class Ext
+ * Ext core utilities and functions.
+ * @singleton
+ */
+
+Ext = {
+    /**
+     * The version of the framework
+     * @type String
+     */
+    version : '3.4.1.1',
+    versionDetail : {
+        major : 3,
+        minor : 4,
+        patch : 1.1
+    }
+};
+
+/**
+ * Copies all the properties of config to obj.
+ * @param {Object} obj The receiver of the properties
+ * @param {Object} config The source of the properties
+ * @param {Object} defaults A different object that will also be applied for default values
+ * @return {Object} returns obj
+ * @member Ext apply
+ */
+Ext.apply = function(o, c, defaults){
+    // no "this" reference for friendly out of scope calls
+    if(defaults){
+        Ext.apply(o, defaults);
+    }
+    if(o && c && typeof c == 'object'){
+        for(var p in c){
+            o[p] = c[p];
+        }
+    }
+    return o;
+};
+
+(function(){
+    var idSeed = 0,
+        toString = Object.prototype.toString,
+        ua = navigator.userAgent.toLowerCase(),
+        check = function(r){
+            return r.test(ua);
+        },
+        DOC = document,
+        docMode = DOC.documentMode,
+        isStrict = DOC.compatMode == "CSS1Compat",
+        isOpera = check(/opera/),
+        isChrome = check(/\bchrome\b/),
+        isWebKit = check(/webkit/),
+        isSafari = !isChrome && check(/safari/),
+        isSafari2 = isSafari && check(/applewebkit\/4/), // unique to Safari 2
+        isSafari3 = isSafari && check(/version\/3/),
+        isSafari4 = isSafari && check(/version\/4/),
+        isIE = !isOpera && check(/msie/),
+        isIE7 = isIE && ((check(/msie 7/) && docMode != 8 && docMode != 9 && docMode != 10) || docMode == 7),
+        isIE8 = isIE && ((check(/msie 8/) && docMode != 7 && docMode != 9 && docMode != 10) || docMode == 8),
+        isIE9 = isIE && ((check(/msie 9/) && docMode != 7 && docMode != 8 && docMode != 10) || docMode == 9),
+        isIE10 = isIE && ((check(/msie 10/) && docMode != 7 && docMode != 8 && docMode != 9) || docMode == 10),
+        isIE6 = isIE && check(/msie 6/),
+        isIE9m = isIE && (isIE6 || isIE7 || isIE8 || isIE9),
+        isGecko = !isWebKit && check(/gecko/),
+        isGecko2 = isGecko && check(/rv:1\.8/),
+        isGecko3 = isGecko && check(/rv:1\.9/),
+        isBorderBox = isIE9m && !isStrict,
+        isWindows = check(/windows|win32/),
+        isMac = check(/macintosh|mac os x/),
+        isAir = check(/adobeair/),
+        isLinux = check(/linux/),
+        isSecure = /^https/i.test(window.location.protocol),
+        noArgs = [],
+        nonEnumerables = [],
+        emptyFn = Ext.emptyFn,
+        t = Ext.apply({}, {
+            constructor: emptyFn,
+            toString: emptyFn,
+            valueOf: emptyFn
+        }),
+        callOverrideParent = function () {
+            var method = callOverrideParent.caller.caller; // skip callParent (our caller)
+            return method.$owner.prototype[method.$name].apply(this, arguments);
+        };
+
+    if (t.constructor !== emptyFn) {
+        nonEnumerables.push('constructor');
+    }
+    if (t.toString !== emptyFn) {
+        nonEnumerables.push('toString');
+    }
+    if (t.valueOf !== emptyFn) {
+        nonEnumerables.push('valueOf');
+    }
+    if (!nonEnumerables.length) {
+        nonEnumerables = null;
+    }
+
+    // Create the abstract Base class to provide an empty constructor and callParent implementations
+    function Base () {
+        //
+    }
+
+    Ext.apply(Base, {
+        $isClass: true,
+
+        callParent: function (args) {
+            var method;
+
+            // This code is intentionally inlined for the least number of debugger stepping
+            return (method = this.callParent.caller) && (method.$previous ||
+                ((method = method.$owner ? method : method.caller) &&
+                        method.$owner.superclass.self[method.$name])).apply(this, args || noArgs);
+        }
+    });
+
+    Base.prototype = {
+        constructor: function() {
+        },
+        callParent: function(args) {
+            // NOTE: this code is deliberately as few expressions (and no function calls)
+            // as possible so that a debugger can skip over this noise with the minimum number
+            // of steps. Basically, just hit Step Into until you are where you really wanted
+            // to be.
+            var method,
+                superMethod = (method = this.callParent.caller) && (method.$previous ||
+                        ((method = method.$owner ? method : method.caller) &&
+                                method.$owner.superclass[method.$name]));
+
+            return superMethod.apply(this, args || noArgs);
+        }
+    };
+
+    // remove css image flicker
+    if(isIE6){
+        try{
+            DOC.execCommand("BackgroundImageCache", false, true);
+        }catch(e){}
+    }
+
+    Ext.apply(Ext, {
+        /**
+         * URL to a blank file used by Ext when in secure mode for iframe src and onReady src to prevent
+         * the IE insecure content warning (<tt>'about:blank'</tt>, except for IE in secure mode, which is <tt>'javascript:""'</tt>).
+         * @type String
+         */
+        SSL_SECURE_URL : isSecure && isIE ? 'javascript:""' : 'about:blank',
+        /**
+         * True if the browser is in strict (standards-compliant) mode, as opposed to quirks mode
+         * @type Boolean
+         */
+        isStrict : isStrict,
+        /**
+         * True if the page is running over SSL
+         * @type Boolean
+         */
+        isSecure : isSecure,
+        /**
+         * True when the document is fully initialized and ready for action
+         * @type Boolean
+         */
+        isReady : false,
+
+        /**
+         * True if the {@link Ext.Fx} Class is available
+         * @type Boolean
+         * @property enableFx
+         */
+
+        /**
+         * HIGHLY EXPERIMENTAL
+         * True to force css based border-box model override and turning off javascript based adjustments. This is a
+         * runtime configuration and must be set before onReady.
+         * @type Boolean
+         */
+        enableForcedBoxModel : false,
+
+        /**
+         * True to automatically uncache orphaned Ext.Elements periodically (defaults to true)
+         * @type Boolean
+         */
+        enableGarbageCollector : true,
+
+        /**
+         * True to automatically purge event listeners during garbageCollection (defaults to false).
+         * @type Boolean
+         */
+        enableListenerCollection : false,
+
+        /**
+         * EXPERIMENTAL - True to cascade listener removal to child elements when an element is removed.
+         * Currently not optimized for performance.
+         * @type Boolean
+         */
+        enableNestedListenerRemoval : false,
+
+        /**
+         * Indicates whether to use native browser parsing for JSON methods.
+         * This option is ignored if the browser does not support native JSON methods.
+         * <b>Note: Native JSON methods will not work with objects that have functions.
+         * Also, property names must be quoted, otherwise the data will not parse.</b> (Defaults to false)
+         * @type Boolean
+         */
+        USE_NATIVE_JSON : false,
+
+        /**
+         * Copies all the properties of config to obj if they don't already exist.
+         * @param {Object} obj The receiver of the properties
+         * @param {Object} config The source of the properties
+         * @return {Object} returns obj
+         */
+        applyIf : function(o, c){
+            if(o){
+                for(var p in c){
+                    if(!Ext.isDefined(o[p])){
+                        o[p] = c[p];
+                    }
+                }
+            }
+            return o;
+        },
+
+        /**
+         * Generates unique ids. If the element already has an id, it is unchanged
+         * @param {Mixed} el (optional) The element to generate an id for
+         * @param {String} prefix (optional) Id prefix (defaults "ext-gen")
+         * @return {String} The generated Id.
+         */
+        id : function(el, prefix){
+            el = Ext.getDom(el, true) || {};
+            if (!el.id) {
+                el.id = (prefix || "ext-gen") + (++idSeed);
+            }
+            return el.id;
+        },
+
+        /**
+         * <p>Extends one class to create a subclass and optionally overrides members with the passed literal. This method
+         * also adds the function "override()" to the subclass that can be used to override members of the class.</p>
+         * For example, to create a subclass of Ext GridPanel:
+         * <pre><code>
+MyGridPanel = Ext.extend(Ext.grid.GridPanel, {
+    constructor: function(config) {
+
+//      Create configuration for this Grid.
+        var store = new Ext.data.Store({...});
+        var colModel = new Ext.grid.ColumnModel({...});
+
+//      Create a new config object containing our computed properties
+//      *plus* whatever was in the config parameter.
+        config = Ext.apply({
+            store: store,
+            colModel: colModel
+        }, config);
+
+        MyGridPanel.superclass.constructor.call(this, config);
+
+//      Your postprocessing here
+    },
+
+    yourMethod: function() {
+        // etc.
+    }
+});
+</code></pre>
+         *
+         * <p>This function also supports a 3-argument call in which the subclass's constructor is
+         * passed as an argument. In this form, the parameters are as follows:</p>
+         * <div class="mdetail-params"><ul>
+         * <li><code>subclass</code> : Function <div class="sub-desc">The subclass constructor.</div></li>
+         * <li><code>superclass</code> : Function <div class="sub-desc">The constructor of class being extended</div></li>
+         * <li><code>overrides</code> : Object <div class="sub-desc">A literal with members which are copied into the subclass's
+         * prototype, and are therefore shared among all instances of the new class.</div></li>
+         * </ul></div>
+         *
+         * @param {Function} superclass The constructor of class being extended.
+         * @param {Object} overrides <p>A literal with members which are copied into the subclass's
+         * prototype, and are therefore shared between all instances of the new class.</p>
+         * <p>This may contain a special member named <tt><b>constructor</b></tt>. This is used
+         * to define the constructor of the new class, and is returned. If this property is
+         * <i>not</i> specified, a constructor is generated and returned which just calls the
+         * superclass's constructor passing on its parameters.</p>
+         * <p><b>It is essential that you call the superclass constructor in any provided constructor. See example code.</b></p>
+         * @return {Function} The subclass constructor from the <code>overrides</code> parameter, or a generated one if not provided.
+         */
+        extend : function(){
+            // inline overrides
+            var io = function(o){
+                for(var m in o){
+                    this[m] = o[m];
+                }
+            };
+            var oc = Object.prototype.constructor;
+
+            return function(sb, sp, overrides){
+                if(typeof sp == 'object'){
+                    overrides = sp;
+                    sp = sb;
+                    sb = overrides.constructor != oc ? overrides.constructor : function(){sp.apply(this, arguments);};
+                }
+                var F = function(){},
+                    sbp,
+                    spp = sp.prototype;
+
+                F.prototype = spp;
+                sbp = sb.prototype = new F();
+                sbp.constructor=sb;
+                sb.superclass=spp;
+                if(spp.constructor == oc){
+                    spp.constructor=sp;
+                }
+                sb.override = function(o){
+                    Ext.override(sb, o);
+                };
+                sbp.superclass = sbp.supr = (function(){
+                    return spp;
+                });
+                sbp.override = io;
+                Ext.override(sb, overrides);
+                sb.extend = function(o){return Ext.extend(sb, o);};
+                return sb;
+            };
+        }(),
+
+        global: (function () {
+            return this;
+        })(),
+
+        Base: Base,
+
+        namespaceCache: {},
+
+        createNamespace: function (namespaceOrClass, isClass) {
+            var cache = Ext.namespaceCache,
+                namespace = isClass ? namespaceOrClass.substring(0, namespaceOrClass.lastIndexOf('.'))
+                            : namespaceOrClass,
+                ns = cache[namespace],
+                i, n, part, parts, partials;
+
+            if (!ns) {
+                ns = Ext.global;
+                if (namespace) {
+                    partials = [];
+                    parts = namespace.split('.');
+
+                    for (i = 0, n = parts.length; i < n; ++i) {
+                        part = parts[i];
+
+                        ns = ns[part] || (ns[part] = {});
+                        partials.push(part);
+
+                        cache[partials.join('.')] = ns; // build up prefixes as we go
+                    }
+                }
+            }
+
+            return ns;
+        },
+
+        getClassByName: function (className) {
+            var parts = className.split('.'),
+                cls = Ext.global,
+                n = parts.length,
+                i;
+
+            for (i = 0; cls && i < n; ++i) {
+                cls = cls[parts[i]];
+            }
+
+            return cls || null;
+        },
+
+        addMembers: function (cls, target, members, handleNonEnumerables) {
+            var i, name, member;
+
+            for (name in members) {
+                if (members.hasOwnProperty(name)) {
+                    member = members[name];
+                    if (typeof member == 'function') {
+                        member.$owner = cls;
+                        member.$name = name;
+                    }
+
+                    target[name] = member;
+                }
+            }
+
+            if (handleNonEnumerables && nonEnumerables) {
+                for (i = nonEnumerables.length; i-- > 0; ) {
+                    name = nonEnumerables[i];
+                    if (members.hasOwnProperty(name)) {
+                        member = members[name];
+                        if (typeof member == 'function') {
+                            member.$owner = cls;
+                            member.$name = name;
+                        }
+
+                        target[name] = member;
+                    }
+                }
+            }
+        },
+
+        /**
+         * @method
+         * Defines a class or override. A basic class is defined like this:
+         *
+         *      Ext.define('My.awesome.Class', {
+         *          someProperty: 'something',
+         *
+         *          someMethod: function(s) {
+         *              alert(s + this.someProperty);
+         *          }
+         *
+         *          ...
+         *      });
+         *
+         *      var obj = new My.awesome.Class();
+         *
+         *      obj.someMethod('Say '); // alerts 'Say something'
+         *
+         * To create an anonymous class, pass `null` for the `className`:
+         * 
+         *      Ext.define(null, {
+         *          constructor: function () {
+         *              // ...
+         *          }
+         *      });
+         *
+         * In some cases, it is helpful to create a nested scope to contain some private
+         * properties. The best way to do this is to pass a function instead of an object
+         * as the second parameter. This function will be called to produce the class
+         * body:
+         * 
+         *      Ext.define('MyApp.foo.Bar', function () {
+         *          var id = 0;
+         *          
+         *          return {
+         *              nextId: function () {
+         *                  return ++id;
+         *              }
+         *          };
+         *      });
+         * 
+         * When using this form of `Ext.define`, the function is passed a reference to its
+         * class. This can be used as an efficient way to access any static properties you
+         * may have:
+         * 
+         *      Ext.define('MyApp.foo.Bar', function (Bar) {
+         *          return {
+         *              statics: {
+         *                  staticMethod: function () {
+         *                      // ...
+         *                  }
+         *              },
+         *              
+         *              method: function () {
+         *                  return Bar.staticMethod();
+         *              }
+         *          };
+         *      });
+         *
+         * To define an override, include the `override` property. The content of an
+         * override is aggregated with the specified class in order to extend or modify
+         * that class. This can be as simple as setting default property values or it can
+         * extend and/or replace methods. This can also extend the statics of the class.
+         *
+         * One use for an override is to break a large class into manageable pieces.
+         *
+         *      // File: /src/app/Panel.js
+         *
+         *      Ext.define('My.app.Panel', {
+         *          extend: 'Ext.panel.Panel',
+         *
+         *          constructor: function (config) {
+         *              this.callParent(arguments); // calls Ext.panel.Panel's constructor
+         *              //...
+         *          },
+         *
+         *          statics: {
+         *              method: function () {
+         *                  return 'abc';
+         *              }
+         *          }
+         *      });
+         *
+         *      // File: /src/app/PanelPart2.js
+         *      Ext.define('My.app.PanelPart2', {
+         *          override: 'My.app.Panel',
+         *
+         *          constructor: function (config) {
+         *              this.callParent(arguments); // calls My.app.Panel's constructor
+         *              //...
+         *          }
+         *      });
+         *
+         * Another use of overrides is to provide optional parts of classes that can be
+         * independently required. In this case, the class may even be unaware of the
+         * override altogether.
+         *
+         *      Ext.define('My.ux.CoolTip', {
+         *          override: 'Ext.tip.ToolTip',
+         *
+         *          constructor: function (config) {
+         *              this.callParent(arguments); // calls Ext.tip.ToolTip's constructor
+         *              //...
+         *          }
+         *      });
+         *
+         * Overrides can also contain statics:
+         *
+         *      Ext.define('My.app.BarMod', {
+         *          override: 'Ext.foo.Bar',
+         *
+         *          statics: {
+         *              method: function (x) {
+         *                  return this.callParent([x * 2]); // call Ext.foo.Bar.method
+         *              }
+         *          }
+         *      });
+         *
+         * @param {String} className The class name to create in string dot-namespaced format, for example:
+         * 'My.very.awesome.Class', 'FeedViewer.plugin.CoolPager'
+         * It is highly recommended to follow this simple convention:
+         *  - The root and the class name are 'CamelCased'
+         *  - Everything else is lower-cased
+         * Pass `null` to create an anonymous class.
+         * @param {Object} data The key - value pairs of properties to apply to this class. Property names can be of any valid
+         * strings, except those in the reserved listed below:
+         *  - `mixins`
+         *  - `statics`
+         *  - `config`
+         *  - `alias`
+         *  - `self`
+         *  - `singleton`
+         *  - `alternateClassName`
+         *  - `override`
+         *
+         * @param {Function} createdFn Optional callback to execute after the class is created, the execution scope of which
+         * (`this`) will be the newly created class itself.
+         * @return {Ext.Base}
+         * @markdown
+         * @member Ext
+         * @method define
+         */
+        define: function (className, body, createdFn) {
+            var override = body.override,
+                cls, extend, name, namespace;
+
+            if (override) {
+                delete body.override;
+                cls = Ext.getClassByName(override);
+                Ext.override(cls, body);
+            } else {
+                if (className) {
+                    namespace = Ext.createNamespace(className, true);
+                    name = className.substring(className.lastIndexOf('.')+1);
+                }
+
+                cls = function ctor () {
+                    this.constructor.apply(this, arguments);
+                }
+
+                if (className) {
+                    cls.displayName = className;
+                }
+                cls.$isClass = true;
+                cls.callParent = Ext.Base.callParent;
+
+                if (typeof body == 'function') {
+                    body = body(cls);
+                }
+
+                extend = body.extend;
+                if (extend) {
+                    delete body.extend;
+                    if (typeof extend == 'string') {
+                        extend = Ext.getClassByName(extend);
+                    }
+                } else {
+                    extend = Base;
+                }
+
+                Ext.extend(cls, extend, body);
+                if (cls.prototype.constructor === cls) {
+                    delete cls.prototype.constructor;
+                }
+
+                // Not extending a class which derives from Base...
+                if (!cls.prototype.$isClass) {
+                    Ext.applyIf(cls.prototype, Base.prototype);
+                }
+                cls.prototype.self = cls;
+                
+                if (body.xtype) {
+                    Ext.reg(body.xtype, cls);
+                }
+                cls = body.singleton ? new cls() : cls;
+                if (className) {
+                    namespace[name] = cls;
+                }
+            }
+
+            if (createdFn) {
+                createdFn.call(cls);
+            }
+
+            return cls;
+        },
+
+        /**
+         * Overrides members of the specified `target` with the given values.
+         *
+         * If the `target` is a function, it is assumed to be a constructor and the contents
+         * of `overrides` are applied to its `prototype` using {@link Ext#apply Ext.apply}.
+         * 
+         * If the `target` is an instance of a class created using {@link #define},
+         * the `overrides` are applied to only that instance. In this case, methods are
+         * specially processed to allow them to use {@link Ext.Base#callParent}.
+         * 
+         *      var panel = new Ext.Panel({ ... });
+         *      
+         *      Ext.override(panel, {
+         *          initComponent: function () {
+         *              // extra processing...
+         *              
+         *              this.callParent();
+         *          }
+         *      });
+         *
+         * If the `target` is none of these, the `overrides` are applied to the `target`
+         * using {@link Ext#apply Ext.apply}.
+         *
+         * Please refer to {@link Ext#define Ext.define} for further details.
+         *
+         * @param {Object} target The target to override.
+         * @param {Object} overrides The properties to add or replace on `target`. 
+         * @method override
+         */
+        override: function (target, overrides) {
+            var proto, statics;
+
+            if (overrides) {
+                if (target.$isClass) {
+                    statics = overrides.statics;
+                    if (statics) {
+                        delete overrides.statics;
+                    }
+
+                    Ext.addMembers(target, target.prototype, overrides, true);
+                    if (statics) {
+                        Ext.addMembers(target, target, statics);
+                    }
+                } else if (typeof target == 'function') {
+                    proto = target.prototype;
+                    Ext.apply(proto, overrides);
+                    if(Ext.isIE && overrides.hasOwnProperty('toString')){
+                        proto.toString = overrides.toString;
+                    }
+                } else {
+                    var owner = target.self,
+                        name, value;
+
+                    if (owner && owner.$isClass) {
+                        for (name in overrides) {
+                            if (overrides.hasOwnProperty(name)) {
+                                value = overrides[name];
+
+                                if (typeof value == 'function') {
+                                    //<debug>
+                                    if (owner.$className) {
+                                        value.displayName = owner.$className + '#' + name;
+                                    }
+                                    //</debug>
+
+                                    value.$name = name;
+                                    value.$owner = owner;
+                                    value.$previous = target.hasOwnProperty(name)
+                                        ? target[name] // already hooked, so call previous hook
+                                        : callOverrideParent; // calls by name on prototype
+                                }
+
+                                target[name] = value;
+                            }
+                        }
+                    } else {
+                        Ext.apply(target, overrides);
+
+                        if (!target.constructor.$isClass) {
+                            target.constructor.prototype.callParent = Base.prototype.callParent;
+                            target.constructor.callParent = Base.callParent;
+                        }
+                    }
+                }
+            }
+        },
+
+        /**
+         * Creates namespaces to be used for scoping variables and classes so that they are not global.
+         * Specifying the last node of a namespace implicitly creates all other nodes. Usage:
+         * <pre><code>
+Ext.namespace('Company', 'Company.data');
+Ext.namespace('Company.data'); // equivalent and preferable to above syntax
+Company.Widget = function() { ... }
+Company.data.CustomStore = function(config) { ... }
+</code></pre>
+         * @param {String} namespace1
+         * @param {String} namespace2
+         * @param {String} etc
+         * @return {Object} The namespace object. (If multiple arguments are passed, this will be the last namespace created)
+         * @method namespace
+         */
+        namespace : function(){
+            var len1 = arguments.length,
+                i = 0,
+                len2,
+                j,
+                main,
+                ns,
+                sub,
+                current;
+
+            for(; i < len1; ++i) {
+                main = arguments[i];
+                ns = arguments[i].split('.');
+                current = window[ns[0]];
+                if (current === undefined) {
+                    current = window[ns[0]] = {};
+                }
+                sub = ns.slice(1);
+                len2 = sub.length;
+                for(j = 0; j < len2; ++j) {
+                    current = current[sub[j]] = current[sub[j]] || {};
+                }
+            }
+            return current;
+        },
+
+        /**
+         * Takes an object and converts it to an encoded URL. e.g. Ext.urlEncode({foo: 1, bar: 2}); would return "foo=1&bar=2".  Optionally, property values can be arrays, instead of keys and the resulting string that's returned will contain a name/value pair for each array value.
+         * @param {Object} o
+         * @param {String} pre (optional) A prefix to add to the url encoded string
+         * @return {String}
+         */
+        urlEncode : function(o, pre){
+            var empty,
+                buf = [],
+                e = encodeURIComponent;
+
+            Ext.iterate(o, function(key, item){
+                empty = Ext.isEmpty(item);
+                Ext.each(empty ? key : item, function(val){
+                    buf.push('&', e(key), '=', (!Ext.isEmpty(val) && (val != key || !empty)) ? (Ext.isDate(val) ? Ext.encode(val).replace(/"/g, '') : e(val)) : '');
+                });
+            });
+            if(!pre){
+                buf.shift();
+                pre = '';
+            }
+            return pre + buf.join('');
+        },
+
+        /**
+         * Takes an encoded URL and and converts it to an object. Example: <pre><code>
+Ext.urlDecode("foo=1&bar=2"); // returns {foo: "1", bar: "2"}
+Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2", "3", "4"]}
+</code></pre>
+         * @param {String} string
+         * @param {Boolean} overwrite (optional) Items of the same name will overwrite previous values instead of creating an an array (Defaults to false).
+         * @return {Object} A literal with members
+         */
+        urlDecode : function(string, overwrite){
+            if(Ext.isEmpty(string)){
+                return {};
+            }
+            var obj = {},
+                pairs = string.split('&'),
+                d = decodeURIComponent,
+                name,
+                value;
+            Ext.each(pairs, function(pair) {
+                pair = pair.split('=');
+                name = d(pair[0]);
+                value = d(pair[1]);
+                obj[name] = overwrite || !obj[name] ? value :
+                            [].concat(obj[name]).concat(value);
+            });
+            return obj;
+        },
+
+        /**
+         * Appends content to the query string of a URL, handling logic for whether to place
+         * a question mark or ampersand.
+         * @param {String} url The URL to append to.
+         * @param {String} s The content to append to the URL.
+         * @return (String) The resulting URL
+         */
+        urlAppend : function(url, s){
+            if(!Ext.isEmpty(s)){
+                return url + (url.indexOf('?') === -1 ? '?' : '&') + s;
+            }
+            return url;
+        },
+
+        /**
+         * Converts any iterable (numeric indices and a length property) into a true array
+         * Don't use this on strings. IE doesn't support "abc"[0] which this implementation depends on.
+         * For strings, use this instead: "abc".match(/./g) => [a,b,c];
+         * @param {Iterable} the iterable object to be turned into a true Array.
+         * @return (Array) array
+         */
+         toArray : function(){
+             return isIE ?
+                 function(a, i, j, res){
+                     res = [];
+                     for(var x = 0, len = a.length; x < len; x++) {
+                         res.push(a[x]);
+                     }
+                     return res.slice(i || 0, j || res.length);
+                 } :
+                 function(a, i, j){
+                     return Array.prototype.slice.call(a, i || 0, j || a.length);
+                 };
+         }(),
+
+        isIterable : function(v){
+            //check for array or arguments
+            if(Ext.isArray(v) || v.callee){
+                return true;
+            }
+            //check for node list type
+            if(/NodeList|HTMLCollection/.test(toString.call(v))){
+                return true;
+            }
+            //NodeList has an item and length property
+            //IXMLDOMNodeList has nextNode method, needs to be checked first.
+            return ((typeof v.nextNode != 'undefined' || v.item) && Ext.isNumber(v.length));
+        },
+
+        /**
+         * Iterates an array calling the supplied function.
+         * @param {Array/NodeList/Mixed} array The array to be iterated. If this
+         * argument is not really an array, the supplied function is called once.
+         * @param {Function} fn The function to be called with each item. If the
+         * supplied function returns false, iteration stops and this method returns
+         * the current <code>index</code>. This function is called with
+         * the following arguments:
+         * <div class="mdetail-params"><ul>
+         * <li><code>item</code> : <i>Mixed</i>
+         * <div class="sub-desc">The item at the current <code>index</code>
+         * in the passed <code>array</code></div></li>
+         * <li><code>index</code> : <i>Number</i>
+         * <div class="sub-desc">The current index within the array</div></li>
+         * <li><code>allItems</code> : <i>Array</i>
+         * <div class="sub-desc">The <code>array</code> passed as the first
+         * argument to <code>Ext.each</code>.</div></li>
+         * </ul></div>
+         * @param {Object} scope The scope (<code>this</code> reference) in which the specified function is executed.
+         * Defaults to the <code>item</code> at the current <code>index</code>
+         * within the passed <code>array</code>.
+         * @return See description for the fn parameter.
+         */
+        each : function(array, fn, scope){
+            if(Ext.isEmpty(array, true)){
+                return;
+            }
+            if(!Ext.isIterable(array) || Ext.isPrimitive(array)){
+                array = [array];
+            }
+            for(var i = 0, len = array.length; i < len; i++){
+                if(fn.call(scope || array[i], array[i], i, array) === false){
+                    return i;
+                };
+            }
+        },
+
+        /**
+         * Iterates either the elements in an array, or each of the properties in an object.
+         * <b>Note</b>: If you are only iterating arrays, it is better to call {@link #each}.
+         * @param {Object/Array} object The object or array to be iterated
+         * @param {Function} fn The function to be called for each iteration.
+         * The iteration will stop if the supplied function returns false, or
+         * all array elements / object properties have been covered. The signature
+         * varies depending on the type of object being interated:
+         * <div class="mdetail-params"><ul>
+         * <li>Arrays : <tt>(Object item, Number index, Array allItems)</tt>
+         * <div class="sub-desc">
+         * When iterating an array, the supplied function is called with each item.</div></li>
+         * <li>Objects : <tt>(String key, Object value, Object)</tt>
+         * <div class="sub-desc">
+         * When iterating an object, the supplied function is called with each key-value pair in
+         * the object, and the iterated object</div></li>
+         * </ul></div>
+         * @param {Object} scope The scope (<code>this</code> reference) in which the specified function is executed. Defaults to
+         * the <code>object</code> being iterated.
+         */
+        iterate : function(obj, fn, scope){
+            if(Ext.isEmpty(obj)){
+                return;
+            }
+            if(Ext.isIterable(obj)){
+                Ext.each(obj, fn, scope);
+                return;
+            }else if(typeof obj == 'object'){
+                for(var prop in obj){
+                    if(obj.hasOwnProperty(prop)){
+                        if(fn.call(scope || obj, prop, obj[prop], obj) === false){
+                            return;
+                        };
+                    }
+                }
+            }
+        },
+
+        /**
+         * Return the dom node for the passed String (id), dom node, or Ext.Element.
+         * Optional 'strict' flag is needed for IE since it can return 'name' and
+         * 'id' elements by using getElementById.
+         * Here are some examples:
+         * <pre><code>
+// gets dom node based on id
+var elDom = Ext.getDom('elId');
+// gets dom node based on the dom node
+var elDom1 = Ext.getDom(elDom);
+
+// If we don&#39;t know if we are working with an
+// Ext.Element or a dom node use Ext.getDom
+function(el){
+    var dom = Ext.getDom(el);
+    // do something with the dom node
+}
+         * </code></pre>
+         * <b>Note</b>: the dom node to be found actually needs to exist (be rendered, etc)
+         * when this method is called to be successful.
+         * @param {Mixed} el
+         * @return HTMLElement
+         */
+        getDom : function(el, strict){
+            if(!el || !DOC){
+                return null;
+            }
+            if (el.dom){
+                return el.dom;
+            } else {
+                if (typeof el == 'string') {
+                    var e = DOC.getElementById(el);
+                    // IE returns elements with the 'name' and 'id' attribute.
+                    // we do a strict check to return the element with only the id attribute
+                    if (e && isIE && strict) {
+                        if (el == e.getAttribute('id')) {
+                            return e;
+                        } else {
+                            return null;
+                        }
+                    }
+                    return e;
+                } else {
+                    return el;
+                }
+            }
+        },
+
+        /**
+         * Returns the current document body as an {@link Ext.Element}.
+         * @return Ext.Element The document body
+         */
+        getBody : function(){
+            return Ext.get(DOC.body || DOC.documentElement);
+        },
+
+        /**
+         * Returns the current document body as an {@link Ext.Element}.
+         * @return Ext.Element The document body
+         * @method
+         */
+        getHead : function() {
+            var head;
+
+            return function() {
+                if (head == undefined) {
+                    head = Ext.get(DOC.getElementsByTagName("head")[0]);
+                }
+
+                return head;
+            };
+        }(),
+
+        /**
+         * <p>Removes this element from the document, removes all DOM event listeners, and deletes the cache reference.
+         * All DOM event listeners are removed from this element. If {@link Ext#enableNestedListenerRemoval} is
+         * <code>true</code>, then DOM event listeners are also removed from all child nodes. The body node
+         * will be ignored if passed in.</p>
+         * @param {HTMLElement} node The node to remove
+         * @method
+         */
+        removeNode : isIE && !isIE8 ? function(){
+            var d;
+            return function(n){
+                if(n && n.tagName != 'BODY'){
+                    (Ext.enableNestedListenerRemoval) ? Ext.EventManager.purgeElement(n, true) : Ext.EventManager.removeAll(n);
+                    d = d || DOC.createElement('div');
+                    d.appendChild(n);
+                    d.innerHTML = '';
+                    delete Ext.elCache[n.id];
+                }
+            };
+        }() : function(n){
+            if(n && n.parentNode && n.tagName != 'BODY'){
+                (Ext.enableNestedListenerRemoval) ? Ext.EventManager.purgeElement(n, true) : Ext.EventManager.removeAll(n);
+                n.parentNode.removeChild(n);
+                delete Ext.elCache[n.id];
+            }
+        },
+
+        /**
+         * <p>Returns true if the passed value is empty.</p>
+         * <p>The value is deemed to be empty if it is<div class="mdetail-params"><ul>
+         * <li>null</li>
+         * <li>undefined</li>
+         * <li>an empty array</li>
+         * <li>a zero length string (Unless the <tt>allowBlank</tt> parameter is <tt>true</tt>)</li>
+         * </ul></div>
+         * @param {Mixed} value The value to test
+         * @param {Boolean} allowBlank (optional) true to allow empty strings (defaults to false)
+         * @return {Boolean}
+         */
+        isEmpty : function(v, allowBlank){
+            return v === null || v === undefined || ((Ext.isArray(v) && !v.length)) || (!allowBlank ? v === '' : false);
+        },
+
+        /**
+         * Returns true if the passed value is a JavaScript array, otherwise false.
+         * @param {Mixed} value The value to test
+         * @return {Boolean}
+         */
+        isArray : function(v){
+            return toString.apply(v) === '[object Array]';
+        },
+
+        /**
+         * Returns true if the passed object is a JavaScript date object, otherwise false.
+         * @param {Object} object The object to test
+         * @return {Boolean}
+         */
+        isDate : function(v){
+            return toString.apply(v) === '[object Date]';
+        },
+
+        /**
+         * Returns true if the passed value is a JavaScript Object, otherwise false.
+         * @param {Mixed} value The value to test
+         * @return {Boolean}
+         */
+        isObject : function(v){
+            return !!v && Object.prototype.toString.call(v) === '[object Object]';
+        },
+
+        /**
+         * Returns true if the passed value is a JavaScript 'primitive', a string, number or boolean.
+         * @param {Mixed} value The value to test
+         * @return {Boolean}
+         */
+        isPrimitive : function(v){
+            return Ext.isString(v) || Ext.isNumber(v) || Ext.isBoolean(v);
+        },
+
+        /**
+         * Returns true if the passed value is a JavaScript Function, otherwise false.
+         * @param {Mixed} value The value to test
+         * @return {Boolean}
+         */
+        isFunction : function(v){
+            return toString.apply(v) === '[object Function]';
+        },
+
+        /**
+         * Returns true if the passed value is a number. Returns false for non-finite numbers.
+         * @param {Mixed} value The value to test
+         * @return {Boolean}
+         */
+        isNumber : function(v){
+            return typeof v === 'number' && isFinite(v);
+        },
+
+        /**
+         * Returns true if the passed value is a string.
+         * @param {Mixed} value The value to test
+         * @return {Boolean}
+         */
+        isString : function(v){
+            return typeof v === 'string';
+        },
+
+        /**
+         * Returns true if the passed value is a boolean.
+         * @param {Mixed} value The value to test
+         * @return {Boolean}
+         */
+        isBoolean : function(v){
+            return typeof v === 'boolean';
+        },
+
+        /**
+         * Returns true if the passed value is an HTMLElement
+         * @param {Mixed} value The value to test
+         * @return {Boolean}
+         */
+        isElement : function(v) {
+            return v ? !!v.tagName : false;
+        },
+
+        /**
+         * Returns true if the passed value is not undefined.
+         * @param {Mixed} value The value to test
+         * @return {Boolean}
+         */
+        isDefined : function(v){
+            return typeof v !== 'undefined';
+        },
+
+        /**
+         * True if the detected browser is Opera.
+         * @type Boolean
+         */
+        isOpera : isOpera,
+        /**
+         * True if the detected browser uses WebKit.
+         * @type Boolean
+         */
+        isWebKit : isWebKit,
+        /**
+         * True if the detected browser is Chrome.
+         * @type Boolean
+         */
+        isChrome : isChrome,
+        /**
+         * True if the detected browser is Safari.
+         * @type Boolean
+         */
+        isSafari : isSafari,
+        /**
+         * True if the detected browser is Safari 3.x.
+         * @type Boolean
+         */
+        isSafari3 : isSafari3,
+        /**
+         * True if the detected browser is Safari 4.x.
+         * @type Boolean
+         */
+        isSafari4 : isSafari4,
+        /**
+         * True if the detected browser is Safari 2.x.
+         * @type Boolean
+         */
+        isSafari2 : isSafari2,
+        /**
+         * True if the detected browser is Internet Explorer.
+         * @type Boolean
+         */
+        isIE : isIE,
+        /**
+         * True if the detected browser is Internet Explorer 6.x.
+         * @type Boolean
+         */
+        isIE6 : isIE6,
+        /**
+         * True if the detected browser is Internet Explorer 7.x.
+         * @type Boolean
+         */
+        isIE7 : isIE7,
+        /**
+         * True if the detected browser is Internet Explorer 8.x.
+         * @type Boolean
+         */
+        isIE8 : isIE8,
+        /**
+         * True if the detected browser is Internet Explorer 9.x.
+         * @type Boolean
+         */
+        isIE9 : isIE9,
+        
+        /**
+         * True if the detected browser is Internet Explorer 10.x
+         * @type Boolean
+         */
+        isIE10 : isIE10,
+        
+        /**
+         * True if the detected browser is Internet Explorer 9.x or lower
+         * @type Boolean
+         */
+        isIE9m : isIE9m,
+        
+        /**
+         * True if the detected browser is Internet Explorer 10.x or higher
+         * @type Boolean
+         */ 
+        isIE10p : isIE && !(isIE6 || isIE7 || isIE8 || isIE9),
+        
+        // IE10 quirks behaves like Gecko/WebKit quirks, so don't include it here
+        // Used internally
+        isIEQuirks: isIE && (!isStrict && (isIE6 || isIE7 || isIE8 || isIE9)),
+                
+        /**
+         * True if the detected browser uses the Gecko layout engine (e.g. Mozilla, Firefox).
+         * @type Boolean
+         */
+        isGecko : isGecko,
+        /**
+         * True if the detected browser uses a pre-Gecko 1.9 layout engine (e.g. Firefox 2.x).
+         * @type Boolean
+         */
+        isGecko2 : isGecko2,
+        /**
+         * True if the detected browser uses a Gecko 1.9+ layout engine (e.g. Firefox 3.x).
+         * @type Boolean
+         */
+        isGecko3 : isGecko3,
+        /**
+         * True if the detected browser is Internet Explorer running in non-strict mode.
+         * @type Boolean
+         */
+        isBorderBox : isBorderBox,
+        /**
+         * True if the detected platform is Linux.
+         * @type Boolean
+         */
+        isLinux : isLinux,
+        /**
+         * True if the detected platform is Windows.
+         * @type Boolean
+         */
+        isWindows : isWindows,
+        /**
+         * True if the detected platform is Mac OS.
+         * @type Boolean
+         */
+        isMac : isMac,
+        /**
+         * True if the detected platform is Adobe Air.
+         * @type Boolean
+         */
+        isAir : isAir
+    });
+
+    /**
+     * Creates namespaces to be used for scoping variables and classes so that they are not global.
+     * Specifying the last node of a namespace implicitly creates all other nodes. Usage:
+     * <pre><code>
+Ext.namespace('Company', 'Company.data');
+Ext.namespace('Company.data'); // equivalent and preferable to above syntax
+Company.Widget = function() { ... }
+Company.data.CustomStore = function(config) { ... }
+</code></pre>
+     * @param {String} namespace1
+     * @param {String} namespace2
+     * @param {String} etc
+     * @return {Object} The namespace object. (If multiple arguments are passed, this will be the last namespace created)
+     * @method ns
+     */
+    Ext.ns = Ext.namespace;
+})();
+
+Ext.ns('Ext.util', 'Ext.lib', 'Ext.data', 'Ext.supports');
+
+Ext.elCache = {};
+
+/**
+ * @class Function
+ * These functions are available on every Function object (any JavaScript function).
+ */
+Ext.apply(Function.prototype, {
+     /**
+     * Creates an interceptor function. The passed function is called before the original one. If it returns false,
+     * the original one is not called. The resulting function returns the results of the original function.
+     * The passed function is called with the parameters of the original function. Example usage:
+     * <pre><code>
+var sayHi = function(name){
+    alert('Hi, ' + name);
+}
+
+sayHi('Fred'); // alerts "Hi, Fred"
+
+// create a new function that validates input without
+// directly modifying the original function:
+var sayHiToFriend = sayHi.createInterceptor(function(name){
+    return name == 'Brian';
+});
+
+sayHiToFriend('Fred');  // no alert
+sayHiToFriend('Brian'); // alerts "Hi, Brian"
+</code></pre>
+     * @param {Function} fcn The function to call before the original
+     * @param {Object} scope (optional) The scope (<code><b>this</b></code> reference) in which the passed function is executed.
+     * <b>If omitted, defaults to the scope in which the original function is called or the browser window.</b>
+     * @return {Function} The new function
+     */
+    createInterceptor : function(fcn, scope){
+        var method = this;
+        return !Ext.isFunction(fcn) ?
+                this :
+                function() {
+                    var me = this,
+                        args = arguments;
+                    fcn.target = me;
+                    fcn.method = method;
+                    return (fcn.apply(scope || me || window, args) !== false) ?
+                            method.apply(me || window, args) :
+                            null;
+                };
+    },
+
+     /**
+     * Creates a callback that passes arguments[0], arguments[1], arguments[2], ...
+     * Call directly on any function. Example: <code>myFunction.createCallback(arg1, arg2)</code>
+     * Will create a function that is bound to those 2 args. <b>If a specific scope is required in the
+     * callback, use {@link #createDelegate} instead.</b> The function returned by createCallback always
+     * executes in the window scope.
+     * <p>This method is required when you want to pass arguments to a callback function.  If no arguments
+     * are needed, you can simply pass a reference to the function as a callback (e.g., callback: myFn).
+     * However, if you tried to pass a function with arguments (e.g., callback: myFn(arg1, arg2)) the function
+     * would simply execute immediately when the code is parsed. Example usage:
+     * <pre><code>
+var sayHi = function(name){
+    alert('Hi, ' + name);
+}
+
+// clicking the button alerts "Hi, Fred"
+new Ext.Button({
+    text: 'Say Hi',
+    renderTo: Ext.getBody(),
+    handler: sayHi.createCallback('Fred')
+});
+</code></pre>
+     * @return {Function} The new function
+    */
+    createCallback : function(/*args...*/){
+        // make args available, in function below
+        var args = arguments,
+            method = this;
+        return function() {
+            return method.apply(window, args);
+        };
+    },
+
+    /**
+     * Creates a delegate (callback) that sets the scope to obj.
+     * Call directly on any function. Example: <code>this.myFunction.createDelegate(this, [arg1, arg2])</code>
+     * Will create a function that is automatically scoped to obj so that the <tt>this</tt> variable inside the
+     * callback points to obj. Example usage:
+     * <pre><code>
+var sayHi = function(name){
+    // Note this use of "this.text" here.  This function expects to
+    // execute within a scope that contains a text property.  In this
+    // example, the "this" variable is pointing to the btn object that
+    // was passed in createDelegate below.
+    alert('Hi, ' + name + '. You clicked the "' + this.text + '" button.');
+}
+
+var btn = new Ext.Button({
+    text: 'Say Hi',
+    renderTo: Ext.getBody()
+});
+
+// This callback will execute in the scope of the
+// button instance. Clicking the button alerts
+// "Hi, Fred. You clicked the "Say Hi" button."
+btn.on('click', sayHi.createDelegate(btn, ['Fred']));
+</code></pre>
+     * @param {Object} scope (optional) The scope (<code><b>this</b></code> reference) in which the function is executed.
+     * <b>If omitted, defaults to the browser window.</b>
+     * @param {Array} args (optional) Overrides arguments for the call. (Defaults to the arguments passed by the caller)
+     * @param {Boolean/Number} appendArgs (optional) if True args are appended to call args instead of overriding,
+     * if a number the args are inserted at the specified position
+     * @return {Function} The new function
+     */
+    createDelegate : function(obj, args, appendArgs){
+        var method = this;
+        return function() {
+            var callArgs = args || arguments;
+            if (appendArgs === true){
+                callArgs = Array.prototype.slice.call(arguments, 0);
+                callArgs = callArgs.concat(args);
+            }else if (Ext.isNumber(appendArgs)){
+                callArgs = Array.prototype.slice.call(arguments, 0); // copy arguments first
+                var applyArgs = [appendArgs, 0].concat(args); // create method call params
+                Array.prototype.splice.apply(callArgs, applyArgs); // splice them in
+            }
+            return method.apply(obj || window, callArgs);
+        };
+    },
+
+    /**
+     * Calls this function after the number of millseconds specified, optionally in a specific scope. Example usage:
+     * <pre><code>
+var sayHi = function(name){
+    alert('Hi, ' + name);
+}
+
+// executes immediately:
+sayHi('Fred');
+
+// executes after 2 seconds:
+sayHi.defer(2000, this, ['Fred']);
+
+// this syntax is sometimes useful for deferring
+// execution of an anonymous function:
+(function(){
+    alert('Anonymous');
+}).defer(100);
+</code></pre>
+     * @param {Number} millis The number of milliseconds for the setTimeout call (if less than or equal to 0 the function is executed immediately)
+     * @param {Object} scope (optional) The scope (<code><b>this</b></code> reference) in which the function is executed.
+     * <b>If omitted, defaults to the browser window.</b>
+     * @param {Array} args (optional) Overrides arguments for the call. (Defaults to the arguments passed by the caller)
+     * @param {Boolean/Number} appendArgs (optional) if True args are appended to call args instead of overriding,
+     * if a number the args are inserted at the specified position
+     * @return {Number} The timeout id that can be used with clearTimeout
+     */
+    defer : function(millis, obj, args, appendArgs){
+        var fn = this.createDelegate(obj, args, appendArgs);
+        if(millis > 0){
+            return setTimeout(fn, millis);
+        }
+        fn();
+        return 0;
+    }
+});
+
+/**
+ * @class String
+ * These functions are available on every String object.
+ */
+Ext.applyIf(String, {
+    /**
+     * Allows you to define a tokenized string and pass an arbitrary number of arguments to replace the tokens.  Each
+     * token must be unique, and must increment in the format {0}, {1}, etc.  Example usage:
+     * <pre><code>
+var cls = 'my-class', text = 'Some text';
+var s = String.format('&lt;div class="{0}">{1}&lt;/div>', cls, text);
+// s now contains the string: '&lt;div class="my-class">Some text&lt;/div>'
+     * </code></pre>
+     * @param {String} string The tokenized string to be formatted
+     * @param {String} value1 The value to replace token {0}
+     * @param {String} value2 Etc...
+     * @return {String} The formatted string
+     * @static
+     */
+    format : function(format){
+        var args = Ext.toArray(arguments, 1);
+        return format.replace(/\{(\d+)\}/g, function(m, i){
+            return args[i];
+        });
+    }
+});
+
+/**
+ * @class Array
+ */
+Ext.applyIf(Array.prototype, {
+    /**
+     * Checks whether or not the specified object exists in the array.
+     * @param {Object} o The object to check for
+     * @param {Number} from (Optional) The index at which to begin the search
+     * @return {Number} The index of o in the array (or -1 if it is not found)
+     */
+    indexOf : function(o, from){
+        var len = this.length;
+        from = from || 0;
+        from += (from < 0) ? len : 0;
+        for (; from < len; ++from){
+            if(this[from] === o){
+                return from;
+            }
+        }
+        return -1;
+    },
+
+    /**
+     * Removes the specified object from the array.  If the object is not found nothing happens.
+     * @param {Object} o The object to remove
+     * @return {Array} this array
+     */
+    remove : function(o){
+        var index = this.indexOf(o);
+        if(index != -1){
+            this.splice(index, 1);
+        }
+        return this;
+    }
+});
+
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+/**
+ * @class Ext.util.TaskRunner
+ * Provides the ability to execute one or more arbitrary tasks in a multithreaded
+ * manner.  Generally, you can use the singleton {@link Ext.TaskMgr} instead, but
+ * if needed, you can create separate instances of TaskRunner.  Any number of
+ * separate tasks can be started at any time and will run independently of each
+ * other. Example usage:
+ * <pre><code>
+// Start a simple clock task that updates a div once per second
+var updateClock = function(){
+    Ext.fly('clock').update(new Date().format('g:i:s A'));
+} 
+var task = {
+    run: updateClock,
+    interval: 1000 //1 second
+}
+var runner = new Ext.util.TaskRunner();
+runner.start(task);
+
+// equivalent using TaskMgr
+Ext.TaskMgr.start({
+    run: updateClock,
+    interval: 1000
+});
+
+ * </code></pre>
+ * <p>See the {@link #start} method for details about how to configure a task object.</p>
+ * Also see {@link Ext.util.DelayedTask}. 
+ * 
+ * @constructor
+ * @param {Number} interval (optional) The minimum precision in milliseconds supported by this TaskRunner instance
+ * (defaults to 10)
+ */
+Ext.util.TaskRunner = function(interval){
+    interval = interval || 10;
+    var tasks = [], 
+    	removeQueue = [],
+    	id = 0,
+    	running = false,
+
+    	// private
+    	stopThread = function(){
+	        running = false;
+	        clearInterval(id);
+	        id = 0;
+	    },
+
+    	// private
+    	startThread = function(){
+	        if(!running){
+	            running = true;
+	            id = setInterval(runTasks, interval);
+	        }
+	    },
+
+    	// private
+    	removeTask = function(t){
+	        removeQueue.push(t);
+	        if(t.onStop){
+	            t.onStop.apply(t.scope || t);
+	        }
+	    },
+	    
+    	// private
+    	runTasks = function(){
+	    	var rqLen = removeQueue.length,
+	    		now = new Date().getTime();	    			    		
+	    
+	        if(rqLen > 0){
+	            for(var i = 0; i < rqLen; i++){
+	                tasks.remove(removeQueue[i]);
+	            }
+	            removeQueue = [];
+	            if(tasks.length < 1){
+	                stopThread();
+	                return;
+	            }
+	        }	        
+	        for(var i = 0, t, itime, rt, len = tasks.length; i < len; ++i){
+	            t = tasks[i];
+	            itime = now - t.taskRunTime;
+	            if(t.interval <= itime){
+	                rt = t.run.apply(t.scope || t, t.args || [++t.taskRunCount]);
+	                t.taskRunTime = now;
+	                if(rt === false || t.taskRunCount === t.repeat){
+	                    removeTask(t);
+	                    return;
+	                }
+	            }
+	            if(t.duration && t.duration <= (now - t.taskStartTime)){
+	                removeTask(t);
+	            }
+	        }
+	    };
+
+    /**
+     * Starts a new task.
+     * @method start
+     * @param {Object} task <p>A config object that supports the following properties:<ul>
+     * <li><code>run</code> : Function<div class="sub-desc"><p>The function to execute each time the task is invoked. The
+     * function will be called at each interval and passed the <code>args</code> argument if specified, and the
+     * current invocation count if not.</p>
+     * <p>If a particular scope (<code>this</code> reference) is required, be sure to specify it using the <code>scope</code> argument.</p>
+     * <p>Return <code>false</code> from this function to terminate the task.</p></div></li>
+     * <li><code>interval</code> : Number<div class="sub-desc">The frequency in milliseconds with which the task
+     * should be invoked.</div></li>
+     * <li><code>args</code> : Array<div class="sub-desc">(optional) An array of arguments to be passed to the function
+     * specified by <code>run</code>. If not specified, the current invocation count is passed.</div></li>
+     * <li><code>scope</code> : Object<div class="sub-desc">(optional) The scope (<tt>this</tt> reference) in which to execute the
+     * <code>run</code> function. Defaults to the task config object.</div></li>
+     * <li><code>duration</code> : Number<div class="sub-desc">(optional) The length of time in milliseconds to invoke
+     * the task before stopping automatically (defaults to indefinite).</div></li>
+     * <li><code>repeat</code> : Number<div class="sub-desc">(optional) The number of times to invoke the task before
+     * stopping automatically (defaults to indefinite).</div></li>
+     * </ul></p>
+     * <p>Before each invocation, Ext injects the property <code>taskRunCount</code> into the task object so
+     * that calculations based on the repeat count can be performed.</p>
+     * @return {Object} The task
+     */
+    this.start = function(task){
+        tasks.push(task);
+        task.taskStartTime = new Date().getTime();
+        task.taskRunTime = 0;
+        task.taskRunCount = 0;
+        startThread();
+        return task;
+    };
+
+    /**
+     * Stops an existing running task.
+     * @method stop
+     * @param {Object} task The task to stop
+     * @return {Object} The task
+     */
+    this.stop = function(task){
+        removeTask(task);
+        return task;
+    };
+
+    /**
+     * Stops all tasks that are currently running.
+     * @method stopAll
+     */
+    this.stopAll = function(){
+        stopThread();
+        for(var i = 0, len = tasks.length; i < len; i++){
+            if(tasks[i].onStop){
+                tasks[i].onStop();
+            }
+        }
+        tasks = [];
+        removeQueue = [];
+    };
+};
+
+/**
+ * @class Ext.TaskMgr
+ * @extends Ext.util.TaskRunner
+ * A static {@link Ext.util.TaskRunner} instance that can be used to start and stop arbitrary tasks.  See
+ * {@link Ext.util.TaskRunner} for supported methods and task config properties.
+ * <pre><code>
+// Start a simple clock task that updates a div once per second
+var task = {
+    run: function(){
+        Ext.fly('clock').update(new Date().format('g:i:s A'));
+    },
+    interval: 1000 //1 second
+}
+Ext.TaskMgr.start(task);
+</code></pre>
+ * <p>See the {@link #start} method for details about how to configure a task object.</p>
+ * @singleton
+ */
+Ext.TaskMgr = new Ext.util.TaskRunner();
+/*
+This file is part of Ext JS 3.4
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-04-03 15:07:25
+*/
+if(typeof YAHOO == "undefined"){
+    throw "Unable to load Ext, core YUI utilities (yahoo, dom, event) not found.";
+}
+
+(function(){
+    var E = YAHOO.util.Event,
+        D = YAHOO.util.Dom,
+        CN = YAHOO.util.Connect,
+        ES = YAHOO.util.Easing,
+        A = YAHOO.util.Anim,
+        libFlyweight,
+        version = YAHOO.env.getVersion('yahoo').version.split('.'),
+        mouseEnterSupported = parseInt(version[0], 10) >= 3,
+        mouseCache = {},
+        elContains = function(parent, child){
+            if(parent && parent.firstChild){
+                while(child){
+                    if(child === parent){
+                        return true;
+                    }
+                    child = child.parentNode;
+                    if(child && (child.nodeType != 1)){
+                        child = null;
+                    }
+                }
+            }
+            return false;
+        }, checkRelatedTarget = function(e){
+            return !elContains(e.currentTarget, Ext.lib.Event.getRelatedTarget(e));
+        };
+
+Ext.lib.Dom = {
+    getViewWidth : function(full){
+        return full ? D.getDocumentWidth() : D.getViewportWidth();
+    },
+
+    getViewHeight : function(full){
+        return full ? D.getDocumentHeight() : D.getViewportHeight();
+    },
+
+    isAncestor : function(haystack, needle){
+        return D.isAncestor(haystack, needle);
+    },
+
+    getRegion : function(el){
+        return D.getRegion(el);
+    },
+
+    getY : function(el){
+        return this.getXY(el)[1];
+    },
+
+    getX : function(el){
+        return this.getXY(el)[0];
+    },
+
+    // original version based on YahooUI getXY
+    // this version fixes several issues in Safari and FF
+    // and boosts performance by removing the batch overhead, repetitive dom lookups and array index calls
+    getXY : function(el){
+        var p, pe, b, scroll, bd = (document.body || document.documentElement);
+        el = Ext.getDom(el);
+
+        if(el == bd){
+            return [0, 0];
+        }
+
+        if (el.getBoundingClientRect) {
+            b = el.getBoundingClientRect();
+            scroll = fly(document).getScroll();
+            return [Math.round(b.left + scroll.left), Math.round(b.top + scroll.top)];
+        }
+        var x = 0, y = 0;
+
+        p = el;
+
+        var hasAbsolute = fly(el).getStyle("position") == "absolute";
+
+        while (p) {
+
+            x += p.offsetLeft;
+            y += p.offsetTop;
+
+            if (!hasAbsolute && fly(p).getStyle("position") == "absolute") {
+                hasAbsolute = true;
+            }
+
+            if (Ext.isGecko) {
+                pe = fly(p);
+
+                var bt = parseInt(pe.getStyle("borderTopWidth"), 10) || 0;
+                var bl = parseInt(pe.getStyle("borderLeftWidth"), 10) || 0;
+
+
+                x += bl;
+                y += bt;
+
+
+                if (p != el && pe.getStyle('overflow') != 'visible') {
+                    x += bl;
+                    y += bt;
+                }
+            }
+            p = p.offsetParent;
+        }
+
+        if (Ext.isSafari && hasAbsolute) {
+            x -= bd.offsetLeft;
+            y -= bd.offsetTop;
+        }
+
+        if (Ext.isGecko && !hasAbsolute) {
+            var dbd = fly(bd);
+            x += parseInt(dbd.getStyle("borderLeftWidth"), 10) || 0;
+            y += parseInt(dbd.getStyle("borderTopWidth"), 10) || 0;
+        }
+
+        p = el.parentNode;
+        while (p && p != bd) {
+            if (!Ext.isOpera || (p.tagName != 'TR' && fly(p).getStyle("display") != "inline")) {
+                x -= p.scrollLeft;
+                y -= p.scrollTop;
+            }
+            p = p.parentNode;
+        }
+        return [x, y];
+    },
+
+    setXY : function(el, xy){
+        el = Ext.fly(el, '_setXY');
+        el.position();
+        var pts = el.translatePoints(xy);
+        if(xy[0] !== false){
+            el.dom.style.left = pts.left + "px";
+        }
+        if(xy[1] !== false){
+            el.dom.style.top = pts.top + "px";
+        }
+    },
+
+    setX : function(el, x){
+        this.setXY(el, [x, false]);
+    },
+
+    setY : function(el, y){
+        this.setXY(el, [false, y]);
+    }
+};
+
+Ext.lib.Event = {
+    getPageX : function(e){
+        return E.getPageX(e.browserEvent || e);
+    },
+
+    getPageY : function(e){
+        return E.getPageY(e.browserEvent || e);
+    },
+
+    getXY : function(e){
+        return E.getXY(e.browserEvent || e);
+    },
+
+    getTarget : function(e){
+        return E.getTarget(e.browserEvent || e);
+    },
+
+    getRelatedTarget : function(e){
+        return E.getRelatedTarget(e.browserEvent || e);
+    },
+
+    on : function(el, eventName, fn, scope, override){
+        if((eventName == 'mouseenter' || eventName == 'mouseleave') && !mouseEnterSupported){
+            var item = mouseCache[el.id] || (mouseCache[el.id] = {});
+            item[eventName] = fn;
+            fn = fn.createInterceptor(checkRelatedTarget);
+            eventName = (eventName == 'mouseenter') ? 'mouseover' : 'mouseout';
+        }
+        E.on(el, eventName, fn, scope, override);
+    },
+
+    un : function(el, eventName, fn){
+        if((eventName == 'mouseenter' || eventName == 'mouseleave') && !mouseEnterSupported){
+            var item = mouseCache[el.id], 
+                ev = item && item[eventName];
+
+            if(ev){
+                fn = ev.fn;
+                delete item[eventName];
+                eventName = (eventName == 'mouseenter') ? 'mouseover' : 'mouseout';
+            }
+        }
+        E.removeListener(el, eventName, fn);;
+    },
+
+    purgeElement : function(el){
+        E.purgeElement(el);
+    },
+
+    preventDefault : function(e){
+        E.preventDefault(e.browserEvent || e);
+    },
+
+    stopPropagation : function(e){
+        E.stopPropagation(e.browserEvent || e);
+    },
+
+    stopEvent : function(e){
+        E.stopEvent(e.browserEvent || e);
+    },
+
+    onAvailable : function(el, fn, scope, override){
+        return E.onAvailable(el, fn, scope, override);
+    }
+};
+
+Ext.lib.Ajax = {
+    request : function(method, uri, cb, data, options){
+        if(options){
+            var hs = options.headers;
+            if(hs){
+                for(var h in hs){
+                    if(hs.hasOwnProperty(h)){
+                        CN.initHeader(h, hs[h], false);
+                    }
+                }
+            }
+            if(options.xmlData){
+                if (!hs || !hs['Content-Type']){
+                    CN.initHeader('Content-Type', 'text/xml', false);
+                }
+                method = (method ? method : (options.method ? options.method : 'POST'));
+                data = options.xmlData;
+            }else if(options.jsonData){
+                if (!hs || !hs['Content-Type']){
+                    CN.initHeader('Content-Type', 'application/json', false);
+                }
+                method = (method ? method : (options.method ? options.method : 'POST'));
+                data = typeof options.jsonData == 'object' ? Ext.encode(options.jsonData) : options.jsonData;
+            }
+        }
+        return CN.asyncRequest(method, uri, cb, data);
+    },
+
+    formRequest : function(form, uri, cb, data, isUpload, sslUri){
+        CN.setForm(form, isUpload, sslUri);
+        return CN.asyncRequest(Ext.getDom(form).method ||'POST', uri, cb, data);
+    },
+
+    isCallInProgress : function(trans){
+        return CN.isCallInProgress(trans);
+    },
+
+    abort : function(trans){
+        return CN.abort(trans);
+    },
+
+    serializeForm : function(form){
+        var d = CN.setForm(form.dom || form);
+        CN.resetFormState();
+        return d;
+    }
+};
+
+Ext.lib.Region = YAHOO.util.Region;
+Ext.lib.Point = YAHOO.util.Point;
+
+
+Ext.lib.Anim = {
+    scroll : function(el, args, duration, easing, cb, scope){
+        this.run(el, args, duration, easing, cb, scope, YAHOO.util.Scroll);
+    },
+
+    motion : function(el, args, duration, easing, cb, scope){
+        this.run(el, args, duration, easing, cb, scope, YAHOO.util.Motion);
+    },
+
+    color : function(el, args, duration, easing, cb, scope){
+        this.run(el, args, duration, easing, cb, scope, YAHOO.util.ColorAnim);
+    },
+
+    run : function(el, args, duration, easing, cb, scope, type){
+        type = type || YAHOO.util.Anim;
+        if(typeof easing == "string"){
+            easing = YAHOO.util.Easing[easing];
+        }
+        var anim = new type(el, args, duration, easing);
+        anim.animateX(function(){
+            Ext.callback(cb, scope);
+        });
+        return anim;
+    }
+};
+
+// all lib flyweight calls use their own flyweight to prevent collisions with developer flyweights
+function fly(el){
+    if(!libFlyweight){
+        libFlyweight = new Ext.Element.Flyweight();
+    }
+    libFlyweight.dom = el;
+    return libFlyweight;
+}
+
+// prevent IE leaks
+if(Ext.isIE) {
+    function fnCleanUp() {
+        var p = Function.prototype;
+        delete p.createSequence;
+        delete p.defer;
+        delete p.createDelegate;
+        delete p.createCallback;
+        delete p.createInterceptor;
+
+        window.detachEvent("onunload", fnCleanUp);
+    }
+    window.attachEvent("onunload", fnCleanUp);
+}
+// various overrides
+
+// add ability for callbacks with animations
+if(YAHOO.util.Anim){
+    YAHOO.util.Anim.prototype.animateX = function(callback, scope){
+        var f = function(){
+            this.onComplete.unsubscribe(f);
+            if(typeof callback == "function"){
+                callback.call(scope || this, this);
+            }
+        };
+        this.onComplete.subscribe(f, this, true);
+        this.animate();
+    };
+}
+
+if(YAHOO.util.DragDrop && Ext.dd.DragDrop){
+    YAHOO.util.DragDrop.defaultPadding = Ext.dd.DragDrop.defaultPadding;
+    YAHOO.util.DragDrop.constrainTo = Ext.dd.DragDrop.constrainTo;
+}
+
+YAHOO.util.Dom.getXY = function(el) {
+    var f = function(el) {
+        return Ext.lib.Dom.getXY(el);
+    };
+    return YAHOO.util.Dom.batch(el, f, YAHOO.util.Dom, true);
+};
+
+
+// workaround for Safari anim duration speed problems
+if(YAHOO.util.AnimMgr){
+    YAHOO.util.AnimMgr.fps = 1000;
+}
+
+YAHOO.util.Region.prototype.adjust = function(t, l, b, r){
+    this.top += t;
+    this.left += l;
+    this.right += r;
+    this.bottom += b;
+    return this;
+};
+    
+YAHOO.util.Region.prototype.constrainTo = function(r) {
+    this.top = this.top.constrain(r.top, r.bottom);
+    this.bottom = this.bottom.constrain(r.top, r.bottom);
+    this.left = this.left.constrain(r.left, r.right);
+    this.right = this.right.constrain(r.left, r.right);
+    return this;
+};
+
+
+})();
