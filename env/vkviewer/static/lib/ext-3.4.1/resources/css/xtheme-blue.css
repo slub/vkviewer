@@ -94,27 +94,6 @@ Build date: 2013-04-03 15:07:25
 .x-spotlight {
     background-color: #ccc;
 }
-
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
 .x-tab-panel-header, .x-tab-panel-footer {
 	background-color: #deecfd;
 	border-color:#8db2e3;
@@ -235,28 +214,7 @@ ul.x-tab-strip-bottom{
 
 .x-tab-panel-bbar .x-toolbar, .x-tab-panel-tbar .x-toolbar {
     border-color:#99bbe8;
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-form-field {
+}.x-form-field {
     font:normal 12px tahoma, arial, helvetica, sans-serif;
 }
 
@@ -373,27 +331,6 @@ Build date: 2013-04-03 15:07:25
     font:bold 11px tahoma, arial, helvetica, sans-serif;
     color:#15428b;
 }
-
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
 .x-btn{
 	font:normal 11px tahoma, verdana, helvetica;
 }
@@ -481,28 +418,7 @@ Build date: 2013-04-03 15:07:25
 
 .x-btn-group-notitle .x-btn-group-tc {
 	background-image: url(../images/default/button/group-tb.gif);
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-toolbar{
+}.x-toolbar{
 	border-color:#a9bfd3;
     background-color:#d0def0;
     background-image:url(../images/default/toolbar/bg.gif);
@@ -590,28 +506,7 @@ Build date: 2013-04-03 15:07:25
 
 .x-toolbar-more-icon {
     background-image: url(../images/default/toolbar/more.gif) !important;
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-resizable-handle {
+}.x-resizable-handle {
 	background-color:#fff;
 }
 
@@ -648,27 +543,6 @@ Build date: 2013-04-03 15:07:25
 .x-resizable-overlay{
     background-color:#fff;
 }
-
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
 .x-grid3 {
     background-color:#fff;
 }
@@ -939,28 +813,7 @@ td.grid-hd-group-cell {
 
 .x-grid-with-col-lines .x-grid3-row-selected {
 	border-top-color:#a3bae9;
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-pivotgrid .x-grid3-header-offset table td {
+}.x-pivotgrid .x-grid3-header-offset table td {
     background: url(../images/default/grid/grid3-hrow.gif) repeat-x 50% 100%;
     border-left: 1px solid;
     border-right: 1px solid;
@@ -982,27 +835,6 @@ Build date: 2013-04-03 15:07:25
     border-bottom-color: #D0D0D0;
     height: 18px;
 }
-
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
 .x-dd-drag-ghost{
 	color:#000;
 	font: normal 11px arial, helvetica, sans-serif;
@@ -1025,28 +857,7 @@ Build date: 2013-04-03 15:07:25
 .x-view-selector {
     background-color:#c3daf9;
     border-color:#3399bb;
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-tree-node-expanded .x-tree-node-icon{
+}.x-tree-node-expanded .x-tree-node-icon{
 	background-image:url(../images/default/tree/folder-open.gif);
 }
 
@@ -1191,28 +1002,7 @@ Build date: 2013-04-03 15:07:25
 
 .x-tree-drop-ok-between .x-dd-drop-icon{
   background-image: url(../images/default/tree/drop-between.gif);
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-date-picker {
+}.x-date-picker {
     border-color: #1b376c;
     background-color:#fff;
 }
@@ -1348,28 +1138,7 @@ td.x-date-mp-sel a {
 
 td.x-date-mp-sep {
    border-right-color:#c5d2df;
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-tip .x-tip-close{
+}.x-tip .x-tip-close{
 	background-image: url(../images/default/qtip/close.gif);
 }
 
@@ -1406,28 +1175,7 @@ Build date: 2013-04-03 15:07:25
 
 .x-tip-anchor {
     background-image:url(../images/default/qtip/tip-anchor-sprite.gif);
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-menu {
+}.x-menu {
     background-color:#f0f0f0;
 	background-image:url(../images/default/menu/menu.gif);
 }
@@ -1508,27 +1256,6 @@ a.x-menu-item {
 .x-menu-scroller-bottom {
     background-image:url(../images/default/layout/mini-bottom.gif);
 }
-
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
 .x-box-tl {
 	background-image: url(../images/default/box/corners.gif);
 }
@@ -1596,28 +1323,7 @@ Build date: 2013-04-03 15:07:25
 
 .x-box-blue .x-box-mr {
 	background-image: url(../images/default/box/r-blue.gif);
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-combo-list {
+}.x-combo-list {
     border-color:#98c0f4;
     background-color:#ddecfe;
     font:normal 12px tahoma, arial, helvetica, sans-serif;
@@ -1653,28 +1359,7 @@ Build date: 2013-04-03 15:07:25
 
 .x-combo-list-small {
     font:normal 11px tahoma, arial, helvetica, sans-serif;
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-panel {
+}.x-panel {
     border-color: #99bbe8;
 }
 
@@ -1755,27 +1440,6 @@ Build date: 2013-04-03 15:07:25
 .x-panel-fbar td,.x-panel-fbar span,.x-panel-fbar input,.x-panel-fbar div,.x-panel-fbar select,.x-panel-fbar label{
     font:normal 11px arial,tahoma, helvetica, sans-serif;
 }
-
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
 .x-window-proxy {
     background-color:#c7dffc;
     border-color:#99bbe8;
@@ -1855,55 +1519,13 @@ Build date: 2013-04-03 15:07:25
 
 body.x-body-masked .x-window-plain .x-window-mc {
     background-color: #ccd9e8;
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-html-editor-wrap {
+}.x-html-editor-wrap {
     border-color:#a9bfd3;
     background-color:#fff;
 }
 .x-html-editor-tb .x-btn-text {
     background-image:url(../images/default/editor/tb-sprite.gif);
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-panel-noborder .x-panel-header-noborder {
+}.x-panel-noborder .x-panel-header-noborder {
     border-bottom-color:#99bbe8;
 }
 
@@ -1921,28 +1543,7 @@ Build date: 2013-04-03 15:07:25
 
 .x-tab-panel-tbar-noborder .x-toolbar {
     border-bottom-color:#99bbe8;
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-border-layout-ct {
+}.x-border-layout-ct {
     background-color:#dfe8f6;
 }
 
@@ -1988,28 +1589,7 @@ Build date: 2013-04-03 15:07:25
 
 .x-layout-cmini-south .x-layout-mini {
     background-image:url(../images/default/layout/mini-top.gif);
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-progress-wrap {
+}.x-progress-wrap {
     border-color:#6593cf;
 }
 
@@ -2034,28 +1614,7 @@ Build date: 2013-04-03 15:07:25
 
 .x-progress-text-back {
     color:#396095;
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-list-header{
+}.x-list-header{
     background-color:#f9f9f9;
 	background-image:url(../images/default/grid/grid3-hrow.gif);
 }
@@ -2085,28 +1644,7 @@ Build date: 2013-04-03 15:07:25
 .x-list-header-inner em.sort-asc, .x-list-header-inner em.sort-desc {
     background-image:url(../images/default/grid/sort-hd.gif);
     border-color: #99bbe8;
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-slider-horz, .x-slider-horz .x-slider-end, .x-slider-horz .x-slider-inner {
+}.x-slider-horz, .x-slider-horz .x-slider-end, .x-slider-horz .x-slider-inner {
     background-image:url(../images/default/slider/slider-bg.png);
 }
 
@@ -2120,28 +1658,7 @@ Build date: 2013-04-03 15:07:25
 
 .x-slider-vert .x-slider-thumb {
     background-image:url(../images/default/slider/slider-v-thumb.png);
-}
-/*
-This file is part of Ext JS 3.4
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-04-03 15:07:25
-*/
-.x-window-dlg .ext-mb-text,
+}.x-window-dlg .ext-mb-text,
 .x-window-dlg .x-window-header-text {
     font-size:12px;
 }

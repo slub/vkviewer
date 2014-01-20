@@ -8,31 +8,36 @@
         <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
         <title>Virtuelles Kartenforum 2.0</title>
 			        	      
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/themes/base/minified/jquery-ui.min.css')}" />
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/fancyapps-fancyBox/source/jquery.fancybox.css')}" media="screen" />    
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />   			        	      
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/bootstrap-3.0.3/css/bootstrap.css')}"></link>
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/ext-3.4.1/resources/css/ext-all.css')}"></link>
+        <!-- <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/themes/base/jquery-ui.css')}" />
+        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/fancyapps-fancyBox/source/jquery.fancybox.css')}" media="screen" /> 
+        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/ext-3.4.1/resources/css/ext-all.css')}"></link> 
+        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/bootstrap-3.0.3/css/bootstrap.css')}"></link> -->
+        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
+                    	      
+		<!-- own css stuff -->
 	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/geoext-all.css')}"></link>
+	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
+        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />   			
 	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicIndexLayout.css')}" />
 	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
     
 	    <!-- load generic js librarys -->
-	    <script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
+	    <!-- <script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/jquery.fancybox.min.js')}"></script> 
-	    <script src="${request.static_url('vkviewer:static/lib/ext-base.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/ext-all.js')}"></script> 
+	    <script src="${request.static_url('vkviewer:static/lib/ext-base.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/ext-all.min.js')}"></script>    
 	    <script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script> 
 	    <script src="${request.static_url('vkviewer:static/lib/GeoExt.min.js')}"></script>  
 	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script> -->
     
-         <!-- javascript internationalization --> 
+        <!-- javascript internationalization --> 
       	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
 	    
 	    <!-- vk2 librarys -->
+	    <script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script>	
 	</head>
 	
