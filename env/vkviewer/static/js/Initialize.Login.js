@@ -147,6 +147,7 @@ VK2.Login = {
 		var surname = $(document.getElementById('loginNewVorname'));
 		var familyname = $(document.getElementById('loginNewNachname'));   
 		var password = $(document.getElementById('loginNewPassword'));   
+		var password_validate = $(document.getElementById('loginValidatePassword'));
 	
 		var isValide = true;
 		isValide = isValide && VK2.Login.Utils.checkUsername(username, validationTipObj);
@@ -154,6 +155,7 @@ VK2.Login = {
 		isValide = isValide && VK2.Login.Utils.checkName(surname, validationTipObj, 'Vorname');
 		isValide = isValide && VK2.Login.Utils.checkName(familyname, validationTipObj, 'Nachname');
 		isValide = isValide && VK2.Login.Utils.checkPassword(password, validationTipObj);
+		isValide = isValide && VK2.Login.Utils.checkIsSamePassword(password, password_validate, validationTipObj)
 		
 		return isValide;
 	}
@@ -235,5 +237,23 @@ VK2.Login.Utils = {
 		isValide = isValide && VK2.Login.Utils.checkRegexp( object, /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i, validationTipObj, "z.B. Max.Mustermann@slub-dresden.de");
 		
 		return isValide;
+	},
+	
+	checkIsSamePassword: function( password, password_validate, validationTipObj ){
+		var isValide = true;
+		
+		isValide = (password == password_validate)
+		
+		if (isValide){
+			if (validationTipObj.hasClass( 'ui-state-error' ))
+				validationTipObj.removeClass( 'ui-state-error' );
+			return isValide;
+		} else {
+			validationTipObj.addClass( 'ui-state-error' );
+			VK2.Login.Utils.updateTips( validationTipObj, 'Die Passwörter sind nicht identisch.' );
+			return false;
+		}
+		
+		
 	}
 }

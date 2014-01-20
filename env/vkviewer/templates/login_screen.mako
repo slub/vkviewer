@@ -69,6 +69,10 @@
 										<input id="loginNewPassword" class="loginNewPassword loginInput small form-control" type="password" value="" style="width: 120px;"
 											name="password" placeholder="${_('loginScreen_placeholder_password')}" size="10" />
 									</div>
+									<div class="registerElement form-group">
+										<input id="loginValidatePassword" class="loginNewPassword loginInput small form-control" type="password" value="" style="width: 120px;"
+											name="validate_password" placeholder="${_('loginScreen_placeholder__validate_password')}" size="10" />
+									</div>
 								</div>
 								
 								<div class="vk2RegisterUserLayoutInner">
