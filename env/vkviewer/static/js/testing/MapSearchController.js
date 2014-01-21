@@ -62,7 +62,7 @@ VK2.Controller.MapSearchController.prototype._addRowClickBehavior = function(row
 		$(this).trigger('mouseenter');
 		
 		// hear the callback should be placed
-		$('#vk2AddLayerInput').val(feature.data['time'])
+		$('#spatialsearch-tools-input-layer').val(feature.data['time'])
 	});
 }
 

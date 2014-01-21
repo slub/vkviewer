@@ -1,9 +1,4 @@
-/** 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- * 
- * @TODO Hover when SelectFeature in front!
- */
+
 goog.require('goog.dom')
 VK2.Tools.Layersearch = VK2.Class({
     

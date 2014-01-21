@@ -76,8 +76,10 @@ VK2.Utils.AppLoader = VK2.Class({
 	},
 	
 	_loadToolLayersearch: function(){
-		var layersearch = new VK2.Tools.Layersearch(document.getElementById(this._settings.vk2LayersearchPanel),
-				this._settings.map, this._settings.timeParameter, this._settings.mapController)
+		//var layersearch = new VK2.Tools.Layersearch(document.getElementById(this._settings.vk2LayersearchPanel),
+		//		this._settings.map, this._settings.timeParameter, this._settings.mapController)
+		var layersearch = new VK2.Tools.SpatialSearch(document.getElementById(this._settings.vk2LayersearchPanel), 
+				this._settings.map, this._settings.mapController);
 		this._sidebar.appendControl(this._settings.vk2LayersearchControl, 
 				this._settings.vk2LayersearchPanel, layersearch);	
 		return layersearch;

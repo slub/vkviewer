@@ -54,8 +54,49 @@
 }
 
 /* Styling of the Tools */
-.panel-mapsearch-tools{
+.panel-spatialsearch-tools{
 	position: relative;
 	float: left;
-	padding-top: 10px;
+	padding-top: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 100%;
+}
+
+.panel-spatialsearch-tools .time-slider-container {
+	height: 40px;
+}
+
+.panel-spatialsearch-tools .time-slider-container > div{
+	font-weight: bold;
+	position: relative;
+	float: left;
+}
+
+.time-slider-container .slider-label-start{
+	width: 40px;
+	margin-right: 10px;
+}
+
+.time-slider-container .slider{
+	width: 270px;
+}
+
+.time-slider-container .slider-label-end{
+	width: 40px;
+	margin-left: 10px;
+}
+
+.panel-spatial-search-tools .layer-chooser-container{
+	position: relative;
+	float: left;
+	margin-top: 10px;
+}
+
+.layer-chooser-container .layer-chooser-input{
+	padding: 5px;
+}
+
+.layer-chooser-container .layer-chooser-btn{
+	padding: 5px;
 }

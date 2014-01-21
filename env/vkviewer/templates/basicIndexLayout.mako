@@ -50,6 +50,7 @@
 	    <script src="${request.static_url('vkviewer:static/js/testing/MapSearchController.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/js/testing/SearchTable.js')}"></script>	
 	    <script src="${request.static_url('vkviewer:static/js/testing/MapSearch.js')}"></script>	
+	    <script src="${request.static_url('vkviewer:static/js/tools/SpatialSearch.js')}"></script>
 	
 	    <style>
 

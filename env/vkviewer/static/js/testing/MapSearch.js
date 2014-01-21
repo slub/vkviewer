@@ -55,6 +55,16 @@ VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, conta
 	this._controller.registerSearchTable(this._table);
 }
 
+/**
+ * @param {Event} event
+ * @param {Array} timestamps
+ * @public
+ */
+VK2.Tools.MapSearch.prototype.updateTimestamp = function(event, timestamps){
+	this._ftLayer.timestamps = timestamps;
+	this._ftLayer.refreshLayer();
+}
+
 VK2.Tools.MapSearch.prototype.activate = function(){
 	
 	if (this._map.getLayerIndex(this._ftLayer) == -1){
