@@ -4,7 +4,7 @@
  * 
  * @TODO Hover when SelectFeature in front!
  */
-
+goog.require('goog.dom')
 VK2.Tools.Layersearch = VK2.Class({
     
 	NAME: VK2.Utils.get_I18n_String('toolname_layersearch'),
@@ -25,24 +25,6 @@ VK2.Tools.Layersearch = VK2.Class({
     _timestamps: [1868, 1945],
     
     /**
-     * attribute: refresh
-     * {OpenLayers.Strategy.Refresh} - used for dynamic updating vector layer
-     */
-    _refresh: new OpenLayers.Strategy.Refresh({force: true, active: true}),
-    
-    /**
-     * attribute: featureStore
-     * used by GeoExt
-     */
-    _featureStore: null,
-        
-    /**
-     * attribute: _mainPanel
-     * {Ext.Panel}
-     */
-    _mainPanel: null,
-    
-    /**
      * Attribute: _restrictedZoomLevel
      * {Integer}
      */
@@ -56,41 +38,7 @@ VK2.Tools.Layersearch = VK2.Class({
     /**
      * Attribute: _eventListeners
      */
-    _eventListeners: {  	
-        /*
-         * Method: _showSearchResultNumber
-         * The scope of this event has to be the a OpenLayers.Layer.Vector object
-         */
-        showSearchResultNumber: function(e){  
-        	console.log('Type: '+e.type);
-        	console.log('Features: '+this.features.length);
-        	var headerContentDiv = $('#vk2LSHeaderContent');
-        	var headerContainerDiv = $('#vk2LSHeaderContainer')
-        	if (this.map.getZoom() >= 2 && this.getVisibility()){        	
-	        	headerContentDiv.html(this.features.length+" "+VK2.Utils.get_I18n_String('found_mtb'))
-	        	if (headerContainerDiv.hasClass( 'ui-state-error' ))
-	        		headerContainerDiv.removeClass( 'ui-state-error' );
-	        	
-	        	// this is important for triggering a layer refresh if the layer change it visibility
-	        	if (e.type == 'visibilitychanged')
-	        		this.refresh({force:true});
-        	} else {
-        		headerContentDiv.html(VK2.Utils.get_I18n_String('change_zoomlevel'))
-    			headerContainerDiv.addClass( 'ui-state-error' );
-        	} 	
-        },	
-        
-        loadStarts: function(e){
-        	console.log('Loadstarts');
-        	$('#vk2LSHeaderLoadingContainer').addClass('loading');
-        },
-        
-        loadEnds: function(e){
-        	console.log('Loadends');
-        	if ($('#vk2LSHeaderLoadingContainer').hasClass('loading'))
-        		$('#vk2LSHeaderLoadingContainer').removeClass('loading');
-        },
-        
+    _eventListeners: {          
         /**
          * Method: publishAddTimeLayerEvent
          * @param event {Event}
@@ -184,24 +132,24 @@ VK2.Tools.Layersearch = VK2.Class({
     /**
      * Method: _loadHeader
      */
-    _loadHeader: function(){
-        var divHeaderContainer = document.createElement("div");
-        divHeaderContainer.className = divHeaderContainer.className + " vk2LSHeaderContainer ui-state-error";
-        divHeaderContainer.id = "vk2LSHeaderContainer";
-        
-        // div container for the header label
-        var  divHeaderContent = document.createElement("div");
-        divHeaderContent.className = divHeaderContent.className + " vk2LSHeaderContent";
-        divHeaderContent.id = "vk2LSHeaderContent";
-        divHeaderContent.innerHTML = "Bitte wählen Sie eine höhere Zoomstufe!";
-        divHeaderContainer.appendChild(divHeaderContent);
-        
-        // div container for loading picture
-        var divHeaderLoading = document.createElement('div');
-        divHeaderLoading.className = divHeaderLoading.className + " vk2LSHeaderLoadingContainer";
-        divHeaderLoading.id = "vk2LSHeaderLoadingContainer";
-        divHeaderContainer.appendChild(divHeaderLoading);
-        return divHeaderContainer;
+    _loadHeader: function(container, headingId){
+		var panelHeading = goog.dom.createDom('div', {
+			'id': headingId,
+			'class': 'panel-heading'
+		});
+		
+		var panelHeadingContent = goog.dom.createDom('div', {
+			'id': 'panel-heading-content',
+			'class': 'content'
+		});
+		
+		var panelHeadingLoading = goog.dom.createDom('div', {
+			'class': 'loading'
+		});
+		
+		goog.dom.appendChild(panelHeading, panelHeadingContent);
+		goog.dom.appendChild(panelHeading, panelHeadingLoading);
+		goog.dom.appendChild(container, panelHeading);
     },
     
     /**
@@ -211,148 +159,103 @@ VK2.Tools.Layersearch = VK2.Class({
      * @param mapOptions - {Object}
      */
 	_loadContent: function(container, map){
-		// init map object
-		this._addTimeSearchLayer();
 		
-        // initalize the featurestore
-        this._featureStore = new GeoExt.data.FeatureStore({
-            layer: this._timeLayer,
-            features: this._features,
-            fields: [
-                {name: "mtbid", type: "string"},
-                {name: "time", type: "string"},
-                {name: "titel", type: "string"}
-            ]
-        });
-        
         // testing
-        var header = this._loadHeader();
-        container.appendChild(header);
-        
+        //var header = this._loadHeader();
+        //container.appendChild(header);
+		
+		// build panel 
+		var panel = goog.dom.createDom('div', {
+			'id': 'panel-layersearch',
+			'class': 'panel panel-default searchTablePanel'
+		});
+		goog.dom.appendChild(container, panel);
+
+		
+		// heading
+		this._loadHeader(panel, 'panel-heading-mapsearch')
+		
+		// body
+		var panelTable = goog.dom.createDom('div', {
+			'id': 'panel-mapsearch-table',
+			'class': 'panel-mapsearch-table'
+		});
+		
+		var panelTools = goog.dom.createDom('div', {
+			'id': 'panel-mapsearch-tools',
+			'class': 'panel-mapsearch-tools'
+		});
+		
+		goog.dom.appendChild(panel, panelTable);
+		goog.dom.appendChild(panel, panelTools);
+
+		this._mapsearch = new VK2.Tools.MapSearch(this._map, 305.74811309814453, [1868, 1945], 'panel-heading-mapsearch', 'panel-mapsearch-table');
+		
+		
         // panel which contains the elements of the LayerSearch Tool
         var toolbar = this._loadToolbar();
-        container.appendChild(toolbar);
-        this._mainPanel = new Ext.Panel({
-            renderTo: container.getAttribute('id'),
-            id: "vk2LSMainPanel",
-            cls: "vk2LSMainPanel",
-//            autoScroll: true,
-//            autoHeight: true,
-//            monitorResize: true,
-//            width: 400,
-//            height: 570,
-            items: [{
-                id: 'vk2HeaderPanel',
-                cls: 'vk2HeaderPanel',
-                height: 45,
-                contentEl: header.getAttribute('id'),
-            },{
-            		xtype: 'grid',
-                    width: 385,
-                    height: 300,
-                    store: this._featureStore, //new GeoExt.data.FeatureStore(this._featureStoreOptions),    
-                    cm: new Ext.grid.ColumnModel([
-                        {id: "time", header: VK2.Utils.get_I18n_String('timestamp'), dataIndex: "time", sortable: true},
-                        {id: "titel", header: VK2.Utils.get_I18n_String('titel'), dataIndex: "titel", sortable: true}
-                    ]),
-                    sm: new GeoExt.grid.FeatureSelectionModel({
-                        singleSelect: false
-                    }),
-                    listeners: {
-                        rowclick: $.proxy(function(grid, rowIndex, e){
-                        	// insert the timestamp in the input field for adding
-                            var feature = grid.store.data.items[rowIndex];
-                            document.getElementById('vk2AddLayerInput').setAttribute("value",feature.data.time);
-                        }, this),
-                        rowdblclick: $.proxy(function(grid, rowIndex, e){
-                        	// jumps to the feature in the map
-                        	var feature = grid.store.data.items[rowIndex];
-                        	this._map.setCenter(feature.data.feature.bounds.getCenterLonLat(),9);
-                        }, this),
-                        sortchange: function(thisGrid, sortinfo){
-                        	console.log("Sort change event!");
-                        }
-                        
-                    },
-                    autoExpandColumn: "titel",
-                    id: 'featureGridPanel',
-                    cls: 'featureGridPanel'
-            },{
-                    id: 'vk2LSToolPanel',
-                    cls: 'vk2LSToolPanel',
-                    contentEl: 'vk2LSToolbar',
-                    width: 385,
-                    height: 130
-            }],
-            listeners: {
-                afterlayout: $.proxy(function(){
-                    this._updateMapControlConfig();
-                }, this)
-            }
-        });
-	},
-	
-	/**
-	 * method: _addTimeSearchLayer
-	 * 
-	 * This method adds a vector layer which represents the search features to the map
-	 * and also adds events to the main layer
-	 */
-	_addTimeSearchLayer: function(){        
-        // add overlay vector layer for displaying where are reference mtbs
-        this._features = new OpenLayers.Protocol.WFS({
-            "url": this._timeParameter.wfs,
-            "geometryName": this._timeParameter.geometryName,
-            "featureNS" :  this._timeParameter.featureNS,
-            "featurePrefix": this._timeParameter.featurePrefix,
-            "featureType": this._timeParameter.featureType,
-            "srsName": this._timeParameter.srsName,
-            "maxFeatures": this._timeParameter.maxFeatures,
-            "version": this._timeParameter.serviceVersion
-        });
+        goog.dom.appendChild(panelTools, toolbar);
         
-        this._timeLayer = new OpenLayers.Layer.Vector("Messtischblaetter",{
-            'displayInLayerSwitcher':false,
-            'maxResolution': this._timeParameter.maxResolution,
-            visibility: false,
-            strategies: [new OpenLayers.Strategy.BBOX({ratio:2}),this._refresh],
-            protocol: this._features,
-        });
-        this._map.filter = VK2.Filter.getBoundingBoxFilter(this._map.getExtent(),"EPSG:900913")
-        this._map.addLayer(this._timeLayer);
-        this._addHeaderContentEvent();
+        //container.appendChild(toolbar);
+//        this._mainPanel = new Ext.Panel({
+//            renderTo: container.getAttribute('id'),
+//            id: "vk2LSMainPanel",
+//            cls: "vk2LSMainPanel",
+////            autoScroll: true,
+////            autoHeight: true,
+////            monitorResize: true,
+////            width: 400,
+////            height: 570,
+//            items: [{
+//                id: 'vk2HeaderPanel',
+//                cls: 'vk2HeaderPanel',
+//                height: 45,
+//                contentEl: header.getAttribute('id'),
+//            },{
+//            		xtype: 'grid',
+//                    width: 385,
+//                    height: 300,
+//                    store: this._featureStore, //new GeoExt.data.FeatureStore(this._featureStoreOptions),    
+//                    cm: new Ext.grid.ColumnModel([
+//                        {id: "time", header: VK2.Utils.get_I18n_String('timestamp'), dataIndex: "time", sortable: true},
+//                        {id: "titel", header: VK2.Utils.get_I18n_String('titel'), dataIndex: "titel", sortable: true}
+//                    ]),
+//                    sm: new GeoExt.grid.FeatureSelectionModel({
+//                        singleSelect: false
+//                    }),
+//                    listeners: {
+//                        rowclick: $.proxy(function(grid, rowIndex, e){
+//                        	// insert the timestamp in the input field for adding
+//                            var feature = grid.store.data.items[rowIndex];
+//                            document.getElementById('vk2AddLayerInput').setAttribute("value",feature.data.time);
+//                        }, this),
+//                        rowdblclick: $.proxy(function(grid, rowIndex, e){
+//                        	// jumps to the feature in the map
+//                        	var feature = grid.store.data.items[rowIndex];
+//                        	this._map.setCenter(feature.data.feature.bounds.getCenterLonLat(),9);
+//                        }, this),
+//                        sortchange: function(thisGrid, sortinfo){
+//                        	console.log("Sort change event!");
+//                        }
+//                        
+//                    },
+//                    autoExpandColumn: "titel",
+//                    id: 'featureGridPanel',
+//                    cls: 'featureGridPanel'
+//            },{
+//                    id: 'vk2LSToolPanel',
+//                    cls: 'vk2LSToolPanel',
+//                    contentEl: 'vk2LSToolbar',
+//                    width: 385,
+//                    height: 130
+//            }],
+//            listeners: {
+//                afterlayout: $.proxy(function(){
+//                    this._updateMapControlConfig();
+//                }, this)
+//            }
+//        });
 	},
-
-
-	
-	/**
-	 * method: _removeTimeSearchLayer
-	 * 
-	 * This method removes a vector layer which represents the search features to the map
-	 * and also removes events to the main layer
-	 */
-	_removeTimeSearchLayer: function(){
-		this._map.removeLayer(this._timeLayer);
-	},
-    
-   /**
-     * method: _updateMapControlConfig
-     * 
-     * this two rows are important for allowing click and drag the main map 
-     * on a selection
-     */
-    _updateMapControlConfig: function(){
-        // get the correct control object
-        var control = null;
-        controlId = this._map.getControlsByClass("OpenLayers.Control.SelectFeature")[0].id;
-        for (var i = 0; i<this._map.controls.length;i++){
-            if(this._map.controls[i].id == controlId)
-                control = this._map.controls[i];
-        }
-        
-        // modify the handler
-        VK2.Utils.fixControlConflictsOnOLMap(control);
-    },
     
     /**
      * method: _btnClickEvent
@@ -374,92 +277,18 @@ VK2.Tools.Layersearch = VK2.Class({
         }
     },
     
-
-	
-	/**
-	 * Method: _addHeaderContentEvent
-	 */
-	_addHeaderContentEvent: function(){
-		this._timeLayer.events.register('visibilitychanged', this._timeLayer, this._eventListeners['showSearchResultNumber']);
-		this._timeLayer.events.register('featuresadded', this._timeLayer, this._eventListeners['showSearchResultNumber']);
-		this._timeLayer.events.register('featuresremoved', this._timeLayer, this._eventListeners['showSearchResultNumber']);
-		this._timeLayer.events.register('moveend', this._timeLayer, this._eventListeners['showSearchResultNumber']);
-		
-		this._timeLayer.events.register('loadstart', this._timeLayer, this._eventListeners['loadStarts']);
-		this._timeLayer.events.register('loadend', this._timeLayer, this._eventListeners['loadEnds']);
-	},
-
-	
-	/**
-	 * Method: _isMtbSearchActive
-	 */
-	_isMtbSearchActive: function(){
-		if (this._map.getZoom() >= this._restrictedZoomLevel)
-			return true;
-		return false;
-	}, 
-	
-    /**
-     * method: _updateFeatures
-     * 
-     * event - {Event}
-     * timestamps - {String}
-     * 
-     * This function updates the filter of the wfs features for only
-     * displaying features which are conform with the time and spatial 
-     * parameter
-     */
-    _updateFeatures: function(event, timestamps){
-        if (typeof timestamps != 'undefined' && event.type == "slidechange"){
-            // is called after new timestamps are defined
-            this._timestamps = timestamps;
-
-            this._timeLayer.filter = VK2.Filter.getTimeFilter(this._map.getExtent(), 'EPSG:900913',
-            		timestamps[0], timestamps[1]);
-            this._refresh.refresh();  
-        } else {
-            // is called after timestamps where defined in the past
-            // but the event is only triggered by an map extent change
-            this._timeLayer.filter = VK2.Filter.getTimeFilter(this._map.getExtent(), 'EPSG:900913',
-            		this._timestamps[0], this._timestamps[1]);
-            this._refresh.refresh({forc: true});
-        }
-    },  
-
-    /**
-     * Method: _refreshFeatureGrid
-     */
-    _refreshFeatureGrid: function(){
-		// redraw the grid panel
-        var gridPanel = this._mainPanel.getComponent('featureGridPanel');
-        gridPanel.getView().refresh();   	
-    },
-    
 	/**
 	 * method: _activate
 	 */
 	_activate: function(){
-		if (this._isMtbSearchActive()){
-			this._timeLayer.setVisibility(true);
-			this._featureStore.bind(this._timeLayer);
-			//this._refreshFeatureGrid();
-		} else {
-    		this._deactivate();
-		}
+		this._mapsearch.activate();
 	},
 
 	/**
 	 * method: _deactivate
 	 */
 	_deactivate: function(){
-		// removes the timelayer
-		this._timeLayer.setVisibility(false);
-			        
-	    // unbinds and clear the featurestore
-	    this._featureStore.unbind(this._timeLayer);
-	    this._featureStore.removeAll();
-	    
-	    // set default error help
+		this._mapsearch.deactivate();
 	},
 	
 	/**
@@ -476,16 +305,7 @@ VK2.Tools.Layersearch = VK2.Class({
         return this._isInit;
     },
     
-    updateFeatureStore: function(event){
-    	console.log("Update FeatureStore and is activate "+this._isActive)
-    	if (this._isActive){
-    		this._updateFeatures(event);
-    		this._activate();
-    	}
-    },
-    
     activate: function(){
-    	this._updateFeatures();
     	this._activate();	
     	this._isActive = true;
     },

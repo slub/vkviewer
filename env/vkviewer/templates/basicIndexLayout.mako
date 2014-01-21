@@ -20,7 +20,8 @@
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />   			
 	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicIndexLayout.css')}" />
 	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
-    
+     	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/tools/MapSearch.css')}" />
+     	
 	    <!-- load generic js librarys -->
 	    <!-- <script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui.min.js')}"></script>
@@ -36,11 +37,12 @@
       	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
 	    
 	    <!-- vk2 librarys -->
+	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>	
 	    
-	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
+	    
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/ui/idgenerator.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/plugins/jquery.tablesorter.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/js/testing/HoverLayer.js')}"></script>
@@ -49,7 +51,9 @@
 	    <script src="${request.static_url('vkviewer:static/js/testing/SearchTable.js')}"></script>	
 	    <script src="${request.static_url('vkviewer:static/js/testing/MapSearch.js')}"></script>	
 	
-	    	
+	    <style>
+
+	    </style>
 	</head>
 	
 	<body>

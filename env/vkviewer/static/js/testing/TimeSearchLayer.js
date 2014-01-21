@@ -24,7 +24,7 @@ VK2.Layer.TimeSearchLayer = function(timestamps, maxRes, map){
 	var obj = new OpenLayers.Layer.Vector("Messtischblaetter",{
         'displayInLayerSwitcher':false,
         'maxResolution': maxRes,
-        visibility: true,
+        visibility: false,
         strategies: [new OpenLayers.Strategy.BBOX({ratio:2}),_refresh],
         protocol: _ftSource,
     });

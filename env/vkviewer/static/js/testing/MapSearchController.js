@@ -62,7 +62,7 @@ VK2.Controller.MapSearchController.prototype._addRowClickBehavior = function(row
 		$(this).trigger('mouseenter');
 		
 		// hear the callback should be placed
-		console.log(feature.data['time'])
+		$('#vk2AddLayerInput').val(feature.data['time'])
 	});
 }
 
@@ -118,7 +118,7 @@ VK2.Controller.MapSearchController.prototype.registerFeatureLayerBehavior = func
 	this._ftLayer.events.register('featuresremoved', this, this._updateDisplayedFeatureData);
 	
 	// event for updating the layer in case of a map move event
-	map.events.register('moveend', this, this._updateLayerFeatures);
+	this._map.events.register('moveend', this, this._updateLayerFeatures);
 }
 
 /**
@@ -136,7 +136,7 @@ VK2.Controller.MapSearchController.prototype.unregisterFeatureLayerBehavior = fu
 	this._ftLayer.events.unregister('featuresremoved', this, this._updateDisplayedFeatureData);
 	
 	// event for updating the layer in case of a map move event
-	map.events.unregister('moveend', this, this._updateLayerFeatures);
+	this._map.events.unregister('moveend', this, this._updateLayerFeatures);
 }
 
 /**
@@ -150,7 +150,7 @@ VK2.Controller.MapSearchController.prototype._updateLayerFeatures = function(e){
 		this._updateDisplayedFeatureData()
 	
 		// 	display error message in table header
-		$(this._ftLoadingCbEl).find('.content').html('Bitte wählen Sie eine höhere Zoomstufe.')
+		$(this._ftLoadingCbEl).find('.content').html(VK2.Utils.get_I18n_String('change_zoomlevel'))
 	}
 }
 
@@ -167,7 +167,7 @@ VK2.Controller.MapSearchController.prototype._featureLoadingFeedback = function(
 		if (loadingEl.hasClass('active'))
 			loadingEl.removeClass('active');
 			
-		$(this._ftLoadingCbEl).find('.content').html(this._ftLayer.features.length + ' Messtischblätter gefunden.')
+		$(this._ftLoadingCbEl).find('.content').html(this._ftLayer.features.length + ' ' + VK2.Utils.get_I18n_String('found_mtb'))
 	}
 }
 

@@ -39,10 +39,14 @@ VK2.Tools.SearchTable = function(parent, headingCol, controller){
 		this._headingCol = headingCol;
 		this._columnIds = [];
 		
-		for (var i in this._headingCol){
-			console.log(this._headingCol[i].id);
-			this._columnIds.push(this._headingCol[i].id);	
+		for (var i in this._headingCol){	
+			if (this._headingCol.hasOwnProperty(i)){
+				this._columnIds.push(this._headingCol[i].id);
+			}
 		}
+		
+		console.log('Length: '+this._columnIds.length);
+		
 	}	
 	
 	/**
@@ -103,18 +107,20 @@ VK2.Tools.SearchTable.prototype._createTable = function(){
 	});
 	
 	for (var i in this._headingCol){
-		var headingCol = goog.dom.createDom('th', {
-			'id': 'header-col-'+this._headingCol[i].id,
-			'class': 'header-col'
-		})
-		
-		var headingColContent = goog.dom.createDom('div',{
-			'class': this._headingCol[i].id,
-			'innerHTML': this._headingCol[i].title
-		})
-		
-		goog.dom.appendChild(headingCol, headingColContent);
-		goog.dom.appendChild(tableHeadingRow, headingCol);
+		if (this._headingCol.hasOwnProperty(i)){
+			var headingCol = goog.dom.createDom('th', {
+				'id': 'header-col-'+this._headingCol[i].id,
+				'class': 'header-col'
+			})
+			
+			var headingColContent = goog.dom.createDom('div',{
+				'class': this._headingCol[i].id,
+				'innerHTML': this._headingCol[i].title
+			})
+			
+			goog.dom.appendChild(headingCol, headingColContent);
+			goog.dom.appendChild(tableHeadingRow, headingCol);
+		}
 	}
 	
 	// create body element

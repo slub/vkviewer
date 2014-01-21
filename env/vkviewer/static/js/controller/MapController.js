@@ -46,12 +46,6 @@ VK2.Controller.MapController = (function(){
 				var vk2LayerObj = new VK2.Layer.Vk2Layer(data);
 				VK2.Controller.MapController.addTimeLayer(vk2LayerObj);
 			},
-			
-			'mapmove': function(data){
-				if ('vk2layersearch' in _vk2Tools) {
-					_vk2Tools['vk2layersearch'].updateFeatureStore();
-				}
-			}
 	};
 	
 	/*

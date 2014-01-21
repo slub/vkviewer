@@ -13,10 +13,17 @@ goog.require('VK2.Layer.HoverLayer');
  * @param {string} feedBackContainer Id of the container where the feature loading feedback should be displayed
  * @constructor
  */
-VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer){
+VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, container){
 	
 	/**
 	 * @type {Object}
+	 * @private
+	 */
+	this._map = map;
+	
+	/**
+	 * @type {Object}
+	 * @private
 	 */
 	this._feedBackEl = document.getElementById(feedBackContainer);
 		
@@ -30,28 +37,43 @@ VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer){
 	 * @type {Object}
 	 * @private
 	 */
-	this._ftLayer = new VK2.Layer.TimeSearchLayer(timestamps, maxRes, map)
+	this._ftLayer = new VK2.Layer.TimeSearchLayer(timestamps, maxRes, this._map)
 	
 	
 	/**
 	 * @type {Object}
 	 * @private
 	 */
-	this._controller = new VK2.Controller.MapSearchController(map, this._ftLayer, this._hoverLayer)
+	this._controller = new VK2.Controller.MapSearchController(this._map, this._ftLayer, this._hoverLayer)
 	
 	/**
 	 * @type {Object}
 	 * @private
 	 */
-	this._table = new VK2.Tools.SearchTable('tableParent', [{'id':'time', 'title':'Zeit'},{'id':'titel', 'title':'Titel'}], this._controller);
-	
+	this._table = new VK2.Tools.SearchTable(container, [{'id':'time', 'title':VK2.Utils.get_I18n_String('timestamp')},{'id':'titel', 'title':VK2.Utils.get_I18n_String('titel')}], this._controller);
 	// register table object in controller
 	this._controller.registerSearchTable(this._table);
+}
+
+VK2.Tools.MapSearch.prototype.activate = function(){
 	
-	// add layers to map object
-	map.addLayer(this._hoverLayer);
-	map.addLayer(this._ftLayer);
+	if (this._map.getLayerIndex(this._ftLayer) == -1){
+		// add layers to map object
+		this._map.addLayer(this._hoverLayer);
+		this._map.addLayer(this._ftLayer);
+		
+		// add event behavior 
+		this._controller.registerFeatureLayerBehavior(this._feedBackEl);
+	}
 	
-	// add event behavior 
-	this._controller.registerFeatureLayerBehavior(this._feedBackEl);
+	this._ftLayer.setVisibility(true);
+	this._ftLayer.refreshLayer();
+	this._hoverLayer.setVisibility(true);
+	//this._controller.unregisterFeatureLayerBehavior();
+}
+
+VK2.Tools.MapSearch.prototype.deactivate = function(){
+	this._ftLayer.setVisibility(false);
+	this._hoverLayer.setVisibility(false);
+	this._table.refreshData({});
 }
