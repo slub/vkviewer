@@ -38,7 +38,18 @@
 	    <!-- vk2 librarys -->
 	    <script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script>	
+	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>	
+	    
+	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/ui/idgenerator.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/plugins/jquery.tablesorter.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/js/testing/HoverLayer.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/js/testing/TimeSearchLayer.js')}"></script>	
+	    <script src="${request.static_url('vkviewer:static/js/testing/MapSearchController.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/js/testing/SearchTable.js')}"></script>	
+	    <script src="${request.static_url('vkviewer:static/js/testing/MapSearch.js')}"></script>	
+	
+	    	
 	</head>
 	
 	<body>
