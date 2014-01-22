@@ -109,7 +109,8 @@
 
 		<script>
 			var map = null;
-			$(document).ready(function(){ 
+			$(document).ready(function(){
+			debugger; 
 				VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
 		
 				var urlParams = VK2.Utils.getAllUrlParams();

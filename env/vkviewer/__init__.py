@@ -72,6 +72,8 @@ def addRoutes(config):
     config.add_route('welcome', routePrefix+'/welcome', factory='python.security.EntryFactory')
     config.add_route('set_visitor_cookie', routePrefix+'/welcomeoff', factory='python.security.EntryFactory')
 
+    # profile pages
+    config.add_route('users_profile_georef', routePrefix+'/profile/georef', factory='python.security.EntryFactory')
 
 def db(request):
     return request.registry.dbmaker()   

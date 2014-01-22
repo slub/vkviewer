@@ -1,2 +1,2 @@
 include *.txt *.ini *.cfg *.rst
-recursive-include vkviewer *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml *.po *.mo *.pot
+recursive-include vkviewer *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml *.po *.mo *.pot *.woff *.ttf *.svg *.eot
