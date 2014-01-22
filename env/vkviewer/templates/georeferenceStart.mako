@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/tools/Georeferencer.css')}" />
 	<script src="${request.static_url('vkviewer:static/lib/jquery.tabSlideOut.js')}"></script> 
 	<script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/js/Vkviewer.Georef.js')}"></script>   	
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script>   	
 	
 	<style>
 		.olImageLoadError { 

@@ -59,15 +59,22 @@
     		"controller/MapController.js",
     		"controller/TimeFeatureControls.js",
     		"controller/SidebarController.js",
+    		"controller/MapSearchController.js",
+    		"controller/GeoreferenceController.js",
     		"layer/GeoreferencerSearchLayer.js",
     		"layer/TimeFeatureLayer.js",
     		"layer/Vk2Layer.js",
+    		"layer/TimeSearchLayer.js",
+    		"layer/HoverLayer.js",
     		"tools/Gazetteersearch.js",
     		"tools/GeoreferencerChooser.js",
     		"tools/Georeferencer.js",
-    		"tools/Layersearch.js",
+    		"tools/MapSearch.js",
+    		"tools/SearchTable.js",
+    		"tools/SpatialSearch.js",
     		"tools/Layerbar.js",
     		"tools/Sidebar.js",
+    		"tools/ReportError.js",
     		"Initialize.js"
     );
     

@@ -13,9 +13,9 @@
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/fancyapps-fancyBox/source/jquery.fancybox.css')}" media="screen" />    
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />       
-      	<script src="${request.static_url('vkviewer:static/lib/jquery.js')}"></script>
-      	<script src="${request.static_url('vkviewer:static/lib/jquery-ui.js')}"></script>
-      	<script src="${request.static_url('vkviewer:static/lib/jquery.fancybox.js')}"></script> 
+	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script> 
       	
       	<!-- javascript internationalization --> 
       	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>

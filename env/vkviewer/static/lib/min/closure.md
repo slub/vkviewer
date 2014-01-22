@@ -8,4 +8,4 @@ java -jar compiler.jar --js jquery.min.js jquery-ui-1.10.4.custom.js jquery.fanc
 ## after that manually copy ext-all and ext-base content into the libarys file at the beginn.
 
 ## TODO: Write python script for this task
-cat jquery.min.js jquery-ui-1.10.4.custom.js jquery.fancybox.min.js ext-base.min.js ext-all.min.js GeoExt.custom.js bootstrap.min.js proj4js.js > vkviewer-libarys.min.js
+cat jquery.min.js jquery-ui-1.10.4.custom.js jquery.fancybox.min.js jquery.tablesorter.min.js bootstrap.min.js proj4js.js > vkviewer-libarys.min.js

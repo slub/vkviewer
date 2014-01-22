@@ -1,9 +1,9 @@
 /**
  * Define namespace
  */
-VK2 = {};
-VK2.Utils = {};
-VK2.Tools = {};
-VK2.Layer = {};
-VK2.Styles = {};
-VK2.Controller = {};
+goog.provide('VK2');
+goog.provide('VK2.Utils');
+goog.provide('VK2.Tools');
+goog.provide('VK2.Layer');
+goog.provide('VK2.Styles');
+goog.provide('VK2.Controller');

@@ -10,6 +10,12 @@ goog.require('goog.dom')
 VK2.Tools.SpatialSearch = function(parentElement, map, pubsub){
 	
 	/**
+	 * @type {string}
+	 * @public
+	 */
+	this.NAME = VK2.Utils.get_I18n_String('toolname_layersearch');
+	
+	/**
 	 * @type {Object}
 	 * @private
 	 */
