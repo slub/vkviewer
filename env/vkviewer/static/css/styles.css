@@ -10,8 +10,8 @@
 @import url("./vk2/override-bootstrap.css");
 @import url("./vk2/tools/Header.css");
 @import url("./vk2/tools/Layerbar.css");
+@import url("./vk2/tools/SpatialSearch.css");
 @import url("./vk2/tools/Layersearch.css");
-/* @import url("./vk2/tools/Login.css"); */
 @import url("./vk2/tools/Gazetteersearch.css");
 @import url("./vk2/tools/Georeferencer.css");
 @import url("./vk2/tools/Sidebar.css");

@@ -53,6 +53,20 @@
     overflow-y: scroll;
 }
 
+/* Size of table columns */
+.table-heading .header-col-time .titel{
+	padding-left: 10px;
+}
+
+.col-time{
+	width: 100px;
+}
+
+.col-titel{
+	width: 300px;
+}
+
+
 /* Styling of the Tools */
 .panel-spatialsearch-tools{
 	position: relative;

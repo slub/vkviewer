@@ -8,17 +8,12 @@
         <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
         <title>Virtuelles Kartenforum 2.0</title>
 			        	      
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/fancyapps-fancyBox/source/jquery.fancybox.css')}" media="screen" /> 
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/bootstrap-3.0.3/css/bootstrap.css')}"></link>
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
-                    	      
-		<!-- own css stuff -->
-	    <!-- <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/geoext-all.css')}"></link> -->
+		<!-- css styles -->
+		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
 	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />   			
 	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicIndexLayout.css')}" />
 	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
-     	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/tools/MapSearch.css')}" />
      	
      	<!-- javascript internationalization --> 
       	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>

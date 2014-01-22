@@ -110,7 +110,7 @@ VK2.Tools.SearchTable.prototype._createTable = function(){
 		if (this._headingCol.hasOwnProperty(i)){
 			var headingCol = goog.dom.createDom('th', {
 				'id': 'header-col-'+this._headingCol[i].id,
-				'class': 'header-col'
+				'class': 'header-col col-'+this._headingCol[i].id
 			})
 			
 			var headingColContent = goog.dom.createDom('div',{
@@ -159,7 +159,7 @@ VK2.Tools.SearchTable.prototype.refreshData = function(object){
 	
 		for (var i = 0; i < this._columnIds.length; i++){
 			var col = goog.dom.createDom('td', {
-				'class': 'data-col-'+this._columnIds[i],
+				'class': 'data-col-'+this._columnIds[i] + ' col-'+this._columnIds[i],
 				'innerHTML': object[key][this._columnIds[i]]
 			})
 			goog.dom.appendChild(row, col);
