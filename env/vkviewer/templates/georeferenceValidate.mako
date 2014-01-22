@@ -15,19 +15,24 @@
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />       
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/georeferenceValidate.css')}" />
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/tools/Georeferencer.css')}" />
-	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
+		
+		<!-- production --> 
+      	<script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script> 
+	    <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script> 
+		<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>	
+	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script>
+	    
+	    <!-- for testing --> 
+	  	<!-- 	    
+	  	<script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script>  
-	  	<script src="${request.static_url('vkviewer:static/lib/jquery.tabSlideOut.js')}"></script> 
+	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.tabslideout.min.js')}"></script>  
+	  	<script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script> 
 	  	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
-		<script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script>
-		<!-- javascript internationalization --> 
-      	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-		<script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>       	
-      	
-
-
+	  	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>	    
+		<script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script> -->     
+ 
 		<style>
 			.olImageLoadError { 
 	    /* when OL encounters a 404, don't display the pink image */
