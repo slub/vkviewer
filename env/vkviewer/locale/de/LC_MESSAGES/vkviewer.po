@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-22 14:48+0100\n"
-"PO-Revision-Date: 2014-01-22 14:50+0100\n"
+"POT-Creation-Date: 2014-01-23 11:14+0100\n"
+"PO-Revision-Date: 2014-01-23 11:20+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: vkviewer/templates/basicFooterLayout.mako:21
 #: vkviewer/templates/basicIndexLayout.mako:19
@@ -136,9 +137,9 @@ msgstr "Berichte Fehler Dialog"
 msgid "editorial_introduction"
 msgstr ""
 "Die nachstehenden Informationen enthalten die gesetzlich vorgesehenen "
-"Pflichtangaben zur Anbieterkennzeichnung, sowie wichtige rechtliche "
-"Hinweise zur Internetpräsenz der Sächsischen Landesbibliothek - Staats- "
-"und Universitätsbibliothek Dresden (SLUB)."
+"Pflichtangaben zur Anbieterkennzeichnung, sowie wichtige rechtliche Hinweise "
+"zur Internetpräsenz der Sächsischen Landesbibliothek - Staats- und "
+"Universitätsbibliothek Dresden (SLUB)."
 
 #: vkviewer/templates/impressum.mako:26
 msgid "provider"
@@ -163,10 +164,10 @@ msgstr "Die SLUB ist eine Anstalt öffentlichen Rechts."
 #: vkviewer/templates/impressum.mako:52
 msgid "representative_second"
 msgstr ""
-"Die SLUB ist die  Staatsbibliothek des Freistaates Sachsen und zugleich "
-"die  \t\tUniversitätsbibliothek der Technischen Universität Dresden. Sie "
-"wird  durch den Generaldirektor, Herrn Prof. Dr. Thomas Bürger, "
-"gesetzlich  vertreten."
+"Die SLUB ist die  Staatsbibliothek des Freistaates Sachsen und zugleich die  "
+"\t\tUniversitätsbibliothek der Technischen Universität Dresden. Sie wird  "
+"durch den Generaldirektor, Herrn Prof. Dr. Thomas Bürger, gesetzlich  "
+"vertreten."
 
 #: vkviewer/templates/impressum.mako:54
 msgid "representative_third"
@@ -190,13 +191,12 @@ msgstr "Rechtliche Hinweise zur Haftung"
 msgid "information_law_content"
 msgstr ""
 "Trotz unserer sorgfältigen Bemühungen können wir keine Gewähr für die  "
-"Richtigkeit, Vollständigkeit und Aktualität unserer Webseiten geben.  "
-"Weiter übernehmen wir keine Haftung für die Inhalte externer Links. Für  "
-"den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber  "
-"verantwortlich. Die SLUB behält es sich vor, Teile des Internetangebotes"
-"  oder das gesamte Angebot ohne gesonderte Ankündigung zu ändern, zu  "
-"ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig "
-"einzustellen. "
+"Richtigkeit, Vollständigkeit und Aktualität unserer Webseiten geben.  Weiter "
+"übernehmen wir keine Haftung für die Inhalte externer Links. Für  den Inhalt "
+"der verlinkten Seiten sind ausschließlich deren Betreiber  verantwortlich. "
+"Die SLUB behält es sich vor, Teile des Internetangebotes  oder das gesamte "
+"Angebot ohne gesonderte Ankündigung zu ändern, zu  ergänzen, zu löschen oder "
+"die Veröffentlichung zeitweise oder endgültig einzustellen. "
 
 #: vkviewer/templates/impressum.mako:87
 msgid "information_copyright"
@@ -268,8 +268,8 @@ msgstr "Passwort zurücksetzen?"
 #: vkviewer/templates/login_screen.mako:109
 msgid "loginScreen_reset_pw_msg"
 msgstr ""
-"Bitte tragen Sie ihren Login und ihre Email Adresse ein. Sie bekommen das"
-" neue Passwort dann per Email zugesendet."
+"Bitte tragen Sie ihren Login und ihre Email Adresse ein. Sie bekommen das "
+"neue Passwort dann per Email zugesendet."
 
 #: vkviewer/templates/project.mako:23
 msgid "project_name_short"
@@ -294,11 +294,11 @@ msgid "footer_project_description_content_start"
 msgstr ""
 "Die Digitalisierung von Altkarten in Deutschland sowie die bestehenden "
 "Geodateninfrastrukturen benötigen als Grundlagen einer dauerhaft zu "
-"betreibenden Virtuellen Forschungsumgebung eine Bündelung von "
-"Kompetenzen. In Kooperation eines fachwissenschaftlichen und eines "
-"infrastrukturellen Partners sollen vorhandene Angebote zu einem "
-"fachwissenschaftlich adressierten und doch allgemein nachnutzbaren und "
-"nachhaltig betriebenem Service zusammengefasst werden:"
+"betreibenden Virtuellen Forschungsumgebung eine Bündelung von Kompetenzen. "
+"In Kooperation eines fachwissenschaftlichen und eines infrastrukturellen "
+"Partners sollen vorhandene Angebote zu einem fachwissenschaftlich "
+"adressierten und doch allgemein nachnutzbaren und nachhaltig betriebenem "
+"Service zusammengefasst werden:"
 
 #: vkviewer/templates/project.mako:30
 msgid "footer_project_description_content_li1"
@@ -310,23 +310,22 @@ msgstr ""
 #: vkviewer/templates/project.mako:31
 msgid "footer_project_description_content_li2"
 msgstr ""
-"Die virtuelle Forschungsumgebung VKLandLab der Professur für Geodäsie und"
-" Geoinformatik beinhaltet Lösungsansätze zur Behebung genau dieser "
-"Defizite."
+"Die virtuelle Forschungsumgebung VKLandLab der Professur für Geodäsie und "
+"Geoinformatik beinhaltet Lösungsansätze zur Behebung genau dieser Defizite."
 
 #: vkviewer/templates/project.mako:33
 msgid "footer_project_description_content_end"
 msgstr ""
-"Im Forschungsprojekt soll eine betriebsfähige virtuelle Arbeitsplattform "
-"für Raum-Zeitforscherf lächendeckend für die Bundesrepublik entwickelt "
-"werden. Dazu bedarf es einerseits der Entwicklung von Werkzeugen zur "
-"Georeferenzierung von Altkarten und zur Erstellung eines "
-"deutschlandweiten  Ortsnamensverzeichnisses. Andererseits muss auf "
-"Anbieterseite ein Betriebs- und Geschäftsmodell für eine Nationale "
-"Hostingstelle zur Bereitstellung und Aufnahme von digitalen "
-"Altkartenbeständen entwickelt werden. In wissenschaftlichen Fallstudien "
-"sollen die virtuelle Forschungsplattform und die entstehenden Mehrwerte "
-"in der Datenbereitstellung, Analyse und Visualisierung getestet werden."
+"Im Forschungsprojekt soll eine betriebsfähige virtuelle Arbeitsplattform für "
+"Raum-Zeitforscherf lächendeckend für die Bundesrepublik entwickelt werden. "
+"Dazu bedarf es einerseits der Entwicklung von Werkzeugen zur "
+"Georeferenzierung von Altkarten und zur Erstellung eines deutschlandweiten  "
+"Ortsnamensverzeichnisses. Andererseits muss auf Anbieterseite ein Betriebs- "
+"und Geschäftsmodell für eine Nationale Hostingstelle zur Bereitstellung und "
+"Aufnahme von digitalen Altkartenbeständen entwickelt werden. In "
+"wissenschaftlichen Fallstudien sollen die virtuelle Forschungsplattform und "
+"die entstehenden Mehrwerte in der Datenbereitstellung, Analyse und "
+"Visualisierung getestet werden."
 
 #: vkviewer/templates/project.mako:36
 msgid "footer_project_duration"
@@ -355,6 +354,46 @@ msgid "rostockname"
 msgstr ""
 "Universität Rostock - Agrar- und Umweltwissenschaftliche Fakultät - "
 "Professur für Geodäsie und Geoinformatik"
+
+#: vkviewer/templates/users_profile_georef.mako:41
+msgid "georef_user_history"
+msgstr "Nutzerhistorie"
+
+#: vkviewer/templates/users_profile_georef.mako:42
+msgid "georef_previous_georef"
+msgstr "Bisherige Georeferenzierungen"
+
+#: vkviewer/templates/users_profile_georef.mako:42
+msgid "georef_points"
+msgstr "Punkte"
+
+#: vkviewer/templates/users_profile_georef.mako:43
+msgid "georef_back_to_overview"
+msgstr "Zurück zur Hauptseite"
+
+#: vkviewer/templates/users_profile_georef.mako:56
+msgid "georef_process_id"
+msgstr "Prozess-ID"
+
+#: vkviewer/templates/users_profile_georef.mako:59
+msgid "georef_result_validate"
+msgstr "Validierungsergebnisse"
+
+#: vkviewer/templates/users_profile_georef.mako:65
+msgid "georef_map_sheet_info"
+msgstr "Informationen zum Kartenblatt"
+
+#: vkviewer/templates/users_profile_georef.mako:68
+msgid "georef_parameter"
+msgstr "Georeferenzierungsparameter (lon:lat)"
+
+#: vkviewer/templates/users_profile_georef.mako:71
+msgid "georef_persist_access"
+msgstr "Persistenter Zugang zu georeferenzierter Karte"
+
+#: vkviewer/templates/users_profile_georef.mako:77
+msgid "georef_result_being_generated"
+msgstr "Georeferenzierung wird aktuell noch bearbeitet (Wartezeit ca. 20 Min.)"
 
 #~ msgid "err_wrong_password"
 #~ msgstr "Bitte überprüfen Sie ihren Nutzernamen und ihr Passwort!"
@@ -398,21 +437,6 @@ msgstr ""
 #~ msgid "faq_georef_heading"
 #~ msgstr "FAQ - Georeferenzierung"
 
-#~ msgid "faq_georef_body_li_1"
-#~ msgstr ""
-
-#~ msgid "faq_georef_body_li_2"
-#~ msgstr ""
-
-#~ msgid "faq_georef_body_li_3"
-#~ msgstr ""
-
-#~ msgid "faq_georef_body_li_4"
-#~ msgstr ""
-
-#~ msgid "faq_georef_body_li_5"
-#~ msgstr ""
-
 #~ msgid "faq_georef_body_tip"
 #~ msgstr "Tipp"
 
@@ -424,7 +448,3 @@ msgstr ""
 
 #~ msgid "faq_georef_validate_heading"
 #~ msgstr "FAQ - Validierung der Georeferenzierung"
-
-#~ msgid "faq_georef_validate_body_li_1"
-#~ msgstr ""
-

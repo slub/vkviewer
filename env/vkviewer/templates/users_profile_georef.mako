@@ -7,11 +7,27 @@
     <head>
         <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
         <title>User #jm | History of user #jm</title>
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/users_profile_georef.css')}" />   			
+        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/users_profile_georef.css')}" />		
+        <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script>
+
     </head>
-    
+
     <script>
-   	
+   		$(document).ready(function(){
+   			// get query parameter
+   			var queryString = window.location.search.substring(1);
+			var vars = queryString.split('&');
+			var queryParams = {}
+			for (var i = 0; i < vars.length; i++){
+				var pair = vars[i].split('=');
+				queryParams[pair[0]] = decodeURIComponent(pair.slice(1).join('='))
+			};
+   			
+   			// if query parameter is set add class to element with georefid
+   			if ('georefid' in queryParams){
+   				$(document.getElementById(queryParams['georefid'])).addClass('complete');
+   			}
+   		})
     </script>  
 	<body>
 		<header>
@@ -23,9 +39,9 @@
 				%>    
 										
 				% if user_id:
-					<h1>History of user #${user_id}</h1>
-					<h2>Previous Georeferencing - Points: [${points}]</h2>
-					<br><a href="#">Back to map sheet overview</a>
+					<h1>${_('georef_user_history')} #${user_id}</h1>
+					<h2>${_('georef_previous_georef')} - ${_('georef_points')}: [${points}]</h2>
+					<br><a href="${request.route_url('home_login')}?georef=on" target="_top">${_('georef_back_to_overview')}</a>
 				% endif
 				
 			</hgroup>
@@ -36,26 +52,32 @@
 			% if georef_profile:
 				% for record in georef_profile:
 			 	
-			 	<article class="">
+			 	<article id="${record['georef_id']}" class="">
 					<p>
-						<strong>Process-ID:</strong><br> ${record['georef_id']}
+						<strong>${_('georef_process_id')}:</strong><br> ${record['georef_id']}
 					</p>
 					<p>  
-	          			<strong>Result validated:</strong><br> ${record['isvalide']}  
+	          			<strong>${_('georef_result_validate')}:</strong><br> ${record['isvalide']}  
 	        		</p>
 					<p>  
 			          	<strong>Messtischblatt-ID:</strong><br> ${record['mtb_id']}  
 			        </p>
 					<p>  
-			          	<strong>Map sheet information:</strong><br> ${record['titel']}
+			          	<strong>${_('georef_map_sheet_info')}:</strong><br> ${record['titel']}
 			        </p>
 					<p>  
-			          	<strong>Set corner points (lon:lat):</strong><br> ${record['clip_params']}
+			          	<strong>${_('georef_parameter')}:</strong><br> ${record['clip_params']}
 			        </p>
 					<p>
-					 	<strong>Persistent access to georeferenced map:</strong><br>
-					 
-					 	Being generated (duration approx. 20 Min. )
+					 	<strong>${_('georef_persist_access')}:</strong><br>
+					 	
+					 	% if 'transformed' in record:
+					 		<a href="http://139.30.111.16/fgs/vkll/EN/viewer.php?mtbid=${record['transformed']['mtbid']}&amp;
+					 			timestamp=${record['transformed']['time']}&amp;bounds=${record['transformed']['boundingbox']}" target="_blank">Klick</a> 
+					 	% else:
+					 		${_('georef_result_being_generated')}
+					 	% endif
+					 		
 					</p>
 			        <p class="meta">Created: ${record['time']}</p>  
 				</article>

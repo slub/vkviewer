@@ -40,21 +40,21 @@
         		   	
         		   		% if faq_url:
          				<li class="listelement leftborder">
-        					<a href="${faq_url}" class="vk2FooterLinks">FAQ</a>        				
+        					<a href="${faq_url}" class="vk2FooterLinks fancybox-open">FAQ</a>        				
         				</li>       		   		
         		   		% else:
         				<li class="listelement leftborder">
-        					<a href="${request.route_url('faq')}" class="vk2FooterLinks">FAQ</a>        				
+        					<a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open">FAQ</a>        				
         				</li>
         				% endif
         				<li class="listelement leftborder">
-         					<a href="${request.route_url('contact')}" class="vk2FooterLinks">${_('footer_contact')}</a>		
+         					<a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open">${_('footer_contact')}</a>		
         				</li>        				
         				<li class="listelement leftborder">
-        					<a href="${request.route_url('project')}" class="vk2FooterLinks">${_('footer_project')}</a>    				
+        					<a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open">${_('footer_project')}</a>    				
         				</li>
         				<li class="listelement">
-        					<a href="${request.route_url('impressum')}" class="vk2FooterLinks">${_('footer_editorial')}</a>
+        					<a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open">${_('footer_editorial')}</a>
         				</li>
         			</ul>
         		</div>

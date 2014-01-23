@@ -9,7 +9,9 @@ VK2.Utils = {
 			// links footer
 			$('.'+className).each(function(){
 				$(this).fancybox({
-					'type': 'iframe'
+					'type': 'iframe',	        			
+					'width': '100%',
+        			'height': '100%'
 				});
 			})
 		},

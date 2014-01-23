@@ -30,6 +30,15 @@ Installation
 1.4) Run application
 	cd ~/path/to/env/bin/pserve development.ini --reload
 
+1.5) For bcrpyt support 
+	
+	- System wide installation libffi-dev
+		apt-get install libffi-dev
+  	- Add side packages to the virtual environment
+		ln -s /usr/lib/x86_64-linux-gnu/pkgconfig/libffi.pc ~/path/to/env/lib/python2.7/site-packages/
+	- Install bcrypt
+		bin/easy_install bcrypt
+
 Deployment on apache server
 ===========================
 

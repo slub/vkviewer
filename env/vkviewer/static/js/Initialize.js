@@ -61,7 +61,7 @@ var addEvents = function(){
 	}
 	
 	// links footer
-	VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
+	VK2.Utils.initializeFancyboxForClass('fancybox-open');
 	
 	// welcome page
 	if (document.getElementById("vk2WelcomePage")){

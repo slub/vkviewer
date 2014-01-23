@@ -71,14 +71,14 @@
 			              	<ul class="dropdown-menu">
 			              
 				              	% if faq_url:
-				         			<li><a href="${faq_url}" class="vk2FooterLinks">FAQ</a></li>        				
+				         			<li><a href="${faq_url}" class="vk2FooterLinks fancybox-open">FAQ</a></li>        				
 				        		% else:
-				        			<li><a href="${request.route_url('faq')}" class="vk2FooterLinks">FAQ</a></li>
+				        			<li><a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open">FAQ</a></li>
 				        		% endif
 			        		
-				              	<li><a href="${request.route_url('contact')}" class="vk2FooterLinks">${_('footer_contact')}</a></li>
-				              	<li><a href="${request.route_url('project')}" class="vk2FooterLinks">${_('footer_project')}</a></li>
-				              	<li><a href="${request.route_url('impressum')}" class="vk2FooterLinks">${_('footer_editorial')}</a><li>             
+				              	<li><a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open">${_('footer_contact')}</a></li>
+				              	<li><a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open">${_('footer_project')}</a></li>
+				              	<li><a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open">${_('footer_editorial')}</a><li>             
 			              	</ul>                 		
 			          	</li>
 		          
@@ -104,7 +104,7 @@
 						
 			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> ${user_id} <b class="caret"></b></a>
 			              	<ul class="dropdown-menu">
-				                <li><a href="#"> Profile</a></li>
+				                <li><a href="${request.route_url('users_profile_georef')}" class="fancybox-open"> Profile</a></li>
 				                <li><a href="#"> Settings</a></li>
 				                <li class="divider"></li>
 				                <li><a href="${request.route_url('auth',action='out')}"><span class="glyphicon glyphicon-off"></span> ${_('logout_button')} </a></li>
@@ -145,21 +145,21 @@
 					        		   	
 					        		   		% if faq_url:
 					         				<li class="listelement leftborder">
-					        					<a href="${faq_url}" class="vk2FooterLinks">FAQ</a>        				
+					        					<a href="${faq_url}" class="vk2FooterLinks fancybox-open">FAQ</a>        				
 					        				</li>       		   		
 					        		   		% else:
 					        				<li class="listelement leftborder">
-					        					<a href="${request.route_url('faq')}" class="vk2FooterLinks">FAQ</a>        				
+					        					<a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open">FAQ</a>        				
 					        				</li>
 					        				% endif
 					        				<li class="listelement leftborder">
-					         					<a href="${request.route_url('contact')}" class="vk2FooterLinks">${_('footer_contact')}</a>		
+					         					<a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open">${_('footer_contact')}</a>		
 					        				</li>        				
 					        				<li class="listelement leftborder">
-					        					<a href="${request.route_url('project')}" class="vk2FooterLinks">${_('footer_project')}</a>    				
+					        					<a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open">${_('footer_project')}</a>    				
 					        				</li>
 					        				<li class="listelement">
-					        					<a href="${request.route_url('impressum')}" class="vk2FooterLinks">${_('footer_editorial')}</a>
+					        					<a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open">${_('footer_editorial')}</a>
 					        				</li>
 					        			</ul>
 					        		</div>

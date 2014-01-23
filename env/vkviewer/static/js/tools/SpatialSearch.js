@@ -125,7 +125,8 @@ VK2.Tools.SpatialSearch.prototype._loadHtmlContent = function(){
 	
 	var panelHeadingContent = goog.dom.createDom('div', {
 		'id': 'panel-heading-content',
-		'class': 'content'
+		'class': 'content',
+		'innerHTML':VK2.Utils.get_I18n_String('change_zoomlevel')
 	});
 	
 	var panelHeadingLoading = goog.dom.createDom('div', {
