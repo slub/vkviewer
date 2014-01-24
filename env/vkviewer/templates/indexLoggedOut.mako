@@ -3,6 +3,7 @@
 
 <script>
 	$(document).ready(function(){ 
-    	initVkViewerSlim('mapdiv'); 
+		app = new VK2.Utils.AppLoader({}, initConfiguration);
+		app.loadApplication();
     });
 </script>

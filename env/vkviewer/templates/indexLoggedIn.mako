@@ -3,6 +3,7 @@
 
 <script>
 	$(document).ready(function(){ 
-    	initVkViewerFat('mapdiv'); 
+    	app = new VK2.Utils.AppLoader({}, initConfiguration);
+		app.loadApplicationWithGeoref();
     });
 </script>

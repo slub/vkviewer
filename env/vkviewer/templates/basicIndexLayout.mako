@@ -38,7 +38,13 @@
 	</head>
 	
 	<body>
-
+		<noscript>
+    		<style type="text/css">
+    			body {padding-top: 0px;}
+        		div { display:none; }
+   			</style>
+   				${_('javascript_disabled')}
+		</noscript>
 		<div class="navbar navbar-inverse navbar-fixed-top vk2HeaderNavBar" role="navigation">
 		
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -113,7 +119,7 @@
 				              </ul>
 			              
 				            % else:
-				              <a href="${request.route_url('auth',action='getscreen')}" id="vk2UserToolsLogin" class="vk2UserToolsLogin" > ${_('login_button')} </a>
+				              <a href="${request.route_url('auth',action='getscreen')}" id="vk2UserToolsLogin" class="vk2UserToolsLogin fancybox-open" > ${_('login_button')} </a>
 				         	% endif
 			            </li>
 	          		</ul>

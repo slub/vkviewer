@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-23 11:14+0100\n"
+"POT-Creation-Date: 2014-01-24 15:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,69 +28,73 @@ msgid "js_library"
 msgstr ""
 
 #: vkviewer/templates/basicFooterLayout.mako:34
-#: vkviewer/templates/basicIndexLayout.mako:139
+#: vkviewer/templates/basicIndexLayout.mako:147
 #: vkviewer/templates/georeferenceStart.mako:69
 #: vkviewer/templates/georeferenceValidate.mako:73
 msgid "footer_project_name"
 msgstr ""
 
 #: vkviewer/templates/basicFooterLayout.mako:35
-#: vkviewer/templates/basicIndexLayout.mako:140
+#: vkviewer/templates/basicIndexLayout.mako:148
 #: vkviewer/templates/georeferenceStart.mako:70
 #: vkviewer/templates/georeferenceValidate.mako:74
 msgid "footer_project_desc_long"
 msgstr ""
 
 #: vkviewer/templates/basicFooterLayout.mako:51
-#: vkviewer/templates/basicIndexLayout.mako:79
-#: vkviewer/templates/basicIndexLayout.mako:156 vkviewer/templates/contact.mako:23
+#: vkviewer/templates/basicIndexLayout.mako:87
+#: vkviewer/templates/basicIndexLayout.mako:164 vkviewer/templates/contact.mako:23
 #: vkviewer/templates/georeferenceStart.mako:86
 #: vkviewer/templates/georeferenceValidate.mako:90
 msgid "footer_contact"
 msgstr ""
 
 #: vkviewer/templates/basicFooterLayout.mako:54
-#: vkviewer/templates/basicIndexLayout.mako:80
-#: vkviewer/templates/basicIndexLayout.mako:159
+#: vkviewer/templates/basicIndexLayout.mako:88
+#: vkviewer/templates/basicIndexLayout.mako:167
 #: vkviewer/templates/georeferenceStart.mako:89
 #: vkviewer/templates/georeferenceValidate.mako:93
 msgid "footer_project"
 msgstr ""
 
 #: vkviewer/templates/basicFooterLayout.mako:57
-#: vkviewer/templates/basicIndexLayout.mako:81
-#: vkviewer/templates/basicIndexLayout.mako:162
+#: vkviewer/templates/basicIndexLayout.mako:89
+#: vkviewer/templates/basicIndexLayout.mako:170
 #: vkviewer/templates/georeferenceStart.mako:92
 #: vkviewer/templates/georeferenceValidate.mako:96
 #: vkviewer/templates/impressum.mako:23
 msgid "footer_editorial"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:62
+#: vkviewer/templates/basicIndexLayout.mako:46
+msgid "javascript_disabled"
+msgstr ""
+
+#: vkviewer/templates/basicIndexLayout.mako:68
 msgid "placeholder_town_name"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:70
+#: vkviewer/templates/basicIndexLayout.mako:78
 msgid "header_service"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:87
+#: vkviewer/templates/basicIndexLayout.mako:95
 msgid "header_language"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:89
+#: vkviewer/templates/basicIndexLayout.mako:97
 msgid "header_language_de"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:90
+#: vkviewer/templates/basicIndexLayout.mako:98
 msgid "header_language_en"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:110
+#: vkviewer/templates/basicIndexLayout.mako:118
 msgid "logout_button"
 msgstr ""
 
-#: vkviewer/templates/basicIndexLayout.mako:114
+#: vkviewer/templates/basicIndexLayout.mako:122
 msgid "login_button"
 msgstr ""
 
@@ -300,43 +304,43 @@ msgstr ""
 msgid "rostockname"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:41
+#: vkviewer/templates/users_profile_georef.mako:42
 msgid "georef_user_history"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:42
+#: vkviewer/templates/users_profile_georef.mako:43
 msgid "georef_previous_georef"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:42
+#: vkviewer/templates/users_profile_georef.mako:43
 msgid "georef_points"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:43
+#: vkviewer/templates/users_profile_georef.mako:44
 msgid "georef_back_to_overview"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:56
+#: vkviewer/templates/users_profile_georef.mako:57
 msgid "georef_process_id"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:59
+#: vkviewer/templates/users_profile_georef.mako:60
 msgid "georef_result_validate"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:65
+#: vkviewer/templates/users_profile_georef.mako:66
 msgid "georef_map_sheet_info"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:68
+#: vkviewer/templates/users_profile_georef.mako:69
 msgid "georef_parameter"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:71
+#: vkviewer/templates/users_profile_georef.mako:72
 msgid "georef_persist_access"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:77
+#: vkviewer/templates/users_profile_georef.mako:78
 msgid "georef_result_being_generated"
 msgstr ""
 

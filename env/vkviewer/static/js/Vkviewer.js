@@ -74,8 +74,7 @@
     		"tools/SpatialSearch.js",
     		"tools/Layerbar.js",
     		"tools/Sidebar.js",
-    		"tools/ReportError.js",
-    		"Initialize.js"
+    		"tools/ReportError.js"
     );
     
     var len = jsfiles.length;
