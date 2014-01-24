@@ -12,7 +12,7 @@ def get_index_page(request):
     withWelcomePage = ''
     if 'welcomepage' in request.params:
         withWelcomePage = request.params['welcomepage']
-        
+    
     # checks if already a user cookie is set and if yes gives back the logged in view
     if checkIsUser(request):
         target_url = request.route_url('home_login')

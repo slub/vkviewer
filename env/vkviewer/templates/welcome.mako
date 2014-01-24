@@ -12,30 +12,20 @@
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/themes/base/jquery-ui.css')}" />
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/welcome.css')}" />
-      	<script src="${request.static_url('vkviewer:static/lib/jquery.js')}"></script>
-      	<script src="${request.static_url('vkviewer:static/lib/jquery-ui.js')}"></script>
+        <script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script> 
+		<script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script>  
+		<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/ui/idgenerator.js')}"></script>
+      	<script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>	 
+      	
     </head>
     
     <script>
     	$(document).ready(function(){
     		// event behavior for deactivation welcome page
-			$('#deactivateWelcomePage').change(function(){
-				var queryValue = $(this).prop('checked') ? 'off' : 'on';
-	   			$.ajax({
-        			url: '/vkviewer/welcomeoff',
-        			type: 'GET',
-        			data: {
-        				'welcomepage': queryValue
-        			},
-        			success: function( data ){  
-						console.log(data);
-        			},
-        			statusCode: {
-        				400: function(){
-        					alert( 'bad request' );
-        				}
-        			}
-	   			});
+			$('#deactivateWelcomePage').change(function(){				
+				var welcomePageStatus = $(this).prop('checked') ? 'off' : 'on';
+				VK2.Utils.setCookie('welcomepage', welcomePageStatus);
 	   		});
 	   		
 	   		$('#vk2WelcomePageStart').click(function(event){

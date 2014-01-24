@@ -1,3 +1,5 @@
+goog.require('goog.net.cookies');
+
 VK2.Utils = {
 		
 		/**
@@ -212,7 +214,20 @@ VK2.Utils = {
 		 * @return {String}
 		 */
 		get_I18n_String: function(key){
-			return lang_dictionary[key];
+			try{
+				if (goog.isDef(lang_dictionary))
+					return lang_dictionary[key];
+			} catch (ReferenceError){
+				console.log('Could not found dictionary.')
+			}
 		}
 };
+
+/**
+ * @param {string} name
+ * @param {string} value
+ */
+VK2.Utils.setCookie = function(name, value){
+	goog.net.cookies.set(name, value);
+}
 

@@ -60,7 +60,7 @@
 	          			<div id="vk2GazetteerSearchDiv" class="vk2GazetteerSearchDiv">
 							<input id="vk2GazetteerSearchInput" class="vk2GazetteerSearchInput" 
 								placeholder="${_('placeholder_town_name')}" />
-							<button type="submit" class="btn btn-success gazetteer-submit-button">Search</button>
+							<!-- <button type="submit" class="btn btn-success gazetteer-submit-button">Search</button> -->
 			            </div>
 			            
 	          		</ul>
