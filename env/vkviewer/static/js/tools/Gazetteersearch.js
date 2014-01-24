@@ -1,15 +1,57 @@
 /**
- * This functions adds a gazetteer search behavior to a given input field 
- * 
- * container - {DOMElement} - Input field
+ * @fileoverview This object create a front end for a gazetteer service, so enable the user to search places
+ * by there placenames. It also supports a blattnumber search.
+ * @author Jacob.Mendt@slub-dresden.de (Jacob Mendt)
  * 
  * @TODO - consider the type of the poi (city, country, ...) for the choosing of the zoom level at the select event
  */
-VK2.Tools.addGazetteer = function(container, map){
+
+goog.provide('VK2.Tools.Gazetteersearch')
+
+goog.require('goog.dom');
+
+/**
+ * Create a front end for a gazetteer service
+ * @param {Element} gazetteerElement
+ * @param {Object} map OpenLayers.Map
+ * @constructor 
+ */
+VK2.Tools.Gazetteersearch = function(gazetteerElement, map, withSubmit){
 	
+	/**
+	 * @type {Element}
+	 * @private
+	 */
+	this._gazetteerElement = gazetteerElement;
+	
+	/**
+	 * @type {Element}
+	 * @private
+	 */
+	if (goog.isDef(this._gazetteerElement.parentElement)){
+		this._parentElement = this._gazetteerElement.parentElement;
+	}
+	
+	/**
+	 * @type {Object}
+	 * @private
+	 */
+	this._map = map;
+	
+	console.log('Load Gazetteersearch.')
+	this._loadGazetteerBehavior(this._gazetteerElement, this._map);
+	//this._loadSubmitBehavior(this._parentElement, this._gazetteerElement)
+}
+
+/**
+ * @param {Element} gazetteerElement
+ * @param {Object} map OpenLayers.Map
+ */
+VK2.Tools.Gazetteersearch.prototype._loadGazetteerBehavior = function(gazetteerElement, map){
+		
 	var _map = map;
-    
-    $(document.getElementById(container)).autocomplete({
+	
+	$(gazetteerElement).autocomplete({
     	source: function( request, response ){
     		// only look for source if is not a blattnumber
     		if (!VK2.Validation.isBlattnumber(request.term)){
@@ -55,9 +97,21 @@ VK2.Tools.addGazetteer = function(container, map){
     	},
     	delay: 500,
         minLength: 3,
+        autoFocus: true,
     	select: function( event, ui ){
-    		//var map = mainMap.getMapObject();
-    		_map.setCenter(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject(),12));
+    		console.log('Type: '+ui.item.type);
+    		switch (ui.item.type){
+    			case 'administrative':
+    				_map.setCenter(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 5);
+    				break;
+    			case 'city':
+    				_map.setCenter(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 5);
+    				break;
+    			case 'village':
+    				_map.setCenter(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 8);
+    			default:
+    				_map.setCenter(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 10);
+    		}
     	},
     	open: function(){
     		$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
@@ -66,7 +120,21 @@ VK2.Tools.addGazetteer = function(container, map){
     		$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
     	},
     });
-    
+}
 
+/**
+ * @param {Element} parentElement
+ * @param {Element} gazetteerElement
+ */
+VK2.Tools.Gazetteersearch.prototype._loadSubmitBehavior = function(parentElement, gazetteerElement){
+	
+	var submitBtn = goog.dom.getElementsByTagNameAndClass('BUTTON', 'gazetteer-submit-button', parentElement)
+	
+	if (goog.isDef(submitBtn)){
+		$(submitBtn).click(function(e){
+			$(gazetteerElement).data('ui-autocomplete')._trigger('select');
+		})
+		console.log('Add submit Button to Gazetteersearch.');
+	}
 }
 

@@ -9,12 +9,23 @@
 	background: white url('../../../images/ui-anim_basic_16x16.gif') right center no-repeat;
 }
 
-.vk2GazetteerSearchInput{
-    width: 100%;
+.vk2Gazetteer > div, div.button{
+	positon: relative;
+	float: left;
 }
 
 .vk2GazetteerSearchDiv{
     font-family: Verdana,Arial,sans-serif;
     font-size: 1.1em;
+    width: 100%;
+}
+
+.gazetteer-submit-button{
+	margin: 5px;
+}
+
+.vk2GazetteerSearchInput{
+    width: 80%;
     margin: 10px;
 }
+

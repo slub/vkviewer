@@ -43,7 +43,8 @@ VK2.Utils.AppLoader = VK2.Class({
 	
 	_loadToolGazeetter: function(){
 		if (this._checkIfToolContainerIsInit(this._settings.vk2Gazetteer))
-			VK2.Tools.addGazetteer(this._settings.vk2Gazetteer, this._settings.map)
+			var Gazetteer = new VK2.Tools.Gazetteersearch(document.getElementById(this._settings.vk2Gazetteer), this._settings.map);
+			//VK2.Tools.addGazetteer(document.getElementById(this._settings.vk2Gazetteer), this._settings.map)
 	},
 	
 	_loadToolGeoreferencerChooser: function(){
