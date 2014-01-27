@@ -1,10 +1,10 @@
-import os
+import os, bcrypt
 import sqlalchemy as sa
 from hashlib import sha1
-from vkviewer.python.models.Meta import Base
 from sqlalchemy import Column, Integer, String, Sequence, Unicode
 from webhelpers.paginate import PageURL_WebOb, Page
 
+from vkviewer.python.models.Meta import Base
 
 class Users(Base):
     __tablename__ = 'users'

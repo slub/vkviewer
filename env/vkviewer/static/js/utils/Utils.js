@@ -1,4 +1,5 @@
 goog.require('goog.net.cookies');
+goog.require('goog.dom.classes');
 
 VK2.Utils = {
 		
@@ -229,5 +230,14 @@ VK2.Utils = {
  */
 VK2.Utils.setCookie = function(name, value){
 	goog.net.cookies.set(name, value);
+}
+
+/**
+ * @param {element} element Represents dom element for which class should be removed
+ * @param {string} className 
+ */
+VK2.Utils.removeClass = function(element, className){
+	if (goog.dom.classes.has(element, className))
+		goog.dom.classes.remove(element,className);
 }
 

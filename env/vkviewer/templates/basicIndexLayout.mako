@@ -113,7 +113,7 @@
 			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> ${user_id} <b class="caret"></b></a>
 			              	<ul class="dropdown-menu">
 				                <li><a href="${request.route_url('users_profile_georef')}" class="fancybox-open"> Profile</a></li>
-				                <li><a href="#"> Settings</a></li>
+				                <li><a href="${request.route_url('change_pw', action='page')}" class="fancybox-open">${_('change_pw_header')}</a></li>
 				                <li class="divider"></li>
 				                <li><a href="${request.route_url('auth',action='out')}"><span class="glyphicon glyphicon-off"></span> ${_('logout_button')} </a></li>
 				              </ul>

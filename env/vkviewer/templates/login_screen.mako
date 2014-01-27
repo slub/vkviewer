@@ -9,14 +9,12 @@
         <title>Virtuelles Kartenforum 2.0</title>
         
         <!-- vk2 librarys -->
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/themes/base/jquery-ui.css')}" />
+		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/bootstrap-3.0.3/css/bootstrap.css')}"></link>
 	    <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script>  
 	    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script> 
-	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script>
     </head>
     
     <script>
@@ -24,7 +22,7 @@
     		var isValide = true;
 			
 			// check username
-			isValide = isValide && VK2.Validation.checkPassword(loginUsername, 'validationTipsLogin', 'ui-state-error');
+			isValide = isValide && VK2.Validation.checkUsername(loginUsername, 'validationTipsLogin', 'ui-state-error');
 			if (!isValide) return isValide;
 										
 			// check password
@@ -35,9 +33,9 @@
     	var validateRegisterNewUser = function(){
     	
     		var isValide = true;
-    		
+    					debugger;
 			// check username
-			isValide = isValide && VK2.Validation.checkPassword(loginNewUsername, 'validationTipsRegisterUser', 'ui-state-error');
+			isValide = isValide && VK2.Validation.checkUsername(loginNewUsername, 'validationTipsRegisterUser', 'ui-state-error');
 			if (!isValide) return isValide;
 				
 			// check new password
@@ -46,7 +44,7 @@
 				
 			// check if new password matches validation password
 			isValide = isValide && VK2.Validation.checkPasswordMatch(loginNewPassword, loginNewPasswordValidate, 'validationTipsRegisterUser', 'ui-state-error'); 
-			return isValide;
+			if (!isValide) return isValide;
 			
 			// check sur- and familyname
 			isValide = isValide && VK2.Validation.checkPersonName(loginNewVorname, 'validationTipsRegisterUser', 'ui-state-error');
@@ -134,18 +132,6 @@
 			</div>
 		</div>
 		
-		<!-- Forget passwort dialog for reseting -->
-		<div id="forgetPwDialog" class="forgetPwDialog" title="${_('loginScreen_reset_pw')}" onsubmit="return validateDialogForm();">
-			<p id="forgetDialogValidationTips" class="validationTips">${_('loginScreen_reset_pw_msg')}</p>
-			<form>
-				<fieldset>
-					<input id="forgetDialogUsername" class="" type="text" value="" 
-								name="username" placeholder="${_('loginScreen_placeholder_username')}"/>
-					<input id="forgetDialogMail" class="" type="text" value="" 
-								name="email" placeholder="${_('loginScreen_placeholder_email')}"/>			
-				</fieldset>
-			</form>
-		</div>
-        </body>  
+
     </body>
 </html>

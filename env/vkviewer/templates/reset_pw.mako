@@ -21,11 +21,11 @@
 	
 		<script>
 			// this functions validates the form and checks if the passwords are valide
-			var validateForm = function(){				
+			var validateForm = function(){			
 				var isValide = true;
 							
 				// check username
-				isValide = isValide && VK2.Validation.checkPassword(inputUsername, 'validationTips', 'ui-state-error');
+				isValide = isValide && VK2.Validation.checkUsername(inputUsername, 'validationTips', 'ui-state-error');
 				if (!isValide) return isValide;
 				
 				// check email adress
@@ -36,7 +36,7 @@
     
 		<div class="container change-pw">
 			<div class="panel panel-default">
-				<div class="panel-heading" id="panelHeading"
+				<div class="panel-heading" id="panelHeading">
 					<p id="validationTips" class="validationTips">${_('reset_pw_header')}</p>
 				</div>
 				

@@ -264,7 +264,7 @@ VK2.Validation.checkEmailAdress = function( elementId, failureElementId, failure
 	var isValide = true;
 	
 	// remove old success / error class from element
-	if (goog.dom.classes.has(email.parentElement, 'has-success') || goog.dom.classes.has(name.parentElement, 'has-error')){
+	if (goog.dom.classes.has(email.parentElement, 'has-success') || goog.dom.classes.has(email.parentElement, 'has-error')){
 		goog.dom.classes.remove(email.parentElement, 'has-error');
 		goog.dom.classes.remove(email.parentElement, 'has-success');
 	}
