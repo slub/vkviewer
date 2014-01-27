@@ -31,5 +31,10 @@ var lang_dictionary = {
 		'report_error_titel': 'Error report for messtischblatt',
 		'report_error_confirmed': 'Error reported!',
 		'report_error_btn_submit': 'Submit',
-		'report_error_btn_cancel': 'Canel'
+		'report_error_btn_cancel': 'Canel',
+		
+		// login validation
+		'password_to_short': 'The password should contain between 5 to 16 characters.',
+		'password_wrong_token': 'The password should consist out of alphabetic tokens and numbers between 0 to 9.',
+		'password_is_same': 'The passwords doesn\'t match each other.'
 }

@@ -31,8 +31,12 @@ var lang_dictionary = {
 		'report_error_titel': 'Fehlerbeschreibung Blatt',
 		'report_error_confirmed': 'Fehler wurde gemeldet',
 		'report_error_btn_submit': 'Senden',
-		'report_error_btn_cancel': 'Abbrechen'
+		'report_error_btn_cancel': 'Abbrechen',
 		
+		// login validation
+		'password_to_short': 'Das Passwort sollte zwischen 5 und 16 Zeichen umfassen.',
+		'password_wrong_token': 'Das Passwort sollte sich aus den des Alphabets oder der Zahlen zwischen 0 und 9 zusammensetzen.',
+		'password_is_same': 'Die Passwörter stimmen nicht überein.'
 }
 	
 

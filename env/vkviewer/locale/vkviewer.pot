@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-24 15:25+0100\n"
+"POT-Creation-Date: 2014-01-27 09:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Generated-By: Babel 1.3\n"
 
 #: vkviewer/templates/basicFooterLayout.mako:21
-#: vkviewer/templates/basicIndexLayout.mako:19
+#: vkviewer/templates/basicIndexLayout.mako:19 vkviewer/templates/change_pw.mako:15
 #: vkviewer/templates/georeferenceStart.mako:22
 #: vkviewer/templates/georeferenceStart.mako:33
 #: vkviewer/templates/georeferenceValidate.mako:22
@@ -96,6 +96,34 @@ msgstr ""
 
 #: vkviewer/templates/basicIndexLayout.mako:122
 msgid "login_button"
+msgstr ""
+
+#: vkviewer/templates/change_pw.mako:32
+msgid "change_pw_header"
+msgstr ""
+
+#: vkviewer/templates/change_pw.mako:37
+msgid "old_password"
+msgstr ""
+
+#: vkviewer/templates/change_pw.mako:39
+msgid "old_password_placeholder"
+msgstr ""
+
+#: vkviewer/templates/change_pw.mako:44
+msgid "new_password"
+msgstr ""
+
+#: vkviewer/templates/change_pw.mako:46 vkviewer/templates/change_pw.mako:52
+msgid "new_password_placeholder"
+msgstr ""
+
+#: vkviewer/templates/change_pw.mako:50
+msgid "new_password_validate"
+msgstr ""
+
+#: vkviewer/templates/change_pw.mako:57
+msgid "change_pw"
 msgstr ""
 
 #: vkviewer/templates/contact.mako:24 vkviewer/templates/impressum.mako:28

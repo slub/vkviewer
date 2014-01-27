@@ -39,6 +39,11 @@ Installation
 	- Install bcrypt
 		bin/easy_install bcrypt
 
+1.6) Install mail client
+
+	- apt-get install exim4
+	- dpkg-reconfigure exim4-config (configure mail client)
+
 Deployment on apache server
 ===========================
 

@@ -72,8 +72,14 @@ def addRoutes(config):
     config.add_route('welcome', routePrefix+'/welcome', factory='python.security.EntryFactory')
     config.add_route('set_visitor_cookie', routePrefix+'/welcomeoff', factory='python.security.EntryFactory')
 
+    # change & reset pw
+    config.add_route('change_pw', routePrefix+'/change/pw/{action}', factory='python.security.EntryFactory')
+    
     # profile pages
     config.add_route('users_profile_georef', routePrefix+'/profile/georef', factory='python.security.EntryFactory')
+    
+    # error pages
+    #config.add_route('error_page', routePrefix+'/error', factory='python.security.EntryFactory')
 
 def db(request):
     return request.registry.dbmaker()   

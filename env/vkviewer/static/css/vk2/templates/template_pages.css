@@ -1,0 +1,14 @@
+/**
+ * Styles which are matching the template pages 
+ */
+
+/* Page: Change password */
+.container.change-pw{
+	min-width: 200px;
+	max-width: 600px; 
+}
+
+/* Page: Error message */
+.error-container{
+	padding: 10px;
+}

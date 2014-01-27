@@ -7,18 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-24 15:25+0100\n"
-"PO-Revision-Date: 2014-01-24 15:26+0100\n"
+"POT-Creation-Date: 2014-01-27 09:54+0100\n"
+"PO-Revision-Date: 2014-01-27 09:57+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: vkviewer/templates/basicFooterLayout.mako:21
 #: vkviewer/templates/basicIndexLayout.mako:19
+#: vkviewer/templates/change_pw.mako:15
 #: vkviewer/templates/georeferenceStart.mako:22
 #: vkviewer/templates/georeferenceStart.mako:33
 #: vkviewer/templates/georeferenceValidate.mako:22
@@ -99,6 +101,34 @@ msgstr "Logout"
 msgid "login_button"
 msgstr "Login"
 
+#: vkviewer/templates/change_pw.mako:32
+msgid "change_pw_header"
+msgstr "Change password"
+
+#: vkviewer/templates/change_pw.mako:37
+msgid "old_password"
+msgstr "Old password"
+
+#: vkviewer/templates/change_pw.mako:39
+msgid "old_password_placeholder"
+msgstr "Old password"
+
+#: vkviewer/templates/change_pw.mako:44
+msgid "new_password"
+msgstr "New password"
+
+#: vkviewer/templates/change_pw.mako:46 vkviewer/templates/change_pw.mako:52
+msgid "new_password_placeholder"
+msgstr "New password"
+
+#: vkviewer/templates/change_pw.mako:50
+msgid "new_password_validate"
+msgstr "New password"
+
+#: vkviewer/templates/change_pw.mako:57
+msgid "change_pw"
+msgstr "Submit change"
+
 #: vkviewer/templates/contact.mako:24 vkviewer/templates/impressum.mako:28
 msgid "slubname_start"
 msgstr "Saxon State and "
@@ -140,9 +170,9 @@ msgstr "Report error dialog"
 msgid "editorial_introduction"
 msgstr ""
 "Die nachstehenden Informationen enthalten die gesetzlich vorgesehenen "
-"Pflichtangaben zur Anbieterkennzeichnung, sowie wichtige rechtliche "
-"Hinweise zur Internetpräsenz der Sächsischen Landesbibliothek - Staats- "
-"und Universitätsbibliothek Dresden (SLUB)."
+"Pflichtangaben zur Anbieterkennzeichnung, sowie wichtige rechtliche Hinweise "
+"zur Internetpräsenz der Sächsischen Landesbibliothek - Staats- und "
+"Universitätsbibliothek Dresden (SLUB)."
 
 #: vkviewer/templates/impressum.mako:26
 msgid "provider"
@@ -167,10 +197,10 @@ msgstr "Die SLUB ist eine Anstalt öffentlichen Rechts."
 #: vkviewer/templates/impressum.mako:52
 msgid "representative_second"
 msgstr ""
-"Die SLUB ist die  Staatsbibliothek des Freistaates Sachsen und zugleich "
-"die  \t\tUniversitätsbibliothek der Technischen Universität Dresden. Sie "
-"wird  durch den Generaldirektor, Herrn Prof. Dr. Thomas Bürger, "
-"gesetzlich  vertreten."
+"Die SLUB ist die  Staatsbibliothek des Freistaates Sachsen und zugleich die  "
+"\t\tUniversitätsbibliothek der Technischen Universität Dresden. Sie wird  "
+"durch den Generaldirektor, Herrn Prof. Dr. Thomas Bürger, gesetzlich  "
+"vertreten."
 
 #: vkviewer/templates/impressum.mako:54
 msgid "representative_third"
@@ -194,13 +224,12 @@ msgstr "Rechtliche Hinweise zur Haftung"
 msgid "information_law_content"
 msgstr ""
 "Trotz unserer sorgfältigen Bemühungen können wir keine Gewähr für die  "
-"Richtigkeit, Vollständigkeit und Aktualität unserer Webseiten geben.  "
-"Weiter übernehmen wir keine Haftung für die Inhalte externer Links. Für  "
-"den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber  "
-"verantwortlich. Die SLUB behält es sich vor, Teile des Internetangebotes"
-"  oder das gesamte Angebot ohne gesonderte Ankündigung zu ändern, zu  "
-"ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig "
-"einzustellen. "
+"Richtigkeit, Vollständigkeit und Aktualität unserer Webseiten geben.  Weiter "
+"übernehmen wir keine Haftung für die Inhalte externer Links. Für  den Inhalt "
+"der verlinkten Seiten sind ausschließlich deren Betreiber  verantwortlich. "
+"Die SLUB behält es sich vor, Teile des Internetangebotes  oder das gesamte "
+"Angebot ohne gesonderte Ankündigung zu ändern, zu  ergänzen, zu löschen oder "
+"die Veröffentlichung zeitweise oder endgültig einzustellen. "
 
 #: vkviewer/templates/impressum.mako:87
 msgid "information_copyright"
@@ -282,8 +311,8 @@ msgstr "Project Virtuelles Kartenforum 2.0"
 #: vkviewer/templates/project.mako:24
 msgid "project_name_long"
 msgstr ""
-"Virtuelles Kartenforum 2.0 - A service oriented architeture virtual "
-"research environment at the german photographic collection."
+"Virtuelles Kartenforum 2.0 - A service oriented architeture virtual research "
+"environment at the german photographic collection."
 
 #: vkviewer/templates/project.mako:25
 msgid "footer_project_summary"
@@ -298,16 +327,16 @@ msgid "footer_project_description_content_start"
 msgstr ""
 "The digitization of old maps in Germany as well as existing spatial data "
 "infrastructures need a concentration of expertise to be operated in a "
-"permanent virtual research environment . The cooperation of a "
-"professional scientific and a infrastructural partner offers a "
-"combination in the form of a general, re-usable and sustainable service:"
+"permanent virtual research environment . The cooperation of a professional "
+"scientific and a infrastructural partner offers a combination in the form of "
+"a general, re-usable and sustainable service:"
 
 #: vkviewer/templates/project.mako:30
 msgid "footer_project_description_content_li1"
 msgstr ""
-"The Fotothek of the SLUB includes a comprehensive collection of digital "
-"map information in one hand, however not being georeferenced and not "
-"available as interoperable services."
+"The Fotothek of the SLUB includes a comprehensive collection of digital map "
+"information in one hand, however not being georeferenced and not available "
+"as interoperable services."
 
 #: vkviewer/templates/project.mako:31
 msgid "footer_project_description_content_li2"
@@ -319,14 +348,14 @@ msgstr ""
 msgid "footer_project_description_content_end"
 msgstr ""
 "In the research project an operational platform will be developed for "
-"researchers being interested in space and time aspects related to the "
-"area of the Federal Republic of Germany. On the one hand, it requires the"
-" development of tools for geo-referencing old maps and the creation of a "
+"researchers being interested in space and time aspects related to the area "
+"of the Federal Republic of Germany. On the one hand, it requires the "
+"development of tools for geo-referencing old maps and the creation of a "
 "Germany-wide site name directory. On the other hand at the supply sidean "
-"operating and business model for a national hosting site for providing "
-"and receiving of digital old maps needs to be developed. In scientific "
-"case studies, the virtual research platform and the resulting assets in "
-"the provision of data, analysis and visualization should be tested."
+"operating and business model for a national hosting site for providing and "
+"receiving of digital old maps needs to be developed. In scientific case "
+"studies, the virtual research platform and the resulting assets in the "
+"provision of data, analysis and visualization should be tested."
 
 #: vkviewer/templates/project.mako:36
 msgid "footer_project_duration"
@@ -423,4 +452,3 @@ msgstr "Being generated (duration approx. 20 Min. )"
 
 #~ msgid "bank_connection"
 #~ msgstr "Bank connection"
-
