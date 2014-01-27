@@ -157,3 +157,143 @@ VK2.Validation.checkPasswordMatch = function( elementId_Pw1, elementId_Pw2, fail
 	return isValide
 	
 }
+
+/**
+ * Checks if a string match the criteria for a validate username
+ * @param {string} elementId The id of an input field which holds the password
+ * @param {string=} failureElementId The id of a dom element where to write the failure message
+ * @param {string=} failureClass The failure class
+ * @return {boolean}
+ */ 
+VK2.Validation.checkUsername = function( elementId, failureElementId, failureClass ){
+	
+	var username = goog.dom.getElement(elementId);
+	var isValide = true;
+	
+	// remove old success / error class from element
+	if (goog.dom.classes.has(username.parentElement, 'has-success') || goog.dom.classes.has(username.parentElement, 'has-error')){
+		goog.dom.classes.remove(username.parentElement, 'has-error');
+		goog.dom.classes.remove(username.parentElement, 'has-success');
+	}
+	
+	isValide = isValide && goog.isDefAndNotNull(username);
+	
+	// check length
+	isValide = isValide && this.checkLength( username.value, 3, 16)
+	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
+		this.setErrorMsg(VK2.Utils.get_I18n_String('username_to_short'), failureElementId, failureClass);
+		goog.dom.classes.add(username.parentElement, 'has-error');
+		return isValide;
+	};
+	
+	// check tokens
+	isValide = isValide && this.checkRegexp( username.value, /^([0-9a-zA-Z])+$/);
+	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
+		this.setErrorMsg(VK2.Utils.get_I18n_String('username_wrong_token'), failureElementId, failureClass);
+		goog.dom.classes.add(username.parentElement, 'has-error');
+		return isValide
+	};
+
+	// update error classes for the form
+	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && isValide){
+		goog.dom.classes.remove(goog.dom.getElement(failureElementId), failureClass);
+		goog.dom.classes.remove(username.parentElement, 'has-error');
+		goog.dom.classes.add(username.parentElement, 'has-success');
+	}
+	
+	return isValide;
+
+}
+
+/**
+ * Checks if a string match the criteria for a validate person name
+ * @param {string} elementId The id of an input field which holds the password
+ * @param {string=} failureElementId The id of a dom element where to write the failure message
+ * @param {string=} failureClass The failure class
+ * @return {boolean}
+ */ 
+VK2.Validation.checkPersonName = function( elementId, failureElementId, failureClass ){
+	
+	var name = goog.dom.getElement(elementId);
+	var isValide = true;
+	
+	// remove old success / error class from element
+	if (goog.dom.classes.has(name.parentElement, 'has-success') || goog.dom.classes.has(name.parentElement, 'has-error')){
+		goog.dom.classes.remove(name.parentElement, 'has-error');
+		goog.dom.classes.remove(name.parentElement, 'has-success');
+	}
+	
+	isValide = isValide && goog.isDefAndNotNull(name);
+	
+	// check length
+	isValide = isValide && this.checkLength( name.value, 3, 16)
+	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
+		this.setErrorMsg(VK2.Utils.get_I18n_String('personname_to_short'), failureElementId, failureClass);
+		goog.dom.classes.add(name.parentElement, 'has-error');
+		return isValide;
+	};
+	
+	// check tokens
+	isValide = isValide && this.checkRegexp( name.value, /^([a-zA-Z])+$/);
+	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
+		this.setErrorMsg(VK2.Utils.get_I18n_String('personname_wrong_token'), failureElementId, failureClass);
+		goog.dom.classes.add(name.parentElement, 'has-error');
+		return isValide
+	};
+
+	// update error classes for the form
+	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && isValide){
+		goog.dom.classes.remove(goog.dom.getElement(failureElementId), failureClass);
+		goog.dom.classes.remove(name.parentElement, 'has-error');
+		goog.dom.classes.add(name.parentElement, 'has-success');
+	}
+	
+	return isValide;
+}
+
+/**
+ * Checks if a string match the criteria for a validate email adress
+ * @param {string} elementId The id of an input field which holds the password
+ * @param {string=} failureElementId The id of a dom element where to write the failure message
+ * @param {string=} failureClass The failure class
+ * @return {boolean}
+ */ 
+VK2.Validation.checkEmailAdress = function( elementId, failureElementId, failureClass ){
+	
+	var email = goog.dom.getElement(elementId);
+	var isValide = true;
+	
+	// remove old success / error class from element
+	if (goog.dom.classes.has(email.parentElement, 'has-success') || goog.dom.classes.has(name.parentElement, 'has-error')){
+		goog.dom.classes.remove(email.parentElement, 'has-error');
+		goog.dom.classes.remove(email.parentElement, 'has-success');
+	}
+	
+	isValide = isValide && goog.isDefAndNotNull(email);
+	
+	// check length
+	isValide = isValide && this.checkLength( email.value, 6, 80)
+	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
+		this.setErrorMsg(VK2.Utils.get_I18n_String('email_to_short'), failureElementId, failureClass);
+		goog.dom.classes.add(email.parentElement, 'has-error');
+		return isValide;
+	};
+	
+	// check tokens
+	regexp_email = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i;
+	isValide = isValide && this.checkRegexp( email.value, regexp_email);
+	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
+		this.setErrorMsg(VK2.Utils.get_I18n_String('email_wrong_token'), failureElementId, failureClass);
+		goog.dom.classes.add(email.parentElement, 'has-error');
+		return isValide
+	};
+
+	// update error classes for the form
+	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && isValide){
+		goog.dom.classes.remove(goog.dom.getElement(failureElementId), failureClass);
+		goog.dom.classes.remove(email.parentElement, 'has-error');
+		goog.dom.classes.add(email.parentElement, 'has-success');
+	}
+	
+	return isValide;
+}

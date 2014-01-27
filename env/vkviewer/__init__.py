@@ -45,7 +45,7 @@ def addRoutes(config):
     config.add_route('set_locales', 'locales', factory='python.security.EntryFactory')
     
     # route for authentification
-    config.add_route('auth', routePrefix+'/sign/{action}')
+    config.add_route('auth', routePrefix+'/sign/{action}', factory='python.security.EntryFactory')
     
     # for feedback to events on the main page
     config.add_route('gettimestamps',routePrefix+'/gettimestamps', factory='python.security.EntryFactory')
@@ -79,7 +79,7 @@ def addRoutes(config):
     config.add_route('users_profile_georef', routePrefix+'/profile/georef', factory='python.security.EntryFactory')
     
     # error pages
-    #config.add_route('error_page', routePrefix+'/error', factory='python.security.EntryFactory')
+    config.add_route('error_page', routePrefix+'/error', factory='python.security.EntryFactory')
 
 def db(request):
     return request.registry.dbmaker()   

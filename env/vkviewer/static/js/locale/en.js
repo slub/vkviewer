@@ -36,5 +36,11 @@ var lang_dictionary = {
 		// login validation
 		'password_to_short': 'The password should contain between 5 to 16 characters.',
 		'password_wrong_token': 'The password should consist out of alphabetic tokens and numbers between 0 to 9.',
-		'password_is_same': 'The passwords doesn\'t match each other.'
+		'password_is_same': 'The passwords doesn\'t match each other.',
+		'username_to_short': 'The username should contain between 3 to 16 characters.',
+		'username_wrong_token': 'The username should consist out of alphabetic tokens and numbers between 0 to 9.',
+		'personname_to_short': 'The person name should contain between 3 to 16 characters.',
+		'personname_wrong_token': 'The person name should consinst out of alphabetic tokens.',
+		'email_to_short': 'The email adress should contain between 6 to 80 characters.',
+		'email_wrong_token': 'The email adress should have form like Max.Mustermann@slub-dresden.de.'
 }

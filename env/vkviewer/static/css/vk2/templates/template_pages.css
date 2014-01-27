@@ -8,6 +8,33 @@
 	max-width: 600px; 
 }
 
+/* Page: Login screen */
+.form-user-register .form-group.double-input-field{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+.form-user-register .form-group.double-input-field > label{
+	width: 100%;
+}
+
+.form-user-register .form-group.double-input-field > input{
+	max-width: 49%;
+	display: inline;
+}
+
+.form-user-register .form-group.double-input-field .right{
+	float: right;
+}
+
+/* Page: Forget password */
+
+/* Page: Forget password reset successfully */
+.reset-pw-container{
+	padding: 10px;
+}
+
 /* Page: Error message */
 .error-container{
 	padding: 10px;

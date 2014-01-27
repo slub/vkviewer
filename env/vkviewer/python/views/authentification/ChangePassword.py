@@ -5,11 +5,10 @@ Created on Jan 27, 2014
 '''
 import transaction
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound, HTTPInternalServerError, HTTPBadRequest
+from pyramid.httpexceptions import HTTPFound
 from vkviewer.python.tools import checkIsUser
-from vkviewer.python.utils.exceptions import MissingQueryParameterError
+from vkviewer.python.utils.exceptions import MissingQueryParameterError, WrongPasswordError, InternalAuthentificationError
 from vkviewer.python.models.messtischblatt.Users import Users
-from vkviewer.python.views.utils.ErrorPage import WrongPasswordError
 
 @view_config(route_name='change_pw', renderer='change_pw.mako', match_param='action=page', permission='edit',http_cache=0)
 def change_pw_page(request):
@@ -40,16 +39,15 @@ def change_pw(request):
             if user and user.validate_password(old_password):
                 # change password
                 user._set_password(new_password)
-                transaction.commit()
                 
                 # define response header
                 # get target url and route to it
                 target_url = request.route_url('home_login')
                 return HTTPFound(location = target_url)   
             else:
-                raise MissingQueryParameterError('Password for the user is not valid')           
-    except MissingQueryParameterError, WrongPasswordError:
-        raise WrongPasswordError('')
+                raise WrongPasswordError('Password for the user %s is not valid, please try again')        
+    except WrongPasswordError, MissingQueryParameterError:
+        raise 
     except:
-        raise WrongPasswordError('')
+        raise InternalAuthentificationError('Internal server error while trying to change password. Please try again or contact the page administrator.')
     

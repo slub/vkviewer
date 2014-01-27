@@ -1,3 +1,4 @@
+import string, random
 from pyramid.security import unauthenticated_userid
 from vkviewer import log
 
@@ -16,4 +17,8 @@ def getCookie(request, cookieName):
         return cookiesDict[cookieName]
     else:
         return ''
-
+    
+def generateRandomString(size):
+    lst = [random.choice(string.ascii_letters + string.digits) for n in xrange(size)]
+    str = ''.join(lst)
+    return str

@@ -35,8 +35,15 @@ var lang_dictionary = {
 		
 		// login validation
 		'password_to_short': 'Das Passwort sollte zwischen 5 und 16 Zeichen umfassen.',
-		'password_wrong_token': 'Das Passwort sollte sich aus den des Alphabets oder der Zahlen zwischen 0 und 9 zusammensetzen.',
-		'password_is_same': 'Die Passwörter stimmen nicht überein.'
+		'password_wrong_token': 'Das Passwort sollte sich aus den Zeichen des Buchstaben oder Zahlen zwischen 0 und 9 zusammensetzen.',
+		'password_is_same': 'Die Passwörter stimmen nicht überein.',
+		'username_to_short': 'Der Benutzername sollte zwischen 3 und 16 Zeichen umfassen.',
+		'username_wrong_token': 'Der Benutzername sollte sich aus den Buchstaben des Alphabets oder Zahlen zwischen 0 und 9 zusammensetzen.',
+		'personname_to_short': 'Der Name sollte zwischen 3 und 16 Zeichen umfassen.',
+		'personname_wrong_token': 'Der Name sollte sich aus Buchstaben des Alphabets.',
+		'email_to_short': 'Die Email Adresse sollte zwischen 6 und 80 Zeichen umfassen.',
+		'email_wrong_token': 'Die Email sollte in der Form Max.Mustermann@slub-dresden.de gestaltet sein.'
+		
 }
 	
 

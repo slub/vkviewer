@@ -14,13 +14,11 @@
     </head>
 	<body>
 	
-		<div class="error-container">
-			<div class="alert alert-danger">
-				% if error_msg: 
-					${error_msg}
-				% endif
+		<div class="reset-pw-container">
+			<div class="alert alert-success">
+					${_('reset_pw_dialog_success')}
 				<br>
-				<a href="${request.route_url('home')}" class"alert-link">${_('try_again')}</a>
+				<a href="${request.route_url('home')}" class"alert-link">${_('go_back_main_page')}</a>
 			</div>		
 		</div>  
 		        
