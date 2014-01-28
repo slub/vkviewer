@@ -6,7 +6,7 @@ from vkviewer.python.models.messtischblatt.Users import Users
 from vkviewer.python.models.messtischblatt.Fehlermeldung import Fehlermeldung
 from vkviewer.python.georef.utils import getTimestampAsPGStr
 from vkviewer.python.utils.exceptions import MissingQueryParameterError, InternalAuthentificationError
-from vkviewer.python.utils.mail import sendMail
+from vkviewer.python.utils.mail import sendMailCommandLine
 from vkviewer.python.tools import generateRandomString
 
 @view_config(route_name='auth', renderer='reset_pw.mako', match_param='action=page_reset', http_cache=0)
@@ -41,7 +41,7 @@ def reset_pw(request):
                 
                 # send new password
                 reset_msg = password_reset_msg % newPassword
-                response = sendMail(user.email, 'Your password has been changed!', reset_msg)
+                response = sendMailCommandLine(user.email, 'Your password has been changed!', reset_msg)
                 if not response:
                     raise InternalAuthentificationError('Internal server error while trying to send you your new password. Please try again or contact the page administrator.')
                 

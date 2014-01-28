@@ -3,11 +3,11 @@ Created on Jan 27, 2014
 
 @author: mendt
 '''
-import smtplib
+import smtplib, os
 from email.mime.text import MIMEText
-from vkviewer.settings import admin_addr, mail_server
+from vkviewer.settings import admin_addr, mail_server,sendmail_location
 
-def sendMail(addr_to, subject, msg):
+def sendMailSMTP(addr_to, subject, msg):
     try:
         # construct the email
         msg = MIMEText(msg)
@@ -19,6 +19,26 @@ def sendMail(addr_to, subject, msg):
         s = smtplib.SMTP(mail_server)
         s.sendmail(admin_addr, addr_to, msg.as_string())
         s.quit()
+        
+        return True
+    except:
+        raise
+
+def sendMailCommandLine(addr_to, subject, msg):
+    try:
+        # construct the email
+        mail = os.popen('%s -t' % sendmail_location, 'w')
+        mail.write('From: %s\n' % admin_addr)
+        mail.write('To: %s\n' % addr_to)
+        mail.write('Subject: %s\n' % subject)
+        mail.write("\n") # blank line separating headers from body
+        mail.write(msg)
+        status = mail.close()
+
+        
+        # send the message via command line sendmail
+        if status != 0:
+            print "Sendmail exit status", status
         
         return True
     except:
