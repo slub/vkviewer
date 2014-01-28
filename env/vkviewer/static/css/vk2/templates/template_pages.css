@@ -9,6 +9,10 @@
 }
 
 /* Page: Login screen */
+body.login-screen{
+	max-width: 600px;
+}
+
 .form-user-register .form-group.double-input-field{
 	position: relative;
 	float: left;
@@ -29,13 +33,150 @@
 }
 
 /* Page: Forget password */
+body.reset-pw{
+	max-width: 600px;
+}
 
 /* Page: Forget password reset successfully */
+body.reset-pw-success{
+	max-width: 600px;
+}
+
 .reset-pw-container{
 	padding: 10px;
 }
 
 /* Page: Error message */
+body.error{
+	max-width: 600px;
+}
+
 .error-container{
 	padding: 10px;
+}
+
+/* Page: Faq */
+body.faq{
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 800px;
+}
+
+.panel-group.faq{
+	margin: 0px;
+    padding: 0px; 
+}
+
+.panel-group.faq > h2{
+	position: relative;
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, Sans-Serif;
+	color: #c00;
+	font-style: italic;
+	font-weight: normal;
+	line-height: 110%;
+}
+
+.panel-group.faq > h3{
+	display: block;
+	font-size: 1.17em;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-weight: bold;
+}
+
+/* Page: Contact */
+body.contact{
+	height: 400px;
+    width:  400px;
+}
+
+.vk2ContactPageContainer {
+    line-height: 160%;
+    font-family: Verdana, Arial, Helvetica, Sans-Serif;
+    font-size: 0.92em;
+}
+
+div.vk2ContactPageContainer h3{
+	padding-top: 20px;
+	margin-bottom: 10px;
+	font-size: 1.33em;
+	font-weight: bold;
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, Sans-Serif;
+	font-style: italic;
+}
+
+/* Page: Impressum */
+body.impressum {
+	width: 800px;
+}
+
+.vk2ImpressumPageContainer {
+    height: 500px;
+    width:  600px;
+    line-height: 160%;
+    font-family: Verdana, Arial, Helvetica, Sans-Serif;
+    font-size: 0.92em;
+}
+
+.vk2ImpressumPageContainer .text{
+	width: 600px;
+}
+/* Page: Project */
+body.project{
+	width: 800px;
+}
+
+div.vk2PartnerPageContainer h2{
+	padding-top: 20px;
+	margin-bottom: 10px;
+	font-size: 1.33em;
+	font-weight: bold;
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, Sans-Serif;
+	font-style: italic;
+}
+
+div.vk2PartnerPageContainer h3{
+	padding-top: 20px;
+	margin-bottom: 10px;
+	font-size: 1.33em;
+	font-weight: bold;
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, Sans-Serif;
+	font-style: italic;
+}
+
+.vk2PartnerPageContainer .list{
+	margin-left: 20px;
+	list-style-type: disc;
+}
+/**
+ * Generic styles 
+ */
+.slubcolor{
+	color: #c00;
+}
+
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td{
+    margin: 0px;
+    padding: 0px; 
+}
+
+h3 {
+	display: block;
+	font-size: 1.17em;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-weight: bold;
+}
+
+h2{
+	position: relative;
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, Sans-Serif;
+	color: #c00;
+	font-style: italic;
+	font-weight: normal;
+	line-height: 110%;
 }

@@ -12,7 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />	     
     </head>
-	<body>
+	<body class="reset-pw-success">
 	
 		<div class="reset-pw-container">
 			<div class="alert alert-success">

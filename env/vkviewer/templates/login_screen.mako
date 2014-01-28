@@ -58,7 +58,7 @@
     	}
 
     </script>  
-	<body style="font-family: Arial, Verdana, Helvetica, sans-serif">
+	<body class="login-screen">
 		<div class="container">
 			<div class="panel panel-default">
 				<div class="panel-heading" id="panelHeading"><p id="validationTips" class="validation-tips">${_('loginScreen_welcome')}</p></div>

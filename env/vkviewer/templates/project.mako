@@ -9,16 +9,11 @@
         <title>Virtuelles Kartenforum 2.0</title>
         
         <!-- vk2 librarys -->
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/themes/base/jquery-ui.css')}" />
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/project.css')}" />
-      	<script src="${request.static_url('vkviewer:static/lib/jquery.js')}"></script>
-      	<script src="${request.static_url('vkviewer:static/lib/jquery-ui.js')}"></script>
+       	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" /> 
     </head>
-    
-    <script>
-   	
-    </script>  
-	<body>
+     
+	<body class="project">
 	    <div class="vk2PartnerPageContainer">
 	    	<h2 class="slubcolor">${_('project_name_short')}</h2><br>
 	    	<p>${_('project_name_long')}</p>

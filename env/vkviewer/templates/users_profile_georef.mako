@@ -29,7 +29,7 @@
    			}
    		})
     </script>  
-	<body>
+	<body style="width: 1000px;">
 		<header>
 			<hgroup>
 			

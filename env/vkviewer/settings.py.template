@@ -5,8 +5,13 @@ Created on Nov 1, 2013
 '''
 
 dbconfig = 'postgresql+psycopg2://user:password@host:port/database'
+routePrefix = '/vkviewer'
 srid_database = 4314
 
+# email adress for automatic sending
+admin_addr = 'domain@domain'
+mail_server = 'gate.domain'
+sendmail_location = '/path/to/sendmail'
 
 # global parameter georeference process
 tmp_dir = '~/tmp/georef'
@@ -19,3 +24,4 @@ mapfileInitParameter = {"METADATA":{
         "wms_contactorganization":"Saxon State and University Library Dresden (SLUB)",
         "wms_contactperson":"Jacob Mendt", "wms_contactelectronicmailaddress":"Jacob.Mendt@slub-dresden.de",
         "wms_abstract":"This WMS provides the original Messtischblaetter without an spatial coordinate system."}}
+layer_id = 87

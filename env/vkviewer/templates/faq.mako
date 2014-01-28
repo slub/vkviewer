@@ -9,13 +9,13 @@
         <title>Virtuelles Kartenforum 2.0</title>
         
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" />
+		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />
 	    <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script>  
     </head>
     
-	<body>
+	<body class="faq">
 	
-		<div class="panel-group" id="accordion">
+		<div class="panel-group faq" id="accordion">
 			<h2 class="slubcolor">${_('faq_main_heading')}</h2>
   			<br>
   			Wir freuen uns Sie im Virtuellen Kartenforum 2.0 Willkommen zu heisen und wünschen Ihnen viel Spass. Antworten auf verschiedene Fragen

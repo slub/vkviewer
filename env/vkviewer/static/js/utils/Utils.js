@@ -1,5 +1,6 @@
 goog.require('goog.net.cookies');
 goog.require('goog.dom.classes');
+goog.require('goog.style');
 
 VK2.Utils = {
 		
@@ -12,9 +13,22 @@ VK2.Utils = {
 			// links footer
 			$('.'+className).each(function(){
 				$(this).fancybox({
-					'type': 'iframe',	        			
-					'width': '100%',
-        			'height': '100%'
+					'type': 'iframe',
+					'autoSize': false,
+					'beforeShow': function(){
+						var childBody = $('.fancybox-iframe').contents()[0].body;
+						
+						// size
+						var size = goog.style.getSize(childBody);
+						
+						// set width
+						var targetWidth = goog.object.get(size, 'width');
+						this.width = goog.isDef(targetWidth) ? targetWidth + 'px': '100%';
+						
+						// set height
+						var targetHeight = goog.object.get(size, 'height');
+						this.height = goog.isDef(targetHeight) ? targetHeight + 'px' : '100%';
+					}
 				});
 			})
 		},

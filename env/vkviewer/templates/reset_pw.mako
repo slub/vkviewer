@@ -17,7 +17,7 @@
 	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script>
 	     
     </head>
-	<body style="font-family: Arial, Verdana, Helvetica, sans-serif">
+	<body class="reset-pw">
 	
 		<script>
 			// this functions validates the form and checks if the passwords are valide
