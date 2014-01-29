@@ -1,26 +1,14 @@
-# -*- coding: utf-8 -*-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="vkviewer">
-    <head>
-        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
-        <title>Virtuelles Kartenforum 2.0</title>
-        
-        <!-- vk2 librarys -->
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/themes/base/jquery-ui.css')}" />
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/chooseGeorefMtb.css')}" />
-      	<script src="${request.static_url('vkviewer:static/lib/jquery.js')}"></script>
-      	<script src="${request.static_url('vkviewer:static/lib/jquery-ui.js')}"></script>
-    </head>
-    
-    <script>
+<%inherit file="basic_page_slim.mako" />
 
-    </script>  
-	<body>
-		<div class="vk2ChooseGeorefMtb">
+<%block name="header_content">
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
+    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/chooseGeorefMtb.css')}" />     	
+</%block>
+
+<%block name="body_content">
+	<div class="choose-georef">
+  		<div class="vk2ChooseGeorefMtb">
 			
 			##
 			## List of unreferenced messtischblaetter for a given blattnumber (via paginator)
@@ -42,5 +30,7 @@
 			% endif
 			
 		</div>
-    </body>
-</html>
+	</div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.js')}"></script>	    
+</%block>

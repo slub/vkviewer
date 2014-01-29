@@ -1,39 +1,12 @@
-# -*- coding: utf-8 -*-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="vkviewer">
-    <head>
-        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
-        <title>Virtuelles Kartenforum 2.0</title>
-        
-        <!-- vk2 librarys -->
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/themes/base/jquery-ui.css')}" />
+<%inherit file="basic_page.mako" />
+
+<%block name="header_content">
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/welcome.css')}" />
-        <script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script> 
-		<script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script>  
-		<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/ui/idgenerator.js')}"></script>
-      	<script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>	 
-      	
-    </head>
-    
-    <script>
-    	$(document).ready(function(){
-    		// event behavior for deactivation welcome page
-			$('#deactivateWelcomePage').change(function(){				
-				var welcomePageStatus = $(this).prop('checked') ? 'off' : 'on';
-				VK2.Utils.setCookie('welcomepage', welcomePageStatus);
-	   		});
-	   		
-	   		$('#vk2WelcomePageStart').click(function(event){
-	   			parent.$.fancybox.close();
-	   		});	   		
-	   	});
-    </script>  
-	<body>
+</%block>
+
+<%block name="body_content">
+	<div class="welcome-page">
 		<div class="vk2WelcomePage">
 			<div class="vk2WelcomePageBody">
 				<div class="leftContainer">
@@ -104,6 +77,21 @@
 		    		</div>
 				</div>
 			</div>
-		</div>    
-    </body>
-</html>
+		</div>  
+	</div>
+		
+    <script>
+    	$(document).ready(function(){
+    		// event behavior for deactivation welcome page
+			$('#deactivateWelcomePage').change(function(){				
+				var welcomePageStatus = $(this).prop('checked') ? 'off' : 'on';
+				VK2.Utils.setCookie('welcomepage', welcomePageStatus);
+	   		});
+	   		
+	   		$('#vk2WelcomePageStart').click(function(event){
+	   			parent.$.fancybox.close();
+	   		});	   		
+	   	});
+    </script> 
+</%block>
+

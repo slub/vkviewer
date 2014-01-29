@@ -32,6 +32,7 @@ from python.i18n import custom_locale_negotiator
 # load logger
 logging.basicConfig()
 log = logging.getLogger(__file__)
+log.setLevel(logging.DEBUG)
 
 here = os.path.dirname(os.path.abspath(__file__))
 

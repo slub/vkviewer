@@ -1,50 +1,23 @@
-# -*- coding: utf-8 -*-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="vkviewer">
-	<head>
-        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
-        <title>Virtuelles Kartenforum 2.0</title>
-			        	      
-		<!-- css styles -->
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
-	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />   			
-	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicIndexLayout.css')}" />
-	    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
-     	
-     	<!-- javascript internationalization --> 
-      	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-      	
-	    <!-- debug script loading -->
-	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script> 
-	   	<script src="${request.static_url('vkviewer:static/lib/min/jquery.tablesorter.min.js')}"></script>    
-	    <script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script> 
-	    <script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/bootstrap.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/ui/idgenerator.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>	 
+<%inherit file="basic_page.mako" />
 
-	    <!-- production -->
-	    <!-- <script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script> 
-	    <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script>  
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script> -->	 
-	    
-	</head>
-	
-	<body>
-		<noscript>
-    		<style type="text/css">
-    			body {padding-top: 0px;}
-        		div { display:none; }
-   			</style>
-   				${_('javascript_disabled')}
-		</noscript>
+<%block name="header_content">
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
+    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />   			
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicIndexLayout.css')}" />
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
+</%block>
+
+<%block name="body_content">
+	<noscript>
+    	<style type="text/css">
+    		body {padding-top: 0px;}
+        	div { display:none; }
+   		</style>
+   			${_('javascript_disabled')}
+	</noscript>
+		
+	<div class="body-container">
 		<div class="navbar navbar-inverse navbar-fixed-top vk2HeaderNavBar" role="navigation">
 		
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -177,11 +150,15 @@
 
 			      			        
 		</div>
-		
+
 		% if context.get('welcomepage') is not 'off':
 			<a href="${request.route_url('welcome')}" id="vk2WelcomePage"></a>
 		% endif  
-	
-		${next.body()}
-	</body>
-</html>
+	</div>
+
+	${next.body()}
+
+</%block>
+
+
+

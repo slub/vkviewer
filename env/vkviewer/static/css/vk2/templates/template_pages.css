@@ -9,7 +9,7 @@
 }
 
 /* Page: Login screen */
-body.login-screen{
+div.login-screen{
 	max-width: 600px;
 }
 
@@ -33,12 +33,12 @@ body.login-screen{
 }
 
 /* Page: Forget password */
-body.reset-pw{
+div.reset-pw{
 	max-width: 600px;
 }
 
 /* Page: Forget password reset successfully */
-body.reset-pw-success{
+div.reset-pw-success{
 	max-width: 600px;
 }
 
@@ -47,7 +47,7 @@ body.reset-pw-success{
 }
 
 /* Page: Error message */
-body.error{
+div.error{
 	max-width: 600px;
 }
 
@@ -56,7 +56,7 @@ body.error{
 }
 
 /* Page: Faq */
-body.faq{
+div.faq{
 	padding-left: 10px;
 	padding-right: 10px;
 	height: 800px;
@@ -87,7 +87,7 @@ body.faq{
 }
 
 /* Page: Contact */
-body.contact{
+div.contact{
 	height: 400px;
     width:  400px;
 }
@@ -108,7 +108,7 @@ div.vk2ContactPageContainer h3{
 }
 
 /* Page: Impressum */
-body.impressum {
+div.impressum {
 	width: 800px;
 }
 
@@ -124,7 +124,7 @@ body.impressum {
 	width: 600px;
 }
 /* Page: Project */
-body.project{
+div.project{
 	width: 800px;
 }
 

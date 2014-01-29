@@ -1,64 +1,11 @@
-# -*- coding: utf-8 -*-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="vkviewer">
-    <head>
-        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
-        <title>Virtuelles Kartenforum 2.0</title>
-        
-        <!-- vk2 librarys -->
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />
-	    <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script>  
-	    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script> 
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script>
-    </head>
-    
-    <script>
-    	var validateLoginForm = function(){
-    		var isValide = true;
-			
-			// check username
-			isValide = isValide && VK2.Validation.checkUsername(loginUsername, 'validationTipsLogin', 'ui-state-error');
-			if (!isValide) return isValide;
-										
-			// check password
-			isValide = isValide && VK2.Validation.checkPassword(loginPassword, 'validationTipsLogin', 'ui-state-error');
-			if (!isValide) return isValide;
-    	}
-    	
-    	var validateRegisterNewUser = function(){
-    	
-    		var isValide = true;
-    					debugger;
-			// check username
-			isValide = isValide && VK2.Validation.checkUsername(loginNewUsername, 'validationTipsRegisterUser', 'ui-state-error');
-			if (!isValide) return isValide;
-				
-			// check new password
-			isValide = isValide && VK2.Validation.checkPassword(loginNewPassword, 'validationTipsRegisterUser', 'ui-state-error');
-			if (!isValide) return isValide;
-				
-			// check if new password matches validation password
-			isValide = isValide && VK2.Validation.checkPasswordMatch(loginNewPassword, loginNewPasswordValidate, 'validationTipsRegisterUser', 'ui-state-error'); 
-			if (!isValide) return isValide;
-			
-			// check sur- and familyname
-			isValide = isValide && VK2.Validation.checkPersonName(loginNewVorname, 'validationTipsRegisterUser', 'ui-state-error');
-			if (!isValide) return isValide;
-			isValide = isValide && VK2.Validation.checkPersonName(loginNewNachname, 'validationTipsRegisterUser', 'ui-state-error');
-			if (!isValide) return isValide;
-			
-			// check email adress
-			isValide = isValide && VK2.Validation.checkEmailAdress(loginNewEmail, 'validationTipsRegisterUser', 'ui-state-error');
-			if (!isValide) return isValide;
-    	}
+<%inherit file="basic_page.mako" />
 
-    </script>  
-	<body class="login-screen">
+<%block name="header_content">
+	  <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />
+</%block>
+
+<%block name="body_content">
+	<div class="login-screen">
 		<div class="container">
 			<div class="panel panel-default">
 				<div class="panel-heading" id="panelHeading"><p id="validationTips" class="validation-tips">${_('loginScreen_welcome')}</p></div>
@@ -131,7 +78,49 @@
 				</div>
 			</div>
 		</div>
-		
+	</div>
+	
+    <script>
+    	var validateLoginForm = function(){
+    		var isValide = true;
+			
+			// check username
+			isValide = isValide && VK2.Validation.checkUsername(loginUsername, 'validationTipsLogin', 'ui-state-error');
+			if (!isValide) return isValide;
+										
+			// check password
+			isValide = isValide && VK2.Validation.checkPassword(loginPassword, 'validationTipsLogin', 'ui-state-error');
+			if (!isValide) return isValide;
+    	}
+    	
+    	var validateRegisterNewUser = function(){
+    	
+    		var isValide = true;
+    					debugger;
+			// check username
+			isValide = isValide && VK2.Validation.checkUsername(loginNewUsername, 'validationTipsRegisterUser', 'ui-state-error');
+			if (!isValide) return isValide;
+				
+			// check new password
+			isValide = isValide && VK2.Validation.checkPassword(loginNewPassword, 'validationTipsRegisterUser', 'ui-state-error');
+			if (!isValide) return isValide;
+				
+			// check if new password matches validation password
+			isValide = isValide && VK2.Validation.checkPasswordMatch(loginNewPassword, loginNewPasswordValidate, 'validationTipsRegisterUser', 'ui-state-error'); 
+			if (!isValide) return isValide;
+			
+			// check sur- and familyname
+			isValide = isValide && VK2.Validation.checkPersonName(loginNewVorname, 'validationTipsRegisterUser', 'ui-state-error');
+			if (!isValide) return isValide;
+			isValide = isValide && VK2.Validation.checkPersonName(loginNewNachname, 'validationTipsRegisterUser', 'ui-state-error');
+			if (!isValide) return isValide;
+			
+			// check email adress
+			isValide = isValide && VK2.Validation.checkEmailAdress(loginNewEmail, 'validationTipsRegisterUser', 'ui-state-error');
+			if (!isValide) return isValide;
+    	}
 
-    </body>
-</html>
+    </script> 
+</%block>
+
+

@@ -1,35 +1,11 @@
-# -*- coding: utf-8 -*-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="vkviewer">
-    <head>
-        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
-        <title>User #jm | History of user #jm</title>
+<%inherit file="basic_page_slim.mako" />
+
+<%block name="header_content">
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/users_profile_georef.css')}" />		
-        <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script>
+</%block>
 
-    </head>
-
-    <script>
-   		$(document).ready(function(){
-   			// get query parameter
-   			var queryString = window.location.search.substring(1);
-			var vars = queryString.split('&');
-			var queryParams = {}
-			for (var i = 0; i < vars.length; i++){
-				var pair = vars[i].split('=');
-				queryParams[pair[0]] = decodeURIComponent(pair.slice(1).join('='))
-			};
-   			
-   			// if query parameter is set add class to element with georefid
-   			if ('georefid' in queryParams){
-   				$(document.getElementById(queryParams['georefid'])).addClass('complete');
-   			}
-   		})
-    </script>  
-	<body style="width: 1000px;">
+<%block name="body_content">
+	<div style="width: 1000px;">
 		<header>
 			<hgroup>
 			
@@ -86,5 +62,26 @@
 			% endif
 			
 		</div>
-    </body>
-</html>
+	</div>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>	
+	<script>
+   		$(document).ready(function(){
+   			// get query parameter
+   			var queryString = window.location.search.substring(1);
+			var vars = queryString.split('&');
+			var queryParams = {}
+			for (var i = 0; i < vars.length; i++){
+				var pair = vars[i].split('=');
+				queryParams[pair[0]] = decodeURIComponent(pair.slice(1).join('='))
+			};
+   			
+   			// if query parameter is set add class to element with georefid
+   			if ('georefid' in queryParams){
+   				$(document.getElementById(queryParams['georefid'])).addClass('complete');
+   			}
+   		})
+    </script> 
+</%block>
+
+
