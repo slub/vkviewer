@@ -9,14 +9,6 @@
 </%block>
 
 <%block name="body_content">
-	<noscript>
-    	<style type="text/css">
-    		body {padding-top: 0px;}
-        	div { display:none; }
-   		</style>
-   			${_('javascript_disabled')}
-	</noscript>
-		
 	<div class="body-container">
 		<div class="navbar navbar-inverse navbar-fixed-top vk2HeaderNavBar" role="navigation">
 		

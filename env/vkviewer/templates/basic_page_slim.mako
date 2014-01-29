@@ -19,7 +19,14 @@
 	    <%block name="header_content" />
     </head>
 	<body>
-		
+		<noscript>
+	    	<style type="text/css">
+	    		body {padding-top: 0px;}
+	        	div { display:none; }
+	   		</style>
+   			${_('javascript_disabled')}
+		</noscript>
+				
 		<%block name="body_content" />
 		${self.body()}
 			
