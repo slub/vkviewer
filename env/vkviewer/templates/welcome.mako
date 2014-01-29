@@ -80,6 +80,10 @@
 		</div>  
 	</div>
 		
+
+</%block>
+
+<%block name="js_content">
     <script>
     	$(document).ready(function(){
     		// event behavior for deactivation welcome page
@@ -94,4 +98,3 @@
 	   	});
     </script> 
 </%block>
-
