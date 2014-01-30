@@ -81,6 +81,9 @@ def addRoutes(config):
     
     # error pages
     config.add_route('error_page', routePrefix+'/error', factory='python.security.EntryFactory')
+    
+    # test pages
+    config.add_route('development_page', routePrefix+'/development', factory='python.security.EntryFactory')
 
 def db(request):
     return request.registry.dbmaker()   
