@@ -6,7 +6,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="container change-pw">
+	<div class="container change-pw page-container">
 		<div class="panel panel-default">
 			<div class="panel-heading" id="panelHeading"><p id="validationTips" class="validationTips">${_('change_pw_header')}</p></div>
 				

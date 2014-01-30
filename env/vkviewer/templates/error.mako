@@ -6,7 +6,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="error">
+	<div class="error page-container">
 		<div class="error-container">
 			<div class="alert alert-danger">
 				% if error_msg: 

@@ -7,7 +7,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="choose-georef">
+	<div class="choose-georef page-container">
   		<div class="vk2ChooseGeorefMtb">
 			
 			##

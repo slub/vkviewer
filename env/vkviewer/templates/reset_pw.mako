@@ -5,7 +5,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="reset-pw">
+	<div class="reset-pw page-container">
 		<div class="container change-pw">
 			<div class="panel panel-default">
 				<div class="panel-heading" id="panelHeading">

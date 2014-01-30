@@ -6,7 +6,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="faq">
+	<div class="faq page-container">
 		<div class="panel-group faq" id="accordion">
 			<h2 class="slubcolor">${_('faq_main_heading')}</h2>
   			<br>

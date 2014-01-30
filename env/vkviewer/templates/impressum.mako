@@ -6,7 +6,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="impressum">
+	<div class="impressum page-container">
 		<div class="vk2ImpressumPageContainer">
 	    	<h2 class="slubcolor">${_('footer_editorial')}</h2>
 	    	<div class="text">

@@ -35,6 +35,7 @@ div.login-screen{
 /* Page: Forget password */
 div.reset-pw{
 	max-width: 600px;
+	max-height: 400px;
 }
 
 /* Page: Forget password reset successfully */
@@ -60,6 +61,7 @@ div.faq{
 	padding-left: 10px;
 	padding-right: 10px;
 	height: 800px;
+	max-width: 1000px;
 }
 
 .panel-group.faq{

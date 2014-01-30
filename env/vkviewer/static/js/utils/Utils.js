@@ -17,17 +17,28 @@ VK2.Utils = {
 					'autoSize': false,
 					'beforeShow': function(){
 						var childBody = $('.fancybox-iframe').contents()[0].body;
+						var childElements = goog.dom.getChildren(childBody);
 						
-						// size
-						var size = goog.style.getSize(childBody);
-						
-						// set width
-						var targetWidth = goog.object.get(size, 'width');
-						this.width = goog.isDef(targetWidth) ? targetWidth + 'px': '100%';
-						
-						// set height
-						var targetHeight = goog.object.get(size, 'height');
-						this.height = goog.isDef(targetHeight) ? targetHeight + 'px' : '100%';
+						// look if there is a container element
+						for (var i = 0; i < childElements.length; i++){
+							
+							// if there is a container element took his size and width
+							if (goog.dom.classes.has(childElements[i], 'page-container')){
+								var containerEl = childElements[i];
+								
+								// size
+								var size = goog.style.getSize(containerEl);
+								
+								// set width
+								var targetWidth = goog.object.get(size, 'width') + 20;
+								this.width = goog.isDef(targetWidth) ? targetWidth + 'px': '100%';
+								
+								// set height
+								var targetHeight = goog.object.get(size, 'height');
+								this.height = goog.isDef(targetHeight) ? targetHeight + 'px' : '100%';
+							}
+						}
+
 					}
 				});
 			})

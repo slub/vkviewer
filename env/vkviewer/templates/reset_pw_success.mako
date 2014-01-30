@@ -5,7 +5,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="reset-pw-success">
+	<div class="reset-pw-success page-container">
 		<div class="reset-pw-container">
 			<div class="alert alert-success">
 				${_('reset_pw_dialog_success')}

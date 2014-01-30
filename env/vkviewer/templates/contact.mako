@@ -6,7 +6,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="contact">
+	<div class="contact page-container">
 		<div class="vk2ContactPageContainer">
 	    	<h3 class="slubcolor">${_('footer_contact')}</h3>
 	    	<p>${_('slubname_start')}<br>

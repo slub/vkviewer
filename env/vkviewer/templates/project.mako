@@ -5,7 +5,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="project">
+	<div class="project page-container">
 		<div class="vk2PartnerPageContainer">
 	    	<h2 class="slubcolor">${_('project_name_short')}</h2><br>
 	    	<p>${_('project_name_long')}</p>

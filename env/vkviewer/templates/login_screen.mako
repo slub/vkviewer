@@ -5,7 +5,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="login-screen">
+	<div class="login-screen page-container">
 		<div class="container">
 			<div class="panel panel-default">
 				<div class="panel-heading" id="panelHeading"><p id="validationTips" class="validation-tips">${_('loginScreen_welcome')}</p></div>

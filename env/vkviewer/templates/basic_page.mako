@@ -28,16 +28,27 @@
 
 	    
 	    <!-- production -->
-		<!-- js librarys via cdn -->    
+		<!-- js librarys via cdn    
       	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-      	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>   
-   		<!-- vk2 served librarys -->    
+      	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> -->
+   		<!-- vk2 served librarys   
         <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.js')}"></script>	    
 	    <script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script> 
 	    <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-plugin-libarys.min.js')}"></script>  
 	    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script> 
+	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script> --> 
 	    	
+	    <!-- development -->
+	  	<script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.tablesorter.min.js')}"></script>  
+	    <script src="${request.static_url('vkviewer:static/lib/min/bootstrap.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script> 
+      	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
+      	<script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script> 
+	    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script> 
 	    <%block name="js_content" />
 	    
         <!-- Piwik -->
