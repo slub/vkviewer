@@ -43,6 +43,7 @@
 	    <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.tablesorter.min.js')}"></script>  
+	   	<script src="${request.static_url('vkviewer:static/lib/min/jquery.tabslideout.min.js')}"></script>  
 	    <script src="${request.static_url('vkviewer:static/lib/min/bootstrap.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script> 
       	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>

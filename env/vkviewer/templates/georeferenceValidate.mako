@@ -1,47 +1,21 @@
-# -*- coding: utf-8 -*-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="vkviewer">
-    <head>
-        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
-        <title>Virtuelles Kartenforum 2.0</title>
-        
-        <!-- js/css -->
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.3/themes/base/jquery-ui.css')}" />
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/fancyapps-fancyBox/source/jquery.fancybox.css')}" media="screen" />    
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />       
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/georeferenceValidate.css')}" />
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/tools/Georeferencer.css')}" />
-		
-		<!-- production --> 
-      	<script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script> 
-	    <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-libarys.min.js')}"></script> 
-		<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>	
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script>
-	    
-	    <!-- for testing --> 
-	  	<!-- 	    
-	  	<script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.tabslideout.min.js')}"></script>  
-	  	<script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script> 
-	  	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
-	  	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>	    
-		<script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script> -->     
- 
-		<style>
-			.olImageLoadError { 
-	    /* when OL encounters a 404, don't display the pink image */
-	    display: none !important;
-	} 
-		</style>
-    </head>
-	<body>	       
-		
+<%inherit file="basic_page.mako" />
+
+<%block name="header_content">
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
+    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />       
+    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/georeferenceValidate.css')}" />
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/tools/Georeferencer.css')}" />
+	
+	<style>
+		.olImageLoadError { 
+	   		/* when OL encounters a 404, don't display the pink image */
+	    	display: none !important;
+		} 
+	</style>
+</%block>
+
+<%block name="body_content">
+	<div class="page-container">
 		<div class="vk2GeoreferenceMtbValidatePage">
 			<div class="vk2GeoreferenceMtbValidateBodyContainer">
 				<div class="georeferenceMapContainer">
@@ -116,38 +90,37 @@
 				src="${request.static_url('vkviewer:static/images/close.png')}" 
 				title="${_('report_error_titel')}"></a>
 		</div>
-
-		<script>
-	$(document).ready(function(){
-		VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
-		VK2.Utils.setGenericOpenLayersPropertys("vkviewer/proxy/?url=");
-		
-		// def the used srs
-		Proj4js.defs["EPSG:900913"] = "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +over no_defs";
-		Proj4js.defs["EPSG:4314"] = "+proj=longlat +ellps=bessel +towgs84=582,105,414,1.04,0.35,-3.08,8.3 +no_defs"; 
-		Proj4js.defs["EPSG:31467"] = "+proj=tmerc +lat_0=0 +lon_0=9 +k=1 +x_0=3500000 +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
-		
-		var urlParams = VK2.Utils.getAllUrlParams();
-		var map_original = VK2.Utils.Georef.initializeGeoreferencerMap('georeferenceMap', urlParams);
-		var map_result = VK2.Utils.Georef.initializeGeoreferenceResultMap('georeferenceResultMap', urlParams);
-		var georeferenceTool = new VK2.Tools.Georeferencer({
-			container: 'vk2GeoreferenceToolsPanel',
-			handler: 'vk2GeoreferenceToolsHandle',
-			map: map_original,
-			controller: VK2.Controller.GeoreferenceController,
-			urlParams: urlParams, 
-			status: 'validate'
+	</div>
+	
+	<script>
+		$(document).ready(function(){
+			VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
+			VK2.Utils.setGenericOpenLayersPropertys("vkviewer/proxy/?url=");
+			
+			// def the used srs
+			Proj4js.defs["EPSG:900913"] = "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +over no_defs";
+			Proj4js.defs["EPSG:4314"] = "+proj=longlat +ellps=bessel +towgs84=582,105,414,1.04,0.35,-3.08,8.3 +no_defs"; 
+			Proj4js.defs["EPSG:31467"] = "+proj=tmerc +lat_0=0 +lon_0=9 +k=1 +x_0=3500000 +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
+			
+			var urlParams = VK2.Utils.getAllUrlParams();
+			var map_original = VK2.Utils.Georef.initializeGeoreferencerMap('georeferenceMap', urlParams);
+			var map_result = VK2.Utils.Georef.initializeGeoreferenceResultMap('georeferenceResultMap', urlParams);
+			var georeferenceTool = new VK2.Tools.Georeferencer({
+				container: 'vk2GeoreferenceToolsPanel',
+				handler: 'vk2GeoreferenceToolsHandle',
+				map: map_original,
+				controller: VK2.Controller.GeoreferenceController,
+				urlParams: urlParams, 
+				status: 'validate'
+			});
+	
+			// init report error
+			var reportErrorTools = new VK2.Tools.ReportError({});
+			$('#vk2GeoreferenceReportErrorPanel').click(function(){
+				reportErrorTools.reportError(urlParams['mtbid'], 'messtischblatt');
+			});
 		});
-
-		// init report error
-		var reportErrorTools = new VK2.Tools.ReportError({});
-		$('#vk2GeoreferenceReportErrorPanel').click(function(){
-			reportErrorTools.reportError(urlParams['mtbid'], 'messtischblatt');
-		});
-	});
-		</script>
-        
-    </body>
-</html>
+    </script>  
+</%block>
 
 
