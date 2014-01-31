@@ -42,7 +42,12 @@ var lang_dictionary = {
 		'personname_to_short': 'Der Name sollte zwischen 3 und 16 Zeichen umfassen.',
 		'personname_wrong_token': 'Der Name sollte sich aus Buchstaben des Alphabets.',
 		'email_to_short': 'Die Email Adresse sollte zwischen 6 und 80 Zeichen umfassen.',
-		'email_wrong_token': 'Die Email sollte in der Form Max.Mustermann@slub-dresden.de gestaltet sein.'
+		'email_wrong_token': 'Die Email sollte in der Form Max.Mustermann@slub-dresden.de gestaltet sein.',
+		
+		// show metadata
+		'show_metadata': 'zeige Metadaten'
+			
+		
 		
 }
 	

@@ -47,9 +47,15 @@
 	    <script src="${request.static_url('vkviewer:static/lib/min/bootstrap.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script> 
       	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
-      	<script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script> 
+      	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/disposable/disposable.js')}"></script>
+      	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/debug/entrypointregistry.js')}"></script>
+      	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/events/listenable.js')}"></script>
+      	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/events/event.js')}"></script>
+      	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/events/eventtarget.js')}"></script>
+      	<script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script> 
 	    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script> 
+	    
 	    <%block name="js_content" />
 	    
         <!-- Piwik -->

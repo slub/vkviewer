@@ -53,7 +53,7 @@ VK2.Controller.MapSearchController.prototype.addRowBehavior = function(rowElemen
 VK2.Controller.MapSearchController.prototype._addRowClickBehavior = function(rowElement, feature){
 	var _ftLayer = this._ftLayer;
 	
-	$(rowElement).click( function() {
+	$(rowElement).click( function(event) {
 		// set map center corresponding to the feature
 		var center = feature.geometry.getCentroid();
 		_ftLayer.map.setCenter(new OpenLayers.LonLat(center.x, center.y), 4);
@@ -76,13 +76,13 @@ VK2.Controller.MapSearchController.prototype._addRowHoverBehavior = function(row
 	var _hoverLayer = this._hoverLayer;
 	
 	$(rowElement).hover( 
-			function(){
+			function(event){
 				if (!$(this).hasClass('hover-table')){
 					$(this).addClass('hover-table');
 					_hoverLayer.updateGeometry(feature.geometry);
 				}
 			}, 
-			function(){
+			function(event){
 				if ($(this).hasClass( 'hover-table' )){
 					$(this).removeClass( 'hover-table' );
 					
@@ -180,12 +180,12 @@ VK2.Controller.MapSearchController.prototype._updateDisplayedFeatureData = funct
 	var data = {};
 
 	if (objData){
-
 		for (var i = 0; i < objData.features.length; i++){
 			var feature = objData.features[i]
 			data[feature.data['mtbid']] = {
 				'titel':feature.data['titel'],
 				'time':feature.data['time'], 
+				'csw_id':feature.data['dateiname'],
 				'feature':feature
 			};
 		}

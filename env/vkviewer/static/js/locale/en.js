@@ -42,5 +42,8 @@ var lang_dictionary = {
 		'personname_to_short': 'The person name should contain between 3 to 16 characters.',
 		'personname_wrong_token': 'The person name should consinst out of alphabetic tokens.',
 		'email_to_short': 'The email adress should contain between 6 to 80 characters.',
-		'email_wrong_token': 'The email adress should have form like Max.Mustermann@slub-dresden.de.'
+		'email_wrong_token': 'The email adress should have form like Max.Mustermann@slub-dresden.de.',
+		
+		// show metadata
+		'show_metadata': 'show Metadata'
 }

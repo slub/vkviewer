@@ -54,6 +54,9 @@
     		"utils/Validation.js",
     		"utils/Georef.js",
     		"utils/AppLoader.js",
+    		"utils/Settings.js",
+    		"events/EventType.js",
+    		"events/ParsedCswRecordEvent.js",
     		"styles/FeatureLayerStyles.js",
     		"controller/Mediator.js",
     		"controller/MapController.js",
@@ -74,7 +77,9 @@
     		"tools/SpatialSearch.js",
     		"tools/Layerbar.js",
     		"tools/Sidebar.js",
-    		"tools/ReportError.js"
+    		"tools/ReportError.js",
+    		"tools/MetadataVisualizer.js",
+    		"requests/CSW_GetRecordById.js"
     );
     
     var len = jsfiles.length;

@@ -143,6 +143,27 @@ VK2.Tools.SearchTable.prototype._createTable = function(){
 }
 
 /**
+ * @static
+ */
+VK2.Tools.SearchTable._mdFancyBoxClass = 'fancybox-md';
+
+/**
+ * @param {string} colTitel
+ * @param {string} titel
+ * @param {string} csw_id
+ * @return {Element}
+ * @private
+ */
+VK2.Tools.SearchTable.prototype._createMetadataCol = function(colTitel, titel, csw_id){
+	var col = goog.dom.createDom('td', {
+		'class': 'data-col-'+colTitel + ' col-'+colTitel,
+		'innerHTML': titel +  ' (<a class="' + this._mdFancyBoxClass + '" href="http://localhost:8080/geonetwork/srv/eng/search#|' + 
+				csw_id + '">show Metadata</a>)'
+	});
+	return col; 
+}
+
+/**
  * @param {Object} object
  */
 VK2.Tools.SearchTable.prototype.refreshData = function(object){
@@ -158,10 +179,16 @@ VK2.Tools.SearchTable.prototype.refreshData = function(object){
 		})
 	
 		for (var i = 0; i < this._columnIds.length; i++){
-			var col = goog.dom.createDom('td', {
-				'class': 'data-col-'+this._columnIds[i] + ' col-'+this._columnIds[i],
-				'innerHTML': object[key][this._columnIds[i]]
-			})
+			
+			// special row behavior for column id titel
+			if (this._columnIds[i] == 'titel' && object[key]['csw_id']){
+				var col = this._createMetadataCol(this._columnIds[i], object[key][this._columnIds[i]], object[key]['csw_id'])
+			} else {
+				var col = goog.dom.createDom('td', {
+					'class': 'data-col-'+this._columnIds[i] + ' col-'+this._columnIds[i],
+					'innerHTML': object[key][this._columnIds[i]]
+				});
+			}
 			goog.dom.appendChild(row, col);
 		}
 		
@@ -174,6 +201,8 @@ VK2.Tools.SearchTable.prototype.refreshData = function(object){
 	// update tablesorter 
 	$(document.getElementById(this.tableId)).trigger('update');
 
+	// activate fancybox events
+	VK2.Utils.initializeFancyboxForClass(this._mdFancyBoxClass);
 }
 
 
