@@ -1,5 +1,8 @@
 goog.provide('VK2.Controller.MapSearchController');
 
+goog.require('goog.dom');
+goog.require('goog.dom.classes');
+
 /**
  * @param {Object} map OpenLayers.Map
  * @param {Object} ftLayer OpenLayers.Layer.Vector
@@ -54,6 +57,7 @@ VK2.Controller.MapSearchController.prototype._addRowClickBehavior = function(row
 	var _ftLayer = this._ftLayer;
 	
 	$(rowElement).click( function(event) {
+
 		// set map center corresponding to the feature
 		var center = feature.geometry.getCentroid();
 		_ftLayer.map.setCenter(new OpenLayers.LonLat(center.x, center.y), 4);
@@ -63,6 +67,20 @@ VK2.Controller.MapSearchController.prototype._addRowClickBehavior = function(row
 		
 		// hear the callback should be placed
 		$('#spatialsearch-tools-input-layer').val(feature.data['time'])
+		
+		// show metadata
+		if (goog.dom.classes.has(event.target, 'anchor-show-metadata')) {
+			// if parentElement not initialize do it
+			var parentElementId = 'metadata-record-parent';
+			if (!goog.isDefAndNotNull(goog.dom.getElement(parentElementId))){
+				var parentElement = goog.dom.createDom('div', {
+					'class': 'metadata-record',
+					'id': parentElementId
+				});
+				goog.dom.appendChild(document.body, parentElement);
+			}
+			var mdVisualizer = new VK2.Tools.MetadataVisualizer(parentElementId,feature.data.dateiname, 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw');
+		};
 	});
 }
 

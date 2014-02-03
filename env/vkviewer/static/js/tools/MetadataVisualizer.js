@@ -2,12 +2,17 @@ goog.provide('VK2.Tools.MetadataVisualizer');
 
 goog.require('VK2.Events.ParsedCswRecordEvent');
 goog.require('goog.dom');
+goog.require('goog.Uri');
+goog.require('goog.style');
+goog.require('goog.events');
 
 /**
  * @param {string} parentElId Id of the parent div element
+ * @param {string} metadataId
+ * @param {string} csw_url
  * @constructor
  */
-VK2.Tools.MetadataVisualizer = function(parentElId){
+VK2.Tools.MetadataVisualizer = function(parentElId, metadataId, csw_url){
 	
 	/**
 	 * @type {Object}
@@ -15,13 +20,59 @@ VK2.Tools.MetadataVisualizer = function(parentElId){
 	 */
 	this._parentEl = goog.dom.getElement(parentElId);
 	
+	// open fancy box
+	this._initFancyBox();
+	
+	// get metadata content from csw
 	var selfObj = this;
 	var eventHandler = function(event){
 		selfObj.displayCswIsoRecord(event);
 	}
 	var csw_parser = new VK2.Requests.CSW_GetRecordById();
 	csw_parser.addEventListener(VK2.Events.EventType.PARSED_RECORD, eventHandler);
-	response = csw_parser.getRecord('df_dk_0010001_4853_1936', 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw');
+	response = csw_parser.getRecord(metadataId, csw_url);
+};
+
+/**
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._initFancyBox = function(){
+	$(this._parentEl).fancybox({
+		parentEl: this._parentEl,
+		parentObj: this,
+		maxWidth	: 800,
+		maxHeight	: 600,
+		fitToView	: false,
+		autoSize	: false,
+		width: '100%',
+		height: '100%',
+		closeClick: false,
+		closeEffect	: 'none',
+		'beforeShow': function(){
+			// size
+			var size = goog.style.getSize(this.parentEl);
+			
+			// set width
+			var targetWidth = goog.object.get(size, 'width') + 20;
+			this.width = goog.isDef(targetWidth) ? targetWidth + 'px': '100%';
+			
+			// set height
+			var targetHeight = goog.object.get(size, 'height');
+			this.height = goog.isDef(targetHeight) ? targetHeight + 'px' : '100%';
+		},
+		'afterShow': function(){
+			goog.style.setStyle(this.parentEl, 'display', 'block');
+		},
+		'afterClose': function(){
+			goog.style.setStyle(this.parentEl, 'display', 'none');
+			this.parentObj._clearHtmlContent();
+			// delete MetadataVisualizer Object
+			this.parentObj = null;
+			delete this.parentObj;
+		}
+	}).click();
+	
+	this._fixCloseClick();
 };
 
 /**
@@ -32,7 +83,9 @@ VK2.Tools.MetadataVisualizer.prototype.displayCswIsoRecord = function(event){
 	this._createTable();
 	this._createHeader(parsed_content['TITEL'][0],parsed_content['ABSTRACT'][0],parsed_content['THUMBNAIL'][0]);
 	this._createContent(parsed_content, this._tBody);
+	this._fixLinks();
 };
+
 
 /**
  * private
@@ -69,7 +122,7 @@ VK2.Tools.MetadataVisualizer.prototype._createHeader = function(title, descripti
  */
 VK2.Tools.MetadataVisualizer.prototype._createHeaderTitel = function(title, parentEl){
 	var row = goog.dom.createDom('tr',{});
-	var col = goog.dom.createDom('td',{'colspan':'2'});
+	var col = goog.dom.createDom('td',{'colspan':'2', 'class':'col-header-titel'});
 	var span = goog.dom.createDom('span',{'class':'metadata-title','innerHTML':title});
 	goog.dom.appendChild(col, span);
 	goog.dom.appendChild(row, col);
@@ -106,13 +159,13 @@ VK2.Tools.MetadataVisualizer.prototype._createHeaderContent = function(descripti
  */
 VK2.Tools.MetadataVisualizer.prototype._createContent = function(parsed_content, parentElement){
 	this._createContentContainer(parsed_content['ID'][0], parentElement);
-	this._slimContentRow('Keywords','Messtischblätter, Messtischblatt', this._tBodyContent);
-	this._slimContentRow('Language','German', this._tBodyContent);
+	this._slimContentRow(VK2.Utils.get_I18n_String('mdrecord_keyword'),'Messtischblätter, Messtischblatt', this._tBodyContent);
+	this._slimContentRow(VK2.Utils.get_I18n_String('mdrecord_language'),'German', this._tBodyContent);
 	for (var i = 0; i < parsed_content['REFERENCE_SYSTEM'].length; i++){
-		this._slimContentRow('Reference system identifier',parsed_content['REFERENCE_SYSTEM'][i], this._tBodyContent)};
+		this._slimContentRow(VK2.Utils.get_I18n_String('mdrecord_referencesystem'),parsed_content['REFERENCE_SYSTEM'][i], this._tBodyContent)};
 	for (var i = 0; i < parsed_content['ONLINE_RESSOURCE'].length; i++){
-		this._anchorContentRow('Online ressources',parsed_content['ONLINE_RESSOURCE'][i], this._tBodyContent)};
-	this._fatContentRow('Spatial Resolution', parsed_content['DENOMINATOR'][0], 'Denominator', this._tBodyContent);
+		this._anchorContentRow(VK2.Utils.get_I18n_String('mdrecord_onlineresource'),parsed_content['ONLINE_RESSOURCE'][i], this._tBodyContent)};
+	this._fatContentRow(VK2.Utils.get_I18n_String('mdrecord_spatialresolution'), parsed_content['DENOMINATOR'][0], 'Denominator', this._tBodyContent);
 };
 
 /**
@@ -135,12 +188,12 @@ VK2.Tools.MetadataVisualizer.prototype._createContentContainer = function(datase
 	var legend = goog.dom.createDom('legend',{});
 	goog.dom.appendChild(fieldset, legend);	
 	
-	var span = goog.dom.createDom('span',{'innerHTML':'More metadata about the messtischblatt'});
+	var span = goog.dom.createDom('span',{'innerHTML':VK2.Utils.get_I18n_String('metadata_overview')});
 	goog.dom.appendChild(legend, span);	
 	
 	var a = goog.dom.createDom('a',{
 		'href': 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|'+datasetId,
-		'innerHTML':'Information about the messtischblatt',
+		'innerHTML': VK2.Utils.get_I18n_String('mdrecord_moremetadata'),
 		'target': '_top'
 	});
 	goog.dom.appendChild(legend, a);	
@@ -157,7 +210,7 @@ VK2.Tools.MetadataVisualizer.prototype._createContentContainer = function(datase
 	goog.dom.appendChild(table ,this._tBodyContent);
 	
 	// footer
-	var footer = goog.dom.createDom('span',{'class':'metadata-record-footer','innerHTML':'Unique identifier '+datasetId});
+	var footer = goog.dom.createDom('span',{'class':'metadata-record-footer','innerHTML':VK2.Utils.get_I18n_String('mdrecord_uniqueid') + ' | ' + datasetId});
 	goog.dom.appendChild(fieldset, footer);	
 };
 
@@ -192,10 +245,15 @@ VK2.Tools.MetadataVisualizer.prototype._anchorContentRow = function(label, conte
 	var colContent = goog.dom.createDom('td',{});
 	goog.dom.appendChild(row, colContent);
 	
+	// for preventing to large innerHTML in the anchor element remove 
+	// the query data
+	url = new goog.Uri(content);
+	url.setQuery('');	
 	var anchor = goog.dom.createDom('a',{
-		'innerHTML':content,
+		'innerHTML': url.toString(),
 		'href':content,
-		'target':'top_'
+		'target': '_top',
+		'style': 'z-index:10000;'
 	});
 	goog.dom.appendChild(colContent, anchor);
 	
@@ -227,4 +285,39 @@ VK2.Tools.MetadataVisualizer.prototype._fatContentRow = function(label, content,
 	goog.dom.appendChild(div, div1);	
 	
 	goog.dom.appendChild(parentElement, row);
+}
+
+/**
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._clearHtmlContent = function(){
+	goog.dom.removeChildren(this._parentEl);
+	goog.dom.removeNode(this._parentEl);
+}
+
+/**
+ * This method has to be run to fix the link behavior of inline content who is displayed 
+ * within a fancybox
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._fixLinks = function(){
+	var anchors = goog.dom.getElementsByTagNameAndClass('a', undefined, this._parentEl);
+	for (var i = 0; i < anchors.length; i++){
+		goog.events.listen(anchors[i], 'click', function(e){			
+			var href = event.target.href;
+			window.location = href;
+		});
+	};
+}
+
+/**
+ * This method has to be run to fix the closeClick behavior off fancybox
+ * within a fancybox
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._fixCloseClick = function(){
+	goog.events.listen(this._parentEl, 'click', function(e){
+		e.stopPropagation();
+	}, true)
+
 }

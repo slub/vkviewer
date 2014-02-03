@@ -157,8 +157,7 @@ VK2.Tools.SearchTable._mdFancyBoxClass = 'fancybox-md';
 VK2.Tools.SearchTable.prototype._createMetadataCol = function(colTitel, titel, csw_id){
 	var col = goog.dom.createDom('td', {
 		'class': 'data-col-'+colTitel + ' col-'+colTitel,
-		'innerHTML': titel +  ' (<a class="' + this._mdFancyBoxClass + '" href="http://localhost:8080/geonetwork/srv/eng/search#|' + 
-				csw_id + '">show Metadata</a>)'
+		'innerHTML': titel + ' (<a href="#" class="anchor-show-metadata">' + VK2.Utils.get_I18n_String('show_metadata') + '</a>)'
 	});
 	return col; 
 }

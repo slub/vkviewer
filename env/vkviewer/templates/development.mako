@@ -6,18 +6,14 @@
 </%block>
 
 <%block name="body_content">
-	<div class="metadata-record page-container">	
-		<div id="parentElement"></div>
+	<div id="parentElement" class="metadata-record page-container">	
 	</div>
-
 </%block>
 
 <%block name="js_content">
 	<script>
-		$(document).ready(function(){
-		
-			var mdVisualizer = new VK2.Tools.MetadataVisualizer('parentElement');
-
+		$(document).ready(function(){					
+			var mdVisualizer = new VK2.Tools.MetadataVisualizer('parentElement','df_dk_0010001_4853_1936', 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw');
 		});
     </script>  
 </%block>

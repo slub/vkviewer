@@ -1689,7 +1689,7 @@
 
 	F.helpers.overlay = {
 		defaults : {
-			closeClick : true,      // if true, fancyBox will be closed when user clicks on the overlay
+			closeClick : false,      // if true, fancyBox will be closed when user clicks on the overlay
 			speedOut   : 200,       // duration of fadeOut animation
 			showEarly  : true,      // indicates if should be opened immediately or wait until the content is ready
 			css        : {},        // custom CSS properties
@@ -1736,7 +1736,7 @@
 
 				this.update();
 			}
-
+			
 			if (opts.closeClick) {
 				this.overlay.bind('click.overlay', function(e) {
 					if ($(e.target).hasClass('fancybox-overlay')) {
@@ -1844,7 +1844,7 @@
 
 				W.scrollTop( scrollV ).scrollLeft( scrollH );
 			}
-
+			
 			this.open(opts);
 		},
 
@@ -1948,7 +1948,7 @@
 					}
 
 					options.index = idx;
-
+					
 					// Stop an event from bubbling if everything is fine
 					if (F.open(what, options) !== false) {
 						e.preventDefault();
