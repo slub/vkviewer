@@ -40,7 +40,8 @@ def addRoutes(config):
     # add routes
     config.add_static_view(routePrefix+'/static', 'vkviewer:static/', cache_max_age=0)
     config.add_route('proxy', routePrefix+'/proxy/')
-    config.add_route('home', routePrefix, factory='python.security.EntryFactory')
+    config.add_route('home', routePrefix + '/', factory='python.security.EntryFactory')
+    config.add_route('home1', routePrefix, factory='python.security.EntryFactory')
     config.add_route('home_login', routePrefix+'/auth', factory='python.security.EntryFactory')
 #    config.add_route('georef', routePrefix+'/georef', factory='python.security.EntryFactory')
     config.add_route('set_locales', 'locales', factory='python.security.EntryFactory')
@@ -111,12 +112,18 @@ def setLocalizationOptions(config):
 def getAuthenticationPolicy():
     authPolicy = AuthTktAuthenticationPolicy('somesecret')
     return authPolicy
-              
-def main(global_config, **settings):
+
+def createWsgiApp(global_config, debug=False, **settings):
+    
+    if debug:
+        settings = {}
+    
     # configuration settings
     settings['mako.directories'] = os.path.join(here, 'templates')
-    settings['reload_all'] = True
-    settings['debug_all'] = True
+    
+    if debug:
+        settings['reload_all'] = True
+        settings['debug_all'] = True
     
     
     #  configuration setup
@@ -131,7 +138,10 @@ def main(global_config, **settings):
     config.include('pyramid_tm')
     
     # configuration of the database
-    loadDB(config, settings)
+    if debug:
+        loadDB(config, settings, True)
+    else:
+        loadDB(config, settings)
 
     print "Load database"
     # configuration of internationalization
@@ -146,48 +156,15 @@ def main(global_config, **settings):
     config.add_view(proxy_post, route_name='proxy')
     config.scan('python.views')
     
-    print "Loading done!"
-    #config.scan('python.views.georeference')
+    print "Loading done!"    
     
     return config.make_wsgi_app()
 
 
+def main(global_config, **settings):
+    return createWsgiApp(global_config, debug=False, **settings)
+
 if __name__ == '__main__':
-    # configuration settings
-    settings = {}
-    settings['mako.directories'] = os.path.join(here, 'templates')
-    settings['reload_all'] = True
-    settings['debug_all'] = True
- 
-    # session factory
-    #session_factory = UnencryptedCookieSessionFactoryConfig('itsaseekreet')
-    
-    #  configuration setup
-    authentication_policy = getAuthenticationPolicy()
-    authorization_policy = ACLAuthorizationPolicy()
-    config = Configurator(settings=settings,
-                      authentication_policy=authentication_policy,
-                      authorization_policy=authorization_policy
-                      )
-    
-    # add requiries
-    config.include('pyramid_mako')
-    config.include('pyramid_tm')
-    
-    # configuration of the database
-    loadDB(config, settings, True)
-    
-    # configuration of internationalization
-    setLocalizationOptions(config)
-    
-    # add Routes
-    addRoutes(config)
-    
-    # add views to routes
-    config.add_view(proxy_post, route_name='proxy')
-    config.scan('python.views')
-    #config.scan('python.views.georeference')
-    
-    app = config.make_wsgi_app()
+    app = createWsgiApp(None, debug=True)
     server = make_server('0.0.0.0', 8080, app)
     server.serve_forever()

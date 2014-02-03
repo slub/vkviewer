@@ -5,6 +5,7 @@ from vkviewer import log
 
 """ basic start site """
 @view_config(route_name='home', renderer='indexLoggedOut.mako', permission='view',http_cache=0)
+@view_config(route_name='home1', renderer='indexLoggedOut.mako', permission='view',http_cache=0)
 def get_index_page(request):  
     log.info('Call view get_index_page.')
     
