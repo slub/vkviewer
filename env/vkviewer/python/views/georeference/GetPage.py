@@ -18,13 +18,13 @@ def getPage_chooseGeorefMtb(request):
     
     @TODO write test so that this site is only called with edit permissions
 """
-@view_config(route_name='georeference_start', renderer='georeferenceStart.mako', permission='edit',http_cache=0)
+@view_config(route_name='georeference_start', renderer='georeference_start.mako', permission='edit',http_cache=0)
 def getPage_GeoreferenceStart(request):
     log.info('Call view getPage_GeoreferenceStart.')
     return {'faq_url': request.route_url('faq_georef_start')}
 
 
-@view_config(route_name='georeference_validate', renderer='georeferenceValidate.mako', permission='edit',http_cache=0)
+@view_config(route_name='georeference_validate', renderer='georeference_validate.mako', permission='edit',http_cache=0)
 def getPage_GeoreferenceValidate(request):
     log.info('Call view getPage_GeoreferenceStart.')
     return {'faq_url': request.route_url('faq_georef_validate')}

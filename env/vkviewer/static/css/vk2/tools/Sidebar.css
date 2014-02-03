@@ -35,7 +35,7 @@
 
 .vk2SBHeaderPanel .vk2SBClose{
 	float:right;
-	margin-top 2px;
+	margin-top: 2px;
 	cursor: pointer;
 	background-position: -200px 0;
 	margin: 0px;

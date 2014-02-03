@@ -1,5 +1,3 @@
-@CHARSET "UTF-8";
-
 /* hide the OpenStreetMap sign while debugging */
 #OpenLayers_Control_Attribution_4{
     z-index: 0 !important;

@@ -22,4 +22,5 @@ env/vkviewer/settings.pyc
 env/vkviewer/static/test
 env/vkviewer/static/dev
 
-
+# all files with ending 
+*.pyc

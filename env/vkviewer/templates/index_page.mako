@@ -1,15 +1,11 @@
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
-    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />   			
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicIndexLayout.css')}" />
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
 </%block>
 
 <%block name="body_content">
-	<div class="body-container">
+	<div class="main-page body-container">
 		<div class="navbar navbar-inverse navbar-fixed-top vk2HeaderNavBar" role="navigation">
 		
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -94,7 +90,7 @@
       
               
         <!-- Body -->
-        <div class="container vk2BodyContainer">
+        <div class="container main-page content-container">
         			
         			<!-- Map panel -->
 
