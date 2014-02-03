@@ -1,4 +1,4 @@
-import os, bcrypt
+import os
 import sqlalchemy as sa
 from hashlib import sha1
 from sqlalchemy import Column, Integer, String, Sequence, Unicode
