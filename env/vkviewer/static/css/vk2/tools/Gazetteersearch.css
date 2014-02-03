@@ -6,7 +6,7 @@
 }
 
 .ui-autocomplete-loading {
-	background: white url('../../../images/ui-anim_basic_16x16.gif') right center no-repeat;
+	background: white url('/vkviewer/static/images/ui-anim_basic_16x16.gif') right center no-repeat;
 }
 
 .vk2Gazetteer > div, div.button{

@@ -17,7 +17,7 @@ table.metadata-record-table tr, table.metadata-record-table div, table.metadata-
 
 /* table header */
 .metadata-record-table tbody > tr > td{
-	background-image: url('../../../images/pattern_hr.png');
+	background-image: url('/vkviewer/static/images/pattern_hr.png');
 	background-repeat: repeat-x;
 	background-position: center bottom;
 	border: none;

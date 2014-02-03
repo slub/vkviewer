@@ -75,7 +75,7 @@
 	display: block;
 	overflow: hidden;
 	text-indent: -9000px;
-	background: url('../../../images/flags.png') no-repeat;	
+	background: url('/vkviewer/static/images/flags.png') no-repeat;	
 }
 
 

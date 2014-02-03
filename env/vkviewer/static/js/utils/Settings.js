@@ -5,4 +5,4 @@ goog.provide('VK2.Utils.Settings');
  * @type {string}
  * @public
  */
-VK2.Utils.Settings.proxy_url = './proxy/?url=';
+VK2.Utils.Settings.proxy_url = '/vkviewer/proxy/?url=';
