@@ -1,1 +1,1 @@
-cat 
+cat Vkviewer.css vk2/override-ol.css vk2/override-jquery.css vk2/override-bootstrap.css vk2/tools/Header.css vk2/tools/Layerbar.css vk2/tools/SpatialSearch.css vk2/tools/Layersearch.css vk2/tools/Gazetteersearch.css vk2/tools/Georeferencer.css vk2/tools/Sidebar.css vk2/tools/MetadataVisualisation.css > Vkviewer.min.css 

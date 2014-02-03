@@ -85,8 +85,10 @@
 				title="${_('report_error_titel')}"></a>
 		</div>
 	</div>
-	
-	<script>
+</%block>
+
+<%block name="js_content">
+    <script>
 		$(document).ready(function(){
 			VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
 			VK2.Utils.setGenericOpenLayersPropertys("vkviewer/proxy/?url=");
@@ -114,7 +116,5 @@
 				reportErrorTools.reportError(urlParams['mtbid'], 'messtischblatt');
 			});
 		});
-    </script>  
+    </script> 
 </%block>
-
-

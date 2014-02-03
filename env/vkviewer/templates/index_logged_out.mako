@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-<%inherit file="basicIndexLayout.mako"/>
+<%inherit file="index_page.mako"/>
 
 <%block name="js_content">
 	<script>
