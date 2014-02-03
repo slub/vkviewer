@@ -1,21 +1,17 @@
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />       
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/georeferenceStart.css')}" />
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/tools/Georeferencer.css')}" />
-		
-		<style>
-			.olImageLoadError { 
-	    		/* when OL encounters a 404, don't display the pink image */
-	    		display: none !important;
-			} 
-		</style>
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />	  
+    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/basicFooterLayout.css')}" />       
+    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/georeferenceStart.css')}" />
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/tools/Georeferencer.css')}" />
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
+	
+
 </%block>
 
 <%block name="body_content">
-	<div class="page-container">
+	<div class="georeference-start page-container full-display">
 		<div class="vk2GeoreferenceMtbStartPage">
 			<div id="georeferenceMap" class="georeferenceMap"></div>			
 		</div>

@@ -15,3 +15,8 @@
 .olControlZoom{
 	/* top: 16% !important; */
 }
+
+.olImageLoadError { 
+	/* when OL encounters a 404, don't display the pink image */
+	display: none !important;
+} 

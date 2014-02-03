@@ -51,7 +51,7 @@ var lang_dictionary = {
 		'mdrecord_keyword': 'Keywords',
 		'mdrecord_language': 'Language',
 		'mdrecord_referencesystem': 'Reference system identifier',
-		'mdrecord_onlineressource': 'Online resource',
+		'mdrecord_onlineresource': 'Online resource',
 		'mdrecord_spatialresolution': 'Spatial resolution',
 		'mdrecord_uniqueid': 'Unique Identifier'
 }

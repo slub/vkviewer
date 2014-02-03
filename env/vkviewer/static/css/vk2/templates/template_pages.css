@@ -32,6 +32,11 @@ div.login-screen{
 	float: right;
 }
 
+.page-container.full-display{
+	width: 100%;
+	height: 100%;
+}
+
 /* Page: Forget password */
 div.reset-pw{
 	max-width: 600px;
