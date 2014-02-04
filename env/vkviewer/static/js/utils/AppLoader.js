@@ -193,5 +193,10 @@ VK2.Utils.AppLoader.prototype.loadApplication = function(){
  */
 VK2.Utils.AppLoader.prototype.loadApplicationWithGeoref = function(){
 	this.loadApplication();
-	this._loadGeoreferencerChooser();	
+	this._loadGeoreferencerChooser();
+	
+	// if georef=on and points in query parameters than showing georef feedback event
+	if (VK2.Utils.getQueryParam('points') && VK2.Utils.getQueryParam('georef') == 'on'){
+		VK2.Utils.Georef.showGeorefPoints(goog.dom.getElement('georefPointContainer'), VK2.Utils.getQueryParam('points'));
+	}
 }

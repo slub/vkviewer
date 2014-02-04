@@ -135,15 +135,17 @@
         						</div>
         					</div>
 			        	</div>
-
-			      			        
+						<!-- end footer -->
+						     
+						<!-- block for further privilege dependent html content -->  
+						<%block name="inner_body_content" />
 		</div>
 
 		% if context.get('welcomepage') is not 'off':
 			<a href="${request.route_url('welcome')}" id="vk2WelcomePage"></a>
 		% endif  
 	</div>
-
+	
 	${next.body()}
 
 </%block>

@@ -25,6 +25,7 @@ html, body {
 
 .olControlZoom{
 	/* top: 16% !important; */
+	top: 40px !important;
 }
 
 .olImageLoadError { 
@@ -346,17 +347,10 @@ div.vk2PartnerPageContainer h3{
 	height: 100px;
 }
 
-.vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent{
-	padding: 5px;	
-}
-
 .vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent .ui-button-text {
 	font-size: 10px;
 }
 
-.vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent ul{
-	list-style-type: none;
-}
 .vk2GeoreferenceMtbStartPage{
 	width: 100%;
 	height: 100%;
@@ -372,7 +366,18 @@ div.vk2PartnerPageContainer h3{
 	z-index: 1000;
 }
 
+/* new styling of the map overview */
+.olControlOverviewMap{
+	bottom: 30px !important;
+}
 
+.olControlOverviewMapElement{
+	background-color: rgb(173,167,158) !important;	
+}
+
+.olControlOverviewMapMaximizeButton{
+	bottom: 82px !important;
+}
 .vk2GeoreferenceMtbValidatePage{
 	width: 100%;
 	height: 100%;
@@ -419,7 +424,7 @@ div.vk2PartnerPageContainer h3{
 
 .vk2GeoreferenceReportErrorPanel{
 	position: absolute;
-	top: 400px;
+	top: 500px;
 	left: 0px;
 	width: 40px;
 	height: 40px;
@@ -571,10 +576,6 @@ div.vk2PartnerPageContainer h3{
 
 .footerContainer .footerList .leftborder{
 	border-right: 1px dotted #fff;
-}
-
-.leftside .footerList {
-	margin-left: -40px;
 }
 /* 
     Document   : VK2LayerSwitcher
@@ -994,12 +995,16 @@ Styling of the list elements
 }
 
 .vk2GeoreferenceToolsPanel{
-	width: 200px;
+	height: 230px;
+	width: 230px;
+	padding: 10px;
+	background-color:white;
 }
 
 .vk2GeoreferenceToolsPanel .vk2GeorefToolsBtn{
 	float:left;
 	position: relative;
+	margin-bottom: 5px;	
 }
 
 .vk2GeorefControl{
@@ -1014,6 +1019,10 @@ Styling of the list elements
 
 .vk2GeorefControl .vk2SidebarIcon{
 	background-position: -120px 0;
+}
+
+.vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent{
+	padding: 5px;	
 }/* 
 	Generic stuff 
 */

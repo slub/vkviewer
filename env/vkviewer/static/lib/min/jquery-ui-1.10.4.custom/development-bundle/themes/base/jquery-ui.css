@@ -1,6 +1,6 @@
-/*! jQuery UI - v1.10.4 - 2014-01-20
+/*! jQuery UI - v1.10.4 - 2014-02-04
 * http://jqueryui.com
-* Includes: jquery.ui.core.css, jquery.ui.resizable.css, jquery.ui.selectable.css, jquery.ui.autocomplete.css, jquery.ui.button.css, jquery.ui.dialog.css, jquery.ui.menu.css, jquery.ui.slider.css, jquery.ui.tooltip.css, jquery.ui.theme.css
+* Includes: jquery.ui.core.css, jquery.ui.resizable.css, jquery.ui.autocomplete.css, jquery.ui.button.css, jquery.ui.dialog.css, jquery.ui.menu.css, jquery.ui.slider.css, jquery.ui.tooltip.css, jquery.ui.theme.css
 * Copyright 2014 jQuery Foundation and other contributors; Licensed MIT */
 
 /* Layout helpers
@@ -152,11 +152,6 @@
 	height: 9px;
 	right: -5px;
 	top: -5px;
-}
-.ui-selectable-helper {
-	position: absolute;
-	z-index: 100;
-	border: 1px dotted black;
 }
 .ui-autocomplete {
 	position: absolute;

@@ -1,3 +1,4 @@
+goog.require('goog.Uri');
 goog.require('goog.net.cookies');
 goog.require('goog.dom.classes');
 goog.require('goog.style');
@@ -162,6 +163,7 @@ VK2.Utils = {
 		 * 
 		 * @param {String} name
 		 * @returns {String}
+		 * @deprecated
 		 */
 		get_url_param: function( name ){
 			name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
@@ -266,3 +268,34 @@ VK2.Utils.removeClass = function(element, className){
 		goog.dom.classes.remove(element,className);
 }
 
+/**
+ * This function parse the query parameters of the given href. If href is undefined it tooks the actual window.location.href 
+ * @param {string|undefined} href
+ * @return {goog.Uri.QueryData}
+ * @static
+ */
+VK2.Utils.getAllQueryParams = function(href){
+	if (goog.isDef(href)){
+		var url = new goog.Uri(href);
+	} else {
+		var url = new goog.Uri(window.location.href);
+	}
+
+	return url.getQueryData();
+};
+
+/**
+ * This function parse for the given href the query parameter with the given name. If href is undefined it tooks the 
+ * actual window.location.href
+ * @param {string} name
+ * @param {string|undefined} href
+ * @return {string}
+ * @static
+ */
+VK2.Utils.getQueryParam = function(name, href){
+	if (goog.isDef(href)){
+		return this.getAllQueryParams(href).get(name);
+	} else {
+		return this.getAllQueryParams().get(name);
+	}
+}

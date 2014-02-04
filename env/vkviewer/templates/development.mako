@@ -6,14 +6,13 @@
 </%block>
 
 <%block name="body_content">
-	<div id="parentElement" class="metadata-record page-container">	
-	</div>
+	<div id="georefPointContainer" class="georef-point-container alert alert-success"></div>
 </%block>
 
 <%block name="js_content">
 	<script>
-		$(document).ready(function(){					
-			var mdVisualizer = new VK2.Tools.MetadataVisualizer('parentElement','df_dk_0010001_4853_1936', 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw');
-		});
+		var points = VK2.Utils.getQueryParam('points');
+		console.log(points);
+		VK2.Utils.Georef.showGeorefPoints(goog.dom.getElement('georefPointContainer'), points);
     </script>  
 </%block>

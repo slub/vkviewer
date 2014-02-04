@@ -53,7 +53,10 @@ var lang_dictionary = {
 		'mdrecord_referencesystem': 'Identifier räumliches Bezugssystem',
 		'mdrecord_onlineresource': 'Online ressource',
 		'mdrecord_spatialresolution': 'Räumliche Auflösung',
-		'mdrecord_uniqueid': 'Eindeutiger Identifier'
+		'mdrecord_uniqueid': 'Eindeutiger Identifier',
+		
+		// for georef feedback
+		'georef_points': 'Punkte'
 			
 		
 		

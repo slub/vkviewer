@@ -102,9 +102,11 @@ VK2.Controller.GeoreferenceController = (function(){
 	
 	var _goToValidationPage = function(data , points){
 		var href = _settings.urls.validatePage+'?points=' + points + "&";
+		
 		// add old query parameter
-		for (var key in _settings.urlParams){
-			href = href + key + '=' + _settings.urlParams[key] + '&';
+		var keys =  _settings.urlParams.getKeys()
+		for (var i = 0; i < keys.length; i++){
+			href = href + keys[i] + '=' + _settings.urlParams.get(keys[i]) + '&';
 		}
 		
 		// add new query parameter
@@ -127,7 +129,7 @@ VK2.Controller.GeoreferenceController = (function(){
 			// event for confirming the georeference results
 			$('#'+_settings.formElements.btnSubmit).click(function(event){
 				if (_validateInputs(vectorLayer)){
-					var mtbid = _settings.urlParams['mtbid'];
+					var mtbid = _settings.urlParams.get('mtbid');
 					var clipParams = document.getElementById(_settings.formElements.hiddenPoints).value;
 					console.log(mtbid);
 					console.log(clipParams);
@@ -164,8 +166,8 @@ VK2.Controller.GeoreferenceController = (function(){
 			// event for confirming the georeference results
 			$('#'+_settings.formElements.btnSubmit).click(function(event){
 				if (_validateInputs(vectorLayer)){
-					var mtbid = _settings.urlParams['mtbid'];
-					var georefid = _settings.urlParams['georefid']
+					var mtbid = _settings.urlParams.get('mtbid');
+					var georefid = _settings.urlParams.get('georefid');
 					
 					// set loading screen
 					$('#'+_settings.loadingScreen).css({'display':'block','z-index': '2000'});
@@ -204,7 +206,7 @@ VK2.Controller.GeoreferenceController = (function(){
 		// event for computing validation result
 		$('#'+_settings.formElements.btnValidate).click(function(event){
 			if (_validateInputs(vectorLayer)){
-				var mtbid = _settings.urlParams['mtbid'];
+				var mtbid = _settings.urlParams.get('mtbid');
 				var clipParams = document.getElementById(_settings.formElements.hiddenPoints).value;
 				console.log(mtbid);
 				console.log(clipParams);

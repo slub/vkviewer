@@ -10,6 +10,7 @@
 @import url("./vk2/override-bootstrap.css");
 @import url("./vk2/templates/template_pages.css");
 @import url("./vk2/templates/basic_index.css");
+@import url("./vk2/templates/index_logged_in.css");
 @import url("./vk2/templates/georeference.css");
 @import url("./vk2/templates/georeference_start.css");
 @import url("./vk2/templates/georeference_validate.css");

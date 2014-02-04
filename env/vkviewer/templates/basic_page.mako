@@ -5,7 +5,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="vkviewer">
     <head>
-        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8" />
         <title>Virtuelles Kartenforum 2.0</title>
         
         <!-- js/css librarys via cdn -->
@@ -32,7 +32,7 @@
       	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
       	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>  -->  
    		<!-- vk2 served librarys 
-        <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.js')}"></script>	    
+        <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.min.js')}"></script>	    
 	    <script src="${request.static_url('vkviewer:static/lib/min/OpenLayers.js')}"></script> 
 	    <script src="${request.static_url('vkviewer:static/lib/min/vkviewer-plugin-libarys.min.js')}"></script>  
 	    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
@@ -40,7 +40,7 @@
 	    	
 	    <!-- development -->
 	  	<script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.tablesorter.min.js')}"></script>  
 	   	<script src="${request.static_url('vkviewer:static/lib/min/jquery.tabslideout.min.js')}"></script>  

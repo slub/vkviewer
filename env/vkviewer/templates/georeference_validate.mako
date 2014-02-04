@@ -20,14 +20,16 @@
 		<!-- Loading overlay screen -->
 		<div id="georefLoadingScreen" class="georefLoadingScreen">
 			<div class="centerLoading">
-				<center><h2>Loading ... </h2></center>
-				<img src="${request.static_url('vkviewer:static/images/ajax_loader.gif')}" />
+				<div class="progress progress-striped active">
+				  <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				  </div>
+				</div>
 			</div>
 		</div>
 		
 		<!-- Link back to main page -->
 		<a id="anchorBackToIndexPage" class="anchorBackToIndexPage" target="_top"
-			 href="${request.route_url('home_login')}?georef=on"></a>
+			 href="${request.route_url('home_login')}?georef=on&points=20"></a>
 
 		<!-- Footer panel -->
 		<div class="vk2FooterPanel">
@@ -97,22 +99,22 @@
 			Proj4js.defs["EPSG:4314"] = "+proj=longlat +ellps=bessel +towgs84=582,105,414,1.04,0.35,-3.08,8.3 +no_defs"; 
 			Proj4js.defs["EPSG:31467"] = "+proj=tmerc +lat_0=0 +lon_0=9 +k=1 +x_0=3500000 +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
 			
-			var urlParams = VK2.Utils.getAllUrlParams();
-			var map_original = VK2.Utils.Georef.initializeGeoreferencerMap('georeferenceMap', urlParams);
-			var map_result = VK2.Utils.Georef.initializeGeoreferenceResultMap('georeferenceResultMap', urlParams);
+			var query_params = VK2.Utils.getAllQueryParams();
+			var map_original = VK2.Utils.Georef.initializeGeoreferencerMap('georeferenceMap', query_params, false);
+			var map_result = VK2.Utils.Georef.initializeGeoreferenceResultMap('georeferenceResultMap', query_params);
 			var georeferenceTool = new VK2.Tools.Georeferencer({
 				container: 'vk2GeoreferenceToolsPanel',
 				handler: 'vk2GeoreferenceToolsHandle',
 				map: map_original,
 				controller: VK2.Controller.GeoreferenceController,
-				urlParams: urlParams, 
+				urlParams: query_params, 
 				status: 'validate'
 			});
 	
 			// init report error
 			var reportErrorTools = new VK2.Tools.ReportError({});
 			$('#vk2GeoreferenceReportErrorPanel').click(function(){
-				reportErrorTools.reportError(urlParams['mtbid'], 'messtischblatt');
+				reportErrorTools.reportError(query_params.get('mtbid'), 'messtischblatt');
 			});
 		});
     </script> 

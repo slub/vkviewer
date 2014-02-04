@@ -13,4 +13,15 @@
 	z-index: 1000;
 }
 
+/* new styling of the map overview */
+.olControlOverviewMap{
+	bottom: 30px !important;
+}
 
+.olControlOverviewMapElement{
+	background-color: rgb(173,167,158) !important;	
+}
+
+.olControlOverviewMapMaximizeButton{
+	bottom: 82px !important;
+}

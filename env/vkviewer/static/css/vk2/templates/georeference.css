@@ -23,14 +23,7 @@
 	height: 100px;
 }
 
-.vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent{
-	padding: 5px;	
-}
-
 .vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent .ui-button-text {
 	font-size: 10px;
 }
 
-.vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent ul{
-	list-style-type: none;
-}

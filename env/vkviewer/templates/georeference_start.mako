@@ -13,14 +13,16 @@
 		<!-- Loading overlay screen -->
 		<div id="georefLoadingScreen" class="georefLoadingScreen">
 			<div class="centerLoading">
-				<center><h2>Loading ... </h2></center>
-				<img src="${request.static_url('vkviewer:static/images/ajax_loader.gif')}" />
+				<div class="progress progress-striped active">
+				  <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				  </div>
+				</div>
 			</div>
 		</div>
 		
 		<!-- Link back to main page -->
 		<a id="anchorBackToIndexPage" class="anchorBackToIndexPage" target="_top"
-			 href="${request.route_url('home_login')}?georef=on"></a>
+			 href="${request.route_url('home_login')}?georef=on&points=20"></a>
 			 
 		<!-- Footer panel -->
 		<div class="vk2FooterPanel">
@@ -81,15 +83,15 @@
 			$(document).ready(function(){
 				VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
 		
-				var urlParams = VK2.Utils.getAllUrlParams();
-				map = VK2.Utils.Georef.initializeGeoreferencerMap('georeferenceMap', urlParams);
+				var query_params = VK2.Utils.getAllQueryParams();
+				map = VK2.Utils.Georef.initializeGeoreferencerMap('georeferenceMap', query_params, true);
 				var georeferenceTool = new VK2.Tools.Georeferencer({
 					container: 'vk2GeoreferenceToolsPanel',
 					handler: 'vk2GeoreferenceToolsHandle',
 					map: map,
 					controller: VK2.Controller.GeoreferenceController,
-					urlParams: urlParams
-				});
+					urlParams: query_params
+				}, query_params.get('mtbid'));
 			});
     </script> 
 </%block>
