@@ -33,6 +33,8 @@ VK2.Utils.Georef.createZoomifyOverviewLayer = function(query_param, zoomify_laye
             } 
     ); 
 	
+	console.log(zoomifyImageUrl);
+	
 	return overviewMapControl = new OpenLayers.Control.OverviewMap({
     	size: new OpenLayers.Size(150, 110),
     	layers: [zoomifyOverviewMap],
