@@ -56,7 +56,7 @@
       	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/uri/uri.js')}"></script> 
       	<script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script> 
 	    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script> 
+	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>
 	    
 	    <%block name="js_content" />
 	    
