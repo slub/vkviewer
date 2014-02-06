@@ -1,6 +1,13 @@
 vkviewer
 ===========
 
+Dependences
+===========
+
+	- Postgresql 9.1 / PostGis 1.5
+	- libgdal1  1.9 / libgdal1-dev / python-gdal 
+	- python-mapscript
+
 Installation
 ============
 

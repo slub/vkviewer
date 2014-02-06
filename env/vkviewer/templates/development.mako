@@ -8,12 +8,15 @@
 </%block>
 
 <%block name="body_content">
-	<div id="map" class="map" style="width:100%;height:800px;" />
+	<div id="map" class="map" style="width:100%;height:600px;"></div>
+	<div id="mouse-position" style="width:100px; height:100px; position:relative; float:left;"></div>
 </%block>
 
 <%block name="js_content">
+	<script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/lib/ol3/ol-whitespace.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/dev/ZoomifyViewer.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/dev/MesstischblattViewer.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script>
 	<script>
@@ -38,6 +41,9 @@
 		
 		##$(goog.dom.getElement('map')).trigger("click");
 
+		var mtbViewer = new VK2.Tools.MesstischblattViewer('map', {
+
+		});
 		
 		
     </script>  
