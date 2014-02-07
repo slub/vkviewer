@@ -90,7 +90,7 @@ VK2.Utils.AppLoader.prototype._loadGeoreferencerChooser = function(){
 		wmsLayer: this._settings.georeference_grid.wms,
 		requestWfs:  this._settings.georeference_grid.wfs,
 		map: this._map
-	});
+	}, this._layerbar);
 	this._sidebar.appendSlimControl(this._settings.vk2GeorefChooserControl, georeferencerChooser);		
 		
 	// check if the georeference is active
@@ -133,10 +133,22 @@ VK2.Utils.AppLoader.prototype._loadSpatialSearch = function(){
  * @private
  */
 VK2.Utils.AppLoader.prototype._loadVK2Tools = function(){
+	
 	this._loadGazeettersearch();
-	var spatialsearch = this._loadSpatialSearch();
-	var layerbar = this._loadLayerbar();
-	this._loadMapController(spatialsearch, layerbar);
+	
+	/**
+	 * @type {VK2.Tools.SpatialSearch}
+	 * @private
+	 */
+	this._spatialsearch = this._loadSpatialSearch();
+	
+	/**
+	 * @type {VK2.Tools.Layerbar}
+	 * @private
+	 */
+	this._layerbar = this._loadLayerbar();
+	
+	this._loadMapController(this._spatialsearch, this._layerbar );
 };
 
 /**

@@ -41,7 +41,7 @@
 	margin: 0px;
 }
 
-.vk2SBHeaderPanel .vk2SBClose.hover{
+.vk2SBHeaderPanel .vk2SBClose:hover{
 	background-position: -200px -20px;
 }
 /*

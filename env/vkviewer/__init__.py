@@ -38,7 +38,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 
 def addRoutes(config):
     # add routes
-    config.add_static_view(routePrefix+'/static', 'vkviewer:static/', cache_max_age=0)
+    config.add_static_view(routePrefix+'/static', 'vkviewer:static/', cache_max_age=3600)
     config.add_route('proxy', routePrefix+'/proxy/')
     config.add_route('home', routePrefix + '/', factory='python.security.EntryFactory')
     config.add_route('home1', routePrefix, factory='python.security.EntryFactory')

@@ -1,154 +1,230 @@
-VK2.Controller.SidebarController = VK2.Class({
-	
-	_settings: {
-		speed: 300,
-		panelLocation: 'right',
-		sidebarPanel: 'vk2SBPanel',
-		sidebarHeaderLabel: 'vk2SBHeaderLabel',
-		sidebarContentPanel: 'vk2SBContentPanel',
-		sidebarPanelWidth: 300,
-		sidebarCloseBtn: 'vk2SBClose'
-	},
-	
-	_sidebar: $('#vk2SBPanel'),
-	
-	_mapController: null,
-	
-	_controls: [],
+goog.provide('VK2.Controller.SidebarController');
 
-	_controlElements: [],
+goog.require('goog.dom');
+goog.require('goog.dom.classes');
+goog.require('goog.object');
+goog.require('goog.events');
+goog.require('goog.events.EventType');
+goog.require('goog.style');
 
-	_activateControl: function(controlElement, controlObject){
-		// deactivate all controls
-		this._deactivateControls();
-		this._deactivateControlElements();
-		
-		// now only activate the choosen control
-		controlObject.activate();
-		this._changeHeader(controlObject.NAME);
-		
-		controlElement.addClass('open');
-		$('#'+controlElement.attr('value')).css('display','block');
-	},
+/**
+ * @param {Object} settings
+ * @param {VK2.Controller.MapController} mapController
+ * @constructor
+ */
+VK2.Controller.SidebarController = function(settings, mapController){
 	
-	_changeHeader: function(headerContent){
-		var headerContentContainer = $('#'+this._settings.sidebarHeaderLabel)
-		headerContentContainer.empty();
-		$('<h4/>', {
-			'html': headerContent
-		}).appendTo(headerContentContainer);
-	},
+	/**
+	 * @type {Object}
+	 * @private
+	 */
+	this._settings = {
+		'speed': 300,
+		'panelLocation': 'right',
+		'sidebarPanel': 'vk2SBPanel',
+		'sidebarHeaderLabel': 'vk2SBHeaderLabel',
+		'sidebarContentPanel': 'vk2SBContentPanel',
+		'sidebarPanelWidth': 300,
+		'sidebarCloseBtn': 'vk2SBClose'
+	};
+	goog.object.extend(this._settings, settings);
 	
-	_closeSlidebar: function(){
-		this._deactivateControls();
-		this._deactivateControlElements();
-		this._slideIn();
-		this._mapController.activateTimeFeatureControl();
-	},
+	/**
+	 * @type {Element}
+	 * @private
+	 */
+	this._sidebar = $(goog.dom.getElement(this._settings.sidebarPanel));
 	
-	_createControlBehavior: function(controlId, controlObject){
-		$('#'+controlId).click($.proxy(function(event){
-			var controlElement = $(event.currentTarget);
-			if (controlElement.hasClass('open')){
-				this._closeSlidebar();
-			} else {
-				this._activateControl(controlElement, controlObject);
-				this._slideOut();
-			}
-		}, this));
-	},
+	/**
+	 * @type {VK2.Controller.MapController}
+	 * @private
+	 */
+	this._mapController = mapController;
+	
+	/**
+	 * @type {array} 
+	 * @private
+	 */
+	this._controls = [];
+	
+	/**
+	 * @type {array}
+	 * @private
+	 */
+	this._controlElements = [];
+	
+	this._loadCloseBehavior();
+};
 
-	_createSlimControlBehavior: function(controlId, controlObject){
-		$('#'+controlId).click($.proxy(function(event){
-			var controlElement = $(event.currentTarget);
-			if (controlElement.hasClass('open')){
-				this._closeSlidebar();
-			} else {
-				this._activateControl(controlElement, controlObject);
-				this._slideIn();
-			}
-		}, this));
-	},
+/**
+ * @param {Element} controlElement 
+ * @param {Object} controlObject Is an Object from the VK2 Namespace which has an activate and deactivate method
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._activateControl = function(controlElement, controlObject){
+	// deactivate all controls
+	this._deactivateControls();
+	this._deactivateControlElements();
 	
-	_deactivateControls: function(){
-		for (var i = 0; i < this._controls.length; i++){
-			this._controls[i].deactivate();
+	// now only activate the choosen control
+	controlObject.activate();
+	this._changeHeader(controlObject.NAME);
+	
+	goog.dom.classes.add(controlElement, 'open');
+	var tool_panel = goog.dom.getElement(controlElement.getAttribute('value'));
+	if (goog.isDefAndNotNull(tool_panel))
+		goog.style.setStyle(tool_panel, 'display', 'block');
+};
+
+/**
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._changeHeader = function(headerContent){
+	var headerContentContainer = goog.dom.getElement(this._settings.sidebarHeaderLabel);
+	headerContentContainer.innerHTML = '<h4>'+headerContent+'</h4>';
+};
+
+/**
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._closeSlidebar = function(){
+	this._deactivateControls();
+	this._deactivateControlElements();
+	this._slideIn();
+	this._mapController.activateTimeFeatureControl();
+};
+
+/**
+ * @param {string} controlId 
+ * @param {Object} controlObject Is an Object from the VK2 Namespace which has an activate and deactivate method
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._createControlBehavior = function(controlId, controlObject){
+	goog.events.listen(goog.dom.getElement(controlId), goog.events.EventType.CLICK, function(event){
+		var controlElement = event.currentTarget;
+		if (goog.dom.classes.has(controlElement,'open')){
+			this._closeSlidebar();
+		} else {
+			this._activateControl(controlElement, controlObject);
+			this._slideOut();
 		}
-	},
-	
-	_deactivateControlElements: function(){
-		for (var i = 0; i < this._controlElements.length; i++){
-			this._controlElements[i].removeClass('open');
-			$('#'+this._controlElements[i].attr('value')).css('display','none');
-		}		
-	},
-	
-	_updateSettings: function(settings){
-		for (var key in settings){
-			this._settings[key] = settings[key];
-		}	
-		
-		//update sidebar object
-		this._sidebar = $('#'+this._settings.sidebarPanel);
-	},
-	
-	_loadCloseBehavior: function(){
-		if (document.getElementById(this._settings.sidebarCloseBtn) != null){
-			$(document.getElementById(this._settings.sidebarCloseBtn))
-				.click($.proxy(function(){
-					this._closeSlidebar();
-				}, this))
-				.hover(
-					function(){
-						$(this).addClass('hover');
-					}, 
-					function(){
-						$(this).removeClass('hover');
-					}
-			)
+	}, undefined, this);
+};
+
+/**
+ * @param {string} controlId 
+ * @param {Object} controlObject Is an Object from the VK2 Namespace which has an activate and deactivate method
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._createSlimControlBehavior = function(controlId, controlObject){
+	goog.events.listen(goog.dom.getElement(controlId), goog.events.EventType.CLICK, function(event){
+		var controlElement = event.currentTarget;
+		if (goog.dom.classes.has(controlElement,'open')){
+			this._closeSlidebar();
+		} else {
+			this._activateControl(controlElement, controlObject);
+			this._slideIn();
 		}
-	},
-	
-	_registerControl: function(controlId, controlObject){
-		this._createControlBehavior(controlId, controlObject);
-		this._controls.push(controlObject);
-		this._controlElements.push($('#'+controlId));
-	},
-	
-	_registerSlimControl: function(controlId, controlObject){
-		this._createSlimControlBehavior(controlId, controlObject);
-		this._controls.push(controlObject);
-		this._controlElements.push($('#'+controlId));
-	},
-	
-	_slideIn: function(){
-		if (this._settings.panelLocation == 'right'){
-			var displayOffContainer = $('#'+this._settings.sidebarContentPanel);
-			this._sidebar.animate(
-					{right: '-' + this._settings.sidebarPanelWidth}, 
-					this._settings.speed,
-					function(){
-						displayOffContainer.css('display','none');
-					}
-			).removeClass('open');	
-		}
-	},
-	
-	_slideOut: function(){
-		// change visibilty of the sidebar content panel before the animation
-		$('#'+this._settings.sidebarContentPanel).css('display','block');
-		
-		if (this._settings.panelLocation == 'right'){
-			this._sidebar.animate(
-					{right: '-3px'}, 
-					this._settings.speed
-			).addClass('open');
-		}
-	},
-	
-	initialize: function(settings, MapController){
-		this._mapController = MapController;
-		this._updateSettings(settings);
-		this._loadCloseBehavior();
+	}, undefined, this);
+};
+
+/**
+ * Deactivate all registered control objects
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._deactivateControls = function(){
+	for (var i = 0; i < this._controls.length; i++){
+		this._controls[i].deactivate();
 	}
-});
+};
+
+/**
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._deactivateControlElements = function(){
+	for (var i = 0; i < this._controlElements.length; i++){
+		goog.dom.classes.remove(this._controlElements[i], 'open');
+		var tool_panel = goog.dom.getElement(this._controlElements[i].getAttribute('value'));
+		if (goog.isDefAndNotNull(tool_panel))
+			goog.style.setStyle(tool_panel, 'display', 'none');
+	}		
+};
+
+/**
+ * This functions loads the close and hover behavior for the sidebar close button.
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._loadCloseBehavior = function(){
+	if (document.getElementById(this._settings.sidebarCloseBtn) != null){
+		goog.events.listen(goog.dom.getElement(this._settings.sidebarCloseBtn), goog.events.EventType.CLICK, function(event){
+			this._closeSlidebar();
+		}, undefined, this);
+//		$(document.getElementById(this._settings.sidebarCloseBtn))
+//			.click($.proxy(function(){
+//				this._closeSlidebar();
+//			}, this))
+//			.hover(
+//				function(){
+//					$(this).addClass('hover');
+//				}, 
+//				function(){
+//					$(this).removeClass('hover');
+//				}
+//		)
+	}
+};
+
+/**
+ * @param {string} controlId 
+ * @param {Object} controlObject Is an Object from the VK2 Namespace which has an activate and deactivate method
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._registerControl = function(controlId, controlObject){
+	this._createControlBehavior(controlId, controlObject);
+	this._controls.push(controlObject);
+	this._controlElements.push(goog.dom.getElement(controlId));
+};
+
+
+/**
+ * @param {string} controlId 
+ * @param {Object} controlObject Is an Object from the VK2 Namespace which has an activate and deactivate method
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._registerSlimControl = function(controlId, controlObject){
+	this._createSlimControlBehavior(controlId, controlObject);
+	this._controls.push(controlObject);
+	this._controlElements.push(goog.dom.getElement(controlId));
+};
+
+
+/**
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._slideIn = function(){
+	if (this._settings.panelLocation == 'right'){
+		var displayOffContainer = goog.dom.getElement(this._settings.sidebarContentPanel);
+		this._sidebar.animate(
+				{right: '-' + this._settings.sidebarPanelWidth}, 
+				this._settings.speed,
+				function(){
+					goog.style.setStyle(displayOffContainer,'display','none');
+				}
+		).removeClass('open');	
+	}
+};
+	
+/**
+ * @private
+ */
+VK2.Controller.SidebarController.prototype._slideOut = function(){
+	// change visibilty of the sidebar content panel before the animation
+	goog.style.setStyle(goog.dom.getElement(this._settings.sidebarContentPanel),'display','block');
+	
+	if (this._settings.panelLocation == 'right'){
+		this._sidebar.animate(
+				{right: '-3px'}, 
+				this._settings.speed
+		).addClass('open');
+	}
+};

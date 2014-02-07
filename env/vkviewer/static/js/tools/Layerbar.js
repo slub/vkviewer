@@ -29,7 +29,8 @@ VK2.Tools.Layerbar = VK2.Class({
      overlayLayers: [], // include the overlay layers
      _mapController: null,
      _vk2FeatureLayer: null, // should be moved to initalization
-                                           
+     
+
     /**
      * Constructor: OpenLayers.Control.LayerSwitcher
      *
@@ -716,3 +717,20 @@ VK2.Tools.Layerbar = VK2.Class({
     CLASS_NAME: "Vk2.LayerManagement"
 });
 
+/**
+ * @public
+ */
+VK2.Tools.Layerbar.prototype.hideOverlayLayers = function(){
+	for (var i = 0; i < this.overlayLayers.length; i++){
+		this.overlayLayers[i].setVisibility(false);
+	}
+}
+
+/**
+ * @public
+ */
+VK2.Tools.Layerbar.prototype.showOverlayLayers = function(){
+	for (var i = 0; i < this.overlayLayers.length; i++){
+		this.overlayLayers[i].setVisibility(true);
+	}
+}

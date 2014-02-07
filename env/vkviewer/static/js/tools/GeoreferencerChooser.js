@@ -1,6 +1,19 @@
-VK2.Tools.GeoreferencerChooser = VK2.Class({
+goog.provide('VK2.Tools.GeoreferencerChooser')
 
-	_settings: {
+goog.require('goog.object');
+
+/**
+ * @param {Object} settings
+ * @param {VK2.Tools.Layerbar|undefined} layerbar
+ * @constructor
+ */
+VK2.Tools.GeoreferencerChooser = function(settings, layerbar){
+
+	/**
+	 * @type {Object}
+	 * @private
+	 */
+	this._settings = {
 		wmsLayer: new OpenLayers.Layer.WMS("georeferencer_wms_1",
                 "http://194.95.145.43/cgi-bin/mtb_grid",{
 			layers: "mtb_grid_puzzle", 
@@ -21,34 +34,57 @@ VK2.Tools.GeoreferencerChooser = VK2.Class({
             "version": "1.0.0"
         }),
         map: null
-	},
+	};
+	goog.object.extend(this._settings, settings);
 	
-	_georefLayer: null,
-	
-	_loadGeoreferenceSearchLayer: function(){
-		this._georefLayer = new VK2.Layer.GeoreferencerSearchLayer({
+	/**
+	 * @type {VK2.Layer.GeoreferencerSearchLayer}
+	 * @private
+	 */
+	this._georefLayer = new VK2.Layer.GeoreferencerSearchLayer({
 			wmsLayer: this._settings.wmsLayer,
 			requestWfs:  this._settings.requestWfs,
 			map: this._settings.map			
-		});
-	},
+	});
 	
-	_updateSettings: function(settings){
-		for (var key in settings){
-			this._settings[key] = settings[key];
-		}	
-	},
+	/**
+	 * @type {VK2.Tools.Layerbar}
+	 * @private
+	 */
+	if (goog.isDefAndNotNull(layerbar))
+		this._layerbar = layerbar;
 	
-	initialize: function(settings){
-		this._updateSettings(settings);
-		this._loadGeoreferenceSearchLayer();
-	},
+	/**
+	 * @type {boolean}
+	 * @private
+	 */
+	this._isActive = false;
+};
+
+/**
+ * @public
+ */
+VK2.Tools.GeoreferencerChooser.prototype.activate = function(){
 	
-	activate: function(){
-		this._georefLayer.activate();
-	},
+	// check if a layerbar is registered and if yes hide the overlay layers
+	if (goog.isDef(this._layerbar) && !this._isActive)
+		this._layerbar.hideOverlayLayers();
 	
-	deactivate: function(){
-		this._georefLayer.deactivate();
-	}
-});
+	this._georefLayer.activate();
+	
+	this._isActive = true;
+};
+
+/**
+ * @public
+ */
+VK2.Tools.GeoreferencerChooser.prototype.deactivate = function(){
+
+	// check if a layerbar is registered and if yes hide the overlay layers
+	if (goog.isDef(this._layerbar) && this._isActive)
+		this._layerbar.showOverlayLayers();
+	
+	this._georefLayer.deactivate();
+	
+	this._isActive = false;
+};
