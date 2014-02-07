@@ -79,6 +79,7 @@ def addRoutes(config):
     
     # profile pages
     config.add_route('users_profile_georef', routePrefix+'/profile/georef', factory='python.security.EntryFactory')
+    config.add_route('mtb_profile', routePrefix+'/profile/mtb', factory='python.security.EntryFactory')
     
     # error pages
     config.add_route('error_page', routePrefix+'/error', factory='python.security.EntryFactory')

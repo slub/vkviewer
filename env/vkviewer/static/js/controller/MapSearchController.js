@@ -79,7 +79,20 @@ VK2.Controller.MapSearchController.prototype._addRowClickBehavior = function(row
 				});
 				goog.dom.appendChild(document.body, parentElement);
 			}
-			var mdVisualizer = new VK2.Tools.MetadataVisualizer(parentElementId,feature.data.dateiname, 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw');
+			
+			// open mtb single view
+			var extent = feature.geometry.bounds.left + ',' + feature.geometry.bounds.bottom + ',' + feature.geometry.bounds.right + ',' + feature.geometry.bounds.top;
+			var anchor = goog.dom.createDom('a',{
+				'href': '/vkviewer/profile/mtb?key='+feature.data.dateiname+'&extent='+extent+'&time='+feature.data.time,
+			});
+			goog.dom.appendChild(document.body, anchor);
+			
+			$(anchor).fancybox({
+				'type': 'iframe',
+				'href': '/vkviewer/profile/mtb?key='+feature.data.dateiname+'&extent='+extent+'&time='+feature.data.time,
+				'width': '100%',
+				'height': '100%'
+			}).trigger('click');
 		};
 	});
 }

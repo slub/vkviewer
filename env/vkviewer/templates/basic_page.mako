@@ -46,7 +46,7 @@
 	   	<script src="${request.static_url('vkviewer:static/lib/min/jquery.tabslideout.min.js')}"></script>  
 	    <script src="${request.static_url('vkviewer:static/lib/min/bootstrap.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script> 
-      	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
       	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/disposable/disposable.js')}"></script>
       	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/debug/entrypointregistry.js')}"></script>
       	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/events/listenable.js')}"></script>

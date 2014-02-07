@@ -48,7 +48,7 @@
 					 	<strong>${_('georef_persist_access')}:</strong><br>
 					 	
 					 	% if 'transformed' in record:
-					 		<a href="http://139.30.111.16/fgs/vkll/EN/viewer.php?mtbid=${record['transformed']['mtbid']}&amp;
+					 		<a href="${request.route_url('mtb_profile')}?mtbid=${record['transformed']['mtbid']}&amp;
 					 			timestamp=${record['transformed']['time']}&amp;bounds=${record['transformed']['boundingbox']}" target="_blank">Klick</a> 
 					 	% else:
 					 		${_('georef_result_being_generated')}

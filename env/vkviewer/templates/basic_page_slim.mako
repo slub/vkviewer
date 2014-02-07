@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	      
 	    
 	    <%block name="header_content" />
+	    ${self.body()}
     </head>
 	<body>
 		<noscript>
@@ -28,8 +29,9 @@
 		</noscript>
 				
 		<%block name="body_content" />
-		${self.body()}
 			
+		<%block name="js_content" />
+		
         <!-- Piwik -->
 		<script type="text/javascript">
   			var _paq = _paq || [];
