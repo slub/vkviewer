@@ -79,7 +79,8 @@
     		"tools/Sidebar.js",
     		"tools/ReportError.js",
     		"tools/MetadataVisualizer.js",
-    		"requests/CSW_GetRecordById.js"
+    		"requests/CSW_GetRecordById.js",
+    		"tools/MesstischblattViewer.js"
     );
     
     var len = jsfiles.length;

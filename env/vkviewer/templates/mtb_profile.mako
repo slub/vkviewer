@@ -1,5 +1,4 @@
-<%inherit file="basic_page_slim.mako" />
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />	  
+<%inherit file="basic_page.mako" />
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/ol3/ol.css')}" />
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/mtb_profile.css')}" />
 <%block name="header_content">
@@ -22,15 +21,14 @@
 </%block>
 
 <%block name="js_content">
-	<script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/ol3/ol-whitespace.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/ol3/ol.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/LayerSpy.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/RotateNorth.js')}"></script>	
+	<!-- <script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script> -->
 	
-	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
-    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/net/cookies.js')}"></script>
-    
-    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script> 	
-	<script src="${request.static_url('vkviewer:static/js/utils/Utils.js')}"></script>
+	<!--<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
+    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/net/cookies.js')}"></script> 
+	 <script src="${request.static_url('vkviewer:static/js/utils/Utils.js')}"></script>
     <script src="${request.static_url('vkviewer:static/js/utils/Settings.js')}"></script> 
 	<script src="${request.static_url('vkviewer:static/dev/LayerSpy.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/dev/RotateNorth.js')}"></script>
@@ -39,7 +37,8 @@
 	<script src="${request.static_url('vkviewer:static/js/events/EventType.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/events/ParsedCswRecordEvent.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/requests/CSW_GetRecordById.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/js/tools/MetadataVisualizer.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/tools/MetadataVisualizer.js')}"></script> -->
+	
     <script>
     	$(document).ready(function(){
     		// parse extent from query 
