@@ -1,0 +1,1 @@
+﻿GRANT SELECT ON spatial_ref_sys TO vkviewer

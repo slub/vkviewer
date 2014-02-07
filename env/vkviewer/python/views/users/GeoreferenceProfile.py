@@ -19,7 +19,7 @@ georef.isvalide as isvalide, md_core.titel as titel FROM georeferenzierungsproze
 georef.messtischblattid = md_core.id ORDER BY time DESC'
 
 # query to get the messtischblätter which are already processed and published
-georeference_profile_transformed_query = 'SELECT layer.mtbid as id, box2d(layer.boundingbox) as box, layer.time as time \
+georeference_profile_transformed_query = 'SELECT layer.mtbid as id, box2d(st_transform(layer.boundingbox, 900913)) as box, layer.time as time \
 FROM view_layers as layer, georeferenzierungsprozess as georef WHERE georef.messtischblattid = layer.mtbid AND layer.id = %s \
 AND georef.nutzerid = \'%s\''
 

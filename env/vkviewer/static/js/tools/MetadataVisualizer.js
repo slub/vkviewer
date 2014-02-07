@@ -10,9 +10,10 @@ goog.require('goog.events');
  * @param {string} parentElId Id of the parent div element
  * @param {string} metadataId
  * @param {string} csw_url
+ * @param {string|undefined} displayInFancybox
  * @constructor
  */
-VK2.Tools.MetadataVisualizer = function(parentElId, metadataId, csw_url){
+VK2.Tools.MetadataVisualizer = function(parentElId, metadataId, csw_url, displayInFancybox){
 	
 	/**
 	 * @type {Object}
@@ -21,7 +22,8 @@ VK2.Tools.MetadataVisualizer = function(parentElId, metadataId, csw_url){
 	this._parentEl = goog.dom.getElement(parentElId);
 	
 	// open fancy box
-	this._initFancyBox();
+	if (goog.isDef(displayInFancybox) && displayInFancybox)
+		this._initFancyBox();
 	
 	// get metadata content from csw
 	var selfObj = this;
@@ -83,7 +85,7 @@ VK2.Tools.MetadataVisualizer.prototype.displayCswIsoRecord = function(event){
 	this._createTable();
 	this._createHeader(parsed_content['TITEL'][0],parsed_content['ABSTRACT'][0],parsed_content['THUMBNAIL'][0]);
 	this._createContent(parsed_content, this._tBody);
-	this._fixLinks();
+	//this._fixLinks();
 };
 
 
@@ -194,7 +196,7 @@ VK2.Tools.MetadataVisualizer.prototype._createContentContainer = function(datase
 	var a = goog.dom.createDom('a',{
 		'href': 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|'+datasetId,
 		'innerHTML': VK2.Utils.get_I18n_String('mdrecord_moremetadata'),
-		'target': '_top'
+		'target': '_blank'
 	});
 	goog.dom.appendChild(legend, a);	
 	
@@ -252,7 +254,7 @@ VK2.Tools.MetadataVisualizer.prototype._anchorContentRow = function(label, conte
 	var anchor = goog.dom.createDom('a',{
 		'innerHTML': url.toString(),
 		'href':content,
-		'target': '_top',
+		'target': '_blank',
 		'style': 'z-index:10000;'
 	});
 	goog.dom.appendChild(colContent, anchor);

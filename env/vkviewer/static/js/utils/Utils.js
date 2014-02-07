@@ -1,3 +1,5 @@
+goog.provide('VK2.Utils');
+
 goog.require('goog.Uri');
 goog.require('goog.net.cookies');
 goog.require('goog.dom.classes');
@@ -298,4 +300,13 @@ VK2.Utils.getQueryParam = function(name, href){
 	} else {
 		return this.getAllQueryParams().get(name);
 	}
+}
+
+
+/**
+ * Overwrite or prototype basic javascript functions
+ */
+String.prototype.replaceAll = function(search, replacement){
+	var target = this;
+	return target.split(search).join(replacement);
 }
