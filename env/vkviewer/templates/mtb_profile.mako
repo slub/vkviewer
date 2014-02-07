@@ -52,8 +52,8 @@
 				'time': VK2.Utils.getQueryParam('time'),
 				'extent': extent
 			});
-			var mdVisualizer = new VK2.Tools.MetadataVisualizer('metadata-container',VK2.Utils.getQueryParam('key'), 
-				'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw', false);
-	   	});
+			var mdVisualizer = new VK2.Tools.MetadataVisualizer('metadata-container',VK2.Utils.getQueryParam('key'),{
+				 'csw_url':'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw'});
+		});
     </script> 
 </%block>

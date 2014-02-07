@@ -11,6 +11,7 @@
       i18n:domain="vkviewer">
     <head>
         <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8">
+        <META HTTP-EQUIV="cache-control" CONTENT="max-age=3600" />
         <title>Virtuelles Kartenforum 2.0</title>
         
          <!-- js/css librarys via cdn -->

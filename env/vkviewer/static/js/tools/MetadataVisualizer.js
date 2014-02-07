@@ -1,6 +1,7 @@
 goog.provide('VK2.Tools.MetadataVisualizer');
 
 goog.require('VK2.Events.ParsedCswRecordEvent');
+goog.require('goog.object');
 goog.require('goog.dom');
 goog.require('goog.Uri');
 goog.require('goog.style');
@@ -9,11 +10,10 @@ goog.require('goog.events');
 /**
  * @param {string} parentElId Id of the parent div element
  * @param {string} metadataId
- * @param {string} csw_url
- * @param {string|undefined} displayInFancybox
+ * @param {Object} settings
  * @constructor
  */
-VK2.Tools.MetadataVisualizer = function(parentElId, metadataId, csw_url, displayInFancybox){
+VK2.Tools.MetadataVisualizer = function(parentElId, metadataId, settings){
 	
 	/**
 	 * @type {Object}
@@ -21,8 +21,19 @@ VK2.Tools.MetadataVisualizer = function(parentElId, metadataId, csw_url, display
 	 */
 	this._parentEl = goog.dom.getElement(parentElId);
 	
+	/**
+	 * @type {Object}
+	 * @private
+	 */
+	this._settings = {
+			'csw_url':'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw',
+			'thumbnail':false,
+			'displayInFancybox': false
+	}
+	goog.object.extend(this._settings, settings);
+	
 	// open fancy box
-	if (goog.isDef(displayInFancybox) && displayInFancybox)
+	if (this._settings.displayInFancybox)
 		this._initFancyBox();
 	
 	// get metadata content from csw
@@ -32,7 +43,7 @@ VK2.Tools.MetadataVisualizer = function(parentElId, metadataId, csw_url, display
 	}
 	var csw_parser = new VK2.Requests.CSW_GetRecordById();
 	csw_parser.addEventListener(VK2.Events.EventType.PARSED_RECORD, eventHandler);
-	response = csw_parser.getRecord(metadataId, csw_url);
+	response = csw_parser.getRecord(metadataId, this._settings.csw_url);
 };
 
 /**
@@ -73,8 +84,6 @@ VK2.Tools.MetadataVisualizer.prototype._initFancyBox = function(){
 			delete this.parentObj;
 		}
 	}).click();
-	
-	this._fixCloseClick();
 };
 
 /**
@@ -145,11 +154,13 @@ VK2.Tools.MetadataVisualizer.prototype._createHeaderContent = function(descripti
 	goog.dom.appendChild(row, col);
 	
 	// thumbnail
-	var col = goog.dom.createDom('td',{'class':'right'});
-	var thumbnail = goog.dom.createDom('img', {
-		'src': thumbnail, 'alt': 'thumbnail', 'class': 'thumbnail'});
-	goog.dom.appendChild(col, thumbnail);
-	goog.dom.appendChild(row, col);
+	if (this._settings.thumbnail){
+		var col = goog.dom.createDom('td',{'class':'right'});
+		var thumbnail = goog.dom.createDom('img', {
+			'src': thumbnail, 'alt': 'thumbnail', 'class': 'thumbnail'});
+		goog.dom.appendChild(col, thumbnail);
+		goog.dom.appendChild(row, col);
+	}
 	
 	goog.dom.appendChild(parentEl, row);
 };
@@ -297,29 +308,3 @@ VK2.Tools.MetadataVisualizer.prototype._clearHtmlContent = function(){
 	goog.dom.removeNode(this._parentEl);
 }
 
-/**
- * This method has to be run to fix the link behavior of inline content who is displayed 
- * within a fancybox
- * @private
- */
-VK2.Tools.MetadataVisualizer.prototype._fixLinks = function(){
-	var anchors = goog.dom.getElementsByTagNameAndClass('a', undefined, this._parentEl);
-	for (var i = 0; i < anchors.length; i++){
-		goog.events.listen(anchors[i], 'click', function(e){			
-			var href = event.target.href;
-			window.location = href;
-		});
-	};
-}
-
-/**
- * This method has to be run to fix the closeClick behavior off fancybox
- * within a fancybox
- * @private
- */
-VK2.Tools.MetadataVisualizer.prototype._fixCloseClick = function(){
-	goog.events.listen(this._parentEl, 'click', function(e){
-		e.stopPropagation();
-	}, true)
-
-}
