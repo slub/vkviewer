@@ -7,6 +7,12 @@ goog.provide('VK2.Tools.Layerbar');
 VK2.Tools.Layerbar = function(settings){
 
 	/**
+	 * @type {boolean}
+	 * @private
+	 */
+	this.ascending = true;
+	
+	/**
 	 * @type {string}
 	 * @public
 	 */
@@ -323,7 +329,7 @@ VK2.Tools.Layerbar.prototype._timeSliderEvent = function(event, ui){
     var tmpLblDivs = $(document).find('div.vk2Label');
     for(var i = 0; i < tmpLblDivs.length; i++){
         if (tmpLblDivs[i].value == event.target.value){
-            tmpLblDivs[i].innerHTML = layer.params.LAYERS + " " + newTimeValue;
+            tmpLblDivs[i].innerHTML = layer.name + " " + newTimeValue;
             layer.oldTime = layer.params.TIME;
             layer.params.TIME = newTimeValue;
             layer.timeFtLayer.updateFeatures();
@@ -338,8 +344,8 @@ VK2.Tools.Layerbar.prototype._timeSliderEvent = function(event, ui){
  * @private
  */
 VK2.Tools.Layerbar.prototype._createLayerElement = function(layer){
-	var overlayElem = this._createLayerDomElement(layer);
-	this._createEventBehaviorToLayerElem(overlayElem, layer);
+	var overlayElem = VK2.Controller.LayerController.createLayerControllerView(layer, this._id);
+	this._addEventBehaviorToLayerControlView(overlayElem, layer);
 	return overlayElem;
 };
 
@@ -348,7 +354,7 @@ VK2.Tools.Layerbar.prototype._createLayerElement = function(layer){
  * @param {VK2.Layer.VK2Layer} layer
  * @private
  */
-VK2.Tools.Layerbar.prototype._createEventBehaviorToLayerElem = function(overlayElem, layer){
+VK2.Tools.Layerbar.prototype._addEventBehaviorToLayerControlView = function(overlayElem, layer){
     // add events and behavior to the list elements
     $(overlayElem).find('ul').hide();
     $(overlayElem).find('.minimize').find('.vk2Label').click(function(event){
@@ -359,15 +365,13 @@ VK2.Tools.Layerbar.prototype._createEventBehaviorToLayerElem = function(overlayE
     $(overlayElem).find('.olButton').click($.proxy(this.onButtonClick, this));
        	
     // create opacity slider
-    var arguments = {
-        tooltipDiv: $(overlayElem).find('.opacity').find('.toolTip'),
-        sliderDiv: $(overlayElem).find('.opacity').find('.sliderContainer'),
-        value: 100,
-        min: 0,
-        max: 100,
-        step: 1
-    };
-    this._addSliderBehaviour(arguments, this._opacitySliderEvent);
+    this._addSliderBehaviour({
+	    	sliderDiv: $(overlayElem).find('.opacity').find('.slider-inner'),
+	        value: 100,
+	        min: 0,
+	        max: 100,
+	        step: 1
+	    }, this._opacitySliderEvent);
             
     //
     // add time slider if it is a time supported layer and also overwrite the
@@ -375,17 +379,15 @@ VK2.Tools.Layerbar.prototype._createEventBehaviorToLayerElem = function(overlayE
     //
     if (layer.isTime){
         // add time slider behavior
-        var arguments = {
-            tooltipDiv: $(overlayElem).find('.time').find('.toolTip'),
-            sliderDiv: $(overlayElem).find('.time').find('.sliderContainer'),
-            value: layer.params.TIME,
-            min: 1868,
-            max: 1945,
-            step: 1
-        };
-        this._addSliderBehaviour(arguments, this._timeSliderEvent);
+        this._addSliderBehaviour({
+                sliderDiv: $(overlayElem).find('.time').find('.slider-inner'),
+                value: layer.params.TIME,
+                min: 1868,
+                max: 1945,
+                step: 1
+            }, this._timeSliderEvent);
         
-        // change label to time labe in the minimize view;
+        // change label to time label in the minimize view;
         var layerLbl = layer.name+" "+layer.params.TIME;
         $(overlayElem).find('.minimize').find('.vk2Label').html(layerLbl);
     }
@@ -393,27 +395,7 @@ VK2.Tools.Layerbar.prototype._createEventBehaviorToLayerElem = function(overlayE
     return layer;
 };
 
-/**
- * This method creates an list element and returns it.
- * @param {VK2.Layer.VK2Layer} layer contains a object which attributes represent the 
- *     input layer object
- * @return {Element}         
- */
-VK2.Tools.Layerbar.prototype._createLayerDomElement =  function(layer) {  
-   	
-	// dom container elements for a view of a overlay
-    var overlayElem = document.createElement("li");
-    overlayElem.className = overlayElem.className + " overlayElem";
-    
-    var overlayElemOuterContainer = document.createElement('div');
-    overlayElemOuterContainer.className = overlayElemOuterContainer.className + " overlayElemDiv";
- 
-    // get minimize view which returns a layerElemt object which contains ids of relevant dom elements
-    overlayElemOuterContainer.appendChild(this._createMinimizeView_forOverlay(layer, this._id));
-    overlayElemOuterContainer.appendChild(this._createMaximizeView_forOverlay(layer));
-    overlayElem.appendChild(overlayElemOuterContainer);       
-    return overlayElem;
-};
+
 
 /**
  * Cycles Creates an default body for a layer element
@@ -421,11 +403,9 @@ VK2.Tools.Layerbar.prototype._createLayerDomElement =  function(layer) {
  *              of the slider
  * @param {Object} eventHandler Function which is called in case of a event
  */
-VK2.Tools.Layerbar.prototype._addSliderBehaviour = function(sliderSettings, eventHandler){
-    // initialize tooltip 
-    var tooltipTime = $(sliderSettings.tooltipDiv);
-    tooltipTime.hide();
-    
+VK2.Tools.Layerbar.prototype._addSliderBehaviour = function(sliderSettings, eventHandler){  
+	var offset_y = -15;
+	
     // initialize timeslider
     var timeSlider = $(sliderSettings.sliderDiv).slider({
         min: sliderSettings.min,
@@ -436,15 +416,16 @@ VK2.Tools.Layerbar.prototype._addSliderBehaviour = function(sliderSettings, even
         step: 1,
         // the next three events are managing the tooltip
         start: function(event, ui){
-            tooltipTime.fadeIn('fast');
+        	$(this.parentElement).find('.tooltip').fadeIn('fast');
         },
         slide: function(event, ui){
-            var value = timeSlider.slider('value');
-            var valueCss = (sliderSettings.min - value)*-1;
-            tooltipTime.css('left',valueCss).text(ui.value);
+        	var tooltip = $(this.parentElement).find('.tooltip');
+        	var shift_left = (sliderSettings.min - ui.value - offset_y) * -1 ;
+        	tooltip.css('left', shift_left + 'px');
+			tooltip.find('.tooltip-inner').html(ui.value);
         },
         stop: function(event, ui){
-            tooltipTime.fadeOut('fast');
+        	$(this.parentElement).find('.tooltip').fadeOut('fast');
         },
         change: $.proxy(eventHandler, this)
     });
@@ -520,121 +501,6 @@ VK2.Tools.Layerbar.prototype._loadContents = function() {
 
         this._div.appendChild(this.minimizeDiv);
     }
-};
-
-/**
- * This simply creates the dom element which are representing the minimize view of a layer element in 
- *    the layer management object.
- * @param {VK2.Layer.Vk2Layer} layer
- * @param {string} id Id of the layer bar object
- * @return {Element}
- */
-VK2.Tools.Layerbar.prototype._createMinimizeView_forOverlay = function(layer, id){
-	
-	// create the header with div (which should be clickable later) and checkbox
-    var minimizeView = document.createElement("div");
-    minimizeView.value = layer.id;
-    minimizeView.className = minimizeView.className + " minimize";
-    
-    // this checkbox has to be further styled
-    var minimizeViewChBox = document.createElement("input");
-    minimizeViewChBox.id = layer.id;
-    minimizeViewChBox.name = layer.name;
-    minimizeViewChBox.value = layer.name;
-    minimizeViewChBox.checked = layer.getVisibility();
-    minimizeViewChBox.defaultChecked = layer.getVisibility();
-    minimizeViewChBox.className = "olButton";
-    minimizeViewChBox._layer = layer.id;
-    minimizeViewChBox._layerSwitcher = id;
-    minimizeViewChBox.type = "checkbox";
-
-    // disable checkbox if layer is out of view
-    if(!layer.inRange){
-        minimizeViewChBox.disabled = true;
-    }
-
-    // label of the layer encapsulate in div
-    var minimizeViewLbl = document.createElement("div");
-    minimizeViewLbl.value = layer.id;
-    minimizeViewLbl.text = layer.name;
-    minimizeViewLbl.className = minimizeViewLbl.className + " vk2Label";
-    minimizeViewLbl.innerHTML =  layer.name;
-
-    // add the header elements to parent container
-    minimizeView.appendChild(minimizeViewChBox);
-    minimizeView.appendChild(minimizeViewLbl);    
-    return minimizeView; 
-};
-
-/**
- * This simply creates the dom element which are representing the minimize view of a layer element in 
- *   the layer management object.
- * @param {VK2.Layer.Vk2Layer} layer
- * @return {Element}
- */
-VK2.Tools.Layerbar.prototype._createMaximizeView_forOverlay = function(layer){
-	
-	function _createSliderElements(id, lbl, classname){
-		var container = document.createElement('div');
-		container.className = container.className + " " +classname;
-		
-	    var toolTip = document.createElement("span");
-	    toolTip.className = toolTip.className + " toolTip";
-	    container.appendChild(toolTip);
-	    
-	    var label = document.createElement("div");
-	    label.innerHTML = lbl + ":";
-	    label.className = label.className + " vk2Label";
-	    container.appendChild(label);
-	    
-	    // the div for the query slider, the value field has to be set with the
-	    // id of the connected layerElem, otherwise the events won't work correct
-	    var sliderContainer = document.createElement("div");
-	    sliderContainer.className = sliderContainer.className + " sliderContainer";
-	    sliderContainer.value = layer.id;
-	    container.appendChild(sliderContainer);    
-	    return container;
-	};
-	
-	 // creates the body of the layer for more control as list element
-    // right now only if it is a time layer
-    var maximizeViewUnorderedList = document.createElement("ul");
-    maximizeViewUnorderedList.className = maximizeViewUnorderedList.className + " maximize";
-    var maximizeViewContainer = document.createElement("div");
-    maximizeViewContainer.className = maximizeViewContainer.className + " container";
-    
-    // creates an thumbnail container an adds the image which is refered 
-    // through the layer element
-    var thumbDiv = document.createElement("div");
-    thumbDiv.className = thumbDiv.className + " thumbnail";
-
-    var thumbImg = document.createElement("img");
-    thumbImg.alt = "Noimage";
-    thumbImg.src = layer.thumbnail;
-    thumbDiv.appendChild(thumbImg);
-    
-    // creates the slider div
-    // one slider for the opacity and one for the time
-    var sliderDiv = document.createElement("div");
-    sliderDiv.className = sliderDiv.className + " slider";
-
-    //
-    // opacity slider
-    //
-    sliderDiv.appendChild(_createSliderElements(layer.id, 'Opacity', 'opacity'));
-            
-    //
-    // add time slider if it is a time supported layer and also overwrite the
-    // label name
-    //
-    if (layer.isTime){
-    	sliderDiv.appendChild(_createSliderElements(layer.id, 'Time', 'time'));
-    }
-    
-    maximizeViewContainer.appendChild(thumbDiv);
-    maximizeViewContainer.appendChild(sliderDiv);
-    maximizeViewUnorderedList.appendChild(maximizeViewContainer);
-    return maximizeViewUnorderedList;
 };
 
 /**

@@ -66,74 +66,66 @@ Styling of the list elements
 /*
  * Styling of the body of a layer list element
  */
-.overlayElem .maximize .container{
-    margin-left: 10px;
-    width: 300px;
-    height: 70px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-family: "Helvectica", "Arial", "sans-serif";
-    line-height: 100%;
-    border-width: 1px;
-    border-style: dotted;
-    border-color: rgb(0, 159,227);
-}
+.overlayElem .maximize .layer-max-container{
+		    margin-left: 10px;
+		    width: 300px;
+		    height: 70px;
+		    border-radius: 6px;
+		    font-size: 12px;
+		    font-family: "Helvectica", "Arial", "sans-serif";
+		    line-height: 100%;
+		    border-width: 1px;
+		    border-style: dotted;
+		    border-color: rgb(0, 159,227);
+		}
+	  	
+	  	.overlayElem .maximize .layer-max-container .media, .overlayElem .maximize .layer-max-container .media-body{
+	  		overflow: visible;
+	  	}
+	  	
+		.overlayElem .maximize .thumbnail{
+			margin: 8px;
+			padding: 0px;
+		}
 
-.overlayElem .maximize .thumbnail{
-    position: relative;
-	margin: 10px;
-    float: left;
-}
+		/* Css styles for slider div generic */
+		.overlayElem .maximize .slider-container{
+		    position: relative;
+		    float: left;
+		    width: 150px;
+		    height: 60px;
+		}
 
-/* Css styles for slider div generic */
-.overlayElem .maximize .slider{
-    position: relative;
-	margin-top: 8px;	
-    float: left;
-    width: 150px;
-    height: 60px;
-}
+		.slider-container .slider-outer{
+			padding: 5px;
+		}
+		
+		.slider-container .slider-inner{
+			margin-left: 7px;
+			margin-top: 3px;
+			width: 100px;
+		}
+		
+		.slider-container .tooltip{
+			top: -33px;
+			left: -10px;
+			display: none;
+		}
+		
+		.slider-container .label{
+		    font-size: 10px;
+		    color: #333;
+		}
 
-.overlayElem .maximize .slider .vk2Label{
-    font-size: 10px;
-}
-
-.overlayElem .maximize .slider .toolTip{
-	position: relative;
-	float: right;
-	margin-top: 10px;
-	display: block;
-	width: 35px;
-	height: 20px;
-	color: #fff;
-	text-align: center;
-	font: 10pt Tahoma, Arial, sans-serif ;
-	border-radius: 3px;
-	border: 1px solid #333;
-    -webkit-box-shadow:  1px 1px 2px 0px rgba(0, 0, 0, .3);
-    box-shadow:  1px 1px 2px 0px rgba(0, 0, 0, .3);
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	background: linear-gradient(top,  rgba(69,72,77,0.5) 0%,rgba(0,0,0,0.5) 100%); /* W3C */
-}
-
-.overlayElem .maximize .slider .sliderContainer{
-	width: 100px;
-}
-
-/* Css styles slider */
-.overlayElem .maximize .slider{
-    position: relative;
-    left: 10px;
-    width: 140px;
-}
-
-/* CSS styles slider time */
-.overlayElem .maximize .slider .time{
-	margin-top: 5px;
-}
-
+		.slider-container .time .tooltip{
+			top: -33px;
+			left: -5px;
+			display: none;
+		}
+		
+		.slider-container .time .slider-outer{
+			padding: 0px 5px 5px 5px;
+		}
 /*
 	Button for open the LayerSearch
 */

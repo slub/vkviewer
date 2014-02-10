@@ -64,6 +64,7 @@
     		"controller/SidebarController.js",
     		"controller/MapSearchController.js",
     		"controller/GeoreferenceController.js",
+    		"controller/LayerController.js",
     		"layer/GeoreferencerSearchLayer.js",
     		"layer/TimeFeatureLayer.js",
     		"layer/Vk2Layer.js",
