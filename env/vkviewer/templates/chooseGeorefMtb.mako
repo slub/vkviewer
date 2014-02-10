@@ -1,9 +1,5 @@
 <%inherit file="basic_page_slim.mako" />
 
-<%block name="header_content">
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/vkviewer-libarys.min.css')}" media="screen" />
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" /> 	
-</%block>
 
 <%block name="body_content">
 	<div class="choose-georef page-container">
@@ -29,7 +25,5 @@
 			% endif
 			
 		</div>
-	</div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.min.js')}"></script>	    
+	</div>   
 </%block>

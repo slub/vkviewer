@@ -73,8 +73,8 @@ VK2.Controller.TimeFeatureControls = (function(){
                 $.fancybox.open([
                     { 
                         href: originalPicLink,
-                        title: '<a href="' + originalPicLink + '">Download Karte</a>      '
-                                +' <a href="' + permalink + '">Gehe zu Kartenforum</a>'
+                        title: '<a target="_blank" href="' + originalPicLink + '">Download Karte</a> |      '
+                                +' <a target="_blank" href="' + permalink + '">Gehe zu Kartenforum</a>'
                     }
                 ]);
                 

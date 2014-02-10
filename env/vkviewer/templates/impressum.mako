@@ -1,10 +1,5 @@
 <%inherit file="basic_page_slim.mako" />
 
-<%block name="header_content">
-	  <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />	  
-	  <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />     	
-</%block>
-
 <%block name="body_content">
 	<div class="impressum page-container">
 		<div class="vk2ImpressumPageContainer">

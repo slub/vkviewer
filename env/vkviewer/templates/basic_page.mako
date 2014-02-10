@@ -12,6 +12,7 @@
         <!-- js/css librarys via cdn -->
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	 
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/vkviewer-libarys.min.css')}" media="screen" />
+		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />   	
 		
 		<%block name="header_content" />
 	     
@@ -29,24 +30,24 @@
 
 	    
 	    <!-- production -->
-		<!-- js librarys -->
+		<!-- js librarys 
       	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
       	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>  
         <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>	    
 	    <script src="${request.static_url('vkviewer:static/lib/OpenLayers.js')}"></script> 
 	    <script src="${request.static_url('vkviewer:static/lib/vkviewer-plugin-libarys.min.js')}"></script>  
 	    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script> 
+	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script> --> 
 	    	
-	    <!-- development 
-	  	<script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/jquery.tablesorter.min.js')}"></script>  
-	   	<script src="${request.static_url('vkviewer:static/lib/min/jquery.tabslideout.min.js')}"></script>  
-	    <script src="${request.static_url('vkviewer:static/lib/min/bootstrap.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/OpenLayers-2.13.1/OpenLayers.js')}"></script> 
+	    <!-- development -->
+	  	<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/jquery.fancybox.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/jquery.tablesorter.min.js')}"></script>  
+	   	<script src="${request.static_url('vkviewer:static/lib/jquery.tabslideout.min.js')}"></script>  
+	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/OpenLayers.js')}"></script>  
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
       	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/disposable/disposable.js')}"></script>
       	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/debug/entrypointregistry.js')}"></script>
@@ -56,7 +57,7 @@
       	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/uri/utils.js')}"></script>
       	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/uri/uri.js')}"></script> 
 	    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>  -->
+	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>  
 	    
 	    <%block name="js_content" />
 	    
