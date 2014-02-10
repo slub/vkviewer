@@ -45,7 +45,7 @@ var lang_dictionary = {
 		'email_wrong_token': 'Die Email sollte in der Form Max.Mustermann@slub-dresden.de gestaltet sein.',
 		
 		// show metadata
-		'show_metadata': 'zeige Metadaten',
+		'show_metadata': 'Einzelblatt Ansicht',
 		'metadata_overview': 'Übersicht Metadaten',
 		'mdrecord_moremetadata': 'Zeige mehr Informationen zu dem Messtischblatt',
 		'mdrecord_keyword': 'Schlagworte',

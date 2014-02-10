@@ -18,16 +18,16 @@ ol3.control.LayerSpy = function(opt_options) {
   
   var this_ = this;
   
-	var radius = 75;
-	$(document).keydown(function(evt) {
-		  if (evt.which === 38) {
-		    radius = Math.min(radius + 5, 150);
-		    this_.getMap().requestRenderFrame();
-		  } else if (evt.which === 40) {
-		    radius = Math.max(radius - 5, 25);
-		    this_.getMap().requestRenderFrame();
-		  }
-	});
+  var radius = 75;
+  goog.events.listen(document, goog.events.EventType.KEYDOWN, function(evt){
+	if (evt.keyCode === 107 || evt.keyCode === 187) {
+		radius = Math.min(radius + 5, 150);
+		this_.getMap().requestRenderFrame();
+	} else if (evt.keyCode === 109 || evt.keyCode === 189) {
+		radius = Math.max(radius - 5, 25);
+		this_.getMap().requestRenderFrame();
+	}
+  });
 	
 	// get the pixel position with every move
 	var mousePosition = null;

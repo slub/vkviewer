@@ -1,7 +1,6 @@
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/styles.css')}" /> 
         <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/welcome.css')}" />
 </%block>
 

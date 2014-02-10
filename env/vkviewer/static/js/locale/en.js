@@ -45,7 +45,7 @@ var lang_dictionary = {
 		'email_wrong_token': 'The email adress should have form like Max.Mustermann@slub-dresden.de.',
 		
 		// show metadata
-		'show_metadata': 'show Metadata',
+		'show_metadata': 'Single map view',
 		'metadata_overview': 'Metadata overview',
 		'mdrecord_moremetadata': 'Show more information about the messtischblatt',
 		'mdrecord_keyword': 'Keywords',

@@ -43,7 +43,6 @@ VK2.Tools.MesstischblattViewer = function(map_container_id, mtb_prop){
 	 * @private
 	 */
 	this._baseLayer = new ol.layer.Tile({
-		attributions: undefined,
 		source: new ol.source.OSM(),
         minResolution: this._mtbProps.minResolution,
         maxResolution: this._mtbProps.maxResolution
@@ -81,9 +80,11 @@ VK2.Tools.MesstischblattViewer = function(map_container_id, mtb_prop){
 	  view: new ol.View2D({
 		projection: this._mtbProps.projection,
         minResolution: this._mtbProps.minResolution*2,
-        maxResolution: this._mtbProps.maxResolution/2
+        maxResolution: this._mtbProps.maxResolution/2,
+        extent: this._mtbProps.extent
 	  }),
 	  controls: [
+	      new ol.control.Attribution(),
 	      new ol.control.Zoom(),
 	      new ol3.control.RotateNorth()
 	  ]
@@ -117,7 +118,7 @@ VK2.Tools.MesstischblattViewer.prototype._loadControls = function(){
 		this._map.addControl(
 			new ol3.control.LayerSpy({
 				'spyLayer':new ol.layer.Tile({
-					attributions: undefined,
+					attribution: undefined,
 					source: new ol.source.OSM(),
 			        minResolution: this._mtbProps.minResolution,
 			        maxResolution: this._mtbProps.maxResolution

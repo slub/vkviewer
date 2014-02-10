@@ -4,115 +4,171 @@
 	  <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />
 	  <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/development.css')}" />
 	  <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />	  
-	  <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/ol3/ol.css')}" />
 	  
 	  <style>
-	  		.ol-layerspy{
-	  			position: absolute;
-				background: rgba(255,255,255,0.4);
-				border-radius: 4px;
-				left: 8px;
-				padding: 2px;
-				top: 95px;
-	  		}
-	  		
-	  		.ol-layerspy a{
-	  			display: block;
-				margin: 1px;
-				padding: 0;
-				color: white;
-				font-size: 16px;
-				font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
-				font-weight: bold;
-				text-decoration: none;
-				text-align: center;
-				height: 22px;
-				width: 22px;
-				background-color: rgba(0,60,136,0.5);
-				border-radius: 2px;
-	  		}
-	  		
-	  		.ol-layerspy a:hover{
-	  			background: rgba(0,60,136,0.7);
-	  		}
-	  		
-	  		      .rotate-north {
-        position: absolute;
-        top: 125px;
-        left: 8px;
-        background: rgba(255,255,255,0.4);
-        border-radius: 4px;
-        padding: 2px;
-      }
-      .ol-touch .rotate-north {
-        top: 80px;
-      }
-      .rotate-north a {
-        display: block;
-        color: white;
-        font-size: 16px;
-        font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
-        font-weight: bold;
-        margin: 1px;
-        text-decoration: none;
-        text-align: center;
-        border-radius: 2px;
-        height: 22px;
-        width: 22px;
-        background: rgba(0,60,136,0.5);
-      }
-      .ol-touch .rotate-north a {
-        font-size: 20px;
-        height: 30px;
-        width: 30px;
-        line-height: 26px;
-      }
-      .rotate-north a:hover {
-        background: rgba(0,60,136,0.7);
-      }
+	  .overlayElem{
+	  	position: absolute;
+	  	top:50px;
+	  }
+	  
+	  .overlayElem .maximize .layer-max-container{
+		    margin-left: 10px;
+		    width: 300px;
+		    height: 70px;
+		    border-radius: 6px;
+		    font-size: 12px;
+		    font-family: "Helvectica", "Arial", "sans-serif";
+		    line-height: 100%;
+		    border-width: 1px;
+		    border-style: dotted;
+		    border-color: rgb(0, 159,227);
+		}
+	  	
+	  	.overlayElem .maximize .layer-max-container .media, .overlayElem .maximize .layer-max-container .media-body{
+	  		overflow: visible;
+	  	}
+	  	
+		.overlayElem .maximize .thumbnail{
+			margin: 8px;
+			padding: 0px;
+		}
+
+		/* Css styles for slider div generic */
+		.overlayElem .maximize .slider-container{
+		    position: relative;
+		    float: left;
+		    width: 150px;
+		    height: 60px;
+		}
+
+		.slider-container .slider-outer{
+			padding: 5px;
+		}
+		
+		.slider-container .slider-inner{
+			margin-left: 7px;
+			margin-top: 3px;
+			width: 100px;
+		}
+		
+		.slider-container .tooltip{
+			top: -33px;
+			left: -10px;
+			display: none;
+		}
+		
+		.slider-container .label{
+		    font-size: 10px;
+		    color: #333;
+		}
+
+		.slider-container .time .tooltip{
+			top: -33px;
+			left: -5px;
+			display: none;
+		}
+		
+		.slider-container .time .slider-outer{
+			padding: 0px 5px 5px 5px;
+		}
+		
 	  </style>
 </%block>
 
 <%block name="body_content">
-	<div id="map" class="map" style="width:100%;height:600px;"></div>
-	<div id="mouse-position" style="width:100px; height:100px; position:relative; float:left;"></div>
+	<div class="overlayElem">
+		<div class="maximize">
+			<div class="layer-max-container">
+				<div class="media">
+					<img class="thumbnail pull-left media-object" src="/vkviewer/static/images/layer_default.png" alt="...">
+					<div class="media-body slider-container">
+							<div class="opacity">
+								<div class="slider-outer">
+									<div class="label">Opacity:</div>
+									<div class="slider-inner" id="sliderContainer">
+										<div class="tooltip top in fade">
+											<div class="tooltip-arrow"></div>
+											<div class="tooltip-inner"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="time">
+								<div class="slider-outer">
+									<div class="label">Time:</div>
+									<div class="slider-inner" id="sliderContainer2">
+										<div class="tooltip top in fade">
+											<div class="tooltip-arrow"></div>
+											<div class="tooltip-inner"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </%block>
 
 <%block name="js_content">
-	<script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/ol3/ol-whitespace.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/dev/LayerSpy.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/dev/RotateNorth.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/dev/ZoomifyViewer.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/dev/MesstischblattViewer.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script>
-	<script>
-		##var url = new goog.Uri(window.location.href);
-		##var imgWidth = url.getQueryData().get('zoomify_width');
-		##var imgHeight = url.getQueryData().get('zoomify_width');
-		##var url = url.getQueryData().get('zoomify_prop').substring(0,url.getQueryData().get('zoomify_prop').lastIndexOf("/")+1);
-		 
-		##var zoomifyViewer = new VK2.Tools.ZoomifyViewer('map', {
-		##	'width': imgWidth,
-		##	'height': imgHeight,
-		##	'zoomify_url': url
-		##});
+	<script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.min.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/min/bootstrap.min.js')}"></script>
 	
-		##$.fancybox({
-		##	href: goog.dom.getElement('map'),
-		##	type: 'inline',
-		##	width: '100%',
-		##	height: '100%',
-		##	closeClick: false	
-		##});
-		
-		##$(goog.dom.getElement('map')).trigger("click");
-
-		var mtbViewer = new VK2.Tools.MesstischblattViewer('map', {
-
-		});
+	
+	<script>
+	
+		var minValue = 0;
+		var maxValue = 100;
+		var offset_y = -15;
+        var timeSlider = $('#sliderContainer').slider({
+            min: minValue,
+            max: maxValue,
+            value: 0,
+            animate: 'slow',
+            orientation: 'horizontal',
+            step: 1,
+            // the next three events are managing the tooltip
+            start: function(event, ui){
+                $(this.parentElement).find('.tooltip').fadeIn('fast');
+            },
+            slide: function(event, ui){
+            	console.log('slide... ');
+            	var tooltip = $(this.parentElement).find('.tooltip');
+            	var shift_left = (minValue - ui.value - offset_y) * -1 ;
+            	tooltip.css('left', shift_left + 'px');
+				tooltip.find('.tooltip-inner').html(ui.value);
+            },
+            stop: function(event, ui){
+                $(this.parentElement).find('.tooltip').fadeOut('fast');
+            }
+        });
+        
+        var timeSlider = $('#sliderContainer2').slider({
+            min: minValue,
+            max: maxValue,
+            value: 0,
+            animate: 'slow',
+            orientation: 'horizontal',
+            step: 1,
+            // the next three events are managing the tooltip
+            start: function(event, ui){
+                $(this.parentElement).find('.tooltip').fadeIn('fast');
+            },
+            slide: function(event, ui){
+            	console.log('slide... ');
+            	var tooltip = $(this.parentElement).find('.tooltip');
+            	var shift_left = (minValue - ui.value - offset_y) * -1 ;
+            	tooltip.css('left', shift_left + 'px');
+				tooltip.find('.tooltip-inner').html(ui.value);
+            },
+            stop: function(event, ui){
+                $(this.parentElement).find('.tooltip').fadeOut('fast');
+            }
+        });
 		
 		
     </script>  

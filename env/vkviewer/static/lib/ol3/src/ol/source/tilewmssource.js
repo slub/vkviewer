@@ -360,6 +360,16 @@ ol.source.TileWMS.prototype.tileUrlFunction_ =
 
   this.pixelRatio_ = pixelRatio;
 
+  // checking extend
+  //var projectionExtent = projection.getExtent();
+  //var extent = goog.isDef(this.getExtent()) ?
+ //    this.getExtent() : projectionExtent;
+
+  //if (!ol.extent.intersects(tileExtent, extent) ||
+  //  ol.extent.touches(tileExtent, extent)) {
+  //  return undefined;
+  //}
+
   return this.getRequestUrl_(tileCoord, tileSize, tileExtent,
       pixelRatio, projection, baseParams);
 };

@@ -21,23 +21,26 @@
 </%block>
 
 <%block name="js_content">
-	<script src="${request.static_url('vkviewer:static/lib/ol3/ol.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/min/ol.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/ol3/LayerSpy.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/ol3/RotateNorth.js')}"></script>	
-	<!-- <script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script> -->
 	
-	<!--<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
+	<!-- <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
     <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/net/cookies.js')}"></script> 
-	 <script src="${request.static_url('vkviewer:static/js/utils/Utils.js')}"></script>
+    <script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.min.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/min/jquery.tablesorter.min.js')}"></script>  
+	<script src="${request.static_url('vkviewer:static/lib/min/jquery.tabslideout.min.js')}"></script>  
+	<script src="${request.static_url('vkviewer:static/lib/min/bootstrap.min.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script> 
+	<script src="${request.static_url('vkviewer:static/js/utils/Utils.js')}"></script>
     <script src="${request.static_url('vkviewer:static/js/utils/Settings.js')}"></script> 
-	<script src="${request.static_url('vkviewer:static/dev/LayerSpy.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/dev/RotateNorth.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/dev/ZoomifyViewer.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/dev/MesstischblattViewer.js')}"></script>	
+	<script src="${request.static_url('vkviewer:static/js/tools/MesstischblattViewer.js')}"></script>	
 	<script src="${request.static_url('vkviewer:static/js/events/EventType.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/events/ParsedCswRecordEvent.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/requests/CSW_GetRecordById.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/js/tools/MetadataVisualizer.js')}"></script> -->
+	<script src="${request.static_url('vkviewer:static/js/tools/MetadataVisualizer.js')}"></script>-->
 	
     <script>
     	$(document).ready(function(){
