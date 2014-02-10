@@ -1,8 +1,8 @@
 <%inherit file="basic_page.mako" />
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/ol3/ol.css')}" />
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/mtb_profile.css')}" />
-<%block name="header_content">
 
+<%block name="header_content">
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/mtb_profile.css')}" />
 </%block>
 
 <%block name="body_content">
@@ -21,7 +21,7 @@
 </%block>
 
 <%block name="js_content">
-	<script src="${request.static_url('vkviewer:static/lib/min/ol.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/ol3/LayerSpy.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/ol3/RotateNorth.js')}"></script>	
 	

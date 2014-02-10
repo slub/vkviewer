@@ -24,3 +24,6 @@ env/vkviewer/static/dev
 
 # all files with ending 
 *.pyc
+
+# complete librarys
+env/vkviewer/static/lib/debug

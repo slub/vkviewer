@@ -277,7 +277,7 @@
       	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>   
       	
 	   	<!-- js code -->
-        <%block name="bodyBlock" /> 
+        <%block name="js_content" /> 
         ${next.body()}
         
 	</div>

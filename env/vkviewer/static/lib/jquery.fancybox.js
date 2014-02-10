@@ -1,1 +1,0 @@
-fancyapps-fancyBox/source/jquery.fancybox.pack.js
