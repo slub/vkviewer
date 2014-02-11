@@ -26,6 +26,7 @@ VK2.Tools.MesstischblattViewer = function(map_container_id, mtb_prop){
 		'layerSpy': true,
 		'time': '',
 		'minResolution': 0,
+		'opacity_slider': 'opacity-slider',
 		'maxResolution': 76.43702827453613
 	}; 
 	goog.object.extend(this._mtbProps, mtb_prop);
@@ -127,21 +128,32 @@ VK2.Tools.MesstischblattViewer.prototype._loadControls = function(){
 		)
 	}
 	
-	/**
-	 * only for debugging reason
-	 * @debug
-	 */
-//	this._map.addControl(
-//			new ol.control.MousePosition({
-//				  coordinateFormat: ol.coordinate.createStringXY(4),
-//				  projection: 'EPSG:900913',
-//				  // comment the following two lines to have the mouse position
-//				  // be placed within the map.
-//				  className: 'custom-mouse-position',
-//				  target: document.getElementById('mouse-position'),
-//				  undefinedHTML: '&nbsp;'
-//			})
-//	);
+	
+	if (this._mtbProps.opacity_slider && goog.isDef(goog.dom.getElement(this._mtbProps.opacity_slider))){
+		var opacitySliderEl = goog.dom.getElement(this._mtbProps.opacity_slider);
+		var this_ = this;
+		var opacitySlider = $(opacitySliderEl).slider({
+	        min: 0,
+	        max: 100,
+	        value: 100,
+	        animate: 'slow',
+	        orientation: 'horizontal',
+	        step: 1,
+	        // the next three events are managing the tooltip
+	        start: function(event, ui){
+	        	$(this.parentElement).find('.tooltip').fadeIn('fast');
+	        },
+	        slide: function(event, ui){
+	        	var tooltip = $(this.parentElement).find('.tooltip');
+				tooltip.find('.tooltip-inner').html('Transparency '+ui.value);
+				this_._mtbLayer.setOpacity(ui.value/100);
+	        },
+	        stop: function(event, ui){
+	        	$(this.parentElement).find('.tooltip').fadeOut('fast');
+	        }
+	    });
+	}
+
 } 
 
 /**

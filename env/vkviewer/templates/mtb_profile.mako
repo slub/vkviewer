@@ -10,7 +10,16 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-lg-8">
-					<div class="map-container" id="map-container"></div>
+					<div class="map-container" id="map-container">
+						<div class="opacity-container">
+							<div class="opacity-slider" id="opacity-slider">
+								<div class="tooltip top in fade">
+									<div class="tooltip-arrow"></div>
+									<div class="tooltip-inner"></div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-4 col-lg-4">
 					<div class="metadata-container" id="metadata-container"></div>
@@ -53,7 +62,8 @@
     		}
 			var mtbViewer = new VK2.Tools.MesstischblattViewer('map-container', {
 				'time': VK2.Utils.getQueryParam('time'),
-				'extent': extent
+				'extent': extent,
+				'opacity_slider': 'opacity-slider'
 			});
 			var mdVisualizer = new VK2.Tools.MetadataVisualizer('metadata-container',VK2.Utils.getQueryParam('key'),{
 				 'csw_url':'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw'});
