@@ -1,175 +1,166 @@
-<%inherit file="basic_page_slim.mako" />
+# -*- coding: utf-8 -*-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="vkviewer">
+    <head>
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8" />
+        <META HTTP-EQUIV="cache-control" CONTENT="max-age=3600" />
+        <title>Virtuelles Kartenforum 2.0</title>
+        
+        <!-- js/css librarys via cdn -->
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	 
+		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/vkviewer-libarys.min.css')}" media="screen" />
+		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />
+		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/development.css')}" />   	 
+		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
+		    
+    </head>
+	<body>
 
-<%block name="header_content">
-	  <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />
-	  <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/development.css')}" />
-	  <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/min/css/vkviewer-libarys.min.css')}" media="screen" />	  
-	  
-	  <style>
-	  .overlayElem{
-	  	position: absolute;
-	  	top:50px;
-	  }
-	  
-	  .overlayElem .maximize .layer-max-container{
-		    margin-left: 10px;
-		    width: 300px;
-		    height: 70px;
-		    border-radius: 6px;
-		    font-size: 12px;
-		    font-family: "Helvectica", "Arial", "sans-serif";
-		    line-height: 100%;
-		    border-width: 1px;
-		    border-style: dotted;
-		    border-color: rgb(0, 159,227);
-		}
-	  	
-	  	.overlayElem .maximize .layer-max-container .media, .overlayElem .maximize .layer-max-container .media-body{
-	  		overflow: visible;
-	  	}
-	  	
-		.overlayElem .maximize .thumbnail{
-			margin: 8px;
-			padding: 0px;
-		}
+	<div class="main-page body-container">
+		<!-- anchor for welcome page -->
+		% if context.get('welcomepage') is not 'off':
+			<a href="${request.route_url('welcome')}" id="vk2WelcomePage"></a>
+		% endif  
+		
+		<div class="navbar navbar-inverse navbar-fixed-top vk2HeaderNavBar" role="navigation">
+		
+			<!-- Brand and toggle get grouped for better mobile display -->
+	        <div class="navbar-header">
+	          	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+		            <span class="sr-only">Toggle navigation</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+	          	</button>
+	          	<a class="navbar-brand" href="#">Virtuelles Kartenforum 2.0</a>
+	        </div>        
+	        
+	        <!-- Collect the nav links, forms, and other content for toggling -->
+        	<div class="collapse navbar-collapse navbar-ex1-collapse">
+                           		
+	          		<ul class="nav navbar-nav navbar-left vk2Gazetteer">
+	          			<div id="vk2GazetteerSearchDiv" class="vk2GazetteerSearchDiv">
+							<input id="vk2GazetteerSearchInput" class="vk2GazetteerSearchInput" 
+								placeholder="${_('placeholder_town_name')}" />
+							<!-- <button type="submit" class="btn btn-success gazetteer-submit-button">Search</button> -->
+			            </div>  
+	          		</ul>
+          		
+	          		<ul class="nav navbar-nav navbar-right vk2-navbar-user">
+	          
+			          	<! further options -->
+			          	<li class="drowdown">
+			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"></span> ${_('header_service')} <b class="caret"></b></a>
+			              	<ul class="dropdown-menu">
+			              
+				              	% if faq_url:
+				         			<li><a href="${faq_url}" class="vk2FooterLinks fancybox-open">FAQ</a></li>        				
+				        		% else:
+				        			<li><a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open">FAQ</a></li>
+				        		% endif
+			        		
+				              	<li><a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open">${_('footer_contact')}</a></li>
+				              	<li><a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open">${_('footer_project')}</a></li>
+				              	<li><a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open">${_('footer_editorial')}</a><li>             
+			              	</ul>                 		
+			          	</li>
+		          
+			          	<!-- language chooser -->
+			          	<li class="dropdown">
+			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"></span> ${_('header_language')} <b class="caret"></b></a>
+			              	<ul class="dropdown-menu">
+			                	<li><a href="${request.route_url('set_locales')}?language=de"><span class="language_switcher switch_de"></span>${_('header_language_de')}</a></li>
+			                	<li><a href="${request.route_url('set_locales')}?language=en"><span class="language_switcher switch_en"></span>${_('header_language_en')}</a></li>              
+			              	</ul>          		
+			          	</li>
+		          	
+		          	
+			          	<!-- user menu -->
+			            <li class="dropdown user-dropdown">
+			            
+				           	<%
+							from pyramid.security import authenticated_userid
+							user_id = authenticated_userid(request)
+							%>    
+										
+							% if user_id:
+						
+			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> ${user_id} <b class="caret"></b></a>
+			              	<ul class="dropdown-menu">
+				                <li><a href="${request.route_url('users_profile_georef')}" class="fancybox-open"> Profile</a></li>
+				                <li><a href="${request.route_url('change_pw', action='page')}" class="fancybox-open">${_('change_pw_header')}</a></li>
+				                <li class="divider"></li>
+				                <li><a href="${request.route_url('auth',action='out')}"><span class="glyphicon glyphicon-off"></span> ${_('logout_button')} </a></li>
+				              </ul>
+			              
+				            % else:
+				              <a href="${request.route_url('auth',action='getscreen')}" id="vk2UserToolsLogin" class="vk2UserToolsLogin fancybox-open" > ${_('login_button')} </a>
+				         	% endif
+			            </li>
+	          		</ul>
 
-		/* Css styles for slider div generic */
-		.overlayElem .maximize .slider-container{
-		    position: relative;
-		    float: left;
-		    width: 150px;
-		    height: 60px;
-		}
-
-		.slider-container .slider-outer{
-			padding: 5px;
-		}
-		
-		.slider-container .slider-inner{
-			margin-left: 7px;
-			margin-top: 3px;
-			width: 100px;
-		}
-		
-		.slider-container .tooltip{
-			top: -33px;
-			left: -10px;
-			display: none;
-		}
-		
-		.slider-container .label{
-		    font-size: 10px;
-		    color: #333;
-		}
-
-		.slider-container .time .tooltip{
-			top: -33px;
-			left: -5px;
-			display: none;
-		}
-		
-		.slider-container .time .slider-outer{
-			padding: 0px 5px 5px 5px;
-		}
-		
-	  </style>
-</%block>
-
-<%block name="body_content">
-	<div class="overlayElem">
-		<div class="maximize">
-			<div class="layer-max-container">
-				<div class="media">
-					<img class="thumbnail pull-left media-object" src="/vkviewer/static/images/layer_default.png" alt="...">
-					<div class="media-body slider-container">
-							<div class="opacity">
-								<div class="slider-outer">
-									<div class="label">Opacity:</div>
-									<div class="slider-inner" id="sliderContainer">
-										<div class="tooltip top in fade">
-											<div class="tooltip-arrow"></div>
-											<div class="tooltip-inner"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="time">
-								<div class="slider-outer">
-									<div class="label">Time:</div>
-									<div class="slider-inner" id="sliderContainer2">
-										<div class="tooltip top in fade">
-											<div class="tooltip-arrow"></div>
-											<div class="tooltip-inner"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-					</div>
-				</div>
+          	</div>
+        </div><!-- /.navbar-collapse -->
+      
+              
+        <!-- Body -->
+        <div class="container main-page content-container">
+        	<!-- Map panel -->
+			<div class="vk2MapPanel">
+				<div id="mapdiv" class="olMap" tabindex="0"></div>
+			    <div id="vk2SBPanel" class="vk2SBPanel"></div>
 			</div>
+			<!-- /end Map panel -->
+			
+			<!-- Footer panel -->
+			<div class="vk2FooterPanel">
+				<div id="vk2Footer" class="vk2Footer">
+			    	<div class="footerContainer">
+        				<div class="leftside">
+					    	<ul class="footerList">
+					        	<li class="listelement thick leftborder">${_('footer_project_name')}</li>
+					        	<li class="listelement">${_('footer_project_desc_long')}</li>
+					        </ul>
+        				</div>
+					    <div class="rightside">
+					    	<ul class="footerList">
+					        		   	
+					        	% if faq_url:
+					         		<li class="listelement leftborder">
+					        			<a href="${faq_url}" class="vk2FooterLinks fancybox-open">FAQ</a>        				
+					        		</li>       		   		
+					        	% else:
+					        		<li class="listelement leftborder">
+					        			<a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open">FAQ</a>        				
+					        		</li>
+					        	% endif
+					        		
+					        	<li class="listelement leftborder">
+					         		<a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open">${_('footer_contact')}</a>		
+					        	</li>        				
+					        	<li class="listelement leftborder">
+					        		<a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open">${_('footer_project')}</a>    				
+					        	</li>
+					        	<li class="listelement">
+					        		<a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open">${_('footer_editorial')}</a>
+					        	</li>
+					        </ul>
+					    </div>
+        			</div>
+        		</div>
+			</div>
+			<!-- end footer -->
 		</div>
 	</div>
-</%block>
+	
+	<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
 
-<%block name="js_content">
-	<script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/min/bootstrap.min.js')}"></script>
-	
-	
-	<script>
-	
-		var minValue = 0;
-		var maxValue = 100;
-		var offset_y = -15;
-        var timeSlider = $('#sliderContainer').slider({
-            min: minValue,
-            max: maxValue,
-            value: 0,
-            animate: 'slow',
-            orientation: 'horizontal',
-            step: 1,
-            // the next three events are managing the tooltip
-            start: function(event, ui){
-                $(this.parentElement).find('.tooltip').fadeIn('fast');
-            },
-            slide: function(event, ui){
-            	console.log('slide... ');
-            	var tooltip = $(this.parentElement).find('.tooltip');
-            	var shift_left = (minValue - ui.value - offset_y) * -1 ;
-            	tooltip.css('left', shift_left + 'px');
-				tooltip.find('.tooltip-inner').html(ui.value);
-            },
-            stop: function(event, ui){
-                $(this.parentElement).find('.tooltip').fadeOut('fast');
-            }
-        });
-        
-        var timeSlider = $('#sliderContainer2').slider({
-            min: minValue,
-            max: maxValue,
-            value: 0,
-            animate: 'slow',
-            orientation: 'horizontal',
-            step: 1,
-            // the next three events are managing the tooltip
-            start: function(event, ui){
-                $(this.parentElement).find('.tooltip').fadeIn('fast');
-            },
-            slide: function(event, ui){
-            	console.log('slide... ');
-            	var tooltip = $(this.parentElement).find('.tooltip');
-            	var shift_left = (minValue - ui.value - offset_y) * -1 ;
-            	tooltip.css('left', shift_left + 'px');
-				tooltip.find('.tooltip-inner').html(ui.value);
-            },
-            stop: function(event, ui){
-                $(this.parentElement).find('.tooltip').fadeOut('fast');
-            }
-        });
-		
-		
-    </script>  
-</%block>
+	    
+    </body>
+</html>
+
+

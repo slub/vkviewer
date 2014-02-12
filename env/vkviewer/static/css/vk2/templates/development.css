@@ -1,17 +1,14 @@
-.georef-point-container{
-	position:absolute;
-	top: 50px;
-	left: 50px;
-	display: none;
-}
-
-.georef-point-container{
-	height: 40px !important;
-	width: 150px !important;
-	font-size: 20px;
-	padding-top: 5px !important;
-	padding-bottom: 5px !important;
-	padding-left: 20px !important;
-	padding-right: 15px !important;
-	z-index: 10000;
+@media (min-width: 768px){
+	.side-nav {
+		margin-right: -400px;
+		right: 400px;
+		width: 400px;
+		position: fixed;
+		top: 50px;
+		height: 100%;
+		border-radius: 0;
+		border: none;
+		background-color: #222222;
+		overflow-y: auto;
+	}
 }
