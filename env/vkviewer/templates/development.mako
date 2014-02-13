@@ -53,6 +53,12 @@
 							<span>Eckpunkt verschieben</span>
 						</label>
 					</div>
+					<div class="radio">
+						<label>
+							<input type="radio" class="toggle-elements" name="type" value="deletepoint" id="deleteToggle">
+							<span>Lösche Punkt</span>
+						</label>
+					</div>
 				</div>
 			</div>			
 		</div>
@@ -121,6 +127,7 @@
 
 <%block name="js_content">
 	<script src="${request.static_url('vkviewer:static/lib/debug/ol3/ol-whitespace.js')}"></script>	
+	<script src="${request.static_url('vkviewer:static/dev/DeleteFeature.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/dev/Georeferencer.js')}"></script>
 	
 	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
