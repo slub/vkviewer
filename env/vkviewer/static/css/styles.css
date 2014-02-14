@@ -8,6 +8,7 @@
 @import url("./vk2/override-ol.css");
 @import url("./vk2/override-jquery.css");
 @import url("./vk2/override-bootstrap.css");
+@import url("./vk2/tools/ol3-tools.css");
 @import url("./vk2/templates/template_pages.css");
 @import url("./vk2/templates/basic_index.css");
 @import url("./vk2/templates/index_logged_in.css");

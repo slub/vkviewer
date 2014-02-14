@@ -1,3 +1,32 @@
+.georeference-tools-container{
+	z-index: 1000;
+	position: absolute;
+	top: 200px;
+	width: 250px;
+	height: 250px;
+	left: -250px;
+}
+
+.georeference-tools-container .georeference-tools-handler{	
+	z-index: 1000;
+	position: absolute;
+	top: 40px;
+	right: -40px;
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	cursor: default;
+	border-radius: 0;
+	width: 40px;
+	height: 40px;
+}
+
+.georeference-tools-container .georeference-tools-inner-container{
+	padding: 10px;
+	margin-left: 1px;
+	border: 1px solid black;
+	display: none; 
+}
+
 .vk2GeoreferenceToolsPanel{
 	height: 230px;
 	width: 230px;

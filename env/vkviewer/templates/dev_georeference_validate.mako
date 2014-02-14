@@ -1,15 +1,56 @@
 <%inherit file="basic_page_slim.mako" />
 
 <%block name="header_content">	 
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	      
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/vkviewer-libarys.min.css')}" media="screen" />
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/template_pages.css')}" />   	
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
+	
+	<style>
+		.ol-zoom-in:before {
+			content: "";
+		}
+		
+		.ol-zoom-out:before {
+			content: "";
+		}
+		
+		.georeference-validate-container{
+			width: 100%;
+			height: 95%;
+		}
+		
+		.outer-map-container{
+			height: 100%;
+		}
+		
+		.unreferenced-map{
+			width: 100%;
+			height: 100%;
+		}
+		
+		.unreferenced-map .georeference-tools-container{
+			margin-left: 15px;
+		}
+			
+		.georeferenced-map{
+			width: 100%;
+			height: 100%;
+		}
+
+	</style>
 </%block>
 
 <%block name="body_content">
-		<div class="georeference-start page-container full-display">
-		<div class="vk2GeoreferenceMtbStartPage">
-			<div id="georeferenceMap" class="georeferenceMap">
-	
-			</div>			
+	<div class="georeference-start page-container full-display">
+		<div class="row georeference-validate-container">
+			<div class="col-sm-6 col-md-6 col-lg-6 outer-map-container">
+				<div id="unreferenced-map" class="unreferenced-map"></div>
+			</div>
+			<div class="col-sm-6 col-md-6 col-lg-6 outer-map-container">
+				<div id="georeferenced-map" class="georeferenced-map"></div>
+			</div>	
 		</div>
 		
 		<!-- Loading overlay screen -->
@@ -63,34 +104,65 @@
         	</div>
 		</div>
         <!-- end footer -->
+        
+
+		
+			<!-- Georeference Tools Content -->
+
 		</div>
 	</div>
+		
+
 </%block>
 
 <%block name="js_content">
-	<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
+
 	<script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script> 
-	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/ol-whitespace.js')}"></script>	
-	<!-- <script src="${request.static_url('vkviewer:static/js/ol3/LayerSpy.js')}"></script> -->
+	<script src="${request.static_url('vkviewer:static/lib/debug/ol3/ol-whitespace.js')}"></script>	
+	<script src="${request.static_url('vkviewer:static/js/ol3/LayerSpy.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/dev/DeleteFeature.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/dev/Georeferencer.js')}"></script>
+	
+	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
+    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/net/cookies.js')}"></script> 
+	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/ui/idgenerator.js')}"></script> 
+    <script src="${request.static_url('vkviewer:static/lib/OpenLayers.js')}"></script>  
+    <script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/jquery.fancybox.min.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/jquery.tablesorter.min.js')}"></script>  
+	<script src="${request.static_url('vkviewer:static/lib/jquery.tabslideout.min.js')}"></script>  
+	<script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script>  
+	
+	
 	<script src="${request.static_url('vkviewer:static/dev/VK2_Georeferencer.js')}"></script>
     <script>
-		$(document).ready(function(){
+
+		$(document).ready(function(){		
 			var url = new goog.Uri(window.location.href);
 			var mtbid = url.getQueryData().get('mtbid');
 			var imgWidth = url.getQueryData().get('zoomify_width');
 			var imgHeight = url.getQueryData().get('zoomify_height');
 			var zoomify_url = url.getQueryData().get('zoomify_prop').substring(0,url.getQueryData().get('zoomify_prop').lastIndexOf("/")+1);
-			var georeferencer = new Dev.VK2.Tools.Georeferencer('georeferenceMap', mtbid, {
+			var georef_params = url.getQueryData().get('points');
+			var georefid = url.getQueryData().get('georefid');
+			var georeferencer = new Dev.VK2.Tools.Georeferencer('unreferenced-map', mtbid, {
 				'width': imgWidth,
 				'height': imgHeight,
 				'url': zoomify_url,
 				'zoomify': true,
+				'status': 'validation',
+				'georef_params': georef_params,
+				'georef_id': georefid,
 				'target_href': '${request.route_url('home_login')}?georef=on&points=20',
 			});
+			
+			// load validation map
+			var wms_url = url.getQueryData().get('wms_url');
+			var layer_id = url.getQueryData().get('layer_id');
+			georeferencer.loadValidationMap('georeferenced-map', wms_url, layer_id);
 		});
     </script> 
 </%block>

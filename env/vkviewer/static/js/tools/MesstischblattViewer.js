@@ -91,7 +91,7 @@ VK2.Tools.MesstischblattViewer = function(map_container_id, mtb_prop){
 	  ]
 	});
 	
-	this._map.getView().fitExtent(this._mtbProps.extent, this._map.getSize())
+	this._map.getView().fitExtent(this._mtbProps.extent, this._map.getSize());
 	
 	this._loadControls();
 };
@@ -115,7 +115,6 @@ VK2.Tools.MesstischblattViewer.prototype._loadControls = function(){
 	
 	
 	if (this._mtbProps.layerSpy){
-		//this._loadLayerSpy();
 		this._map.addControl(
 			new ol3.control.LayerSpy({
 				'spyLayer':new ol.layer.Tile({
