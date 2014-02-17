@@ -1,4 +1,13 @@
-/* For own OL3 control elements */
+/* preventing ol3 to display +/- in zoom control twice */
+.ol-zoom-in:before {
+	content: "";
+}
+		
+.ol-zoom-out:before {
+	content: "";
+}
+
+/* styles for own ol3 control elements */
 .ol-layerspy{
 	position: absolute;
 	background: rgba(255,255,255,0.4);

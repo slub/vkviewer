@@ -1,53 +1,8 @@
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
-	<style>
-		.ol-zoom-in:before {
-			content: "";
-		}
-		
-		.ol-zoom-out:before {
-			content: "";
-		}
-		
-		.georeference-validate.page-container{
-			overflow-y: auto;
-		}
-		
-		.georeference-validate-container{
-			width: 100%;
-			height: 95%;
-		}
-		
-		.outer-map-container{
-			height: 100%;
-		}
-		
-		.unreferenced-map{
-			width: 100%;
-			height: 100%;
-			background: white;
-		}
-		
-		.unreferenced-map .georeference-tools-container{
-
-		}
-			
-		.georeferenced-map{
-			width: 100%;
-			height: 100%;
-		}
-		
-		.open-error-dialog{
-			position: absolute;
-			top: 100px;
-			left: 0px;
-		}
-		
-
-	</style>
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
 </%block>
 
 <%block name="body_content">
@@ -110,19 +65,23 @@
 </%block>
 
 <%block name="js_content">
-    <script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script> 
-	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/vkviewer-plugin-libarys.min.js')}"></script>   
-	<script src="${request.static_url('vkviewer:static/lib/OpenLayers.js')}"></script> 
-	<script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>  
+	<script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>	 
+	<script src="${request.static_url('vkviewer:static/lib/vkviewer-plugin-libarys.min.js')}"></script>  
 	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>	
-	<script src="${request.static_url('vkviewer:static/js/ol3/LayerSpy.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/dev/Georeferencer.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/dev/ReportError.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/dev/VK2_Georeferencer.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>	
+	
+	<!-- production -->
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script>
+	 
+	<!-- development
+	<script src="${request.static_url('vkviewer:static/js/utils/Settings.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/utils/Utils.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/controls/LayerSpy.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/tools/Georeferencer.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/tools/ReportError.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/requests/Georeferencer.js')}"></script>-->
     <script>
 		$(document).ready(function(){
 			VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
@@ -134,7 +93,7 @@
 			var zoomify_url = url.getQueryData().get('zoomify_prop').substring(0,url.getQueryData().get('zoomify_prop').lastIndexOf("/")+1);
 			var georef_params = url.getQueryData().get('points');
 			var georefid = url.getQueryData().get('georefid');
-			var georeferencer = new Dev.VK2.Tools.Georeferencer('unreferenced-map', mtbid, {
+			var georeferencer = new VK2.Tools.Georeferencer('unreferenced-map', mtbid, {
 				'width': imgWidth,
 				'height': imgHeight,
 				'url': zoomify_url,
@@ -151,7 +110,7 @@
 			georeferencer.loadValidationMap('georeferenced-map', wms_url, layer_id);
 			
 			// report error dialog
-			var errorDialog = new Dev.VK2.Tools.ReportError('open-error-dialog', mtbid,'messtischblatt');
+			var errorDialog = new VK2.Tools.ReportError('open-error-dialog', 'unreferenced-map', mtbid,'messtischblatt');
 		});
     </script> 
 </%block>

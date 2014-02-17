@@ -1,27 +1,11 @@
-.vk2GeoreferenceMtbStartPage{
+.georeference-start-container{
 	width: 100%;
 	height: 100%;
 }
 
-.vk2GeoreferenceMtbStartPage .georeferenceMap{
+.georeference-start-container .georeferenceMap{
 	width: 100%;
 	height: 100%;
 }
 
-.vk2GeoreferenceToolsPanel{
-	border: 1px solid black;
-	z-index: 1000;
-}
 
-/* new styling of the map overview */
-.olControlOverviewMap{
-	bottom: 30px !important;
-}
-
-.olControlOverviewMapElement{
-	background-color: rgb(173,167,158) !important;	
-}
-
-.olControlOverviewMapMaximizeButton{
-	bottom: 82px !important;
-}

@@ -1,3 +1,4 @@
+/** style of the form- and input-elements*/
 .georeference-tools-container{
 	z-index: 1000;
 	position: absolute;
@@ -14,6 +15,7 @@
 	border-right-width: 1px;
 	border-right-style: solid;
 	border-right-color: black;
+	background: white;
 }
 
 .georeference-tools-container .georeference-tools-handler{	
@@ -33,36 +35,35 @@
 	padding: 10px;
 	margin-left: 1px;
 	display: none; 
-	margin-left: 15px;
 }
 
-.vk2GeoreferenceToolsPanel{
-	height: 230px;
-	width: 230px;
-	padding: 10px;
-	background-color:white;
+.georeference-tools-inner-container .vk2GeorefToolsBtn{
+	margin-bottom: 5px;
+	margin-top: 5px;
 }
 
-.vk2GeoreferenceToolsPanel .vk2GeorefToolsBtn{
-	float:left;
-	position: relative;
-	margin-bottom: 5px;	
+/* Loading screen styling*/
+.georefLoadingScreen{
+	background-color:rgb(173,167,158);
+    opacity: 0.9;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	top: 0px;
+	left: 0px;
+	position: fixed;
 }
 
-.vk2GeorefControl{
+
+.georefLoadingScreen .centerLoading{
 	position: absolute;
-	top:160px;
-	left:-40px;
-	outline: none;
-	background-color: rgba(0,0,0,0.5);
-	cursor: default;
-	border-radius: 0;
-}
-
-.vk2GeorefControl .vk2SidebarIcon{
-	background-position: -120px 0;
-}
-
-.vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent{
-	padding: 5px;	
+	left: 50%;
+	top: 50%;
+	margin-left: -100px;
+	margin-right: -100px;
+	margin-top: -50px;
+	margin-bottom: -50px;
+	width: 200px;
+	height: 100px;
 }
