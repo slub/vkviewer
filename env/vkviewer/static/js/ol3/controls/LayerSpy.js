@@ -2,8 +2,11 @@ goog.provide('ol3.control.LayerSpy');
 
 goog.require('goog.events');
 goog.require('goog.events.EventType');
+goog.require('goog.events.KeyHandler');
+goog.require('goog.events.KeyCodes');
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
+
 
 /**
  * @constructor
@@ -12,22 +15,25 @@ goog.require('goog.dom.classes');
  */
 ol3.control.LayerSpy = function(opt_options) {
 
-  var options = opt_options || {};
-
-  this._buildHtmlElement();
-  
-  var this_ = this;
-  
-  var radius = goog.isDef(options.radius)? parseInt(options.radius) : 75;
-  goog.events.listen(document, goog.events.EventType.KEYDOWN, function(evt){
-	if (evt.keyCode === 107 || evt.keyCode === 187) {
-		radius = Math.min(radius + 5, 150);
-		this_.getMap().requestRenderFrame();
-	} else if (evt.keyCode === 109 || evt.keyCode === 189) {
-		radius = Math.max(radius - 5, 25);
-		this_.getMap().requestRenderFrame();
-	}
-  });
+	  var options = opt_options || {};
+	
+	  this._buildHtmlElement();
+	  
+	  var this_ = this;
+	  
+	  var radius = goog.isDef(options.radius)? parseInt(options.radius) : 75;
+	  
+	  var keyHandler = new goog.events.KeyHandler(document);
+	  goog.events.listen(keyHandler, goog.events.KeyHandler.EventType.KEY, function(evt){
+		  // for handling this events in webkit
+		  if (evt.keyCode === goog.events.KeyCodes.Y) {
+			  radius = Math.min(radius + 5, 150);
+			  this_.getMap().requestRenderFrame();
+		  } else if (evt.keyCode === goog.events.KeyCodes.X) {
+			  radius = Math.max(radius - 5, 25);
+			  this_.getMap().requestRenderFrame();
+		  }
+	  }, undefined, this);
 	
 	// get the pixel position with every move
 	var mousePosition = null;
@@ -53,6 +59,16 @@ ol3.control.LayerSpy = function(opt_options) {
 		  ctx.restore();
 	};
 	
+	// mousemove events
+	var mousemoveHandler = function(evt) {
+		mousePosition = this_.getMap().getEventPixel(evt.event_);
+		this_.getMap().requestRenderFrame();
+	};
+	
+	var mouseoutHandler = function() {
+		  mousePosition = null;
+		  this_.getMap().requestRenderFrame();
+	};
 	goog.events.listen(this._layerSpyAnchor, goog.events.EventType.CLICK, function(event){
 		if (goog.dom.classes.has(this, 'active')){
 			options.spyLayer.un('precompose', handlerPrecompose);
@@ -60,22 +76,16 @@ ol3.control.LayerSpy = function(opt_options) {
 			this_.getMap().removeLayer(options.spyLayer);
 			goog.dom.classes.remove(this, 'active');
 			
-
-		} else {
-			
+			goog.events.unlisten(this_.getMap().getViewport(),'mousemove', mousemoveHandler);
+			goog.events.unlisten(this_.getMap().getViewport(),'mouseout', mouseoutHandler);
+		} else {			
 			this_.getMap().addLayer(options.spyLayer);
 			options.spyLayer.on('precompose', handlerPrecompose);
 			options.spyLayer.on('postcompose', handlerPostcompose);
 			goog.dom.classes.add(this, 'active');
 			
-			goog.events.listen(this_.getMap().getViewport(),'mousemove', function(evt) {
-				mousePosition = this_.getMap().getEventPixel(evt.event_);
-				this_.getMap().requestRenderFrame();
-			});
-			goog.events.listen(this_.getMap().getViewport(),'mouseout', function() {
-				  mousePosition = null;
-				  this_.getMap().requestRenderFrame();
-			});
+			goog.events.listen(this_.getMap().getViewport(),'mousemove', mousemoveHandler);
+			goog.events.listen(this_.getMap().getViewport(),'mouseout', mouseoutHandler);
 		}
 	});
 

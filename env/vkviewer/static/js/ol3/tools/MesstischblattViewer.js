@@ -115,7 +115,6 @@ VK2.Tools.MesstischblattViewer.prototype._loadControls = function(){
 	
 	
 	if (this._mtbProps.layerSpy){
-		//this._loadLayerSpy();
 		this._map.addControl(
 			new ol3.control.LayerSpy({
 				'spyLayer':new ol.layer.Tile({
@@ -126,9 +125,8 @@ VK2.Tools.MesstischblattViewer.prototype._loadControls = function(){
 				})
 			})	 
 		)
-	}
-	
-	
+	};
+		
 	if (this._mtbProps.opacity_slider && goog.isDef(goog.dom.getElement(this._mtbProps.opacity_slider))){
 		var opacitySliderEl = goog.dom.getElement(this._mtbProps.opacity_slider);
 		var this_ = this;

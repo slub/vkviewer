@@ -297,6 +297,17 @@ VK2.Utils.getQueryParam = function(name, href){
 	}
 }
 
+/**
+ * @param {Element} container
+ * @param {number} points
+ * @static
+ */
+VK2.Utils.showAchievedPoints = function(container, points){
+	container.innerHTML = '+' + points + ' ' + VK2.Utils.get_I18n_String('georef_points')
+	$(container).fadeIn(1000).effect('puff', {}, 3000, function(){
+		container.innerHTML = '';
+	});
+};
 
 /**
  * Overwrite or prototype basic javascript functions

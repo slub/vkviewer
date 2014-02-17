@@ -94,11 +94,10 @@ VK2.Utils.AppLoader.prototype._loadGeoreferencerChooser = function(){
 	this._sidebar.appendSlimControl(this._settings.vk2GeorefChooserControl, georeferencerChooser);		
 		
 	// check if the georeference is active
-	var urlParams = VK2.Utils.getAllUrlParams();
-	if ('georef' in urlParams){
-		if (urlParams['georef'] == 'on')
-			$(goog.dom.getElement(this._settings.vk2GeorefChooserControl)).click();
-	}		
+	if (VK2.Utils.getQueryParam('points') && VK2.Utils.getQueryParam('georef') == 'on'){
+			goog.dom.getElement(this._settings.vk2GeorefChooserControl).click();
+			VK2.Utils.showAchievedPoints(goog.dom.getElement('georefPointContainer'), VK2.Utils.getQueryParam('points'));
+	};	
 };
 
 /**
@@ -198,7 +197,7 @@ VK2.Utils.AppLoader.prototype.loadApplication = function(){
 	this._loadOLMap();
 	this._loadEventBehavior();
 	this._loadVK2Tools();
-	};
+};
 
 /**
  * @public
@@ -206,9 +205,4 @@ VK2.Utils.AppLoader.prototype.loadApplication = function(){
 VK2.Utils.AppLoader.prototype.loadApplicationWithGeoref = function(){
 	this.loadApplication();
 	this._loadGeoreferencerChooser();
-	
-	// if georef=on and points in query parameters than showing georef feedback event
-	if (VK2.Utils.getQueryParam('points') && VK2.Utils.getQueryParam('georef') == 'on'){
-		VK2.Utils.Georef.showGeorefPoints(goog.dom.getElement('georefPointContainer'), VK2.Utils.getQueryParam('points'));
-	}
-}
+};
