@@ -2,29 +2,25 @@
 
 <%block name="header_content">	 
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
+	<style>
+		.ol-zoom-in:before {
+			content: "";
+		}
+		
+		.ol-zoom-out:before {
+			content: "";
+		}
+	</style>
 </%block>
 
 <%block name="body_content">
 		<div class="georeference-start page-container full-display">
 		<div class="vk2GeoreferenceMtbStartPage">
-			<div id="georeferenceMap" class="georeferenceMap">
-	
-			</div>			
+			<div id="georeferenceMap" class="georeferenceMap"></div>			
 		</div>
 		
-		<!-- Loading overlay screen -->
-		<div id="georefLoadingScreen" class="georefLoadingScreen">
-			<div class="centerLoading">
-				<div class="progress progress-striped active">
-				  <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-				  </div>
-				</div>
-			</div>
-		</div>
-		
-		<!-- Link back to main page -->
-		<a id="anchorBackToIndexPage" class="anchorBackToIndexPage" target="_top"
-			 href="${request.route_url('home_login')}?georef=on&points=20"></a>
+
 			 
 		<!-- Footer panel -->
 		<div class="vk2FooterPanel">
@@ -72,13 +68,17 @@
 	<script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script> 
 	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/ol-whitespace.js')}"></script>	
-	<!-- <script src="${request.static_url('vkviewer:static/js/ol3/LayerSpy.js')}"></script> -->
-	<script src="${request.static_url('vkviewer:static/dev/DeleteFeature.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/vkviewer-plugin-libarys.min.js')}"></script>   
+	<script src="${request.static_url('vkviewer:static/lib/OpenLayers.js')}"></script> 
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer.min.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>	
+	<script src="${request.static_url('vkviewer:static/js/ol3/LayerSpy.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/dev/Georeferencer.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/dev/VK2_Georeferencer.js')}"></script>
     <script>
 		$(document).ready(function(){
+			VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
+		
 			var url = new goog.Uri(window.location.href);
 			var mtbid = url.getQueryData().get('mtbid');
 			var imgWidth = url.getQueryData().get('zoomify_width');
