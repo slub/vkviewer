@@ -76,7 +76,7 @@ VK2.Tools.MesstischblattViewer = function(map_container_id, mtb_prop){
 	  interactions: ol.interaction.defaults().extend([
 	      new ol.interaction.DragRotateAndZoom()
 	  ]),
-	  renderer: "canvas",
+	  renderer: 'canvas',
 	  target: map_container_id,
 	  view: new ol.View2D({
 		projection: this._mtbProps.projection,

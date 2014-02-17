@@ -1,4 +1,4 @@
-<%inherit file="basic_page.mako" />
+<%inherit file="basic_page_slim.mako" />
 
 <%block name="header_content">
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
@@ -41,20 +41,16 @@
 </%block>
 
 <%block name="js_content">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>	 
+	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script> 
+
+	
+	<!-- 
 	<script src="${request.static_url('vkviewer:static/js/ol3/LayerSpy.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/ol3/RotateNorth.js')}"></script>	
-	
-	<!-- <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
-    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/net/cookies.js')}"></script> 
-    <script src="${request.static_url('vkviewer:static/lib/min/jquery.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/min/jquery-ui-1.10.4.custom.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/min/jquery.fancybox.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/min/jquery.tablesorter.min.js')}"></script>  
-	<script src="${request.static_url('vkviewer:static/lib/min/jquery.tabslideout.min.js')}"></script>  
-	<script src="${request.static_url('vkviewer:static/lib/min/bootstrap.min.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/lib/min/proj4js.js')}"></script> 
-	<script src="${request.static_url('vkviewer:static/js/utils/Utils.js')}"></script>
     <script src="${request.static_url('vkviewer:static/js/utils/Settings.js')}"></script> 
 	<script src="${request.static_url('vkviewer:static/js/tools/MesstischblattViewer.js')}"></script>	
 	<script src="${request.static_url('vkviewer:static/js/events/EventType.js')}"></script>

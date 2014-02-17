@@ -1,36 +1,28 @@
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
 </%block>
 
 <%block name="body_content">
 	<div class="georeference-validate page-container full-display">
-		<div class="vk2GeoreferenceMtbValidatePage">
-			<div class="vk2GeoreferenceMtbValidateBodyContainer">
-				<div class="georeferenceMapContainer">
-					<div id="georeferenceMap" class="georeferenceMap"></div>
-				</div>
-				<div class="georeferenceResultMapContainer">
-					<div id="georeferenceResultMap" class="georeferenceResultMap"></div>
-				</div>		
-			</div>
-		</div>
-		
-		<!-- Loading overlay screen -->
-		<div id="georefLoadingScreen" class="georefLoadingScreen">
-			<div class="centerLoading">
-				<div class="progress progress-striped active">
-				  <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-				  </div>
+		<div class="row georeference-validate-container">
+			<div class="col-sm-6 col-md-6 col-lg-6 outer-map-container">
+				<div id="unreferenced-map" class="unreferenced-map">
+					<!-- report error dialog -->
+					<div id="open-error-dialog" class="open-error-dialog">
+						<span class="icon" />
+					</div>
 				</div>
 			</div>
+			<div class="col-sm-6 col-md-6 col-lg-6 outer-map-container">
+				<div id="georeferenced-map" class="georeferenced-map"></div>
+			</div>	
 		</div>
 		
-		<!-- Link back to main page -->
-		<a id="anchorBackToIndexPage" class="anchorBackToIndexPage" target="_top"
-			 href="${request.route_url('home_login')}?georef=on&points=20"></a>
 
+			 
 		<!-- Footer panel -->
 		<div class="vk2FooterPanel">
 			<div id="vk2Footer" class="vk2Footer">
@@ -67,55 +59,58 @@
         		</div>
         	</div>
 		</div>
-        <!-- end footer -->
-        
-        <!-- sidebar -->
-		<div id="vk2GeoreferenceToolsPanel" class="vk2GeoreferenceToolsPanel">
-			<a id="vk2GeoreferenceToolsHandle" class="vk2GeoreferenceToolsHandle" 
-				data-open="${request.static_url('vkviewer:static/images/layerbar.png')}" 
-				data-close="${request.static_url('vkviewer:static/images/close.png')}"
-				title="${_('tool_titel_georeference')}"></a>
-			
-			<!-- Georeference Tools Content -->
-		</div>
-	
-		<!-- report error btn -->
-		<div id="vk2GeoreferenceReportErrorPanel" class="vk2GeoreferenceReportErrorPanel">
-			<img id="vk2GeoreferenceReportErrorHandle" class="vk2GeoreferenceReportErrorHandle" 
-				src="${request.static_url('vkviewer:static/images/close.png')}" 
-				title="${_('report_error_titel')}"></a>
-		</div>
+		<!-- footer end -->
+		
 	</div>
 </%block>
 
 <%block name="js_content">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>  
+	<script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>	 
+	<script src="${request.static_url('vkviewer:static/lib/vkviewer-plugin-libarys.min.js')}"></script>  
+	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>	
+	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>	
+	
+	<!-- production -->
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script>
+	 
+	<!-- development
+	<script src="${request.static_url('vkviewer:static/js/utils/Settings.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/utils/Utils.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/controls/LayerSpy.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/tools/Georeferencer.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/tools/ReportError.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/requests/Georeferencer.js')}"></script>-->
     <script>
 		$(document).ready(function(){
 			VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
-			VK2.Utils.setGenericOpenLayersPropertys("vkviewer/proxy/?url=");
 			
-			// def the used srs
-			Proj4js.defs["EPSG:900913"] = "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +over no_defs";
-			Proj4js.defs["EPSG:4314"] = "+proj=longlat +ellps=bessel +towgs84=582,105,414,1.04,0.35,-3.08,8.3 +no_defs"; 
-			Proj4js.defs["EPSG:31467"] = "+proj=tmerc +lat_0=0 +lon_0=9 +k=1 +x_0=3500000 +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
+			var url = new goog.Uri(window.location.href);
+			var mtbid = url.getQueryData().get('mtbid');
+			var imgWidth = url.getQueryData().get('zoomify_width');
+			var imgHeight = url.getQueryData().get('zoomify_height');
+			var zoomify_url = url.getQueryData().get('zoomify_prop').substring(0,url.getQueryData().get('zoomify_prop').lastIndexOf("/")+1);
+			var georef_params = url.getQueryData().get('points');
+			var georefid = url.getQueryData().get('georefid');
+			var georeferencer = new VK2.Tools.Georeferencer('unreferenced-map', mtbid, {
+				'width': imgWidth,
+				'height': imgHeight,
+				'url': zoomify_url,
+				'zoomify': true,
+				'status': 'validation',
+				'georef_params': georef_params,
+				'georef_id': georefid,
+				'target_href': '${request.route_url('home_login')}?georef=on&points=20',
+			});
 			
-			var query_params = VK2.Utils.getAllQueryParams();
-			var map_original = VK2.Utils.Georef.initializeGeoreferencerMap('georeferenceMap', query_params, false);
-			var map_result = VK2.Utils.Georef.initializeGeoreferenceResultMap('georeferenceResultMap', query_params);
-			var georeferenceTool = new VK2.Tools.Georeferencer({
-				container: 'vk2GeoreferenceToolsPanel',
-				handler: 'vk2GeoreferenceToolsHandle',
-				map: map_original,
-				controller: VK2.Controller.GeoreferenceController,
-				urlParams: query_params, 
-				status: 'validate'
-			});
-	
-			// init report error
-			var reportErrorTools = new VK2.Tools.ReportError({});
-			$('#vk2GeoreferenceReportErrorPanel').click(function(){
-				reportErrorTools.reportError(query_params.get('mtbid'), 'messtischblatt');
-			});
+			// load validation map
+			var wms_url = url.getQueryData().get('wms_url');
+			var layer_id = url.getQueryData().get('layer_id');
+			georeferencer.loadValidationMap('georeferenced-map', wms_url, layer_id);
+			
+			// report error dialog
+			var errorDialog = new VK2.Tools.ReportError('open-error-dialog', 'unreferenced-map', mtbid,'messtischblatt');
 		});
     </script> 
 </%block>

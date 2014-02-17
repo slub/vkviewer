@@ -6,12 +6,12 @@
         Purpose of the stylesheet follows.
 */
 @import url("./vk2/override-ol.css");
+@import url("./vk2/override-ol3.css");
 @import url("./vk2/override-jquery.css");
 @import url("./vk2/override-bootstrap.css");
 @import url("./vk2/templates/template_pages.css");
 @import url("./vk2/templates/basic_index.css");
 @import url("./vk2/templates/index_logged_in.css");
-@import url("./vk2/templates/georeference.css");
 @import url("./vk2/templates/georeference_start.css");
 @import url("./vk2/templates/georeference_validate.css");
 @import url("./vk2/templates/Header.css");
@@ -23,7 +23,6 @@
 @import url("./vk2/tools/Gazetteersearch.css");
 @import url("./vk2/tools/Georeferencer.css");
 @import url("./vk2/tools/Sidebar.css");
-@import url("./vk2/tools/MetadataVisualisation.css");
 @import url("./vk2/tools/ReportError.css");
 
 html, body {

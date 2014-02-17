@@ -54,7 +54,11 @@ def proxy_post(request):
                 r = urllib2.Request(url, request.body, headers)
                 y = urllib2.urlopen(r)
             else:
-                y = urllib2.urlopen(url)
+                get_url = url
+                d.pop("url", None)
+                for key in d:
+                    get_url += '&' + key + '=' + d[key][0]
+                y = urllib2.urlopen(get_url)
             
             # print content type header
             i = y.info()

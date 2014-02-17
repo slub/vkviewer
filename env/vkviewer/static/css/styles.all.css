@@ -31,7 +31,83 @@ html, body {
 .olImageLoadError { 
 	/* when OL encounters a 404, don't display the pink image */
 	display: none !important;
-} /* jquery styles */
+} /* preventing ol3 to display +/- in zoom control twice */
+.ol-zoom-in:before {
+	content: "";
+}
+		
+.ol-zoom-out:before {
+	content: "";
+}
+
+/* styles for own ol3 control elements */
+.ol-layerspy{
+	position: absolute;
+	background: rgba(255,255,255,0.4);
+	border-radius: 4px;
+	left: 8px;
+	padding: 2px;
+	top: 95px;
+}
+	  		
+.ol-layerspy a{
+	display: block;
+	margin: 1px;
+	padding: 0;
+	color: white;
+	font-size: 16px;
+	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	height: 22px;
+	width: 22px;
+	background-color: rgba(0,60,136,0.5);
+	border-radius: 2px;
+}
+	  		
+.ol-layerspy a:hover{
+	background: rgba(0,60,136,0.7);
+}
+	  		
+.rotate-north {
+    position: absolute;
+    top: 125px;
+    left: 8px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 4px;
+    padding: 2px;
+}
+      
+.ol-touch .rotate-north {
+    top: 80px;
+}
+      
+.rotate-north a {
+    display: block;
+    color: white;
+    font-size: 16px;
+    font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+    font-weight: bold;
+    margin: 1px;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 2px;
+    height: 22px;
+    width: 22px;
+    background: rgba(0,60,136,0.5);
+}
+
+.ol-touch .rotate-north a {
+    font-size: 20px;
+    height: 30px;
+    width: 30px;
+    line-height: 26px;
+}
+     
+.rotate-north a:hover {
+    background: rgba(0,60,136,0.7);
+}/* jquery styles */
 .ui-dialog .ui-state-error { padding: .3em; }
 
 /* disables the background moving of the page in case of an overlay */
@@ -322,116 +398,69 @@ div.vk2PartnerPageContainer h3{
     width:100%; 
     height: 100%;
     background-color:#B3C6D4;
-}/* Loading screen styling*/
-.georefLoadingScreen{
-	background-color:rgb(173,167,158);
-    opacity: 0.9;
-	z-index: 0;
-	width: 100%;
-	height: 100%;
+}/* style for georeference points */
+.georef-point-container{
+	height: 40px !important;
+	width: 150px !important;
+	font-size: 20px;
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+	padding-left: 20px !important;
+	padding-right: 15px !important;
+	z-index: 10000;
+}
+
+.georef-point-container{
+	position:absolute;
+	top: 100px;
+	left: 100px;
 	display: none;
-	top: 0px;
-	left: 0px;
-	position: fixed;
-}
-
-.georefLoadingScreen .centerLoading{
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin-left: -100px;
-	margin-right: -100px;
-	margin-top: -50px;
-	margin-bottom: -50px;
-	width: 200px;
-	height: 100px;
-}
-
-.vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent .ui-button-text {
-	font-size: 10px;
-}
-
-.vk2GeoreferenceMtbStartPage{
+}.georeference-start-container{
 	width: 100%;
 	height: 100%;
 }
 
-.vk2GeoreferenceMtbStartPage .georeferenceMap{
+.georeference-start-container .georeferenceMap{
 	width: 100%;
 	height: 100%;
 }
 
-.vk2GeoreferenceToolsPanel{
-	border: 1px solid black;
-	z-index: 1000;
+
+/* in case of responsive breakpoint behaviour display overflow */
+.georeference-validate.page-container{
+	overflow-y: auto;
 }
 
-/* new styling of the map overview */
-.olControlOverviewMap{
-	bottom: 30px !important;
-}
-
-.olControlOverviewMapElement{
-	background-color: rgb(173,167,158) !important;	
-}
-
-.olControlOverviewMapMaximizeButton{
-	bottom: 82px !important;
-}
-.vk2GeoreferenceMtbValidatePage{
+/* container and bootstrap row which contain the both map object */
+.georeference-validate-container{
 	width: 100%;
-	height: 100%;
-}
-
-.vk2GeoreferenceMtbValidatePage .vk2GeoreferenceMtbValidateBodyContainer{
-	position: absolute;
-	top: 0px;
-	left: 0px;
 	height: 95%;
-	width: 100%;
-} 
-
-.vk2GeoreferenceMtbValidatePage .vk2GeoreferenceMtbValidateBodyContainer .georeferenceMapContainer{
-	float: left;
-	position: relative;
-	width: 45%;
-	height: 95%;
-	margin: 10px;
+	margin-left: 0px;
 }
 
-.georeferenceMap{
+.outer-map-container{
+	height: 100%;
+}
+		
+/* unreferenced map container */
+.unreferenced-map{
+	width: 100%;
+	height: 100%;
+	background: white;
+}
+
+/* validation map container */
+.georeferenced-map{
 	width: 100%;
 	height: 100%;
 }
-
-.vk2GeoreferenceMtbValidatePage .vk2GeoreferenceMtbValidateBodyContainer .georeferenceResultMapContainer{
-	float: left;
-	position: relative;
-	width: 45%;
-	height: 95%;
-	margin: 10px;
-}
-
-.georeferenceResultMap{
-	width: 100%;
-	height: 100%;
-}
-
-.vk2GeoreferenceToolsPanel{
-	border: 1px solid black;
-	z-index: 1000;
-}
-
-.vk2GeoreferenceReportErrorPanel{
+		
+/* open error dialog button placement*/
+.open-error-dialog{
 	position: absolute;
-	top: 500px;
+	top: 100px;
 	left: 0px;
-	width: 40px;
-	height: 40px;
-	z-index: 1000;
 }
-
-
 /* 
     Document   : mainmenubar
     Created on : Aug 27, 2013, 11:26:22 AM
@@ -645,74 +674,66 @@ Styling of the list elements
 /*
  * Styling of the body of a layer list element
  */
-.overlayElem .maximize .container{
-    margin-left: 10px;
-    width: 300px;
-    height: 70px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-family: "Helvectica", "Arial", "sans-serif";
-    line-height: 100%;
-    border-width: 1px;
-    border-style: dotted;
-    border-color: rgb(0, 159,227);
-}
+.overlayElem .maximize .layer-max-container{
+		    margin-left: 10px;
+		    width: 300px;
+		    height: 70px;
+		    border-radius: 6px;
+		    font-size: 12px;
+		    font-family: "Helvectica", "Arial", "sans-serif";
+		    line-height: 100%;
+		    border-width: 1px;
+		    border-style: dotted;
+		    border-color: rgb(0, 159,227);
+		}
+	  	
+	  	.overlayElem .maximize .layer-max-container .media, .overlayElem .maximize .layer-max-container .media-body{
+	  		overflow: visible;
+	  	}
+	  	
+		.overlayElem .maximize .thumbnail{
+			margin: 8px;
+			padding: 0px;
+		}
 
-.overlayElem .maximize .thumbnail{
-    position: relative;
-	margin: 10px;
-    float: left;
-}
+		/* Css styles for slider div generic */
+		.overlayElem .maximize .slider-container{
+		    position: relative;
+		    float: left;
+		    width: 150px;
+		    height: 60px;
+		}
 
-/* Css styles for slider div generic */
-.overlayElem .maximize .slider{
-    position: relative;
-	margin-top: 8px;	
-    float: left;
-    width: 150px;
-    height: 60px;
-}
+		.slider-container .slider-outer{
+			padding: 5px;
+		}
+		
+		.slider-container .slider-inner{
+			margin-left: 7px;
+			margin-top: 3px;
+			width: 100px;
+		}
+		
+		.slider-container .tooltip{
+			top: -33px;
+			left: -10px;
+			display: none;
+		}
+		
+		.slider-container .label{
+		    font-size: 10px;
+		    color: #333;
+		}
 
-.overlayElem .maximize .slider .vk2Label{
-    font-size: 10px;
-}
-
-.overlayElem .maximize .slider .toolTip{
-	position: relative;
-	float: right;
-	margin-top: 10px;
-	display: block;
-	width: 35px;
-	height: 20px;
-	color: #fff;
-	text-align: center;
-	font: 10pt Tahoma, Arial, sans-serif ;
-	border-radius: 3px;
-	border: 1px solid #333;
-    -webkit-box-shadow:  1px 1px 2px 0px rgba(0, 0, 0, .3);
-    box-shadow:  1px 1px 2px 0px rgba(0, 0, 0, .3);
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	background: linear-gradient(top,  rgba(69,72,77,0.5) 0%,rgba(0,0,0,0.5) 100%); /* W3C */
-}
-
-.overlayElem .maximize .slider .sliderContainer{
-	width: 100px;
-}
-
-/* Css styles slider */
-.overlayElem .maximize .slider{
-    position: relative;
-    left: 10px;
-    width: 140px;
-}
-
-/* CSS styles slider time */
-.overlayElem .maximize .slider .time{
-	margin-top: 5px;
-}
-
+		.slider-container .time .tooltip{
+			top: -33px;
+			left: -5px;
+			display: none;
+		}
+		
+		.slider-container .time .slider-outer{
+			padding: 0px 5px 5px 5px;
+		}
 /*
 	Button for open the LayerSearch
 */
@@ -994,35 +1015,74 @@ Styling of the list elements
     margin: 10px;
 }
 
-.vk2GeoreferenceToolsPanel{
-	height: 230px;
-	width: 230px;
-	padding: 10px;
-	background-color:white;
-}
-
-.vk2GeoreferenceToolsPanel .vk2GeorefToolsBtn{
-	float:left;
-	position: relative;
-	margin-bottom: 5px;	
-}
-
-.vk2GeorefControl{
+/** style of the form- and input-elements*/
+.georeference-tools-container{
+	z-index: 1000;
 	position: absolute;
-	top:160px;
-	left:-40px;
+	top: 200px;
+	width: 250px;
+	height: 250px;
+	left: -250px;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: black;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: black;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: black;
+	background: white;
+}
+
+.georeference-tools-container .georeference-tools-handler{	
+	z-index: 1000;
+	position: absolute;
+	top: 40px;
+	right: -40px;
 	outline: none;
 	background-color: rgba(0,0,0,0.5);
 	cursor: default;
 	border-radius: 0;
+	width: 40px;
+	height: 40px;
 }
 
-.vk2GeorefControl .vk2SidebarIcon{
-	background-position: -120px 0;
+.georeference-tools-container .georeference-tools-inner-container{
+	padding: 10px;
+	margin-left: 1px;
+	display: none; 
 }
 
-.vk2GeoreferenceToolsPanel .vk2GeoreferenceToolsContent{
-	padding: 5px;	
+.georeference-tools-inner-container .vk2GeorefToolsBtn{
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+/* Loading screen styling*/
+.georefLoadingScreen{
+	background-color:rgb(173,167,158);
+    opacity: 0.9;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	top: 0px;
+	left: 0px;
+	position: fixed;
+}
+
+
+.georefLoadingScreen .centerLoading{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -100px;
+	margin-right: -100px;
+	margin-top: -50px;
+	margin-bottom: -50px;
+	width: 200px;
+	height: 100px;
 }/* 
 	Generic stuff 
 */
@@ -1066,7 +1126,7 @@ Styling of the list elements
 	margin: 0px;
 }
 
-.vk2SBHeaderPanel .vk2SBClose.hover{
+.vk2SBHeaderPanel .vk2SBClose:hover{
 	background-position: -200px -20px;
 }
 /*
@@ -1197,6 +1257,17 @@ fieldset.content > legend > a{
 
 .metadata-record-table-content tbody > tr {
 	padding: 5px;
-}.vk2ReportErrorDialogContainer{
+}.open-error-dialog{
+	z-index: 2000;
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	cursor: default;
+	border-radius: 0;
+	width: 40px;
+	height: 40px;
+}
+
+
+.vk2ReportErrorDialogContainer{
 	z-index: 2000;
 }

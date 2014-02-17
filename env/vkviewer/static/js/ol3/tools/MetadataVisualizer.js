@@ -5,7 +5,6 @@ goog.require('goog.object');
 goog.require('goog.dom');
 goog.require('goog.Uri');
 goog.require('goog.style');
-goog.require('goog.events');
 
 /**
  * @param {string} parentElId Id of the parent div element

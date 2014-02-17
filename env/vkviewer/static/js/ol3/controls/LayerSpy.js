@@ -18,7 +18,7 @@ ol3.control.LayerSpy = function(opt_options) {
   
   var this_ = this;
   
-  var radius = 75;
+  var radius = goog.isDef(options.radius)? parseInt(options.radius) : 75;
   goog.events.listen(document, goog.events.EventType.KEYDOWN, function(evt){
 	if (evt.keyCode === 107 || evt.keyCode === 187) {
 		radius = Math.min(radius + 5, 150);

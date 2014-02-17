@@ -1,29 +1,16 @@
-<%inherit file="basic_page.mako" />
+<%inherit file="basic_page_slim.mako" />
 
 <%block name="header_content">	 
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
 </%block>
 
 <%block name="body_content">
-	<div class="georeference-start page-container full-display">
-		<div class="vk2GeoreferenceMtbStartPage">
+		<div class="georeference-start page-container full-display">
+		<div class="georeference-start-container">
 			<div id="georeferenceMap" class="georeferenceMap"></div>			
 		</div>
-		
-		<!-- Loading overlay screen -->
-		<div id="georefLoadingScreen" class="georefLoadingScreen">
-			<div class="centerLoading">
-				<div class="progress progress-striped active">
-				  <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-				  </div>
-				</div>
-			</div>
-		</div>
-		
-		<!-- Link back to main page -->
-		<a id="anchorBackToIndexPage" class="anchorBackToIndexPage" target="_top"
-			 href="${request.route_url('home_login')}?georef=on&points=20"></a>
-			 
+					 
 		<!-- Footer panel -->
 		<div class="vk2FooterPanel">
 			<div id="vk2Footer" class="vk2Footer">
@@ -61,38 +48,45 @@
         	</div>
 		</div>
         <!-- end footer -->
-        
-        <!-- sidebar -->
-        <div id="vk2GeoreferenceToolsPanel" class="vk2GeoreferenceToolsPanel">
-			<a id="vk2GeoreferenceToolsHandle" class="vk2GeoreferenceToolsHandle" 
-				data-open="${request.static_url('vkviewer:static/images/layerbar.png')}" 
-				data-close="${request.static_url('vkviewer:static/images/close.png')}"
-				title="${_('tool_titel_georeference')}"></a>
-		
-			<!-- Georeference Tools Content -->
-
 		</div>
 	</div>
-		
-
 </%block>
 
 <%block name="js_content">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>  
+	<script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>	 
+	<script src="${request.static_url('vkviewer:static/lib/vkviewer-plugin-libarys.min.js')}"></script>  
+	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>	
+	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>	
+	
+	<!-- production -->
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script>
+	 
+	<!-- development
+	<script src="${request.static_url('vkviewer:static/js/utils/Settings.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/utils/Utils.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/controls/LayerSpy.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/tools/Georeferencer.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/tools/ReportError.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/js/ol3/requests/Georeferencer.js')}"></script>-->
     <script>
-			var map = null;
-			$(document).ready(function(){
-				VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
+		$(document).ready(function(){
+			VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');
 		
-				var query_params = VK2.Utils.getAllQueryParams();
-				map = VK2.Utils.Georef.initializeGeoreferencerMap('georeferenceMap', query_params, true);
-				var georeferenceTool = new VK2.Tools.Georeferencer({
-					container: 'vk2GeoreferenceToolsPanel',
-					handler: 'vk2GeoreferenceToolsHandle',
-					map: map,
-					controller: VK2.Controller.GeoreferenceController,
-					urlParams: query_params
-				}, query_params.get('mtbid'));
+			var url = new goog.Uri(window.location.href);
+			var mtbid = url.getQueryData().get('mtbid');
+			var imgWidth = url.getQueryData().get('zoomify_width');
+			var imgHeight = url.getQueryData().get('zoomify_height');
+			var zoomify_url = url.getQueryData().get('zoomify_prop').substring(0,url.getQueryData().get('zoomify_prop').lastIndexOf("/")+1);
+			var georeferencer = new VK2.Tools.Georeferencer('georeferenceMap', mtbid, {
+				'width': imgWidth,
+				'height': imgHeight,
+				'url': zoomify_url,
+				'zoomify': true,
+				'target_href': '${request.route_url('home_login')}?georef=on&points=20',
 			});
+		});
     </script> 
 </%block>
 
