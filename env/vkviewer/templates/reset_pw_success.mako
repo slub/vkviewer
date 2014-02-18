@@ -1,5 +1,9 @@
 <%inherit file="basic_page_slim.mako" />
 
+<%block name="header_content">	 
+	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
+</%block>
+
 <%block name="body_content">
 	<div class="reset-pw-success page-container">
 		<div class="reset-pw-container">

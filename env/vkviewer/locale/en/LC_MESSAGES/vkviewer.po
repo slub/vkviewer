@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-27 17:15+0100\n"
-"PO-Revision-Date: 2014-01-27 17:21+0100\n"
+"POT-Creation-Date: 2014-02-18 12:49+0100\n"
+"PO-Revision-Date: 2014-02-18 13:02+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -23,7 +23,6 @@ msgid "error_msg_wrong_pw"
 msgstr "Wrong password. Please try again."
 
 #: vkviewer/python/views/utils/GetErrorPage.py:24
-#| msgid "error_msg_wrong_pw"
 msgid "error_msg_wrong_user_login_data"
 msgstr "Wrong login information. Please try again."
 
@@ -39,159 +38,128 @@ msgstr "Missing query parameters. Please try again."
 msgid "error_msg_interal_auth"
 msgstr "Internal error while authentification process. Please try again."
 
-#: vkviewer/templates/basicFooterLayout.mako:21
-#: vkviewer/templates/basicIndexLayout.mako:19
-#: vkviewer/templates/change_pw.mako:15
-#: vkviewer/templates/georeferenceStart.mako:22
-#: vkviewer/templates/georeferenceStart.mako:33
-#: vkviewer/templates/georeferenceValidate.mako:22
-#: vkviewer/templates/georeferenceValidate.mako:33
-#: vkviewer/templates/login_screen.mako:16 vkviewer/templates/reset_pw.mako:15
-msgid "js_library"
-msgstr "en"
-
-#: vkviewer/templates/basicFooterLayout.mako:34
-#: vkviewer/templates/basicIndexLayout.mako:147
-#: vkviewer/templates/georeferenceStart.mako:69
-#: vkviewer/templates/georeferenceValidate.mako:73
-msgid "footer_project_name"
-msgstr "Virtuelles Kartenforum 2.0"
-
-#: vkviewer/templates/basicFooterLayout.mako:35
-#: vkviewer/templates/basicIndexLayout.mako:148
-#: vkviewer/templates/georeferenceStart.mako:70
-#: vkviewer/templates/georeferenceValidate.mako:74
-msgid "footer_project_desc_long"
-msgstr "a project from the SLUB Dresden and the University of Rostock"
-
-#: vkviewer/templates/basicFooterLayout.mako:51
-#: vkviewer/templates/basicIndexLayout.mako:87
-#: vkviewer/templates/basicIndexLayout.mako:164
-#: vkviewer/templates/contact.mako:23
-#: vkviewer/templates/georeferenceStart.mako:86
-#: vkviewer/templates/georeferenceValidate.mako:90
-msgid "footer_contact"
-msgstr "Contact"
-
-#: vkviewer/templates/basicFooterLayout.mako:54
-#: vkviewer/templates/basicIndexLayout.mako:88
-#: vkviewer/templates/basicIndexLayout.mako:167
-#: vkviewer/templates/georeferenceStart.mako:89
-#: vkviewer/templates/georeferenceValidate.mako:93
-msgid "footer_project"
-msgstr "Project"
-
-#: vkviewer/templates/basicFooterLayout.mako:57
-#: vkviewer/templates/basicIndexLayout.mako:89
-#: vkviewer/templates/basicIndexLayout.mako:170
-#: vkviewer/templates/georeferenceStart.mako:92
-#: vkviewer/templates/georeferenceValidate.mako:96
-#: vkviewer/templates/impressum.mako:23
-msgid "footer_editorial"
-msgstr "Impressum"
-
-#: vkviewer/templates/basicIndexLayout.mako:46
+#: vkviewer/templates/basic_page.mako:26
+#: vkviewer/templates/basic_page_slim.mako:24
 msgid "javascript_disabled"
 msgstr "Please activate Javascript to use the Virtuelles Kartenforum 2.0"
 
-#: vkviewer/templates/basicIndexLayout.mako:68
-msgid "placeholder_town_name"
-msgstr "Placename"
+#: vkviewer/templates/basic_page.mako:39 vkviewer/templates/basic_page.mako:58
+#: vkviewer/templates/development.mako:104
+#: vkviewer/templates/georeference_start.mako:61
+#: vkviewer/templates/georeference_validate.mako:73
+#: vkviewer/templates/mtb_profile.mako:35
+msgid "js_library"
+msgstr "en"
 
-#: vkviewer/templates/basicIndexLayout.mako:78
-msgid "header_service"
-msgstr "Services"
-
-#: vkviewer/templates/basicIndexLayout.mako:95
-msgid "header_language"
-msgstr "Language"
-
-#: vkviewer/templates/basicIndexLayout.mako:97
-msgid "header_language_de"
-msgstr "German"
-
-#: vkviewer/templates/basicIndexLayout.mako:98
-msgid "header_language_en"
-msgstr "English"
-
-#: vkviewer/templates/basicIndexLayout.mako:118
-msgid "logout_button"
-msgstr "Logout"
-
-#: vkviewer/templates/basicIndexLayout.mako:122
-msgid "login_button"
-msgstr "Login"
-
-#: vkviewer/templates/change_pw.mako:43
+#: vkviewer/templates/change_pw.mako:6 vkviewer/templates/index_page.mako:77
 msgid "change_pw_header"
 msgstr "Change password"
 
-#: vkviewer/templates/change_pw.mako:49
+#: vkviewer/templates/change_pw.mako:12
 msgid "old_password"
 msgstr "Old password"
 
-#: vkviewer/templates/change_pw.mako:50
+#: vkviewer/templates/change_pw.mako:13
 msgid "old_password_placeholder"
 msgstr "Old password"
 
-#: vkviewer/templates/change_pw.mako:54
+#: vkviewer/templates/change_pw.mako:17
 msgid "new_password"
 msgstr "New password"
 
-#: vkviewer/templates/change_pw.mako:55 vkviewer/templates/change_pw.mako:59
+#: vkviewer/templates/change_pw.mako:18 vkviewer/templates/change_pw.mako:22
 msgid "new_password_placeholder"
 msgstr "New password"
 
-#: vkviewer/templates/change_pw.mako:58
+#: vkviewer/templates/change_pw.mako:21
 msgid "new_password_validate"
 msgstr "New password"
 
-#: vkviewer/templates/change_pw.mako:61
+#: vkviewer/templates/change_pw.mako:24
 msgid "change_pw"
 msgstr "Submit change"
 
-#: vkviewer/templates/contact.mako:24 vkviewer/templates/impressum.mako:28
+#: vkviewer/templates/chooseGeorefMtb.mako:12
+msgid "georef_choose_map"
+msgstr "Choose your map for georeferencing."
+
+#: vkviewer/templates/chooseGeorefMtb.mako:22
+msgid "georef_choose_map_notfound"
+msgstr ""
+"There are no more maps for georeferencing available for this map sheet "
+"number."
+
+#: vkviewer/templates/contact.mako:10 vkviewer/templates/development.mako:68
+#: vkviewer/templates/georeference_start.mako:37
+#: vkviewer/templates/georeference_validate.mako:49
+#: vkviewer/templates/index_page.mako:48
+#: vkviewer/templates/index_page.mako:125
+msgid "footer_contact"
+msgstr "Contact"
+
+#: vkviewer/templates/contact.mako:11 vkviewer/templates/impressum.mako:21
 msgid "slubname_start"
 msgstr "Saxon State and "
 
-#: vkviewer/templates/contact.mako:25 vkviewer/templates/impressum.mako:30
+#: vkviewer/templates/contact.mako:12 vkviewer/templates/impressum.mako:23
 msgid "slubname_end"
 msgstr "University Library Dresden (SLUB)"
 
-#: vkviewer/templates/contact.mako:26 vkviewer/templates/impressum.mako:32
+#: vkviewer/templates/contact.mako:13 vkviewer/templates/impressum.mako:25
 msgid "post_adress"
 msgstr "Post adress"
 
-#: vkviewer/templates/contact.mako:28
+#: vkviewer/templates/contact.mako:15
 msgid "paket_adress"
 msgstr "Packet adress"
 
-#: vkviewer/templates/contact.mako:28 vkviewer/templates/impressum.mako:34
+#: vkviewer/templates/contact.mako:15 vkviewer/templates/impressum.mako:27
 msgid "visitor_adress"
 msgstr "Visitor adress"
 
-#: vkviewer/templates/contact.mako:33
+#: vkviewer/templates/contact.mako:20
 msgid "contact_person"
 msgstr "Contact person"
 
-#: vkviewer/templates/error.mako:23
+#: vkviewer/templates/development.mako:51
+#: vkviewer/templates/georeference_start.mako:20
+#: vkviewer/templates/georeference_validate.mako:32
+#: vkviewer/templates/index_page.mako:108
+msgid "footer_project_name"
+msgstr "Virtuelles Kartenforum 2.0"
+
+#: vkviewer/templates/development.mako:52
+#: vkviewer/templates/georeference_start.mako:21
+#: vkviewer/templates/georeference_validate.mako:33
+#: vkviewer/templates/index_page.mako:109
+msgid "footer_project_desc_long"
+msgstr "a project from the SLUB Dresden and the University of Rostock"
+
+#: vkviewer/templates/development.mako:71
+#: vkviewer/templates/georeference_start.mako:40
+#: vkviewer/templates/georeference_validate.mako:52
+#: vkviewer/templates/index_page.mako:49
+#: vkviewer/templates/index_page.mako:128
+msgid "footer_project"
+msgstr "Project"
+
+#: vkviewer/templates/development.mako:74
+#: vkviewer/templates/georeference_start.mako:43
+#: vkviewer/templates/georeference_validate.mako:55
+#: vkviewer/templates/impressum.mako:16 vkviewer/templates/index_page.mako:50
+#: vkviewer/templates/index_page.mako:131
+msgid "footer_editorial"
+msgstr "Impressum"
+
+#: vkviewer/templates/error.mako:15
 msgid "try_again"
 msgstr "Go back to main page."
 
-#: vkviewer/templates/faq.mako:19
+#: vkviewer/templates/faq.mako:16
 msgid "faq_main_heading"
 msgstr "Frequently Asked Questions"
 
-#: vkviewer/templates/georeferenceStart.mako:104
-#: vkviewer/templates/georeferenceValidate.mako:108
-msgid "tool_titel_georeference"
-msgstr "Start georeferencering"
-
-#: vkviewer/templates/georeferenceValidate.mako:117
-msgid "report_error_titel"
-msgstr "Report error dialog"
-
-#: vkviewer/templates/impressum.mako:25
+#: vkviewer/templates/impressum.mako:18
 msgid "editorial_introduction"
 msgstr ""
 "Die nachstehenden Informationen enthalten die gesetzlich vorgesehenen "
@@ -199,27 +167,27 @@ msgstr ""
 "zur Internetpräsenz der Sächsischen Landesbibliothek - Staats- und "
 "Universitätsbibliothek Dresden (SLUB)."
 
-#: vkviewer/templates/impressum.mako:26
+#: vkviewer/templates/impressum.mako:19
 msgid "provider"
 msgstr "Provider"
 
-#: vkviewer/templates/impressum.mako:39
+#: vkviewer/templates/impressum.mako:32
 msgid "represented_by"
 msgstr "Represented through "
 
-#: vkviewer/templates/impressum.mako:42
+#: vkviewer/templates/impressum.mako:35
 msgid "agency"
 msgstr "Office"
 
-#: vkviewer/templates/impressum.mako:48
+#: vkviewer/templates/impressum.mako:41
 msgid "representative"
 msgstr "Representatives"
 
-#: vkviewer/templates/impressum.mako:50
+#: vkviewer/templates/impressum.mako:43
 msgid "representative_first"
 msgstr "Die SLUB ist eine Anstalt öffentlichen Rechts."
 
-#: vkviewer/templates/impressum.mako:52
+#: vkviewer/templates/impressum.mako:45
 msgid "representative_second"
 msgstr ""
 "Die SLUB ist die  Staatsbibliothek des Freistaates Sachsen und zugleich die  "
@@ -227,25 +195,25 @@ msgstr ""
 "durch den Generaldirektor, Herrn Prof. Dr. Thomas Bürger, gesetzlich  "
 "vertreten."
 
-#: vkviewer/templates/impressum.mako:54
+#: vkviewer/templates/impressum.mako:47
 msgid "representative_third"
 msgstr ""
 "Der Staatsminister für Wissenschaft und Kunst übt die  Dienst- und "
 "Fachaufsicht über die Anstalt aus."
 
-#: vkviewer/templates/impressum.mako:56
+#: vkviewer/templates/impressum.mako:49
 msgid "editorial_team"
 msgstr "Editorial team"
 
-#: vkviewer/templates/impressum.mako:67
+#: vkviewer/templates/impressum.mako:60
 msgid "technical_realisation"
 msgstr "Technical realisation"
 
-#: vkviewer/templates/impressum.mako:83
+#: vkviewer/templates/impressum.mako:76
 msgid "information_law"
 msgstr "Rechtliche Hinweise zur Haftung"
 
-#: vkviewer/templates/impressum.mako:85
+#: vkviewer/templates/impressum.mako:78
 msgid "information_law_content"
 msgstr ""
 "Trotz unserer sorgfältigen Bemühungen können wir keine Gewähr für die  "
@@ -256,101 +224,125 @@ msgstr ""
 "Angebot ohne gesonderte Ankündigung zu ändern, zu  ergänzen, zu löschen oder "
 "die Veröffentlichung zeitweise oder endgültig einzustellen. "
 
-#: vkviewer/templates/impressum.mako:87
+#: vkviewer/templates/impressum.mako:80
 msgid "information_copyright"
 msgstr "Information about the copyright"
 
-#: vkviewer/templates/impressum.mako:89
+#: vkviewer/templates/impressum.mako:82
 msgid "information_copyright_content"
 msgstr ""
 "Das Layout der Homepage, die verwendeten Grafiken sowie die sonstigen  "
 "Inhalte sind urheberrechtlich geschützt."
 
-#: vkviewer/templates/impressum.mako:91
+#: vkviewer/templates/impressum.mako:84
 msgid "privacy_policy"
 msgstr "Privacy policy"
 
-#: vkviewer/templates/login_screen.mako:66
+#: vkviewer/templates/index_page.mako:29
+msgid "placeholder_town_name"
+msgstr "Placename"
+
+#: vkviewer/templates/index_page.mako:39
+msgid "header_service"
+msgstr "Services"
+
+#: vkviewer/templates/index_page.mako:56
+msgid "header_language"
+msgstr "Language"
+
+#: vkviewer/templates/index_page.mako:58
+msgid "header_language_de"
+msgstr "German"
+
+#: vkviewer/templates/index_page.mako:59
+msgid "header_language_en"
+msgstr "English"
+
+#: vkviewer/templates/index_page.mako:76
+#| msgid "georef_user_history"
+msgid "georef_history"
+msgstr "Georeference History"
+
+#: vkviewer/templates/index_page.mako:79
+msgid "logout_button"
+msgstr "Logout"
+
+#: vkviewer/templates/index_page.mako:83
+msgid "login_button"
+msgstr "Login"
+
+#: vkviewer/templates/login_screen.mako:8
 msgid "loginScreen_welcome"
 msgstr "Welcome to the Virtuelles Kartenforum 2.0"
 
-#: vkviewer/templates/login_screen.mako:72
+#: vkviewer/templates/login_screen.mako:14
 msgid "plz_login"
 msgstr "Please login"
 
-#: vkviewer/templates/login_screen.mako:78
-#: vkviewer/templates/login_screen.mako:80
-#: vkviewer/templates/login_screen.mako:105
-#: vkviewer/templates/login_screen.mako:107
-#: vkviewer/templates/login_screen.mako:143
-#: vkviewer/templates/reset_pw.mako:48 vkviewer/templates/reset_pw.mako:49
+#: vkviewer/templates/login_screen.mako:20
+#: vkviewer/templates/login_screen.mako:22
+#: vkviewer/templates/login_screen.mako:47
+#: vkviewer/templates/login_screen.mako:49 vkviewer/templates/reset_pw.mako:16
+#: vkviewer/templates/reset_pw.mako:17
 msgid "loginScreen_placeholder_username"
 msgstr "Username"
 
-#: vkviewer/templates/login_screen.mako:83
-#: vkviewer/templates/login_screen.mako:85
-#: vkviewer/templates/login_screen.mako:110
-#: vkviewer/templates/login_screen.mako:112
-#: vkviewer/templates/login_screen.mako:114
+#: vkviewer/templates/login_screen.mako:25
+#: vkviewer/templates/login_screen.mako:27
+#: vkviewer/templates/login_screen.mako:52
+#: vkviewer/templates/login_screen.mako:54
+#: vkviewer/templates/login_screen.mako:56
 msgid "loginScreen_placeholder_password"
 msgstr "Password"
 
-#: vkviewer/templates/login_screen.mako:88
-#: vkviewer/templates/login_screen.mako:138
+#: vkviewer/templates/login_screen.mako:30
 msgid "loginScreen_reset_pw"
 msgstr "Reset password?"
 
-#: vkviewer/templates/login_screen.mako:90
-#: vkviewer/templates/login_screen.mako:128
+#: vkviewer/templates/login_screen.mako:32
+#: vkviewer/templates/login_screen.mako:70
 msgid "loginScreen_submit_btn"
 msgstr "Login"
 
-#: vkviewer/templates/login_screen.mako:98
+#: vkviewer/templates/login_screen.mako:40
 msgid "loginScreen_welcome_new"
 msgstr "New to the Virtuelles Kartenforum 2.0?"
 
-#: vkviewer/templates/login_screen.mako:117
-#: vkviewer/templates/login_screen.mako:119
+#: vkviewer/templates/login_screen.mako:59
+#: vkviewer/templates/login_screen.mako:61
 msgid "loginScreen_placeholder_surname"
 msgstr "Surname"
 
-#: vkviewer/templates/login_screen.mako:117
-#: vkviewer/templates/login_screen.mako:121
+#: vkviewer/templates/login_screen.mako:59
+#: vkviewer/templates/login_screen.mako:63
 msgid "loginScreen_placeholder_familyname"
 msgstr "Familyname"
 
-#: vkviewer/templates/login_screen.mako:124
-#: vkviewer/templates/login_screen.mako:126
-#: vkviewer/templates/login_screen.mako:145
-#: vkviewer/templates/reset_pw.mako:52 vkviewer/templates/reset_pw.mako:53
+#: vkviewer/templates/login_screen.mako:66
+#: vkviewer/templates/login_screen.mako:68 vkviewer/templates/reset_pw.mako:20
+#: vkviewer/templates/reset_pw.mako:21
 msgid "loginScreen_placeholder_email"
 msgstr "Email"
 
-#: vkviewer/templates/login_screen.mako:139
-msgid "loginScreen_reset_pw_msg"
-msgstr ""
-"Please insert your username and your email adresse. You will receive a "
-"confirmation email after your password is reset!"
-
-#: vkviewer/templates/project.mako:23
+#: vkviewer/templates/project.mako:15
 msgid "project_name_short"
 msgstr "Project Virtuelles Kartenforum 2.0"
 
-#: vkviewer/templates/project.mako:24
+#: vkviewer/templates/project.mako:16
 msgid "project_name_long"
 msgstr ""
 "Virtuelles Kartenforum 2.0 - A service oriented architeture virtual research "
 "environment at the german photographic collection."
 
-#: vkviewer/templates/project.mako:25
+#: vkviewer/templates/project.mako:17
 msgid "footer_project_summary"
 msgstr "Project summary"
 
-#: vkviewer/templates/project.mako:27
+#: vkviewer/templates/project.mako:19
 msgid "footer_project_description"
 msgstr "Abstract"
 
-#: vkviewer/templates/project.mako:28
+#: vkviewer/templates/project.mako:20
 msgid "footer_project_description_content_start"
 msgstr ""
 "The digitization of old maps in Germany as well as existing spatial data "
@@ -359,20 +351,20 @@ msgstr ""
 "scientific and a infrastructural partner offers a combination in the form of "
 "a general, re-usable and sustainable service:"
 
-#: vkviewer/templates/project.mako:30
+#: vkviewer/templates/project.mako:22
 msgid "footer_project_description_content_li1"
 msgstr ""
 "The Fotothek of the SLUB includes a comprehensive collection of digital map "
 "information in one hand, however not being georeferenced and not available "
 "as interoperable services."
 
-#: vkviewer/templates/project.mako:31
+#: vkviewer/templates/project.mako:23
 msgid "footer_project_description_content_li2"
 msgstr ""
 "The virtual research environment VKLandLab at the Chair of Geodesy and "
 "Geomatics includes solutions to address exactly these deficits."
 
-#: vkviewer/templates/project.mako:33
+#: vkviewer/templates/project.mako:25
 msgid "footer_project_description_content_end"
 msgstr ""
 "In the research project an operational platform will be developed for "
@@ -385,94 +377,93 @@ msgstr ""
 "studies, the virtual research platform and the resulting assets in the "
 "provision of data, analysis and visualization should be tested."
 
-#: vkviewer/templates/project.mako:36
+#: vkviewer/templates/project.mako:28
 msgid "footer_project_duration"
 msgstr "Project duration"
 
-#: vkviewer/templates/project.mako:40
+#: vkviewer/templates/project.mako:32
 msgid "footer_project_patron"
 msgstr "Funding"
 
-#: vkviewer/templates/project.mako:42
+#: vkviewer/templates/project.mako:34
 msgid "dfg"
 msgstr "German Research Foundation"
 
-#: vkviewer/templates/project.mako:48
+#: vkviewer/templates/project.mako:40
 msgid "footer_projectpartners"
 msgstr "Project partners"
 
-#: vkviewer/templates/project.mako:51
+#: vkviewer/templates/project.mako:43
 msgid "slubname"
 msgstr "Saxony State and University Library Dresden (SLUB)"
 
-#: vkviewer/templates/project.mako:54
+#: vkviewer/templates/project.mako:46
 msgid "rostockname"
 msgstr ""
 "Universität Rostock - Agrar- und Umweltwissenschaftliche Fakultät - "
 "Professur für Geodäsie und Geoinformatik"
 
-#: vkviewer/templates/reset_pw.mako:40
-#| msgid "change_pw_header"
+#: vkviewer/templates/reset_pw.mako:8
 msgid "reset_pw_header"
 msgstr "Forgot password?"
 
-#: vkviewer/templates/reset_pw.mako:44
+#: vkviewer/templates/reset_pw.mako:12
 msgid "reset_pw_explanation"
 msgstr ""
 "Please insert your username and your email adress. After that we will create "
 "a new password for you and send it to via email. "
 
-#: vkviewer/templates/reset_pw.mako:55
+#: vkviewer/templates/reset_pw.mako:23
 msgid "reset_pw"
 msgstr "Reset password"
 
-#: vkviewer/templates/reset_pw_success.mako:19
+#: vkviewer/templates/reset_pw_success.mako:11
 msgid "reset_pw_dialog_success"
 msgstr ""
 "Your password will now be reset. When the process is finished you will get "
 "an Email from us with your new password. "
 
-#: vkviewer/templates/reset_pw_success.mako:21
+#: vkviewer/templates/reset_pw_success.mako:13
 msgid "go_back_main_page"
 msgstr "Go back to main page."
 
-#: vkviewer/templates/users_profile_georef.mako:42
+#: vkviewer/templates/users_profile_georef.mako:20
 msgid "georef_user_history"
 msgstr "History of user"
 
-#: vkviewer/templates/users_profile_georef.mako:43
+#: vkviewer/templates/users_profile_georef.mako:21
 msgid "georef_previous_georef"
 msgstr "Previous Georeferencing"
 
-#: vkviewer/templates/users_profile_georef.mako:43
+#: vkviewer/templates/users_profile_georef.mako:21
 msgid "georef_points"
 msgstr "Points"
 
-#: vkviewer/templates/users_profile_georef.mako:44
+#: vkviewer/templates/users_profile_georef.mako:22
 msgid "georef_back_to_overview"
 msgstr "Back to map sheet overview"
 
-#: vkviewer/templates/users_profile_georef.mako:57
+#: vkviewer/templates/users_profile_georef.mako:41
 msgid "georef_process_id"
 msgstr " Process-ID"
 
-#: vkviewer/templates/users_profile_georef.mako:60
+#: vkviewer/templates/users_profile_georef.mako:44
 msgid "georef_result_validate"
 msgstr "Result validated"
 
-#: vkviewer/templates/users_profile_georef.mako:66
+#: vkviewer/templates/users_profile_georef.mako:50
 msgid "georef_map_sheet_info"
 msgstr "Map sheet information"
 
-#: vkviewer/templates/users_profile_georef.mako:69
+#: vkviewer/templates/users_profile_georef.mako:53
 msgid "georef_parameter"
 msgstr "Set corner points (lon:lat)"
 
-#: vkviewer/templates/users_profile_georef.mako:72
+#: vkviewer/templates/users_profile_georef.mako:56
 msgid "georef_persist_access"
 msgstr "Persistent access to georeferenced map"
 
-#: vkviewer/templates/users_profile_georef.mako:78
+#: vkviewer/templates/users_profile_georef.mako:62
 msgid "georef_result_being_generated"
 msgstr "Being generated (duration approx. 20 Min. )"
 
@@ -514,3 +505,14 @@ msgstr "Being generated (duration approx. 20 Min. )"
 
 #~ msgid "loginScreen_placeholder__validate_password"
 #~ msgstr "Validate password"
+
+#~ msgid "tool_titel_georeference"
+#~ msgstr "Start georeferencering"
+
+#~ msgid "report_error_titel"
+#~ msgstr "Report error dialog"
+
+#~ msgid "loginScreen_reset_pw_msg"
+#~ msgstr ""
+#~ "Please insert your username and your email adresse. You will receive a "
+#~ "confirmation email after your password is reset!"

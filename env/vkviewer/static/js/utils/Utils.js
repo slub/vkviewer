@@ -310,9 +310,53 @@ VK2.Utils.showAchievedPoints = function(container, points){
 };
 
 /**
+ * @param {NodeList} nodelist
+ * @return {Array} 
+ */
+VK2.Utils.castNodeListToArray = function(nodelist){
+	var arr = [];
+	for (var i = 0; i < nodelist.length; i++){
+		arr.push(nodelist[i]);
+	}
+	return arr;
+};
+
+/**
+ * @param {Array.<Element>} elements
+ * @param {string} src_tag
+ * @param {string} img_tag
+ * @return {Function}
+ */
+VK2.Utils.getLazyImageLoadingFn = function(elements, src_tag, img_tag){
+
+	var isScrolledInView = function(elem){
+	    var docViewTop = goog.dom.getDocumentScroll().y;
+	    var docViewBottom = docViewTop + goog.dom.getDocumentHeight();
+
+	    var elemTop = goog.style.getPageOffsetTop(elem);
+	    var elemBottom = elemTop + goog.style.getSize(elem).height;
+
+	    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+	};
+	
+	var lazyLoading = function(){
+		var elements_ = elements;
+		for (var i = 0; i < elements_.length; i++){
+			if (isScrolledInView(elements_[i])){
+				elements_[i].setAttribute(src_tag, elements_[i].getAttribute(img_tag));
+				elements_.splice(i, 1);
+			}
+		}
+	};
+	
+	return lazyLoading;
+};
+
+/**
  * Overwrite or prototype basic javascript functions
  */
 String.prototype.replaceAll = function(search, replacement){
 	var target = this;
 	return target.split(search).join(replacement);
 }
+

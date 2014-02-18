@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-
-##
-## This is a base class for slim page without mostly javascript
-##
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"

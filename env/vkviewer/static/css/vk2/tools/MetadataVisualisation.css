@@ -50,8 +50,8 @@ fieldset.content > legend {
 fieldset.content > legend > a{
 	font-size: 12px;
 	position: relative;
-	float: right;
-	padding: 7px 0px 7px 7px;	
+	float: left;
+	padding: 0px 0px 7px 0px;	
 }
 /* content table */
 .metadata-record-table-content{

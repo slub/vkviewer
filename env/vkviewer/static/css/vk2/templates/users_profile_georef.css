@@ -1,3 +1,22 @@
+/* own style definitions */
+.georef-history{
+	height: 100%;
+	overflow-y: auto;
+}
+
+.content-container .media .thumbnail{
+	padding: 10px;
+	width: 256px;
+	height: 256px;
+}
+
+.content-container .media .media-body{
+	padding-right: 50px;
+}
+.content-container .media .media-body > p{
+	margin-bottom: 5px;
+	word-wrap: break-word;
+}
 /* 
         HTML5 ? Boilerplate 
      

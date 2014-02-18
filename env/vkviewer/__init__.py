@@ -23,6 +23,7 @@ from zope.sqlalchemy import ZopeTransactionExtension
 
 # import of own python classes
 from settings import dbconfig, routePrefix
+from python.utils.logger import createLogger
 from python.security import EntryFactory
 from python.proxy import proxy_post
 from python.models.Meta import initialize_sql, Base
@@ -30,9 +31,7 @@ from python.i18n import custom_locale_negotiator
 #from python.models.meta import DBSession, Base, initialize_sql
 
 # load logger
-logging.basicConfig()
-log = logging.getLogger(__file__)
-log.setLevel(logging.DEBUG)
+log = createLogger('sqlalchemy.engine', logging.DEBUG)
 
 here = os.path.dirname(os.path.abspath(__file__))
 

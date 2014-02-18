@@ -31,7 +31,9 @@ html, body {
 .olImageLoadError { 
 	/* when OL encounters a 404, don't display the pink image */
 	display: none !important;
-} /* preventing ol3 to display +/- in zoom control twice */
+}
+
+/* preventing ol3 to display +/- in zoom control twice */
 .ol-zoom-in:before {
 	content: "";
 }
@@ -415,6 +417,21 @@ div.vk2PartnerPageContainer h3{
 	top: 100px;
 	left: 100px;
 	display: none;
+}
+
+/* styling and position of the activate georefernce control element */
+.vk2GeorefControl.vk2SBControlBtn{
+	position: absolute;
+	top: 160px;
+	left: -40px;
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	cursor: default;
+	border-radius: 0;
+}
+
+.vk2GeorefControl.vk2SBControlBtn .vk2SidebarIcon{
+	background-position: -120px 0;
 }.georeference-start-container{
 	width: 100%;
 	height: 100%;
@@ -1207,8 +1224,8 @@ fieldset.content > legend {
 fieldset.content > legend > a{
 	font-size: 12px;
 	position: relative;
-	float: right;
-	padding: 7px 0px 7px 7px;	
+	float: left;
+	padding: 0px 0px 7px 0px;	
 }
 /* content table */
 .metadata-record-table-content{

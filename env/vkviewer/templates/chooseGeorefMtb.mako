@@ -1,6 +1,5 @@
 <%inherit file="basic_page_slim.mako" />
 
-
 <%block name="body_content">
 	<div class="choose-georef page-container">
   		<div class="vk2ChooseGeorefMtb">
@@ -10,7 +9,7 @@
 			##
 			% if paginator.items:
 			
-				<h2>Wähle Karte für Georeferenzierung</h2>
+				<h2>${_('georef_choose_map')}</h2>
 				
 				% for mtb in paginator.items:
 					
@@ -20,7 +19,7 @@
 			
 			% else:
 			
-				<h2>Für diese Blattnummer können keine Messtischblätter mehr georeferenziert werden</h2>
+				<h2>${_('georef_choose_map_notfound')}</h2>
 			
 			% endif
 			
