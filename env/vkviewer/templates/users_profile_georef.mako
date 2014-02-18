@@ -100,7 +100,6 @@
 			var thumbnailsArr = VK2.Utils.castNodeListToArray(thumbnailsNodeList);
 			var lazyLoading = VK2.Utils.getLazyImageLoadingFn(thumbnailsArr, 'src', 'data-src');
 			goog.events.listen(container, goog.events.EventType.SCROLL, function(e){
-				console.log('Trigger scroll event');
 				lazyLoading();
 			});
 			lazyLoading();
