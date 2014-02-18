@@ -42,8 +42,7 @@ def addRoutes(config):
     config.add_route('home', routePrefix + '/', factory='python.security.EntryFactory')
     config.add_route('home1', routePrefix, factory='python.security.EntryFactory')
     config.add_route('home_login', routePrefix+'/auth', factory='python.security.EntryFactory')
-#    config.add_route('georef', routePrefix+'/georef', factory='python.security.EntryFactory')
-    config.add_route('set_locales', 'locales', factory='python.security.EntryFactory')
+    config.add_route('set_locales', routePrefix+'/locales', factory='python.security.EntryFactory')
     
     # route for authentification
     config.add_route('auth', routePrefix+'/sign/{action}', factory='python.security.EntryFactory')

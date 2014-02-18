@@ -93,8 +93,6 @@
 				});
 			};
 			
-
-
 			var container = goog.dom.getElementByClass('georef-history');
 			var thumbnailsNodeList = goog.dom.getElementsByClass('thumbnail');
 			var thumbnailsArr = VK2.Utils.castNodeListToArray(thumbnailsNodeList);
