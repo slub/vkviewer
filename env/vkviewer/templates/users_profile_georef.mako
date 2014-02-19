@@ -86,15 +86,14 @@
    				goog.dom.classes.add(georef_id, 'complete');
    			}
    			
-   			var thumbnails = goog.dom.getElementsByClass('thumbnail');
-			for (var i = 0; i < thumbnails.length; i++){
-				goog.events.listen(thumbnails[i], goog.events.EventType.PAGESHOW, function(e){
-					console.log('Show');
-				});
-			};
-			
+    $('.thumbnail').each(function(){
+        if($(this).visible(true)) {
+            console.log('Is visible');
+        }
+    });
+    			
 			var container = goog.dom.getElementByClass('georef-history');
-			var thumbnailsNodeList = goog.dom.getElementsByClass('thumbnail');
+			var thumbnailsNodeList = goog.dom.getElementsByClass('thumbnail');	
 			var thumbnailsArr = VK2.Utils.castNodeListToArray(thumbnailsNodeList);
 			var lazyLoading = VK2.Utils.getLazyImageLoadingFn(thumbnailsArr, 'src', 'data-src');
 			goog.events.listen(container, goog.events.EventType.SCROLL, function(e){
