@@ -49,8 +49,6 @@ VK2.Requests.CSW_GetRecordById.SearchPaths = {
  * @param {string} service_url
  */
 VK2.Requests.CSW_GetRecordById.prototype.getRecord = function(record_id, service_url){
-	console.log('Record-ID: '+record_id+' Service-URL: '+service_url);
-
 	requestUrl = VK2.Utils.Settings.proxy_url + service_url; 
 		
 	xmlRequest = '<?xml version="1.0"?><csw:GetRecordById xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" outputSchema="csw:IsoRecord">' +

@@ -35,8 +35,8 @@
 	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
 	
-	<!-- production --> 
-	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script> 
+	<!-- production -->
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script>  
 
 	<!-- development 
 	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
@@ -47,7 +47,7 @@
     <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/events/eventtarget.js')}"></script>
     <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/uri/utils.js')}"></script>
     <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/uri/uri.js')}"></script> 
-	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.js')}"></script>-->
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.js')}"></script> -->
 	
     <script>
     	$(document).ready(function(){
@@ -65,6 +65,7 @@
 			});
 			var mdVisualizer = new VK2.Tools.MetadataVisualizer('metadata-container',VK2.Utils.getQueryParam('key'),{
 				 'csw_url':'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw'});
+
 		});
     </script> 
 </%block>

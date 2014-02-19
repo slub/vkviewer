@@ -1,5 +1,6 @@
 .olControlAttribution{
-	display: none !important;
+	bottom: 0px !important;
+	left: 3px !important;
 }
 
 .olControlMousePosition{
