@@ -7,7 +7,6 @@ goog.require('goog.events.KeyCodes');
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
 
-
 /**
  * @constructor
  * @extends {ol.control.Control}

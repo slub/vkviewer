@@ -689,5 +689,4 @@ VK2.Tools.Georeferencer.prototype.loadValidationMap = function(map_container_id,
 			'radius': 50
 		})	 
 	)
-
 };
