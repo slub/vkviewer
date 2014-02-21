@@ -2,6 +2,8 @@ goog.provide('VK2.Controller.MapSearchController');
 
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
+goog.require('goog.events');
+goog.require('goog.events.EventType');
 
 /**
  * @param {Object} map OpenLayers.Map
@@ -56,20 +58,10 @@ VK2.Controller.MapSearchController.prototype.addRowBehavior = function(rowElemen
 VK2.Controller.MapSearchController.prototype._addRowClickBehavior = function(rowElement, feature){
 	var _ftLayer = this._ftLayer;
 	
-	$(rowElement).click( function(event) {
-
-		// set map center corresponding to the feature
-		var center = feature.geometry.getCentroid();
-		_ftLayer.map.setCenter(new OpenLayers.LonLat(center.x, center.y), 4);
+	goog.events.listen(rowElement, goog.events.EventType.CLICK, function(event){
 		
-		// restore hover event after click event
-		$(this).trigger('mouseenter');
-		
-		// hear the callback should be placed
-		$('#spatialsearch-tools-input-layer').val(feature.data['time'])
-		
-		// show metadata
 		if (goog.dom.classes.has(event.target, 'anchor-show-metadata')) {
+			// if event comes from a show single map click than show metadata 
 			// if parentElement not initialize do it
 			var parentElementId = 'metadata-record-parent';
 			if (!goog.isDefAndNotNull(goog.dom.getElement(parentElementId))){
@@ -93,9 +85,21 @@ VK2.Controller.MapSearchController.prototype._addRowClickBehavior = function(row
 				'width': '100%',
 				'height': '100%'
 			}).trigger('click');
+			
+			
+		} else {
+			// if not than jump to the place on the map		
+			// set map center corresponding to the feature
+			var center = feature.geometry.getCentroid();
+			var zoom = _ftLayer.map.getZoom() > 4 ? _ftLayer.map.getZoom() : 4;
+			_ftLayer.map.setCenter(new OpenLayers.LonLat(center.x, center.y), zoom);
+			
+			// update time value in input field
+			goog.dom.getElement('spatialsearch-tools-input-layer').value = feature.data['time'];
+			this._table.setLastFocusRow(feature.data['mtbid']);
 		};
-	});
-}
+	}, undefined, this);
+};
 
 /**
  * @param {Element} rowElement Represention the <tr> element of an row.
@@ -146,7 +150,6 @@ VK2.Controller.MapSearchController.prototype.registerFeatureLayerBehavior = func
 	
 	// update feature data in table
 	this._ftLayer.events.register('featuresadded', this, this._updateDisplayedFeatureData);
-	this._ftLayer.events.register('featuresremoved', this, this._updateDisplayedFeatureData);
 	
 	// event for updating the layer in case of a map move event
 	this._map.events.register('moveend', this, this._updateLayerFeatures);
@@ -164,7 +167,6 @@ VK2.Controller.MapSearchController.prototype.unregisterFeatureLayerBehavior = fu
 	
 	// update feature data in table
 	this._ftLayer.events.unregister('featuresadded', this, this._updateDisplayedFeatureData);
-	this._ftLayer.events.unregister('featuresremoved', this, this._updateDisplayedFeatureData);
 	
 	// event for updating the layer in case of a map move event
 	this._map.events.unregister('moveend', this, this._updateLayerFeatures);
@@ -181,7 +183,7 @@ VK2.Controller.MapSearchController.prototype._updateLayerFeatures = function(e){
 		this._updateDisplayedFeatureData()
 	
 		// 	display error message in table header
-		$(this._ftLoadingCbEl).find('.content').html(VK2.Utils.get_I18n_String('change_zoomlevel'))
+		goog.dom.getElementByClass('content',this._ftLoadingCbEl).innerHTML = VK2.Utils.get_I18n_String('change_zoomlevel');
 	}
 }
 
@@ -189,16 +191,21 @@ VK2.Controller.MapSearchController.prototype._updateLayerFeatures = function(e){
  * @private
  */
 VK2.Controller.MapSearchController.prototype._featureLoadingFeedback = function(e){
-	
-	var loadingEl = $(this._ftLoadingCbEl).find('.loading');
+		
+	var loadingEl = goog.dom.getElementByClass('loading',this._ftLoadingCbEl);
 		
 	if (e.type == 'loadstart'){
-		loadingEl.addClass('active');
+		goog.dom.classes.add(loadingEl,'active');
 	} else if (e.type == 'loadend'){
-		if (loadingEl.hasClass('active'))
-			loadingEl.removeClass('active');
-			
-		$(this._ftLoadingCbEl).find('.content').html(this._ftLayer.features.length + ' ' + VK2.Utils.get_I18n_String('found_mtb'))
+		if (goog.dom.classes.has(loadingEl,'active'))
+			goog.dom.classes.remove(loadingEl, 'active');
+		
+		// display message how many maps find
+		goog.dom.getElementByClass('content', this._ftLoadingCbEl).innerHTML = 
+			this._ftLayer.features.length + ' ' + VK2.Utils.get_I18n_String('found_mtb');
+		
+		if (this._ftLayer.features.length == 0)
+			this._updateDisplayedFeatureData();
 	}
 }
 
@@ -207,6 +214,10 @@ VK2.Controller.MapSearchController.prototype._featureLoadingFeedback = function(
  * @private
  */
 VK2.Controller.MapSearchController.prototype._updateDisplayedFeatureData = function(objData){
+	
+	if (goog.isDef(objData))
+		console.log('Event type: '+objData.type);
+
 	
 	var data = {};
 

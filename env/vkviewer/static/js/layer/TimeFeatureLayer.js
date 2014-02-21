@@ -1,4 +1,4 @@
-/*
+/**
  * This class interworks with the VK2.Layer.Vk2Layer object.
  */
 VK2.Layer.TimeFeatureLayer = VK2.Class({ 
