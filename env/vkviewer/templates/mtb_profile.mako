@@ -35,10 +35,10 @@
 	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
 	
-	<!-- production -->
-	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script>  
+	<!-- production 
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script>  -->
 
-	<!-- development 
+	<!-- development -->
 	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
     <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/disposable/disposable.js')}"></script>
     <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/debug/entrypointregistry.js')}"></script>
@@ -47,7 +47,7 @@
     <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/events/eventtarget.js')}"></script>
     <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/uri/utils.js')}"></script>
     <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/uri/uri.js')}"></script> 
-	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.js')}"></script> -->
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.js')}"></script>
 	
     <script>
     	$(document).ready(function(){
