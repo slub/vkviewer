@@ -64,7 +64,7 @@
     		"layer/GeoreferencerSearchLayer.js",
     		"layer/TimeFeatureLayer.js",
     		"layer/Vk2Layer.js",
-    		"layer/TimeSearchLayer.js",
+    		"layer/MapSearchLayer.js",
     		"layer/HoverLayer.js",
     		"tools/Gazetteersearch.js",
     		"tools/GeoreferencerChooser.js",

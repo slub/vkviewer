@@ -1,4 +1,4 @@
-goog.provide('VK2.Layer.TimeSearchLayer');
+goog.provide('VK2.Layer.MapSearchLayer');
 
 /**
  * @param {Array.<number>} timestamps 
@@ -6,7 +6,7 @@ goog.provide('VK2.Layer.TimeSearchLayer');
  * @param {Object} map OpenLayers.Map
  * @constructor
  */
-VK2.Layer.TimeSearchLayer = function(timestamps, maxRes, map){
+VK2.Layer.MapSearchLayer = function(timestamps, maxRes, map){
 	
 	var _refresh = new OpenLayers.Strategy.Refresh({force: true, active: true}); 
 	 

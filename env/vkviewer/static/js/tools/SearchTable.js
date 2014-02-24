@@ -68,7 +68,7 @@ VK2.Tools.SearchTable = function(parent, headingCol, controller){
 	this._controller = controller
 	
 	this._createTable();
-}
+};
 
 /**
  * @private
@@ -139,8 +139,8 @@ VK2.Tools.SearchTable.prototype._createTable = function(){
 	goog.dom.appendChild(this._parentEl, table);
 	
 	// initialize tablesorter
-	$(document.getElementById(this.tableId)).tablesorter();
-}
+	$(goog.dom.getElement(this.tableId)).tablesorter();
+};
 
 /**
  * @static
@@ -160,7 +160,7 @@ VK2.Tools.SearchTable.prototype._createMetadataCol = function(colTitel, titel, c
 		'innerHTML': titel + ' (<a href="#" class="anchor-show-metadata">' + VK2.Utils.get_I18n_String('show_metadata') + '</a>)'
 	});
 	return col; 
-}
+};
 
 /**
  * @param {Object} object
@@ -168,9 +168,10 @@ VK2.Tools.SearchTable.prototype._createMetadataCol = function(colTitel, titel, c
 VK2.Tools.SearchTable.prototype.refreshData = function(object){
 	
 	// delete all child elements
-	$(this._tableBody).empty();
-	
+	goog.dom.removeChildren(this._tableBody)
+	var j = 0;
 	for (key in object) {
+		j++;
 		
 		var row = goog.dom.createDom('tr', {
 			'id': key,
@@ -202,6 +203,19 @@ VK2.Tools.SearchTable.prototype.refreshData = function(object){
 
 	// activate fancybox events
 	VK2.Utils.initializeFancyboxForClass(this._mdFancyBoxClass);
+	
+	// focus last row
+	// @todo activate hover and scroll to the actual mouse position
+//	if (goog.isDefAndNotNull(this._lastFocus)){
+//		var lastFocusRow = goog.dom.getElement(this._lastFocus);
+//		lastFocusRow.scrollIntoView(true);
+//		this._lastFocus = null;
+//	}
+};
+
+/**
+ * @param {string} key
+ */
+VK2.Tools.SearchTable.prototype.setLastFocusRow = function(key){
+	this._lastFocus = key;
 }
-
-
