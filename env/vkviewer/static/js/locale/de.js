@@ -25,6 +25,7 @@ var lang_dictionary = {
 		'submitBtn_georeference': 'Absenden ohne Vorschau',
 		'validateBtn_validate': 'Vorschau aktualisieren',
 		'submitBtn_validate': 'Georeferenzierung bestätigen',
+		'checkCornerPoint_count' : 'Bitte nur 4 Punkte setzen',
 		
 		// report error
 		'report_error_alert': 'Fehler konnte nicht gemeldet werden. Bitte wenden Sie sich an die Administrator dieser Seite.',

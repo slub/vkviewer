@@ -57,19 +57,21 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>  
 	<script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>	 
 	<script src="${request.static_url('vkviewer:static/lib/vkviewer-plugin-libarys.min.js')}"></script>  
-	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>	
+	<!--<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>-->
+	<script src="${request.static_url('vkviewer:static/lib/ol-whitespace.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>	
 	
-	<!-- production -->
+	<!-- production 
 	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script>
+	-->
 	 
-	<!-- development
+	<!-- development -->
 	<script src="${request.static_url('vkviewer:static/js/utils/Settings.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/utils/Utils.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/ol3/controls/LayerSpy.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/ol3/tools/Georeferencer.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/ol3/tools/ReportError.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/js/ol3/requests/Georeferencer.js')}"></script>-->
+	<script src="${request.static_url('vkviewer:static/js/ol3/requests/Georeferencer.js')}"></script>
     <script>
 		$(document).ready(function(){
 			VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');

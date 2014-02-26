@@ -25,13 +25,14 @@ var lang_dictionary = {
 		'submitBtn_georeference': 'Submit without preview',
 		'validateBtn_validate': 'Update preview',
 		'submitBtn_validate': 'Confirm georeferencing',
+		'checkCornerPoint_count' : 'Please select only 4 points',
 			
 		// report error
 		'report_error_alert': 'Problems while notify error. Please contact the administrator.',
 		'report_error_titel': 'Error report for messtischblatt',
 		'report_error_confirmed': 'Error reported!',
 		'report_error_btn_submit': 'Submit',
-		'report_error_btn_cancel': 'Canel',
+		'report_error_btn_cancel': 'Cancel',
 		
 		// login validation
 		'password_to_short': 'The password should contain between 5 to 16 characters.',
