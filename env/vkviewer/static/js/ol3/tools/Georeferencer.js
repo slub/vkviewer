@@ -566,6 +566,16 @@ VK2.Tools.Georeferencer.prototype._loadToggleControls = function(map, drawSource
 			]
 	};
 	
+	// add event listener event
+	goog.events.listen(this._drawSource, 'addfeature', function(e){
+		allFeatures = this._drawSource.getAllFeatures()
+		if (allFeatures.length > 4){
+			alert(VK2.Utils.get_I18n_String('checkCornerPoint_count'));
+			this._drawSource.removeFeature(allFeatures[4]);
+		}
+	}, undefined, this);
+
+	
 	// toggle controller
 	var toggleElements = goog.dom.getElementsByTagNameAndClass('input','toggle-elements',this._toolContainer);
 	for (var i = 0; i < toggleElements.length; i++){
@@ -656,7 +666,6 @@ VK2.Tools.Georeferencer.prototype.loadValidationMap = function(map_container_id,
 	       new ol.control.Attribution()	       
 	  ]
 	});
-	
 	// zoom to extent by parsing getcapabilites request from wms
 	var successHandler = function(data){
 		var parser = new ol.parser.ogc.WMSCapabilities();
