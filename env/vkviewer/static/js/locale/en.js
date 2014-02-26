@@ -58,5 +58,9 @@ var lang_dictionary = {
 		'mdrecord_uniqueid': 'Unique Identifier',
 		
 		// for georef feedback
-		'georef_points': 'Points'
+		'georef_points': 'Points',
+		
+		// contact message
+		'send_con_message_suc': 'Your message has been send. Thank you. Enjoy your time in the Virtuelle Kartenforum 2.0.',
+		'send_con_message_err': 'Error while sending the contact message. Please try again or send the Admin an email.'
 }

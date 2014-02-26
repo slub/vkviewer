@@ -93,7 +93,7 @@
     	var validateRegisterNewUser = function(){
     	
     		var isValide = true;
-    					debugger;
+    		
 			// check username
 			isValide = isValide && VK2.Validation.checkUsername(loginNewUsername, 'validationTipsRegisterUser', 'ui-state-error');
 			if (!isValide) return isValide;

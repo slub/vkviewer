@@ -55,7 +55,7 @@ def addRoutes(config):
     config.add_route('georeferencer', routePrefix+'/georef/{action}', factory='python.security.EntryFactory')
     config.add_route('georeference_start', routePrefix+'/georeference/start', factory='python.security.EntryFactory')
     config.add_route('georeference_validate', routePrefix+'/georeference/validate', factory='python.security.EntryFactory')
-    config.add_route('report_error', routePrefix+'/reporterror', factory='python.security.EntryFactory')
+    config.add_route('report', routePrefix+'/report/{action}', factory='python.security.EntryFactory')
     
     # footer routes
     config.add_route('contact', routePrefix+'/contact', factory='python.security.EntryFactory')

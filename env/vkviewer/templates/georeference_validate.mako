@@ -72,16 +72,14 @@
 	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>	
 	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>	
 	
-	<!-- production -->
-	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script>
+	<!-- production 
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script>-->
 	 
-	<!-- development
-	<script src="${request.static_url('vkviewer:static/js/utils/Settings.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/js/utils/Utils.js')}"></script>
+	<!-- development -->
 	<script src="${request.static_url('vkviewer:static/js/ol3/controls/LayerSpy.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/ol3/tools/Georeferencer.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/ol3/tools/ReportError.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/js/ol3/requests/Georeferencer.js')}"></script>-->
+	<script src="${request.static_url('vkviewer:static/js/ol3/requests/Georeferencer.js')}"></script>
     <script>
 		$(document).ready(function(){
 			VK2.Utils.initializeFancyboxForClass('vk2FooterLinks');

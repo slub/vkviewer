@@ -4,6 +4,8 @@ goog.require('goog.Uri');
 goog.require('goog.net.cookies');
 goog.require('goog.dom.classes');
 goog.require('goog.style');
+goog.require('goog.events');
+goog.require('goog.net.XhrIo');
 
 /**
  * @static
@@ -356,9 +358,42 @@ VK2.Utils.getLazyImageLoadingFn = function(elements, src_tag, img_tag){
 };
 
 /**
+ * This functions does a get request for a given url_string and calls, if given, the success_callback or error_callback
+ * @param {string} url_string
+ * @param {Function=} success_callback
+ * @param {Function=} error_callback
+ * @static
+ */
+VK2.Utils.sendReport = function(url_string, success_callback, error_callback){
+	
+	// create request object
+	var xhr = new goog.net.XhrIo();
+	
+	// add listener to request object
+	goog.events.listenOnce(xhr, 'success', function(e){
+		var xhr = /** @type {goog.net.XhrIo} */ (e.target);
+		if (goog.isDef(success_callback))
+			success_callback(xhr);
+		xhr.dispose();
+
+	}, false, this);
+	
+	goog.events.listenOnce(xhr, 'error', function(e){
+		var xhr = /** @type {goog.net.XhrIo} */ (e.target);
+		if (goog.isDef(error_callback))
+			error_callback(xhr);
+	}, false, this);
+	
+	// send request
+	xhr.send(url_string);	
+};
+
+/**
  * Overwrite or prototype basic javascript functions
  */
 String.prototype.replaceAll = function(search, replacement){
 	var target = this;
 	return target.split(search).join(replacement);
 };
+
+
