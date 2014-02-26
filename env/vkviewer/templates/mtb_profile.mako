@@ -35,8 +35,8 @@
 	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
 	
-	<!-- production -->
-	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script>  
+	<!-- production  -->
+	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.min.js')}"></script> 
 
 	<!-- development 
 	<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>

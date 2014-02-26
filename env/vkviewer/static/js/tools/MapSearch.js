@@ -37,7 +37,7 @@ VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, conta
 	 * @type {Object}
 	 * @private
 	 */
-	this._ftLayer = new VK2.Layer.TimeSearchLayer(timestamps, maxRes, this._map)
+	this._ftLayer = new VK2.Layer.MapSearchLayer(timestamps, maxRes, this._map)
 	
 	
 	/**

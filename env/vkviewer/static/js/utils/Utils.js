@@ -334,19 +334,22 @@ VK2.Utils.getLazyImageLoadingFn = function(elements, src_tag, img_tag){
 	    var docViewBottom = docViewTop + goog.dom.getDocumentHeight();
 
 	    var elemTop = goog.style.getPageOffsetTop(elem);
-	    var elemBottom = elemTop + goog.style.getSize(elem).height;
+	    var elemHeight = goog.style.getSize(elem).height;
+	    var elemBottom = elemTop + elemHeight
 
-	    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+	    return ((elemBottom <= (docViewBottom + elemHeight)) && (elemTop >= (docViewTop - elemHeight))); // for defining tolerance ranges
 	};
 	
 	var lazyLoading = function(){
+		console.log('Lazy loading triggered!');
 		var elements_ = elements;
-		for (var i = 0; i < elements_.length; i++){
+		// loop through array from the back
+		for (var i = elements_.length-1; i >= 0; i--){
 			if (isScrolledInView(elements_[i])){
 				elements_[i].setAttribute(src_tag, elements_[i].getAttribute(img_tag));
 				elements_.splice(i, 1);
 			}
-		}
+		};
 	};
 	
 	return lazyLoading;
@@ -358,5 +361,4 @@ VK2.Utils.getLazyImageLoadingFn = function(elements, src_tag, img_tag){
 String.prototype.replaceAll = function(search, replacement){
 	var target = this;
 	return target.split(search).join(replacement);
-}
-
+};

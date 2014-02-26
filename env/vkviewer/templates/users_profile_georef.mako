@@ -85,19 +85,15 @@
    				var article = goog.dom.getElement(georef_id);
    				goog.dom.classes.add(georef_id, 'complete');
    			}
-   			
-    $('.thumbnail').each(function(){
-        if($(this).visible(true)) {
-            console.log('Is visible');
-        }
-    });
     			
 			var container = goog.dom.getElementByClass('georef-history');
 			var thumbnailsNodeList = goog.dom.getElementsByClass('thumbnail');	
 			var thumbnailsArr = VK2.Utils.castNodeListToArray(thumbnailsNodeList);
 			var lazyLoading = VK2.Utils.getLazyImageLoadingFn(thumbnailsArr, 'src', 'data-src');
+			var timeout;
 			goog.events.listen(container, goog.events.EventType.SCROLL, function(e){
-				lazyLoading();
+				clearTimeout(timeout);
+				timeout = setTimeout(lazyLoading, 1000);
 			});
 			lazyLoading();
    		})
