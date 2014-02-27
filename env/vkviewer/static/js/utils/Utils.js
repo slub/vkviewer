@@ -94,11 +94,18 @@ VK2.Utils.setGenericOpenLayersPropertys = function(proxyUrl){
  * @param map {OpenLayers.Map}
  * @param lon {Float}
  * @param lat {Float}
+ * @param zoom {Integer=}
  */
-VK2.Utils.jumptolonlat = function(map,lon,lat){
+VK2.Utils.jumptolonlat = function(map,lon,lat, zoom){
     var LonLat = new OpenLayers.LonLat(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject());
-    map.setCenter(LonLat,12);
-    return true;
+    
+    if (goog.isDef(zoom)){
+        map.setCenter(LonLat,zoom);
+        return true;
+    } else {
+        map.setCenter(LonLat,12);
+        return true;
+    }
 };
 		
 VK2.Utils.encode_utf8 = function(rohtext) {

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2014-02-26 17:30+0100\n"
-"PO-Revision-Date: 2014-02-26 18:01+0100\n"
+"PO-Revision-Date: 2014-02-27 10:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -253,7 +253,7 @@ msgstr "Placename"
 
 #: vkviewer/templates/index_page.mako:39
 msgid "header_service"
-msgstr "Services"
+msgstr "Informations"
 
 #: vkviewer/templates/index_page.mako:56
 msgid "header_language"
