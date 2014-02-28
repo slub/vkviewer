@@ -67,53 +67,23 @@ VK2.Controller.MapSearchController.prototype._addRowClickBehavior = function(row
 	var _ftLayer = this._ftLayer;
 	
 	goog.events.listen(rowElement, goog.events.EventType.CLICK, function(event){
+		// if not than jump to the place on the map		
+		// set map center corresponding to the feature
+		var center = feature.geometry.getCentroid();
+		var zoom = _ftLayer.map.getZoom() > 4 ? _ftLayer.map.getZoom() : 4;
+		_ftLayer.map.setCenter(new OpenLayers.LonLat(center.x, center.y), zoom);
 		
-		if (goog.dom.classes.has(event.target, 'anchor-show-metadata')) {
-			// if event comes from a show single map click than show metadata 
-			// if parentElement not initialize do it
-			var parentElementId = 'metadata-record-parent';
-			if (!goog.isDefAndNotNull(goog.dom.getElement(parentElementId))){
-				var parentElement = goog.dom.createDom('div', {
-					'class': 'metadata-record',
-					'id': parentElementId
-				});
-				goog.dom.appendChild(document.body, parentElement);
-			}
-			
-			// open mtb single view
-			var extent = feature.geometry.bounds.left + ',' + feature.geometry.bounds.bottom + ',' + feature.geometry.bounds.right + ',' + feature.geometry.bounds.top;
-			var anchor = goog.dom.createDom('a',{
-				'href': '/vkviewer/profile/mtb?key='+feature.data.dateiname+'&extent='+extent+'&time='+feature.data.time,
-			});
-			goog.dom.appendChild(document.body, anchor);
-			
-			$(anchor).fancybox({
-				'type': 'iframe',
-				'href': '/vkviewer/profile/mtb?key='+feature.data.dateiname+'&extent='+extent+'&time='+feature.data.time,
-				'width': '100%',
-				'height': '100%'
-			}).trigger('click');
-			
-			
-		} else {
-			// if not than jump to the place on the map		
-			// set map center corresponding to the feature
-			var center = feature.geometry.getCentroid();
-			var zoom = _ftLayer.map.getZoom() > 4 ? _ftLayer.map.getZoom() : 4;
-			_ftLayer.map.setCenter(new OpenLayers.LonLat(center.x, center.y), zoom);
-			
-			// update time value in input field
-			var arr = []
-			for (var i = 0; i < _ftLayer.features.length; i++){
-				if (feature.bounds.containsBounds(_ftLayer.features[i].bounds))
-					arr.push(_ftLayer.features[i]);
-			};
-			//goog.dom.getElement('spatialsearch-tools-input-layer').value = feature.data['time'];
-			
-			if (goog.isDef(this._minimizeMtbView)){
-				this._minimizeMtbView.updateView(arr);
-			}
+		// update time value in input field
+		var arr = []
+		for (var i = 0; i < _ftLayer.features.length; i++){
+			if (feature.bounds.containsBounds(_ftLayer.features[i].bounds))
+				arr.push(_ftLayer.features[i]);
 		};
+		//goog.dom.getElement('spatialsearch-tools-input-layer').value = feature.data['time'];
+		
+		if (goog.isDef(this._minimizeMtbView)){
+			this._minimizeMtbView.updateView(arr);
+		}
 	}, undefined, this);
 };
 

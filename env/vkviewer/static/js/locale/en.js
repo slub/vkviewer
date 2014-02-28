@@ -63,5 +63,8 @@ var lang_dictionary = {
 		
 		// contact message
 		'send_con_message_suc': 'Your message has been send. Thank you. Enjoy your time in the Virtuelle Kartenforum 2.0.',
-		'send_con_message_err': 'Error while sending the contact message. Please try again or send the Admin an email.'
+		'send_con_message_err': 'Error while sending the contact message. Please try again or send the Admin an email.',
+		
+		// minimize messtischblatt view
+		'mmv_label_blattnr': 'Map sheet for number:'
 }

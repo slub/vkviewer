@@ -9,6 +9,7 @@
 goog.provide('VK2.Tools.Gazetteersearch')
 
 goog.require('goog.dom');
+goog.require('goog.dom.classes');
 
 /**
  * Create a front end for a gazetteer service
@@ -37,8 +38,7 @@ VK2.Tools.Gazetteersearch = function(gazetteerElement, map, withSubmit){
 	 * @private
 	 */
 	this._map = map;
-	
-	console.log('Load Gazetteersearch.')
+
 	this._loadGazetteerBehavior(this._gazetteerElement, this._map);
 	//this._loadSubmitBehavior(this._parentElement, this._gazetteerElement)
 }
@@ -57,8 +57,11 @@ VK2.Tools.Gazetteersearch.prototype._loadGazetteerBehavior = function(gazetteerE
 	 */
 	var jumpToLotLat = function(lonlat, zoom){
 		_map.setCenter(lonlat, zoom);
+		
+		// check if a sidebar tool is open and if not open the spatialsearch
 		var activateSearch = goog.dom.getElement(VK2.Utils.Settings.DOM.idControlSearchMap);
-		if (goog.isDefAndNotNull(activateSearch))
+		var open_sidebartools = goog.dom.getElementsByTagNameAndClass('a','open',activateSearch.parentElement);		
+		if (open_sidebartools.length == 0)
 			activateSearch.click();
 	};
 

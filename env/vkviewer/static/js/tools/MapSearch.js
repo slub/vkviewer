@@ -41,13 +41,7 @@ VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, table
 	 * @private
 	 */
 	this._ftLayer = new VK2.Layer.MapSearchLayer(timestamps, maxRes, this._map)
-	
-	/**
-	 * @type {VK2.Tools.MinimizeMesstischblattView}
-	 * @private
-	 */
-	this._minimizeMtbView = minimizeMtbView;
-	
+		
 	/**
 	 * @type {Object}
 	 * @private
@@ -64,7 +58,7 @@ VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, table
 	this._controller.registerSearchTable(this._table);
 	
 	// register minimizeMtbView
-	this._controller.registerMinimizeMesstischblattView(this._minimizeMtbView)
+	this._controller.registerMinimizeMesstischblattView(minimizeMtbView)
 	
 };
 
@@ -98,6 +92,5 @@ VK2.Tools.MapSearch.prototype.activate = function(){
 VK2.Tools.MapSearch.prototype.deactivate = function(){
 	this._ftLayer.setVisibility(false);
 	this._hoverLayer.setVisibility(false);
-	this._minimizeMtbView.deactivate();
 	this._table.refreshData({});
 }

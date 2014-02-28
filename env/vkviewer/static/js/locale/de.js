@@ -63,7 +63,10 @@ var lang_dictionary = {
 			
 		// contact message
 		'send_con_message_suc': 'Ihre Kontaktnachricht wurde übermittelt. Danke für Ihr Interesse und noch viel Spass im Virtuellen Kartenforum 2.0.',
-		'send_con_message_err': 'Fehler bei der Übermittlung der Kontaktnachricht. Bitte versuchen Sie es noch einmal oder senden Sie dem Admin eine Email.'
+		'send_con_message_err': 'Fehler bei der Übermittlung der Kontaktnachricht. Bitte versuchen Sie es noch einmal oder senden Sie dem Admin eine Email.',
+		
+		// minimize messtischblatt view
+		'mmv_label_blattnr': 'Messtischblätter für Blattnummer:'
 		
 }
 	

@@ -37,7 +37,7 @@
 .vk2SBPanel{
 	top: 0px;
 	padding-bottom: 75px;
-	/* height: 100%; */
+	height: 100%;
 	z-index: 1000;
 	position: absolute;
 	right: -420px;

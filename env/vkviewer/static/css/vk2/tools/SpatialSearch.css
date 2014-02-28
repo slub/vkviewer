@@ -74,7 +74,7 @@
     display: block;
     min-height: 200px;
     height: auto;
-    max-height: 300px;
+    max-height: 240px;
     overflow-y: scroll;
 }
 
@@ -121,12 +121,12 @@
 }
 
 .time-slider-container .slider{
-	width: 270px;
+	width: 255px;
 }
 
 .time-slider-container .slider-label-end{
 	width: 40px;
-	margin-left: 10px;
+	margin-left: 13px;
 }
 
 .panel-spatial-search-tools .layer-chooser-container{
@@ -147,8 +147,8 @@
 .panel-spatialsearch-mtbview {
 	position: relative;
 	float: left;
-	margin-top: 15px;
 	width: 100%;	
+	padding-left: 10px;
 }
 
 .mmv-table-body{

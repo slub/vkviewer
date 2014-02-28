@@ -38,18 +38,15 @@ VK2.Tools.MinimizeMesstischblattView.prototype._loadHtmlContent = function(){
 	 * @type {Element}
 	 * @private
 	 */
-	this._panel = goog.dom.createDom('div',{'class':'panel panel-default minimize-messtischblatt-view', 'style':'display:none'});
+	this._panel = goog.dom.createDom('div',{'class':'minimize-messtischblatt-view', 'style':'display:none'});
 	goog.dom.appendChild(this._parentContainer, this._panel);
 	
 	/**
 	 * @type {Element}
 	 * @private
 	 */
-	this._panel_header = goog.dom.createDom('div',{
-		'class':'panel-heading',
-		'innerHTML':'Messtischblätter für Blattnummer 40_40'
-	});
-	goog.dom.appendChild(this._panel, this._panel_header);
+	this._label = goog.dom.createDom('label');
+	goog.dom.appendChild(this._panel, this._label);
 	
 	var table = goog.dom.createDom('table',{'class':'table'});
 	goog.dom.appendChild(this._panel, table);
@@ -135,12 +132,6 @@ VK2.Tools.MinimizeMesstischblattView.prototype._appendRow = function(feature){
 	var icon_showMetadata = goog.dom.createDom('span',{'class':'mmv-tool-icon','innerHTML':'M'});
 	goog.dom.appendChild(anchor_showMetadata, icon_showMetadata);
 	this._addShowMetadataBehavior(anchor_showMetadata, feature.data.dateiname);
-	
-	console.log(feature.data.titel);
-	console.log(feature.data.dateiname);
-	console.log(feature.data.blattnr);
-	console.log(feature.data.permalink);
-	console.log(feature.data.mtbid);
 };
 
 /**
@@ -153,7 +144,7 @@ VK2.Tools.MinimizeMesstischblattView.prototype.updateView = function(arr_feature
 	goog.dom.removeChildren(this._tbody);
 	
 	// set heading
-	this._panel_header.innerHTML = 'Messtischblätter für Blattnummer ' + arr_features[0].data.blattnr;
+	this._label.innerHTML = VK2.Utils.get_I18n_String('mmv_label_blattnr') + ' ' + arr_features[0].data.blattnr;
 	
 	for (var i = 0; i < arr_features.length; i++){
 		this._appendRow(arr_features[i]);
