@@ -66,5 +66,8 @@ var lang_dictionary = {
 		'send_con_message_err': 'Error while sending the contact message. Please try again or send the Admin an email.',
 		
 		// minimize messtischblatt view
-		'mmv_label_blattnr': 'Map sheet for number:'
+		'mmv_label_blattnr': 'Map sheet for number:',
+		
+		// layerbar
+		'layerbar_choosetime': 'Choose timestamp'
 }

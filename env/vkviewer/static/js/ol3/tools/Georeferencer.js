@@ -48,7 +48,8 @@ VK2.Tools.Georeferencer = function(mapContainerId, objectId, settings){
 			'main_page':'/vkviewer/auth?georef=on&points=20',
 			'proxy': '/vkviewer/proxy/?url='
 	};
-	if (goog.isDef(settings.urls)) goog.object.extend(this._urls, settings.urls)
+	if (goog.isDef(settings.urls)) goog.object.extend(this._urls, settings.urls);
+	
 	/**
 	 * @type {boolean}
 	 * @private

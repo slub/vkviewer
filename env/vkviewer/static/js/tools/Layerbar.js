@@ -1,5 +1,14 @@
 goog.provide('VK2.Tools.Layerbar');
 
+
+goog.require('goog.dom');
+goog.require('goog.events');
+goog.require('goog.events.EventType');
+
+goog.require('VK2.Utils');
+goog.require('VK2.Utils.Settings');
+goog.require('VK2.Layer.Vk2Layer');
+
 /**
  * @param {Object} settings
  * @constructor
@@ -41,16 +50,6 @@ VK2.Tools.Layerbar = function(settings){
 	if (goog.isDef(settings.vk2featurelayer))
 		this._vk2FeatureLayer = settings.vk2featurelayer;
 	else this._vk2FeatureLayer = new Vk2FeatureLayer();
-	
-    // this displayBtn is set to true the class assumes that there is an
-    // extern control of the minimize maximaze behavior
-	/**
-	 * @type {boolean}
-	 * @private
-	 */
-    if (goog.isDef(settings.displayBtn))
-        this.displayBtn = settings.displayBtn;
-    else this.displayBtn = false;
 
     /**
      * @type {array}
@@ -344,7 +343,7 @@ VK2.Tools.Layerbar.prototype._timeSliderEvent = function(event, ui){
  * @private
  */
 VK2.Tools.Layerbar.prototype._createLayerElement = function(layer){
-	var overlayElem = VK2.Controller.LayerController.createLayerControllerView(layer, this._id);
+	var overlayElem = this.createLayerControllerView(layer, this._id);
 	this._addEventBehaviorToLayerControlView(overlayElem, layer);
 	return overlayElem;
 };
@@ -450,57 +449,55 @@ VK2.Tools.Layerbar.prototype._getLayerToEvent = function(event){
  * Set up the labels and divs for the control
  */
 VK2.Tools.Layerbar.prototype._loadContents = function() {
-    // layers list div
-    this.layersDiv = document.createElement("div");
-    this.layersDiv.id = this._id + "_layersDiv";
-    // for OL2 styles the class has to be layersDiv
-    this.layersDiv.className = this.layersDiv.className + " layersDiv";
-
-    this.vk2DataLayersLbl = document.createElement("div");
-    this.vk2DataLayersLbl.innerHTML = "Overlays";
-    this.vk2DataLayersLbl.className = this.vk2DataLayersLbl.className + " overlayLbls";
-    
-    this.overlayLayersDiv = document.createElement("div");
-    this.overlayLayersDiv.className = this.overlayLayersDiv.className + " overlayDivs";
+	
+	// layerbar container
+	this.layersDiv = goog.dom.createDom('div',{
+		'id': this._id + '_layersDiv',
+		'class': 'layersDiv'
+	});
+	goog.dom.appendChild(this._div, this.layersDiv);
+	
+	// label for overlays and add layer button
+	var headerContainer = goog.dom.createDom('div', {'class':'layerbar-header-container'});
+	this._loadHeaderContent(headerContainer);
+	
+	// content container
+	this.overlayLayersDiv = goog.dom.createDom('div',{'class':'overlayDivs'});
             
     if (this.ascending) {
-        this.layersDiv.appendChild(this.vk2DataLayersLbl);
-        this.layersDiv.appendChild(this.overlayLayersDiv);
+    	goog.dom.appendChild(this.layersDiv,headerContainer);
+    	goog.dom.appendChild(this.layersDiv,this.overlayLayersDiv);
     } else {
-        this.layersDiv.appendChild(this.vk2DataLayersLbl);
-        this.layersDiv.appendChild(this.overlayLayersDiv);
+    	goog.dom.appendChild(this.layersDiv,this.overlayLayersDiv);
+    	goog.dom.appendChild(this.layersDiv,headerContainer);
     }
 
     this._div.appendChild(this.layersDiv);
+};
 
-    // maximize button div
-    if (this.displayBtn != false){
-        var img = OpenLayers.Util.getImageLocation('layer-switcher-maximize.png');
-        this.maximizeDiv = OpenLayers.Util.createAlphaImageDiv(
-                                    "OpenLayers_Control_MaximizeDiv",
-                                    null,
-                                    null,
-                                    img,
-                                    "absolute");
-        OpenLayers.Element.addClass(this.maximizeDiv, "maximizeDiv");
-        this.maximizeDiv.style.display = "none";
-        $(this.maximizeDiv).click($.proxy(this.onButtonClick, this));
-        this._div.appendChild(this.maximizeDiv);
-
-        // minimize button div
-        var img = OpenLayers.Util.getImageLocation('layer-switcher-minimize.png');
-        this.minimizeDiv = OpenLayers.Util.createAlphaImageDiv(
-                                    "OpenLayers_Control_MinimizeDiv",
-                                    null,
-                                    null,
-                                    img,
-                                    "absolute");
-        OpenLayers.Element.addClass(this.minimizeDiv, "minimizeDiv");
-        this.minimizeDiv.style.display = "";
-        $(this.minimizeDiv).click($.proxy(this.onButtonClick, this));
-
-        this._div.appendChild(this.minimizeDiv);
-    }
+/**
+ * @param {Element} parent_element
+ * @private
+ */
+VK2.Tools.Layerbar.prototype._loadHeaderContent = function(parent_element){
+	
+	// label
+	this.vk2DataLayersLbl = goog.dom.createDom('div',{
+		'class':'overlayLbls',
+		'innerHTML':'Overlays'
+	});
+	goog.dom.appendChild(parent_element, this.vk2DataLayersLbl);
+	
+	// add layer button
+	var addLayerBtn = goog.dom.createDom('div',{'class':'add-layer'});
+	goog.dom.appendChild(parent_element, addLayerBtn);
+	
+	goog.events.listen(addLayerBtn, goog.events.EventType.CLICK, function(event){
+		var timeParameter = goog.object.clone(VK2.Utils.Settings.timeWmsWfsOptions);
+		timeParameter.extent = this._map.getExtent();
+		timeParameter.time = 1912;  
+		this.addLayer(new VK2.Layer.Vk2Layer(timeParameter));
+	}, undefined, this);
 };
 
 /**
@@ -511,17 +508,6 @@ VK2.Tools.Layerbar.prototype._loadContents = function() {
 VK2.Tools.Layerbar.prototype.addLayer = function(layer){
     // adds the map to the layer
     this._map.addLayer(layer);
-    
-    // if it is not a base layer it push the layer to the vk2DataInputs
-    // and if it is visible it adds the layer element to the vk2FeatureLayer
-    if (!layer.isBaseLayer){                       
-        // checks if the layer is visible
-        if(layer.getVisibility()){
-        	//layer.timeFtLayer.display(this._map);
-        	//var timeFtlayer = new VK2.Layer.TimeFeatureLayer(this._map, layer.wfsLayer, layer.params.TIME) 
-            //this._vk2FeatureLayer.addFeaturesFromTimeLayer(layer, this._map);
-        }
-    }
 
     this.redraw();
 
@@ -559,3 +545,153 @@ VK2.Tools.Layerbar.prototype.showOverlayLayers = function(){
 		this.overlayLayers[i].setVisibility(true);
 	}
 }
+
+/**
+ * ================
+ * Functions for building the single layer control part
+ * ================
+ */
+
+/**
+ * @param {OpenLayers.Layer|undefined} layer
+ * @return {Element}
+ */
+VK2.Tools.Layerbar.prototype.createLayerControllerView = function(layer, id){
+	
+	if (!goog.isDefAndNotNull(layer))
+		return undefined;
+	
+	var overlayElem = goog.dom.createDom('li',{'class':'overlayElem'});
+	var overlayElemContainer = goog.dom.createDom('div',{'class':'overlayElemDiv'});
+	goog.dom.appendChild(overlayElem,overlayElemContainer);
+	
+	goog.dom.appendChild(overlayElemContainer, this._createMinimizeOverlayView(layer, id));
+	goog.dom.appendChild(overlayElemContainer, this._createMaximizeOverlayView(layer));
+	
+	return overlayElem;
+};
+
+/**
+ * This simply creates the dom element which are representing the minimize view of a layer element in 
+ *    the layer management object.
+ * @param {OpenLayers.Layer} layer
+ * @param {string} id
+ * @private
+ */
+VK2.Tools.Layerbar.prototype._createMinimizeOverlayView = function(layer, id){
+	// create the header with div (which should be clickable later) and checkbox
+    var minimizeView = goog.dom.createDom('div', {'value':id, 'class':'minimize'});
+    
+    // this checkbox has to be further styled
+    var minimizeViewChBox = goog.dom.createDom('input', {
+    	'id': layer.id,
+    	'name': layer.name,
+    	'value': layer.name,
+    	'checked': layer.getVisibility(),
+    	'defaultChecked': layer.getVisibility(),
+    	'class': 'olButton',
+    	'_layer': layer.id,
+    	'_layerSwitcher': id,
+    	'type': 'checkbox'
+    });
+
+    // disable checkbox if layer is out of view
+    if(!layer.inRange){
+        minimizeViewChBox.disabled = true;
+    }
+    goog.dom.appendChild(minimizeView, minimizeViewChBox);
+    
+    // label of the layer encapsulate in div
+    var minimizeViewLbl = goog.dom.createDom('div',{
+    	'value': layer.id,
+    	'text': layer.name,
+    	'class': 'vk2Label',
+    	'innerHTML': layer.name
+    })
+    goog.dom.appendChild(minimizeView, minimizeViewLbl);
+    // add the header elements to parent container
+   
+    // add remove button to layer 
+    var removeSign = goog.dom.createDom('div',{'class':'layer-remove'});
+    goog.dom.appendChild(minimizeView, removeSign);
+    goog.events.listen(removeSign, goog.events.EventType.CLICK, function(event){
+    	layer.map.removeLayer(layer);
+    	this.redraw();
+    }, undefined, this);
+    return minimizeView; 
+};
+
+/**
+ * This simply creates the dom element which are representing the minimize view of a layer element in 
+ *   the layer management object.
+ * @param {OpenLayers.Layer} layer
+ * @private
+ */
+VK2.Tools.Layerbar.prototype._createMaximizeOverlayView = function(layer){
+	
+	// creates the body of the layer for more control as list element
+    // right now only if it is a time layer
+    var maximizeViewUnorderedList = goog.dom.createDom('ul',{'class':'maximize'});
+    var maximizeViewContainer = goog.dom.createDom('div',{'class':'layer-max-container'});
+    goog.dom.appendChild(maximizeViewUnorderedList, maximizeViewContainer);
+    
+    var innerContainer = goog.dom.createDom('div',{'class':'media'});
+    goog.dom.appendChild(maximizeViewContainer, innerContainer);
+    
+    // creates an thumbnail container an adds the image which is refered 
+    // through the layer element
+    var thumbnail = goog.dom.createDom('img', {
+    	'alt': '...',
+    	'class': 'thumbnail pull-left media-object',
+    	'src': layer.thumbnail
+    })
+    goog.dom.appendChild(innerContainer, thumbnail);
+    
+
+    // creates the slider div
+    // one slider for the opacity and one for the time
+    var sliderContainer = goog.dom.createDom('div',{'class':'media-body slider-container'});
+    goog.dom.appendChild(innerContainer, sliderContainer);
+
+    // opacity slider
+    goog.dom.appendChild(sliderContainer, this._createSliderView(layer.id, 'Opacity', 'opacity'));
+            
+    // add time slider if it is a time supported layer and also overwrite the
+    // label name
+    if (layer.isTime){
+    	goog.dom.appendChild(sliderContainer, this._createSliderView(layer.id, VK2.Utils.get_I18n_String('layerbar_choosetime'), 'time'));
+    }
+   
+    return maximizeViewUnorderedList;
+};
+
+/**
+ * @param {string} id Layer id 
+ * @param {string} lbl Label of the slider
+ * @param {string} className Class name of the slider
+ * @return {Element}
+ */
+VK2.Tools.Layerbar.prototype._createSliderView = function(id, lbl, className){
+	var container = goog.dom.createDom('div',{'class': className});
+	var innerContainer = goog.dom.createDom('div',{'class': 'slider-outer'});
+	goog.dom.appendChild(container, innerContainer);
+	
+	var label = goog.dom.createDom('div',{'class':'label','innerHTML':lbl+':'});
+	goog.dom.appendChild(innerContainer, label);
+	
+	var sliderContainer = goog.dom.createDom('div',{
+		'class':'slider-inner',
+		'value': id
+			
+	});
+	goog.dom.appendChild(innerContainer, sliderContainer);
+	
+	var tooltip = goog.dom.createDom('div',{'class':'tooltip top in fade'});
+	var tooltipArrow = goog.dom.createDom('div',{'class':'tooltip-arrow'});
+	var tooltipInner = goog.dom.createDom('div',{'class':'tooltip-inner'});
+	goog.dom.appendChild(tooltip, tooltipArrow);
+	goog.dom.appendChild(tooltip, tooltipInner);
+	goog.dom.appendChild(sliderContainer, tooltip);
+
+	return container;
+};

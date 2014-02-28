@@ -1,49 +1,61 @@
+goog.provide('VK2.Layer.TimeFeatureLayer');
+
+goog.require('OpenLayers.Filter.Comparison');
+goog.require('OpenLayers.Layer.Vector');
+goog.require('OpenLayers.Strategy.BBOX');
+goog.require('OpenLayers.Strategy.Refresh');
+goog.require('OpenLayers.Util');
+goog.require('VK2.Controller.TimeFeatureControls');
+
 /**
  * This class interworks with the VK2.Layer.Vk2Layer object.
+ * @param {OpenLayers.Layer.WMS} timeLayer
+ * @param {OpenLayers.Protocol.WFS} wfsProtcol
+ * @constructor
  */
-VK2.Layer.TimeFeatureLayer = VK2.Class({ 
-	
+VK2.Layer.TimeFeatureLayer = function(timeLayer, wfsProtocol){
+	 	
 	/**
-	 * Attribute: _timeFtLayer
 	 * Represents the feature informationen which are associated to the parent TimeLayer
-	 * {OpenLayers.Layer.Vector}
+	 * @type {OpenLayers.Layer.Vector}
+	 * @private
 	 */
-	_timeFtLayer: null,
+	this._timeFtLayer = null;
 	
 	/**
-	 * Attribute: _wfsProtocol
-	 * {OpenLayers.Protocol.WFS}
+	 * @type {OpenLayers.Protocol.WFS}
+	 * @private
 	 */
-	_wfsProtocol: null,
+	this._wfsProtocol = wfsProtocol;
 	
 	/**
-	 * Attribute: _timeLayer
 	 * TimeLayer to whom this class is associated.
-	 * {OpenLayer.Layer}
+	 * @type {OpenLayer.Layer}
+	 * @private
 	 */
-	_timeLayer: null,
+	this._timeLayer = timeLayer;
 	
 	/**
-	 * Attribute: _actualTimestamp
 	 * Actual timestamp which is represented by this TimeFeatureLayer
-	 * {String}
+	 * @type {string}
+	 * @private
 	 */
-	_actualTimestamp: null,
+	this._actualTimestamp = null;
 	
 	/**
-	 * Attribute: _refresh
-	 * {OpenLayers.Strategy.Refresh}
+	 * @type {OpenLayers.Strategy.Refresh}
+	 * @private
 	 */
-	_refresh : null,
+	this._refresh = null;
 
         
     /**
-     * Attribute: _eventsOnParentLayer
      * Contains the different events for coupling the behavior from the TimeFeatureLayer to the
      * parent layer.
-     * {Object}
+     * @type {Object}
+     * @private
      */
-    _eventsOnParentLayer: {
+    this._eventsOnParentLayer = {
     	
     	visibilitychanged: function(e){
     		if (this.getVisibility() && this.timeFtLayer !== 'undefined'){
@@ -64,117 +76,111 @@ VK2.Layer.TimeFeatureLayer = VK2.Class({
     	},
     	
     	removed: function(e){
-    		if (this.timeFtLayer !== 'undefined'){
-    			this.map.removeLayer(this.timeFtLayer.getLayer());
-    			VK2.Controller.TimeFeatureControls.removeLayerFromControls(this.timeFtLayer.getLayer());
+    		if (goog.isDef(this.timeFtLayer)){
+    			var timeFtLayer = this.timeFtLayer.getLayer();
+    			timeFtLayer.map.removeLayer(timeFtLayer);
+    			VK2.Controller.TimeFeatureControls.removeLayerFromControls(timeFtLayer);
     		}
     	}
     	
-    },
+    };
 
     /**
-     * Attribute: _lastSelectedFeatures
-     * {Array}
-     * 
      * This attribute is importing for ensuring the correct hover behavior. This means
      * that in case of fast events in a row old hovers should be deactivate. 
+     * @type {Array}
+     * @private
      */
-    _lastSelectedFeatures: [],
+    this.lastSelectedFeatures = [];
     
-    /**
-     * Method: _initializeTimeLayer
-     */
-    _initializeTimeLayer: function(map){
-    	this._actualTimestamp = this._timeLayer.params.TIME;
-    	this._refresh = new OpenLayers.Strategy.Refresh({force: true, active: true});   
-        
-    	this._timeFtLayer = new OpenLayers.Layer.Vector(OpenLayers.Util.createUniqueID("TimeFeatureLayer_"),{
-    		'displayInLayerSwitcher': false,
-    		styleMap: VK2.Styles.FeatureLayerStyles._defaultStyleMap,
-            strategies: [
-                         new OpenLayers.Strategy.BBOX(),
-                         this._refresh
-            ],
-            protocol: this._wfsProtocol,
-    		filter: new OpenLayers.Filter.Comparison({
-	          type: OpenLayers.Filter.Comparison.EQUAL_TO,
-	          property: "time",
-	          value: this._actualTimestamp
-			})
-    	}, {
-				visibility: true
-    	})    	
-    	
-    	map.addLayer(this._timeFtLayer);
-    },
+	this._initializeParentLayerEvents();
+};
+
+/**
+ * @param {OpenLayers.Map} map
+ * @private
+ */
+VK2.Layer.TimeFeatureLayer.prototype._initializeTimeLayer = function(map){
+	this._actualTimestamp = this._timeLayer.params.TIME;
+	this._refresh = new OpenLayers.Strategy.Refresh({force: true, active: true});   
     
-    /**
-     * Method: _initializeParentLayerEvents
-     * This methods uses events to couple the wfs/vector layer to the corresponding wms layer behavior
-     */
-	_initializeParentLayerEvents: function(){
-		for (var key in this._eventsOnParentLayer){
-			this._timeLayer.events.register(key, this._timeLayer, this._eventsOnParentLayer[key]);
-		}
-	},
+	this._timeFtLayer = new OpenLayers.Layer.Vector(OpenLayers.Util.createUniqueID("TimeFeatureLayer_"),{
+		'displayInLayerSwitcher': false,
+		styleMap: VK2.Styles.FeatureLayerStyles._defaultStyleMap,
+        strategies: [
+            new OpenLayers.Strategy.BBOX(),
+            this._refresh
+        ],
+        protocol: this._wfsProtocol,
+		filter: new OpenLayers.Filter.Comparison({
+          type: OpenLayers.Filter.Comparison.EQUAL_TO,
+          property: "time",
+          value: this._actualTimestamp
+		})
+	}, {
+			visibility: true
+	})    	
 	
-	/**
-	 * Method: _updateFilter
-	 */
-	_updateFilter: function(){
-		this._timeFtLayer.filter = new OpenLayers.Filter.Comparison({
-	        type: OpenLayers.Filter.Comparison.EQUAL_TO,
-	        property: "time",
-	        value: this._actualTimestamp
-		});
-		this.refresh();
-	},
+	map.addLayer(this._timeFtLayer);
+};
     
-	/**
-	 * Method: initialize
-	 * 
-	 * @param timeLayer - {OpenLayers.Layer.WMS}
-	 * @param wfsProtcol - {OpenLayers.Protocol.WFS}
-	 */
-    initialize: function(timeLayer, wfsProtocol){
-    	this._wfsProtocol = wfsProtocol;
-    	this._timeLayer = timeLayer;
-    	this._initializeParentLayerEvents();
-    },
+/**
+ * This methods uses events to couple the wfs/vector layer to the corresponding wms layer behavior
+ * @private
+ */
+VK2.Layer.TimeFeatureLayer.prototype._initializeParentLayerEvents = function(){
+	for (var key in this._eventsOnParentLayer){
+		this._timeLayer.events.register(key, this._timeLayer, this._eventsOnParentLayer[key]);
+	}
+};
+	
+/**
+ * @private
+ */
+VK2.Layer.TimeFeatureLayer.prototype._updateFilter = function(){
+	this._timeFtLayer.filter = new OpenLayers.Filter.Comparison({
+        type: OpenLayers.Filter.Comparison.EQUAL_TO,
+        property: "time",
+        value: this._actualTimestamp
+	});
+	this.refresh();
+},
     
-    /**
-     * Method: getLayer
-     */
-    getLayer: function(){
-    	return this._timeFtLayer;
-    },
+
     
-    /**
-     * Method: updateFeatures
-     */
-    updateFeatures: function(){
-    	if (this._timeLayer.params.TIME != this._timeFtLayer._actualTimestamp){
-    		this._actualTimestamp = this._timeLayer.params.TIME;
-    		this._updateFilter();
-    	}
-    },
-        
-    /**
-     * Method: setVisibility
-     * @param display {Boolean}
-     */
-    setVisibility: function(display){
-    	if (this._timeFtLayer)
-    		this._timeFtLayer.setVisibility(display);
-    },
+/**
+ * @public
+ * @return {OpenLayers.Layer}
+ */
+VK2.Layer.TimeFeatureLayer.prototype.getLayer = function(){
+	return this._timeFtLayer;
+};
     
-    /**
-     * Method: refresh
-     */
-    refresh: function(){
-    	if (this._timeFtLayer){
-    		this._refresh.refresh();
-    		this._timeFtLayer.redraw();
-    	}
-    }
-});
+/**
+ * @public
+ */
+VK2.Layer.TimeFeatureLayer.prototype.updateFeatures = function(){
+	if (this._timeLayer.params.TIME != this._timeFtLayer._actualTimestamp){
+		this._actualTimestamp = this._timeLayer.params.TIME;
+		this._updateFilter();
+	}
+};
+    
+/**
+ * @param {Boolean} display
+ * @public
+ */
+VK2.Layer.TimeFeatureLayer.prototype.setVisibility = function(display){
+	if (this._timeFtLayer)
+		this._timeFtLayer.setVisibility(display);
+};
+
+/**
+ * @public
+ */
+VK2.Layer.TimeFeatureLayer.prototype.refresh = function(){
+	if (this._timeFtLayer){
+		this._refresh.refresh();
+		this._timeFtLayer.redraw();
+	}
+};

@@ -66,7 +66,10 @@ var lang_dictionary = {
 		'send_con_message_err': 'Fehler bei der Übermittlung der Kontaktnachricht. Bitte versuchen Sie es noch einmal oder senden Sie dem Admin eine Email.',
 		
 		// minimize messtischblatt view
-		'mmv_label_blattnr': 'Messtischblätter für Blattnummer:'
+		'mmv_label_blattnr': 'Messtischblätter für Blattnummer:',
+		
+		// layerbar
+		'layerbar_choosetime': 'Wähle Zeitschnitt'
 		
 }
 	
