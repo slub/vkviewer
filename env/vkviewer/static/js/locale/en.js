@@ -10,6 +10,7 @@ var lang_dictionary = {
 		'found_mtb': 'Messtischblaetter available.',
 		'change_zoomlevel': 'Please zoom in!',
 		'choose_valide_timestamp': 'Please choose valide timestamp',
+		'change_timeperiod': 'Adjust time periode:',
 		
 		'toolname_layerbar': 'Choose map layer',
 		

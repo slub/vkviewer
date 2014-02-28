@@ -43,10 +43,7 @@ VK2.Tools.SearchTable = function(parent, headingCol, controller){
 			if (this._headingCol.hasOwnProperty(i)){
 				this._columnIds.push(this._headingCol[i].id);
 			}
-		}
-		
-		console.log('Length: '+this._columnIds.length);
-		
+		}		
 	}	
 	
 	/**
@@ -203,19 +200,4 @@ VK2.Tools.SearchTable.prototype.refreshData = function(object){
 
 	// activate fancybox events
 	VK2.Utils.initializeFancyboxForClass(this._mdFancyBoxClass);
-	
-	// focus last row
-	// @todo activate hover and scroll to the actual mouse position
-//	if (goog.isDefAndNotNull(this._lastFocus)){
-//		var lastFocusRow = goog.dom.getElement(this._lastFocus);
-//		lastFocusRow.scrollIntoView(true);
-//		this._lastFocus = null;
-//	}
 };
-
-/**
- * @param {string} key
- */
-VK2.Tools.SearchTable.prototype.setLastFocusRow = function(key){
-	this._lastFocus = key;
-}

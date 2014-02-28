@@ -3,17 +3,20 @@
  * @author jacobmendt@googlemail.de (Jacob Mendt)
  */
 goog.provide('VK2.Tools.MapSearch');
-goog.require('VK2.Layer.HoverLayer');
 
+goog.require('VK2.Layer.HoverLayer');
+goog.require('VK2.Tools.MinimizeMesstischblattView');
 
 /**
  * @param {Object} map OpenLayers.Map object
  * @param {number} maxRes Maximum resolution for displaying the feature layer
  * @param {Array.<number>} timestamps Array which contains the min and max timestamps
  * @param {string} feedBackContainer Id of the container where the feature loading feedback should be displayed
+ * @param {string} table_container
+ * @param {VK2.Tools.MinimizeMesstischblattView} minimizeMtbView
  * @constructor
  */
-VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, container){
+VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, table_container, minimizeMtbView){
 	
 	/**
 	 * @type {Object}
@@ -39,6 +42,11 @@ VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, conta
 	 */
 	this._ftLayer = new VK2.Layer.MapSearchLayer(timestamps, maxRes, this._map)
 	
+	/**
+	 * @type {VK2.Tools.MinimizeMesstischblattView}
+	 * @private
+	 */
+	this._minimizeMtbView = minimizeMtbView;
 	
 	/**
 	 * @type {Object}
@@ -50,10 +58,15 @@ VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, conta
 	 * @type {Object}
 	 * @private
 	 */
-	this._table = new VK2.Tools.SearchTable(container, [{'id':'time', 'title':VK2.Utils.get_I18n_String('timestamp')},{'id':'titel', 'title':VK2.Utils.get_I18n_String('titel')}], this._controller);
+	this._table = new VK2.Tools.SearchTable(table_container, [{'id':'time', 'title':VK2.Utils.get_I18n_String('timestamp')},{'id':'titel', 'title':VK2.Utils.get_I18n_String('titel')}], this._controller);
+	
 	// register table object in controller
 	this._controller.registerSearchTable(this._table);
-}
+	
+	// register minimizeMtbView
+	this._controller.registerMinimizeMesstischblattView(this._minimizeMtbView)
+	
+};
 
 /**
  * @param {Event} event
@@ -85,5 +98,6 @@ VK2.Tools.MapSearch.prototype.activate = function(){
 VK2.Tools.MapSearch.prototype.deactivate = function(){
 	this._ftLayer.setVisibility(false);
 	this._hoverLayer.setVisibility(false);
+	this._minimizeMtbView.deactivate();
 	this._table.refreshData({});
 }

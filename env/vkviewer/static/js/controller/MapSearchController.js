@@ -33,12 +33,20 @@ VK2.Controller.MapSearchController = function(map, ftLayer, hoverLayer){
 }
 
 /**
- * @param {Object} table VK2.Tools.SearchTable
+ * @param {VK2.Tools.SearchTable} table
  * @public
  */
 VK2.Controller.MapSearchController.prototype.registerSearchTable = function(table){
 	this._table = table;
-}
+};
+
+/**
+ * @param {VK2.Tools.MinimizeMesstischblattView} mtbview
+ * @public
+ */
+VK2.Controller.MapSearchController.prototype.registerMinimizeMesstischblattView = function(mtbview){
+	this._minimizeMtbView = mtbview;
+};
 
 /**
  * @param {Element} rowElement Represention the <tr> element of an row.
@@ -95,8 +103,16 @@ VK2.Controller.MapSearchController.prototype._addRowClickBehavior = function(row
 			_ftLayer.map.setCenter(new OpenLayers.LonLat(center.x, center.y), zoom);
 			
 			// update time value in input field
-			goog.dom.getElement('spatialsearch-tools-input-layer').value = feature.data['time'];
-			this._table.setLastFocusRow(feature.data['mtbid']);
+			var arr = []
+			for (var i = 0; i < _ftLayer.features.length; i++){
+				if (feature.bounds.containsBounds(_ftLayer.features[i].bounds))
+					arr.push(_ftLayer.features[i]);
+			};
+			//goog.dom.getElement('spatialsearch-tools-input-layer').value = feature.data['time'];
+			
+			if (goog.isDef(this._minimizeMtbView)){
+				this._minimizeMtbView.updateView(arr);
+			}
 		};
 	}, undefined, this);
 };

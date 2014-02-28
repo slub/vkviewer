@@ -204,7 +204,7 @@ VK2.Tools.MetadataVisualizer.prototype._createContentContainer = function(datase
 	goog.dom.appendChild(legend, span);	
 	
 	var a = goog.dom.createDom('a',{
-		'href': 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|'+datasetId,
+		'href': VK2.Utils.Settings.geonetwork+datasetId,
 		'innerHTML': VK2.Utils.get_I18n_String('mdrecord_moremetadata'),
 		'target': '_blank'
 	});

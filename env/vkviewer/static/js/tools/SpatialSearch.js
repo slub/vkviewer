@@ -1,5 +1,6 @@
-goog.provide('VK2.Tools.SpatialSearch')
-goog.require('goog.dom')
+goog.provide('VK2.Tools.SpatialSearch');
+
+goog.require('goog.dom');
 
 /**
  * @param {Element} parentElement Html element to which the spatial search module should be added
@@ -155,6 +156,10 @@ VK2.Tools.SpatialSearch.prototype._loadHtmlContent = function(){
 	});
 	goog.dom.appendChild(panel, panelTools);
 	
+	// label for time-sldier
+	var labelTimeSlider = goog.dom.createDom('label', {'innerHTML':VK2.Utils.get_I18n_String('change_timeperiod')});
+	goog.dom.appendChild(panelTools, labelTimeSlider);
+	
 	// container
 	var toolsContainer = goog.dom.createDom('div',{
 		'class': 'time-slider-container'
@@ -180,7 +185,7 @@ VK2.Tools.SpatialSearch.prototype._loadHtmlContent = function(){
 	goog.dom.appendChild(toolsContainer, sliderContainer);
 	goog.dom.appendChild(toolsContainer, sliderLabelEnd);
 	goog.dom.appendChild(panelTools, toolsContainer);
-	
+		
 	// choose layer elements
 	var layerChooserContainer = goog.dom.createDom('div',{
 		'class': 'layer-chooser-container'
@@ -202,16 +207,29 @@ VK2.Tools.SpatialSearch.prototype._loadHtmlContent = function(){
 	goog.dom.appendChild(layerChooserContainer, layerChooserBtn);
 	goog.dom.appendChild(panelTools, layerChooserContainer);
 
+	// container for minimize messtischblatt view
+	var minimzeMtbView = goog.dom.createDom('div', {
+		'id': 'panel-spatialsearch-mtbview',
+		'class':'panel-spatialsearch-mtbview'
+	});
+	goog.dom.appendChild(panel, minimzeMtbView);
+	
 }
 
 /**
  * @private
  */
 VK2.Tools.SpatialSearch.prototype._loadBehavior = function(){
+		
+	/**
+	 * @type {VK2.Tools.MinimizeMesstischblattView}
+	 * @private
+	 */
+	this._minimizeMtbView = new VK2.Tools.MinimizeMesstischblattView('panel-spatialsearch-mtbview', this._pubSubHandler);
 	
 	// load mapsearch
 	this._mapsearch = new VK2.Tools.MapSearch(this._map, this._maxResolution, this._timestamps, 
-			this._elementIds.headerPanel, this._elementIds.tablePanel);
+			this._elementIds.headerPanel, this._elementIds.tablePanel, this._minimizeMtbView);
 	
 	// load toolbar behavior
 	var sliderContainer = document.getElementById(this._toolElementIds.slider);

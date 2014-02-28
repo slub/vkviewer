@@ -10,6 +10,7 @@ var lang_dictionary = {
 		'found_mtb': 'Messtischblätter gefunden',
 		'change_zoomlevel': 'Bitte wählen Sie eine höhere Zoomstufe!',
 		'choose_valide_timestamp': 'Wählen Sie validien Zeitstempel',
+		'change_timeperiod': 'Passe Zeitraum an:',
 		
 		'toolname_layerbar': 'Auswahl Kartenlayer',
 		

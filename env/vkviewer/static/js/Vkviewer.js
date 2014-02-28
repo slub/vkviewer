@@ -66,6 +66,7 @@
     		"layer/Vk2Layer.js",
     		"layer/MapSearchLayer.js",
     		"layer/HoverLayer.js",
+    		"tools/MinimizeMesstischblattView.js",
     		"tools/Gazetteersearch.js",
     		"tools/GeoreferencerChooser.js",
     		"tools/MapSearch.js",
