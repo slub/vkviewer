@@ -26,6 +26,7 @@ var lang_dictionary = {
 		'validateBtn_validate': 'Vorschau aktualisieren',
 		'submitBtn_validate': 'Georeferenzierung bestätigen',
 		'checkCornerPoint_count' : 'Bitte nur 4 Punkte setzen',
+		'checkCornerPoint_distance' : 'Eckpunkt in diesem Bereich bereits gesetzt! Bitte "Eckpunkt verschieben" verwenden!',
 		
 		// report error
 		'report_error_alert': 'Fehler konnte nicht gemeldet werden. Bitte wenden Sie sich an die Administrator dieser Seite.',

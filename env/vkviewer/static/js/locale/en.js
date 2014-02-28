@@ -26,6 +26,7 @@ var lang_dictionary = {
 		'validateBtn_validate': 'Update preview',
 		'submitBtn_validate': 'Confirm georeferencing',
 		'checkCornerPoint_count' : 'Please select only 4 points',
+		'checkCornerPoint_distance' : 'Corner point already set in this area! Please use "Move corner point"!',
 			
 		// report error
 		'report_error_alert': 'Problems while notify error. Please contact the administrator.',

@@ -379,7 +379,9 @@ VK2.Tools.Georeferencer.prototype._loadZoomifyLayer = function(){
 	  view: new ol.View2D({
 		    projection: proj,
 		    center: imgCenter,
-		    zoom: 0
+		    //adjust initial and max zoom level here
+			zoom: 2,
+			maxZoom: 9
 	  })
 	}); 
 };
@@ -566,12 +568,36 @@ VK2.Tools.Georeferencer.prototype._loadToggleControls = function(map, drawSource
 			]
 	};
 	
-	// add event listener event
+	// add listener event
 	goog.events.listen(this._drawSource, 'addfeature', function(e){
-		allFeatures = this._drawSource.getAllFeatures()
+		var allFeatures = this._drawSource.getAllFeatures()
+		var alertMsg_counter = 0;
+		//check for corner point number (<4!)
 		if (allFeatures.length > 4){
 			alert(VK2.Utils.get_I18n_String('checkCornerPoint_count'));
+			alertMsg_counter++;
 			this._drawSource.removeFeature(allFeatures[4]);
+		}
+		//check if corner points are too close together
+		console.log (allFeatures[allFeatures.length - 1].getGeometry().getCoordinates()+" (Zuletzt gesetzt)");
+		var lastFeature_coords = allFeatures[allFeatures.length - 1].getGeometry().getCoordinates();		
+		for (var x = 0; x < allFeatures.length-1; x++){
+			var tempFeature_coords = allFeatures[x].getGeometry().getCoordinates();
+			var distX = (Math.round(lastFeature_coords[0]) - Math.round(tempFeature_coords[0])).toString(); 
+			var distY = (Math.round(lastFeature_coords[1]) - Math.round(tempFeature_coords[1])).toString();
+			distX = distX.replace(/\-/g, "");
+			distY = distY.replace(/\-/g, "");
+			//change distance buffer here
+			if ((parseInt(distX) < 3000) & (parseInt(distY) < 3000))  {
+				if(alertMsg_counter > 0){
+					return;
+				}else{
+					alert (VK2.Utils.get_I18n_String('checkCornerPoint_distance'));
+					alertMsg_counter++;
+					this._drawSource.removeFeature(allFeatures[allFeatures.length-1]);
+				}
+			}
+		
 		}
 	}, undefined, this);
 
