@@ -151,6 +151,9 @@ VK2.Tools.MinimizeMesstischblattView.prototype.updateView = function(arr_feature
 	};
 	
 	goog.style.showElement(this._panel, true);
+	
+	// show puff effect
+	$(this._tbody).effect('highlight', {}, 3000);
 };
 
 /** 
