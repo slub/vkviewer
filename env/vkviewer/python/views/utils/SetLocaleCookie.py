@@ -3,7 +3,7 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from vkviewer.python.i18n import LOCALES
 from vkviewer import log
-
+    
 """ This is called for checking the localization of the application and sets the correct locales """
 @view_config(route_name='set_locales')
 def set_locale_cookie(request):
