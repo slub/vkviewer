@@ -1,5 +1,5 @@
 (function() {
-     var scriptName = "Vkviewer.js";
+     var scriptName = "Vkviewer-ol3-closure.debug.js";
      var getScriptLocation = function() {
          var scriptLocation = "";
          var scripts = document.documentElement.getElementsByTagName('script'); 
