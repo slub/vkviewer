@@ -6,9 +6,7 @@
  */
 var Mediator = (function(){
 	
-	var subscribe = function(channel, fn){
-		console.log("Channel "+channel+" subscribed!");
-		
+	var subscribe = function(channel, fn){		
 		// if channel not initialize do it
 		if (!Mediator.channels[channel]) Mediator.channels[channel] = [];
 		
@@ -17,9 +15,7 @@ var Mediator = (function(){
 		return this;		
 	};
 	
-	var publish = function(channel){
-		console.log("Channel "+channel+" published!");
-		
+	var publish = function(channel){		
 		if(!Mediator.channels[channel]) return false;
 		var args = Array.prototype.slice.call(arguments, 1);
 		for (var i = 0, l = Mediator.channels[channel].length; i < l; i++){
