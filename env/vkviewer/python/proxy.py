@@ -14,6 +14,7 @@ and modified by Jacob Mendt to used the script within the pyramid framework
 @TODO - correct error messages"""
 
 import urllib2
+import json
 import cgi
 import sys, os
 
@@ -23,7 +24,7 @@ from pyramid.response import Response
 
 allowedHosts = ['www.openlayers.org', 'openlayers.org', 'slub-dresden.de/',
                 'www.openstreetmap.org','194.95.145.43','localhost', '139.30.111.16',
-                'kartenforum.slub-dresden.de']
+                'kartenforum.slub-dresden.de', 'localhost:8080']
 
 def proxy_post(request):
     method = request.environ["REQUEST_METHOD"]
@@ -58,11 +59,19 @@ def proxy_post(request):
                 d.pop("url", None)
                 for key in d:
                     get_url += '&' + key + '=' + d[key][0]
-                y = urllib2.urlopen(get_url)
+                  
+                if "AUTH_TYPE" in request.environ:
+                    opener = urllib2.build_opener()
+                    opener.addheaders.append(('Cookie','auth_tkt='+request.cookies['auth_tkt']))
+                    y = opener.open(get_url)
+                else:
+                    y = urllib2.urlopen(get_url)
             
             # print content type header
             i = y.info()
             if i.has_key("Content-Type"):
+#                 data = y.read()
+#                 print json.load(data)
                 response = Response(body=y.read(),content_type=i["Content-Type"])
                 #response.headerlist[('Content-Type',i["Content-Type"])]
                 #print "Content-Type: %s" % (i["Content-Type"])
