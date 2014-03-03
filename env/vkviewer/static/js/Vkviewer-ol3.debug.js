@@ -19,7 +19,7 @@
          }
          return scriptLocation;
      };
-     var jsfiles = new Array("Initialize.Configuration.js","utils/Namespace.js","utils/Utils.js","utils/Class.js","utils/Filter.js","utils/Validation.js","utils/AppLoader.js","utils/Login.js","utils/Settings.js","styles/FeatureLayerStyles.js","controller/Mediator.js","controller/MapController.js","controller/TimeFeatureControls.js","controller/SidebarController.js","controller/MapSearchController.js","layer/GeoreferencerSearchLayer.js","layer/TimeFeatureLayer.js","layer/Vk2Layer.js","layer/MapSearchLayer.js","layer/HoverLayer.js","tools/Gazetteersearch.js","tools/GeoreferencerChooser.js","tools/Layerbar.js","tools/Sidebar.js","tools/MapSearch.js","tools/SearchTable.js","tools/SpatialSearch.js","tools/MinimizeMesstischblattView.js");
+     var jsfiles = new Array("utils/Settings.js","utils/Utils.js","ol3/events/EventType.js","ol3/events/ParsedCswRecordEvent.js","ol3/controls/LayerSpy.js","ol3/controls/RotateNorth.js","ol3/tools/Georeferencer.js","ol3/tools/ReportError.js","ol3/tools/MesstischblattViewer.js","ol3/tools/MetadataVisualizer.js","ol3/requests/Georeferencer.js","ol3/requests/CSW_GetRecordById.js");
      var len = jsfiles.length;
      var allScriptTags = new Array(len);
      var host = getScriptLocation();  

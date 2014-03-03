@@ -124,4 +124,6 @@ The build system for javascript uses the closure compile from google. It is run 
 If you are developing replace this Vkviewer.js through the content of Vkviewer.debug.js or Vkviewer-closure.debug.js. The latter one also contains the needed code from the closure library. In case it is already loaded you should only use the Vkviewer.debug.js (equivalent for ol3). Both files only contain reference of the proper files in the file hierarchy.
 For production you should choose the Vkviewer.min.js. This file contains a merge of all used files from the closure library and the Vkviewer javascript files. The code is compiled through the closure compiler with a simple optimisation. That meens it remove's the whitespaces and also replace some variable names.
 
+- IMPORTANT: After renaming one of the 3 files to Vkviewer.js, please make sure that the scriptName within this file is equivalent to the file name. If not the loading script while not run.
+
 

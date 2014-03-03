@@ -70,7 +70,7 @@ sys.path.append(os.path.abspath('.'))
 def parseInputFileList(key):
     json_data = open(PATHS['input_files']).read()
     data = json.loads(json_data)
-    return data['ol2']
+    return data[key]
 
 def writeToFile(fileName, data):
     output_file = open('./%s'%fileName, 'w')
