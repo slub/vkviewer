@@ -5,10 +5,6 @@ goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.events.EventType');
 
-goog.require('VK2.Utils');
-goog.require('VK2.Utils.Settings');
-goog.require('VK2.Layer.Vk2Layer');
-
 /**
  * @param {Object} settings
  * @constructor

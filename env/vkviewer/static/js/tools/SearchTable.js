@@ -7,8 +7,6 @@ goog.provide('VK2.Tools.SearchTable');
 
 goog.require('goog.dom');
 goog.require('goog.ui.IdGenerator');
-goog.require('VK2.Layer.HoverLayer');
-goog.require('VK2.Controller.MapSearchController');
 
 /**
  * Creates a new SearchTable.

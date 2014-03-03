@@ -5,7 +5,6 @@ goog.require('goog.events');
 goog.require('goog.events.EventType');
 goog.require('goog.object');
 goog.require('goog.style');
-goog.require('VK2.Controller.MapController');
 
 /**
  * @param {string} parent_container

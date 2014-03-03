@@ -187,15 +187,3 @@
 	text-align: center;
 	display: block;	
 }
-
-.mmv-tool-anchor.show-timestamp .mmv-tool-icon{
-	content: "T"";
-}
-
-.mmv-tool-anchor.show-single-map .mmv-tool-icon{
-	content: 'S';
-}
-
-.mmv-tool-anchor.show-metadata .mmv-tool-icon{
-	content: 'M';
-}

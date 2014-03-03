@@ -1,12 +1,5 @@
 goog.provide('VK2.Layer.TimeFeatureLayer');
 
-goog.require('OpenLayers.Filter.Comparison');
-goog.require('OpenLayers.Layer.Vector');
-goog.require('OpenLayers.Strategy.BBOX');
-goog.require('OpenLayers.Strategy.Refresh');
-goog.require('OpenLayers.Util');
-goog.require('VK2.Controller.TimeFeatureControls');
-
 /**
  * This class interworks with the VK2.Layer.Vk2Layer object.
  * @param {OpenLayers.Layer.WMS} timeLayer

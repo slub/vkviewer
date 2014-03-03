@@ -4,8 +4,6 @@
  */
 goog.provide('VK2.Tools.MapSearch');
 
-goog.require('VK2.Layer.HoverLayer');
-goog.require('VK2.Tools.MinimizeMesstischblattView');
 
 /**
  * @param {Object} map OpenLayers.Map object
