@@ -17,12 +17,12 @@
 							<form class="form-user-login" action="${request.route_url('auth', action='in')}" target="_top" 
 								role="form" onsubmit="return validateLoginForm()" method="POST">
 								<div class="form-group">
-									<label for="loginUsername" class="col-sm-4 control-label">${_('loginScreen_placeholder_username')}</label>
+									<label for="loginUsername" class="control-label">${_('loginScreen_placeholder_username')}</label>
 									<input type="text" name="username" class="form-control" id="loginUsername" 
 										placeholder="${_('loginScreen_placeholder_username')}" />
 								</div>
 								<div class="form-group">
-									<label for="loginPassword" class="col-sm-4 control-label">${_('loginScreen_placeholder_password')}</label>
+									<label for="loginPassword" class="control-label">${_('loginScreen_placeholder_password')}</label>
 									<input type="password" name="password" class="form-control" id="loginPassword" 
 										placeholder="${_('loginScreen_placeholder_password')}" />
 								</div>
@@ -44,26 +44,38 @@
 							<form class="form-user-register" action="${request.route_url('auth', action='new')}" target="_top" 
 								role="form" onsubmit="return validateRegisterNewUser()" method="POST">
 								<div class="form-group">
-									<label for="loginNewUsername" class="col-sm-4 control-label">${_('loginScreen_placeholder_username')}</label>
+									<label for="loginNewUsername" class="control-label">${_('loginScreen_placeholder_username')}</label>
 									<input type="text" name="username" class="form-control" id="loginNewUsername" 
 										placeholder="${_('loginScreen_placeholder_username')}" />
 								</div>
 								<div class="form-group double-input-field">
-									<label for="loginNewPassword" class="col-sm-4 control-label">${_('loginScreen_placeholder_password')}</label>
-									<input type="password" name="password" class="form-control password-new" id="loginNewPassword" 
-										placeholder="${_('loginScreen_placeholder_password')}" />
-									<input type="password" name="password_validate" class="form-control right" id="loginNewPasswordValidate" 
-										placeholder="${_('loginScreen_placeholder_password')}" />
+									<label for="loginNewPassword" class="control-label">${_('loginScreen_placeholder_password')}</label>
+									<div class="row">
+										<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+											<input type="password" name="password" class="form-control password-new" id="loginNewPassword" 
+												placeholder="${_('loginScreen_placeholder_password')}" />
+										</div>
+										<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+											<input type="password" name="password_validate" class="form-control right" id="loginNewPasswordValidate" 
+												placeholder="${_('loginScreen_placeholder_password')}" />
+										</div>
+									</div>
 								</div>
 								<div class="form-group double-input-field">
-									<label for="loginNewVorname" class="col-sm-4 control-label">${_('loginScreen_placeholder_surname')} & ${_('loginScreen_placeholder_familyname')}</label>
-									<input type="text" name="vorname" class="form-control" id="loginNewVorname" 
-										placeholder="${_('loginScreen_placeholder_surname')}" />
-									<input type="text" name="nachname" class="form-control right" id="loginNewNachname" 
-										placeholder="${_('loginScreen_placeholder_familyname')}" />
+									<label for="loginNewVorname" class="control-label">${_('loginScreen_placeholder_surname')} & ${_('loginScreen_placeholder_familyname')}</label>
+									<div class="row">
+										<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+											<input type="text" name="vorname" class="form-control" id="loginNewVorname" 
+												placeholder="${_('loginScreen_placeholder_surname')}" />
+										</div>
+										<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+											<input type="text" name="nachname" class="form-control right" id="loginNewNachname" 
+												placeholder="${_('loginScreen_placeholder_familyname')}" />
+										</div>
+									</div>
 								</div>
 								<div class="form-group">
-									<label for="loginNewEmail" class="col-sm-4 control-label">${_('loginScreen_placeholder_email')}</label>
+									<label for="loginNewEmail" class="control-label">${_('loginScreen_placeholder_email')}</label>
 									<input type="text" name="email" class="form-control" id="loginNewEmail" 
 										placeholder="${_('loginScreen_placeholder_email')}" />
 								</div>							

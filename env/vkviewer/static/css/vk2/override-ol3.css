@@ -1,3 +1,8 @@
+/* always background color white for the map viewport */
+.ol-viewport{
+	background-color: white;
+}
+
 /* preventing ol3 to display +/- in zoom control twice */
 .ol-zoom-in:before {
 	content: "";
