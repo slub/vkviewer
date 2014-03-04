@@ -29,7 +29,7 @@ def login(request):
                 #userName = user.vorname+' '+user.nachname
                 headers = remember(request, login)
                 # get target url and route to it
-                target_url = request.route_url('home_login')
+                target_url = request.route_url('home_login',_query={'georef':'on'})
                 return HTTPFound(location = target_url, headers = headers)   
             else:
                 raise WrongPasswordError('Password for the user %s is not valid, please try again.')  

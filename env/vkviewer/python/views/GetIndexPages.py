@@ -16,7 +16,7 @@ def get_index_page(request):
     
     # checks if already a user cookie is set and if yes gives back the logged in view
     if checkIsUser(request):
-        target_url = request.route_url('home_login')
+        target_url = request.route_url('home_login', _query={'georef':'on'})
         return HTTPFound(location = target_url)
     elif getCookie(request, 'welcomepage') == 'off' or withWelcomePage == 'off':
         return {'welcomepage':'off', 'faq_url': request.route_url('faq')}
