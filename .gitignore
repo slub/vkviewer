@@ -27,3 +27,7 @@ env/vkviewer/static/dev
 
 # complete librarys
 env/vkviewer/static/lib/debug
+
+# Don't log Vkviewer/Vkviewer-ol3.js
+env/vkviewer/static/js/Vkviewer.js
+env/vkviewer/static/js/Vkviewer-ol3.js
