@@ -10,3 +10,4 @@ class Fehlermeldung(Base):
     timestamp = Column(DateTime(timezone=False))
     referenz = Column(String(255))
     nutzerid = Column(String(255))  
+    email = Column(String(255))

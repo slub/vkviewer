@@ -1,4 +1,29 @@
 /* Styling of the header of the MapSearchPanel */
+
+.vk2LayersearchPanel{
+    width: 100%; 
+    margin-right: 20px;
+}
+
+/*
+	Button for open the LayerSearch
+*/
+.vk2LayersearchControl{
+	z-index: 1000;
+	position: absolute;
+	top:40px;
+	left:-40px;
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	cursor: default;
+	border-radius: 0;
+}
+
+.vk2LayersearchControl .vk2SidebarIcon{
+	background-position: 0px 0;
+}
+
+/* new styling */
 .panel-heading{
     height: 40px;
 }
@@ -24,7 +49,7 @@
 
 /* Styling of the MapSearchTable */
 .searchTablePanel{
-    width: 400px;
+    width: 100%;
 }
     
 .hover-table{
@@ -49,7 +74,7 @@
     display: block;
     min-height: 200px;
     height: auto;
-    max-height: 300px;
+    max-height: 240px;
     overflow-y: scroll;
 }
 
@@ -62,7 +87,7 @@
 	width: 100px;
 }
 
-.col-titel{
+.col-titel, .col-tools{
 	width: 300px;
 }
 
@@ -74,6 +99,10 @@
 	padding-left: 10px;
 	padding-right: 10px;
 	width: 100%;
+}
+
+.panel-spatialsearch-tools > label {
+	margin-bottom: 10px;
 }
 
 .panel-spatialsearch-tools .time-slider-container {
@@ -92,12 +121,12 @@
 }
 
 .time-slider-container .slider{
-	width: 270px;
+	width: 255px;
 }
 
 .time-slider-container .slider-label-end{
 	width: 40px;
-	margin-left: 10px;
+	margin-left: 13px;
 }
 
 .panel-spatial-search-tools .layer-chooser-container{
@@ -112,4 +141,49 @@
 
 .layer-chooser-container .layer-chooser-btn{
 	padding: 5px;
+}
+
+/* MinimizeMesstischblattViewer style */
+.panel-spatialsearch-mtbview {
+	position: relative;
+	float: left;
+	width: 100%;	
+	padding-left: 10px;
+}
+
+.mmv-table-body{
+    display: block;
+    min-height: 40px;
+    height: auto;
+    max-height: 120px;
+    overflow-y: scroll;
+}
+
+.mmv-tools-container{
+	position: relative;
+	float: right;
+	width: 100px;
+	height: 20px;
+}
+
+.mmv-tools-container .mmv-tool-anchor{
+	position: relative;
+	float: right;
+	margin-left: 5px; 
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 0;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.mmv-tool-icon {
+	color: white;
+	font-size: 16px;
+	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	display: block;	
 }

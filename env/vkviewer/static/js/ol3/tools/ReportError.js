@@ -4,7 +4,7 @@ goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.events.EventType');
 goog.require('goog.net.XhrIo');
-
+goog.require('VK2.Utils');
 /**
  * @param {string} display_btn Id of the display button
  * @param {string} dialog_container_id
@@ -144,24 +144,11 @@ VK2.Tools.ReportError.prototype._loadClickBehavior = function(){
 		var reference = this._reference;
 		var key = this._key;
 		
-		var url = '/vkviewer/reporterror?message='+message+'&id='+key+'&reference='+reference;
-		// create request object
-		var xhr = new goog.net.XhrIo();
+		var url = '/vkviewer/report/error?message='+message+'&id='+key+'&reference='+reference;
 		
-		// add listener to request object
-		goog.events.listenOnce(xhr, 'success', function(e){
-			var xhr = /** @type {goog.net.XhrIo} */ (e.target);
-			var data = xhr.getResponseText() ? xhr.getResponseText() : '';
-			xhr.dispose();
-			alert(VK2.Utils.get_I18n_String('report_error_confirmed'));
-		}, false, this);
+		var success_callback = function(xhrio){alert(VK2.Utils.get_I18n_String('report_error_confirmed'));}
+		var error_callback = function(xhrio){alert(VK2.Utils.get_I18n_String('report_error_alert'));}
 		
-		goog.events.listenOnce(xhr, 'error', function(e){
-			var xhr = /** @type {goog.net.XhrIo} */ (e.target);
-			alert(VK2.Utils.get_I18n_String('report_error_alert'));
-		}, false, this);
-		
-		// send request
-		xhr.send(url);	
+		VK2.Utils.sendReport(url, success_callback, error_callback)
 	}, undefined, this);
 };

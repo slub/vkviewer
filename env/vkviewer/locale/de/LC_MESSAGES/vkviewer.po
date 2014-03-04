@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-18 12:49+0100\n"
-"PO-Revision-Date: 2014-02-18 12:52+0100\n"
+"POT-Creation-Date: 2014-02-26 17:30+0100\n"
+"PO-Revision-Date: 2014-02-27 11:13+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -42,14 +42,13 @@ msgstr ""
 "Interner Fehler bei Ausführung von Authentifizierungsprozess. Bitte "
 "versuchen Sie es noch einmal."
 
-#: vkviewer/templates/basic_page.mako:26
+#: vkviewer/templates/basic_page.mako:25
 #: vkviewer/templates/basic_page_slim.mako:24
 msgid "javascript_disabled"
 msgstr ""
 "Bitte aktivieren Sie Javascript um das Virtuelle Kartenforum 2.0 zu nutzen."
 
-#: vkviewer/templates/basic_page.mako:39 vkviewer/templates/basic_page.mako:58
-#: vkviewer/templates/development.mako:104
+#: vkviewer/templates/basic_page.mako:38 vkviewer/templates/basic_page.mako:57
 #: vkviewer/templates/georeference_start.mako:61
 #: vkviewer/templates/georeference_validate.mako:73
 #: vkviewer/templates/mtb_profile.mako:35
@@ -94,67 +93,28 @@ msgstr ""
 "Für diese Blattnummer können keine Messtischblaetter mehr georeferenziert "
 "werden"
 
-#: vkviewer/templates/contact.mako:10 vkviewer/templates/development.mako:68
-#: vkviewer/templates/georeference_start.mako:37
-#: vkviewer/templates/georeference_validate.mako:49
-#: vkviewer/templates/index_page.mako:48
-#: vkviewer/templates/index_page.mako:125
-msgid "footer_contact"
-msgstr "Kontakt"
+#: vkviewer/templates/contact.mako:11
+#| msgid "contact_person"
+msgid "contact_header"
+msgstr "Kontaktformular"
 
-#: vkviewer/templates/contact.mako:11 vkviewer/templates/impressum.mako:21
-msgid "slubname_start"
-msgstr "Sächsische Landesbibliothek - "
-
-#: vkviewer/templates/contact.mako:12 vkviewer/templates/impressum.mako:23
-msgid "slubname_end"
-msgstr "Staats- und Universitätsbibliothek Dresden"
-
-#: vkviewer/templates/contact.mako:13 vkviewer/templates/impressum.mako:25
-msgid "post_adress"
-msgstr "Postadresse"
-
-#: vkviewer/templates/contact.mako:15
-msgid "paket_adress"
-msgstr "Paketadresse"
-
-#: vkviewer/templates/contact.mako:15 vkviewer/templates/impressum.mako:27
-msgid "visitor_adress"
-msgstr "Besucheradresse"
+#: vkviewer/templates/contact.mako:13
+#| msgid "contact_person"
+msgid "contact_header_text"
+msgstr "Bitte Informieren Sie uns ueber Ihre Ideen, Probleme und Anregungen."
 
 #: vkviewer/templates/contact.mako:20
-msgid "contact_person"
-msgstr "Ansprechpartner"
+msgid "contact_message_label"
+msgstr "Kontaktnachricht"
 
-#: vkviewer/templates/development.mako:51
-#: vkviewer/templates/georeference_start.mako:20
-#: vkviewer/templates/georeference_validate.mako:32
-#: vkviewer/templates/index_page.mako:108
-msgid "footer_project_name"
-msgstr "Virtuelles Kartenforum 2.0"
+#: vkviewer/templates/contact.mako:21
+#| msgid "old_password_placeholder"
+msgid "contact_message_placeholder"
+msgstr "Kontaktnachricht"
 
-#: vkviewer/templates/development.mako:52
-#: vkviewer/templates/georeference_start.mako:21
-#: vkviewer/templates/georeference_validate.mako:33
-#: vkviewer/templates/index_page.mako:109
-msgid "footer_project_desc_long"
-msgstr "ein Projekt der SLUB Dresden und der Universität Rostock"
-
-#: vkviewer/templates/development.mako:71
-#: vkviewer/templates/georeference_start.mako:40
-#: vkviewer/templates/georeference_validate.mako:52
-#: vkviewer/templates/index_page.mako:49
-#: vkviewer/templates/index_page.mako:128
-msgid "footer_project"
-msgstr "Projekt"
-
-#: vkviewer/templates/development.mako:74
-#: vkviewer/templates/georeference_start.mako:43
-#: vkviewer/templates/georeference_validate.mako:55
-#: vkviewer/templates/impressum.mako:16 vkviewer/templates/index_page.mako:50
-#: vkviewer/templates/index_page.mako:131
-msgid "footer_editorial"
-msgstr "Impressum"
+#: vkviewer/templates/contact.mako:22
+msgid "contact_message_help"
+msgstr "Bitte tragen Sie in diesem Text-Feld ihre Kontaktnachricht ein."
 
 #: vkviewer/templates/error.mako:15
 msgid "try_again"
@@ -163,6 +123,39 @@ msgstr "Gehe zurück zur Hauptseite."
 #: vkviewer/templates/faq.mako:16
 msgid "faq_main_heading"
 msgstr "Häufig gestellte Frage"
+
+#: vkviewer/templates/georeference_start.mako:20
+#: vkviewer/templates/georeference_validate.mako:32
+#: vkviewer/templates/index_page.mako:108
+msgid "footer_project_name"
+msgstr "Virtuelles Kartenforum 2.0"
+
+#: vkviewer/templates/georeference_start.mako:21
+#: vkviewer/templates/georeference_validate.mako:33
+#: vkviewer/templates/index_page.mako:109
+msgid "footer_project_desc_long"
+msgstr "ein Projekt der SLUB Dresden und der Universität Rostock"
+
+#: vkviewer/templates/georeference_start.mako:37
+#: vkviewer/templates/georeference_validate.mako:49
+#: vkviewer/templates/index_page.mako:48
+#: vkviewer/templates/index_page.mako:125
+msgid "footer_contact"
+msgstr "Kontakt"
+
+#: vkviewer/templates/georeference_start.mako:40
+#: vkviewer/templates/georeference_validate.mako:52
+#: vkviewer/templates/index_page.mako:49
+#: vkviewer/templates/index_page.mako:128
+msgid "footer_project"
+msgstr "Projekt"
+
+#: vkviewer/templates/georeference_start.mako:43
+#: vkviewer/templates/georeference_validate.mako:55
+#: vkviewer/templates/impressum.mako:16 vkviewer/templates/index_page.mako:50
+#: vkviewer/templates/index_page.mako:131
+msgid "footer_editorial"
+msgstr "Impressum"
 
 #: vkviewer/templates/impressum.mako:18
 msgid "editorial_introduction"
@@ -175,6 +168,22 @@ msgstr ""
 #: vkviewer/templates/impressum.mako:19
 msgid "provider"
 msgstr "Anbieter"
+
+#: vkviewer/templates/impressum.mako:21
+msgid "slubname_start"
+msgstr "Sächsische Landesbibliothek - "
+
+#: vkviewer/templates/impressum.mako:23
+msgid "slubname_end"
+msgstr "Staats- und Universitätsbibliothek Dresden"
+
+#: vkviewer/templates/impressum.mako:25
+msgid "post_adress"
+msgstr "Postadresse"
+
+#: vkviewer/templates/impressum.mako:27
+msgid "visitor_adress"
+msgstr "Besucheradresse"
 
 #: vkviewer/templates/impressum.mako:32
 msgid "represented_by"
@@ -245,11 +254,11 @@ msgstr "Datenschutzerklärung"
 
 #: vkviewer/templates/index_page.mako:29
 msgid "placeholder_town_name"
-msgstr "Ortsname"
+msgstr "Ortsname oder Blattnumber"
 
 #: vkviewer/templates/index_page.mako:39
 msgid "header_service"
-msgstr "Dienste"
+msgstr "Informationen"
 
 #: vkviewer/templates/index_page.mako:56
 msgid "header_language"
@@ -264,7 +273,6 @@ msgid "header_language_en"
 msgstr "Englisch"
 
 #: vkviewer/templates/index_page.mako:76
-#| msgid "georef_user_history"
 msgid "georef_history"
 msgstr "Historie Georeferenzierung"
 
@@ -547,7 +555,5 @@ msgstr "Georeferenzierung wird aktuell noch bearbeitet (Wartezeit ca. 20 Min.)"
 #~ msgid "report_error_titel"
 #~ msgstr "Berichte Fehler Dialog"
 
-#~ msgid "loginScreen_reset_pw_msg"
-#~ msgstr ""
-#~ "Bitte tragen Sie ihren Login und ihre Email Adresse ein. Sie bekommen das "
-#~ "neue Passwort dann per Email zugesendet."
+#~ msgid "paket_adress"
+#~ msgstr "Paketadresse"

@@ -9,6 +9,7 @@
 goog.provide('VK2.Tools.Gazetteersearch')
 
 goog.require('goog.dom');
+goog.require('goog.dom.classes');
 
 /**
  * Create a front end for a gazetteer service
@@ -37,8 +38,7 @@ VK2.Tools.Gazetteersearch = function(gazetteerElement, map, withSubmit){
 	 * @private
 	 */
 	this._map = map;
-	
-	console.log('Load Gazetteersearch.')
+
 	this._loadGazetteerBehavior(this._gazetteerElement, this._map);
 	//this._loadSubmitBehavior(this._parentElement, this._gazetteerElement)
 }
@@ -48,8 +48,23 @@ VK2.Tools.Gazetteersearch = function(gazetteerElement, map, withSubmit){
  * @param {Object} map OpenLayers.Map
  */
 VK2.Tools.Gazetteersearch.prototype._loadGazetteerBehavior = function(gazetteerElement, map){
-		
+	
 	var _map = map;
+	
+	/**
+	 * @param {OpenLayers.LonLat} lonlat
+	 * @param {number} zoom
+	 */
+	var jumpToLotLat = function(lonlat, zoom){
+		_map.setCenter(lonlat, zoom);
+		
+		// check if a sidebar tool is open and if not open the spatialsearch
+		var activateSearch = goog.dom.getElement(VK2.Utils.Settings.DOM.idControlSearchMap);
+		var open_sidebartools = goog.dom.getElementsByTagNameAndClass('a','open',activateSearch.parentElement);		
+		if (open_sidebartools.length == 0)
+			activateSearch.click();
+	};
+
 	
 	$(gazetteerElement).autocomplete({
     	source: function( request, response ){
@@ -87,7 +102,7 @@ VK2.Tools.Gazetteersearch.prototype._loadGazetteerBehavior = function(gazetteerE
 	    			success: $.proxy(function( data ){
 	    				if (data != ''){
 	    					var point = JSON.parse(data);
-	    					VK2.Utils.jumptolonlat(_map, point.coordinates[0], point.coordinates[1]);
+	    					VK2.Utils.jumptolonlat(_map, point.coordinates[0], point.coordinates[1], 12);
 	    				} else {
 	    					alert(VK2.Utils.get_I18n_String('noResultsBlattnr'));
 	    				}
@@ -99,18 +114,17 @@ VK2.Tools.Gazetteersearch.prototype._loadGazetteerBehavior = function(gazetteerE
         minLength: 3,
         autoFocus: true,
     	select: function( event, ui ){
-    		console.log('Type: '+ui.item.type);
     		switch (ui.item.type){
     			case 'administrative':
-    				_map.setCenter(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 5);
+    				jumpToLotLat(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 4);
     				break;
     			case 'city':
-    				_map.setCenter(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 5);
+    				jumpToLotLat(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 4);
     				break;
     			case 'village':
-    				_map.setCenter(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 8);
+    				jumpToLotLat(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 4);
     			default:
-    				_map.setCenter(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 10);
+    				jumpToLotLat(ui.item.lonlat.transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()), 6);
     		}
     	},
     	open: function(){

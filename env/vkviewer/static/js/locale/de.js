@@ -10,6 +10,7 @@ var lang_dictionary = {
 		'found_mtb': 'Messtischblätter gefunden',
 		'change_zoomlevel': 'Bitte wählen Sie eine höhere Zoomstufe!',
 		'choose_valide_timestamp': 'Wählen Sie validien Zeitstempel',
+		'change_timeperiod': 'Passe Zeitraum an:',
 		
 		'toolname_layerbar': 'Auswahl Kartenlayer',
 		
@@ -58,9 +59,17 @@ var lang_dictionary = {
 		'mdrecord_uniqueid': 'Eindeutiger Identifier',
 		
 		// for georef feedback
-		'georef_points': 'Punkte'
+		'georef_points': 'Punkte',
 			
+		// contact message
+		'send_con_message_suc': 'Ihre Kontaktnachricht wurde übermittelt. Danke für Ihr Interesse und noch viel Spass im Virtuellen Kartenforum 2.0.',
+		'send_con_message_err': 'Fehler bei der Übermittlung der Kontaktnachricht. Bitte versuchen Sie es noch einmal oder senden Sie dem Admin eine Email.',
 		
+		// minimize messtischblatt view
+		'mmv_label_blattnr': 'Messtischblätter für Blattnummer:',
+		
+		// layerbar
+		'layerbar_choosetime': 'Wähle Zeitschnitt'
 		
 }
 	

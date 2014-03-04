@@ -4,17 +4,19 @@
 
 .vk2SBContentPanel{
 	display: none;
-	height: 100%;
 	padding: 10px;
+	height: 100%;
 }
 
 .vk2SidebarBodyPanel{
-	height: 100%;
+	padding-right: 5px;
 	overflow-y: auto;
 	box-sizing:border-box; 
 	-moz-box-sizing:border-box; 
 	padding-top: 10px;
 	width: 100%;
+	height: auto;
+	padding-bottom: 75px;
 }
 
 /* 

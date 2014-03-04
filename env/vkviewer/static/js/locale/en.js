@@ -10,6 +10,7 @@ var lang_dictionary = {
 		'found_mtb': 'Messtischblaetter available.',
 		'change_zoomlevel': 'Please zoom in!',
 		'choose_valide_timestamp': 'Please choose valide timestamp',
+		'change_timeperiod': 'Adjust time periode:',
 		
 		'toolname_layerbar': 'Choose map layer',
 		
@@ -58,5 +59,15 @@ var lang_dictionary = {
 		'mdrecord_uniqueid': 'Unique Identifier',
 		
 		// for georef feedback
-		'georef_points': 'Points'
+		'georef_points': 'Points',
+		
+		// contact message
+		'send_con_message_suc': 'Your message has been send. Thank you. Enjoy your time in the Virtuelle Kartenforum 2.0.',
+		'send_con_message_err': 'Error while sending the contact message. Please try again or send the Admin an email.',
+		
+		// minimize messtischblatt view
+		'mmv_label_blattnr': 'Map sheet for number:',
+		
+		// layerbar
+		'layerbar_choosetime': 'Choose timestamp'
 }

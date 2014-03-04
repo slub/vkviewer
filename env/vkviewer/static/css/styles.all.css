@@ -282,24 +282,12 @@ div.faq{
 }
 
 /* Page: Contact */
-div.contact{
-	height: 400px;
-    width:  400px;
+.contact-formular{
+	width: 600px;
 }
-
-.vk2ContactPageContainer {
-    line-height: 160%;
-    font-family: Verdana, Arial, Helvetica, Sans-Serif;
-    font-size: 0.92em;
-}
-
-div.vk2ContactPageContainer h3{
-	padding-top: 20px;
-	margin-bottom: 10px;
-	font-size: 1.33em;
-	font-weight: bold;
-	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, Sans-Serif;
-	font-style: italic;
+		
+.contact-formular .form-group.right{
+	float: right
 }
 
 /* Page: Impressum */
@@ -479,7 +467,146 @@ div.vk2PartnerPageContainer h3{
 	top: 100px;
 	left: 0px;
 }
-/* 
+.mtb-profile-page, .mtb-profile-page > div, .mtb-profile-page > div > div{
+	height: 100%;
+}
+
+.mtb-profile-page .container{
+	margin-right: 0px;
+	margin-left: 0px;
+	width: 100%;
+	overflow: auto;
+}
+
+.mtb-profile-page .container .row > div{
+	height: 100%;
+}
+
+.map-container{
+	width: 100%;
+	height: 100%;
+}
+
+.ol-attribution{
+	padding: 0px;
+}
+
+/* Placement and styling of opacity slider */
+.map-container .opacity-container{
+	position: absolute;
+	bottom: 25px;
+	left: 50%;
+	width: 300px;
+	z-index: 1000;
+	margin-left: -150px;
+	margin-right: 150px;
+}
+
+.map-container .opacity-container .opacity-slider{
+	width: 100%;
+}
+
+.map-container .opacity-container .tooltip{
+			top: -33px;
+			left: 100px;
+			display: none;
+}
+
+/* Styling for metadata stuff */
+table.metadata-record-table, table.metadata-record-table table, table.metadata-record-table tbody, table.metadata-record-table fieldset,
+table.metadata-record-table tr, table.metadata-record-table div, table.metadata-record-table legend {
+	display: block;
+}
+
+.col-header-titel{
+	display: block !important;
+}
+
+/* table header */
+.metadata-record-table tbody > tr > td{
+	background-image: url('/vkviewer/static/images/pattern_hr.png');
+	background-repeat: repeat-x;
+	background-position: center bottom;
+	border: none;
+	color: #069;
+	padding: 7px 0px 7px 7px;
+	vertical-align: top;
+	text-align: left;
+	font-size: 12px;
+}
+
+.metadata-title{
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px 0px 10px 0px;
+	color: #333;
+}
+
+.metadata-record-table .thumbnail{
+	max-height: 100px;
+	max-width: 100px;
+	border: 1px solid #B3D4E6;
+	margin: 5px;
+	padding: 0px;
+}
+
+fieldset.content > legend {
+	border-bottom: none;
+}
+
+fieldset.content > legend > a{
+	font-size: 12px;
+	position: relative;
+	float: left;
+}
+/* content table */
+.metadata-record-table-content{
+	width: 100%;
+}
+
+.metadata-record-table-content tbody > tr {
+	border-bottom: 1px solid #B3D4E6;	
+}
+
+.metadata-record-table-content tbody > tr > td{
+	background-image: none;
+	border: none;
+	color: #069;
+	padding: 7px 0px 7px 7px;
+	vertical-align: top;
+	text-align: left;
+	font-size: 12px;	
+	width: 500px;
+}
+
+.metadata-record-table-content tbody > tr > td > a{
+	word-wrap: break-word;
+	overflow: hidden;
+}
+
+.metadata-record-table-content tbody > tr > td > div{
+	color: #999;
+	line-height: 1.4em;
+}
+
+.metadata-record-table-content tbody > tr > td div.el > label{
+	float: left;
+	margin-right: 5px;
+	margin-bottom: 0px;
+	font-weight: normal;
+	color: #444444;	
+}
+
+.metadata-record-table-content tbody > tr > th{
+	width: 250px;
+	color: #333;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.metadata-record-table-content tbody > tr {
+	padding: 5px;
+}/* 
     Document   : mainmenubar
     Created on : Aug 27, 2013, 11:26:22 AM
     Author     : mendt
@@ -643,14 +770,29 @@ div.vk2PartnerPageContainer h3{
     border: 2px solid #ADA79E;
 }
 
-/**
- * Layer switcher
- */
-.vk2LayerbarPanel .overlayLbls{
+/* styling of the header of the layerbar */
+.vk2LayerbarPanel .layerbar-header-container{
     margin-top: 5px;
     margin-left: 3px;
     margin-bottom: 5px;
     height: 20px;
+}
+
+.layerbar-header-container .overlayLbls{
+	position: relative;
+	float: left;
+}
+
+.layerbar-header-container .add-layer{
+	position: relative;
+	float: right;
+	margin-left: 5px; 
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 0;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
 }
 
 .vk2LayerbarPanel .overlayDivs{
@@ -671,6 +813,7 @@ Styling of the list elements
  */
 .overlayElem .minimize{
     height: 25px;
+    padding-right: 15px;
 }
 
 .overlayElem .minimize input{
@@ -685,76 +828,89 @@ Styling of the list elements
     position: relative;
     left: 5px;
     float: left;
-    margin-top: 4px;
-    
+    margin-top: 4px;    
+}
+
+.overlayElem .minimize .layer-remove{
+	text-indent: -9999px;
+	display: inline-block;
+	vertical-align: top;
+	width: 20px;
+	height: 20px;
+	float: right;
+	background: transparent url(/vkviewer/static/images/controls.png) no-repeat -200px 0;
+	cursor:pointer;
+}
+
+.overlayElem .minimize .layer-remove:hover{
+	background-position: -200px -20px;
 }
 
 /*
  * Styling of the body of a layer list element
  */
 .overlayElem .maximize .layer-max-container{
-		    margin-left: 10px;
-		    width: 300px;
-		    height: 70px;
-		    border-radius: 6px;
-		    font-size: 12px;
-		    font-family: "Helvectica", "Arial", "sans-serif";
-		    line-height: 100%;
-		    border-width: 1px;
-		    border-style: dotted;
-		    border-color: rgb(0, 159,227);
-		}
+	margin-left: 10px;
+	width: 300px;
+	height: 70px;
+	border-radius: 6px;
+	font-size: 12px;
+	font-family: "Helvectica", "Arial", "sans-serif";
+	line-height: 100%;
+	border-width: 1px;
+	border-style: dotted;
+	border-color: rgb(0, 159,227);
+}
 	  	
-	  	.overlayElem .maximize .layer-max-container .media, .overlayElem .maximize .layer-max-container .media-body{
-	  		overflow: visible;
-	  	}
+.overlayElem .maximize .layer-max-container .media, .overlayElem .maximize .layer-max-container .media-body{
+	overflow: visible;
+}
 	  	
-		.overlayElem .maximize .thumbnail{
-			margin: 8px;
-			padding: 0px;
-		}
+.overlayElem .maximize .thumbnail{
+	margin: 8px;
+	padding: 0px;
+}
 
-		/* Css styles for slider div generic */
-		.overlayElem .maximize .slider-container{
-		    position: relative;
-		    float: left;
-		    width: 150px;
-		    height: 60px;
-		}
+/* Css styles for slider div generic */
+.overlayElem .maximize .slider-container{
+    position: relative;
+    float: left;
+    width: 150px;
+    height: 60px;
+}
 
-		.slider-container .slider-outer{
-			padding: 5px;
-		}
+.slider-container .slider-outer{
+	padding: 5px;
+}
 		
-		.slider-container .slider-inner{
-			margin-left: 7px;
-			margin-top: 3px;
-			width: 100px;
-		}
+.slider-container .slider-inner{
+	margin-left: 7px;
+	margin-top: 3px;
+	width: 100px;
+}
 		
-		.slider-container .tooltip{
-			top: -33px;
-			left: -10px;
-			display: none;
-		}
+.slider-container .tooltip{
+	top: -33px;
+	left: -10px;
+	display: none;
+}
 		
-		.slider-container .label{
-		    font-size: 10px;
-		    color: #333;
-		}
+.slider-container .label{
+    font-size: 10px;
+    color: #333;
+}
 
-		.slider-container .time .tooltip{
-			top: -33px;
-			left: -5px;
-			display: none;
-		}
+.slider-container .time .tooltip{
+	top: -33px;
+	left: -5px;
+	display: none;
+}
 		
-		.slider-container .time .slider-outer{
-			padding: 0px 5px 5px 5px;
-		}
-/*
-	Button for open the LayerSearch
-*/
+.slider-container .time .slider-outer{
+	padding: 0px 5px 5px 5px;
+}
+
+/* Button for open the LayerSearch */
 .vk2LayerbarControl{
 	position: absolute;
 	top: 85px;
@@ -768,6 +924,31 @@ Styling of the list elements
 .vk2LayerbarControl .vk2SidebarIcon{
 	background-position: -100px 0;
 }/* Styling of the header of the MapSearchPanel */
+
+.vk2LayersearchPanel{
+    width: 100%; 
+    margin-right: 20px;
+}
+
+/*
+	Button for open the LayerSearch
+*/
+.vk2LayersearchControl{
+	z-index: 1000;
+	position: absolute;
+	top:40px;
+	left:-40px;
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	cursor: default;
+	border-radius: 0;
+}
+
+.vk2LayersearchControl .vk2SidebarIcon{
+	background-position: 0px 0;
+}
+
+/* new styling */
 .panel-heading{
     height: 40px;
 }
@@ -793,7 +974,7 @@ Styling of the list elements
 
 /* Styling of the MapSearchTable */
 .searchTablePanel{
-    width: 400px;
+    width: 100%;
 }
     
 .hover-table{
@@ -818,7 +999,7 @@ Styling of the list elements
     display: block;
     min-height: 200px;
     height: auto;
-    max-height: 300px;
+    max-height: 240px;
     overflow-y: scroll;
 }
 
@@ -831,7 +1012,7 @@ Styling of the list elements
 	width: 100px;
 }
 
-.col-titel{
+.col-titel, .col-tools{
 	width: 300px;
 }
 
@@ -843,6 +1024,10 @@ Styling of the list elements
 	padding-left: 10px;
 	padding-right: 10px;
 	width: 100%;
+}
+
+.panel-spatialsearch-tools > label {
+	margin-bottom: 10px;
 }
 
 .panel-spatialsearch-tools .time-slider-container {
@@ -861,12 +1046,12 @@ Styling of the list elements
 }
 
 .time-slider-container .slider{
-	width: 270px;
+	width: 255px;
 }
 
 .time-slider-container .slider-label-end{
 	width: 40px;
-	margin-left: 10px;
+	margin-left: 13px;
 }
 
 .panel-spatial-search-tools .layer-chooser-container{
@@ -881,109 +1066,56 @@ Styling of the list elements
 
 .layer-chooser-container .layer-chooser-btn{
 	padding: 5px;
-}/* hide the OpenStreetMap sign while debugging */
-#OpenLayers_Control_Attribution_4{
-    z-index: 0 !important;
 }
+
+/* MinimizeMesstischblattViewer style */
+.panel-spatialsearch-mtbview {
+	position: relative;
+	float: left;
+	width: 100%;	
+	padding-left: 10px;
+}
+
+.mmv-table-body{
+    display: block;
+    min-height: 40px;
+    height: auto;
+    max-height: 120px;
+    overflow-y: scroll;
+}
+
+.mmv-tools-container{
+	position: relative;
+	float: right;
+	width: 100px;
+	height: 20px;
+}
+
+.mmv-tools-container .mmv-tool-anchor{
+	position: relative;
+	float: right;
+	margin-left: 5px; 
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 0;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.mmv-tool-icon {
+	color: white;
+	font-size: 16px;
+	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	display: block;	
+}/* Styling of the header of the MapSearchPanel */
 
 .vk2LayersearchPanel{
-    width: 385px;
-    height: 470px;
+    width: 100%; 
     margin-right: 20px;
-    /* overflow: scroll; */
-}
-
-.vk2LSMainPanel{
-	width: 385px;
-	height: 350px;
-}
-
-.vk2LSMainPanel .vk2HeaderPanel{
-	width: 385px;	
-	height: 45px;
-}
-
-.vk2LSMainPanel .vk2HeaderPanel .vk2LSHeaderContainer{
-	height: 41px;
-	width: 385px;
-}
-
-.vk2LSMainPanel .vk2LSHeaderContainer .vk2LSHeaderContent{
-	position: relative;
-	float: left;
-	margin-top: 10px;
-	padding-left:3px;
-	width: 70%;	
-}
-
-.vk2LSMainPanel .vk2LSHeaderContainer.ui-state-error .vk2LSHeaderContent{
-	padding: 3px;
-	margin-top: 0px;
-}
-
-.vk2LSMainPanel .vk2LSHeaderContainer .vk2LSHeaderLoadingContainer{
-	position: relative;
-	float: left;
-	margin-top: 15px;
-	padding: 10px;
-	width: 10%;	
-}
-
-.vk2LSMainPanel .vk2LSHeaderContainer .vk2LSHeaderLoadingContainer.loading{
-	background: white url('/vkviewer/static/images/ui-anim_basic_16x16.gif') right center no-repeat;
-}
-
-.vk2LSMainPanel .featureGridPanel{
-	width: 385px;
-	height: 300px;
-}
-
-.vk2LSMainPanel .vk2LSToolPanel{
-    width: 385px; 
-    height: 120px;
-}
-
-.vk2LSMainPanel .vk2LSToolbar{
-    position: absolute; 
-    left: 10px; 
-    top: 20px;
-}
-
-.vk2LSToolbar .vk2TimeSliderLabel1{
-    border: 0;
-    font-weight: bold;
-    position: absolute; 
-    left: 1px; 
-    width: 40px;
-}
-
-.vk2LSToolbar .vk2TimeSliderLabel2{
-    border: 0;
-    font-weight: bold; 
-    position: absolute; 
-    left: 340px; 
-    width: 40px;
-}
-
-.vk2LSToolbar .vk2TimeSliderDiv{
-    position: absolute; 
-    left: 50px;
-    width: 270px;
-}
-
-.vk2LSToolbar .vk2AddLayerDiv{
-    position: absolute; 
-    top: 30px; 
-    left: 30px;
-    width: 340px;
-}
-
-.vk2LSToolbar .vk2AddLayerInput{
-    font-size: 1em; 
-    height: 30px; 
-    font-weight: bold;
-    width: 100px;
-    margin: 5px;
 }
 
 /*
@@ -1002,6 +1134,171 @@ Styling of the list elements
 
 .vk2LayersearchControl .vk2SidebarIcon{
 	background-position: 0px 0;
+}
+
+/* new styling */
+.panel-heading{
+    height: 40px;
+}
+
+.panel-heading .content{
+	display: block;
+	width: 90%;
+	height: 100%;
+	position: relative;
+	float: left;
+}
+    
+.panel-heading .loading{
+    width: 10%;
+    height: 20px;
+    position: relative;
+    float: left;      	
+}
+    
+.panel-heading .loading.active{
+	background: url('/vkviewer/static/images/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+
+/* Styling of the MapSearchTable */
+.searchTablePanel{
+    width: 100%;
+}
+    
+.hover-table{
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+    
+.table-heading{
+    display: block;	
+    border-bottom: 2px solid #dddddd;
+}
+    
+.table-heading .tablesorter-headerRow{
+    cursor: pointer;
+}
+    
+.header-col{
+    border-bottom: 0px !important;
+}
+    
+.table-body{
+    display: block;
+    min-height: 200px;
+    height: auto;
+    max-height: 240px;
+    overflow-y: scroll;
+}
+
+/* Size of table columns */
+.table-heading .header-col-time .titel{
+	padding-left: 10px;
+}
+
+.col-time{
+	width: 100px;
+}
+
+.col-titel, .col-tools{
+	width: 300px;
+}
+
+/* Styling of the Tools */
+.panel-spatialsearch-tools{
+	position: relative;
+	float: left;
+	padding-top: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 100%;
+}
+
+.panel-spatialsearch-tools > label {
+	margin-bottom: 10px;
+}
+
+.panel-spatialsearch-tools .time-slider-container {
+	height: 40px;
+}
+
+.panel-spatialsearch-tools .time-slider-container > div{
+	font-weight: bold;
+	position: relative;
+	float: left;
+}
+
+.time-slider-container .slider-label-start{
+	width: 40px;
+	margin-right: 10px;
+}
+
+.time-slider-container .slider{
+	width: 255px;
+}
+
+.time-slider-container .slider-label-end{
+	width: 40px;
+	margin-left: 13px;
+}
+
+.panel-spatial-search-tools .layer-chooser-container{
+	position: relative;
+	float: left;
+	margin-top: 10px;
+}
+
+.layer-chooser-container .layer-chooser-input{
+	padding: 5px;
+}
+
+.layer-chooser-container .layer-chooser-btn{
+	padding: 5px;
+}
+
+/* MinimizeMesstischblattViewer style */
+.panel-spatialsearch-mtbview {
+	position: relative;
+	float: left;
+	width: 100%;	
+	padding-left: 10px;
+}
+
+.mmv-table-body{
+    display: block;
+    min-height: 40px;
+    height: auto;
+    max-height: 120px;
+    overflow-y: scroll;
+}
+
+.mmv-tools-container{
+	position: relative;
+	float: right;
+	width: 100px;
+	height: 20px;
+}
+
+.mmv-tools-container .mmv-tool-anchor{
+	position: relative;
+	float: right;
+	margin-left: 5px; 
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 0;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.mmv-tool-icon {
+	color: white;
+	font-size: 16px;
+	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	display: block;	
 }.ui-autocomplete{
 	width: 25em;
 	z-index: 2000;
@@ -1107,17 +1404,19 @@ Styling of the list elements
 
 .vk2SBContentPanel{
 	display: none;
-	height: 100%;
 	padding: 10px;
+	height: 100%;
 }
 
 .vk2SidebarBodyPanel{
-	height: 100%;
+	padding-right: 5px;
 	overflow-y: auto;
 	box-sizing:border-box; 
 	-moz-box-sizing:border-box; 
 	padding-top: 10px;
 	width: 100%;
+	height: auto;
+	padding-bottom: 75px;
 }
 
 /* 

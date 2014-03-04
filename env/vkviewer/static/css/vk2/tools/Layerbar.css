@@ -17,14 +17,29 @@
     border: 2px solid #ADA79E;
 }
 
-/**
- * Layer switcher
- */
-.vk2LayerbarPanel .overlayLbls{
+/* styling of the header of the layerbar */
+.vk2LayerbarPanel .layerbar-header-container{
     margin-top: 5px;
     margin-left: 3px;
     margin-bottom: 5px;
     height: 20px;
+}
+
+.layerbar-header-container .overlayLbls{
+	position: relative;
+	float: left;
+}
+
+.layerbar-header-container .add-layer{
+	position: relative;
+	float: right;
+	margin-left: 5px; 
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 0;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
 }
 
 .vk2LayerbarPanel .overlayDivs{
@@ -45,6 +60,7 @@ Styling of the list elements
  */
 .overlayElem .minimize{
     height: 25px;
+    padding-right: 15px;
 }
 
 .overlayElem .minimize input{
@@ -59,76 +75,89 @@ Styling of the list elements
     position: relative;
     left: 5px;
     float: left;
-    margin-top: 4px;
-    
+    margin-top: 4px;    
+}
+
+.overlayElem .minimize .layer-remove{
+	text-indent: -9999px;
+	display: inline-block;
+	vertical-align: top;
+	width: 20px;
+	height: 20px;
+	float: right;
+	background: transparent url(/vkviewer/static/images/controls.png) no-repeat -200px 0;
+	cursor:pointer;
+}
+
+.overlayElem .minimize .layer-remove:hover{
+	background-position: -200px -20px;
 }
 
 /*
  * Styling of the body of a layer list element
  */
 .overlayElem .maximize .layer-max-container{
-		    margin-left: 10px;
-		    width: 300px;
-		    height: 70px;
-		    border-radius: 6px;
-		    font-size: 12px;
-		    font-family: "Helvectica", "Arial", "sans-serif";
-		    line-height: 100%;
-		    border-width: 1px;
-		    border-style: dotted;
-		    border-color: rgb(0, 159,227);
-		}
+	margin-left: 10px;
+	width: 300px;
+	height: 70px;
+	border-radius: 6px;
+	font-size: 12px;
+	font-family: "Helvectica", "Arial", "sans-serif";
+	line-height: 100%;
+	border-width: 1px;
+	border-style: dotted;
+	border-color: rgb(0, 159,227);
+}
 	  	
-	  	.overlayElem .maximize .layer-max-container .media, .overlayElem .maximize .layer-max-container .media-body{
-	  		overflow: visible;
-	  	}
+.overlayElem .maximize .layer-max-container .media, .overlayElem .maximize .layer-max-container .media-body{
+	overflow: visible;
+}
 	  	
-		.overlayElem .maximize .thumbnail{
-			margin: 8px;
-			padding: 0px;
-		}
+.overlayElem .maximize .thumbnail{
+	margin: 8px;
+	padding: 0px;
+}
 
-		/* Css styles for slider div generic */
-		.overlayElem .maximize .slider-container{
-		    position: relative;
-		    float: left;
-		    width: 150px;
-		    height: 60px;
-		}
+/* Css styles for slider div generic */
+.overlayElem .maximize .slider-container{
+    position: relative;
+    float: left;
+    width: 150px;
+    height: 60px;
+}
 
-		.slider-container .slider-outer{
-			padding: 5px;
-		}
+.slider-container .slider-outer{
+	padding: 5px;
+}
 		
-		.slider-container .slider-inner{
-			margin-left: 7px;
-			margin-top: 3px;
-			width: 100px;
-		}
+.slider-container .slider-inner{
+	margin-left: 7px;
+	margin-top: 3px;
+	width: 100px;
+}
 		
-		.slider-container .tooltip{
-			top: -33px;
-			left: -10px;
-			display: none;
-		}
+.slider-container .tooltip{
+	top: -33px;
+	left: -10px;
+	display: none;
+}
 		
-		.slider-container .label{
-		    font-size: 10px;
-		    color: #333;
-		}
+.slider-container .label{
+    font-size: 10px;
+    color: #333;
+}
 
-		.slider-container .time .tooltip{
-			top: -33px;
-			left: -5px;
-			display: none;
-		}
+.slider-container .time .tooltip{
+	top: -33px;
+	left: -5px;
+	display: none;
+}
 		
-		.slider-container .time .slider-outer{
-			padding: 0px 5px 5px 5px;
-		}
-/*
-	Button for open the LayerSearch
-*/
+.slider-container .time .slider-outer{
+	padding: 0px 5px 5px 5px;
+}
+
+/* Button for open the LayerSearch */
 .vk2LayerbarControl{
 	position: absolute;
 	top: 85px;

@@ -11,14 +11,12 @@ from vkviewer.python.georef.utils import getTimestampAsPGStr
 # renderer imports
 import json
 
-@view_config(route_name='report_error', renderer='string', permission='edit')
-def report_error(request):
+@view_config(route_name='report', renderer='string', permission='edit', match_param='action=error')
+def logMtbError(request):
     try:
-        log.debug('Report error is called')
-        dbsession = request.db
-            
-        # parse parameter
+        log.info('Receive a report error for messtischblatt request.')
         login = checkIsUser(request)
+        dbsession = request.db
         objektid = request.params['id']
         referenz = request.params['reference']
         fehlerbeschreibung = request.params['message']
@@ -26,10 +24,33 @@ def report_error(request):
             # check if valide user
             if Users.by_username(login, dbsession):
                 newFehlermeldung = Fehlermeldung(objektid = objektid, referenz = referenz, nutzerid = login,
-                                                 fehlerbeschreibung = fehlerbeschreibung, timestamp = getTimestampAsPGStr())
+                        fehlerbeschreibung = fehlerbeschreibung, timestamp = getTimestampAsPGStr())
                 dbsession.add(newFehlermeldung)
                 log.debug('Report error is registered in database')
                 return json.dumps({'status':'confirmed'}, ensure_ascii=False, encoding='utf-8')
+    except DBAPIError:
+        log.error('Problems while trying to register report error in database')
+        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+
+@view_config(route_name='report', renderer='string', permission='view', match_param='action=contact')     
+def logContactRequest(request):
+    try:
+        log.info('Receive a contact message request.')
+    
+        # check if there is a userid from a registered user
+        login = checkIsUser(request)
+        if not login and not Users.by_username(login, request.db):
+            login = 'anonym'
+            
+        referenz = request.params['reference']
+        fehlerbeschreibung = request.params['message']
+        email = request.params['email']
+        if login and email and referenz and fehlerbeschreibung:
+            newContactMessage = Fehlermeldung(email = email, referenz = referenz, nutzerid = login,
+                        fehlerbeschreibung = fehlerbeschreibung, timestamp = getTimestampAsPGStr())
+            request.db.add(newContactMessage)
+            log.debug('Contact message is registered in database')  
+            return json.dumps({'status':'confirmed'}, ensure_ascii=False, encoding='utf-8')
     except DBAPIError:
         log.error('Problems while trying to register report error in database')
         return Response(conn_err_msg, content_type='text/plain', status_int=500)

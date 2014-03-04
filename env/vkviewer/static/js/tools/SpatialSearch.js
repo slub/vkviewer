@@ -1,5 +1,6 @@
-goog.provide('VK2.Tools.SpatialSearch')
-goog.require('goog.dom')
+goog.provide('VK2.Tools.SpatialSearch');
+
+goog.require('goog.dom');
 
 /**
  * @param {Element} parentElement Html element to which the spatial search module should be added
@@ -14,27 +15,6 @@ VK2.Tools.SpatialSearch = function(parentElement, map, pubsub){
 	 * @public
 	 */
 	this.NAME = VK2.Utils.get_I18n_String('toolname_layersearch');
-	
-	/**
-	 * @type {Object}
-	 * @private
-	 */
-	this._timeParams = {
-            extent: null,
-            time: null,
-            wms: "http://194.95.145.43/mapcache", //"http://194.95.145.43/cgi-bin/mtbows",
-            wms_layer: "messtischblaetter", //"Historische Messtischblaetter",
-            wfs: "http://194.95.145.43/cgi-bin/mtbows",
-            layer: "Historische Messtischblaetter",
-            featureType: "Historische_Messtischblaetter_WFS",
-            featurePrefix: "ms",
-            featureNS: "http://mapserver.gis.umn.edu/mapserver",
-            geometryName: "boundingbox",
-            serviceVersion: "1.0.0",
-            maxFeatures: 10000,
-            srsName: "EPSG:900913",
-            maxResolution: 305.74811309814453
-	};
 	
 	/**
 	 * @type {Element}
@@ -59,10 +39,9 @@ VK2.Tools.SpatialSearch = function(parentElement, map, pubsub){
 	this._toolElementIds = {
 			slider: 'spatialsearch-tools-slider',
 			label_start: 'spatialsearch-slider-label-start',
-			label_end: 'spatialsearch-slider-label-end',
-			btn: 'spatialsearch-tools-btn-add-layer',
-			input_field: 'spatialsearch-tools-input-layer'
+			label_end: 'spatialsearch-slider-label-end'
 	}
+	
 	/**
 	 * @type {Array.<number>}
 	 * @private
@@ -155,6 +134,10 @@ VK2.Tools.SpatialSearch.prototype._loadHtmlContent = function(){
 	});
 	goog.dom.appendChild(panel, panelTools);
 	
+	// label for time-sldier
+	var labelTimeSlider = goog.dom.createDom('label', {'innerHTML':VK2.Utils.get_I18n_String('change_timeperiod')});
+	goog.dom.appendChild(panelTools, labelTimeSlider);
+	
 	// container
 	var toolsContainer = goog.dom.createDom('div',{
 		'class': 'time-slider-container'
@@ -180,38 +163,30 @@ VK2.Tools.SpatialSearch.prototype._loadHtmlContent = function(){
 	goog.dom.appendChild(toolsContainer, sliderContainer);
 	goog.dom.appendChild(toolsContainer, sliderLabelEnd);
 	goog.dom.appendChild(panelTools, toolsContainer);
-	
-	// choose layer elements
-	var layerChooserContainer = goog.dom.createDom('div',{
-		'class': 'layer-chooser-container'
-	});
-	
-	var layerChooserInput = goog.dom.createDom('input',{
-		'id': this._toolElementIds.input_field,
-		'class': 'layer-chooser-input',
-		'type': 'text'
-	});
-	
-	var layerChooserBtn = goog.dom.createDom('button',{
-		'id': this._toolElementIds.btn,
-		'class': 'layer-chooser-btn',
-		'innerHTML': VK2.Utils.get_I18n_String('displaytimestamp')
-	});
-	
-	goog.dom.appendChild(layerChooserContainer, layerChooserInput);
-	goog.dom.appendChild(layerChooserContainer, layerChooserBtn);
-	goog.dom.appendChild(panelTools, layerChooserContainer);
 
+	// container for minimize messtischblatt view
+	var minimzeMtbView = goog.dom.createDom('div', {
+		'id': 'panel-spatialsearch-mtbview',
+		'class':'panel-spatialsearch-mtbview'
+	});
+	goog.dom.appendChild(panel, minimzeMtbView);
+	
 }
 
 /**
  * @private
  */
 VK2.Tools.SpatialSearch.prototype._loadBehavior = function(){
+		
+	/**
+	 * @type {VK2.Tools.MinimizeMesstischblattView}
+	 * @private
+	 */
+	this._minimizeMtbView = new VK2.Tools.MinimizeMesstischblattView('panel-spatialsearch-mtbview', this._pubSubHandler);
 	
 	// load mapsearch
 	this._mapsearch = new VK2.Tools.MapSearch(this._map, this._maxResolution, this._timestamps, 
-			this._elementIds.headerPanel, this._elementIds.tablePanel);
+			this._elementIds.headerPanel, this._elementIds.tablePanel, this._minimizeMtbView);
 	
 	// load toolbar behavior
 	var sliderContainer = document.getElementById(this._toolElementIds.slider);
@@ -238,22 +213,6 @@ VK2.Tools.SpatialSearch.prototype._loadBehavior = function(){
     // init label of the time slider
     $(label_start).text(timeSlider.slider( "values", 0 ));
     $(label_end).text(timeSlider.slider( "values", 1 ));
-    
-    // adding a publish event for sending the timelayer to the main map
-    var layerChooserBtn = document.getElementById(this._toolElementIds.btn);
-    $(layerChooserBtn).button().click($.proxy(function( event ){
-    	var timeValue = $(document.getElementById(this._toolElementIds.input_field)).val();
-    	
-    	if (this._pubSubHandler != null){
-            if(timeValue.length == 4 && (typeof parseInt(timeValue) === 'number')){
-            	this._timeParams.extent = this._map.getExtent();
-            	this._timeParams.time = timeValue;  
-                this._pubSubHandler.publish("addtimelayer",this._timeParams);
-            } else {
-                alert(VK2.Utils.get_I18n_String('choose_valide_timestamp'));
-            }
-    	}
-    },this));
 }
 
 /**
@@ -269,5 +228,6 @@ VK2.Tools.SpatialSearch.prototype.activate = function(){
  */
 VK2.Tools.SpatialSearch.prototype.deactivate = function(){
 	this._mapsearch.deactivate();
+	this._minimizeMtbView.deactivate();
 	this._isActive = false;
 }

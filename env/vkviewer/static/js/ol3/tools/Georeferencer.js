@@ -41,23 +41,16 @@ VK2.Tools.Georeferencer = function(mapContainerId, objectId, settings){
 	 * @type {Object}
 	 * @private
 	 */
-	//##remote REMOVE before release
+
 	this._urls = {
-		'process_submit':'/vkviewer/proxy/?url=http://kartenforum.slub-dresden.de/vkviewer/georef/confirm',
-		'process_validation':'/vkviewer/proxy/?url=http://kartenforum.slub-dresden.de/vkviewer/georef/validate',
-		'display_validation': '/vkviewer/georeference/validate',
-		'main_page':'/vkviewer/auth?georef=on&points=20',
-		'proxy': '/vkviewer/proxy/?url='
+			'process_submit':'/vkviewer/georef/confirm',
+			'process_validation':'/vkviewer/georef/validate',
+			'display_validation': '/vkviewer/georeference/validate',
+			'main_page':'/vkviewer/auth?georef=on&points=20',
+			'proxy': '/vkviewer/proxy/?url='
 	};
-	//##local
-	// this._urls = {
-			// 'process_submit':'/vkviewer/georef/confirm',
-			// 'process_validation':'/vkviewer/georef/validate',
-			// 'display_validation': '/vkviewer/georeference/validate',
-			// 'main_page':'/vkviewer/auth?georef=on&points=20',
-			// 'proxy': '/vkviewer/proxy/?url='
-	// };
-	if (goog.isDef(settings.urls)) goog.object.extend(this._urls, settings.urls)
+	if (goog.isDef(settings.urls)) goog.object.extend(this._urls, settings.urls);
+
 	/**
 	 * @type {boolean}
 	 * @private
