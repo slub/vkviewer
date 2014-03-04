@@ -27,8 +27,3 @@ env/vkviewer/static/dev
 
 # complete librarys
 env/vkviewer/static/lib/debug
-
-#to avoid confusion with master branch concerning remote parameters
-/env/vkviewer/templates/georeference_start.mako
-/env/vkviewer/templates/georeference_validate.mako
-
