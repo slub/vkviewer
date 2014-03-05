@@ -5,12 +5,14 @@ Created on Mar 3, 2014
 '''
 import json, sys, os, subprocess, logging, argparse
 
+ROOT_PATH = os.path.abspath('.')
+
 """ Name of the file and also of the logger """
 NAME = 'build.py'
 
 """ relative paths to different input files """
 PATHS = {
-    'input_files':'./build/Vkviewer.json'
+    'input_files':'build/Vkviewer.json'
 }
 
 """ Closure commands for computing different files """
@@ -68,7 +70,7 @@ sys.path.insert(0, parentPath)
 sys.path.append(os.path.abspath('.'))
 
 def parseInputFileList(key):
-    json_data = open(PATHS['input_files']).read()
+    json_data = open(os.path.join(ROOT_PATH, PATHS['input_files'])).read()
     data = json.loads(json_data)
     return data[key]
 

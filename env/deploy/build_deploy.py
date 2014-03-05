@@ -61,6 +61,13 @@ DEL_DIR = [
     'vkviewer/static/lib/debug'
 ]
 
+""" script path for building the js files """
+BUILD_SCRIPT_CMD = '../bin/python ../vkviewer/static/js/build.py'
+def buildFiles(logger):
+    """ In progress """
+    logger.info('Building the compiled css and js files ...')
+    subprocess.call(BUILD_SCRIPT_CMD, shell=True)
+    
 def placeCompiledFiles(logger):
     logger.info('Start placing the compiled files ...')
     
@@ -99,12 +106,14 @@ def createDeployVersion(logger):
     """ This function create's a deploying version of the vkviewer directory """
     logger.info('Start creating a vkviewer version for deploying ...')
     
+    # buildFiles(logger)
+        
     # remove old directory and copy actual directory
     if os.path.exists(TARGET_DIR):
         logger.info('Remove old vkviewer deploying directory ...')
         shutil.rmtree(TARGET_DIR)
     shutil.copytree(SRC_DIR, TARGET_DIR)
-    
+
     placeCompiledFiles(logger)
     clearDirectory(logger)
     
