@@ -31,10 +31,21 @@ from python.i18n import custom_locale_negotiator
 #from python.models.meta import DBSession, Base, initialize_sql
 
 # load logger
-log = createLogger('sqlalchemy.engine', logging.DEBUG)
+log = createLogger('vkviewer', logging.DEBUG)
 
+# base path
 here = os.path.dirname(os.path.abspath(__file__))
 
+def loadLogger(debug=True):
+    """ This function initialize the logger for the application.
+        
+        Arguments:
+            debug {Boolean} """
+    if debug:
+        log = createLogger('vkviewer', logging.DEBUG)
+    else:
+        log = logging.getLogger(__name__)
+    
 def addRoutes(config):
     # add routes
     config.add_static_view(routePrefix+'/static', 'vkviewer:static/', cache_max_age=3600)
@@ -89,7 +100,6 @@ def db(request):
     return request.registry.dbmaker()   
     
 def loadDB(config, settings, debug=False):
-    print "Load Database"
     if debug:
         engine = create_engine(dbconfig, encoding='utf8', echo=True)
     else:
@@ -114,49 +124,52 @@ def getAuthenticationPolicy():
 
 def createWsgiApp(global_config, debug=False, **settings):
     
+    # first of all load the loggers
+    loadLogger(debug)
+    
     if debug:
         settings = {}
+        settings['reload_all'] = True
+        settings['debug_all'] = True
     
     # configuration settings
     settings['mako.directories'] = os.path.join(here, 'templates')
     
-    if debug:
-        settings['reload_all'] = True
-        settings['debug_all'] = True
-    
-    
     #  configuration setup
+    log.info('Loading Configurator with ACLAuthenticationPolicy ...')
     authentication_policy = getAuthenticationPolicy()
-    authorization_policy = ACLAuthorizationPolicy()
+    authorization_policy = ACLAuthorizationPolicy()   
     config = Configurator(settings=settings,
                       authentication_policy=authentication_policy,
                       authorization_policy=authorization_policy)
     
     # add requiries
+    log.info('Include pyramid_mako and pyramid_tm ...')
     config.include('pyramid_mako')
     config.include('pyramid_tm')
     
     # configuration of the database
     if debug:
+        log.info('Loading database settings in debug state ...')
         loadDB(config, settings, True)
     else:
+        log.info('Loading database settings in production state ...')
         loadDB(config, settings)
 
-    print "Load database"
     # configuration of internationalization
+    log.info('Load internationalization settings ...')
     setLocalizationOptions(config)
-    print "Load localization"
+    
     # add routes
+    log.info('Initialize routes ...')
     addRoutes(config)
     
-    print ""
-    
     # add views to routes
+    log.info('Add proxy route and looking for views (route endpoints) ...')
     config.add_view(proxy_post, route_name='proxy')
     config.scan('python.views')
     
-    print "Loading done!"    
-    
+    log.info('Vkviewer application is initialize.')
     return config.make_wsgi_app()
 
 
