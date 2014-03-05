@@ -37,5 +37,5 @@ env/vkviewer/static/css/styles.css
 env/deploy/vkviewer
 env/deploy/settings.py
 
-# don't follow logging files 
-env/log/vkviewer*
+# don't stage the log files
+env/log/*
