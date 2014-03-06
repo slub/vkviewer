@@ -512,6 +512,27 @@ div.vk2PartnerPageContainer h3{
 			display: none;
 }
 
+/* Placement and styling of opacity slider */
+.georeferenced-map .opacity-container{
+	position: absolute;
+	bottom: 25px;
+	left: 50%;
+	width: 300px;
+	z-index: 1000;
+	margin-left: -150px;
+	margin-right: 150px;
+}
+
+.georeferenced-map .opacity-container .opacity-slider{
+	width: 100%;
+}
+
+.georeferenced-map .opacity-container .tooltip{
+			top: -33px;
+			left: 100px;
+			display: none;
+}
+
 /* Styling for metadata stuff */
 table.metadata-record-table, table.metadata-record-table table, table.metadata-record-table tbody, table.metadata-record-table fieldset,
 table.metadata-record-table tr, table.metadata-record-table div, table.metadata-record-table legend {

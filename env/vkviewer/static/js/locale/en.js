@@ -69,5 +69,8 @@ var lang_dictionary = {
 		'mmv_label_blattnr': 'Map sheet for number:',
 		
 		// layerbar
-		'layerbar_choosetime': 'Choose timestamp'
+		'layerbar_choosetime': 'Choose timestamp',
+		
+		// alerts for GeoreferencerSearchLayer
+		'clickout' : 'Area already completed or does not contain any maps'
 }
