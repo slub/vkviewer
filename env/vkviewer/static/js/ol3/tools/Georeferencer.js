@@ -42,6 +42,8 @@ VK2.Tools.Georeferencer = function(mapContainerId, objectId, settings){
 	 * @private
 	 */
 
+	
+	
 	this._urls = {
 			'process_submit':'/vkviewer/georef/confirm',
 			'process_validation':'/vkviewer/georef/validate',
@@ -729,4 +731,29 @@ VK2.Tools.Georeferencer.prototype.loadValidationMap = function(map_container_id,
 			'radius': 50
 		})	 
 	)
+	
+	if (opacitySlider && goog.isDef(goog.dom.getElement(opacitySlider))){
+		var opacitySliderEl = goog.dom.getElement(opacitySlider);
+		var Slider = $(opacitySliderEl).slider({
+			min: 0,
+			max: 100,
+			value: 100,
+			animate: 'slow',
+			orientation: 'horizontal',
+			step: 1,
+			// the next three events are managing the tooltip
+			start: function(event, ui){
+				$(this.parentElement).find('.tooltip').fadeIn('fast');
+			},
+			slide: function(event, ui){
+				var tooltip = $(this.parentElement).find('.tooltip');
+				tooltip.find('.tooltip-inner').html('Transparency '+ui.value);
+				validation_layer.setOpacity(ui.value/100);
+			},
+			stop: function(event, ui){
+				$(this.parentElement).find('.tooltip').fadeOut('fast');
+			}
+		});
+}
+	
 };

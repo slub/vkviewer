@@ -69,7 +69,10 @@ var lang_dictionary = {
 		'mmv_label_blattnr': 'Messtischblätter für Blattnummer:',
 		
 		// layerbar
-		'layerbar_choosetime': 'Wähle Zeitschnitt'
+		'layerbar_choosetime': 'Wähle Zeitschnitt',
+		
+		// alerts for GeoreferencerSearchLayer
+		'clickout' : 'Bereich ist bereits vollständig bearbeitet oder enhält keine Karten'
 		
 }
 	

@@ -27,6 +27,9 @@ VK2.Layer.GeoreferencerSearchLayer = VK2.Class({
 			featureunselected: function(e){
 				this._settings.selectLayer.removeFeatures([e.feature]);
 				console.log("Feature unselected!");
+			},
+			clickout: function(e){
+				alert(VK2.Utils.get_I18n_String('clickout'));
 			}
 		}
 	},
