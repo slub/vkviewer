@@ -123,7 +123,6 @@ class GeoreferenceProcess(object):
         
         # run commands as subprocess
         for command in commands:
-            print(command)
             self.logger.info("Running commands: %s"%command)
             runCommand(command)
         return destPath
