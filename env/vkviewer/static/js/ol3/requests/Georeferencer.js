@@ -77,6 +77,7 @@ VK2.Requests.Georeferencer.getExtentForWMS = function(wms_url, success_callback,
  * @param {Function=} error_callback
  */
 VK2.Requests.Georeferencer._sendRequest = function(url,success_callback, error_callback){
+	
 	// create request object
 	var xhr = new goog.net.XhrIo();
 	

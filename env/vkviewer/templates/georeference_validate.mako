@@ -17,7 +17,16 @@
 				</div>
 			</div>
 			<div class="col-sm-6 col-md-6 col-lg-6 outer-map-container">
-				<div id="georeferenced-map" class="georeferenced-map"></div>
+				<div id="georeferenced-map" class="georeferenced-map">
+					<div class="opacity-container">
+						<div class="opacity-slider" id="opacitySlider">
+							<div class="tooltip top in fade">
+								<div class="tooltip-arrow"></div>
+								<div class="tooltip-inner"></div>
+							</div>
+						</div>
+					</div>				
+				</div>
 			</div>	
 		</div>
 		
