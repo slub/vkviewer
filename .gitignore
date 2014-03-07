@@ -36,3 +36,6 @@ env/vkviewer/static/css/styles.css
 # don't follow the deploy version of vkviewer
 env/deploy/vkviewer
 env/deploy/settings.py
+
+# log directory 
+env/log
