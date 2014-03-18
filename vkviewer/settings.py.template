@@ -4,24 +4,50 @@ Created on Nov 1, 2013
 @author: mendt
 '''
 
+""" Generel settings """
+# database connection string for sqlalchemy
 dbconfig = 'postgresql+psycopg2://user:password@host:port/database'
-routePrefix = '/vkviewer'
+
+# server side secret key (salt) for creating cookies
+secret_key = ''
+
+# EPSG code of the geoinformation in the messtischblattdb
 srid_database = 4314
 
-# email adress for automatic sending
+# Prefix for url routing. This is important if the service run's under an apache server parallel to other 
+# applications
+routePrefix = '/vkviewer'
+
+""" Settings for the georeference process """
+# Directory where temporary files should be placed
+tmp_dir = '~/tmp/'
+
+# Template mapfile for displaying validation results
+src_mapfilepath = "~/vkviewer/template-files/dynamic_template.map"
+
+# Destination diretory for the temporary mapfile 
+dest_mapfilefolder = "~/tmp/"
+
+# Option parameters for the temporary created mapfile
+mapfileInitParameter = {
+    "METADATA":
+        {
+            "wms_srs":"epsg:900913 epsg:3857 epsg:4314 epsg:31468 epsg:4326 epsg:25833 epsg:2398",
+            "wms_onlineresource":"http://localhost/cgi-bin/mapserv?",
+            "wms_enable_request":"*",
+            "wms_titel":"Temporary Messtischblatt WMS",
+            "wms_contactorganization":"Saxon State and University Library Dresden (SLUB)",
+            "wms_contactperson":"Max Mustermann", 
+            "wms_contactelectronicmailaddress":"admin@kartenforum.slub-dresden.de",
+            "wms_abstract":"This WMS provides the original Messtischblaetter without an spatial coordinate system."
+        }
+}
+
+# Layer id where georeference messtischblatt are registered
+layer_id = 87
+
+""" Settings for the email client, for automatically sending emails """
 admin_addr = 'domain@domain'
 mail_server = 'gate.domain'
 sendmail_location = '/path/to/sendmail'
 
-# global parameter georeference process
-tmp_dir = '~/tmp/georef'
-src_mapfilepath = "~/tmp/georef/templates/dynamic_template.map"
-dest_mapfilefolder = "~/tmp/georef/tmp"
-mapfileInitParameter = {"METADATA":{
-        "wms_srs":"epsg:900913 epsg:3857 epsg:4314 epsg:31468 epsg:4326 epsg:25833 epsg:2398",
-        "wms_onlineresource":"http://localhost/cgi-bin/mapserv?",
-        "wms_enable_request":"*","wms_titel":"Temporary Messtischblatt WMS",
-        "wms_contactorganization":"Saxon State and University Library Dresden (SLUB)",
-        "wms_contactperson":"Jacob Mendt", "wms_contactelectronicmailaddress":"Jacob.Mendt@slub-dresden.de",
-        "wms_abstract":"This WMS provides the original Messtischblaetter without an spatial coordinate system."}}
-layer_id = 87

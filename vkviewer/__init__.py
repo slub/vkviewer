@@ -22,7 +22,7 @@ from zope.sqlalchemy import ZopeTransactionExtension
 
 
 # import of own python classes
-from settings import dbconfig, routePrefix
+from settings import dbconfig, routePrefix, secret_key
 from python.utils.logger import createLogger
 from python.security import EntryFactory
 from python.proxy import proxy_post
@@ -119,7 +119,7 @@ def setLocalizationOptions(config):
     config.set_locale_negotiator(custom_locale_negotiator)
 
 def getAuthenticationPolicy():
-    authPolicy = AuthTktAuthenticationPolicy('somesecret')
+    authPolicy = AuthTktAuthenticationPolicy(secret_key)
     return authPolicy
 
 def createWsgiApp(global_config, debug=False, **settings):
