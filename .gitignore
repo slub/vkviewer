@@ -3,39 +3,39 @@
 .pydevproject
 
 # pyramid stuff which is not necessary
-env/production.ini
-env/development.ini
-env/pyramid.wsgi
-env/build
-env/dist
-env/vkviewer.egg-info
-env/local
-env/bin
-env/lib
-env/include
+production.ini
+development.ini
+pyramid.wsgi
+build
+dist
+vkviewer.egg-info
+local
+bin
+lib
+include
+doc-pak
 
 # files which are holding sensible information
-env/vkviewer/settings.py
-env/vkviewer/settings.pyc
+vkviewer/settings.py
+vkviewer/settings.pyc
 
 # test files
-env/vkviewer/static/test
-env/vkviewer/static/dev
+vkviewer/static/test
 
 # all files with ending 
 *.pyc
 
 # complete librarys
-env/vkviewer/static/lib/debug
+vkviewer/static/lib/debug
 
 # Don't log Vkviewer/Vkviewer-ol3.js
-env/vkviewer/static/js/Vkviewer.js
-env/vkviewer/static/js/Vkviewer-ol3.js
-env/vkviewer/static/css/styles.css
+vkviewer/static/js/Vkviewer.js
+vkviewer/static/js/Vkviewer-ol3.js
+vkviewer/static/css/styles.css
 
 # don't follow the deploy version of vkviewer
-env/deploy/vkviewer
-env/deploy/settings.py
+deploy/vkviewer
+deploy/settings.py
 
 # log directory 
-env/log
+log
