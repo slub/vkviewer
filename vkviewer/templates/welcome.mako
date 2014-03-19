@@ -18,9 +18,12 @@
 				
 				<div class="rightContainer">
 					<div class="inner">
-						<span class="slubcolor heading"><b>Willkommen im neuen virtuellen Kartenforum.</b></span><br>
+						<span class="slubcolor heading"><b>Willkommen im neuen Portal<br>des virtuellen Kartenforum 2.0.</b></span><br>
 						<p>
-							Hier ein Introtext der kurz erklärt was es hier zu gewinnen gibt und was wir besser können als alle Anderen.
+							Das Portal des virtuellen Kartenforums 2.0. wird im Rahmen des gleichnamigen DFG Projektes entwickelt. 
+							Aktuell befindet es sich in der Beta-Phase. Es soll einen Zugriff auf georeferenzierte sowie Werkzeuge 
+							zur Georeferenzierung von Messtischblättern bieten. Sie sind herzlich eingeladen an der Georeferenzierung
+							von Messtischblättern mit zuarbeiten.
 						</p>
 					</div>
 				</div>
@@ -74,7 +77,7 @@
 				<div class="SkipPageContainer">
 					<div class="inner">
 						<input type="checkbox" id="deactivateWelcomePage" name="deactivateWelcomePage"> 
-		    			<span>Diese Begrüßung zukünftig nicht mehr anzeigen.</span>	    			
+		    			<label for="deactivateWelcomePage">Diese Begrüßung zukünftig nicht mehr anzeigen.</label>	    			
 		    		</div>
 				</div>
 			</div>

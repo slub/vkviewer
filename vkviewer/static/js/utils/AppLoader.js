@@ -176,7 +176,8 @@ VK2.Utils.AppLoader.prototype._loadEventBehavior = function(){
 	if (goog.dom.getElement("vk2WelcomePage")){
 		$("#vk2WelcomePage").fancybox({
 			'type': 'iframe',
-			'padding' : 0
+			'padding' : 0,
+			'wrapCSS': 'welcomeBox'
 		}).click();
 	}
 };

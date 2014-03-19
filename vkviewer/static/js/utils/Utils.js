@@ -17,6 +17,7 @@ VK2.Utils.initializeFancyboxForClass = function(className){
 		$(this).fancybox({
 			'type': 'iframe',
 			'autoSize': false,
+			'wrapCSS': 'vk2-fancybox-wrapper',
 			'beforeShow': function(){
 				var childBody = $('.fancybox-iframe').contents()[0].body;
 				var childElements = goog.dom.getChildren(childBody);
