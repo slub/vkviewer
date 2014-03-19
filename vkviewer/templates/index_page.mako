@@ -6,7 +6,7 @@
 
 <%block name="body_content">
 	<div class="main-page body-container">
-		<div class="navbar navbar-inverse navbar-fixed-top vk2HeaderNavBar" role="navigation">
+		<div class="navbar navbar-fixed-top vk2HeaderNavBar" role="navigation">
 		
 			<!-- Brand and toggle get grouped for better mobile display -->
 	        <div class="navbar-header">
@@ -17,28 +17,21 @@
 		            <span class="icon-bar"></span>
 	          	</button>
 	          	<a class="navbar-brand" href="#">Virtuelles Kartenforum 2.0</a>
+	          	
+	          	<!-- language switcher -->
+	          	<ul class="langswitch">
+	          		<li><a href="${request.route_url('set_locales')}?language=de"><span class="language_switcher switch_de"></span>${_('header_language_de')}</a></li>
+			        <li><a href="${request.route_url('set_locales')}?language=en"><span class="language_switcher switch_en"></span>${_('header_language_en')}</a></li>  
+	          	</ul>
 	        </div>        
 	        
 	        <!-- Collect the nav links, forms, and other content for toggling -->
         	<div class="collapse navbar-collapse navbar-ex1-collapse">
-          		<div class="navbar-inner">
-          		
-	          		<ul class="nav navbar-nav navbar-left vk2Gazetteer">
-	          			<div id="vk2GazetteerSearchDiv" class="vk2GazetteerSearchDiv">
-							<input id="vk2GazetteerSearchInput" class="vk2GazetteerSearchInput" 
-								placeholder="${_('placeholder_town_name')}" />
-							<!-- <button type="submit" class="btn btn-success gazetteer-submit-button">Search</button> -->
-			            </div>
-			            
-	          		</ul>
-          		
-	          		<ul class="nav navbar-nav navbar-right vk2-navbar-user">
-	          
-			          	<! further options -->
-			          	<li class="drowdown">
-			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"></span> ${_('header_service')} <b class="caret"></b></a>
-			              	<ul class="dropdown-menu">
-			              
+        		<ul class="nav navbar-nav navbar-right vk2-navbar-user">
+        			<li class="dropdown info-dropdown">
+	                	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="${_('header_service')}">${_('header_service')} <b class="caret"></b></a>
+		                <ul class="dropdown-menu">
+		                
 				              	% if faq_url:
 				         			<li><a href="${faq_url}" class="vk2FooterLinks fancybox-open">FAQ</a></li>        				
 				        		% else:
@@ -47,22 +40,13 @@
 			        		
 				              	<li><a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open">${_('footer_contact')}</a></li>
 				              	<li><a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open">${_('footer_project')}</a></li>
-				              	<li><a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open">${_('footer_editorial')}</a><li>             
-			              	</ul>                 		
-			          	</li>
-		          
-			          	<!-- language chooser -->
-			          	<li class="dropdown">
-			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"></span> ${_('header_language')} <b class="caret"></b></a>
-			              	<ul class="dropdown-menu">
-			                	<li><a href="${request.route_url('set_locales')}?language=de"><span class="language_switcher switch_de"></span>${_('header_language_de')}</a></li>
-			                	<li><a href="${request.route_url('set_locales')}?language=en"><span class="language_switcher switch_en"></span>${_('header_language_en')}</a></li>              
-			              	</ul>          		
-			          	</li>
-		          	
-		          	
-			          	<!-- user menu -->
-			            <li class="dropdown user-dropdown">
+				              	<li><a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open">${_('footer_editorial')}</a><li>     
+				              	     
+		                </ul>
+	             	</li>
+          		
+          			<!-- user menu -->
+			        <li class="dropdown user-dropdown">
 			            
 				           	<%
 							from pyramid.security import authenticated_userid
@@ -71,7 +55,7 @@
 										
 							% if user_id:
 						
-			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> ${user_id} <b class="caret"></b></a>
+			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"></span> ${user_id} <b class="caret"></b></a>
 			              	<ul class="dropdown-menu">
 				                <li><a href="${request.route_url('users_profile_georef')}" class="fancybox-open">${_('georef_history')}</a></li>
 				                <li><a href="${request.route_url('change_pw', action='page')}" class="fancybox-open">${_('change_pw_header')}</a></li>
@@ -80,10 +64,16 @@
 				              </ul>
 			              
 				            % else:
-				              <a href="${request.route_url('auth',action='getscreen')}" id="vk2UserToolsLogin" class="vk2UserToolsLogin fancybox-open" > ${_('login_button')} </a>
+				              <a href="${request.route_url('auth',action='getscreen')}" id="vk2UserToolsLogin" class="vk2UserToolsLogin fancybox-open" > ${_('login_button')} <b class="caret"></b> </a>
 				         	% endif
-			            </li>
-	          		</ul>
+			        </li>
+			    </ul>
+	          	<form class="navbar-form vk2Gazetteer" role="search">
+	          		<div class="form-group">
+							<input type="text" id="vk2GazetteerSearchInput" class="form-control vk2GazetteerSearchInput" placeholder="${_('placeholder_town_name')}" />
+			        </div>
+			        <button type="submit" class="btn btn-success gazetteer-submit-button">Search</button>  
+			    </form>
 	          	</div>
           	</div>
         </div><!-- /.navbar-collapse -->

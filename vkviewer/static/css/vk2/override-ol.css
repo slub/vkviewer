@@ -1,5 +1,5 @@
 .olControlAttribution{
-	bottom: 0px !important;
+	bottom: 25px !important;
 	left: 3px !important;
 }
 
@@ -13,9 +13,18 @@
     top: 80px !important;
 }
 
-.olControlZoom{
-	/* top: 16% !important; */
-	top: 40px !important;
+div.olControlZoom { 
+	top: 115px !important; 
+	background: rgba(255,255,255,0.6) !important;
+}
+
+div.olControlZoom a { 
+	background: rgb(0,177,158) !important; 
+	border-radius: 21px; 
+	margin: 5px 3px !important; 
+	font-weight: 100 !important; 
+	border: 1px solid #fff !important; 
+	line-height: 18px !important;
 }
 
 .olImageLoadError { 

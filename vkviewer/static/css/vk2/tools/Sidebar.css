@@ -2,6 +2,110 @@
 	Generic stuff 
 */
 
+.vk2SBPanel { 
+	position: absolute; 
+	top: 90px; 
+	right: -420px; 
+	bottom: 30px; 
+	width: 420px; 
+	z-index: 1000; 
+	display: block; 
+	background: #fff; 
+	background: rgba(255,255,255,0.9); 
+	border: 1px solid rgba(0,0,0,0.3); 
+}
+
+.vk2SBPanel.open:after { 
+	position: absolute; 
+	top: 0; 
+	left: -1px; 
+	width: 1px; 
+	height: 100%; 
+	background: rgba(51,68,68,0.9); 
+	content: "";  
+}
+
+.vk2SBControlBtn { 
+	position: absolute; 
+	left: -46px; 
+	outline: none; 
+	background-color: rgba(0,177,158,0.9); 
+	cursor: pointer; 
+	border-radius: 0; 
+	border: 1px solid rgba(0,0,0,0.4); 
+	border-width: 0 0 1px 0; 
+}
+
+.vk2SBControlBtn:after { 
+	position: absolute; 
+	left: -5px; 
+	top: 15px; 
+	height: 0; 
+	width: 0; 
+	border: 5px solid #00b19e; 
+	border-width: 5px 5px 5px 0; 
+	border-color: transparent #00b19e transparent transparent; 
+	content: ""; 
+}
+
+.vk2SBControlBtn.open:after { border-right-color: rgba(51,68,68,0.9); }
+.vk2LayersearchControl { top: 25px; }
+.vk2LayerbarControl { top: 80px; }
+.vk2GeorefControl { top: 150px; }
+.vk2SBControlBtn.open { background: rgba(51,68,68,0.9); }
+
+.vk2SidebarIcon { 
+	text-indent: 100%; 
+	display: inline-block;
+	overflow: hidden; 
+	vertical-align: top; 
+	width: 40px; 
+	height: 40px; 
+	background: url('/vkviewer/static/images/sidebarIcons.png') no-repeat 0 0; 
+	margin: 3px; 
+}
+
+.vk2LayersearchControl .vk2SidebarIcon { background-position: 0 0 }
+.vk2LayerbarControl .vk2SidebarIcon { background-position: -40px 0 } 
+.vk2GeorefControl .vk2SidebarIcon { background-position: -120px 0 } 
+.vk2LayersearchControl:hover .vk2SidebarIcon { background-position: 0 -40px }
+.vk2LayerbarControl:hover .vk2SidebarIcon { background-position: -40px -40px } 
+.vk2GeorefControl:hover .vk2SidebarIcon { background-position: -120px -40px } 
+
+/* Header */
+.vk2SBHeaderPanel { 
+	position: relative; 
+	padding: 8px; 
+	height: 40px; 
+	border: 2px solid #ada79e 
+}
+
+.vk2SBHeaderPanel .vk2SBHeaderLabel { 
+	width: 200px; 
+	margin-top: 3px; 
+	float: left 
+}
+
+.vk2SBHeaderPanel .vk2SBClose { 
+	float:right;
+	margin-top: 2px;
+	cursor: pointer;
+	background-position: -200px 0;
+	margin: 0px;
+	text-indent: -9999px;
+	display: inline-block;
+	vertical-align: top;
+	width: 20px;
+	height: 20px;
+	background: transparent url(/vkviewer/static/images/controls.png) no-repeat 0 0;
+	background-position: -200px 0px;
+}
+.vk2SBHeaderPanel .vk2SBClose:hover { background-position: -200px -20px }
+
+.panel-heading .content { display: block }
+
+.vk2LayersearchPanel { width: 100%; margin-right: 20px }
+
 .vk2SBContentPanel{
 	display: none;
 	padding: 10px;
@@ -19,33 +123,6 @@
 	padding-bottom: 75px;
 }
 
-/* 
-	Header 
-*/
-.vk2SBHeaderPanel{
-	position: relative;
-	padding: 8px;
-	height: 40px;
-	border: 2px solid #ADA79E;
-}
-
-.vk2SBHeaderPanel .vk2SBHeaderLabel{
-	width: 200px;
-	margin-top: 3px;
-	float: left;
-}
-
-.vk2SBHeaderPanel .vk2SBClose{
-	float:right;
-	margin-top: 2px;
-	cursor: pointer;
-	background-position: -200px 0;
-	margin: 0px;
-}
-
-.vk2SBHeaderPanel .vk2SBClose:hover{
-	background-position: -200px -20px;
-}
 /*
 	Body
 */
@@ -57,19 +134,3 @@
 	display: none;
 }
 
-/*
-	Control buttons
-*/
-.vk2SidebarIcon{
-	text-indent: -9999px;
-	display: inline-block;
-	vertical-align: top;
-	width: 20px;
-	height: 20px;
-	background: transparent url(/vkviewer/static/images/controls.png) no-repeat 0 0;
-	margin: 10px;	
-}
-
-.vk2SBControlBtn.open{
-	background-color: #9ed485;
-}

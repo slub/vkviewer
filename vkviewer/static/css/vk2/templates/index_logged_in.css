@@ -16,18 +16,3 @@
 	left: 100px;
 	display: none;
 }
-
-/* styling and position of the activate georefernce control element */
-.vk2GeorefControl.vk2SBControlBtn{
-	position: absolute;
-	top: 160px;
-	left: -40px;
-	outline: none;
-	background-color: rgba(0,0,0,0.5);
-	cursor: default;
-	border-radius: 0;
-}
-
-.vk2GeorefControl.vk2SBControlBtn .vk2SidebarIcon{
-	background-position: -120px 0;
-}
