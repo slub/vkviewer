@@ -208,5 +208,28 @@
 	padding-top: 0px;
 }	
 
+.navbar-collapse.in .vk2-navbar-user{
+	width: 100%;
+	padding: 20px 0 0 20px;
+	height: auto;	
+}
 
+.navbar-collapse.in .vk2-navbar-user>li.info-dropdown>ul{
+	position: static;
+	float: none;
+	width: auto;
+	margin-top: 0;
+	background-color: transparent;
+	border: 0;
+	box-shadow: none;
+}
 
+.navbar-collapse.in .vk2-navbar-user>li.user-dropdown>ul{
+	position: static;
+	float: none;
+	width: auto;
+	margin-top: 0;
+	background-color: transparent;
+	border: 0;
+	box-shadow: none;
+}
