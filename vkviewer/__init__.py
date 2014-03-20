@@ -23,11 +23,11 @@ from zope.sqlalchemy import ZopeTransactionExtension
 
 # import of own python classes
 from settings import dbconfig, routePrefix, secret_key
-from python.utils.logger import createLogger
-from python.security import EntryFactory
-from python.proxy import proxy_post
-from python.models.Meta import initialize_sql, Base
-from python.i18n import custom_locale_negotiator
+from vkviewer.python.utils.logger import createLogger
+from vkviewer.python.security import EntryFactory, groupfinder
+from vkviewer.python.proxy import proxy_post
+from vkviewer.python.models.Meta import initialize_sql, Base
+from vkviewer.python.i18n import custom_locale_negotiator
 #from python.models.meta import DBSession, Base, initialize_sql
 
 # load logger
@@ -94,7 +94,7 @@ def addRoutes(config):
     config.add_route('error_page', routePrefix+'/error', factory='python.security.EntryFactory')
     
     # test pages
-    config.add_route('development_page', routePrefix+'/development', factory='python.security.EntryFactory')
+    config.add_route('development_page', routePrefix+'/development')
 
 def db(request):
     return request.registry.dbmaker()   
@@ -119,7 +119,7 @@ def setLocalizationOptions(config):
     config.set_locale_negotiator(custom_locale_negotiator)
 
 def getAuthenticationPolicy():
-    authPolicy = AuthTktAuthenticationPolicy(secret_key)
+    authPolicy = AuthTktAuthenticationPolicy(secret_key, callback=groupfinder)
     return authPolicy
 
 def createWsgiApp(global_config, debug=False, **settings):
@@ -139,9 +139,8 @@ def createWsgiApp(global_config, debug=False, **settings):
     log.info('Loading Configurator with ACLAuthenticationPolicy ...')
     authentication_policy = getAuthenticationPolicy()
     authorization_policy = ACLAuthorizationPolicy()   
-    config = Configurator(settings=settings,
-                      authentication_policy=authentication_policy,
-                      authorization_policy=authorization_policy)
+    config = Configurator(settings=settings, authentication_policy=authentication_policy,
+        authorization_policy=authorization_policy, root_factory=EntryFactory)
     
     # add requiries
     log.info('Include pyramid_mako and pyramid_tm ...')
