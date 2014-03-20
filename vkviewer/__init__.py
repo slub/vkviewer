@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os, sys, logging
 
 # set path for finding correct project scripts and modules
@@ -50,48 +51,48 @@ def addRoutes(config):
     # add routes
     config.add_static_view(routePrefix+'/static', 'vkviewer:static/', cache_max_age=3600)
     config.add_route('proxy', routePrefix+'/proxy/')
-    config.add_route('home', routePrefix + '/', factory='python.security.EntryFactory')
-    config.add_route('home1', routePrefix, factory='python.security.EntryFactory')
-    config.add_route('home_login', routePrefix+'/auth', factory='python.security.EntryFactory')
-    config.add_route('set_locales', routePrefix+'/locales', factory='python.security.EntryFactory')
+    config.add_route('home', routePrefix + '/')
+    config.add_route('home1', routePrefix)
+    config.add_route('home_login', routePrefix+'/auth')
+    config.add_route('set_locales', routePrefix+'/locales')
     
     # route for authentification
-    config.add_route('auth', routePrefix+'/sign/{action}', factory='python.security.EntryFactory')
+    config.add_route('auth', routePrefix+'/sign/{action}')
     
     # for feedback to events on the main page
-    config.add_route('gettimestamps',routePrefix+'/gettimestamps', factory='python.security.EntryFactory')
+    config.add_route('gettimestamps',routePrefix+'/gettimestamps')
 
     # routes for the georeference process
-    config.add_route('choose_map_georef',routePrefix+'/choosegeoref', factory='python.security.EntryFactory')
-    config.add_route('georeferencer', routePrefix+'/georef/{action}', factory='python.security.EntryFactory')
-    config.add_route('georeference_start', routePrefix+'/georeference/start', factory='python.security.EntryFactory')
-    config.add_route('georeference_validate', routePrefix+'/georeference/validate', factory='python.security.EntryFactory')
-    config.add_route('report', routePrefix+'/report/{action}', factory='python.security.EntryFactory')
+    config.add_route('choose_map_georef',routePrefix+'/choosegeoref')
+    config.add_route('georeferencer', routePrefix+'/georef/{action}')
+    config.add_route('georeference_start', routePrefix+'/georeference/start')
+    config.add_route('georeference_validate', routePrefix+'/georeference/validate')
+    config.add_route('report', routePrefix+'/report/{action}')
     
     # footer routes
-    config.add_route('contact', routePrefix+'/contact', factory='python.security.EntryFactory')
-    config.add_route('project', routePrefix+'/project', factory='python.security.EntryFactory')
-    config.add_route('impressum', routePrefix+'/impressum', factory='python.security.EntryFactory')
-    config.add_route('faq', routePrefix+'/faq', factory='python.security.EntryFactory')
-    config.add_route('faq_loggedIn', routePrefix+'/faq/loggedin', factory='python.security.EntryFactory')
+    config.add_route('contact', routePrefix+'/contact')
+    config.add_route('project', routePrefix+'/project')
+    config.add_route('impressum', routePrefix+'/impressum')
+    config.add_route('faq', routePrefix+'/faq')
+    config.add_route('faq_loggedIn', routePrefix+'/faq/loggedin')
     
     # further faqs
-    config.add_route('faq_georef_start', routePrefix+'/faq/georef/start', factory='python.security.EntryFactory')
-    config.add_route('faq_georef_validate', routePrefix+'/faq/georef/validate', factory='python.security.EntryFactory')
+    config.add_route('faq_georef_start', routePrefix+'/faq/georef/start')
+    config.add_route('faq_georef_validate', routePrefix+'/faq/georef/validate')
     
     # welcome page
-    config.add_route('welcome', routePrefix+'/welcome', factory='python.security.EntryFactory')
-    config.add_route('set_visitor_cookie', routePrefix+'/welcomeoff', factory='python.security.EntryFactory')
+    config.add_route('welcome', routePrefix+'/welcome')
+    config.add_route('set_visitor_cookie', routePrefix+'/welcomeoff')
 
     # change & reset pw
-    config.add_route('change_pw', routePrefix+'/change/pw/{action}', factory='python.security.EntryFactory')
+    config.add_route('change_pw', routePrefix+'/change/pw/{action}')
     
     # profile pages
-    config.add_route('users_profile_georef', routePrefix+'/profile/georef', factory='python.security.EntryFactory')
-    config.add_route('mtb_profile', routePrefix+'/profile/mtb', factory='python.security.EntryFactory')
+    config.add_route('users_profile_georef', routePrefix+'/profile/georef')
+    config.add_route('mtb_profile', routePrefix+'/profile/mtb')
     
     # error pages
-    config.add_route('error_page', routePrefix+'/error', factory='python.security.EntryFactory')
+    config.add_route('error_page', routePrefix+'/error')
     
     # test pages
     config.add_route('development_page', routePrefix+'/development')

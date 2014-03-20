@@ -66,6 +66,7 @@
 				            % else:
 				              <a href="${request.route_url('auth',action='getscreen')}" id="vk2UserToolsLogin" class="vk2UserToolsLogin fancybox-open" > ${_('login_button')} <b class="caret"></b> </a>
 				         	% endif
+				         	
 			        </li>
 			    </ul>
 	          	<form class="navbar-form vk2Gazetteer" role="search">

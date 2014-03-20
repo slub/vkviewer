@@ -44,7 +44,10 @@ mapfileInitParameter = {
 }
 
 # Layer id where georeference messtischblatt are registered
-layer_id = 87
+# @DeprecationWarning
+layer_id = 87 
+# New one
+MTB_LAYER_ID = 87
 
 """ Settings for the email client, for automatically sending emails """
 admin_addr = 'domain@domain'

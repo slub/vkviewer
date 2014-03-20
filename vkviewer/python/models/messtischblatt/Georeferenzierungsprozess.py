@@ -20,3 +20,7 @@ class Georeferenzierungsprozess(Base):
     @classmethod 
     def by_idAndTimestamps(cls, id, timestamp, session):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.id == id, Georeferenzierungsprozess.timestamp == timestamp).first()
+
+    @classmethod
+    def by_messtischblattid(cls, id, session):
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.messtischblattid == id).first()

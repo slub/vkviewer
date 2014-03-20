@@ -38,9 +38,23 @@
 }
 
 .map-container .opacity-container .tooltip{
-			top: -33px;
-			left: 100px;
-			display: none;
+	top: -33px;
+	left: 100px;
+	display: none;
+}
+
+.reset-georef-map{
+	z-index: 100;
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	cursor: default;
+	border-radius: 0;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 60px;
+	right: 15px;
+	cursor: pointer;
 }
 
 /* Styling for metadata stuff */
@@ -138,3 +152,4 @@ fieldset.content > legend > a{
 .metadata-record-table-content tbody > tr {
 	padding: 5px;
 }
+

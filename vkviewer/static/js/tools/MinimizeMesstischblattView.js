@@ -180,7 +180,7 @@ VK2.Tools.MinimizeMesstischblattView.prototype._addShowTimestampBehavior = funct
 VK2.Tools.MinimizeMesstischblattView.prototype._addShowSingleMapBehavior = function(parentElement, feature){
 	
 	var extent = feature.geometry.bounds.left + ',' + feature.geometry.bounds.bottom + ',' + feature.geometry.bounds.right + ',' + feature.geometry.bounds.top;
-	var href = '/vkviewer/profile/mtb?key='+feature.data.dateiname+'&extent='+extent+'&time='+feature.data.time;
+	var href = '/vkviewer/profile/mtb?key='+feature.data.dateiname+'&extent='+extent+'&time='+feature.data.time+'&id='+feature.data.mtbid;
 	parentElement.href = href;
 	
 	// append fancybox behavior
