@@ -9,10 +9,11 @@ import json
 from vkviewer import log
 from vkviewer.settings import tmp_dir, src_mapfilepath, dest_mapfilefolder, mapfileInitParameter
 from vkviewer.python.views.georeference.AbstractGeoreference import AbstractGeoreference
-from vkviewer.python.georef.georeferenceprocess import createGeoreferenceProcess
+from vkviewer.python.georef.georeferenceprocess import GeoreferenceProcessManager
 from vkviewer.python.georef.utils import getUniqueId
 from vkviewer.python.georef.mapfile import createMapfile
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
+from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 
 """ View for handling the georeference process in case of a validation action.
     A validation actions means that the view computes dynamically a georeference 
@@ -41,14 +42,24 @@ class GeoreferenceValidate(AbstractGeoreference):
             # initialize georef process
             dbsession = self.request.db
             
-            georeferenceProcess = createGeoreferenceProcess(self.mtbid, dbsession, tmp_dir, log)
+            messtischblatt = Messtischblatt.by_id(self.mtbid, dbsession)
+            # georeferenceProcess = createGeoreferenceProcess(self.mtbid, dbsession, tmp_dir, log)
+            
             # create validation result and get destination path and georeference id
-            validationResultPath = os.path.join(dest_mapfilefolder,georeferenceProcess.messtischblatt.dateiname+"::"+str(getUniqueId())+".tif")
-            georefId, destPath = georeferenceProcess.fastGeoreference(self.userid,self.points,validationResultPath)
+            validationResultPath = os.path.join(dest_mapfilefolder,messtischblatt.dateiname+"::"+str(getUniqueId())+".tif")
+            
+            # new stuff
+            georef_process_manager = GeoreferenceProcessManager(dbsession, tmp_dir, log)
+            georefProcess = georef_process_manager.registerGeoreferenceProcess(messtischblattid=self.mtbid, userid=self.userid, 
+                clipParams=self.points, isvalide=False, typeValidation='waiting', refzoomify=True)
+
+            destPath = georef_process_manager.__runFastGeoreferencing__(georefProcess, messtischblatt, tmp_dir, validationResultPath)
+            
+            #georefId, destPath = georeferenceProcess.fastGeoreference(self.userid,self.points,validationResultPath)
             # create mapfile for georeference result
-            wms_url = createMapfile(georeferenceProcess.messtischblatt.dateiname, destPath, 
+            wms_url = createMapfile(messtischblatt.dateiname, destPath, 
                                     src_mapfilepath, dest_mapfilefolder, mapfileInitParameter)  
-            response = {'wms_url':wms_url,'layer_id':georeferenceProcess.messtischblatt.dateiname,'georefid':georefId}
+            response = {'wms_url':wms_url,'layer_id':messtischblatt.dateiname,'georefid':georefProcess.id}
             return json.dumps(response, ensure_ascii=False, encoding='utf-8') 
         except GeoreferenceParameterError as e:
             message = 'Wrong or missing service parameter - %s'%e.value

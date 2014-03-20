@@ -30,7 +30,8 @@ class Messtischblatt(Base):
     zoomify_properties = Column(String(255))
     zoomify_width = Column(Integer)
     zoomify_height = Column(Integer)
-    boundingbox = Column(Geometry)   
+    boundingbox = Column(Geometry)  
+    original_path = Column(String(255)) 
 
     
     @classmethod

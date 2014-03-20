@@ -122,3 +122,17 @@ def georeferenceTiff(shapefilePath, srid, srcPath, destPath, type=None):
         command = "gdalwarp --config GDAL_CACHEMAX 500 -wm 500 -overwrite -co TILED=YES -cutline %s \
              -crop_to_cutline -t_srs epsg:%s %s %s"%(shapefilePath,srid,srcPath,destPath)
         return command
+
+""" function: georeferenceTiff_fast
+
+    @param - shapefilePath {String}
+    @param - srid {Integer} - epsg code of coordiante system
+    @param - srcPath {String}
+    @param - destPath {String}
+    @return - command {String}
+    
+    Georeferencing via gdalwarp """
+def georeferenceTiff_fast(shapefilePath, srid, srcPath, destPath):
+    command = "gdalwarp --config GDAL_CACHEMAX 500 -wm 500 -overwrite -co TILED=YES -cutline %s \
+             -crop_to_cutline -t_srs epsg:%s %s %s"%(shapefilePath,srid,srcPath,destPath)
+    return command

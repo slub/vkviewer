@@ -72,7 +72,7 @@
 			var mtbid = url.getQueryData().get('mtbid');
 			var imgWidth = url.getQueryData().get('zoomify_width');
 			var imgHeight = url.getQueryData().get('zoomify_height');
-			var zoomify_url = url.getQueryData().get('zoomify_prop').substring(0,url.getQueryData().get('zoomify_prop').lastIndexOf("/")+1);
+			var zoomify_url = url.getQueryData().get('zoomify_prop').substring(0,url.getQueryData().get('zoomify_prop').lastIndexOf("/")+1);			
 			var georeferencer = new VK2.Tools.Georeferencer('georeferenceMap', mtbid, {
 				'width': imgWidth,
 				'height': imgHeight,

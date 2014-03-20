@@ -115,6 +115,7 @@
 }
 
 .vk2-navbar-user .dropdown:hover .dropdown-menu { display: block; }
+.vk2-navbar-user .dropdown .dropdown-menu {margin-top: 5px;}
 
 /* Language switcher */
 .langswitch { 

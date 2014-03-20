@@ -9,7 +9,7 @@ import json
 from vkviewer import log
 from vkviewer.settings import tmp_dir
 from vkviewer.python.views.georeference.AbstractGeoreference import AbstractGeoreference
-from vkviewer.python.georef.georeferenceprocess import createGeoreferenceProcess
+from vkviewer.python.georef.georeferenceprocess import GeoreferenceProcessManager
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 
 """ View for handling the georeference process in case of a confirmation action.
@@ -37,14 +37,18 @@ class GeoreferenceConfirm(AbstractGeoreference):
          
             # initialize georef process
             dbsession = self.request.db
-            georeferenceProcess = createGeoreferenceProcess(self.mtbid, dbsession, tmp_dir, log)
+            
+            log.debug('Initialize GeoreferenceProcessManager ...')
+            georef_process_manager = GeoreferenceProcessManager(dbsession, tmp_dir, log)
              
             if hasattr(self, 'georefid'):
+                log.debug('Confirm existing georeference process ...')
                 self.__validateQueryParameterWithGeorefId__()
-                return self.__confirmExistingGeorefProcess__(self.georefid, georeferenceProcess)
+                return self.__confirmExistingGeorefProcess__(self.georefid, georef_process_manager)
             elif not hasattr(self, 'georefid'):
+                log.debug('Confirm new georeference process ...')
                 self.__validateQueryParameterWithoutGeorefId__()
-                return self.__registerNewConfirmedGeorefProcess__(georeferenceProcess)
+                return self.__registerNewConfirmedGeorefProcess__(georef_process_manager)
             else: 
                 # error handling
                 log.error("Error while processing georeference confirmation request!")
@@ -56,14 +60,14 @@ class GeoreferenceConfirm(AbstractGeoreference):
             log.error('Problems while computing validation result - %s'%e)
             return HTTPInternalServerError('Problems while computing validation result')
  
-    def __confirmExistingGeorefProcess__(self, georefid, georeferenceProcess):
-        georefid = georeferenceProcess.confirmExistingGeoreferenceProcess(georefid=self.georefid,
+    def __confirmExistingGeorefProcess__(self, georefid, georef_process_manager):
+        georefid = georef_process_manager.confirmExistingGeoreferenceProcess(georefid=self.georefid,
             isvalide=True,typeValidation='user')
         response = {'georefid':georefid,'message':'Change validation status for georeference process!'}
         return json.dumps(response, ensure_ascii=False, encoding='utf-8')
     
-    def __registerNewConfirmedGeorefProcess__(self, georeferenceProcess):
-        georefid = georeferenceProcess.confirmNewGeoreferenceProcess(userid=self.userid,
+    def __registerNewConfirmedGeorefProcess__(self, georef_process_manager):
+        georefid = georef_process_manager.confirmNewGeoreferenceProcess(userid=self.userid,
             clipParams=self.points,isvalide=False,typeValidation='disabled')
         response = {'georefid':georefid,'message':'Georeference parameter saved!'}
         return json.dumps(response, ensure_ascii=False, encoding='utf-8')
