@@ -80,7 +80,7 @@ class GeoreferenceProcessManager(object):
             shpPath = messtischblatt.BoundingBoxObj.asShapefile(os.path.join(tmpDir,"shape"))
                            
             # get gcps
-            ground_control_points = self.__getGcpAsStrings__(georefObject.clipparameter_pure, 
+            ground_control_points = self.__getGcpAsStrings__(georefObject.clipparameter, 
                 messtischblatt.original_path, messtischblatt.BoundingBoxObj)
                 
             # gather commands for georeference process
@@ -112,19 +112,19 @@ class GeoreferenceProcessManager(object):
         # get timestamp
         timestamp = getTimestampAsPGStr()
         georefProcess = Georeferenzierungsprozess(messtischblattid = messtischblattid, nutzerid = userid, 
-                clipparameter_pure = clipParams, timestamp = timestamp, isvalide = isvalide, typevalidierung = typeValidation, refzoomify = refzoomify)
+                clipparameter = clipParams, timestamp = timestamp, isvalide = isvalide, typevalidierung = typeValidation, refzoomify = refzoomify)
         self.dbsession.add(georefProcess)
         self.dbsession.flush()
         return georefProcess  
     
     def confirmExistingGeoreferenceProcess(self, georefid, isvalide=False, typeValidation='user'):
             # get georef data from database and parse them
-            georefProc = Georeferenzierungsprozess.by_id(georefid, self.dbSession)
+            georefProc = Georeferenzierungsprozess.by_id(georefid, self.dbsession)
             
             # change valdation status of georeference process in database
             georefProc.isvalide = isvalide
             georefProc.typevalidierung = typeValidation
-            self.dbSession.flush()
+            self.dbsession.flush()
             self.logger.debug("Change validation status of georeference process with id %s!"%georefid)
             
             # register passpunkte
@@ -133,18 +133,19 @@ class GeoreferenceProcessManager(object):
             #self.logger.info("Ground control points for georeference process with id %s registered!"%georefid)
             return georefid       
              
-    """ method: confirmGeoreferenceProcess        
+    """ method: confirmNewGeoreferenceProcess        
         This method confirms a given georeference process or register a georeference process confirmed. 
         
+        @param - messtischblattid {Integer} 
         @param - userid {String}
         @param - clipParams {Integer:Integer;...} - String list of points which are representing the georeference parameter
         @param - isvalide {Boolean} - is true if the clipParams are checked for validation
         @param - typeValidation {String} - could be 'waiting' or 'confirm' or 'disabled'
         @param - georefid {Integer}"""       
-    def confirmNewGeoreferenceProcess(self, userid=None, clipParams=None, isvalide=False, typeValidation='none'):
+    def confirmNewGeoreferenceProcess(self, messtischblattid, userid=None, clipParams=None, isvalide=False, typeValidation='none'):
         # register process
-        georefid = self.registerGeoreferenceProcess(userid, clipParams, isvalide, typeValidation)
-        self.logger.debug("Georeference process with id %s registered!"%georefid)
+        georefProc = self.registerGeoreferenceProcess(messtischblattid, userid, clipParams, isvalide, typeValidation)
+        self.logger.debug("Georeference process with id %s registered!"%georefProc.id)
             
         # register passpunkte
         # get georef data from database and parse them
@@ -152,7 +153,7 @@ class GeoreferenceProcessManager(object):
         #self.updatePasspunkte(georefProc)
         #self.dbSession.commit()
         #self.logger.info("Ground control points for georeference process with id %s registered!"%georefid)
-        return georefid 
+        return georefProc.id 
 
     """ method: updatePasspunkte
     

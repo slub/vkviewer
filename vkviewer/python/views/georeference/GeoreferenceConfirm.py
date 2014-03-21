@@ -67,7 +67,7 @@ class GeoreferenceConfirm(AbstractGeoreference):
         return json.dumps(response, ensure_ascii=False, encoding='utf-8')
     
     def __registerNewConfirmedGeorefProcess__(self, georef_process_manager):
-        georefid = georef_process_manager.confirmNewGeoreferenceProcess(userid=self.userid,
+        georefid = georef_process_manager.confirmNewGeoreferenceProcess(messtischblattid=self.mtbid, userid=self.userid,
             clipParams=self.points,isvalide=False,typeValidation='disabled')
         response = {'georefid':georefid,'message':'Georeference parameter saved!'}
         return json.dumps(response, ensure_ascii=False, encoding='utf-8')

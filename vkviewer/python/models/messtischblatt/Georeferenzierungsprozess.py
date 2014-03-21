@@ -6,7 +6,7 @@ class Georeferenzierungsprozess(Base):
     __table_args__ = {'extend_existing':True}
     id = Column(Integer, primary_key=True)
     messtischblattid = Column(Integer)
-    clipparameter_pure = Column(String(255))
+    clipparameter = Column(String(255))
     timestamp = Column(DateTime(timezone=False))
     isvalide = Column(Boolean)
     typevalidierung = Column(String(255))

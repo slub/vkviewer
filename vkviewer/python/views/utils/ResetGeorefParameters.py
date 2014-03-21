@@ -25,7 +25,7 @@ def resetGeorefParameters(request):
         dbsession = request.db
         messtischblatt_id = request.params['mtbid']
         georeference_process = Georeferenzierungsprozess.by_messtischblattid(messtischblatt_id, dbsession)
-        referenz = georeference_process.clipparameter_pure
+        referenz = georeference_process.clipparameter
         fehlerbeschreibung = 'Zuruecksetzen von Georeferenzierungsparameter für GeorefId=%s'%georeference_process.id
         if login and messtischblatt_id and referenz and fehlerbeschreibung and Users.by_username(login, dbsession):
             log.debug('Save reset process in table fehlermeldungen ...')
@@ -36,10 +36,13 @@ def resetGeorefParameters(request):
             log.debug('Remove georeference process ...')
             dbsession.delete(georeference_process)
             
-            
             log.debug('Remove refmtblayer ...')
-            refmtblayer = RefMtbLayer.by_id(MTB_LAYER_ID, messtischblatt_id, dbsession)
-            dbsession.delete(refmtblayer)
+            try:
+                refmtblayer = RefMtbLayer.by_id(MTB_LAYER_ID, messtischblatt_id, dbsession)
+                dbsession.delete(refmtblayer)
+            except:
+                log.debug('No entry for refmtblayer found ...')
+                pass
             
             log.debug('Update messtischblatt db ...')
             messtischblatt = Messtischblatt.by_id(messtischblatt_id, dbsession) 
