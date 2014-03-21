@@ -54,7 +54,7 @@ VK2.Utils.AppLoader = function(settings, init_conf){
 	 * @private
 	 */
 	if (goog.dom.getElement(this._settings.vk2Sidebar)){
-		this._sidebar = new VK2.Tools.Sidebar({}, this._mapController, this._settings.toolPanels);
+		this._sidebar = new VK2.Tools.Sidebar({}, this._settings.toolPanels, this._mapController);
 	}
 	
 	// update settings

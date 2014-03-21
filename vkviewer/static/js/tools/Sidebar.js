@@ -1,6 +1,22 @@
-VK2.Tools.Sidebar = VK2.Class({
+goog.provide('VK2.Tools.Sidebar');
+
+goog.require('goog.dom');
+goog.require('goog.dom.classes');
+goog.require('goog.object');
+
+/**
+ * @param {Object} settings
+ * @param {Array.<string>} toolPanelIds
+ * @param {VK2.Controller.MapController} mapController
+ * @constructor
+ */
+VK2.Tools.Sidebar = function(settings, toolPanelIds, mapController){
 	
-	_settings: {
+	/**
+	 * @type {Object}
+	 * @private
+	 */
+	this._settings = {
 		sidebarPanel: 'vk2SBPanel',
 		sidebarContentPanel: 'vk2SBContentPanel',
 		sidebarBodyPanel: 'vk2SidebarBodyPanel',
@@ -12,118 +28,155 @@ VK2.Tools.Sidebar = VK2.Class({
 		sidebarIcon: 'vk2SidebarIcon',
 		sidebarControlBtn: 'vk2SBControlBtn',
 		sidebarToolActive: 'vk2ToolActivate',
-	},
+	};
+	goog.object.extend(this._settings, settings);
 	
-	_sidebarController: null,
+	/**
+	 * @type {VK2.Controller.SidebarController}
+	 * @private
+	 */
+	this._sidebarController = null;
 	
-	_updateSettings: function(settings){
-		for (var key in settings){
-			this._settings[key] = settings[key];
-		}	
-	},
-	
-	_loadHtmlElements: function(toolPanels){
-		var mainContainer = $('#'+this._settings.sidebarPanel);
-		
-		var contentContainer = $('<div/>', {
-			'id': this._settings.sidebarContentPanel,
-			'class': this._settings.sidebarContentPanel
-		}).appendTo(mainContainer);
-		
-		
-		// create header elements
-		var headerContainer = $('<div/>', {
-			'id': this._settings.sidebarHeaderPanel,
-			'class': this._settings.sidebarHeaderPanel			
-		}).appendTo(contentContainer);
-		
-		$('<div/>', {
-			'id': this._settings.sidebarHeaderLabel,
-			'class': this._settings.sidebarHeaderLabel
-		}).appendTo(headerContainer);
-		
-		$('<div/>', {
-			'id': this._settings.sidebarHeaderClose,
-			'class': this._settings.sidebarHeaderClose + ' ' + this._settings.sidebarIcon
-		}).appendTo(headerContainer);
-		
-		// body 
-		var bodyContainer = $('<div/>', {
-			'id': this._settings.sidebarBodyPanel,
-			'class': this._settings.sidebarBodyPanel			
-		}).appendTo(contentContainer);
-		
-		for (var i = 0; i < toolPanels.length; i++){
-			$('<div/>', {
-				'id': toolPanels[i],
-				'class': toolPanels[i]
-			}).appendTo(bodyContainer);
-		}
-	},
-	
-	_loadSidebarController: function(MapController){
-		// find out panel width
-		var panelWidth = $('#'+this._settings.sidebarPanel).css('width');
-		
-		this._sidebarController = new VK2.Controller.SidebarController({
-			speed: 300,
-			panelLocation: 'right',
-			sidebarPanel: this._settings.sidebarPanel,
-			sidebarHeaderLabel: this._settings.sidebarHeaderLabel,
-			sidebarPanelWidth: panelWidth,
-			sidebarCloseBtn: this._settings.sidebarHeaderClose
-		}, MapController);
-	},
-	
-	_createControlElement: function(controlId, controlPanel){
-		$('<span/>', {
-			'class': this._settings.sidebarIcon
-		}).appendTo($('<a/>', {
-				'id': controlId,
-				'class': controlId + ' ' +this._settings.sidebarControlBtn,
-				'value': controlPanel
-			}).appendTo($('#'+this._settings.sidebarPanel))
-		);
-	},
-	
-	_appendControlPanel: function(panel){
-		$('#'+panel).appendTo($('#'+this._settings.sidebarBodyPanel));
-		$('#'+panel).addClass(this._settings.sidebarToolActive)
-	},
-	
+	this._loadHtmlElements(toolPanelIds);
+	this._loadSidebarController(mapController);
+};
 
+/**
+ * @param {Array.<string>} toolPanelIds
+ * @private
+ */
+VK2.Tools.Sidebar.prototype._loadHtmlElements = function(toolPanelIds){
 	
-	initialize: function(settings, MapController, toolPanels){
-		this._updateSettings(settings);
-		this._loadHtmlElements(toolPanels);
-		this._loadSidebarController(MapController);
-	},
+	var mainContainer = goog.dom.getElement(this._settings.sidebarPanel);
 	
-	/**
-	 * Method: appendControl
-	 * Append a control element with panel content
-	 */
-	appendControl: function(controlId, controlPanel, controlObject){
-		this._createControlElement(controlId, controlPanel);
-		this._appendControlPanel(controlPanel);
-		this._sidebarController._registerControl(controlId, controlObject)
-	},
+	var contentContainer = goog.dom.createDom('div', {
+		'id': this._settings.sidebarContentPanel,
+		'class': this._settings.sidebarContentPanel
+	});
+	goog.dom.appendChild(mainContainer, contentContainer);
 	
-	/**
-	 * Method: appendSlimControl
-	 * Append a control element without panel content
-	 */
-	appendSlimControl: function(controlId, controlObject){
-		this._createControlElement(controlId, '');
-		this._sidebarController._registerSlimControl(controlId, controlObject)
-	},
 	
-	open: function(event){
-		this._sidebarController._slideOut();
-	},
+	// create header elements
+	var headerContainer = goog.dom.createDom('div', {
+		'id': this._settings.sidebarHeaderPanel,
+		'class': this._settings.sidebarHeaderPanel			
+	})
+	goog.dom.appendChild(contentContainer, headerContainer);
 	
-	close: function(event){
-		this._sidebarController._deactivateControls();
-		this._sidebarController._slideIn();
-	}
-});
+	var headerLabel = goog.dom.createDom('div', {
+		'id': this._settings.sidebarHeaderLabel,
+		'class': this._settings.sidebarHeaderLabel
+	});
+	goog.dom.appendChild(headerContainer, headerLabel);
+
+	var headerCloseBtn = goog.dom.createDom('button', {
+		'type': 'button',
+		'innerHTML': '&times;',
+		'aria-hidden':'true',
+		'id': this._settings.sidebarHeaderClose,
+		'class': 'close '+this._settings.sidebarHeaderClose
+	});
+	goog.dom.appendChild(headerContainer, headerCloseBtn);
+	
+	// body 
+	var bodyContainer = goog.dom.createDom('div', {
+		'id': this._settings.sidebarBodyPanel,
+		'class': this._settings.sidebarBodyPanel			
+	});
+	goog.dom.appendChild(contentContainer, bodyContainer);
+	
+	for (var i = 0; i < toolPanelIds.length; i++){
+		var toolPanel = goog.dom.createDom('div', {
+			'id': toolPanelIds[i],
+			'class': toolPanelIds[i]
+		});
+		goog.dom.appendChild(bodyContainer, toolPanel);
+	};
+};
+
+/**
+ * @param {VK2.Controller.MapController} mapController
+ * @private
+ */
+VK2.Tools.Sidebar.prototype._loadSidebarController = function(mapController){
+	// find out panel width
+	var panelWidth = $('#'+this._settings.sidebarPanel).css('width');
+	
+	this._sidebarController = new VK2.Controller.SidebarController({
+		speed: 300,
+		panelLocation: 'right',
+		sidebarPanel: this._settings.sidebarPanel,
+		sidebarHeaderLabel: this._settings.sidebarHeaderLabel,
+		sidebarPanelWidth: panelWidth,
+		sidebarCloseBtn: this._settings.sidebarHeaderClose
+	}, mapController);
+};
+
+/**
+ * @param {string} controlId
+ * @param {string} controlPanel
+ * @private
+ */
+VK2.Tools.Sidebar.prototype._createControlElement = function(controlId, controlPanel){
+	var controlAnchor = goog.dom.createDom('a',{
+		'id': controlId,
+		'class': controlId + ' ' +this._settings.sidebarControlBtn
+	});
+	controlAnchor.setAttribute('value', controlPanel);
+	goog.dom.appendChild(goog.dom.getElement(this._settings.sidebarPanel), controlAnchor);
+	
+	var controlSpan = goog.dom.createDom('span',{ 'class': this._settings.sidebarIcon });
+	goog.dom.appendChild(controlAnchor, controlSpan);
+};
+
+/**
+ * @param {string} panel
+ * @private
+ */
+VK2.Tools.Sidebar.prototype._appendControlPanel = function(panel){
+	goog.dom.appendChild(goog.dom.getElement(this._settings.sidebarBodyPanel), goog.dom.getElement(panel));
+	goog.dom.classes.add(goog.dom.getElement(panel), this._settings.sidebarToolActive);
+};
+
+/**
+ * Append a control element with panel content.
+ * 
+ * @param {string} controlId
+ * @param {string} controlPanel
+ * @param {Object} controlObject
+ * @public
+ */
+VK2.Tools.Sidebar.prototype.appendControl = function(controlId, controlPanel, controlObject){
+	this._createControlElement(controlId, controlPanel);
+	this._appendControlPanel(controlPanel);
+	this._sidebarController._registerControl(controlId, controlObject)
+};
+
+/**
+ * Append a control element with panel content.
+ * 
+ * @param {string} controlId
+ * @param {Object} controlObject
+ * @public
+ */
+VK2.Tools.Sidebar.prototype.appendSlimControl = function(controlId, controlObject){
+	this._createControlElement(controlId, '');
+	this._sidebarController._registerSlimControl(controlId, controlObject)
+};
+
+/**
+ * @param {Event} event
+ * @public
+ */
+VK2.Tools.Sidebar.prototype.open = function(event){
+	this._sidebarController._slideOut();
+};
+
+/**
+ * @param {Event} event
+ * @public
+ */
+VK2.Tools.Sidebar.prototype.close = function(event){
+	this._sidebarController._deactivateControls();
+	this._sidebarController._slideIn();
+};
