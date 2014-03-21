@@ -110,7 +110,7 @@ VK2.Tools.SearchTable.prototype._createTable = function(){
 			
 			var headingColContent = goog.dom.createDom('div',{
 				'class': this._headingCol[i].id,
-				'innerHTML': this._headingCol[i].title
+				'innerHTML': this._headingCol[i].title + ' <span class="caret caret-reversed"></span>'
 			})
 			
 			goog.dom.appendChild(headingCol, headingColContent);

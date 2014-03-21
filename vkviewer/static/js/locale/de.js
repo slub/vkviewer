@@ -5,7 +5,7 @@ var lang_dictionary = {
 		'toolname_layersearch': 'Kartensuche',
 		'displaytimestamp': 'Zeitschnitt darstellen',
 		'description': 'Beschreibung',
-		'timestamp': 'Zeitstempel',
+		'timestamp': 'Zeit',
 		'titel': 'Titel',
 		'found_mtb': 'Messtischblätter gefunden',
 		'change_zoomlevel': 'Bitte wählen Sie eine höhere Zoomstufe!',

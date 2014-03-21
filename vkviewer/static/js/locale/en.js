@@ -5,7 +5,7 @@ var lang_dictionary = {
 		'toolname_layersearch': 'Map search',
 		'displaytimestamp': 'Display timestamp',
 		'description': 'Description',
-		'timestamp': 'Timestamp',
+		'timestamp': 'Time',
 		'titel': 'Titel',
 		'found_mtb': 'Messtischblaetter available.',
 		'change_zoomlevel': 'Please zoom in!',

@@ -201,9 +201,8 @@ VK2.Controller.MapSearchController.prototype._featureLoadingFeedback = function(
  */
 VK2.Controller.MapSearchController.prototype._updateDisplayedFeatureData = function(objData){
 	
-	if (goog.isDef(objData))
-		console.log('Event type: '+objData.type);
-
+//	if (goog.isDef(objData))
+//		console.log('Event type: '+objData.type);
 	
 	var data = {};
 
