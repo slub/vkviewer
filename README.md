@@ -1,3 +1,7 @@
+# Portal Virtuelles Kartenforum 2.0 (WebGIS)
+
+<a href="http://kartenforum.slub-dresden.de/vkviewer"><img src="http://kartenforum.slub-dresden.de/vkviewer/static/images/welcome_logo.png" align="left" hspace="10" vspace="6"></a>
+
 vkviewer
 ===========
 
