@@ -1,4 +1,4 @@
-goog.provide('VK2.Styles');
+goog.provide('VK2.Styles.FeatureLayerStyles');
 
 VK2.Styles.FeatureLayerStyles._defaultStyle = {
 	fillColor: "#ee9900",
@@ -17,12 +17,12 @@ VK2.Styles.FeatureLayerStyles._tmpStyle = {
 	fontWeight: "600"
 };
 
-VK2.Styles._defaultStyleMap = new OpenLayers.StyleMap({
+VK2.Styles.FeatureLayerStyles._defaultStyleMap = new OpenLayers.StyleMap({
 	fillColor: "#ee9900",
 	fillOpacity: "0",
 });
 
-VK2.Styles._georeferenceLayerStyles = new OpenLayers.StyleMap({ 
+VK2.Styles.FeatureLayerStyles._georeferenceLayerStyles = new OpenLayers.StyleMap({ 
 	"default": new OpenLayers.Style({ 
 		pointRadius: 6, 
 		strokeColor: "#ff6103", 
