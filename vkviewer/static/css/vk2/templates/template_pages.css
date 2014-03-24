@@ -1,37 +1,6 @@
 /**
  * Styles which are matching the template pages 
  */
-/**
- * Generic styles 
- */
-.slubcolor{
-	color: #c00;
-}
-
-html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td{
-    margin: 0px;
-    padding: 0px; 
-}
-
-h3 {
-	display: block;
-	font-size: 1.17em;
-	-webkit-margin-before: 1em;
-	-webkit-margin-after: 1em;
-	-webkit-margin-start: 0px;
-	-webkit-margin-end: 0px;
-	font-weight: bold;
-}
-
-h2{
-	position: relative;
-	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, Sans-Serif;
-	color: #c00;
-	font-style: italic;
-	font-weight: normal;
-	line-height: 110%;
-}
-
 /* Page: Change password */
 .container.change-pw{
 	min-width: 200px;
@@ -124,6 +93,15 @@ div.faq{
 }
 
 /* Page: Contact */
+.vk2-fancybox-wrapper.contact-page-container{
+	width: 665px !important;
+	height: auto;
+}
+
+.vk2-fancybox-wrapper.contact-page-container .fancybox-inner{
+	width: 615px !important;
+}
+
 .contact-formular{
 	width: 600px;
 }
@@ -133,8 +111,13 @@ div.faq{
 }
 
 /* Page: Impressum */
-div.impressum {
-	width: 800px;
+.vk2-fancybox-wrapper.impressum-page-container{
+	width: 665px !important;
+	height: auto;
+}
+
+.vk2-fancybox-wrapper.impressum-page-container .fancybox-inner{
+	width: 615px !important;
 }
 
 .vk2ImpressumPageContainer {
@@ -149,8 +132,9 @@ div.impressum {
 	width: 600px;
 }
 /* Page: Project */
-div.project{
-	width: 800px;
+.vk2-fancybox-wrapper.project-page-container{
+	width: 865px;
+	height: auto;
 }
 
 div.vk2PartnerPageContainer h2{
@@ -176,4 +160,32 @@ div.vk2PartnerPageContainer h3{
 	list-style-type: disc;
 }
 
+/* Login page */
+.vk2-fancybox-wrapper.login-page-container{
+	width: 665px !important;
+	height: auto;
+}
 
+.vk2-fancybox-wrapper.login-page-container .fancybox-inner{
+	width: 615px !important;
+}
+
+/* Georeference history page */
+.vk2-fancybox-wrapper.georef-history-page-container{
+	width: 715px !important;
+	height: auto;
+}
+
+.vk2-fancybox-wrapper.georef-history-page-container .fancybox-inner{
+	width: 665px !important;
+}
+
+/* Change pw page */
+.vk2-fancybox-wrapper.pw-change-page-container{
+	width: 565px !important;
+	height: auto;
+}
+
+.vk2-fancybox-wrapper.pw-change-page-container .fancybox-inner{
+	width: 515px !important;
+}

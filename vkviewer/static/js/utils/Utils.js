@@ -12,39 +12,21 @@ goog.require('goog.net.XhrIo');
  * @param className {String}
  */
 VK2.Utils.initializeFancyboxForClass = function(className){
-	// links footer
-	$('.'+className).each(function(){
-		$(this).fancybox({
+	var fancyboxLinks = goog.dom.getElementsByClass(className);
+	for (var i = 0; i < fancyboxLinks.length; i++){
+		var fancybox_ahref = fancyboxLinks[i];
+		var className = 'vk2-fancybox-wrapper';
+		
+		// this parse a class for setting the wide and high of the iframe
+		if (goog.isDefAndNotNull(fancyboxLinks[i].getAttribute('data-fancyclass')))
+			className += ' ' + fancyboxLinks[i].getAttribute('data-fancyclass') + '-page-container';
+				
+		$(fancybox_ahref).fancybox({
 			'type': 'iframe',
 			'autoSize': false,
-			'wrapCSS': 'vk2-fancybox-wrapper',
-			'beforeShow': function(){
-				var childBody = $('.fancybox-iframe').contents()[0].body;
-				var childElements = goog.dom.getChildren(childBody);
-				
-				// look if there is a container element
-				for (var i = 0; i < childElements.length; i++){
-					
-					// if there is a container element took his size and width
-					if (goog.dom.classes.has(childElements[i], 'page-container')){
-						var containerEl = childElements[i];
-						
-						// size
-						var size = goog.style.getSize(containerEl);
-						
-						// set width
-						var targetWidth = goog.object.get(size, 'width') + 20;
-						this.width = goog.isDef(targetWidth) ? targetWidth + 'px': '100%';
-						
-						// set height
-						var targetHeight = goog.object.get(size, 'height');
-						this.height = goog.isDef(targetHeight) ? targetHeight + 'px' : '100%';
-					}
-				}
-
-			}
+			'wrapCSS': className,
 		});
-	})
+	};
 };
 
 /**

@@ -33,14 +33,14 @@
 		                <ul class="dropdown-menu">
 		                
 				              	% if faq_url:
-				         			<li><a href="${faq_url}" class="vk2FooterLinks fancybox-open">FAQ</a></li>        				
+				         			<li><a href="${faq_url}" class="vk2FooterLinks fancybox-open" data-fancyclass="faq">FAQ</a></li>        				
 				        		% else:
-				        			<li><a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open">FAQ</a></li>
+				        			<li><a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open" data-fancyclass="faq">FAQ</a></li>
 				        		% endif
 			        		
-				              	<li><a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open">${_('footer_contact')}</a></li>
-				              	<li><a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open">${_('footer_project')}</a></li>
-				              	<li><a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open">${_('footer_editorial')}</a><li>     
+				              	<li><a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open" data-fancyclass="contact">${_('footer_contact')}</a></li>
+				              	<li><a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open" data-fancyclass="project">${_('footer_project')}</a></li>
+				              	<li><a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open" data-fancyclass="impressum">${_('footer_editorial')}</a><li>     
 				              	     
 		                </ul>
 	             	</li>
@@ -57,14 +57,14 @@
 						
 			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"></span> ${user_id} <b class="caret"></b></a>
 			              	<ul class="dropdown-menu">
-				                <li><a href="${request.route_url('users_profile_georef')}" class="fancybox-open">${_('georef_history')}</a></li>
-				                <li><a href="${request.route_url('change_pw', action='page')}" class="fancybox-open">${_('change_pw_header')}</a></li>
+				                <li><a href="${request.route_url('users_profile_georef')}" class="fancybox-open" data-fancyclass="georef-history">${_('georef_history')}</a></li>
+				                <li><a href="${request.route_url('change_pw', action='page')}" class="fancybox-open" data-fancyclass="pw-change">${_('change_pw_header')}</a></li>
 				                <li class="divider"></li>
 				                <li><a href="${request.route_url('auth',action='out')}"><span class="glyphicon glyphicon-off"></span> ${_('logout_button')} </a></li>
 				              </ul>
 			              
 				            % else:
-				              <a href="${request.route_url('auth',action='getscreen')}" id="vk2UserToolsLogin" class="vk2UserToolsLogin fancybox-open" > ${_('login_button')} <b class="caret"></b> </a>
+				              <a href="${request.route_url('auth',action='getscreen')}" id="vk2UserToolsLogin" class="vk2UserToolsLogin fancybox-open" data-fancyclass="login"> ${_('login_button')} <b class="caret"></b> </a>
 				         	% endif
 				         	
 			        </li>
@@ -105,21 +105,21 @@
 					        		   	
 					        		   		% if faq_url:
 					         				<li class="listelement leftborder">
-					        					<a href="${faq_url}" class="vk2FooterLinks fancybox-open">FAQ</a>        				
+					        					<a href="${faq_url}" class="vk2FooterLinks fancybox-open" data-fancyclass="faq">FAQ</a>        				
 					        				</li>       		   		
 					        		   		% else:
 					        				<li class="listelement leftborder">
-					        					<a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open">FAQ</a>        				
+					        					<a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open" data-fancyclass="faq">FAQ</a>        				
 					        				</li>
 					        				% endif
 					        				<li class="listelement leftborder">
-					         					<a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open">${_('footer_contact')}</a>		
+					         					<a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open" data-fancyclass="contact">${_('footer_contact')}</a>		
 					        				</li>        				
 					        				<li class="listelement leftborder">
-					        					<a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open">${_('footer_project')}</a>    				
+					        					<a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open" data-fancyclass="project">${_('footer_project')}</a>    				
 					        				</li>
 					        				<li class="listelement">
-					        					<a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open">${_('footer_editorial')}</a>
+					        					<a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open" data-fancyclass="impressum">${_('footer_editorial')}</a>
 					        				</li>
 					        			</ul>
 					        		</div>
