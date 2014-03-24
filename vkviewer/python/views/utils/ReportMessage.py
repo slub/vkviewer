@@ -39,8 +39,9 @@ def logContactRequest(request):
     
         # check if there is a userid from a registered user
         login = checkIsUser(request)
-        if not login and not Users.by_username(login, request.db):
+        if not login:
             login = 'anonym'
+
             
         referenz = request.params['reference']
         fehlerbeschreibung = request.params['message']
