@@ -19,7 +19,7 @@
          }
          return scriptLocation;
      };
-     var jsfiles = new Array("utils/Settings.js","utils/Utils.js","ol3/events/EventType.js","ol3/events/ParsedCswRecordEvent.js","ol3/controls/LayerSpy.js","ol3/controls/RotateNorth.js","ol3/tools/Georeferencer.js","ol3/tools/ReportError.js","ol3/tools/ResetGeoreferenceParameter.js","ol3/tools/MesstischblattViewer.js","ol3/tools/MetadataVisualizer.js","ol3/requests/Georeferencer.js","ol3/requests/CSW_GetRecordById.js");
+     var jsfiles = new Array("utils/Settings.js","utils/Utils.js","ol3/events/EventType.js","ol3/events/ParsedCswRecordEvent.js","ol3/controls/LayerSpy.js","ol3/controls/RotateNorth.js","ol3/tools/Georeferencer.js","ol3/tools/ReportError.js","ol3/tools/MesstischblattViewer.js","ol3/tools/MetadataVisualizer.js","ol3/requests/Georeferencer.js","ol3/requests/CSW_GetRecordById.js");
      var len = jsfiles.length;
      var allScriptTags = new Array(len);
      var host = getScriptLocation();  

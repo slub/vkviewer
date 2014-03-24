@@ -39,12 +39,4 @@ h2 {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { }
 
-
-
-@media (min-width: 768px) { }
-
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-width: 768px) { }
-
-@media (min-width: 992px) { }
-
-@media (min-width: 1200px) {}

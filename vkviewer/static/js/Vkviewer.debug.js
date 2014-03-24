@@ -19,7 +19,7 @@
          }
          return scriptLocation;
      };
-     var jsfiles = new Array("Initialize.Configuration.js","utils/Namespace.js","utils/Utils.js","utils/Class.js","utils/Filter.js","utils/Validation.js","utils/AppLoader.js","utils/Login.js","utils/Settings.js","styles/FeatureLayerStyles.js","controller/Mediator.js","controller/MapController.js","controller/TimeFeatureControls.js","controller/SidebarController.js","controller/MapSearchController.js","layer/GeoreferencerSearchLayer.js","layer/TimeFeatureLayer.js","layer/Vk2Layer.js","layer/MapSearchLayer.js","layer/HoverLayer.js","tools/Gazetteersearch.js","tools/GeoreferencerChooser.js","tools/Layerbar.js","tools/Sidebar.js","tools/MapSearch.js","tools/SearchTable.js","tools/SpatialSearch.js","tools/MinimizeMesstischblattView.js");
+     var jsfiles = new Array("Initialize.Configuration.js","utils/Namespace.js","utils/Utils.js","utils/Class.js","utils/Filter.js","utils/Validation.js","utils/AppLoader.js","utils/Settings.js","styles/FeatureLayerStyles.js","controller/Mediator.js","controller/MapController.js","controller/TimeFeatureControls.js","controller/SidebarController.js","controller/MapSearchController.js","layer/GeoreferencerSearchLayer.js","layer/TimeFeatureLayer.js","layer/Vk2Layer.js","layer/MapSearchLayer.js","layer/HoverLayer.js","tools/Gazetteersearch.js","tools/GeoreferencerChooser.js","tools/Layerbar.js","tools/Sidebar.js","tools/MapSearch.js","tools/SearchTable.js","tools/SpatialSearch.js","tools/MinimizeMesstischblattView.js");
      var len = jsfiles.length;
      var allScriptTags = new Array(len);
      var host = getScriptLocation();  

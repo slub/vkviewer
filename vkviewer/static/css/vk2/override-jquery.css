@@ -32,6 +32,7 @@
 
 .fancybox-overlay { 
 	background: #333; 
+	/* @alternate */
 	background: rgba(35,35,35,0.8); 
 	z-index: 3010; 
 }
