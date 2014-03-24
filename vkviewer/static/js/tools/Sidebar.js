@@ -127,6 +127,16 @@ VK2.Tools.Sidebar.prototype._createControlElement = function(controlId, controlP
 	
 	var controlSpan = goog.dom.createDom('span',{ 'class': this._settings.sidebarIcon });
 	goog.dom.appendChild(controlAnchor, controlSpan);
+	
+	// dirty hack for badges
+	if (controlId == 'vk2LayerbarControl'){
+		var badgeSpan = goog.dom.createDom('span', {
+			'class': 'badge pull-right',
+			'id': 'vk2-layerbar-badge-counter',
+			'innerHTML':''
+		});
+		goog.dom.appendChild(controlSpan, badgeSpan);
+	}
 };
 
 /**

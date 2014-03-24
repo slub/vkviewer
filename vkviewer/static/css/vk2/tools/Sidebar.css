@@ -128,3 +128,11 @@
 	display: none;
 }
 
+/* Layerbar Badge */
+.vk2LayerbarControl .vk2SidebarIcon .badge{
+	color: white;
+	width: 20px;
+	text-indent: 0%;
+	background: transparent;
+	margin-top: 25px;
+}

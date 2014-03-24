@@ -186,6 +186,7 @@ VK2.Tools.Layerbar.prototype.redraw = function() {
 
     var layers = this._map.layers.slice();
     if (!this.ascending) { layers.reverse(); }
+    var badgeCounter = 0;
     for(var i=0, len=layers.length; i<len; i++) {
         var layer = layers[i];
         var baseLayer = layer.isBaseLayer;
@@ -195,9 +196,16 @@ VK2.Tools.Layerbar.prototype.redraw = function() {
                 // create own overlay elements
                 this.overlayLayersDiv.appendChild(this._createLayerElement(layer));
                 this.overlayLayers.push(layer);
+                badgeCounter += 1;
             }
         }
     }
+    
+    if (goog.dom.getElement('vk2-layerbar-badge-counter')){
+		var badgeSpan = goog.dom.getElement('vk2-layerbar-badge-counter');
+	    badgeSpan.innerHTML = badgeCounter > 0 ? badgeCounter : '';
+    }
+    
     return this._div;
 };
 
@@ -608,9 +616,17 @@ VK2.Tools.Layerbar.prototype._createMinimizeOverlayView = function(layer, id){
     // add the header elements to parent container
    
     // add remove button to layer 
-    var removeSign = goog.dom.createDom('div',{'class':'layer-remove'});
-    goog.dom.appendChild(minimizeView, removeSign);
-    goog.events.listen(removeSign, goog.events.EventType.CLICK, function(event){
+    var removeContainer = goog.dom.createDom('div',{'class':'layer-remove'});
+    goog.dom.appendChild(minimizeView, removeContainer);
+    
+    var removeButton = goog.dom.createDom('button',{
+    	'type':'button',
+    	'aria-hidden':'true',
+    	'class':'close layerbar-remove-layer',
+    	'innerHTML':'x'
+    });
+    goog.dom.appendChild(removeContainer, removeButton);
+    goog.events.listen(removeButton, goog.events.EventType.CLICK, function(event){
     	layer.map.removeLayer(layer);
     	this.redraw();
     }, undefined, this);
