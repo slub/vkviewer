@@ -1,8 +1,8 @@
 # Portal Virtuelles Kartenforum 2.0 
 
-<a href="http://kartenforum.slub-dresden.de/vkviewer"><img src="http://kartenforum.slub-dresden.de/vkviewer/static/images/welcome_logo.png" align="left" hspace="10" vspace="6"></a>
+<a href="http://kartenforum.slub-dresden.de/vkviewer"><img src="http://kartenforum.slub-dresden.de/vkviewer/static/images/welcome_logo.png" align="left" hspace="10"></a>
 
-Blabla 
+Das Portal **Virtuelles Kartenforum 2.0** entsteht im Rahmen des DFG geförderten Projektes "Virtuelles Kartenforum 2.0 - Eine Service-orientierte virtuelle Forschungsumgebung in der Deutschen Fotothek". 
 
 vkviewer
 ===========
