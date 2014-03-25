@@ -72,7 +72,7 @@ var lang_dictionary = {
 		'layerbar_choosetime': 'Wähle Zeitschnitt',
 		
 		// alerts for GeoreferencerSearchLayer
-		'clickout' : 'Bereich ist bereits vollständig bearbeitet oder enhält keine Karten'
+		'clickout' : 'Bereich ist bereits vollständig bearbeitet oder enthält keine Karten'
 		
 }
 	

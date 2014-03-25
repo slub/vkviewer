@@ -40,6 +40,17 @@
 	width: 20px;
 	height: 20px;
 	cursor: pointer;
+	color: white;
+	font-size: 16px;
+	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	display: block;
+}
+
+.layerbar-header-container .add-layer:after{
+	content: 'N';
 }
 
 .vk2LayerbarPanel .overlayDivs{
