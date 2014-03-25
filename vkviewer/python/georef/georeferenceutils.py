@@ -3,39 +3,21 @@ Created on Oct 15, 2013
 
 @author: mendt
 '''
-import subprocess
-
-""" function: parseYSize
-
-    @param - imageFile {String} - path to a image file
-    @return - {Integer} - value which represents the y size of the file
-    
-    This function parse the x,y size of a given image file """
-def parseXYSize(imageFile):
-    # run gdalinfo command on imageFile and catch the response via Popen
-    response = subprocess.Popen("gdalinfo %s"%imageFile, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-    
-    # read the console output line by line
-    for line in response.stdout:
-        if 'Size is ' in line:
-            x,y = line[8:].split(', ')
-            #print "X: %s, Y: %s"%(x,y)
-            return float(x),float(y)
 
 """ Functions for getting the gcps. """
-def getGCPsAsString(unorderedPixels, verzeichnispfad, georefCoords):
-    pure_gcps = getGCPs(unorderedPixels, verzeichnispfad, georefCoords)
+def getGCPsAsString(unorderedPixels, verzeichnispfad, width, height, georefCoords):
+    pure_gcps = getGCPs(unorderedPixels, verzeichnispfad, width, height, georefCoords)
     str_gcps = []
     for tuple in pure_gcps:
         string = " ".join(str(i) for i in tuple[0])+", "+" ".join(str(i) for i in tuple[1])
         str_gcps.append(string)
     return str_gcps
 
-def getGCPs(unorderedPixels, verzeichnispfad, georefCoords):
+def getGCPs(unorderedPixels, verzeichnispfad, xSize, ySize, georefCoords):
         # transformed the pixel coordinates to the georef coordinates by recalculating the y values, 
         # because of a different coordinate origin
         transformedUnorderedPixels = []
-        xSize, ySize = parseXYSize(verzeichnispfad)
+        #xSize, ySize = parseXYSize(verzeichnispfad)
         for tuple in unorderedPixels:
             transformedUnorderedPixels.append((tuple[0],ySize-tuple[1]))
 

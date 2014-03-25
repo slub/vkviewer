@@ -67,3 +67,19 @@
 	width: 200px;
 	height: 100px;
 }
+
+/* Tempory content for toolbar icon */
+.georeference-tools-handler .icon{
+	color: white;
+	font-size: 16px;
+	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	display: block;
+	padding: 8px;
+}
+
+.georeference-tools-handler .icon:after{
+	content: "TB";
+}

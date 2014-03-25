@@ -56,15 +56,17 @@ class GeoreferenceProcessManager(object):
     
         @param - clipParams {Integer:Integer;...} - String list of points which are representing the georeference parameter
         @param - refFile {String} - Path to file to which the clipping parameters refer
+        @param - width {Integer} Width of the refFile 
+        @param - height {Integer} Height of the refFile
         @param - boundingbox  {BoundingBox} 
         @return - {List} - list of gcps
         
         this method create gcps as string for using in gdal commands or as a simple list of tuple """
-    def __getGcpAsStrings__(self, clipParams, refFile, boundingbox):
+    def __getGcpAsStrings__(self, clipParams, refFile, width, height, boundingbox):
             # parse the pixelcoordinates, match them to the correct geographic corner and create
             # ground control points
             parsedLatLonCoords = parsePixelCoordinates(clipParams)       
-            gcps =  getGCPsAsString(parsedLatLonCoords, refFile, boundingbox.getCornerPointsAsList())
+            gcps =  getGCPsAsString(parsedLatLonCoords, refFile, width, height, boundingbox.getCornerPointsAsList())
             return gcps
 
     """ method: __runFastGeoreferencing__
@@ -81,7 +83,8 @@ class GeoreferenceProcessManager(object):
                            
             # get gcps
             ground_control_points = self.__getGcpAsStrings__(georefObject.clipparameter, 
-                messtischblatt.original_path, messtischblatt.BoundingBoxObj)
+                messtischblatt.original_path, messtischblatt.zoomify_width, messtischblatt.zoomify_height,
+                messtischblatt.BoundingBoxObj)
                 
             # gather commands for georeference process
             commands = []
