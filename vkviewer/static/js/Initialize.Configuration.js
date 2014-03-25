@@ -6,8 +6,8 @@
 var initConfiguration = {
     mapOptions: {
     		// OL Map options
-	        maxExtent: new OpenLayers.Bounds(640161.933,5958026.134,2661768.457,7817626.892),
-	        restrictedExtent: new OpenLayers.Bounds(640161.933,5958026.134,2661768.457,7817626.892),
+	        maxExtent: new OpenLayers.Bounds(640161.933,5958026.134,3585834.8011505,7847377.4901306),
+	        restrictedExtent: new OpenLayers.Bounds(640161.933,5958026.134,3585834.8011505,7847377.4901306),
 			projection: new OpenLayers.Projection("EPSG:900913"),
 	        displayProjection: new OpenLayers.Projection("EPSG:900913"),
 	        units: "m",
