@@ -541,7 +541,21 @@ div.vk2PartnerPageContainer h3{
 	top: 100px;
 	left: 0px;
 }
-.mtb-profile-page, .mtb-profile-page > div, .mtb-profile-page > div > div{
+
+.open-error-dialog .icon{
+	color: white;
+	font-size: 16px;
+	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	display: block;
+	padding: 8px;
+}
+
+.open-error-dialog .icon:after{
+	content: "Err";
+}.mtb-profile-page, .mtb-profile-page > div, .mtb-profile-page > div > div{
 	height: 100%;
 }
 
@@ -712,7 +726,7 @@ fieldset.content > legend > a{
 	margin-top: 12px; 
 	display: block; 
 	overflow: hidden; 
-	text-indent: 100%; 
+	text-indent: 200%; 
 	white-space: nowrap; 
 	background: url('/vkviewer/static/images/vkf2Logo.svg') no-repeat 0 0; 
 	background-size: contain; 
@@ -1022,6 +1036,17 @@ fieldset.content > legend > a{
 	width: 20px;
 	height: 20px;
 	cursor: pointer;
+	color: white;
+	font-size: 16px;
+	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	display: block;
+}
+
+.layerbar-header-container .add-layer:after{
+	content: 'N';
 }
 
 .vk2LayerbarPanel .overlayDivs{
@@ -1607,6 +1632,22 @@ Styling of the list elements
 	margin-bottom: -50px;
 	width: 200px;
 	height: 100px;
+}
+
+/* Tempory content for toolbar icon */
+.georeference-tools-handler .icon{
+	color: white;
+	font-size: 16px;
+	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	display: block;
+	padding: 8px;
+}
+
+.georeference-tools-handler .icon:after{
+	content: "TB";
 }/* 
 	Generic stuff 
 */

@@ -209,18 +209,18 @@ VK2.Tools.Georeferencer.prototype._loadLoadingScreenHtmlContent = function(){
  */
 VK2.Tools.Georeferencer.prototype._loadOpenCloseBehavior = function(controlElement){
 	goog.events.listen(controlElement, goog.events.EventType.CLICK, function(event){
-		var width = goog.style.getSize(event.target.parentElement).width;
+		var width = goog.style.getSize(event.currentTarget.parentElement).width;
 		var toolContainer = this._toolContainer;
 		
-		if (goog.dom.classes.has(event.target, 'open')){
-			$(event.target.parentElement).animate({'left': '-250px'}, 1000,	function(){
-				goog.dom.classes.remove(event.target, 'open');
+		if (goog.dom.classes.has(event.currentTarget, 'open')){
+			$(event.currentTarget.parentElement).animate({'left': '-250px'}, 1000,	function(){
+				goog.dom.classes.remove(event.currentTarget, 'open');
 				goog.style.setStyle(toolContainer,'display','none');
 			});
 		} else {
 			goog.style.setStyle(toolContainer,'display','block');
-			$(event.target.parentElement).animate({'left': '-2px'}, 1000, function(){
-				goog.dom.classes.add(event.target, 'open');
+			$(event.currentTarget.parentElement).animate({'left': '-2px'}, 1000, function(){
+				goog.dom.classes.add(event.currentTarget, 'open');
 			});
 		}
 	}, undefined, this);
