@@ -35,7 +35,7 @@ def register_new_user(request):
                 #userName = newUser.vorname+' '+newUser.nachname
                 headers = remember(request, login)
                 # get target url and route to it
-                target_url = request.route_url('home_login')
+                target_url = request.route_url('home_login',_query={'georef':'on'})
                 transaction.commit()
                 return HTTPFound(location = target_url, headers = headers)
         
