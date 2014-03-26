@@ -15,7 +15,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">${_('contact_header')}</div>
 			<div class="panel-body">
-				<p class="contant-message" id="contant-message">${_('contact_header_text')} </p><br>
+				<p class="contant-message" id="contant-message">${_('contact_header_text')}</p><br>
 				<form role="form" onsubmit="return validateForm()">
 					<div class="form-group">
 						<label for="contactMessage">Email:</label>

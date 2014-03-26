@@ -13,7 +13,7 @@ goog.require('goog.style');
  * @constructor
  */
 VK2.Tools.MetadataVisualizer = function(parentElId, metadataId, settings){
-	
+
 	/**
 	 * @type {Object}
 	 * @private
@@ -91,260 +91,220 @@ VK2.Tools.MetadataVisualizer.prototype._initFancyBox = function(){
 VK2.Tools.MetadataVisualizer.prototype.displayCswIsoRecord = function(event){
 	var parsed_content = event.parsed_content;
 	
-	// testing
-	var row_container = goog.dom.createDom('div', {'class':'container'});
-	goog.dom.appendChild(this._parentEl, row_container);
-	this._createTitle(row_container, parsed_content['ABSTRACT'][0],parsed_content['THUMBNAIL'][0]);
+	// set page title
+	this._setPageTitle(parsed_content['TITEL'][0]);
 	
-
-	
-	this._createTable();
-	this._createHeader(parsed_content['TITEL'][0],parsed_content['ABSTRACT'][0],parsed_content['THUMBNAIL'][0]);
-	this._createContent(parsed_content, this._tBody);
-	//this._fixLinks();
-};
-
-/**
- * @param {Element} container
- * @param {string} description
- * @param {string} thumbnail
- * @private
- */
-VK2.Tools.MetadataVisualizer.prototype._createTitle = function(container, description, thumbnail){
-	var row = goog.dom.createDom('div',{'class':'row title'});
-	goog.dom.appendChild(container, row);
-	
-	var descr_div = goog.dom.createDom('div',{
-		'class':'col-md-8 col-lg-8',
-		'innerHTML': description
-	});
-	goog.dom.appendChild(row, descr_div);
-	
-	this._dataContainer = descr_div;
-	
-	var thumbnail_div = goog.dom.createDom('div',{
-		'class':'col-md-4 col-lg-4'
-	});
-	goog.dom.appendChild(row, thumbnail_div);
-	
-	var thumbnail_img = goog.dom.createDom('img', {
-		'class': 'thumbnail',
-		'src': thumbnail
-	});
-	goog.dom.appendChild(thumbnail_div, thumbnail_img);
-};
-
-/**
- * private
- */
-VK2.Tools.MetadataVisualizer.prototype._createTable = function(){
-	
-	var table = goog.dom.createDom('table',{'class': 'metadata-record-table'});
-	
-	/**
-	 * @type {Element}
-	 * @private
-	 */
-	this._tBody = goog.dom.createDom('tbody',{});
-
-	goog.dom.appendChild(table ,this._tBody);
-	goog.dom.appendChild(this._parentEl ,table);
+	// display the metadata
+	this._displayMetadata(parsed_content);
 };
 
 /**
  * @param {string} title
- * @param {string} description
- * @param {string} thumbnail
  * @private
  */
-VK2.Tools.MetadataVisualizer.prototype._createHeader = function(title, description, thumbnail){
-	this._createHeaderTitel(title, this._tBody);
-	this._createHeaderContent(description, thumbnail, this._tBody);
-	
-	// for testing purpose 
+VK2.Tools.MetadataVisualizer.prototype._setPageTitle = function(title){
 	var page_header = goog.dom.getElement('singlemapview-title');
 	page_header.innerHTML = title;
 };
 
 /**
- * @param {string} title
- * @param {Element} parentEl
+ * @param {Object} metadata 
  * @private
  */
-VK2.Tools.MetadataVisualizer.prototype._createHeaderTitel = function(title, parentEl){
-	var row = goog.dom.createDom('tr',{});
-	var col = goog.dom.createDom('td',{'colspan':'2', 'class':'col-header-titel'});
-	var span = goog.dom.createDom('span',{'class':'metadata-title','innerHTML':title});
-	goog.dom.appendChild(col, span);
-	goog.dom.appendChild(row, col);
-	goog.dom.appendChild(parentEl, row);
+VK2.Tools.MetadataVisualizer.prototype._displayMetadata = function(metadata){
+	
+	var row_container = goog.dom.createDom('div', {'class':'container'});
+	goog.dom.appendChild(this._parentEl, row_container);
+	
+	var row = goog.dom.createDom('div',{'class':'row-metadata'});
+	goog.dom.appendChild(row_container, row);
+	
+	// this is the bootstrap grid container for further metadata
+	var metadata_container = goog.dom.createDom('div',{
+		'class':'col-md-8 col-lg-8 metdata-col'
+	});
+	goog.dom.appendChild(row, metadata_container);
+	
+	// this is the bootstrap grid container for thumbnail
+	var thumbnail_container = goog.dom.createDom('div',{
+		'class':'col-md-4 col-lg-4 thumbnail-col'
+	});
+	goog.dom.appendChild(row, thumbnail_container);
+	
+	// set title and thumbnail of metadata
+	var catalog_link = VK2.Utils.Settings.geonetwork+metadata['ID'][0];
+	this._setTitle(metadata_container, metadata['ABSTRACT'][0],catalog_link);
+	this._setThumbnail(thumbnail_container, metadata['THUMBNAIL'][0]);
+	
+	// set further metadata information
+	this._setCatchwords(metadata_container, VK2.Utils.get_I18n_String('mdrecord_keyword'), 'Messtischblätter Messtischblatt');
+	this._setLanguage(metadata_container, VK2.Utils.get_I18n_String('mdrecord_language'),'German');
+	
+	for (var i = 0; i < metadata['REFERENCE_SYSTEM'].length; i++){
+		this._setCrsIdentifier(metadata_container, VK2.Utils.get_I18n_String('mdrecord_referencesystem'),metadata['REFERENCE_SYSTEM'][i]);
+	};
+	
+	for (var i = 0; i < metadata['ONLINE_RESSOURCE'].length; i++){
+		this._setOnlineRessource(metadata_container, VK2.Utils.get_I18n_String('mdrecord_onlineresource'),metadata['ONLINE_RESSOURCE'][i]);
+	};
+	
+	this._setResolution(metadata_container, VK2.Utils.get_I18n_String('mdrecord_spatialresolution'), metadata['DENOMINATOR'][0]);
+	this._setUniqueId(metadata_container, metadata['ID'][0]);
 };
 
 /**
+ * @param {Element} container
  * @param {string} description
- * @param {string} thumbnail
- * @param {Element} parentEl
+ * @param {string} catalog_link
  * @private
  */
-VK2.Tools.MetadataVisualizer.prototype._createHeaderContent = function(description, thumbnail, parentEl){
-	var row = goog.dom.createDom('tr',{});
+VK2.Tools.MetadataVisualizer.prototype._setTitle = function(container, description, catalog_link){
 	
-	// description
-	var col = goog.dom.createDom('td',{'innerHTML':description});
-	goog.dom.appendChild(row, col);
+	// now add description
+	var descr_div = goog.dom.createDom('div',{
+		'class': 'description'
+	});
+	goog.dom.appendChild(container, descr_div);
 	
-	// thumbnail
-	if (this._settings.thumbnail){
-		var col = goog.dom.createDom('td',{'class':'right'});
-		var thumbnail = goog.dom.createDom('img', {
-			'src': thumbnail, 'alt': 'thumbnail', 'class': 'thumbnail'});
-		goog.dom.appendChild(col, thumbnail);
-		goog.dom.appendChild(row, col);
-	}
+	var descr_h3 = goog.dom.createDom('h3',{
+		'innerHTML': description
+	});
+	goog.dom.appendChild(descr_div, descr_h3);
 	
-	goog.dom.appendChild(parentEl, row);
-};
-
-/**
- * @param {Object} parsed_content
- * @param {Element} parentElement
- * @private
- */
-VK2.Tools.MetadataVisualizer.prototype._createContent = function(parsed_content, parentElement){
-	this._createContentContainer(parsed_content['ID'][0], parentElement);
-	this._slimContentRow(VK2.Utils.get_I18n_String('mdrecord_keyword'),'Messtischblätter, Messtischblatt', this._tBodyContent);
-	this._slimContentRow(VK2.Utils.get_I18n_String('mdrecord_language'),'German', this._tBodyContent);
-	for (var i = 0; i < parsed_content['REFERENCE_SYSTEM'].length; i++){
-		this._slimContentRow(VK2.Utils.get_I18n_String('mdrecord_referencesystem'),parsed_content['REFERENCE_SYSTEM'][i], this._tBodyContent)};
-	for (var i = 0; i < parsed_content['ONLINE_RESSOURCE'].length; i++){
-		this._anchorContentRow(VK2.Utils.get_I18n_String('mdrecord_onlineresource'),parsed_content['ONLINE_RESSOURCE'][i], this._tBodyContent)};
-	this._fatContentRow(VK2.Utils.get_I18n_String('mdrecord_spatialresolution'), parsed_content['DENOMINATOR'][0], 'Denominator', this._tBodyContent);
-};
-
-/**
- * @param {string} datasetId
- * @param {Element} parentEl
- * @private
- */
-VK2.Tools.MetadataVisualizer.prototype._createContentContainer = function(datasetId, parentEl){
-	
-	var row = goog.dom.createDom('tr',{});
-	goog.dom.appendChild(parentEl, row);
-	
-	var col = goog.dom.createDom('td',{'colspan':'2'});
-	goog.dom.appendChild(row, col);
-	
-	var fieldset = goog.dom.createDom('fieldset',{'class':'content'});
-	goog.dom.appendChild(col, fieldset);
-	
-	// legend
-	var legend = goog.dom.createDom('legend',{});
-	goog.dom.appendChild(fieldset, legend);	
-	
-	var span = goog.dom.createDom('span',{'innerHTML':VK2.Utils.get_I18n_String('metadata_overview')});
-	goog.dom.appendChild(legend, span);	
-	
-	var a = goog.dom.createDom('a',{
-		'href': VK2.Utils.Settings.geonetwork+datasetId,
+	var catalog_anchor = goog.dom.createDom('a',{
+		'href': catalog_link,
 		'innerHTML': VK2.Utils.get_I18n_String('mdrecord_moremetadata'),
 		'target': '_blank'
-	});
-	goog.dom.appendChild(legend, a);	
+	})
+	goog.dom.appendChild(descr_div, catalog_anchor);
 	
-	// body container
-	var table = goog.dom.createDom('table',{'class':'metadata-record-table-content'});
-	goog.dom.appendChild(fieldset, table);	
-	
-	/**
-	 * @type {Element}
-	 * @private
-	 */
-	this._tBodyContent = goog.dom.createDom('tbody',{});
-	goog.dom.appendChild(table ,this._tBodyContent);
-	
-	// footer
-	var footer = goog.dom.createDom('span',{'class':'metadata-record-footer','innerHTML':VK2.Utils.get_I18n_String('mdrecord_uniqueid') + ' | ' + datasetId});
-	goog.dom.appendChild(fieldset, footer);	
+
 };
 
 /**
- * @param {string} label
- * @param {string} content
- * @param {Element} parentElement
- */
-VK2.Tools.MetadataVisualizer.prototype._slimContentRow = function(label, content, parentElement){
-	var row = goog.dom.createDom('tr',{});
-
-	var colLabel = goog.dom.createDom('th',{'innerHTML':label});
-	goog.dom.appendChild(row, colLabel);
-	
-	var colContent = goog.dom.createDom('td',{'innerHTML':content});
-	goog.dom.appendChild(row, colContent);
-	
-	goog.dom.appendChild(parentElement, row);
-}
-
-/**
- * @param {string} label
- * @param {string} content
- * @param {Element} parentElement
- */
-VK2.Tools.MetadataVisualizer.prototype._anchorContentRow = function(label, content, parentElement){
-	var row = goog.dom.createDom('tr',{});
-
-	var colLabel = goog.dom.createDom('th',{'innerHTML':label});
-	goog.dom.appendChild(row, colLabel);
-	
-	var colContent = goog.dom.createDom('td',{});
-	goog.dom.appendChild(row, colContent);
-	
-	// for preventing to large innerHTML in the anchor element remove 
-	// the query data
-	url = new goog.Uri(content);
-	url.setQuery('');	
-	var anchor = goog.dom.createDom('a',{
-		'innerHTML': url.toString(),
-		'href':content,
-		'target': '_blank',
-		'style': 'z-index:10000;'
-	});
-	goog.dom.appendChild(colContent, anchor);
-	
-	goog.dom.appendChild(parentElement, row);
-} 
-
-/**
- * @param {string} label
- * @param {string} content
- * @param {string} unit
- * @param {Element} parentElement
- */
-VK2.Tools.MetadataVisualizer.prototype._fatContentRow = function(label, content, unit, parentElement){
-	var row = goog.dom.createDom('tr',{});
-
-	var colLabel = goog.dom.createDom('th',{'innerHTML':label});
-	goog.dom.appendChild(row, colLabel);
-	
-	var colContent = goog.dom.createDom('td',{});
-	goog.dom.appendChild(row, colContent);
-	
-	var div = goog.dom.createDom('div',{'class':'el'});
-	goog.dom.appendChild(colContent, div);	
-	
-	var label = goog.dom.createDom('label',{'innerHTML':unit});
-	goog.dom.appendChild(div, label);	
-	
-	var div1 = goog.dom.createDom('div',{'innerHTML':content});
-	goog.dom.appendChild(div, div1);	
-	
-	goog.dom.appendChild(parentElement, row);
-}
-
-/**
+ * @param {Element} container
+ * @param {string} container
  * @private
  */
-VK2.Tools.MetadataVisualizer.prototype._clearHtmlContent = function(){
-	goog.dom.removeChildren(this._parentEl);
-	goog.dom.removeNode(this._parentEl);
+VK2.Tools.MetadataVisualizer.prototype._setThumbnail = function(container, thumbnail_link){
+	var thumbnail_img = goog.dom.createDom('img', {
+		'class': 'thumbnail',
+		'src': thumbnail_link
+	});
+	goog.dom.appendChild(container, thumbnail_img);
+};
+
+/**
+ * @param {Element} container
+ * @param {string} label_name
+ * @param {string} catchwords
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._setCatchwords = function(container, label_name, catchwords){
+	var row = this._createMetadataRow(container);
+	
+	var label = goog.dom.createDom('div', {'class':'label', 'innerHTML':label_name});
+	goog.dom.appendChild(row, label);
+	
+	var content = goog.dom.createDom('div', {'innerHTML':catchwords});
+	goog.dom.appendChild(row, content);	
+};
+
+/**
+ * @param {Element} container
+ * @param {string} label_name
+ * @param {string} language
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._setLanguage = function(container, label_name, language){
+	var row = this._createMetadataRow(container);
+	
+	var label = goog.dom.createDom('div', {'class':'label', 'innerHTML':label_name});
+	goog.dom.appendChild(row, label);
+	
+	var content = goog.dom.createDom('div', {'innerHTML':language});
+	goog.dom.appendChild(row, content);	
+};
+
+/**
+ * @param {Element} container
+ * @param {string} label_name
+ * @param {string} identifier
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._setCrsIdentifier = function(container, label_name, identifier){
+	var row = this._createMetadataRow(container);
+	
+	var label = goog.dom.createDom('div', {'class':'label', 'innerHTML':label_name});
+	goog.dom.appendChild(row, label);
+	
+	var content = goog.dom.createDom('div', {'innerHTML':identifier});
+	goog.dom.appendChild(row, content);	
+};
+
+/**
+ * @param {Element} container
+ * @param {string} label_name
+ * @param {string} ahref
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._setOnlineRessource = function(container, label_name, ahref){
+	var row = this._createMetadataRow(container);
+	
+	var label = goog.dom.createDom('div', {'class':'label', 'innerHTML':label_name});
+	goog.dom.appendChild(row, label);
+	
+	var content_container = goog.dom.createDom('div');
+	goog.dom.appendChild(row, content_container);	
+	
+	// for preventing to long urls cut query
+	url = new goog.Uri(ahref);
+	url.setQuery('');
+	var content = goog.dom.createDom('a', {'target':'_blank','href':ahref,'innerHTML':url.toString()});
+	goog.dom.appendChild(content_container, content);
+};
+
+/**
+ * @param {Element} container
+ * @param {string} label_name
+ * @param {string} resolution
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._setResolution = function(container, label_name, resolution){
+	var row = this._createMetadataRow(container);
+	
+	var label = goog.dom.createDom('div', {'class':'label', 'innerHTML':label_name});
+	goog.dom.appendChild(row, label);
+	
+	var content_container = goog.dom.createDom('div');
+	goog.dom.appendChild(row, content_container);	
+	
+	var content_label = goog.dom.createDom('label', {'innerHTML':'Denominator'});
+	goog.dom.appendChild(content_container, content_label);
+	
+	var content = goog.dom.createDom('span',{'innerHTML':resolution});
+	goog.dom.appendChild(content_container, content);
+};
+
+/**
+ * @param {Element} container
+ * @param {string} dataset_id
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._setUniqueId = function(container, dataset_id){
+	var span = goog.dom.createDom('span', {'class':'unique-id','innerHTML':VK2.Utils.get_I18n_String('mdrecord_uniqueid') + ' | ' + dataset_id});
+	goog.dom.appendChild(container, span);
+};
+
+/**
+ * @param {Element} container
+ * @return {Element}
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._createMetadataRow = function(container){
+	var new_row = goog.dom.createDom('div', {'class':'metadata-content-row'});
+	goog.dom.appendChild(container, new_row);
+	return new_row;
 }
+
 

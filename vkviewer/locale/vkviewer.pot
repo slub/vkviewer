@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-26 17:30+0100\n"
+"POT-Creation-Date: 2014-03-28 08:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,14 +41,14 @@ msgstr ""
 msgid "javascript_disabled"
 msgstr ""
 
-#: vkviewer/templates/basic_page.mako:38 vkviewer/templates/basic_page.mako:57
+#: vkviewer/templates/basic_page.mako:46
 #: vkviewer/templates/georeference_start.mako:61
-#: vkviewer/templates/georeference_validate.mako:73
-#: vkviewer/templates/mtb_profile.mako:35
+#: vkviewer/templates/georeference_validate.mako:81
+#: vkviewer/templates/mtb_profile.mako:67
 msgid "js_library"
 msgstr ""
 
-#: vkviewer/templates/change_pw.mako:6 vkviewer/templates/index_page.mako:77
+#: vkviewer/templates/change_pw.mako:6 vkviewer/templates/index_page.mako:61
 msgid "change_pw_header"
 msgstr ""
 
@@ -84,23 +84,23 @@ msgstr ""
 msgid "georef_choose_map_notfound"
 msgstr ""
 
-#: vkviewer/templates/contact.mako:11
+#: vkviewer/templates/contact.mako:16
 msgid "contact_header"
 msgstr ""
 
-#: vkviewer/templates/contact.mako:13
+#: vkviewer/templates/contact.mako:18
 msgid "contact_header_text"
 msgstr ""
 
-#: vkviewer/templates/contact.mako:20
+#: vkviewer/templates/contact.mako:25
 msgid "contact_message_label"
 msgstr ""
 
-#: vkviewer/templates/contact.mako:21
+#: vkviewer/templates/contact.mako:26
 msgid "contact_message_placeholder"
 msgstr ""
 
-#: vkviewer/templates/contact.mako:22
+#: vkviewer/templates/contact.mako:27
 msgid "contact_message_help"
 msgstr ""
 
@@ -113,33 +113,33 @@ msgid "faq_main_heading"
 msgstr ""
 
 #: vkviewer/templates/georeference_start.mako:20
-#: vkviewer/templates/georeference_validate.mako:32
-#: vkviewer/templates/index_page.mako:108
+#: vkviewer/templates/georeference_validate.mako:41
+#: vkviewer/templates/index_page.mako:99
 msgid "footer_project_name"
 msgstr ""
 
 #: vkviewer/templates/georeference_start.mako:21
-#: vkviewer/templates/georeference_validate.mako:33
-#: vkviewer/templates/index_page.mako:109
+#: vkviewer/templates/georeference_validate.mako:42
+#: vkviewer/templates/index_page.mako:100
 msgid "footer_project_desc_long"
 msgstr ""
 
 #: vkviewer/templates/georeference_start.mako:37
-#: vkviewer/templates/georeference_validate.mako:49
-#: vkviewer/templates/index_page.mako:48 vkviewer/templates/index_page.mako:125
+#: vkviewer/templates/georeference_validate.mako:58
+#: vkviewer/templates/index_page.mako:41 vkviewer/templates/index_page.mako:116
 msgid "footer_contact"
 msgstr ""
 
 #: vkviewer/templates/georeference_start.mako:40
-#: vkviewer/templates/georeference_validate.mako:52
-#: vkviewer/templates/index_page.mako:49 vkviewer/templates/index_page.mako:128
+#: vkviewer/templates/georeference_validate.mako:61
+#: vkviewer/templates/index_page.mako:42 vkviewer/templates/index_page.mako:119
 msgid "footer_project"
 msgstr ""
 
 #: vkviewer/templates/georeference_start.mako:43
-#: vkviewer/templates/georeference_validate.mako:55
-#: vkviewer/templates/impressum.mako:16 vkviewer/templates/index_page.mako:50
-#: vkviewer/templates/index_page.mako:131
+#: vkviewer/templates/georeference_validate.mako:64
+#: vkviewer/templates/impressum.mako:16 vkviewer/templates/index_page.mako:43
+#: vkviewer/templates/index_page.mako:122
 msgid "footer_editorial"
 msgstr ""
 
@@ -219,36 +219,32 @@ msgstr ""
 msgid "privacy_policy"
 msgstr ""
 
-#: vkviewer/templates/index_page.mako:29
-msgid "placeholder_town_name"
-msgstr ""
-
-#: vkviewer/templates/index_page.mako:39
-msgid "header_service"
-msgstr ""
-
-#: vkviewer/templates/index_page.mako:56
-msgid "header_language"
-msgstr ""
-
-#: vkviewer/templates/index_page.mako:58
+#: vkviewer/templates/index_page.mako:23
 msgid "header_language_de"
 msgstr ""
 
-#: vkviewer/templates/index_page.mako:59
+#: vkviewer/templates/index_page.mako:24
 msgid "header_language_en"
 msgstr ""
 
-#: vkviewer/templates/index_page.mako:76
+#: vkviewer/templates/index_page.mako:32
+msgid "header_service"
+msgstr ""
+
+#: vkviewer/templates/index_page.mako:60
 msgid "georef_history"
 msgstr ""
 
-#: vkviewer/templates/index_page.mako:79
+#: vkviewer/templates/index_page.mako:63
 msgid "logout_button"
 msgstr ""
 
-#: vkviewer/templates/index_page.mako:83
+#: vkviewer/templates/index_page.mako:67
 msgid "login_button"
+msgstr ""
+
+#: vkviewer/templates/index_page.mako:74
+msgid "placeholder_town_name"
 msgstr ""
 
 #: vkviewer/templates/login_screen.mako:8
@@ -266,8 +262,8 @@ msgid "loginScreen_placeholder_username"
 msgstr ""
 
 #: vkviewer/templates/login_screen.mako:25 vkviewer/templates/login_screen.mako:27
-#: vkviewer/templates/login_screen.mako:52 vkviewer/templates/login_screen.mako:54
-#: vkviewer/templates/login_screen.mako:56
+#: vkviewer/templates/login_screen.mako:52 vkviewer/templates/login_screen.mako:56
+#: vkviewer/templates/login_screen.mako:60
 msgid "loginScreen_placeholder_password"
 msgstr ""
 
@@ -275,7 +271,7 @@ msgstr ""
 msgid "loginScreen_reset_pw"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:32 vkviewer/templates/login_screen.mako:70
+#: vkviewer/templates/login_screen.mako:32 vkviewer/templates/login_screen.mako:82
 msgid "loginScreen_submit_btn"
 msgstr ""
 
@@ -283,17 +279,29 @@ msgstr ""
 msgid "loginScreen_welcome_new"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:59 vkviewer/templates/login_screen.mako:61
+#: vkviewer/templates/login_screen.mako:65 vkviewer/templates/login_screen.mako:69
 msgid "loginScreen_placeholder_surname"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:59 vkviewer/templates/login_screen.mako:63
+#: vkviewer/templates/login_screen.mako:65 vkviewer/templates/login_screen.mako:73
 msgid "loginScreen_placeholder_familyname"
 msgstr ""
 
-#: vkviewer/templates/login_screen.mako:66 vkviewer/templates/login_screen.mako:68
+#: vkviewer/templates/login_screen.mako:78 vkviewer/templates/login_screen.mako:80
 #: vkviewer/templates/reset_pw.mako:20 vkviewer/templates/reset_pw.mako:21
 msgid "loginScreen_placeholder_email"
+msgstr ""
+
+#: vkviewer/templates/mtb_profile.mako:15
+msgid "singlemapview_georefmtbtab"
+msgstr ""
+
+#: vkviewer/templates/mtb_profile.mako:16
+msgid "singlemapview_originalmtbtab"
+msgstr ""
+
+#: vkviewer/templates/mtb_profile.mako:17
+msgid "singlemapview_metadatatab"
 msgstr ""
 
 #: vkviewer/templates/project.mako:15

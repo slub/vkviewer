@@ -9,20 +9,36 @@
 	overflow: auto;
 }
 
-.mtb-profile-page .container .row > div{
+.mtb-profile-page .container > h1{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.tab-content .tab-pane {
 	height: 100%;
+	width: 100%;
+	overflow: none;
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.tab-content .tab-pane .container{
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+/* Placement and styling of opacity slider */
+.ol-attribution{
+	padding: 0px;
 }
 
 .map-container{
 	width: 100%;
 	height: 100%;
 }
-
-.ol-attribution{
-	padding: 0px;
-}
-
-/* Placement and styling of opacity slider */
+		
 .map-container .opacity-container{
 	position: absolute;
 	bottom: 25px;
@@ -43,6 +59,13 @@
 	display: none;
 }
 
+/* zoomify map */
+.zoomify-container{
+	width: 100%;
+	height: 100%;
+}
+		
+/* reset button for admins */
 .reset-georef-map{
 	z-index: 100;
 	outline: none;
@@ -58,98 +81,56 @@
 }
 
 /* Styling for metadata stuff */
-table.metadata-record-table, table.metadata-record-table table, table.metadata-record-table tbody, table.metadata-record-table fieldset,
-table.metadata-record-table tr, table.metadata-record-table div, table.metadata-record-table legend {
-	display: block;
+.row-metadata .thumbnail-col{
+	padding-top: 50px;
 }
 
-.col-header-titel{
-	display: block !important;
+.metadata-container .description{
+	margin-bottom: 10px;
+}
+.metadata-container .description > h3{
+	-webkit-margin-after: 0em;
+	margin-bottom: 0px;
 }
 
-/* table header */
-.metadata-record-table tbody > tr > td{
-	background-image: url('/vkviewer/static/images/pattern_hr.png');
-	background-repeat: repeat-x;
-	background-position: center bottom;
-	border: none;
-	color: #069;
-	padding: 7px 0px 7px 7px;
-	vertical-align: top;
-	text-align: left;
-	font-size: 12px;
+.metadata-content-row{
+	width: 100%;
+	float: left;
+	border-bottom: 1px solid #b3d4e6;
 }
 
-.metadata-title{
-	font-size: 20px;
-	font-weight: bold;
-	padding: 10px 0px 10px 0px;
-	color: #333;
-}
-
-.metadata-record-table .thumbnail{
-	max-height: 100px;
-	max-width: 100px;
-	border: 1px solid #B3D4E6;
-	margin: 5px;
-	padding: 0px;
-}
-
-fieldset.content > legend {
-	border-bottom: none;
-}
-
-fieldset.content > legend > a{
-	font-size: 12px;
+.metadata-content-row > div{
 	position: relative;
 	float: left;
-}
-/* content table */
-.metadata-record-table-content{
-	width: 100%;
+	color: rgb(0, 102, 153);
 }
 
-.metadata-record-table-content tbody > tr {
-	border-bottom: 1px solid #B3D4E6;	
-}
-
-.metadata-record-table-content tbody > tr > td{
-	background-image: none;
-	border: none;
-	color: #069;
-	padding: 7px 0px 7px 7px;
-	vertical-align: top;
-	text-align: left;
-	font-size: 12px;	
-	width: 500px;
-}
-
-.metadata-record-table-content tbody > tr > td > a{
-	word-wrap: break-word;
-	overflow: hidden;
-}
-
-.metadata-record-table-content tbody > tr > td > div{
-	color: #999;
-	line-height: 1.4em;
-}
-
-.metadata-record-table-content tbody > tr > td div.el > label{
-	float: left;
-	margin-right: 5px;
-	margin-bottom: 0px;
-	font-weight: normal;
-	color: #444444;	
-}
-
-.metadata-record-table-content tbody > tr > th{
-	width: 250px;
+.metadata-content-row .label {
+	width: 300px;
 	color: #333;
-	font-size: 12px;
+	font-size: 14px;
+	font-weight: normal;
+	text-align: left;
+	padding-left: 0px;
+}
+
+.metadata-content-row > div {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.metadata-content-row > div > label {
+	padding-right: 10px;
 	font-weight: normal;
 }
 
-.metadata-record-table-content tbody > tr {
-	padding: 5px;
+.metadata-content-row > div > span {
+	color: #999;
+}
+
+.metdata-col .unique-id{
+	color: #069;
+	text-align: left;
+	font-size: 12px;
 }
 

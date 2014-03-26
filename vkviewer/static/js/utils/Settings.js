@@ -16,6 +16,13 @@ VK2.Utils.Settings.proxy_url = '/vkviewer/proxy/?url=';
 VK2.Utils.Settings.geonetwork = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|';
 
 /**
+ * Url to the catalog service for the web catalog instance
+ * @type {String}
+ * @public
+ */
+VK2.Utils.Settings.csw_url = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw';
+
+/**
  * Service options for the time wms and wfs.
  * @type {Object}
  * @public
