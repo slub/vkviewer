@@ -90,12 +90,49 @@ VK2.Tools.MetadataVisualizer.prototype._initFancyBox = function(){
  */
 VK2.Tools.MetadataVisualizer.prototype.displayCswIsoRecord = function(event){
 	var parsed_content = event.parsed_content;
+	
+	// testing
+	var row_container = goog.dom.createDom('div', {'class':'container'});
+	goog.dom.appendChild(this._parentEl, row_container);
+	this._createTitle(row_container, parsed_content['ABSTRACT'][0],parsed_content['THUMBNAIL'][0]);
+	
+
+	
 	this._createTable();
 	this._createHeader(parsed_content['TITEL'][0],parsed_content['ABSTRACT'][0],parsed_content['THUMBNAIL'][0]);
 	this._createContent(parsed_content, this._tBody);
 	//this._fixLinks();
 };
 
+/**
+ * @param {Element} container
+ * @param {string} description
+ * @param {string} thumbnail
+ * @private
+ */
+VK2.Tools.MetadataVisualizer.prototype._createTitle = function(container, description, thumbnail){
+	var row = goog.dom.createDom('div',{'class':'row title'});
+	goog.dom.appendChild(container, row);
+	
+	var descr_div = goog.dom.createDom('div',{
+		'class':'col-md-8 col-lg-8',
+		'innerHTML': description
+	});
+	goog.dom.appendChild(row, descr_div);
+	
+	this._dataContainer = descr_div;
+	
+	var thumbnail_div = goog.dom.createDom('div',{
+		'class':'col-md-4 col-lg-4'
+	});
+	goog.dom.appendChild(row, thumbnail_div);
+	
+	var thumbnail_img = goog.dom.createDom('img', {
+		'class': 'thumbnail',
+		'src': thumbnail
+	});
+	goog.dom.appendChild(thumbnail_div, thumbnail_img);
+};
 
 /**
  * private
@@ -123,6 +160,10 @@ VK2.Tools.MetadataVisualizer.prototype._createTable = function(){
 VK2.Tools.MetadataVisualizer.prototype._createHeader = function(title, description, thumbnail){
 	this._createHeaderTitel(title, this._tBody);
 	this._createHeaderContent(description, thumbnail, this._tBody);
+	
+	// for testing purpose 
+	var page_header = goog.dom.getElement('singlemapview-title');
+	page_header.innerHTML = title;
 };
 
 /**

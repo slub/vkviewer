@@ -188,7 +188,6 @@ VK2.Tools.MesstischblattViewer.prototype._createBorderLayer = function(boundingb
 
 /**
  * @public
- * @debug
  * @return {ol.Map}
  */
 VK2.Tools.MesstischblattViewer.prototype.getMap = function(){
