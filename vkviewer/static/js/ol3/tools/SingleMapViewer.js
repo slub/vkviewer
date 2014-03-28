@@ -61,6 +61,12 @@ VK2.Tools.SingleMapViewer = function(settings){
 	// initialize zoomify viewer
 	var zoomifyViewer = new VK2.Tools.ZoomifyViewer(this._settings.zoomify_container, this._settings.zoomify_url, this._settings.zoomify_width, this._settings.zoomify_height);
 	
+	/**
+	 * @type {VK2.Tools.ZoomifyViewer
+	 * @private
+	 */
+	this._zoomifyViewer = zoomifyViewer;
+	
 	// this initialize the bootstrap tap behavior
 	$('#'+this._settings.tab_list_id+' a').click(function(e){
 		  e.preventDefault();
@@ -75,4 +81,11 @@ VK2.Tools.SingleMapViewer = function(settings){
 		  	zoomifyViewer.getMap().updateSize();
 		  }
 	});
+};
+
+/**
+ * @return {VK2.Tools.ZoomifyViewer}
+ */
+VK2.Tools.SingleMapViewer.prototype.getZoomifyViewer = function(){
+	return this._zoomifyViewer;
 };

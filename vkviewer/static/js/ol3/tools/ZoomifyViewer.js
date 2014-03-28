@@ -98,8 +98,8 @@ VK2.Tools.ZoomifyViewer.prototype._loadZoomifyMap = function(zoomify_url, width,
 			   	projection: proj,
 			   	center: imgCenter,
 			    //adjust initial and max zoom level here
-				zoom: 1,
-				maxZoom: 9
+				zoom: 2,
+				maxZoom: 10
 			})
 		});
 	}
