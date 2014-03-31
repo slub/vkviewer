@@ -10,7 +10,7 @@ from vkviewer.python.security import groupfinder
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.utils.exceptions import InternalAuthentificationError
 
-@view_config(route_name='mtb_profile', renderer='mtb_profile.mako', permission='view',http_cache=3600)
+@view_config(route_name='mtb_profile', renderer='mtb_profile.mako', permission='view', http_cache=3600)
 def getPage_profileMtb(request):
     try:
         messtischblatt_id = None
