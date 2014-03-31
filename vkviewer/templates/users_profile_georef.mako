@@ -56,8 +56,7 @@
 								 	<strong>${_('georef_persist_access')}:</strong><br>
 								 	
 								 	% if record['transformed']:
-								 		<a href="${request.route_url('mtb_profile')}?id=${record['mtb_id']}&amp;
-								 			time=${record['time']}&amp;extent=${record['boundingbox']}" target="_blank">Klick</a> 
+								 		<a href="${request.route_url('mtb_profile')}?id=${record['mtb_id']}&amp;time=${record['time']}&amp;extent=${record['boundingbox']}" target="_blank">Klick</a> 
 								 	% else:
 								 		${_('georef_result_being_generated')}
 								 	% endif
