@@ -104,17 +104,17 @@
 	display: none;
 	padding: 10px;
 	height: 100%;
+	overflow-y:auto;
 }
 
 .vk2SidebarBodyPanel{
 	padding-right: 5px;
-	overflow-y: auto;
 	box-sizing:border-box; 
 	-moz-box-sizing:border-box; 
 	padding-top: 10px;
 	width: 100%;
 	height: auto;
-	padding-bottom: 75px;
+	position: relative;
 }
 
 /*
