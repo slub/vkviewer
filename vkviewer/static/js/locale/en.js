@@ -1,4 +1,4 @@
-console.log('English locales are loaded!');
+console.log('English locals are loaded!');
 
 var lang_dictionary = {
 		// They are assigned to the layersearch module
@@ -7,7 +7,7 @@ var lang_dictionary = {
 		'description': 'Description',
 		'timestamp': 'Time',
 		'titel': 'Titel',
-		'found_mtb': 'Messtischblaetter available.',
+		'found_mtb': 'Plane survey sheet available.',
 		'change_zoomlevel': 'Please zoom in!',
 		'choose_valide_timestamp': 'Please choose valide timestamp',
 		'change_timeperiod': 'Adjust time periode:',
@@ -31,7 +31,7 @@ var lang_dictionary = {
 			
 		// report error
 		'report_error_alert': 'Problems while notify error. Please contact the administrator.',
-		'report_error_titel': 'Error report for messtischblatt',
+		'report_error_titel': 'Error report for plane survey sheet',
 		'report_error_confirmed': 'Error reported!',
 		'report_error_btn_submit': 'Submit',
 		'report_error_btn_cancel': 'Cancel',
@@ -50,7 +50,7 @@ var lang_dictionary = {
 		// show metadata
 		'show_metadata': 'Single map view',
 		'metadata_overview': 'Metadata overview',
-		'mdrecord_moremetadata': 'Show more information about the messtischblatt',
+		'mdrecord_moremetadata': 'Show more information about the plane survey sheet',
 		'mdrecord_keyword': 'Keywords',
 		'mdrecord_language': 'Language',
 		'mdrecord_referencesystem': 'Reference system identifier',

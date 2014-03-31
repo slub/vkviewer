@@ -1,4 +1,4 @@
-console.log('German locales are loaded!');
+console.log('German locals are loaded!');
 
 var lang_dictionary = {
 		// They are assigned to the layersearch module
@@ -8,7 +8,7 @@ var lang_dictionary = {
 		'timestamp': 'Zeit',
 		'titel': 'Titel',
 		'found_mtb': 'Messtischblätter gefunden',
-		'change_zoomlevel': 'Bitte wählen Sie eine höhere Zoomstufe!',
+		'change_zoomlevel': 'Wählen Sie eine höhere Zoomstufe!',
 		'choose_valide_timestamp': 'Wählen Sie validien Zeitstempel',
 		'change_timeperiod': 'Passe Zeitraum an:',
 		
@@ -27,10 +27,10 @@ var lang_dictionary = {
 		'validateBtn_validate': 'Vorschau aktualisieren',
 		'submitBtn_validate': 'Georeferenzierung bestätigen',
 		'checkCornerPoint_count' : 'Bitte nur 4 Punkte setzen',
-		'checkCornerPoint_distance' : 'Eckpunkt in diesem Bereich bereits gesetzt! Bitte "Eckpunkt verschieben" verwenden!',
+		'checkCornerPoint_distance' : 'Eckpunkt in diesem Bereich bereits gesetzt! Verwenden Sie "Eckpunkt verschieben"!',
 		
 		// report error
-		'report_error_alert': 'Fehler konnte nicht gemeldet werden. Bitte wenden Sie sich an die Administrator dieser Seite.',
+		'report_error_alert': 'Fehler konnte nicht gemeldet werden. Wenden Sie sich an die Administrator dieser Seite.',
 		'report_error_titel': 'Fehlerbeschreibung Blatt',
 		'report_error_confirmed': 'Fehler wurde gemeldet',
 		'report_error_btn_submit': 'Senden',
@@ -63,7 +63,7 @@ var lang_dictionary = {
 			
 		// contact message
 		'send_con_message_suc': 'Ihre Kontaktnachricht wurde übermittelt. Danke für Ihr Interesse und noch viel Spass im Virtuellen Kartenforum 2.0.',
-		'send_con_message_err': 'Fehler bei der Übermittlung der Kontaktnachricht. Bitte versuchen Sie es noch einmal oder senden Sie dem Admin eine Email.',
+		'send_con_message_err': 'Fehler bei der Übermittlung der Kontaktnachricht. Versuchen Sie es noch einmal oder senden Sie dem Admin eine Email.',
 		
 		// minimize messtischblatt view
 		'mmv_label_blattnr': 'Messtischblätter für Blattnummer:',
