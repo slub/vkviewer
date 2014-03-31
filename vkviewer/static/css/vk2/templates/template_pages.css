@@ -68,6 +68,10 @@ div.faq{
 	max-width: 1000px;
 }
 
+.media-object{
+	border: solid black 1px;	
+}
+
 .panel-group.faq{
 	margin: 0px;
     padding: 0px; 
