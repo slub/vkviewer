@@ -320,13 +320,16 @@ VK2.Tools.Georeferencer.prototype._loadToolHtmlContent = function(){
 	});
 	goog.dom.appendChild(this._toolContainer, validate_button);
 	
-	var submit_button = goog.dom.createDom('input',{
-		'type':'button',
-		'class': 'vk2GeorefToolsBtn btn btn-default btn-submit',
-		'value': valueSubmitBtn
-	});
-	goog.dom.appendChild(this._toolContainer, submit_button);
-	
+	// only load this html input element in case of validation state "True". 
+	// @TODO add this behavior also for power user
+	if (this._isValidationState){
+		var submit_button = goog.dom.createDom('input',{
+			'type':'button',
+			'class': 'vk2GeorefToolsBtn btn btn-default btn-submit',
+			'value': valueSubmitBtn
+		});
+		goog.dom.appendChild(this._toolContainer, submit_button);
+	}	
 	return this._toolContainer;
 };
 
@@ -478,37 +481,38 @@ VK2.Tools.Georeferencer.prototype._loadButtonEvents = function(){
 		
 	}, undefined, this);
 	
-	goog.events.listen(submitBtn, goog.events.EventType.CLICK, function(event){
-		
-		var georef_params = this._validateGeorefParams();
-		var georefid = this._settings.georef_id;
-		if (!goog.isDef(georef_params)){
-			alert('Please check your georeference params! Are there 4 points?');
-			return undefined;
-		};		
-		
-		var successHandler = function(data){
-			var anchor = goog.dom.createDom('a', {'href':urls.main_page,'target':'_top'});
-			goog.dom.appendChild(document.body, anchor);
-			anchor.click();
-		};
-		
-		var errorHandler = function(event){
-			goog.style.setStyle(georefLoadingScreen,'display','none');
-			goog.style.setStyle(georefLoadingScreen,'z-index','0');
-			alert('Something went wrong, while trying to submit georeference parameter');
-		};
-		
-		if (this._isValidationState){
+	if (this._isValidationState){
+		goog.events.listen(submitBtn, goog.events.EventType.CLICK, function(event){
+			
+			var georef_params = this._validateGeorefParams();
+			var georefid = this._settings.georef_id;
+			if (!goog.isDef(georef_params)){
+				alert('Please check your georeference params! Are there 4 points?');
+				return undefined;
+			};		
+			
+			var successHandler = function(data){
+				var anchor = goog.dom.createDom('a', {'href':urls.main_page,'target':'_top'});
+				goog.dom.appendChild(document.body, anchor);
+				anchor.click();
+			};
+			
+			var errorHandler = function(event){
+				goog.style.setStyle(georefLoadingScreen,'display','none');
+				goog.style.setStyle(georefLoadingScreen,'z-index','0');
+				alert('Something went wrong, while trying to submit georeference parameter');
+			};
+			
 			goog.style.setStyle(georefLoadingScreen,'display','block');
 			goog.style.setStyle(georefLoadingScreen,'z-index','2000');
 			VK2.Requests.Georeferencer.submit(urls.process_submit, this._objectId, undefined, georefid, successHandler, errorHandler);
-		} else {
-			goog.style.setStyle(georefLoadingScreen,'display','block');
-			goog.style.setStyle(georefLoadingScreen,'z-index','2000');
-			VK2.Requests.Georeferencer.submit(urls.process_submit, this._objectId, georef_params, undefined, successHandler, errorHandler);
-		}
-	}, undefined, this);
+	//		else {
+	//			goog.style.setStyle(georefLoadingScreen,'display','block');
+	//			goog.style.setStyle(georefLoadingScreen,'z-index','2000');
+	//			VK2.Requests.Georeferencer.submit(urls.process_submit, this._objectId, georef_params, undefined, successHandler, errorHandler);
+	//		}
+		}, undefined, this);
+	}
 };
 
 /**

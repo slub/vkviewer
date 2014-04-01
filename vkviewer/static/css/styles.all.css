@@ -299,6 +299,10 @@ div.faq{
 	max-width: 1000px;
 }
 
+.media-object{
+	border: solid black 1px;	
+}
+
 .panel-group.faq{
 	margin: 0px;
     padding: 0px; 
@@ -1551,7 +1555,7 @@ Styling of the list elements
 	position: absolute;
 	top: 200px;
 	width: 250px;
-	height: 250px;
+	height: auto;
 	left: -250px;
 	border-top-width: 1px;
 	border-top-style: solid;
