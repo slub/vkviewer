@@ -1,0 +1,40 @@
+/* jquery styles */
+.ui-dialog .ui-state-error { padding: .3em; }
+
+/* disables the background moving of the page in case of an overlay */
+.fancybox-lock{
+	margin-right: 0 !important;
+}
+
+.fancybox{
+    z-index: 3000;
+}
+
+.vk2-fancybox-wrapper .fancybox-skin{
+	padding: 25px !important;	
+}
+
+/* restyle fancyboxes */
+.welcomeBox .fancybox-skin, .welcomeBox .fancybox-opened .fancybox-skin { 
+	background: transparent; 
+	box-shadow:none; 
+	-webkit-box-shadow: none; 
+}
+
+.welcomeBox .fancybox-skin, .welcomeBox .welcomeBox .fancybox-skin iframe { background: transparent; }
+
+#fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span { background-image: url('/vkviewer/static/images/fancybox_sprite.png'); }
+
+.fancybox-close { 
+	top: -10px; 
+	right: -10px; 
+}
+
+.fancybox-overlay { 
+	background: #333; 
+	/* @alternate */
+	background: rgba(35,35,35,0.8); 
+	z-index: 3010; 
+}
+
+#fancybox-loading div { background: url('/vkviewer/static/images/vkfPreloader.gif') center center no-repeat; }
