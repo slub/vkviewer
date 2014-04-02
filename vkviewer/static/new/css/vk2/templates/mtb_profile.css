@@ -1,0 +1,136 @@
+.mtb-profile-page, .mtb-profile-page > div, .mtb-profile-page > div > div{
+	height: 100%;
+}
+
+.mtb-profile-page .container{
+	margin-right: 0px;
+	margin-left: 0px;
+	width: 100%;
+	overflow: auto;
+}
+
+.mtb-profile-page .container > h1{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.tab-content .tab-pane {
+	height: 100%;
+	width: 100%;
+	overflow: none;
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.tab-content .tab-pane .container{
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+/* Placement and styling of opacity slider */
+.ol-attribution{
+	padding: 0px;
+}
+
+.map-container{
+	width: 100%;
+	height: 100%;
+}
+		
+.map-container .opacity-container{
+	position: absolute;
+	bottom: 25px;
+	left: 50%;
+	width: 300px;
+	z-index: 1000;
+	margin-left: -150px;
+	margin-right: 150px;
+}
+
+.map-container .opacity-container .opacity-slider{
+	width: 100%;
+}
+
+.map-container .opacity-container .tooltip{
+	top: -33px;
+	left: 100px;
+	display: none;
+}
+
+/* zoomify map */
+.zoomify-container{
+	width: 100%;
+	height: 100%;
+}
+		
+/* reset button for admins */
+.reset-georef-map{
+	z-index: 100;
+	outline: none;
+	background-color: rgba(0,0,0,0.5);
+	cursor: default;
+	border-radius: 0;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 60px;
+	right: 15px;
+	cursor: pointer;
+}
+
+/* Styling for metadata stuff */
+.row-metadata .thumbnail-col{
+	padding-top: 50px;
+}
+
+.metadata-container .description{
+	margin-bottom: 10px;
+}
+.metadata-container .description > h3{
+	-webkit-margin-after: 0em;
+	margin-bottom: 0px;
+}
+
+.metadata-content-row{
+	width: 100%;
+	float: left;
+	border-bottom: 1px solid #b3d4e6;
+}
+
+.metadata-content-row > div{
+	position: relative;
+	float: left;
+	color: rgb(0, 102, 153);
+}
+
+.metadata-content-row .label {
+	width: 300px;
+	color: #333;
+	font-size: 14px;
+	font-weight: normal;
+	text-align: left;
+	padding-left: 0px;
+}
+
+.metadata-content-row > div {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.metadata-content-row > div > label {
+	padding-right: 10px;
+	font-weight: normal;
+}
+
+.metadata-content-row > div > span {
+	color: #999;
+}
+
+.metdata-col .unique-id{
+	color: #069;
+	text-align: left;
+	font-size: 12px;
+}
+

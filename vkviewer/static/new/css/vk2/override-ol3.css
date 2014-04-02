@@ -1,0 +1,82 @@
+/* always background color white for the map viewport */
+.ol-viewport{
+	background-color: white;
+}
+
+/* preventing ol3 to display +/- in zoom control twice */
+.ol-zoom-in:before {
+	content: "";
+}
+		
+.ol-zoom-out:before {
+	content: "";
+}
+
+/* styles for own ol3 control elements */
+.ol-layerspy{
+	position: absolute;
+	background: rgba(255,255,255,0.4);
+	border-radius: 4px;
+	left: 8px;
+	padding: 2px;
+	top: 95px;
+}
+	  		
+.ol-layerspy a{
+	display: block;
+	margin: 1px;
+	padding: 0;
+	color: white;
+	font-size: 16px;
+	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	height: 22px;
+	width: 22px;
+	background-color: rgba(0,60,136,0.5);
+	border-radius: 2px;
+}
+	  		
+.ol-layerspy a:hover{
+	background: rgba(0,60,136,0.7);
+}
+	  		
+.rotate-north {
+    position: absolute;
+    top: 125px;
+    left: 8px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 4px;
+    padding: 2px;
+}
+      
+.ol-touch .rotate-north {
+    top: 80px;
+}
+      
+.rotate-north a {
+    display: block;
+    color: white;
+    font-size: 16px;
+    font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+    font-weight: bold;
+    margin: 1px;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 2px;
+    height: 22px;
+    width: 22px;
+    background: rgba(0,60,136,0.5);
+}
+
+.ol-touch .rotate-north a {
+    font-size: 20px;
+    height: 30px;
+    width: 30px;
+    line-height: 26px;
+}
+     
+.rotate-north a:hover {
+    background: rgba(0,60,136,0.7);
+}

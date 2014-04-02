@@ -1,0 +1,17 @@
+{
+  "name": "vkviewer-client",
+  "version": "0.0.0",
+  "description": "Client code for vkviewer",
+  "main": "vkviewer.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jacob Mendt",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "karma": "~0.12.2"
+  }
+}

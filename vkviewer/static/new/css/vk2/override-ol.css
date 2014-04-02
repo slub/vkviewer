@@ -1,0 +1,34 @@
+.olControlAttribution{
+	bottom: 25px !important;
+	left: 3px !important;
+}
+
+.olControlMousePosition{
+	bottom: 40px !important;
+	right: 20px !important;
+}
+
+/* position of the OL zoom/pan control */
+.olControlPanZoomBar{
+    top: 80px !important;
+}
+
+div.olControlZoom { 
+	top: 115px !important; 
+	background: rgba(255,255,255,0.6) !important;
+}
+
+div.olControlZoom a { 
+	background: rgb(0,177,158) !important; 
+	border-radius: 21px; 
+	margin: 5px 3px !important; 
+	font-weight: 100 !important; 
+	border: 1px solid #fff !important; 
+	line-height: 18px !important;
+}
+
+.olImageLoadError { 
+	/* when OL encounters a 404, don't display the pink image */
+	display: none !important;
+}
+

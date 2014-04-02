@@ -1,0 +1,32 @@
+/* 
+    Document   : styles
+    Created on : Jul 11, 2013, 4:54:36 PM
+    Author     : mendt
+    Description:
+        Purpose of the stylesheet follows.
+*/
+@import url("./vk2/override-ol.css");
+@import url("./vk2/override-ol3.css");
+@import url("./vk2/override-jquery.css");
+@import url("./vk2/override-bootstrap.css");
+@import url("./vk2/templates/template_pages.css");
+@import url("./vk2/templates/basic_index.css");
+@import url("./vk2/templates/index_logged_in.css");
+@import url("./vk2/templates/georeference_start.css");
+@import url("./vk2/templates/georeference_validate.css");
+@import url("./vk2/templates/mtb_profile.css");
+@import url("./vk2/templates/header.css");
+@import url("./vk2/templates/footer.css");
+@import url("./vk2/tools/MetadataVisualisation.css");
+@import url("./vk2/tools/Layerbar.css");
+@import url("./vk2/tools/SpatialSearch.css");
+@import url("./vk2/tools/Georeferencer.css");
+@import url("./vk2/tools/Sidebar.css");
+@import url("./vk2/tools/ReportError.css");
+@import url("./vk2/vkviewer.css");
+
+
+
+
+
+
