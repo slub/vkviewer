@@ -12,12 +12,29 @@
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	 
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/vkviewer-libarys.min.css')}" media="screen" />
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />	 
+		<style>
+			.modal-content.faq{
+				width: 800px;
+				margin-left: -100px;
+			}
+			.modal-content.faq .modal-body{
+				overflow-y: scroll;
+				height: 90%;
+			}
+		</style>
 
+		<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/jquery.tablesorter.min.js')}"></script>  
+	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
+	   	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
+	   	<script src="${request.static_url('vkviewer:static/new/ol-whitespace.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/new/deps.js')}"></script>   
 	    <script>
 	    	goog.require('VK2.Utils.AppLoader');
-	    </script>    
+	    </script>
     </head>
 	<body>
 	<div class="main-page body-container">
@@ -63,7 +80,7 @@
 			    </form>
 	          	</div>
           	</div>
-        </div><!-- /.navbar-collapse -->
+        <!-- /.navbar-collapse -->
       
               
         <!-- Body -->
@@ -89,7 +106,7 @@
 					        		<div class="rightside">
 					        		   	<ul class="footerList">
 					         				<li class="listelement leftborder">
-					        					<a href="#" class="vk2FooterLinks fancybox-open" data-fancyclass="faq">FAQ</a>        				
+					        					<a href="${request.route_url('faq')}" id="test-link" data-toggle="modal" data-target="#modal1-parent">FAQ</a>        				
 					        				</li>       		   		
 					        			</ul>
 					        		</div>
@@ -100,15 +117,17 @@
 		</div> 
 	</div>    
 
-		<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/jquery.tablesorter.min.js')}"></script>  
-	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
-	   	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	   	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
-		
-		<!--<script src="${request.static_url('vkviewer:static/new/src/vkviewer-compiled.min.js')}"></script>-->	   	
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modal1-parent" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      	<div class="modal-header">
+  			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  		</div>
+    	<div class="modal-body"></div>
+    </div>
+  </div>
+</div>		
+		<!--<script src="${request.static_url('vkviewer:static/new/src/vkviewer-compiled.min.js')}"></script>-->  	
 		<script>
 			var apploader = new VK2.Utils.AppLoader();
 		</script>

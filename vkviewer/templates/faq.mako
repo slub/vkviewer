@@ -11,6 +11,13 @@
 </%block>
 
 <%block name="body_content">
+	<div class="modal-dialog modal-lg">
+	<div class="modal-content faq">
+	<div class="modal-header">
+  		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>		
+		<h2 class="slubcolor modal-title">${_('faq_main_heading')}</h2>
+  	</div>
+	<div class="modal-body">
 	<div class="faq page-container">
 		<div class="panel-group faq" id="accordion">
 			<h2 class="slubcolor">${_('faq_main_heading')}</h2>
@@ -268,7 +275,9 @@
 				</div>
 			</div>
 	    </div>
-	    
+	    </div>
+	    </div>
+	    </div>
 	   	<!-- js librarys via cdn -->    
       	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
       	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>   

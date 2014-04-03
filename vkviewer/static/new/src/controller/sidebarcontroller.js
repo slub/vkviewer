@@ -90,7 +90,7 @@ VK2.Controller.SidebarController.prototype._loadHTML = function(){
 	goog.dom.appendChild(headerContainer, headerCloseBtn);
 	goog.events.listen(headerCloseBtn, goog.events.EventType.CLICK, function(event){
 		this._closeSidebar();
-	}, undefined, this);
+	}, false, this);
 	
 	/**
 	 * @type {Element}
@@ -239,7 +239,7 @@ VK2.Controller.SidebarController.prototype._registerContentModule = function(mod
 			this._activateModule(module);
 			this._slideOut();	
 		}
-	}, undefined, this);
+	}, false, this);
 };
 
 /**
@@ -257,7 +257,7 @@ VK2.Controller.SidebarController.prototype._registerClickModule = function(modul
 			this._activateModule(module);
 			this._slideIn();	
 		}
-	}, undefined, this);
+	}, false, this);
 };
 
 /**
