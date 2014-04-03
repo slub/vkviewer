@@ -1,6 +1,7 @@
 goog.provide('VK2.Controller.MapController');
 
 goog.require('goog.object');
+
 /**
  * @param {Object} settings
  * @param {string} map_container
@@ -24,6 +25,13 @@ VK2.Controller.MapController = function(settings, map_container){
  * @private
  */
 VK2.Controller.MapController.prototype._loadBaseMap = function(map_container){
+	
+	var styleArray = [new ol.style.Style({
+		  stroke: new ol.style.Stroke({
+		    color: '#000000',
+		    width: 3
+		  })
+	})];
 	
 	/**
 	 * @type {ol.Map}

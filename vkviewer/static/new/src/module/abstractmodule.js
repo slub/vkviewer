@@ -1,6 +1,7 @@
 goog.provide('VK2.Module.AbstractModule');
 
 /**
+ * @param {Object} settings
  * @constructor
  */
 VK2.Module.AbstractModule = function(settings){
@@ -26,20 +27,22 @@ VK2.Module.AbstractModule = function(settings){
 	/**
 	 * @type {string}
 	 * @public
+	 * @expose
 	 */
-	this.PANEL_ID = goog.isDef(settings.panel_id) ? settings.panel_id : undefined;
+	this.PANEL_ID = goog.isDef(settings['panel_id']) ? settings['panel_id'] : undefined;
 	
 	/**
 	 * @type {string}
 	 * @public
+	 * @expose
 	 */
-	this.CONTROL_ID = goog.isDef(settings.control_id) ? settings.control_id : undefined;
+	this.CONTROL_ID = goog.isDef(settings['control_id']) ? settings['control_id'] : undefined;
 	
 	/**
 	 * @type {string}
 	 * @protected
 	 */
-	this.TYPE_ = goog.isDef(settings.panel_id) ? 'content' : 'click';
+	this.TYPE_ = goog.isDef(settings['panel_id']) ? 'content' : 'click';
 };
 
 /**
