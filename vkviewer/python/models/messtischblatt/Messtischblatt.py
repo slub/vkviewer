@@ -46,7 +46,16 @@ class Messtischblatt(Base):
         page_url = PageURL_WebOb(request)
         return Page([{'mtbid':1},{'mtbid':2},{'mtbid':3},{'mtbid':4}], page, url=page_url, items_per_page=10)
         #return Page(Messtischblatt.all(), page, url=page_url, items_per_page=10)
-    
+
+    #BOX(13.6666660308838 51,13.8333339691162 51.1000061035156)', 'time': 1930}, {'id': 71055581, 'extent': 'BOX(13.6666660308838 51,13.8333339691162 51.1000061035156)
+    @classmethod
+    def getExtent(cls, id, session):
+        query = 'SELECT st_extent(st_transform(boundingbox, 900913)) FROM messtischblatt WHERE id = :id;'
+        pg_extent = session.execute(query,{'id':id}).fetchone()[0]
+        extent = pg_extent.replace(' ',',')
+        # for removing the "BOX( )" stuff only return a subset of the string
+        return extent[4:-1] 
+       
     @property
     def slug(self):
         return urlify(self.dateiname)
@@ -55,8 +64,5 @@ class Messtischblatt(Base):
     def BoundingBoxObj(self):
         return createBBoxFromPostGISString(self.boundingbox, srid_database)
  
-#     @property
-#     def boundingbox(self, session):
-#         query = 'SELECT st_astext(boundingbox) FROM messtischblatt WHERE id = :id;'
-#         return session.execute(query,{'id':self.id}).fetchone()[0]
+
   

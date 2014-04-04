@@ -47,7 +47,7 @@ def getZoomifyCollectionForBlattnr(request, blattnr, session, page=1):
     mtbs = Messtischblatt.allForBlattnr(blattnr, session)
     for mtb in mtbs:
         metadata = MetadatenCore.by_id(mtb.id, session)
-        if mtb.mdtype == 'M' and mtb.istaktiv and not mtb.isttransformiert:
+        if mtb.mdtype == 'M' and mtb.istaktiv and not mtb.isttransformiert and mtb.hasgeorefparams == 0:
             item = {'mtbid':mtb.id,'layername':mtb.dateiname,'titel':metadata.titel,'titel_short':metadata.titel_short,
                     'zoomify_prop':mtb.zoomify_properties,'zoomify_width':mtb.zoomify_width,'zoomify_height':mtb.zoomify_height}
             coll.append(item)

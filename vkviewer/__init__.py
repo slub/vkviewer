@@ -59,8 +59,9 @@ def addRoutes(config):
     # route for authentification
     config.add_route('auth', routePrefix+'/sign/{action}')
     
-    # for feedback to events on the main page
+    # for simple get requests for client feedback
     config.add_route('gettimestamps',routePrefix+'/gettimestamps')
+    config.add_route('gettimestampsforid',routePrefix+'/gettimestampsforid')
 
     # routes for the georeference process
     config.add_route('choose_map_georef',routePrefix+'/choosegeoref')
