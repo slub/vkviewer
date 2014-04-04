@@ -36,13 +36,7 @@ VK2.Utils.checkIfCookiesAreEnabble = function(){
  */
 VK2.Utils.loadModalOverlayBehavior = function(className){
 	var modal = goog.dom.getElement('modal-parent');
-	var link = goog.dom.getElement('test-link');
-	console.log(link.href);
-//	$(modal).modal({
-//		show: true,
-//		remote: link.href
-//	});
-	
+
 	
 //	var modals = goog.dom.getElementsByClass(className);
 //	for (var i = 0; i < modals.length; i++){

@@ -5,6 +5,7 @@ goog.require('VK2.Utils');
 goog.require('VK2.Controller.MapController');
 goog.require('VK2.Controller.SidebarController');
 goog.require('VK2.Module.SpatialSearchModule');
+goog.require('VK2.Module.ChooseGeoreferenceMapModule');
 
 /**
  * @param {Object} settings Contains key/value pairs representing the settings
@@ -26,15 +27,15 @@ VK2.Utils.AppLoader = function(settings){
 		'control_id': 'vk2LayersearchControl'
 	});
 	sidebar_controller.registerModule(spatialsearch);
+	
+	var georef_chooser = new VK2.Module.ChooseGeoreferenceMapModule({
+		'map':map_controller.getMap(),
+		'control_id': 'vk2GeorefControl'
+	});
+	sidebar_controller.registerModule(georef_chooser);
 		
 	// for testing
-	if (goog.DEBUG){
-		var spatialsearch1 = new VK2.Module.SpatialSearchModule({
-			'map':map_controller.getMap(),
-			'control_id': 'vk2GeorefControl'
-		});
-		sidebar_controller.registerModule(spatialsearch1);
-		
+	if (goog.DEBUG){	
 		// for debugging purpose 
 		window['sb'] = sidebar_controller;
 		window['ssm'] = spatialsearch;
