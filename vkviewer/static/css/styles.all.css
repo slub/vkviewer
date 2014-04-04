@@ -559,7 +559,7 @@ div.vk2PartnerPageContainer h3{
 
 .open-error-dialog .icon:after{
 	content: "Err";
-}.mtb-profile-page, .mtb-profile-page > div, .mtb-profile-page > div > div{
+}.mtb-profile-page, .mtb-profile-page > div{
 	height: 100%;
 }
 
@@ -695,7 +695,40 @@ div.vk2PartnerPageContainer h3{
 	font-size: 12px;
 }
 
-/* header design */
+/* header styling */
+.mtb-profile-page .row.header{
+	height: 40px;
+}
+
+.mtb-profile-page .row.header > div {
+	height: 100%;
+}
+
+.mtb-profile-page .row.header .input-group-btn > button {
+	float: right;
+}
+
+.choose-timestamp {
+	list-style:none;
+	padding-top: 10px;
+}
+
+.choose-timestamp > a {
+	color: black;
+}
+
+/* body styling */
+.mtb-profile-page .row.body{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	top: 40px;
+	bottom: 0;
+}
+
+.mtb-profile-page .row.body .tab-content{
+	height: 100%;
+}/* header design */
 .vk2HeaderNavBar { 
 	height: 85px; 
 	background: #f33; 
@@ -1295,7 +1328,7 @@ Styling of the list elements
 
 
 .time-slider-container .slider{
-	width: 255px;
+	width: 235px;
 }
 
 .time-slider-container .slider-label-end{
@@ -1484,7 +1517,7 @@ Styling of the list elements
 
 
 .time-slider-container .slider{
-	width: 255px;
+	width: 235px;
 }
 
 .time-slider-container .slider-label-end{
