@@ -50,20 +50,8 @@
 				</div>
 				<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
 					<li class="dropdown choose-timestamp">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Wähle Zeitschnitt <b class="caret"></b></a>
-						<ul class="dropdown-menu" id="timestamp-chooser">
-							<li class="dropdown-header">2 Zeitschnitte</li>
-							<li>
-								<a href="#">1925</a>
-							</li>
-							<li>
-								<a href="#">1930</a>
-							</li>
-							<li class="divider"></li>		
-							<li>
-								<a href="#">2 Zeitschnitte gefunden</a>
-							</li>					
-						</ul>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">${_('singlemapview_choosetimestamp')}<b class="caret"></b></a>
+						<ul class="dropdown-menu" id="timestamp-chooser"></ul>
 					</li>
 				</div>
 			</div>
@@ -139,7 +127,8 @@
 			map_id: VK2.Utils.getQueryParam('id'),
 			str_extent: VK2.Utils.getQueryParam('extent'),
 			time: VK2.Utils.getQueryParam('time'),
-			metadata_key: '${key}'	
+			metadata_key: '${key}',
+			timestamp_chooser_list: 'timestamp-chooser'
     	});
     	%endif
     </script> 

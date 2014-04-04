@@ -2,6 +2,7 @@ goog.provide('VK2.Tools.SingleMapViewer');
 
 goog.require('goog.object');
 goog.require('goog.Uri');
+goog.require('goog.dom');
 
 /**
  * @param {Object} settings
@@ -31,7 +32,8 @@ VK2.Tools.SingleMapViewer = function(settings){
 			zoomify_container: 'zoomify-container',
 			zoomify_url: null,
 			zoomify_width: null,
-			zoomify_height: null			
+			zoomify_height: null,
+			timestamp_chooser_list: 'timestamp-chooser'
 	};
 	goog.object.extend(this._settings, settings);
 	
@@ -81,6 +83,11 @@ VK2.Tools.SingleMapViewer = function(settings){
 		  	zoomifyViewer.getMap().updateSize();
 		  }
 	});
+	
+	// load timestamp chooser
+	if (goog.dom.getElement(this._settings.timestamp_chooser_list)){
+		var timestamp_switcher = VK2.Tools.TimestampSwitcher(this._settings.timestamp_chooser_list, this._settings.map_id);
+	}
 };
 
 /**

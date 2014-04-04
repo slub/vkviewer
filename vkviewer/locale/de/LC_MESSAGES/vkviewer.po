@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-03-28 08:26+0100\n"
-"PO-Revision-Date: 2014-03-28 08:27+0100\n"
+"POT-Creation-Date: 2014-04-04 14:42+0200\n"
+"PO-Revision-Date: 2014-04-04 14:43+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -51,7 +51,7 @@ msgstr ""
 #: vkviewer/templates/basic_page.mako:46
 #: vkviewer/templates/georeference_start.mako:61
 #: vkviewer/templates/georeference_validate.mako:81
-#: vkviewer/templates/mtb_profile.mako:67
+#: vkviewer/templates/mtb_profile.mako:116
 msgid "js_library"
 msgstr "de"
 
@@ -330,15 +330,20 @@ msgstr "Nachname"
 msgid "loginScreen_placeholder_email"
 msgstr "Email"
 
-#: vkviewer/templates/mtb_profile.mako:15
+#: vkviewer/templates/mtb_profile.mako:53
+#| msgid "singlemapview_originalmtbtab"
+msgid "singlemapview_choosetimestamp"
+msgstr "Wähle Zeitschnitt"
+
+#: vkviewer/templates/mtb_profile.mako:63
 msgid "singlemapview_georefmtbtab"
 msgstr "Georeferenzierte Karte"
 
-#: vkviewer/templates/mtb_profile.mako:16
+#: vkviewer/templates/mtb_profile.mako:64
 msgid "singlemapview_originalmtbtab"
 msgstr "Originale Karte"
 
-#: vkviewer/templates/mtb_profile.mako:17
+#: vkviewer/templates/mtb_profile.mako:65
 msgid "singlemapview_metadatatab"
 msgstr "Metadaten zur Karte"
 
@@ -487,7 +492,7 @@ msgstr "Georeferenzierungsparameter (lon:lat)"
 msgid "georef_persist_access"
 msgstr "Persistenter Zugang zu georeferenzierter Karte"
 
-#: vkviewer/templates/users_profile_georef.mako:62
+#: vkviewer/templates/users_profile_georef.mako:61
 msgid "georef_result_being_generated"
 msgstr "Georeferenzierung wird aktuell noch bearbeitet (Wartezeit ca. 20 Min.)"
 
