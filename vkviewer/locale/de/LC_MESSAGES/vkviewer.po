@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2014-04-04 14:42+0200\n"
-"PO-Revision-Date: 2014-04-04 14:43+0100\n"
+"PO-Revision-Date: 2014-04-04 14:59+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -275,7 +275,7 @@ msgstr "Anmelden"
 
 #: vkviewer/templates/index_page.mako:74
 msgid "placeholder_town_name"
-msgstr "Ortsname oder Blattnumber"
+msgstr "Ortsname oder Blattnummer"
 
 #: vkviewer/templates/login_screen.mako:8
 msgid "loginScreen_welcome"
