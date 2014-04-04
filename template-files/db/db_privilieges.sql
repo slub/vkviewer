@@ -16,4 +16,5 @@ GRANT SELECT, DELETE ON TABLE refmtblayer TO vkviewer;
 ﻿-- User privileges user_georef
 GRANT SELECT, UPDATE ON TABLE md_bildmedium TO user_georef;
 GRANT SELECT, UPDATE ON TABLE messtischblatt TO user_georef;
-
+GRANT UPDATE, SELECT ON users TO user_georef;
+GRANT DELETE ON georeferenzierungsprozess TO user_georef;

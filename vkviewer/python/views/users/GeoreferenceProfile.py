@@ -15,7 +15,7 @@ from vkviewer import log
 # query for getting all georeference processes from a special user
 georeference_profile_query = 'SELECT georef.id as georef_id, georef.messtischblattid as mtbid, mtb.dateiname as key, box2d(st_transform(mtb.boundingbox, 900913)) as box,\
 georef.clipparameter as clip_params, georef.timestamp as time_georef, georef.isvalide as isvalide, md_core.titel as titel, md_zeit.datierung as time, mtb.isttransformiert \
-FROM georeferenzierungsprozess as georef, md_core, messtischblatt as mtb, md_zeit WHERE georef.nutzerid = \'%s\' AND \
+FROM georeferenzierungsprozess as georef, md_core, messtischblatt as mtb, md_zeit WHERE georef.nutzerid = \'%s\' AND georef.typevalidierung != \'waiting\' AND \
 georef.messtischblattid = md_core.id AND georef.messtischblattid = mtb.id AND georef.messtischblattid = md_zeit.id AND \
 md_zeit.typ = \'a5064\' ORDER BY time_georef DESC'
 
