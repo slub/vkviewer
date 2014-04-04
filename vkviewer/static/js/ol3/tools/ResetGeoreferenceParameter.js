@@ -6,17 +6,17 @@ goog.require('goog.events.EventType');
 goog.require('goog.net.XhrIo');
 goog.require('VK2.Utils');
 /**
- * @param {Element} anchor_element
+ * @param {string} anchor_element_id
  * @param {number} messtischblattid
  * @constructor
  */
-VK2.Tools.ResetGeoreferenceParameter = function(anchor_element, messtischblattid){
+VK2.Tools.ResetGeoreferenceParameter = function(anchor_element_id, messtischblattid){
 	
 	/**
 	 * @type {Element}
 	 * @private
 	 */
-	this._anchor_element = anchor_element;
+	this._anchor_element = goog.dom.getElement(anchor_element_id);
 	
 	/**
 	 * @type {string}
