@@ -72,5 +72,9 @@ var lang_dictionary = {
 		'layerbar_choosetime': 'Choose timestamp',
 		
 		// alerts for GeoreferencerSearchLayer
-		'clickout' : 'Area already completed or does not contain any maps'
+		'clickout' : 'Area already completed or does not contain any maps',
+		
+		// VK2.Tools.TimestampSwitcher
+		'timestamps': 'timestamps',
+		'found_timestamp': 'founded timestamps'
 }

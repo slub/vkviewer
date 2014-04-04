@@ -72,7 +72,11 @@ var lang_dictionary = {
 		'layerbar_choosetime': 'Wähle Zeitschnitt',
 		
 		// alerts for GeoreferencerSearchLayer
-		'clickout' : 'Bereich ist bereits vollständig bearbeitet oder enthält keine Karten'
+		'clickout' : 'Bereich ist bereits vollständig bearbeitet oder enthält keine Karten',
+		
+		// VK2.Tools.TimestampSwitcher
+		'timestamps': 'Zeitschnitte',
+		'found_timestamp': 'Zeitschnitte gefunden'
 		
 }
 	
