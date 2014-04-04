@@ -24,7 +24,7 @@ goog.inherits(VK2.Module.SpatialSearchModule, VK2.Module.AbstractModule);
  * Should be triggered for activate the module.
  * @override
  */
-VK2.Module.AbstractModule.prototype.activate = function() {
+VK2.Module.SpatialSearchModule.prototype.activate = function() {
 	console.log('SpatialSearchModule activated.');
 };
 
@@ -32,6 +32,6 @@ VK2.Module.AbstractModule.prototype.activate = function() {
  * Should be triggered for deactivate the module.
  * @override
  */
-VK2.Module.AbstractModule.prototype.deactivate = function() {
+VK2.Module.SpatialSearchModule.prototype.deactivate = function() {
 	console.log('SpatialSearchModule deactivated.');
 };

@@ -15,7 +15,7 @@
 	<div class="modal-content faq">
 	<div class="modal-header">
   		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>		
-		<h2 class="slubcolor modal-title">${_('faq_main_heading')}</h2>
+		<h4 class="slubcolor modal-title">${_('faq_main_heading')}</h4>
   	</div>
 	<div class="modal-body">
 	<div class="faq page-container">

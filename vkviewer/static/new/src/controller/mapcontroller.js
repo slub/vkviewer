@@ -40,7 +40,11 @@ VK2.Controller.MapController.prototype._loadBaseMap = function(map_container){
 	this._map = new ol.Map({
 		layers: [
 		   new ol.layer.Tile({
-			   source: new ol.source.OSM()
+			   //source: new ol.source.OSM()
+			   source: new ol.source.BingMaps({
+				   key: 'ApU2pc7jDCWIlPogOWrr2FzQTj-1LyxAWKC6uSc26yuYv6gGxnQrXjAoeMmdngG_',
+				   imagerySet: 'Road'
+			   })
 		   })
 		],
 		renderer: 'canvas',

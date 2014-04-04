@@ -76,7 +76,6 @@
 	          		<div class="form-group">
 							<input type="text" id="vk2GazetteerSearchInput" class="form-control vk2GazetteerSearchInput" placeholder="Ortsname oder Blattnumber" />
 			        </div>
-			        <button type="submit" class="btn btn-success gazetteer-submit-button">Search</button>  
 			    </form>
 	          	</div>
           	</div>
@@ -106,7 +105,7 @@
 					        		<div class="rightside">
 					        		   	<ul class="footerList">
 					         				<li class="listelement leftborder">
-					        					<a href="${request.route_url('faq')}" id="test-link" data-toggle="modal" data-target="#modal1-parent">FAQ</a>        				
+					        					<a href="${request.route_url('faq')}" id="test-link" data-toggle="modal" data-target="#vk2-modal">FAQ</a>        				
 					        				</li>       		   		
 					        			</ul>
 					        		</div>
@@ -117,7 +116,7 @@
 		</div> 
 	</div>    
 
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modal1-parent" aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="vk2-modal" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       	<div class="modal-header">
