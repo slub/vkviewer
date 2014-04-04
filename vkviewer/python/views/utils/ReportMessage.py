@@ -4,10 +4,12 @@ from pyramid.view import view_config
 # database imports
 from sqlalchemy.exc import DBAPIError
 from vkviewer import log
+from vkviewer.settings import admin_mail
 from vkviewer.python.tools import checkIsUser
 from vkviewer.python.models.messtischblatt.Fehlermeldung import Fehlermeldung
 from vkviewer.python.models.messtischblatt.Users import Users
 from vkviewer.python.georef.utils import getTimestampAsPGStr
+from vkviewer.python.utils.mail import sendMailCommandLine
 # renderer imports
 import json
 
@@ -47,10 +49,16 @@ def logContactRequest(request):
         fehlerbeschreibung = request.params['message']
         email = request.params['email']
         if login and email and referenz and fehlerbeschreibung:
+            # log into database
             newContactMessage = Fehlermeldung(email = email, referenz = referenz, nutzerid = login,
                         fehlerbeschreibung = fehlerbeschreibung, timestamp = getTimestampAsPGStr())
             request.db.add(newContactMessage)
             log.debug('Contact message is registered in database')  
+            # sending an email
+            log.debug('Sending the message as email to the admin');
+            email_msg = email_msg_template%(email, login, fehlerbeschreibung)
+            sendMailCommandLine(admin_mail, 'Your password has been changed!', email_msg)
+            log.debug('Send report message: %s'%email_msg)
             return json.dumps({'status':'confirmed'}, ensure_ascii=False, encoding='utf-8')
     except DBAPIError:
         log.error('Problems while trying to register report error in database')
@@ -71,3 +79,5 @@ might be caused by one of the following things:
 After you fix the problem, please restart the Pyramid application to
 try it again.
 """
+
+email_msg_template = '\n Es wurde folgende Benachrichtigung ueber das Portal VK2.0. gestellt.\n\n Email: %s \n Login: %s \n Nachricht: %s \n'

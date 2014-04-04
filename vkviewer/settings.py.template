@@ -53,4 +53,4 @@ MTB_LAYER_ID = 87
 admin_addr = 'domain@domain'
 mail_server = 'gate.domain'
 sendmail_location = '/path/to/sendmail'
-
+admin_mail = 'Max.Mustermann@slub-dresden.de'
