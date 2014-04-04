@@ -3,56 +3,117 @@
 <%block name="header_content">
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
-
+	<style>
+		/* header styling */
+		.mtb-profile-page .row.header{
+			height: 40px;
+		}
+		
+		.mtb-profile-page .row.header > div {
+			height: 100%;
+		}
+		
+		.mtb-profile-page .row.header .input-group-btn > button {
+			float: right;
+		}
+		
+		.choose-timestamp {
+			list-style:none;
+			padding-top: 10px;
+		}
+		
+		.choose-timestamp > a {
+			color: black;
+		}
+		
+		/* body styling */
+		.mtb-profile-page .row.body{
+			position: absolute;
+			left: 0;
+			width: 100%;
+			top: 40px;
+			bottom: 0;
+		}
+		
+		.mtb-profile-page .row.body .tab-content{
+			height: 100%;
+		}
+	</style>
 </%block>
 
 <%block name="body_content">
 	<div class="mtb-profile-page">
 		<div class="container">
-			<h1 id="singlemapview-title"></h1>
-			<!-- tab navigation -->
-			<ul id="singlemapview-tab-list" class="nav nav-tabs">
-				<li class="active"><a href="#georef-view" data-toggle="tab">${_('singlemapview_georefmtbtab')}</a></li>
-			  	<li><a href="#original-view">${_('singlemapview_originalmtbtab')}</a></li>
-			  	<li><a href="#metadata-view">${_('singlemapview_metadatatab')}</a></li>
-			</ul>
+			<div class="row header">
+				<div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
+					<h1 id="singlemapview-title"></h1>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+					<li class="dropdown choose-timestamp">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Wähle Zeitschnitt <b class="caret"></b></a>
+						<ul class="dropdown-menu" id="timestamp-chooser">
+							<li class="dropdown-header">2 Zeitschnitte</li>
+							<li>
+								<a href="#">1925</a>
+							</li>
+							<li>
+								<a href="#">1930</a>
+							</li>
+							<li class="divider"></li>		
+							<li>
+								<a href="#">2 Zeitschnitte gefunden</a>
+							</li>					
+						</ul>
+					</li>
+				</div>
+			</div>
 			
-			<!-- tab-panels -->
-			<div id="singlemapview-tab-content" class="tab-content">
 			
-				<!-- Georeference Messtischblatt -->
-				<div class="tab-pane active" id="georef-view">
-					<div class="container">
-						<div class="map-container" id="map-container">
-					
-							## Tool for remove georef dataset from database
-							% if with_modify:
-							<a class="reset-georef-map" id="reset-georef-map"></a>
-							% endif
+			<div class="row body">
+				<!-- tab navigation -->
+				<ul id="singlemapview-tab-list" class="nav nav-tabs">
+					<li class="active"><a href="#georef-view" data-toggle="tab">${_('singlemapview_georefmtbtab')}</a></li>
+				  	<li><a href="#original-view">${_('singlemapview_originalmtbtab')}</a></li>
+				  	<li><a href="#metadata-view">${_('singlemapview_metadatatab')}</a></li>
+				</ul>
+			
+				<!-- tab-panels -->
+				<div id="singlemapview-tab-content" class="tab-content">
 				
-							<div class="opacity-container">
-								<div class="opacity-slider" id="opacity-slider">
-									<div class="tooltip top in fade">
-										<div class="tooltip-arrow"></div>
-										<div class="tooltip-inner"></div>
+					<!-- Georeference Messtischblatt -->
+					<div class="tab-pane active" id="georef-view">
+						<div class="container">
+							<div class="map-container" id="map-container">
+						
+								## Tool for remove georef dataset from database
+								% if with_modify:
+								<a class="reset-georef-map" id="reset-georef-map"></a>
+								% endif
+					
+								<div class="opacity-container">
+									<div class="opacity-slider" id="opacity-slider">
+										<div class="tooltip top in fade">
+											<div class="tooltip-arrow"></div>
+											<div class="tooltip-inner"></div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				
-				<!-- Unreferenced Messtischblatt -->
-				<div class="tab-pane" id="original-view">
-					<div class="container">
-						<div class="zoomify-container" id="zoomify-container"></div>
-					</div>				
-				</div>
-				
-				<!-- Metadata view -->
-				<div class="tab-pane" id="metadata-view">
-					<div class="container">
-						<div class="metadata-container" id="metadata-container"></div>
+					
+					<!-- Unreferenced Messtischblatt -->
+					<div class="tab-pane" id="original-view">
+						<div class="container">
+							<div class="zoomify-container" id="zoomify-container"></div>
+						</div>				
+					</div>
+					
+					<!-- Metadata view -->
+					<div class="tab-pane" id="metadata-view">
+						<div class="container">
+							<div class="metadata-container" id="metadata-container"></div>
+						</div>
 					</div>
 				</div>
 			</div>
