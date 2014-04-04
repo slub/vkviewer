@@ -55,7 +55,7 @@ VK2.Tools.SingleMapViewer = function(settings){
 		 
 	// initialize reset georef tool
 	if (goog.dom.getElement(this._settings.reset_georef_id)){
-		var resetGeoreference = new VK2.Tools.ResetGeoreferenceParameter(this._settings.reset_georef_id, map_id);
+		var resetGeoreference = new VK2.Tools.ResetGeoreferenceParameter(this._settings.reset_georef_id, this._settings.map_id);
 	}; 
 	
 	// initialize zoomify viewer

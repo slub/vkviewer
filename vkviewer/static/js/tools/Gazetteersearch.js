@@ -98,7 +98,7 @@ VK2.Tools.Gazetteersearch.prototype._loadGazetteerBehavior = function(gazetteerE
     			response();
     	    	// this event is important for handling the blattnumber search
 	    		$.ajax({
-	                url: '/vkviewer/proxy/?url=http://139.30.111.16/fgs/vkll/fragblattnr.php?blattnr='+request.term,
+	                url: '/vkviewer/proxy/?url=http://eiger.auf.uni-rostock.de/fgs/vkll/fragblattnr.php?blattnr='+request.term,
 	    			success: $.proxy(function( data ){
 	    				if (data != ''){
 	    					var point = JSON.parse(data);
