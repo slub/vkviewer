@@ -3,42 +3,6 @@
 <%block name="header_content">
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
-	<style>
-		/* header styling */
-		.mtb-profile-page .row.header{
-			height: 40px;
-		}
-		
-		.mtb-profile-page .row.header > div {
-			height: 100%;
-		}
-		
-		.mtb-profile-page .row.header .input-group-btn > button {
-			float: right;
-		}
-		
-		.choose-timestamp {
-			list-style:none;
-			padding-top: 10px;
-		}
-		
-		.choose-timestamp > a {
-			color: black;
-		}
-		
-		/* body styling */
-		.mtb-profile-page .row.body{
-			position: absolute;
-			left: 0;
-			width: 100%;
-			top: 40px;
-			bottom: 0;
-		}
-		
-		.mtb-profile-page .row.body .tab-content{
-			height: 100%;
-		}
-	</style>
 </%block>
 
 <%block name="body_content">
