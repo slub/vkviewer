@@ -69,11 +69,11 @@
 				         	
 			        </li>
 			    </ul>
-	          	<form class="navbar-form vk2Gazetteer" role="search">
+	          	<form class="navbar-form vk2Gazetteer" role="search" onsubmit="return false;">
 	          		<div class="form-group">
 							<input type="text" id="vk2GazetteerSearchInput" class="form-control vk2GazetteerSearchInput" placeholder="${_('placeholder_town_name')}" />
 			        </div>
-			        <button type="submit" class="btn btn-success gazetteer-submit-button">Search</button>  
+			        <!--<button type="submit" class="btn btn-success gazetteer-submit-button">Search</button>-->  
 			    </form>
 	          	</div>
           	</div>
