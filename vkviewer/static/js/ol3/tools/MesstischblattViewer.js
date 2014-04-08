@@ -82,7 +82,9 @@ VK2.Tools.MesstischblattViewer = function(map_container_id, mtb_prop){
 		projection: this._mtbProps.projection,
         minResolution: this._mtbProps.minResolution*2,
         maxResolution: this._mtbProps.maxResolution/2,
-        extent: this._mtbProps.extent
+        extent: this._mtbProps.extent,
+	   	center: VK2.Utils.getCenterPointForExtent(this._mtbProps.extent),
+	   	zoom: 1
 	  }),
 	  controls: [
 	      new ol.control.Attribution(),
@@ -90,9 +92,6 @@ VK2.Tools.MesstischblattViewer = function(map_container_id, mtb_prop){
 	      new ol3.control.RotateNorth()
 	  ]
 	});
-	
-	this._map.getView().fitExtent(this._mtbProps.extent, this._map.getSize())
-	
 	this._loadControls();
 };
 

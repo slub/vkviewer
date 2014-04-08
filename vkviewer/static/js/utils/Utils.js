@@ -379,11 +379,23 @@ VK2.Utils.sendReport = function(url_string, success_callback, error_callback){
 };
 
 /**
+ * This function calculates the lon, lat values for a center point with an extent object
+ * @param {Array.<number>} extent
+ */
+VK2.Utils.getCenterPointForExtent = function(extent){
+	var lon = extent[0] + (extent[2] - extent[0])/2;
+	var lat = extent[1] + (extent[3] - extent[1])/2;
+	return [lon, lat];
+};
+
+/**
  * Overwrite or prototype basic javascript functions
  */
 String.prototype.replaceAll = function(search, replacement){
 	var target = this;
 	return target.split(search).join(replacement);
 };
+
+
 
 
