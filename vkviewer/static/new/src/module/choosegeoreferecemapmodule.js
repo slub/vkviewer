@@ -38,8 +38,8 @@ VK2.Module.ChooseGeoreferenceMapModule = function(settings){
         "version": "1.0.0"			
 	};
 	
-	this._layer = new ol.layer.Tile({
-		source: new ol.source.TileWMS({
+	this._layer = new ol.layer.Image({
+		source: new ol.source.ImageWMS({
 			url: this._wms_settings.url,
 			params: {
 				'LAYERS': this._wms_settings.layer,

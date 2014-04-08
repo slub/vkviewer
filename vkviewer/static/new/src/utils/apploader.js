@@ -2,6 +2,7 @@ goog.provide('VK2.Utils.AppLoader');
 
 goog.require('VK2.Settings');
 goog.require('VK2.Utils');
+goog.require('VK2.Source.WFS');
 goog.require('VK2.Controller.MapController');
 goog.require('VK2.Controller.SidebarController');
 goog.require('VK2.Module.SpatialSearchModule');
@@ -40,4 +41,6 @@ VK2.Utils.AppLoader = function(settings){
 		window['sb'] = sidebar_controller;
 		window['ssm'] = spatialsearch;
 	};
+	
+	var wfs_source = new VK2.Source.WFS();
 }
