@@ -30,12 +30,16 @@ VK2.Utils.checkIfCookiesAreEnabble = function(){
 };
 
 /**
- * @param className {String}
+ * @param {string} modal_id
  * @static
  * @TODO replace css names
  */
 VK2.Utils.loadModalOverlayBehavior = function(className){
-	var modal = goog.dom.getElement('modal-parent');
+	var modal = goog.dom.getElement('vk2-modal');
+	
+	$(modal).on('hidden.bs.modal', function(e){
+		console.log('Modal is closed!');
+	})
 
 	
 //	var modals = goog.dom.getElementsByClass(className);
