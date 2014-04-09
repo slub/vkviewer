@@ -33,7 +33,13 @@
 				 	<article id="${record['georef_id']}" class="">
 				 		<div class="media">
 					 		<a class="pull-right"href="http://kartenforum.slub-dresden.de/cgi-bin/mtbows?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=Historische%20Messtischblaetter&amp;TRANSPARENT=true&amp;FORMAT=image/png&amp;STYLES=&amp;SRS=EPSG:900913&amp;BBOX=${record['boundingbox']}&amp;WIDTH=256&amp;HEIGHT=256&amp;TIME=${record['time']}">
+					 		
+					 			% if record['transformed']:
 					 			<img class="media-object thumbnail" src="" alt="..." data-src="http://kartenforum.slub-dresden.de/cgi-bin/mtbows?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=Historische%20Messtischblaetter&amp;TRANSPARENT=true&amp;FORMAT=image/png&amp;STYLES=&amp;SRS=EPSG:900913&amp;BBOX=${record['boundingbox']}&amp;WIDTH=256&amp;HEIGHT=256&amp;TIME=${record['time']}">
+					 			% else:
+					 			<img class="media-object thumbnail" src="${request.static_url('vkviewer:static/images/inprogress.png')}" alt="..." data-src="${request.static_url('vkviewer:static/images/inprogress.png')}">
+					 			% endif
+					 			
 					 		</a>
 				 		
 				 			<div class="media-body">
