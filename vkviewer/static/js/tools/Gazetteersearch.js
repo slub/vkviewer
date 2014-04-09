@@ -102,7 +102,7 @@ VK2.Tools.Gazetteersearch.prototype._loadGazetteerBehavior = function(gazetteerE
 	    			success: $.proxy(function( data ){
 	    				if (data != ''){
 	    					var point = JSON.parse(data);
-	    					VK2.Utils.jumptolonlat(_map, point.coordinates[0], point.coordinates[1], 12);
+	    					VK2.Utils.jumptolonlat(_map, point.coordinates[0], point.coordinates[1], 5);
 	    				} else {
 	    					alert(VK2.Utils.get_I18n_String('noResultsBlattnr'));
 	    				}
