@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-04-04 14:42+0200\n"
+"POT-Creation-Date: 2014-04-09 11:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 #: vkviewer/templates/basic_page.mako:46
 #: vkviewer/templates/georeference_start.mako:61
 #: vkviewer/templates/georeference_validate.mako:81
-#: vkviewer/templates/mtb_profile.mako:116
+#: vkviewer/templates/mtb_profile.mako:80
 msgid "js_library"
 msgstr ""
 
@@ -292,19 +292,19 @@ msgstr ""
 msgid "loginScreen_placeholder_email"
 msgstr ""
 
-#: vkviewer/templates/mtb_profile.mako:53
+#: vkviewer/templates/mtb_profile.mako:17
 msgid "singlemapview_choosetimestamp"
 msgstr ""
 
-#: vkviewer/templates/mtb_profile.mako:63
+#: vkviewer/templates/mtb_profile.mako:27
 msgid "singlemapview_georefmtbtab"
 msgstr ""
 
-#: vkviewer/templates/mtb_profile.mako:64
+#: vkviewer/templates/mtb_profile.mako:28
 msgid "singlemapview_originalmtbtab"
 msgstr ""
 
-#: vkviewer/templates/mtb_profile.mako:65
+#: vkviewer/templates/mtb_profile.mako:29
 msgid "singlemapview_metadatatab"
 msgstr ""
 
@@ -400,27 +400,27 @@ msgstr ""
 msgid "georef_back_to_overview"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:41
+#: vkviewer/templates/users_profile_georef.mako:47
 msgid "georef_process_id"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:44
+#: vkviewer/templates/users_profile_georef.mako:50
 msgid "georef_result_validate"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:50
+#: vkviewer/templates/users_profile_georef.mako:56
 msgid "georef_map_sheet_info"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:53
+#: vkviewer/templates/users_profile_georef.mako:59
 msgid "georef_parameter"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:56
+#: vkviewer/templates/users_profile_georef.mako:62
 msgid "georef_persist_access"
 msgstr ""
 
-#: vkviewer/templates/users_profile_georef.mako:61
+#: vkviewer/templates/users_profile_georef.mako:67
 msgid "georef_result_being_generated"
 msgstr ""
 
