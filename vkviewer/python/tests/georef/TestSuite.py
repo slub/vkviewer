@@ -1,5 +1,6 @@
 import unittest
 from GdalBindingTest import GdalBindingTest
+from GeoreferenceTest import GeoreferenceTest
 
 def test_suite():
     suite = unittest.TestSuite()
@@ -10,6 +11,7 @@ def test_suite():
     print 'Run test suite'
     
     suite.addTests(loader.loadTestsFromTestCase(GdalBindingTest))
+    suite.addTests(loader.loadTestsFromTestCase(GeoreferenceTest))
     return suite
 
 if __name__ == '__main__':

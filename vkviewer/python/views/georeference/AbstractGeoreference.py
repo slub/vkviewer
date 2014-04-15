@@ -3,7 +3,6 @@ from pyramid.httpexceptions import HTTPBadRequest
 # own import stuff
 from vkviewer import log
 from vkviewer.python.tools import checkIsUser
-from vkviewer.python.georef.georeferenceprocess import parsePixelCoordinates
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 
 """ generic class for the georeference process """
@@ -44,10 +43,7 @@ class AbstractGeoreference(object):
         try:
             # check if mtbid is valide
             if (self.points != None):
-                if parsePixelCoordinates(self.points) and len(parsePixelCoordinates(self.points)) == 4:
-                    return True
-                else:
-                    raise GeoreferenceParameterError(errorMsg)    
+                return True  
         except:
             raise GeoreferenceParameterError(errorMsg)        
         

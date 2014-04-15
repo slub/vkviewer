@@ -36,8 +36,6 @@ VK2.Tools.MesstischblattViewer = function(map_container_id, mtb_prop){
 	 * @private
 	 */
 	this._borderLayer = this._createBorderLayer(this._mtbProps.extent)
-
-
 	
 	/**
 	 * @type {ol.layer.Tile}
@@ -48,7 +46,7 @@ VK2.Tools.MesstischblattViewer = function(map_container_id, mtb_prop){
         minResolution: this._mtbProps.minResolution,
         maxResolution: this._mtbProps.maxResolution
 	});
-	
+		
 	/**
 	 * @type {ol.source.TileWMS}
 	 * @private
