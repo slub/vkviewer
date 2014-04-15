@@ -39,3 +39,9 @@ deploy/settings.py
 
 # log directory 
 log
+
+# for developing
+vkviewer/python/tests/test-data/
+vkviewer/static/new/
+#
+
