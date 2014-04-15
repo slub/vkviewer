@@ -3,34 +3,13 @@ Created on May 30, 2013
 
 @author: mendt
 '''
-from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
-from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
-from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError, GeoreferenceProcessRunningError
-from vkviewer.python.georef.utils import getTimestampAsPGStr, runCommand
-from vkviewer.python.georef.georeferenceutils import getGCPsAsString, addGCPToTiff, georeferenceTiff_fast, georeferenceTiff, getGCPs
-from vkviewer.settings import srid_database
-
 import shutil
 import tempfile
 import os
-
-def parsePixelCoordinates(clippingParameter):
-    ''' 
-    parse the pixelcoordinates from the clipping parameter string
-        
-    @todo: maybe do the parsing of the clippingParameter early together with the validation of the
-               service parameter 
-    '''
-    pixelCoords = []
-    if ";" in clippingParameter:
-        for point in clippingParameter.split(";"):
-            x, y = point.split(",")
-            pixelCoords.append((float(x),float(y)))
-    elif ":" in clippingParameter:
-        for point in clippingParameter.split(","):
-            x, y = point.split(":")
-            pixelCoords.append((float(x),float(y)))
-    return pixelCoords
+from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
+from vkviewer.python.georef.utils import getTimestampAsPGStr, runCommand
+from vkviewer.settings import srid_database
+from vkviewer.python.georef.georeferencer import georeference, createGCPs
 
 class GeoreferenceProcessManager(object):
     """ Class encapsulated a georeference process for one mtb """   
@@ -51,23 +30,6 @@ class GeoreferenceProcessManager(object):
         except: 
             self.logger.error('Problems while running command - %s'%command)
             raise
-        
-    """ method: __getGcpAsStrings__
-    
-        @param - clipParams {Integer:Integer;...} - String list of points which are representing the georeference parameter
-        @param - refFile {String} - Path to file to which the clipping parameters refer
-        @param - width {Integer} Width of the refFile 
-        @param - height {Integer} Height of the refFile
-        @param - boundingbox  {BoundingBox} 
-        @return - {List} - list of gcps
-        
-        this method create gcps as string for using in gdal commands or as a simple list of tuple """
-    def __getGcpAsStrings__(self, clipParams, refFile, width, height, boundingbox):
-            # parse the pixelcoordinates, match them to the correct geographic corner and create
-            # ground control points
-            parsedLatLonCoords = parsePixelCoordinates(clipParams)       
-            gcps =  getGCPsAsString(parsedLatLonCoords, refFile, width, height, boundingbox.getCornerPointsAsList())
-            return gcps
 
     """ method: __runFastGeoreferencing__
     
@@ -77,25 +39,10 @@ class GeoreferenceProcessManager(object):
         
         This function produce the georeference result. """
     def __runFastGeoreferencing__(self, georefObject, messtischblatt, tmpDir, destPath):    
-        try:
-            # create a shapefile which represents the boundingbox of the messtischblatt and is latery used for clipping
-            shpPath = messtischblatt.BoundingBoxObj.asShapefile(os.path.join(tmpDir,"shape"))
-                           
-            # get gcps
-            ground_control_points = self.__getGcpAsStrings__(georefObject.clipparameter, 
-                messtischblatt.original_path, messtischblatt.zoomify_width, messtischblatt.zoomify_height,
-                messtischblatt.BoundingBoxObj)
-                
-            # gather commands for georeference process
-            commands = []
-            tmpTargetPath = os.path.join(tmpDir,"gcpTiff.tif")
-            commands.append(addGCPToTiff(ground_control_points, srid_database, messtischblatt.original_path,tmpTargetPath))
-            commands.append(georeferenceTiff_fast(shpPath,self.srid,tmpTargetPath,destPath))
-            
-            if self.__executeCommands__(commands):
-                return destPath
-            else:
-                raise GeoreferenceProcessRunningError('Something went wrong while trying to process a fast georefercing process')
+        try:                           
+            gcps = createGCPs(georefObject.clipparameter, messtischblatt.BoundingBoxObj.getCornerPointsAsList(), messtischblatt.zoomify_height)
+            return georeference(messtischblatt.original_path, destPath, tmpDir, gcps, srid_database, srid_database, 'polynom', self.logger, 
+                                messtischblatt.BoundingBoxObj.asShapefile(os.path.join(tmpDir,"shape")))
         except:
             self.logger.error('Something went wrong while trying to process a fast georefercing process')
             raise

@@ -16,7 +16,7 @@ SRC_DICT_WKT = {
     4314:'GEOGCS[\"DHDN\",DATUM[\"Deutsches_Hauptdreiecksnetz\",SPHEROID[\"Bessel 1841\",6377397.155,299.1528128,AUTHORITY[\"EPSG\",\"7004\"]],TOWGS84[598.1,73.7,418.2,0.202,0.045,-2.455,6.7],AUTHORITY[\"EPSG\",\"6314\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4314\"]]'
 }
 
-def georeference(src_file, dest_file, tmp_dir, gcps, src_srs, dest_srs, algorithm, logger, clip_to_cropline = None):
+def georeference(src_file, dest_file, tmp_dir, gcps, src_srs, dest_srs, algorithm, logger, clip_shp = None):
     try:
         vrt_dataset = None
         dest_dataset = None
@@ -32,12 +32,10 @@ def georeference(src_file, dest_file, tmp_dir, gcps, src_srs, dest_srs, algorith
         dst_geotr = gdal.GCPsToGeoTransform(gcps)
         vrt_dataset.SetGeoTransform(dst_geotr)
         
-        if clip_to_cropline:
+        if clip_shp:
             vrt_dataset = None
-            logger.debug('Crop result to given boundingbox')
-            dest_shp_file = os.path.join(tmp_dir, '%s'%uuid.uuid4())
-            shp_file = createClipShapefile(clip_to_cropline, dest_shp_file, dest_srs)
-            return clipRasterWithShapfile(vrt_file, dest_file, shp_file, logger)
+            logger.debug('Crop result to given shapefile geometry')
+            return clipRasterWithShapfile(vrt_file, dest_file, clip_shp, logger)
         else:
             logger.debug('Create response without clipping ...')
             dest_dataset = src_dataset.GetDriver().CreateCopy(dest_file, vrt_dataset, 0)
@@ -51,10 +49,10 @@ def georeference(src_file, dest_file, tmp_dir, gcps, src_srs, dest_srs, algorith
         if dest_dataset:
             del dest_dataset
         if shp_file:
-            os.remove('%s.shp'%dest_shp_file)
-            os.remove('%s.dbf'%dest_shp_file)
-            os.remove('%s.prj'%dest_shp_file)
-            os.remove('%s.shx'%dest_shp_file)
+            os.remove('%s.shp'%shp_file)
+            os.remove('%s.dbf'%shp_file)
+            os.remove('%s.prj'%shp_file)
+            os.remove('%s.shx'%shp_file)
             
 def createVrt(gdal_src_dataset, dest_file):
     out_format = 'VRT'

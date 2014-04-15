@@ -59,7 +59,7 @@ class GeoreferenceTest(unittest.TestCase):
     def testGeoreferenceWithClip(self):
         print 'Test georeference with clipfunction ...'
         dst_path = os.path.join(self.dir, 'test_georeference_clip.tif')
-        response_file = georeference(self.file, dst_path, self.dir, self.gcps, 4314, 4314, 'polynom', self.logger, self.boundingbox)
+        response_file = georeference(self.file, dst_path, self.dir, self.gcps, 4314, 4314, 'polynom', self.logger, self.clip_shp)
         self.assertTrue(os.path.exists(dst_path), 'Could not find created vrt file ...')
         self.assertEqual(response_file, dst_path, 'Response is not like expected ...')
         
