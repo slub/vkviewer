@@ -23,7 +23,7 @@ from pyramid.response import Response
 # Designed to prevent Open Proxy type stuff.
 
 allowedHosts = ['www.openlayers.org', 'openlayers.org', 'slub-dresden.de/',
-                'www.openstreetmap.org','194.95.145.43','localhost', '139.30.111.16',
+                'www.openstreetmap.org','194.95.145.43','194.95.145.42','localhost', '139.30.111.16',
                 'kartenforum.slub-dresden.de', 'localhost:8080', 'http://139.30.132.26:8091',
                 'eiger.auf.uni-rostock.de']
 

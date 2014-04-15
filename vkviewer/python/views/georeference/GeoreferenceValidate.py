@@ -57,6 +57,7 @@ class GeoreferenceValidate(AbstractGeoreference):
             
             #georefId, destPath = georeferenceProcess.fastGeoreference(self.userid,self.points,validationResultPath)
             # create mapfile for georeference result
+            log.debug('Create temporary mapfile.')
             wms_url = createMapfile(messtischblatt.dateiname, destPath, 
                                     src_mapfilepath, dest_mapfilefolder, mapfileInitParameter)  
             response = {'wms_url':wms_url,'layer_id':messtischblatt.dateiname,'georefid':georefProcess.id}
