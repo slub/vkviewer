@@ -15,14 +15,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+	{pattern:'lib/ol-whitespace.js'},
       	{pattern:'../lib/closure-library/closure/goog/base.js'},
+	{pattern:'../lib/closure-library/closure/goog/deps.js', included: false, served: false},
 	//{pattern:'../lib/closure-library/closure/goog/**.js', watched: false, included: false},
 	//{pattern:'../lib/closure-library/closure/goog/**/*.js', watched: false, included: false},
 	{pattern: 'src/*.js', included: false},
 	{pattern: 'src/**/*.js', included: false},
 	'test/*.test.js',	
 	'test/**/*.test.js',
-	{pattern:'../lib/closure-library/closure/goog/deps.js', included: false, served: false}
+	
     ],
 
 
@@ -36,7 +38,7 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       // tests are preprocessed for dependencies (closure) and for iits
-      'test/*.js': ['closure', 'closure-iit'],
+      'test/*.js': ['closure'],
       // source files are preprocessed for dependencies
       'js/*.js': ['closure'],
       // external deps
