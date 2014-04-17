@@ -40,7 +40,10 @@ VK2.Utils.AppLoader = function(settings){
 		// for debugging purpose 
 		window['sb'] = sidebar_controller;
 		window['ssm'] = spatialsearch;
+		
+		var wfs_source = new VK2.Source.WFS();
+		window['ww'] = wfs_source;
 	};
 	
-	var wfs_source = new VK2.Source.WFS();
+
 }
