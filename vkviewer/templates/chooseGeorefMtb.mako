@@ -1,13 +1,6 @@
 <%inherit file="basic_page_slim.mako" />
 
 <%block name="body_content">
-	<div class="modal-dialog modal-lg">
-	<div class="modal-content choose-georef">
-	<div class="modal-header">
-  		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>		
-		<h4 class="slubcolor modal-title">${_('georef_choose_map')}</h4>
-  	</div>
-	<div class="modal-body">
 	<div class="choose-georef page-container">
   		<div class="vk2ChooseGeorefMtb">
 			
@@ -32,8 +25,4 @@
 			
 		</div>
 	</div>   
-	</div>
-	</div>
-	</div>
-	</div>
 </%block>
