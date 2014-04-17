@@ -128,18 +128,26 @@
 			        	</div>
 						<!-- end footer -->
 						     
-						<!-- block for further privilege dependent html content -->  
-						<%block name="inner_body_content" />
+						% if user_id:
+							<!-- container for giving a georef point feedback -->
+							<div id="georefPointContainer" class="georef-point-container alert alert-warning"></div>	 
+						% endif
+
 		</div>
 
 		% if context.get('welcomepage') is not 'off':
 			<a href="${request.route_url('welcome')}" id="vk2WelcomePage"></a>
 		% endif  
 	</div>
-	
-	${next.body()}
 
 </%block>
 
-
+<%block name="js_content">
+	<script>
+		$(document).ready(function(){ 
+	    	app = new VK2.Utils.AppLoader({}, initConfiguration);
+			app.loadApplication();
+	    });
+	</script>
+</%block>
 
