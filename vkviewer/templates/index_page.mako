@@ -29,7 +29,7 @@
         	<div class="collapse navbar-collapse navbar-ex1-collapse">
         		<ul class="nav navbar-nav navbar-right vk2-navbar-user">
         			<li class="dropdown info-dropdown">
-	                	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="${_('header_service')}">${_('header_service')} <b class="caret"></b></a>
+	                	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="${_('header_service')}">${_('header_service')} </b></a>
 		                <ul class="dropdown-menu">
 		                
 				              	% if faq_url:
