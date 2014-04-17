@@ -1,6 +1,7 @@
 goog.provide('VK2.Utils');
 
 goog.require('goog.dom');
+
 /**
  * 
  * This function encapsulate the json lang_dictionary from the locale javascript folder.
@@ -29,32 +30,3 @@ VK2.Utils.checkIfCookiesAreEnabble = function(){
 	}
 };
 
-/**
- * @param {string} modal_id
- * @static
- * @TODO replace css names
- */
-VK2.Utils.loadModalOverlayBehavior = function(className){
-	var modal = goog.dom.getElement('vk2-modal');
-	
-	$(modal).on('hidden.bs.modal', function(e){
-		console.log('Modal is closed!');
-	})
-
-	
-//	var modals = goog.dom.getElementsByClass(className);
-//	for (var i = 0; i < modals.length; i++){
-//		var modal_ahref = modals[i];
-//		var className = 'vk2-fancybox-wrapper';
-//		
-//		// this parse a class for setting the wide and high of the iframe
-//		if (goog.isDefAndNotNull(modals[i].getAttribute('data-fancyclass')))
-//			className += ' ' + modals[i].getAttribute('data-fancyclass') + '-page-container';
-				
-//		$(fancybox_ahref).fancybox({
-//			'type': 'iframe',
-//			'autoSize': false,
-//			'wrapCSS': className,
-//		});
-//	};
-};

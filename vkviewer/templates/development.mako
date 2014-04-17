@@ -14,12 +14,17 @@
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />	 
 		<style>
 			.modal-content.faq{
-				width: 800px;
+				width: auto;
 				margin-left: -100px;
 			}
-			.modal-content.faq .modal-body{
-				overflow-y: scroll;
-				height: 90%;
+			
+			.modal-content.faq iframe.faq{
+				width: 100%;
+				height: 600px;
+			}
+			
+			.modal-content.choose-georef iframe.choose-georef{
+				width: 100%;
 			}
 		</style>
 
@@ -105,7 +110,8 @@
 					        		<div class="rightside">
 					        		   	<ul class="footerList">
 					         				<li class="listelement leftborder">
-					        					<a href="${request.route_url('faq')}" id="test-link" data-toggle="modal" data-target="#vk2-modal">FAQ</a>        				
+					        					<a href="${request.route_url('faq')}" data-src="${request.route_url('faq')}" data-classes="faq" 
+					        							class="vk2-modal-anchor" data-title="FAQ">FAQ</a>        				
 					        				</li>       		   		
 					        			</ul>
 					        		</div>

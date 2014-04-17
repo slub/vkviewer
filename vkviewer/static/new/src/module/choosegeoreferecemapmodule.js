@@ -2,6 +2,7 @@ goog.provide('VK2.Module.ChooseGeoreferenceMapModule');
 
 goog.require('goog.dom');
 goog.require('VK2.Utils');
+goog.require('VK2.Utils.Modal');
 goog.require('VK2.Module.AbstractModule');
 
 /**
@@ -49,7 +50,18 @@ VK2.Module.ChooseGeoreferenceMapModule = function(settings){
 	});	
 	
 	this._selectEventHandler = function(event){
-		$(goog.dom.getElement('vk2-modal')).modal({remote: '/vkviewer/choosegeoref?blattnr=40_40'});
+		var modal = new VK2.Utils.Modal('vk2-modal-choosegeoref',document.body, true);
+		
+		// parse the modal parameters
+		var title = 'Choose Georef';
+		var classes = 'choose-georef';
+		var href = '/vkviewer/choosegeoref?blattnr=40_40'
+
+		modal.open(title, classes, {
+			'href':href,
+			'classes':classes
+		});
+		
 //		console.log('click event');
 //		var source = this.getSource();
 //		var viewResolution = event.map.getView().getResolution();

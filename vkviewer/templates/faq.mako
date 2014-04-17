@@ -11,15 +11,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="modal-dialog modal-lg">
-	<div class="modal-content faq">
-	<div class="modal-header">
-  		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>		
-		<h4 class="slubcolor modal-title">${_('faq_main_heading')}</h4>
-  	</div>
-	<div class="modal-body">
-	<div class="faq page-container">
-		<div class="panel-group faq" id="accordion">
+	<div>
 			<h2 class="slubcolor">${_('faq_main_heading')}</h2>
   			<br>
   			Wir freuen uns Sie im Virtuellen Kartenforum 2.0 Willkommen zu heißen und wünschen Ihnen viel Spaß. Antworten auf verschiedene Fragen
@@ -274,9 +266,6 @@
 					</div>
 				</div>
 			</div>
-	    </div>
-	    </div>
-	    </div>
 	    </div>
 	   	<!-- js librarys via cdn -->    
       	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
