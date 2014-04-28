@@ -280,5 +280,10 @@ VK2.Controller.SidebarController.prototype.registerModule = function(module){
 	}
 };
 
-
+/**
+ * @return {Element}
+ */
+VK2.Controller.SidebarController.prototype.getContentElement = function(){
+	return this._bodyContainer;
+};
 	

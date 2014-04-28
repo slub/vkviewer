@@ -22,6 +22,7 @@
     "karma-requirejs": "~0.2.1",
     "karma-script-launcher": "~0.1.0",
     "requirejs": "~2.1.11",
-    "karma-closure": "~0.1.0"
+    "karma-closure": "~0.1.0",
+    "closure-deps-resolver": "~0.2.1"
   }
 }

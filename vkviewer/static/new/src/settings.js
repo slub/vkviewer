@@ -11,3 +11,21 @@ VK2.Settings.MAIN_MAP_SETTINGS = {
     center: [1528150, 6630500],
     zoom: 2
 };
+
+/**
+ * @type {Object}
+ */
+VK2.Settings.WFS_PARSER_CONFIG = {
+	'featureNS': 'http://mapserver.gis.umn.edu/mapserver',
+    'featureType': 'Historische_Messtischblaetter_WFS'
+};
+
+/**
+ * @type {string}
+ */
+VK2.Settings.WFS_URL = 'http://194.95.145.43/cgi-bin/mtbows';
+
+/**
+ * @type {string}
+ */
+VK2.Settings.PROXY_URL = 'http://localhost:8080/vkviewer/proxy/?url=';
