@@ -15,16 +15,19 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-	{pattern:'lib/ol-whitespace.js'},
-      	{pattern:'../lib/closure-library/closure/goog/base.js'},
-	{pattern:'../lib/closure-library/closure/goog/deps.js', included: false, served: false},
-	//{pattern:'../lib/closure-library/closure/goog/**.js', watched: false, included: false},
-	//{pattern:'../lib/closure-library/closure/goog/**/*.js', watched: false, included: false},
-	{pattern: 'src/*.js', included: false},
-	{pattern: 'src/**/*.js', included: false},
+	{pattern:'lib/ol.js'},
+	'../lib/closure-library/closure/goog/base.js',
+	{pattern: 'src/*.js', included: true, watch: true},
+	{pattern: 'src/**/*.js', included: true, watch: true},
 	'test/*.test.js',	
 	'test/**/*.test.js',
-	
+	//{pattern:'lib/closure-library/closure/goog/*.js', watched: false, included: true, served: true},
+	//{pattern:'lib/closure-library/closure/goog/**/*.js', watched: false, included: true, served: true},
+//      	{pattern:'../lib/closure-library/closure/goog/base.js', included: true},
+	{pattern:'../lib/closure-library/closure/goog/deps.js', included: false, served: false},
+	//{pattern:'deps.js', included: true, served: true, watched: true},
+	//{pattern:'../lib/closure-library/closure/goog/**.js', watched: false, included: false},
+	//{pattern:'../lib/closure-library/closure/goog/**/*.js', watched: false, included: false}	
     ],
 
 

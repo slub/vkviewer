@@ -7,7 +7,7 @@ goog.require('goog.events.EventType');
 goog.require('VK2.Settings');
 goog.require('VK2.Utils');
 goog.require('VK2.Utils.Modal');
-goog.require('VK2.Source.WFS');
+goog.require('VK2.Layer.MapSearch');
 goog.require('VK2.Controller.MapController');
 goog.require('VK2.Controller.SidebarController');
 goog.require('VK2.Module.SpatialSearchModule');
@@ -31,7 +31,8 @@ VK2.Utils.AppLoader = function(settings){
 	var spatialsearch = new VK2.Module.SpatialSearchModule({
 		'map':map_controller.getMap(),
 		'panel_id': 'vk2LayersearchPanel',
-		'control_id': 'vk2LayersearchControl'
+		'control_id': 'vk2LayersearchControl',
+		'parentEl': sidebar_controller.getContentElement()
 	});
 	sidebar_controller.registerModule(spatialsearch);
 	
@@ -46,9 +47,9 @@ VK2.Utils.AppLoader = function(settings){
 		// for debugging purpose 
 		window['sb'] = sidebar_controller;
 		window['ssm'] = spatialsearch;
-		
-		var wfs_source = new VK2.Source.WFS();
-		window['ww'] = wfs_source;
+		window['map'] = map_controller.getMap();
+
+		//window['vector'] = vectorLayer;
 	};
 	
 	VK2.Utils.AppLoader.loadModalOverlayBehavior('vk2-modal-anchor');

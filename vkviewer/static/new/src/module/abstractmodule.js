@@ -43,6 +43,12 @@ VK2.Module.AbstractModule = function(settings){
 	 * @protected
 	 */
 	this.TYPE_ = goog.isDef(settings['panel_id']) ? 'content' : 'click';
+	
+	/**
+	 * @type {Element}
+	 * @protected
+	 */
+	this._parentEl = goog.isDef(settings['parentEl']) ? settings['parentEl'] : undefined;
 };
 
 /**
