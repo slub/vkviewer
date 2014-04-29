@@ -2,6 +2,7 @@ goog.provide('VK2.Module.SpatialSearchModule');
 
 goog.require('VK2.Utils');
 goog.require('VK2.Module.AbstractModule');
+goog.require('VK2.Tools.MapSearch');
 
 /**
  * @constructor
@@ -17,16 +18,26 @@ VK2.Module.SpatialSearchModule = function(settings){
 	settings.NAME = VK2.Utils.getMsg('toolname_layersearch');
 	goog.base(this, settings);
 	
-	// for testing purpose
-	this.vectorLayer;
-	if (goog.DEBUG){
-		this.vectorLayer = new VK2.Layer.MapSearch({
-			'projection':'EPSG:900913'
-		});
-	};
+//	// for testing purpose
+//	this.vectorLayer;
+//	if (goog.DEBUG){
+//		this.vectorLayer = new VK2.Layer.MapSearch({
+//			'projection':'EPSG:900913'
+//		});
+//	};
 	
 	this._loadHtmlContent(this._parentEl);
-	this._loadBehavior();
+	
+	/**
+	 * @type {VK2.Tools.MapSearch} 
+	 * @private
+	 */
+	this._mapsearch = new VK2.Tools.MapSearch(this._map, 305.74811309814453, [1868,1945], 
+			'panel-heading-mapsearch','panel-spatialsearch-table');
+	
+	this._loadTimeSlider();
+	
+
 };
 goog.inherits(VK2.Module.SpatialSearchModule, VK2.Module.AbstractModule);
 
@@ -116,7 +127,7 @@ VK2.Module.SpatialSearchModule.prototype._loadHtmlContent = function(parent_elem
 /**
  * @private
  */
-VK2.Module.SpatialSearchModule.prototype._loadBehavior = function(){
+VK2.Module.SpatialSearchModule.prototype._loadTimeSlider = function(){
 		
 	// load toolbar behavior
 	var sliderContainer = goog.dom.getElement('spatialsearch-tools-slider');
@@ -136,8 +147,7 @@ VK2.Module.SpatialSearchModule.prototype._loadBehavior = function(){
             $(label_end).text( ui.values[ 1 ] );
         },
         'change': $.proxy(function( event, ui ){
-        	this.vectorLayer.setTimeFilter(ui.values[0],ui.values[1]);
-            //this._mapsearch.updateTimestamp(event, ui.values);
+        	this._mapsearch.updateTimeFilter(ui.values[0], ui.values[1]);
         }, this)
     });
 	
@@ -152,7 +162,8 @@ VK2.Module.SpatialSearchModule.prototype._loadBehavior = function(){
  */
 VK2.Module.SpatialSearchModule.prototype.activate = function() {
 	console.log('SpatialSearchModule activated.');
-	this._map.addLayer(this.vectorLayer);
+	this._mapsearch.activate();
+	//this._map.addLayer(this.vectorLayer);
 };
 
 /**
@@ -161,5 +172,6 @@ VK2.Module.SpatialSearchModule.prototype.activate = function() {
  */
 VK2.Module.SpatialSearchModule.prototype.deactivate = function() {
 	console.log('SpatialSearchModule deactivated.');
-	this._map.removeLayer(this.vectorLayer);
+	this._mapsearch.deactivate();
+	//this._map.removeLayer(this.vectorLayer);
 };
