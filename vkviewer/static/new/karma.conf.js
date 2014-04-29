@@ -15,19 +15,18 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-	{pattern:'lib/ol.js'},
+	'lib/ol.js',
+	'lib/jquery.min.js',
+	'lib/jquery-ui.min.js',
+	'lib/jquery.tablesorter.min.js',
 	'../lib/closure-library/closure/goog/base.js',
+	'../lib/closure-library/closure/goog/ui/idgenerator.js',
 	{pattern: 'src/*.js', included: true, watch: true},
 	{pattern: 'src/**/*.js', included: true, watch: true},
-	'test/*.test.js',	
-	'test/**/*.test.js',
-	//{pattern:'lib/closure-library/closure/goog/*.js', watched: false, included: true, served: true},
-	//{pattern:'lib/closure-library/closure/goog/**/*.js', watched: false, included: true, served: true},
-//      	{pattern:'../lib/closure-library/closure/goog/base.js', included: true},
+	{pattern: 'test/mochups/*.js', included: true, watch: true},
+	'test/spec/*.test.js',	
+	'test/spec/**/*.test.js',
 	{pattern:'../lib/closure-library/closure/goog/deps.js', included: false, served: false},
-	//{pattern:'deps.js', included: true, served: true, watched: true},
-	//{pattern:'../lib/closure-library/closure/goog/**.js', watched: false, included: false},
-	//{pattern:'../lib/closure-library/closure/goog/**/*.js', watched: false, included: false}	
     ],
 
 

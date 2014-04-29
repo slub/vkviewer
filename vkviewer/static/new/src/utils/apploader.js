@@ -7,7 +7,6 @@ goog.require('goog.events.EventType');
 goog.require('VK2.Settings');
 goog.require('VK2.Utils');
 goog.require('VK2.Utils.Modal');
-goog.require('VK2.Layer.MapSearch');
 goog.require('VK2.Controller.MapController');
 goog.require('VK2.Controller.SidebarController');
 goog.require('VK2.Module.SpatialSearchModule');

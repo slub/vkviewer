@@ -9,3 +9,16 @@ VK2.Utils.Styles.MAP_SEARCH_FEATURE = new ol.style.Style({
     	width: 2
     })
 });
+
+/**
+ * @type {Object} 
+ */
+VK2.Utils.Styles.MAP_SEARCH_HOVER_FEATURE = new ol.style.Style({
+	stroke: new ol.style.Stroke({
+		color: '#f00',
+        width: 1
+    }),
+    fill: new ol.style.Fill({
+        color: 'rgba(255,0,0,0.1)'
+    })
+});

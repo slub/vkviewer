@@ -11,13 +11,17 @@ goog.require('VK2.Utils.Styles');
  * @extends {ol.layer.Vector}
  */
 VK2.Layer.MapSearch = function(settings){
-
+	
 	// create vector source
 	var vectorSource = new ol.source.ServerVector({
 		format: new ol.format.WFS(VK2.Settings.WFS_PARSER_CONFIG),
 		loader: function(extent, resolution, projection) {
 			if (goog.DEBUG)
 				console.log('Loader is called');
+
+			// call loading start callback
+			if (goog.isDef(settings.loading_start))
+				settings.loading_start();
 			
 			var url = VK2.Settings.PROXY_URL+VK2.Settings.WFS_URL+'?SERVICE=WFS&' +
 		    	'VERSION=1.1.0&REQUEST=getfeature&TYPENAME=Historische_Messtischblaetter_WFS&MAXFEATURES=10000&srsname='+settings.projection+'&' +
@@ -30,6 +34,10 @@ VK2.Layer.MapSearch = function(settings){
 		    	var data = xhr.getResponseXml() ? xhr.getResponseXml() : xhr.getResponseText();
 		    	xhr.dispose();
 		    	this.addFeatures(this.readFeatures(data));
+		    	
+		    	// call load end callback
+		    	goog.isDef(settings.loading_end)
+		    		settings.loading_end();
 		    }, false, this);
 
 		    xhr.send(url);
@@ -60,6 +68,10 @@ VK2.Layer.MapSearch = function(settings){
 	settings.source = vectorSource;
 	
 	goog.base(this, settings);
+
+	if (goog.DEBUG)
+		window['vector'] = this;
+	
 };
 goog.inherits(VK2.Layer.MapSearch, ol.layer.Vector);
 
@@ -85,7 +97,27 @@ VK2.Layer.MapSearch.prototype.setTimeFilter = function(opt_start_time, opt_end_t
 		};
 		this._timeArr.END = opt_end_time;
 	};
-	
+};
+
+/**
+ * Refresh the layer after updating filter funtions.
+ */
+VK2.Layer.MapSearch.prototype.refresh = function(){
 	// for updating the view of the layer
 	this.dispatchChangeEvent();
+};
+
+/**
+ * @param {ol.Extent} extent
+ * @return {Array.<ol.Feature>}
+ */
+VK2.Layer.MapSearch.prototype.getTimeFilteredFeatures = function(extent){
+	var allFeatures = this.getSource().getFeaturesInExtent(extent);
+	var returnArr = [];
+	allFeatures.forEach(function(feature){
+		if (feature.get('time') >= this._timeArr.START && feature.get('time') <= this._timeArr.END){
+			returnArr.push(feature);
+		}
+	}, this);
+	return returnArr;
 };

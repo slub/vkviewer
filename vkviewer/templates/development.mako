@@ -34,8 +34,9 @@
 	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
 	   	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	   	<script src="${request.static_url('vkviewer:static/new/ol-whitespace.js')}"></script>
+	   	<script src="${request.static_url('vkviewer:static/new/lib/ol-whitespace.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/ui/idgenerator.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/new/deps.js')}"></script>   
 	    <script>
 	    	goog.require('VK2.Utils.AppLoader');
