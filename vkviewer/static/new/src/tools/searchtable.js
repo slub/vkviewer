@@ -42,6 +42,12 @@ VK2.Tools.SearchTable = function(parent, headingCol){
 	}	
 	
 	/**
+	 * @type {Array<ol.Feature>}
+	 * @private
+	 */
+	this._features = null;
+	
+	/**
 	 * @type {number}
 	 * @private
 	 */
@@ -153,8 +159,9 @@ VK2.Tools.SearchTable.prototype.registerMapSearchLayer = function(msLayer){
  * @param {ol.Map} opt_map
  * @param {ol.FeatureOverlay=} opt_hoverLayer
  * @param {Function=} opt_headingCallback
+ * @param {Function=} opt_minimizeViewCallback
  */
-VK2.Tools.SearchTable.prototype.refresh = function(data, opt_map, opt_hoverLayer, opt_headingCallback){
+VK2.Tools.SearchTable.prototype.refresh = function(data, opt_map, opt_hoverLayer, opt_headingCallback, opt_minimizeViewCallback){
 	
 	console.log('refresh layer');
 	
@@ -186,11 +193,14 @@ VK2.Tools.SearchTable.prototype.refresh = function(data, opt_map, opt_hoverLayer
 		
 		// add click behavior
 		if (goog.isDef(opt_map))
-			this._addRowClickBehavior(row, feature, opt_map);
+			this._addRowClickBehavior(row, feature, opt_map, opt_minimizeViewCallback);
 	};
 	
 	// update row count
 	this._rowCount = data.length;
+	
+	// persist actual feature data to the rows
+	this._features = data;
 	
 	// updating table headering
 	if (goog.isDef(opt_headingCallback))
@@ -231,13 +241,15 @@ VK2.Tools.SearchTable.prototype._addRowHoverBehavior = function(rowElement, feat
  * @param {Element} rowElement
  * @param {ol.Feature} feature
  * @param {ol.Map} map
+ * @param {Function=} callback
  * @private
  */
-VK2.Tools.SearchTable.prototype._addRowClickBehavior = function(rowElement, feature, map){
+VK2.Tools.SearchTable.prototype._addRowClickBehavior = function(rowElement, feature, map, callback){
 	goog.events.listen(rowElement, goog.events.EventType.CLICK, function(event){
 		var view = map.getView().getView2D();
 		view.setCenter(feature.getGeometry().getInteriorPoint().getCoordinates());
 		view.setZoom(5);
+		callback(this.filterFeatures(this._features, 'blattnr', feature.get('blattnr')));
 	}, undefined, this);
 };
 
@@ -254,3 +266,17 @@ VK2.Tools.SearchTable.prototype.getRowCount = function(){
 VK2.Tools.SearchTable.prototype.getTableDomElement = function(){
 	return this._tableEl; 
 };
+
+/**
+ * @param {Array.<ol.Feature>} features
+ * @param {string} attribute_key
+ * @param {string|number|Object} value
+ */
+VK2.Tools.SearchTable.prototype.filterFeatures = function(features, attribute_key, value){
+	var array = [];
+	for (var i = 0; i < features.length; i++){
+		if (features[i].get(attribute_key) === value)
+			array.push(features[i]);
+	};
+	return array;
+}

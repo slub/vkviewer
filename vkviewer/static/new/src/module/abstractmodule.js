@@ -15,6 +15,7 @@ VK2.Module.AbstractModule = function(settings){
 	/**
 	 * @type {ol.Map}
 	 * @protected
+	 * @expose
 	 */
 	this._map = goog.isDef(settings) ? settings.map : {};
 	

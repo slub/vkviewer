@@ -29,3 +29,8 @@ VK2.Settings.WFS_URL = 'http://194.95.145.43/cgi-bin/mtbows';
  * @type {string}
  */
 VK2.Settings.PROXY_URL = 'http://localhost:8080/vkviewer/proxy/?url=';
+
+/**
+ * @type {string}
+ */
+VK2.Settings.GEONETWORK = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|';

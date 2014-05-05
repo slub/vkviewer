@@ -58,6 +58,22 @@ VK2.Controller.MapController.prototype._loadBaseMap = function(map_container){
 			zoom: 2
 		})
 	});
+	
+	this._addFeatureClickBehavior(this._map);
+};
+
+/**
+ * @param {ol.Map}
+ * @private
+ */
+VK2.Controller.MapController.prototype._addFeatureClickBehavior = function(map){
+	map.on('click', function(evt){
+		var features = [];
+		map.forEachFeatureAtPixel(evt.pixel, function(feature, layer){
+			features.push(feature);
+		});
+		console.log(features);
+	});
 };
 
 /**

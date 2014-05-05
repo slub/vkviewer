@@ -11,6 +11,7 @@ goog.require('goog.events.EventType');
 goog.require('VK2.Layer.MapSearch');
 goog.require('VK2.Tools.SearchTable');
 goog.require('VK2.Utils.Styles');
+goog.require('VK2.Tools.MinimizeMesstischblattView');
 
 /**
  * @param {Object} map OpenLayers.Map object
@@ -18,24 +19,22 @@ goog.require('VK2.Utils.Styles');
  * @param {Array.<number>} timestamps Array which contains the min and max timestamps
  * @param {string} feedBackContainer Id of the container where the feature loading feedback should be displayed
  * @param {string} table_container
- * @param {VK2.Tools.MinimizeMesstischblattView} minimizeMtbView
+ * @param {Element} container_minimizeView
  * @constructor
  */
-VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, table_container, minimizeMtbView){
+VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, table_container, container_minimizeView){
 	
 	/**
 	 * @type {Object}
 	 * @private
 	 */
 	this._map = map;
-			
+		
 	/**
-	 * @type {Array.<number>} 
+	 * @type {VK2.Tools.MinimizeMesstischblattView}
 	 * @private
-	 * Work around for the multiple firing of ol3 moveend events. Through comparing the center point of the move end event
-	 * multiple running of the buisness logic is prevented.
 	 */
-	this._moveendIdentifier = null;
+	this._minimizeView = new VK2.Tools.MinimizeMesstischblattView(container_minimizeView);	
 	
 	/**
 	 * @type {Function}
@@ -45,6 +44,22 @@ VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, table
 		var headingEl = goog.dom.getElementByClass('content', goog.dom.getElement(feedBackContainer));
 		headingEl.innerHTML = count + ' ' + VK2.Utils.getMsg('found_mtb');
 	};
+	
+	/**
+	 * @type {Function}
+	 * @private
+	 */
+	this._callbackMinimizeView = goog.bind(function(features){
+		this._minimizeView.updateView(features);
+	}, this);
+	
+	/**
+	 * @type {Array.<number>} 
+	 * @private
+	 * Work around for the multiple firing of ol3 moveend events. Through comparing the center point of the move end event
+	 * multiple running of the buisness logic is prevented.
+	 */
+	this._moveendIdentifier = null;
 	
 	/**
 	 * @type {Object}
@@ -62,7 +77,7 @@ VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, table
 					var features = this._msLayer.getTimeFilteredFeatures(view.getView2D().calculateExtent(event.map.getSize()));
 					if (features.length != this._table.getRowCount()){
 						this._moveendIdentifier = view.getCenter();
-						this._table.refresh(features, event.map, this._hoverLayer, this._callbackUpdateHeading);
+						this._table.refresh(features, event.map, this._hoverLayer, this._callbackUpdateHeading, this._callbackMinimizeView);
 						// update tablesorter
 						$(this._table.getTableDomElement()).trigger('update');
 					}
@@ -106,11 +121,6 @@ VK2.Tools.MapSearch = function(map, maxRes, timestamps, feedBackContainer, table
 	this._table = new VK2.Tools.SearchTable(table_container, [{'id':'time', 'title':VK2.Utils.getMsg('timestamp')},{'id':'titel', 'title':VK2.Utils.getMsg('titel')}]);
 	// initialize tablesorter plugin for the searchtable
 	$(this._table.getTableDomElement()).tablesorter();
-	
-	
-	// register minimizeMtbView
-	//this._controller.registerMinimizeMesstischblattView(minimizeMtbView)
-	
 };
 
 /**

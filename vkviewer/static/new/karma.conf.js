@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-	'lib/ol.js',
+	'lib/ol-whitespace.js',
 	'lib/jquery.min.js',
 	'lib/jquery-ui.min.js',
 	'lib/jquery.tablesorter.min.js',

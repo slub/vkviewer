@@ -26,6 +26,24 @@
 			.modal-content.choose-georef iframe.choose-georef{
 				width: 100%;
 			}
+			
+			.modal-content.single-map-view{
+				width: 100%;
+				min-width: 1000px;
+				margin-left: -200px;
+				height: 100%;
+				min-height: 600px;
+			}
+			
+			.modal-content.single-map-view .modal-body{
+				width: 100%;
+				height: 700px;
+			}
+			
+			.modal-content.single-map-view iframe{
+				width: 100%;
+				height: 100%;
+			}
 		</style>
 
 		<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>

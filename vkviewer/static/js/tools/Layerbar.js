@@ -1,6 +1,6 @@
 goog.provide('VK2.Tools.Layerbar');
 
-
+goog.require('goog.style');
 goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.events.EventType');
