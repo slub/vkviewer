@@ -30,3 +30,34 @@ VK2.Utils.checkIfCookiesAreEnabble = function(){
 	}
 };
 
+/**
+ * Opens a link in a modal
+ * @param {string} modal_className
+ * @param {Element} anchor_element
+ */
+VK2.Utils.loadLinkInModal = function(modal_className, anchor_element){
+	var modal = new VK2.Utils.Modal(modal_className, document.body, true);
+	
+	// iteratore over modal_anchors and init the behavior for them
+	goog.events.listen(anchor_element, goog.events.EventType.CLICK, function(e){
+		try {	
+			// parse the modal parameters
+			var title = this.getAttribute('data-title');
+			var classes = this.getAttribute('data-classes');
+			var href = this.getAttribute('data-src');
+	
+			modal.open(title, classes, {
+				'href':href,
+				'classes':classes
+			});
+				
+			// stopping the default behavior of the anchor 
+			e.preventDefault();
+		} catch (e) {
+			if (goog.DEBUG){
+				console.log('Error while trying to load remote page in modal.');
+			}
+		};
+	});
+
+};

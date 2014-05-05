@@ -1,5 +1,6 @@
 goog.provide('VK2.Module.SpatialSearchModule');
 
+goog.require('goog.style');
 goog.require('VK2.Utils');
 goog.require('VK2.Module.AbstractModule');
 goog.require('VK2.Tools.MapSearch');
@@ -33,7 +34,7 @@ VK2.Module.SpatialSearchModule = function(settings){
 	 * @private
 	 */
 	this._mapsearch = new VK2.Tools.MapSearch(this._map, 305.74811309814453, [1868,1945], 
-			'panel-heading-mapsearch','panel-spatialsearch-table');
+			'panel-heading-mapsearch','panel-spatialsearch-table',goog.dom.getElement('panel-spatialsearch-mtbview'));
 	
 	this._loadTimeSlider();
 	
@@ -47,11 +48,15 @@ goog.inherits(VK2.Module.SpatialSearchModule, VK2.Module.AbstractModule);
  */
 VK2.Module.SpatialSearchModule.prototype._loadHtmlContent = function(parent_element){
 	// build panel 
-	var panel = goog.dom.createDom('div', {
+	/**
+	 * @type {Element} 
+	 * @private
+	 */
+	this._contentPanel = goog.dom.createDom('div', {
 		'id': 'panel-layersearch',
 		'class': 'panel panel-default searchTablePanel'
 	});
-	goog.dom.appendChild(parent_element, panel);	
+	goog.dom.appendChild(parent_element, this._contentPanel);	
 	
 	//
 	// heading
@@ -73,7 +78,7 @@ VK2.Module.SpatialSearchModule.prototype._loadHtmlContent = function(parent_elem
 	
 	goog.dom.appendChild(panelHeading, panelHeadingContent);
 	goog.dom.appendChild(panelHeading, panelHeadingLoading);
-	goog.dom.appendChild(panel, panelHeading);
+	goog.dom.appendChild(this._contentPanel, panelHeading);
 	
 	//
 	// table
@@ -82,7 +87,7 @@ VK2.Module.SpatialSearchModule.prototype._loadHtmlContent = function(parent_elem
 		'id': 'panel-spatialsearch-table',
 		'class': 'panel-mapsearch-table'
 	});
-	goog.dom.appendChild(panel, panelTable);
+	goog.dom.appendChild(this._contentPanel, panelTable);
 	
 	//
 	// tools
@@ -91,7 +96,7 @@ VK2.Module.SpatialSearchModule.prototype._loadHtmlContent = function(parent_elem
 		'id': 'panel-spatialsearch-tools',
 		'class': 'panel-spatialsearch-tools'
 	});
-	goog.dom.appendChild(panel, panelTools);
+	goog.dom.appendChild(this._contentPanel, panelTools);
 	
 	// label for time-sldier
 	var labelTimeSlider = goog.dom.createDom('label', {'innerHTML':VK2.Utils.getMsg('change_timeperiod')});
@@ -122,6 +127,13 @@ VK2.Module.SpatialSearchModule.prototype._loadHtmlContent = function(parent_elem
 	goog.dom.appendChild(toolsContainer, sliderContainer);
 	goog.dom.appendChild(toolsContainer, sliderLabelEnd);
 	goog.dom.appendChild(panelTools, toolsContainer);
+	
+	// container for minimize messtischblatt view
+	var minimzeMtbView = goog.dom.createDom('div', {
+		'id': 'panel-spatialsearch-mtbview',
+		'class':'panel-spatialsearch-mtbview'
+	});
+	goog.dom.appendChild(this._contentPanel, minimzeMtbView);
 };
 
 /**
@@ -163,6 +175,7 @@ VK2.Module.SpatialSearchModule.prototype._loadTimeSlider = function(){
 VK2.Module.SpatialSearchModule.prototype.activate = function() {
 	console.log('SpatialSearchModule activated.');
 	this._mapsearch.activate();
+	goog.style.showElement(this._contentPanel, true);
 	//this._map.addLayer(this.vectorLayer);
 };
 
@@ -173,5 +186,6 @@ VK2.Module.SpatialSearchModule.prototype.activate = function() {
 VK2.Module.SpatialSearchModule.prototype.deactivate = function() {
 	console.log('SpatialSearchModule deactivated.');
 	this._mapsearch.deactivate();
+	goog.style.showElement(this._contentPanel, false);
 	//this._map.removeLayer(this.vectorLayer);
 };

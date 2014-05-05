@@ -39,8 +39,12 @@ VK2.Utils.Modal.prototype._initHtmlContent = function(modal_id){
 	goog.dom.appendChild(modal_dialog, modal_content);
 	
 	// header
-	var modal_header = goog.dom.createDom('div',{'class':'modal-header'});
-	goog.dom.appendChild(modal_content, modal_header);
+	/**
+	 * @type {Element}
+	 * @private
+	 */
+	this._modal_header = goog.dom.createDom('div',{'class':'modal-header'});
+	goog.dom.appendChild(modal_content, this._modal_header);
 	var header_close = goog.dom.createDom('button',{
 		'class':'close',
 		'type':'button',
@@ -48,9 +52,9 @@ VK2.Utils.Modal.prototype._initHtmlContent = function(modal_id){
 		'aria-hidden':'true',
 		'innerHTML':'&times;'
 	});
-	goog.dom.appendChild(modal_header, header_close);
+	goog.dom.appendChild(this._modal_header, header_close);
 	var header_title = goog.dom.createDom('h4',{'class':'modal-title'});
-	goog.dom.appendChild(modal_header, header_title);
+	goog.dom.appendChild(this._modal_header, header_title);
 	
 	// body
 	var modal_body = goog.dom.createDom('div',{'class':'modal-body'});
@@ -98,9 +102,7 @@ VK2.Utils.Modal.prototype._initBehavior = function(modal_el, onclose_destroy){
 			goog.dom.removeNode(this);
 			console.log('register onclose destroy behavior');
 		}
-	});
-	
-
+	});	
 };
 
 /**
@@ -118,6 +120,11 @@ VK2.Utils.Modal.prototype._registerRemoteSrc = function(remote_src){
 		'frameborder':'0',
 		'src':remote_src.href
 	});
+	
+	// set attributes for allowing fullscreen behavior of ol3
+	iframe.setAttribute('webkitallowfullscreen',''); // @deprecated
+	iframe.setAttribute('mozallowfullscreen',''); // @deprecated
+	iframe.setAttribute('allowfullscreen','');
 	
 	if (goog.isDef(remote_src.width))
 		goog.style.setStyle(iframe, 'width',remote_src.width);
@@ -146,8 +153,11 @@ VK2.Utils.Modal.prototype._setTitle = function(title){
  *   classes (string=): class of the iframe
  */
 VK2.Utils.Modal.prototype.open = function(opt_title, opt_modal_class, opt_remote_src){
-	if (goog.isDef(opt_title))
+	if (goog.isDefAndNotNull(opt_title)){
 		this._setTitle(opt_title);
+	} else {
+		goog.style.showElement(this._modal_header, false);
+	};
 	
 	if (goog.isDef(opt_modal_class)){
 		var modal_content = goog.dom.getElementByClass('modal-content', this._modalEl);

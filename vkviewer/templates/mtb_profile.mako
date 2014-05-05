@@ -80,7 +80,7 @@
 	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
 	
 	<!-- production  -->
-	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
+	<script src="${request.static_url('vkviewer:static/new/lib/ol-whitespace.js')}"></script>
 	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.js')}"></script> 
     <script>
     	% if key and zoomify_prop and zoomify_width and zoomify_height:

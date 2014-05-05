@@ -10,7 +10,9 @@ goog.require('VK2.Utils.Modal');
 goog.require('VK2.Controller.MapController');
 goog.require('VK2.Controller.SidebarController');
 goog.require('VK2.Module.SpatialSearchModule');
+goog.require('VK2.Module.LayerBarModule');
 goog.require('VK2.Module.ChooseGeoreferenceMapModule');
+goog.require('VK2.Layer.HistoricMap');
 
 
 /**
@@ -35,6 +37,14 @@ VK2.Utils.AppLoader = function(settings){
 	});
 	sidebar_controller.registerModule(spatialsearch);
 	
+	var layerbar = new VK2.Module.LayerBarModule({
+		'map':map_controller.getMap(),
+		'panel_id': 'vk2LayerbarPanel',
+		'control_id': 'vk2LayerbarControl',
+		'parentEl': sidebar_controller.getContentElement()
+	});
+	sidebar_controller.registerModule(layerbar);
+	
 	var georef_chooser = new VK2.Module.ChooseGeoreferenceMapModule({
 		'map':map_controller.getMap(),
 		'control_id': 'vk2GeorefControl'
@@ -47,8 +57,15 @@ VK2.Utils.AppLoader = function(settings){
 		window['sb'] = sidebar_controller;
 		window['ssm'] = spatialsearch;
 		window['map'] = map_controller.getMap();
-
-		//window['vector'] = vectorLayer;
+//		map_controller.getMap().addLayer(new VK2.Layer.HistoricMap({
+//			'time':1912,
+//			'projection':'EPSG:900913'
+//		}));
+//		
+//		map_controller.getMap().addLayer(new VK2.Layer.HistoricMap({
+//			'time':1913,
+//			'projection':'EPSG:900913'
+//		}));
 	};
 	
 	VK2.Utils.AppLoader.loadModalOverlayBehavior('vk2-modal-anchor');
@@ -63,7 +80,7 @@ VK2.Utils.AppLoader = function(settings){
 VK2.Utils.AppLoader.loadModalOverlayBehavior = function(className, opt_element){
 	var parent_el = goog.isDef(opt_element) ? opt_element : document.body;
 	var modal_anchors = goog.dom.getElementsByClass(className, parent_el.body);
-	var modal = new VK2.Utils.Modal('vk2-overlay-modal',document.body);
+	var modal = new VK2.Utils.Modal('vk2-overlay-modal',document.body, true);
 	
 	// iteratore over modal_anchors and init the behavior for them
 	for (var i = 0; i < modal_anchors.length; i++){
