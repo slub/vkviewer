@@ -13,6 +13,7 @@ goog.require('VK2.Module.SpatialSearchModule');
 goog.require('VK2.Module.LayerBarModule');
 goog.require('VK2.Module.ChooseGeoreferenceMapModule');
 goog.require('VK2.Layer.HistoricMap');
+goog.require('VK2.Tools.GazetteerSearch');
 
 
 /**
@@ -22,6 +23,7 @@ goog.require('VK2.Layer.HistoricMap');
  * @export
  */
 VK2.Utils.AppLoader = function(settings){
+	
 	VK2.Utils.checkIfCookiesAreEnabble();
 	//VK2.Utils.loadModalOverlayBehavior('fancybox-open');
 	
@@ -45,25 +47,23 @@ VK2.Utils.AppLoader = function(settings){
 	});
 	sidebar_controller.registerModule(layerbar);
 	
-	var georef_chooser = new VK2.Module.ChooseGeoreferenceMapModule({
-		'map':map_controller.getMap(),
-		'control_id': 'vk2GeorefControl'
-	});
-	sidebar_controller.registerModule(georef_chooser);
+	var gazetter = new VK2.Tools.GazetteerSearch(document.getElementById('vk2GazetteerSearchInput'), map_controller.getMap());
+
+	if (goog.isDef(settings) && settings.hasOwnProperty('georeference') && settings['georeference'] === true){
+		var georef_chooser = new VK2.Module.ChooseGeoreferenceMapModule({
+			'map':map_controller.getMap(),
+			'control_id': 'vk2GeorefControl'
+		});
+		sidebar_controller.registerModule(georef_chooser);
+	};
 		
 	// for testing
 	if (goog.DEBUG){	
 		// for debugging purpose 
-		window['sb'] = sidebar_controller;
-		window['ssm'] = spatialsearch;
 		window['map'] = map_controller.getMap();
+		window['gazetter'] = gazetter;
 //		map_controller.getMap().addLayer(new VK2.Layer.HistoricMap({
 //			'time':1912,
-//			'projection':'EPSG:900913'
-//		}));
-//		
-//		map_controller.getMap().addLayer(new VK2.Layer.HistoricMap({
-//			'time':1913,
 //			'projection':'EPSG:900913'
 //		}));
 	};

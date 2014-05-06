@@ -62,7 +62,11 @@
 /*
 Styling of the list elements
  */
-.layersDiv .overlayElem{
+.panel-layerbar .overlayDivs{
+	margin-top: 5px;	
+}
+
+.panel-layerbar .overlayDivs .overlayElem{
     list-style-type: none;
 }
 

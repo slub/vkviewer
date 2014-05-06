@@ -59,5 +59,77 @@ VK2.Utils.loadLinkInModal = function(modal_className, anchor_element){
 			}
 		};
 	});
+};
 
+/**
+ * This functions does a get request for a given url_string and calls, if given, the success_callback or error_callback
+ * @param {string} url_string
+ * @param {Function=} success_callback
+ * @param {Function=} error_callback
+ * @static
+ */
+VK2.Utils.sendReport = function(url_string, success_callback, error_callback){
+	
+	// create request object
+	var xhr = new goog.net.XhrIo();
+	
+	// add listener to request object
+	goog.events.listenOnce(xhr, 'success', function(e){
+		var xhr = /** @type {goog.net.XhrIo} */ (e.target);
+		if (goog.isDef(success_callback))
+			success_callback(xhr);
+		xhr.dispose();
+
+	}, false, this);
+	
+	goog.events.listenOnce(xhr, 'error', function(e){
+		var xhr = /** @type {goog.net.XhrIo} */ (e.target);
+		if (goog.isDef(error_callback))
+			error_callback(xhr);
+	}, false, this);
+	
+	// send request
+	xhr.send(url_string);	
+};
+
+/**
+ * This function parse the query parameters of the given href. If href is undefined it tooks the actual window.location.href 
+ * @param {string|undefined} href
+ * @return {goog.Uri.QueryData}
+ * @static
+ */
+VK2.Utils.getAllQueryParams = function(href){
+	if (goog.isDef(href)){
+		var url = new goog.Uri(href);
+	} else {
+		var url = new goog.Uri(window.location.href);
+	}
+
+	return url.getQueryData();
+};
+
+/**
+ * This function parse for the given href the query parameter with the given name. If href is undefined it tooks the 
+ * actual window.location.href
+ * @param {string} name
+ * @param {string|undefined} href
+ * @return {string}
+ * @static
+ */
+VK2.Utils.getQueryParam = function(name, href){
+	if (goog.isDef(href)){
+		return this.getAllQueryParams(href).get(name);
+	} else {
+		return this.getAllQueryParams().get(name);
+	}
+};
+
+/**
+ * This function calculates the lon, lat values for a center point with an extent object
+ * @param {Array.<number>} extent
+ */
+VK2.Utils.getCenterPointForExtent = function(extent){
+	var lon = extent[0] + (extent[2] - extent[0])/2;
+	var lat = extent[1] + (extent[3] - extent[1])/2;
+	return [lon, lat];
 };

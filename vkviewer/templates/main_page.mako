@@ -2,6 +2,9 @@
 
 <%block name="header_content">
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
+	<script>
+	    goog.require('VK2.Utils.AppLoader');
+	</script>
 </%block>
 
 <%block name="body_content">
@@ -31,19 +34,34 @@
         			<li class="dropdown info-dropdown">
 	                	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="${_('header_service')}">${_('header_service')} <b class="caret"></b></a>
 		                <ul class="dropdown-menu">
-		                
-				              	% if faq_url:
-				         			<li><a href="${faq_url}" class="vk2FooterLinks fancybox-open" data-fancyclass="faq">FAQ</a></li>        				
-				        		% else:
-				        			<li><a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open" data-fancyclass="faq">FAQ</a></li>
-				        		% endif
-			        		
-				              	<li><a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open" data-fancyclass="contact">${_('footer_contact')}</a></li>
-				              	<li><a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open" data-fancyclass="project">${_('footer_project')}</a></li>
-				              	<li><a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open" data-fancyclass="impressum">${_('footer_editorial')}</a><li>     
-				              	     
+		                	
+		                	% if faq_url:
+					        	<li class="listelement leftborder">
+					        		<a href="${faq_url}" data-src="${faq_url}" data-classes="faq" 
+					        			class="vk2-modal-anchor" data-title="${_('faq_main_heading')}">FAQ</a>        				
+					        	</li>       		   		
+					        % else:
+					        	<li class="listelement leftborder">
+					        		<a href="${request.route_url('faq')}" data-src="${request.route_url('faq')}" data-classes="faq" 
+					        			class="vk2-modal-anchor" data-title="${_('faq_main_heading')}">FAQ</a>        				
+					        	</li>
+					        % endif
+					        			
+					        <li class="listelement leftborder">
+					        	<a href="${request.route_url('contact')}" data-src="${request.route_url('contact')}" data-classes="contact" 
+					        		class="vk2-modal-anchor" data-title="${_('contact_header')}">${_('footer_contact')}</a>		
+					        </li>        				
+					        <li class="listelement leftborder">
+					        	<a href="${request.route_url('project')}" data-src="${request.route_url('project')}" data-classes="project" 
+					        		class="vk2-modal-anchor" data-title="${_('project_name_short')}">${_('footer_project')}</a>    				
+					        </li>
+					        <li class="listelement">
+					        	<a href="${request.route_url('impressum')}" data-src="${request.route_url('impressum')}" data-classes="impressum" 
+					        		class="vk2-modal-anchor" data-title="${_('footer_editorial')}">${_('footer_editorial')}</a>
+					        </li>          
 		                </ul>
 	             	</li>
+	             	<!-- end navigation -->
           		
           			<!-- user menu -->
 			        <li class="dropdown user-dropdown">
@@ -57,14 +75,17 @@
 						
 			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"></span> ${user_id} <b class="caret"></b></a>
 			              	<ul class="dropdown-menu">
-				                <li><a href="${request.route_url('users_profile_georef')}" class="fancybox-open" data-fancyclass="georef-history">${_('georef_history')}</a></li>
-				                <li><a href="${request.route_url('change_pw', action='page')}" class="fancybox-open" data-fancyclass="pw-change">${_('change_pw_header')}</a></li>
+				                <li><a href="${request.route_url('users_profile_georef')}" data-src="${request.route_url('users_profile_georef')}" data-classes="georef-history" 
+					        		class="vk2-modal-anchor" data-title="${_('georef_history')}">${_('georef_history')}</a></li>
+				                <li><a href="${request.route_url('change_pw', action='page')}" data-src="${request.route_url('change_pw', action='page')}" data-classes="pw-change" 
+					        		class="vk2-modal-anchor" data-title="${_('change_pw_header')}">${_('change_pw_header')}</a></li>
 				                <li class="divider"></li>
 				                <li><a href="${request.route_url('auth',action='out')}"><span class="glyphicon glyphicon-off"></span> ${_('logout_button')} </a></li>
 				              </ul>
 			              
 				            % else:
-				              <a href="${request.route_url('auth',action='getscreen')}" id="vk2UserToolsLogin" class="vk2UserToolsLogin fancybox-open" data-fancyclass="login"> ${_('login_button')} <b class="caret"></b> </a>
+				              <a href="${request.route_url('auth',action='getscreen')}" data-src="${request.route_url('auth',action='getscreen')}" data-classes="login" 
+					        		class="vk2-modal-anchor" data-title="${_('login_button')}"> ${_('login_button')} <b class="caret"></b> </a>
 				         	% endif
 				         	
 			        </li>
@@ -105,21 +126,26 @@
 					        		   	
 					        		   		% if faq_url:
 					         				<li class="listelement leftborder">
-					        					<a href="${faq_url}" class="vk2FooterLinks fancybox-open" data-fancyclass="faq">FAQ</a>        				
+					        					<a href="${faq_url}" data-src="${faq_url}" data-classes="faq" 
+					        							class="vk2-modal-anchor" data-title="${_('faq_main_heading')}">FAQ</a>        				
 					        				</li>       		   		
 					        		   		% else:
 					        				<li class="listelement leftborder">
-					        					<a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open" data-fancyclass="faq">FAQ</a>        				
+					        					<a href="${request.route_url('faq')}" data-src="${request.route_url('faq')}" data-classes="faq" 
+					        							class="vk2-modal-anchor" data-title="${_('faq_main_heading')}">FAQ</a>        				
 					        				</li>
 					        				% endif
 					        				<li class="listelement leftborder">
-					         					<a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open" data-fancyclass="contact">${_('footer_contact')}</a>		
+					         					<a href="${request.route_url('contact')}" data-src="${request.route_url('contact')}" data-classes="contact" 
+					        							class="vk2-modal-anchor" data-title="${_('contact_header')}">${_('footer_contact')}</a>		
 					        				</li>        				
 					        				<li class="listelement leftborder">
-					        					<a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open" data-fancyclass="project">${_('footer_project')}</a>    				
+					        					<a href="${request.route_url('project')}" data-src="${request.route_url('project')}" data-classes="project" 
+					        							class="vk2-modal-anchor" data-title="${_('project_name_short')}">${_('footer_project')}</a>    				
 					        				</li>
 					        				<li class="listelement">
-					        					<a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open" data-fancyclass="impressum">${_('footer_editorial')}</a>
+					        					<a href="${request.route_url('impressum')}" data-src="${request.route_url('impressum')}" data-classes="impressum" 
+					        							class="vk2-modal-anchor" data-title="${_('footer_editorial')}">${_('footer_editorial')}</a>
 					        				</li>
 					        			</ul>
 					        		</div>
@@ -127,19 +153,29 @@
         					</div>
 			        	</div>
 						<!-- end footer -->
-						     
-						<!-- block for further privilege dependent html content -->  
-						<%block name="inner_body_content" />
 		</div>
 
 		% if context.get('welcomepage') is not 'off':
 			<a href="${request.route_url('welcome')}" id="vk2WelcomePage"></a>
 		% endif  
 	</div>
-	
-	${next.body()}
-
 </%block>
 
-
+<%block name="js_content">
+	<script>
+	<%
+		from pyramid.security import authenticated_userid
+		user_id = authenticated_userid(request)
+	%>
+	
+	% if user_id:
+		var apploader = new VK2.Utils.AppLoader({
+			'georeference':true
+		});
+	% else:
+		var apploader = new VK2.Utils.AppLoader({});
+	% endif
+	
+	</script>
+</%block>
 
