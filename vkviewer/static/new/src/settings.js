@@ -34,3 +34,8 @@ VK2.Settings.PROXY_URL = 'http://localhost:8080/vkviewer/proxy/?url=';
  * @type {string}
  */
 VK2.Settings.GEONETWORK = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|';
+
+/**
+ * @type {String}
+ */
+VK2.Settings.CSW_URL = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw';

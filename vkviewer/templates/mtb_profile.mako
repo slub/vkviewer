@@ -1,8 +1,10 @@
-<%inherit file="basic_page_slim.mako" />
+<%inherit file="basic_page.mako" />
 
 <%block name="header_content">
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
+	<script>
+	    goog.require('VK2.Module.SingleMapViewer');
+	</script>
 </%block>
 
 <%block name="body_content">
@@ -74,17 +76,9 @@
 </%block>
 
 <%block name="js_content">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>	
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>   
-	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	
-	<!-- production  -->
-	<script src="${request.static_url('vkviewer:static/new/lib/ol-whitespace.js')}"></script>
-	<script src="${request.static_url('vkviewer:static/js/Vkviewer-ol3.js')}"></script> 
     <script>
     	% if key and zoomify_prop and zoomify_width and zoomify_height:
-    	var singleMapViewer = new VK2.Tools.SingleMapViewer({
+    	var singleMapViewer = new VK2.Module.SingleMapViewer({
     		zoomify_url: '${zoomify_prop}'.substring(0,'${zoomify_prop}'.lastIndexOf("/")+1),
 			zoomify_width: ${zoomify_width},
 			zoomify_height: ${zoomify_height},

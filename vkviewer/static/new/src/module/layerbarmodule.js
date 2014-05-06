@@ -64,7 +64,7 @@ VK2.Module.LayerBarModule.prototype._loadHtmlContent = function(parent_element){
 	 */
 	this._contentPanel = goog.dom.createDom('div', {
 		'id': 'panel-layerbar',
-		'class': 'panel panel-default searchTablePanel'
+		'class': 'panel panel-default panel-layerbar'
 	});
 	goog.dom.appendChild(parent_element, this._contentPanel);	
 	
