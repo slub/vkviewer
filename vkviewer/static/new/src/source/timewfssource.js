@@ -48,5 +48,5 @@ VK2.Source.TimeWfs.prototype.getTime = function(){
  */
 VK2.Source.TimeWfs.prototype.setTime = function(time){
 	this._time = time;
-	this.dispatchChangeEvent();
+	//this.dispatchChangeEvent();
 };
