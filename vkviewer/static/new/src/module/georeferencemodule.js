@@ -10,6 +10,7 @@ goog.require('goog.net.EventType');
 goog.require('VK2.Utils');
 goog.require('VK2.Requests.Georeferencer');
 goog.require('VK2.Control.LayerSpy');
+goog.require('VK2.Control.ClipControl');
 goog.require('VK2.Interaction.DeleteFeature');
 
 /**
@@ -461,14 +462,14 @@ VK2.Module.GeoreferencerModule.prototype._loadButtonEvents = function(){
 			for (var i = 0; i < keys.length; i++){
 				if (keys[i] != 'points' && keys[i] != 'layer_id' && keys[i] != 'wms_url' && keys[i] != 'georefid')
 					href = href + keys[i] + '=' + url.getQueryData().get(keys[i]) + '&';
-			}
+			};
 				
 			// add new query parameter
 			var parsed_data = JSON.parse(data)
 			for (var key in parsed_data){
 				if (parsed_data.hasOwnProperty(key))
 					href = href + key + '=' + parsed_data[key] + '&';
-			}
+			};
 				
 			window.location.href = href;
 		};
@@ -629,7 +630,7 @@ VK2.Module.GeoreferencerModule.prototype._loadToggleControls = function(map, dra
 	var toggleElements = goog.dom.getElementsByTagNameAndClass('input','toggle-elements',this._toolContainer);
 	for (var i = 0; i < toggleElements.length; i++){
 		goog.events.listen(toggleElements[i], goog.events.EventType.CLICK, function(event){
-			this._removeInteractions(interactions, map)
+			this._removeInteractions(interactions, map);
 			
 			// add choosen interaction
 			if (goog.isDef(event.target.value) && event.target.value != ''){
@@ -654,6 +655,8 @@ VK2.Module.GeoreferencerModule.prototype._removeInteractions = function(interact
 	for (var key in interactions){
 		if (interactions.hasOwnProperty(key)){
 			for (var i = 0; i < interactions[key].length; i++){
+				if (interactions[key][i] instanceof ol.interaction.Select)
+					interactions[key][i].getFeatures().clear();
 				map.removeInteraction(interactions[key][i]);
 			}
 		}
@@ -664,9 +667,11 @@ VK2.Module.GeoreferencerModule.prototype._removeInteractions = function(interact
  * @param {string} mapContainerId
  * @param {string} wms_url Url to the web mapping service which publish the validation file
  * @param {string} layer_id
+ * @param {string=} clip_polygon
  * @static
+ * @Todo clip_polygon is right now handle like a extent array. Should be handle like a polygon.
  */
-VK2.Module.GeoreferencerModule.prototype.loadValidationMap = function(map_container_id, wms_url, layer_id){
+VK2.Module.GeoreferencerModule.prototype.loadValidationMap = function(map_container_id, wms_url, layer_id, clip_polygon){
 
 	/**
 	 * @type {ol.layer.Tile}
@@ -711,37 +716,13 @@ VK2.Module.GeoreferencerModule.prototype.loadValidationMap = function(map_contai
 	  controls: [
 	       new ol.control.FullScreen(),
 	       new ol.control.Zoom(),
-	       new ol.control.Attribution()//,
-//	       new ol.control.MousePosition({
-//	    	   coordinateFormat: ol.coordinate.createStringXY(4),
-//	    	   projection:'EPSG:900913'
-//	       })
+	       new ol.control.Attribution()  
 	  ]
 	});
-
+	
 	// zoom to extent by parsing getcapabilites request from wms
-	var successHandler = function(data){
-		var parser = new ol.format.WMSCapabilities();
-		var result = parser.read(data);
-		var extent = [];
-		bbox_4314 = result.Capability.Layer.Layer[0].BoundingBox[0].extent;
-		Proj4js.defs["EPSG:4314"] = "+proj=longlat +ellps=bessel +towgs84=582,105,414,1.04,0.35,-3.08,8.3 +no_defs"; 
-		bbox_900913 = ol.proj.transform(bbox_4314, 'EPSG:4314', 'EPSG:900913');
-		map.getView().fitExtent(bbox_900913, map.getSize());
-		
-//		// create clip function
-//		validation_layer.on('precompose', function(event){
-//			var ctx = event.context;
-//			debugger;
-//		});
-	};
-	
-	var errorHandler = function(e){
-		alert('Problems while parsing wms capabilities.');
-	}
-	
-	var url = this._urls.proxy + wms_url;	
-	VK2.Requests.Georeferencer.getExtentForWMS(url, successHandler, errorHandler)
+	map.getView().fitExtent(clip_polygon, map.getSize());
+	map.addControl(new VK2.Control.ClipControl(VK2.Utils.getPolygonFromExtent(clip_polygon),validation_layer));
 
 	// load layerspy tool for validation map
 	map.addControl(
@@ -775,6 +756,5 @@ VK2.Module.GeoreferencerModule.prototype.loadValidationMap = function(map_contai
 				$(this.parentElement).find('.tooltip').fadeOut('fast');
 			}
 		});
-}
-	
+	};
 };
