@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
@@ -18,12 +18,12 @@
 				
 				<div class="rightContainer">
 					<div class="inner">
-						<span class="slubcolor heading"><b>Willkommen im neuen Portal<br>des virtuellen Kartenforum 2.0.</b></span><br>
+						<span class="slubcolor heading"><b>Willkommen im neuen Portal<br>Virtuelles Kartenforum 2.0.</b></span><br>
 						<p>
-							Das Portal des virtuellen Kartenforums 2.0. wird im Rahmen des gleichnamigen DFG Projektes entwickelt. 
+							Das Portal Virtuelles Kartenforum 2.0. wird im Rahmen des gleichnamigen DFG Projektes entwickelt. 
 							Aktuell befindet es sich in der Beta-Phase. Es soll einen Zugriff auf georeferenzierte sowie Werkzeuge 
 							zur Georeferenzierung von Messtischblättern bieten. Sie sind herzlich eingeladen an der Georeferenzierung
-							von Messtischblättern mit zuarbeiten.
+							von Messtischblättern mitzuarbeiten.
 						</p>
 					</div>
 				</div>
