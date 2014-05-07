@@ -28,6 +28,7 @@ class ViewGeoreferenceValidateTest(BaseTestCaseAuthentification):
         self.assertTrue('georefid' in result)
         self.assertTrue(isinstance(int(resultJson['georefid']),int))
         self.assertTrue('wms_url' in result)
+        self.assertTrue('extent' in result)
     
     def testGeoreferenceValidateCall_failWrongParams_MissingUserid(self):
         params = {'test':71055044,'points':'7440:7246,7280:1534,1216:1454,816:7342'}

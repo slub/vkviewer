@@ -86,6 +86,7 @@
 			var zoomify_url = url.getQueryData().get('zoomify_prop').substring(0,url.getQueryData().get('zoomify_prop').lastIndexOf("/")+1);
 			var georef_params = url.getQueryData().get('points');
 			var georefid = url.getQueryData().get('georefid');
+					  
 			var georeferencer = new VK2.Module.GeoreferencerModule('unreferenced-map', mtbid, {
 				'width': imgWidth,
 				'height': imgHeight,
@@ -94,13 +95,17 @@
 				'status': 'validation',
 				'georef_params': georef_params,
 				'georef_id': georefid,
-				'target_href': '${request.route_url('home_login')}?georef=on&points=20',
+				'target_href': '${request.route_url('home_login')}?georef=on&points=20'
 			});
 			
 			// load validation map
 			var wms_url = url.getQueryData().get('wms_url');
 			var layer_id = url.getQueryData().get('layer_id');
-			georeferencer.loadValidationMap('georeferenced-map', wms_url, layer_id);
+			// parse extent
+			var unparsed_extent = url.getQueryData().get('extent').split(',');
+			var parsed_extent = []
+			for (var i = 0; i < unparsed_extent.length; i++){parsed_extent.push(parseFloat(unparsed_extent[i]))};
+			georeferencer.loadValidationMap('georeferenced-map', wms_url, layer_id, parsed_extent);
 			
 			// report error dialog
 			var errorDialog = new VK2.Tools.ReportError('open-error-dialog', 'unreferenced-map', mtbid,'messtischblatt');
