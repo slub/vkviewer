@@ -44,6 +44,11 @@
 	box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(0,0,0,0.2); 
 }
 
+.vk2GazetteerSearchInput.loading{
+	background: url('/vkviewer/static/images/ui-anim_basic_16x16.gif') right center no-repeat;	
+	background-color: white;
+}
+
 .gazetteer-submit-button { display: none; }
 
 .ui-autocomplete{

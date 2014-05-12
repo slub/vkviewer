@@ -2,6 +2,7 @@ goog.provide('VK2.Tools.GeoreferencerChooser')
 
 goog.require('goog.object');
 
+
 /**
  * @param {Object} settings
  * @param {VK2.Tools.Layerbar|undefined} layerbar

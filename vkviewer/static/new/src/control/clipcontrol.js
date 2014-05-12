@@ -32,12 +32,13 @@ VK2.Control.ClipControl = function(clip_polygon_coordinates, clip_layer){
 	
 	// add clip event
 	this._clipLayer.on('precompose', function(event){
-		this._doesClipPolygonIntersectExtent(event.frameState.extent);
-		var canvas = event.context;
-		var clip_pixel = this._getPixelForClipPolygon();
-		canvas.save();
-		this._drawClipPolygonOnCanvas(clip_pixel, canvas);		
-		canvas.clip();
+		if (!this._isExtentWithinClipPolygon(event.frameState.extent)){
+			var canvas = event.context;
+			var clip_pixel = this._getPixelForClipPolygon();
+			canvas.save();
+			this._drawClipPolygonOnCanvas(clip_pixel, canvas);		
+			canvas.clip();
+		};
 	}, this);
 	
 	this._clipLayer.on('postcompose', function(event){

@@ -15,18 +15,24 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-	'lib/ol-whitespace.js',
+	'lib/ol.js',
 	'lib/jquery.min.js',
 	'lib/jquery-ui.min.js',
 	'lib/jquery.tablesorter.min.js',
 	'../lib/closure-library/closure/goog/base.js',
-	'../lib/closure-library/closure/goog/ui/idgenerator.js',
-	{pattern: 'src/*.js', included: true, watch: true},
-	{pattern: 'src/**/*.js', included: true, watch: true},
-	{pattern: 'test/mochups/*.js', included: true, watch: true},
-	'test/spec/*.test.js',	
 	'test/spec/**/*.test.js',
-	{pattern:'../lib/closure-library/closure/goog/deps.js', included: false, served: false},
+	{pattern: 'src/**/*.js', included: false},
+	//'../lib/closure-library/closure/goog/base.js',
+	//'../lib/closure-library/closure/goog/ui/idgenerator.js',
+	//'../lib/closure-library/closure/goog/**/*.js',
+	//'src/*.js',
+	//'src/**/*.js',
+	//{pattern: 'src/*.js', included: true, watch: true, served: true},
+	//{pattern: 'src/**/*.js', included: true, watch: true, served: true},
+	//{pattern: 'test/mochups/*.js', included: true, watch: true},
+	//'test/spec/*.test.js',	/
+	//,
+	{pattern:'../lib/closure-library/closure/goog/deps.js', included: true, served: true}
     ],
 
 
@@ -39,12 +45,19 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+	'test/**/*.js':['closure', 'closure-iit'],
+	'src/**/*.js':['closure'],
+	'../lib/closure-library/closure/goog/deps.js': ['closure-deps']
+	//'lib/ol-whitespace.js':['closure'],
+	//'../lib/closure-library/closure/goog/deps.js': ['closure-deps'],
+	//'src/**/*.js':['closure']
       // tests are preprocessed for dependencies (closure) and for iits
-      'test/*.js': ['closure'],
+      //'test/*.js': ['closure'],
       // source files are preprocessed for dependencies
-      'js/*.js': ['closure'],
+      //'src/*.js': ['closure'],
+      //'src/**.js': ['closure'],
       // external deps
-      '../lib/closure-library/closure/goog/deps.js': ['closure-deps']
+      //'../lib/closure-library/closure/goog/deps.js': ['closure-deps']
     },
 
 

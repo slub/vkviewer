@@ -14,6 +14,7 @@ goog.require('VK2.Module.LayerBarModule');
 goog.require('VK2.Module.ChooseGeoreferenceMapModule');
 goog.require('VK2.Layer.HistoricMap');
 goog.require('VK2.Tools.GazetteerSearch');
+goog.require('VK2.Tools.GazetteerSearch.EventType');
 
 
 /**
@@ -48,6 +49,9 @@ VK2.Utils.AppLoader = function(settings){
 	sidebar_controller.registerModule(layerbar);
 	
 	var gazetter = new VK2.Tools.GazetteerSearch(document.getElementById('vk2GazetteerSearchInput'), map_controller.getMap());
+	goog.events.listen(gazetter, VK2.Tools.GazetteerSearch.EventType.JUMPTO, function(event){
+		console.log(event);
+	});
 
 	if (goog.isDef(settings) && settings.hasOwnProperty('georeference') && settings['georeference'] === true){
 		var georef_chooser = new VK2.Module.ChooseGeoreferenceMapModule({

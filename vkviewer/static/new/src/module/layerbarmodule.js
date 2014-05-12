@@ -93,6 +93,7 @@ VK2.Module.LayerBarModule.prototype._addNewDefaultLayerBtn = function(parent_ele
 	goog.dom.appendChild(parent_element, addLayerBtn);
 
 	goog.events.listen(addLayerBtn, goog.events.EventType.CLICK, function(event){
+		debugger;
 		map.addLayer(new VK2.Layer.HistoricMap({
 			'time':1912,
 			'projection':'EPSG:900913'
@@ -106,7 +107,6 @@ VK2.Module.LayerBarModule.prototype._addNewDefaultLayerBtn = function(parent_ele
 VK2.Module.LayerBarModule.prototype._appendAddLayerListener = function(){
 	if (!goog.isDef(this._layers))
 		this._layers = this._map.getLayers();
-	
 	this._layers.on('add',this._listeners['refresh'], this);
 	this._layers.on('change',this._listeners['refresh'], this);
 	this._layers.on('remove',this._listeners['refresh'], this);
