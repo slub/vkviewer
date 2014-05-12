@@ -1,6 +1,6 @@
 goog.provide('VK2.Events.EventType');
 goog.require('goog.events');
-
+		
 /**
  * @enum {string}
  */

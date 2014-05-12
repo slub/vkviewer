@@ -620,8 +620,7 @@ VK2.Module.GeoreferencerModule.prototype._loadToggleControls = function(map, dra
 					alertMsg_counter++;
 					this._drawSource.removeFeature(allFeatures[allFeatures.length-1]);
 				}
-			}
-		
+			}	
 		}
 	}, undefined, this);
 
@@ -685,15 +684,14 @@ VK2.Module.GeoreferencerModule.prototype.loadValidationMap = function(map_contai
 	 * @type {ol.source.TileWMS}
 	 * @private
 	 */
-	var validation_layer = new ol.layer.Image({
-			source: new ol.source.ImageWMS({
+	var validation_layer = new ol.layer.Tile({
+			source: new ol.source.TileWMS({
 				url: wms_url,
 				params: {
 					'LAYERS':layer_id,
 					'VERSION': '1.1.1'
 				},
-				projection: 'EPSG:900913',
-				extent: [1521176.3158750348, 6674308.744511128, 1530719.113693822, 6692130.167857343]
+				projection: 'EPSG:900913'
 			})
 	});
 

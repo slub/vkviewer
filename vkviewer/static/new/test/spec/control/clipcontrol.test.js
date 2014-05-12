@@ -1,4 +1,5 @@
 goog.require('VK2.Control.ClipControl');
+goog.require('VK2.Layer.HistoricMap');
 goog.require('VK2.Utils');
 
 describe('Test VK2.Control.ClipControl', function() {

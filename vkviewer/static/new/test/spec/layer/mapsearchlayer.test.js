@@ -1,6 +1,9 @@
 goog.require('VK2.Layer.MapSearch');
+goog.require('VK2.Settings');
 
 describe('Test VK2.Layer.MapSearch', function() {
+	
+	console.log(VK2.Settings);
 	
 	it('Expect timeArr start values to be 1868 and 1945', function(){
 		var testLayer = new VK2.Layer.MapSearch({

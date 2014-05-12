@@ -1,5 +1,5 @@
 goog.require('VK2.Tools.GazetteerSearch')
-goog.require('VK2.Tools.GazetteerSearch.EventType');
+//goog.require('VK2.Tools.GazetteerSearch.EventType');
 goog.require('goog.dom.classes');
 
 describe('Test VK2.Tools.GazetteerSearch', function() {

@@ -14,7 +14,7 @@ VK2.Layer.MapSearch = function(settings){
 	
 	// create vector source
 	var vectorSource = new ol.source.ServerVector({
-		format: new ol.format.WFS(VK2.Settings.WFS_PARSER_CONFIG),
+		format: new ol.format.WFS(VK2.Settings.WFS_PARSER_CONFIG['mtbows']),
 		loader: function(extent, resolution, projection) {
 			if (goog.DEBUG)
 				console.log('Loader is called');
@@ -67,6 +67,7 @@ VK2.Layer.MapSearch = function(settings){
 	// append/overwrite source to settings
 	settings.source = vectorSource;
 	
+	//ol.layer.Vector.call(this, settings);
 	goog.base(this, settings);
 
 	if (goog.DEBUG)
@@ -113,6 +114,7 @@ VK2.Layer.MapSearch.prototype.refresh = function(){
  */
 VK2.Layer.MapSearch.prototype.getTimeFilteredFeatures = function(extent){
 	var allFeatures = this.getSource().getFeaturesInExtent(extent);
+	//var allFeatures = this.getSource().getFeatures();
 	var returnArr = [];
 	allFeatures.forEach(function(feature){
 		if (feature.get('time') >= this._timeArr.START && feature.get('time') <= this._timeArr.END){

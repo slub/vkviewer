@@ -1,5 +1,6 @@
 goog.provide('VK2.Settings');
 
+
 /**
  * @type {Object}
  */
@@ -16,14 +17,26 @@ VK2.Settings.MAIN_MAP_SETTINGS = {
  * @type {Object}
  */
 VK2.Settings.WFS_PARSER_CONFIG = {
-	'featureNS': 'http://mapserver.gis.umn.edu/mapserver',
-    'featureType': 'Historische_Messtischblaetter_WFS'
+		'mtbows':{
+			'featureNS': 'http://mapserver.gis.umn.edu/mapserver',
+			'featureType': 'Historische_Messtischblaetter_WFS'
+		},
+		'mtb_grid_puzzle':{
+			'featureNS': 'http://mapserver.gis.umn.edu/mapserver',
+			'featureType': 'mtb_grid_puzzle',
+			'featurePrefix': 'ms'
+		}
 };
 
 /**
  * @type {string}
  */
 VK2.Settings.WFS_URL = 'http://194.95.145.43/cgi-bin/mtbows';
+
+/**
+ * @type {string}
+ */
+VK2.Settings.WFS_GRID_URL = 'http://194.95.145.43/cgi-bin/mtb_grid';
 
 /**
  * @type {string}

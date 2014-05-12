@@ -17,7 +17,7 @@ VK2.Source.TimeWfs = function(settings){
 	this._time = goog.isDef(settings['time']) ? settings['time'] : '';
 	
 	settings['format'] = goog.isDef(settings['format']) ? settings['format'] : 
-		new ol.format.WFS(VK2.Settings.WFS_PARSER_CONFIG);
+		new ol.format.WFS(VK2.Settings.WFS_PARSER_CONFIG['mtbows']);
 	
 	settings['loader'] = goog.isDef(settings['loader']) ? settings['loader'] :
 		function(extent, resolution, projection) {		
@@ -32,9 +32,10 @@ VK2.Source.TimeWfs = function(settings){
 	
 	settings['projection'] = goog.isDef(settings['projection']) ? settings['projection'] : 'EPSG:900913'; 
 
-	goog.base(this, settings);
+	ol.source.ServerVector.call(this, settings);
+	//goog.base(this, settings);
 };
-goog.inherits(VK2.Source.TimeWfs, ol.source.ServerVector);
+ol.inherits(VK2.Source.TimeWfs, ol.source.ServerVector);
 
 /**
  * @return {number}

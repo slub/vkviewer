@@ -1,4 +1,6 @@
 goog.require('VK2.Tools.LayerManagement');
+goog.require('VK2.Layer.HistoricMap');
+goog.require('VK2.Settings');
 
 describe('Test VK2.Tools.LayerManagement', function() {
 	
