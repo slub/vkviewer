@@ -29,7 +29,7 @@
         	<div class="collapse navbar-collapse navbar-ex1-collapse">
         		<ul class="nav navbar-nav navbar-right vk2-navbar-user">
         			<li class="dropdown info-dropdown">
-	                	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="${_('header_service')}">${_('header_service')} </b></a>
+	                	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="${_('header_service')}">${_('header_service')} <b class="caret"></b></a>
 		                <ul class="dropdown-menu">
 		                
 				              	% if faq_url:
@@ -128,26 +128,18 @@
 			        	</div>
 						<!-- end footer -->
 						     
-						% if user_id:
-							<!-- container for giving a georef point feedback -->
-							<div id="georefPointContainer" class="georef-point-container alert alert-warning"></div>	 
-						% endif
-
+						<!-- block for further privilege dependent html content -->  
+						<%block name="inner_body_content" />
 		</div>
 
 		% if context.get('welcomepage') is not 'off':
 			<a href="${request.route_url('welcome')}" id="vk2WelcomePage"></a>
 		% endif  
 	</div>
+	
+	${next.body()}
 
 </%block>
 
-<%block name="js_content">
-	<script>
-		$(document).ready(function(){ 
-	    	app = new VK2.Utils.AppLoader({}, initConfiguration);
-			app.loadApplication();
-	    });
-	</script>
-</%block>
+
 

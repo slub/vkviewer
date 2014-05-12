@@ -60,7 +60,7 @@ class GeoreferenceValidate(AbstractGeoreference):
             log.debug('Create temporary mapfile.')
             wms_url = createMapfile(messtischblatt.dateiname, destPath, 
                                     src_mapfilepath, dest_mapfilefolder, mapfileInitParameter)  
-            response = {'wms_url':wms_url,'layer_id':messtischblatt.dateiname,'georefid':georefProcess.id, 'extent':Messtischblatt.getExtent(messtischblatt.id, dbsession)}
+            response = {'wms_url':wms_url,'layer_id':messtischblatt.dateiname,'georefid':georefProcess.id}
             return json.dumps(response, ensure_ascii=False, encoding='utf-8') 
         except GeoreferenceParameterError as e:
             message = 'Wrong or missing service parameter - %s'%e.value

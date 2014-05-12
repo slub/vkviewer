@@ -29,12 +29,6 @@ def logMtbError(request):
                         fehlerbeschreibung = fehlerbeschreibung, timestamp = getTimestampAsPGStr())
                 dbsession.add(newFehlermeldung)
                 log.debug('Report error is registered in database')
-                # sending an email
-                log.debug('Sending the message as email to the admin');
-                user = Users.by_username(login, dbsession)
-                email_msg = email_msg_template%(user.email, login, fehlerbeschreibung)
-                sendMailCommandLine(admin_mail, 'Your password has been changed!', email_msg)
-                log.debug('Send report message: %s'%email_msg)
                 return json.dumps({'status':'confirmed'}, ensure_ascii=False, encoding='utf-8')
     except DBAPIError:
         log.error('Problems while trying to register report error in database')
@@ -86,5 +80,4 @@ After you fix the problem, please restart the Pyramid application to
 try it again.
 """
 
-email_msg_template = '\n Es wurde folgende Benachrichtigung ueber das Portal VK2.0. gestellt.\n\n Email: %s \n Login: %s \n Nachricht: \n \'%s\' \n'
-email_msg_template = '\n Es wurde folgende Fehler bei der Georeferenzierung gemeldet.\n\n Email: %s \n Login: %s \n Nachricht: %s \n'
+email_msg_template = '\n Es wurde folgende Benachrichtigung ueber das Portal VK2.0. gestellt.\n\n Email: %s \n Login: %s \n Nachricht: %s \n'

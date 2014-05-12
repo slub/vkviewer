@@ -41,7 +41,8 @@ class GeoreferenceProcessManager(object):
     def __runFastGeoreferencing__(self, georefObject, messtischblatt, tmpDir, destPath):    
         try:                           
             gcps = createGCPs(georefObject.clipparameter, messtischblatt.BoundingBoxObj.getCornerPointsAsList(), messtischblatt.zoomify_height)
-            return georeference(messtischblatt.original_path, destPath, tmpDir, gcps, srid_database, srid_database, 'polynom', self.logger)
+            return georeference(messtischblatt.original_path, destPath, tmpDir, gcps, srid_database, srid_database, 'polynom', self.logger, 
+                                messtischblatt.BoundingBoxObj.asShapefile(os.path.join(tmpDir,"shape")))
         except:
             self.logger.error('Something went wrong while trying to process a fast georefercing process')
             raise
