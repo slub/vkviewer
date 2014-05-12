@@ -201,7 +201,12 @@ VK2.Utils.AppLoader.prototype.loadApplication = function(){
 	this._loadOLMap();
 	this._loadEventBehavior();
 	this._loadVK2Tools();
-	
-	if (goog.dom.getElement('georefPointContainer'))
-		this._loadGeoreferencerChooser();
+};
+
+/**
+ * @public
+ */
+VK2.Utils.AppLoader.prototype.loadApplicationWithGeoref = function(){
+	this.loadApplication();
+	this._loadGeoreferencerChooser();
 };

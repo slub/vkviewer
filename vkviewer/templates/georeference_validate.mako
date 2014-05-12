@@ -109,10 +109,7 @@
 			// load validation map
 			var wms_url = url.getQueryData().get('wms_url');
 			var layer_id = url.getQueryData().get('layer_id');
-			var unparsed_extent = url.getQueryData().get('extent').split(',');
-			var parsed_extent = []
-			for (var i = 0; i < unparsed_extent.length; i++){parsed_extent.push(parseFloat(unparsed_extent[i]))};
-			georeferencer.loadValidationMap('georeferenced-map', wms_url, layer_id, parsed_extent);
+			georeferencer.loadValidationMap('georeferenced-map', wms_url, layer_id);
 			
 			// report error dialog
 			var errorDialog = new VK2.Tools.ReportError('open-error-dialog', 'unreferenced-map', mtbid,'messtischblatt');
