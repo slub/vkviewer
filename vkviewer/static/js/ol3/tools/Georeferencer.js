@@ -654,9 +654,10 @@ VK2.Tools.Georeferencer.prototype._removeInteractions = function(interactions, m
  * @param {string} mapContainerId
  * @param {string} wms_url Url to the web mapping service which publish the validation file
  * @param {string} layer_id
+ * @param {string=} clip_polygon
  * @static
  */
-VK2.Tools.Georeferencer.prototype.loadValidationMap = function(map_container_id, wms_url, layer_id){
+VK2.Tools.Georeferencer.prototype.loadValidationMap = function(map_container_id, wms_url, layer_id,clip_polygon){
 	
 	/**
 	 * @type {ol.layer.Tile}
@@ -703,28 +704,10 @@ VK2.Tools.Georeferencer.prototype.loadValidationMap = function(map_container_id,
 	       new ol.control.Attribution()	       
 	  ]
 	});
+	
 	// zoom to extent by parsing getcapabilites request from wms
-	var successHandler = function(data){
-		var parser = new ol.parser.ogc.WMSCapabilities();
-		var result = parser.read(data);
-		var extent = [];
-		for (var i = 0; i < result.capability.layers.length; i++){
-			var bbox = result.capability.layers[i].bbox;
-			if (bbox.hasOwnProperty('EPSG:4314')){
-				bbox_4314 = result.capability.layers[i].bbox['EPSG:4314'].bbox;
-				Proj4js.defs["EPSG:4314"] = "+proj=longlat +ellps=bessel +towgs84=582,105,414,1.04,0.35,-3.08,8.3 +no_defs"; 
-				bbox_900913 = ol.proj.transform(bbox_4314, 'EPSG:4314', 'EPSG:900913');
-				map.getView().fitExtent(bbox_900913, map.getSize());
-			}
-		}
-	}
-	
-	var errorHandler = function(e){
-		alert('Problems while parsing wms capabilities.');
-	}
-	
-	var url = this._urls.proxy + wms_url;	
-	VK2.Requests.Georeferencer.getExtentForWMS(url, successHandler, errorHandler)
+	map.getView().fitExtent(clip_polygon, map.getSize());
+	var clipControl = new ol3.control.ClipControl(VK2.Utils.getPolygonFromExtent(clip_polygon),validation_layer, map);
 
 	// load layerspy tool for validation map
 	map.addControl(

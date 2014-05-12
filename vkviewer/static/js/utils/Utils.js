@@ -389,6 +389,14 @@ VK2.Utils.getCenterPointForExtent = function(extent){
 };
 
 /**
+ * @param {Array.<number>} extent
+ * @return {Array.<Array.<number>>}
+ */
+VK2.Utils.getPolygonFromExtent = function(extent){
+	return [[extent[0],extent[1]], [extent[0],extent[3]], [extent[2],extent[3]], [extent[2],extent[1]]];
+};
+
+/**
  * Overwrite or prototype basic javascript functions
  */
 String.prototype.replaceAll = function(search, replacement){
