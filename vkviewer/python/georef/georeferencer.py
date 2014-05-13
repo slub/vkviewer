@@ -38,7 +38,10 @@ def georeference(src_file, dest_file, tmp_dir, gcps, src_srs, dest_srs, algorith
             return clipRasterWithShapfile(vrt_file, dest_file, clip_shp, logger)
         else:
             logger.debug('Create response without clipping ...')
-            dest_dataset = src_dataset.GetDriver().CreateCopy(dest_file, vrt_dataset, 0)
+            if vrt_dataset.GetDriver():
+                dest_dataset = vrt_dataset.GetDriver().CreateCopy(dest_file, vrt_dataset, 0)
+            else: 
+                dest_dataset = src_dataset.GetDriver().CreateCopy(dest_file, vrt_dataset, 0)
             return dest_file
     except:
         pass

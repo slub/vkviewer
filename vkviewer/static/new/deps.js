@@ -7,6 +7,7 @@ goog.addDependency('../../../../new/src/controller/mapcontroller.js', ['VK2.Cont
 goog.addDependency('../../../../new/src/controller/sidebarcontroller.js', ['VK2.Controller.SidebarController'], ['goog.dom', 'goog.dom.classes', 'goog.events', 'goog.events.EventType', 'goog.style']);
 goog.addDependency('../../../../new/src/events/eventtype.js', ['VK2.Events.EventType'], ['goog.events']);
 goog.addDependency('../../../../new/src/events/parsedcswrecordevent.js', ['VK2.Events.ParsedCswRecordEvent'], ['VK2.Events.EventType', 'goog.events.Event']);
+goog.addDependency('../../../../new/src/factory/layersearchfactory.js', ['VK2.Factory.LayerSearchFactory'], ['goog.dom']);
 goog.addDependency('../../../../new/src/interaction/deletefeatureinteraction.js', ['VK2.Interaction.DeleteFeature'], ['goog.array', 'goog.functions', 'ol.FeatureOverlay', 'ol.events.condition', 'ol.interaction.Interaction']);
 goog.addDependency('../../../../new/src/layer/historicmaplayer.js', ['VK2.Layer.HistoricMap'], ['VK2.Settings', 'VK2.Source.TimeWfs', 'VK2.Utils', 'VK2.Utils.Styles', 'goog.events', 'goog.net.XhrIo', 'goog.object']);
 goog.addDependency('../../../../new/src/layer/mapsearchlayer.js', ['VK2.Layer.MapSearch'], ['VK2.Settings', 'VK2.Utils.Styles', 'goog.events', 'goog.net.XhrIo']);
@@ -14,6 +15,7 @@ goog.addDependency('../../../../new/src/module/abstractmodule.js', ['VK2.Module.
 goog.addDependency('../../../../new/src/module/choosegeoreferecemapmodule.js', ['VK2.Module.ChooseGeoreferenceMapModule'], ['VK2.Module.AbstractModule', 'VK2.Request.WFS', 'VK2.Settings', 'VK2.Utils', 'VK2.Utils.Modal', 'goog.dom', 'goog.net.XhrIo']);
 goog.addDependency('../../../../new/src/module/georeferencemodule.js', ['VK2.Module.GeoreferencerModule'], ['VK2.Control.ClipControl', 'VK2.Control.LayerSpy', 'VK2.Interaction.DeleteFeature', 'VK2.Requests.Georeferencer', 'VK2.Utils', 'goog.dom', 'goog.dom.classes', 'goog.events', 'goog.events.EventType', 'goog.net.EventType', 'goog.net.XhrIo', 'goog.object']);
 goog.addDependency('../../../../new/src/module/layerbarmodule.js', ['VK2.Module.LayerBarModule'], ['VK2.Module.AbstractModule', 'VK2.Tools.LayerManagement', 'goog.dom', 'goog.events', 'goog.events.EventType']);
+goog.addDependency('../../../../new/src/module/mapsearchmodule.js', ['vk2.module.MapSearchModule'], []);
 goog.addDependency('../../../../new/src/module/singlemapviewmodule.js', ['VK2.Module.SingleMapViewer'], ['VK2.Settings', 'VK2.Tools.MetadataVisualizer', 'VK2.Tools.ResetGeoreferenceParameter', 'VK2.Tools.TimestampSwitcher', 'VK2.Viewer.Messtischblatt', 'VK2.Viewer.Zoomify', 'goog.Uri', 'goog.dom', 'goog.object']);
 goog.addDependency('../../../../new/src/module/spatialsearchmodule.js', ['VK2.Module.SpatialSearchModule'], ['VK2.Module.AbstractModule', 'VK2.Tools.MapSearch', 'VK2.Utils', 'goog.style']);
 goog.addDependency('../../../../new/src/request/csw_getrecordbyid.js', ['VK2.Requests.CSW_GetRecordById'], ['VK2.Events.ParsedCswRecordEvent', 'VK2.Settings', 'goog.array', 'goog.dom', 'goog.events', 'goog.events.EventTarget', 'goog.net.EventType', 'goog.net.XhrIo', 'goog.object']);
@@ -21,7 +23,7 @@ goog.addDependency('../../../../new/src/request/georeferencerequest.js', ['VK2.R
 goog.addDependency('../../../../new/src/request/wfsrequest.js', ['VK2.Request.WFS'], []);
 goog.addDependency('../../../../new/src/settings.js', ['VK2.Settings'], []);
 goog.addDependency('../../../../new/src/source/timewfssource.js', ['VK2.Source.TimeWfs'], ['VK2.Request.WFS', 'goog.net.XhrIo']);
-goog.addDependency('../../../../new/src/tools/gazetteersearch.js', ['VK2.Tools.GazetteerSearch', 'VK2.Tools.GazetteerSearch.EventType'], ['VK2.Utils', 'VK2.Validation', 'goog.dom', 'goog.dom.classes', 'goog.events', 'goog.events.Event', 'goog.events.EventTarget', 'goog.ui.ac.Remote']);
+goog.addDependency('../../../../new/src/tools/gazetteersearch.js', ['VK2.Tools.GazetteerSearch', 'VK2.Tools.GazetteerSearch.EventType'], ['VK2.Utils', 'VK2.Validation', 'goog.dom', 'goog.dom.classes', 'goog.events', 'goog.events.Event', 'goog.events.EventTarget']);
 goog.addDependency('../../../../new/src/tools/layermanagement.js', ['VK2.Tools.LayerManagement'], ['goog.dom', 'goog.events', 'goog.events.EventType']);
 goog.addDependency('../../../../new/src/tools/mapsearch.js', ['VK2.Tools.MapSearch'], ['VK2.Layer.MapSearch', 'VK2.Tools.MinimizeMesstischblattView', 'VK2.Tools.SearchTable', 'VK2.Utils.Styles', 'goog.dom', 'goog.dom.classes', 'goog.events', 'goog.events.EventType']);
 goog.addDependency('../../../../new/src/tools/metadatavisualizer.js', ['VK2.Tools.MetadataVisualizer'], ['VK2.Events.EventType', 'VK2.Events.ParsedCswRecordEvent', 'VK2.Requests.CSW_GetRecordById', 'VK2.Utils', 'goog.Uri', 'goog.dom', 'goog.object', 'goog.style']);

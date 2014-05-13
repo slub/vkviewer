@@ -46,7 +46,7 @@ class GeoreferenceValidate(AbstractGeoreference):
             # georeferenceProcess = createGeoreferenceProcess(self.mtbid, dbsession, tmp_dir, log)
             
             # create validation result and get destination path and georeference id
-            validationResultPath = os.path.join(dest_mapfilefolder,messtischblatt.dateiname+"::"+str(getUniqueId())+".tif")
+            validationResultPath = os.path.join(dest_mapfilefolder,messtischblatt.dateiname+"::"+str(getUniqueId())+".vrt")
             
             # new stuff
             georef_process_manager = GeoreferenceProcessManager(dbsession, tmp_dir, log)

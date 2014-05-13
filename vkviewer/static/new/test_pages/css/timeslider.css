@@ -1,0 +1,26 @@
+.timeslider-container{
+	position: absolute;
+	top: 50px;
+	left: 700px;
+	width: 400px;
+	height: 100px;
+}
+
+.timeslider-container .slider{
+	width: 100%;;
+}
+
+.timeslider-container .slider .tooltip{
+	margin-top: 20px;
+	opacity: 1;
+}
+
+.timeslider-container .slider .tooltip.min-value{
+	margin-left: -13px;
+	left: 0%;
+}
+
+.timeslider-container .slider .tooltip.max-value{
+	left: 100%;
+	margin-left: -13px;
+}

@@ -20,18 +20,9 @@ module.exports = function(config) {
 	'lib/jquery-ui.min.js',
 	'lib/jquery.tablesorter.min.js',
 	'../lib/closure-library/closure/goog/base.js',
+	'test/mochups/*.moch.js',
 	'test/spec/**/*.test.js',
 	{pattern: 'src/**/*.js', included: false},
-	//'../lib/closure-library/closure/goog/base.js',
-	//'../lib/closure-library/closure/goog/ui/idgenerator.js',
-	//'../lib/closure-library/closure/goog/**/*.js',
-	//'src/*.js',
-	//'src/**/*.js',
-	//{pattern: 'src/*.js', included: true, watch: true, served: true},
-	//{pattern: 'src/**/*.js', included: true, watch: true, served: true},
-	//{pattern: 'test/mochups/*.js', included: true, watch: true},
-	//'test/spec/*.test.js',	/
-	//,
 	{pattern:'../lib/closure-library/closure/goog/deps.js', included: true, served: true}
     ],
 
@@ -48,16 +39,6 @@ module.exports = function(config) {
 	'test/**/*.js':['closure', 'closure-iit'],
 	'src/**/*.js':['closure'],
 	'../lib/closure-library/closure/goog/deps.js': ['closure-deps']
-	//'lib/ol-whitespace.js':['closure'],
-	//'../lib/closure-library/closure/goog/deps.js': ['closure-deps'],
-	//'src/**/*.js':['closure']
-      // tests are preprocessed for dependencies (closure) and for iits
-      //'test/*.js': ['closure'],
-      // source files are preprocessed for dependencies
-      //'src/*.js': ['closure'],
-      //'src/**.js': ['closure'],
-      // external deps
-      //'../lib/closure-library/closure/goog/deps.js': ['closure-deps']
     },
 
 

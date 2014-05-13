@@ -1,10 +1,10 @@
-goog.provide('vk2.settings');
+goog.provide('VK2.Settings');
 
 
 /**
  * @type {Object}
  */
-vk2.settings.MAIN_MAP_SETTINGS = {
+VK2.Settings.MAIN_MAP_SETTINGS = {
 	projection: 'EPSG:900913',
     minResolution: 1.194328566789627,
     maxResolution: 2445.9849047851562,
@@ -16,7 +16,7 @@ vk2.settings.MAIN_MAP_SETTINGS = {
 /**
  * @type {Object}
  */
-vk2.settings.WFS_PARSER_CONFIG = {
+VK2.Settings.WFS_PARSER_CONFIG = {
 		'mtbows':{
 			'featureNS': 'http://mapserver.gis.umn.edu/mapserver',
 			'featureType': 'Historische_Messtischblaetter_WFS'
@@ -31,29 +31,24 @@ vk2.settings.WFS_PARSER_CONFIG = {
 /**
  * @type {string}
  */
-vk2.settings.WFS_URL = 'http://194.95.145.43/cgi-bin/mtbows';
+VK2.Settings.WFS_URL = 'http://194.95.145.43/cgi-bin/mtbows';
 
 /**
  * @type {string}
  */
-vk2.settings.WFS_GRID_URL = 'http://194.95.145.43/cgi-bin/mtb_grid';
+VK2.Settings.WFS_GRID_URL = 'http://194.95.145.43/cgi-bin/mtb_grid';
 
 /**
  * @type {string}
  */
-vk2.settings.PROXY_URL = 'http://localhost:8080/vkviewer/proxy/?url=';
+VK2.Settings.PROXY_URL = 'http://localhost:8080/vkviewer/proxy/?url=';
 
 /**
  * @type {string}
  */
-vk2.settings.GEONETWORK = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|';
+VK2.Settings.GEONETWORK = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|';
 
 /**
  * @type {String}
  */
-vk2.settings.CSW_URL = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw';
-
-/**
- * @type {String}
- */
-vk2.settings.THUMBNAIL_URL = 'http://fotothek.slub-dresden.de/thumbs/df/dk/0010000/'
+VK2.Settings.CSW_URL = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw';
