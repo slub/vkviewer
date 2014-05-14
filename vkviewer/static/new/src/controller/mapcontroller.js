@@ -1,4 +1,4 @@
-goog.provide('VK2.Controller.MapController');
+goog.provide('vk2.controller.MapController');
 
 goog.require('goog.object');
 
@@ -8,7 +8,7 @@ goog.require('goog.object');
  * @constructor
  * @export
  */
-VK2.Controller.MapController = function(settings, map_container){
+vk2.controller.MapController = function(settings, map_container){
 		
 	/**
 	 * @type {Object}
@@ -24,7 +24,7 @@ VK2.Controller.MapController = function(settings, map_container){
  * @param {string} map_container
  * @private
  */
-VK2.Controller.MapController.prototype._loadBaseMap = function(map_container){
+vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 	
 	var styleArray = [new ol.style.Style({
 		  stroke: new ol.style.Stroke({
@@ -66,13 +66,15 @@ VK2.Controller.MapController.prototype._loadBaseMap = function(map_container){
  * @param {ol.Map}
  * @private
  */
-VK2.Controller.MapController.prototype._addFeatureClickBehavior = function(map){
+vk2.controller.MapController.prototype._addFeatureClickBehavior = function(map){
 	map.on('click', function(evt){
 		var features = [];
 		map.forEachFeatureAtPixel(evt.pixel, function(feature, layer){
 			features.push(feature);
 		});
-		console.log(features);
+		
+		if (goog.DEBUG)
+			console.log(features);
 	});
 };
 
@@ -80,6 +82,53 @@ VK2.Controller.MapController.prototype._addFeatureClickBehavior = function(map){
  * @returns {ol.Map}
  * @export
  */
-VK2.Controller.MapController.prototype.getMap = function(){
+vk2.controller.MapController.prototype.getMap = function(){
 	return this._map;
+};
+
+/**
+ * @param {vk2.module.SpatialTemporalSearchModule}
+ */
+vk2.controller.MapController.prototype.registerSpatialTemporalSearch = function(spatialTempSearch){
+
+	/**
+	 * @type {vk2.module.MapSearchModule}
+	 * @private
+	 */
+	this._mapsearch = spatialTempSearch.getMapSearchModule();
+	
+	// register mapsearchlayer for fetching search records from the wfs service
+	var mapsearchLayer = new vk2.layer.MapSearch({
+		'projection':'EPSG:900913',
+		'style': function(feature, resolution){
+			return undefined;
+		}
+	});
+	this._map.addLayer(mapsearchLayer);
+	
+	// register map moveend event for looking if there are new search features
+	var lastMoveendCenter = null;
+	var lastMoveendFeatureCount = null;
+	this._map.on('moveend', function(event){
+		if (goog.DEBUG)
+			console.log('Moveend Event');
+		
+		var view = event.map.getView().getView2D();
+		var featureCount = mapsearchLayer.getSource().getFeatures().length;
+		if (lastMoveendCenter !== view.getCenter() || lastMoveendFeatureCount !== featureCount){
+			if (goog.DEBUG)
+				console.log('Moveened Event with update');
+			
+			lastMoveendCenter = view.getCenter();
+			lastMoveendFeatureCount = featureCount;
+			
+			// extract features in current extent
+			var current_extent = view.calculateExtent(event.map.getSize());
+			var features = []
+			mapsearchLayer.getSource().forEachFeatureInExtent(current_extent, function(feature){
+				features.push(feature);
+			});
+			this._mapsearch.updateFeatures(features);
+		}
+	}, this);
 };

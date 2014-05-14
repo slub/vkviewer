@@ -6,8 +6,12 @@ var lang_dictionary = {
 		'displaytimestamp': 'Zeitschnitt darstellen',
 		'description': 'Beschreibung',
 		'timestamp': 'Zeit',
+		'time': 'Zeit',
 		'titel': 'Titel',
+		'title': 'Titel',
+		'georeference': 'georeferenzierte',
 		'found_mtb': 'Messtischblätter gefunden',
+		'found_no_maps': 'Es wurden keine Karten gefunden',
 		'change_zoomlevel': 'Wählen Sie eine höhere Zoomstufe!',
 		'choose_valide_timestamp': 'Wählen Sie validien Zeitstempel',
 		'change_timeperiod': 'Passe Zeitraum an:',
@@ -15,6 +19,8 @@ var lang_dictionary = {
 		'toolname_layerbar': 'Auswahl Kartenlayer',
 		
 		// They are assigned to the Gazetteersearch module
+		'gazetteer_placeholder':'Ortsname oder Blattnummer',
+		'gazetteer_submit':'Suchen',
 		'noResultsBlattnr': 'Diese Blattnummer wird vom Virtuellen Kartenforum 2.0 nicht unterstüzt!',
 			
 		// They are assigned to the Georeference Tools

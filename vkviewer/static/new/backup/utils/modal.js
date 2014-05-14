@@ -1,7 +1,7 @@
 /**
  * This object is based on the modal object from the bootstrap library
  */
-goog.provide('vk2.utils.Modal');
+goog.provide('VK2.Utils.Modal');
 
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
@@ -13,7 +13,7 @@ goog.require('goog.style');
  * @param {boolean=} opt_onclose_destroy
  * @constructor
  */
-vk2.utils.Modal = function(modal_id, parent_el, opt_onclose_destroy){
+VK2.Utils.Modal = function(modal_id, parent_el, opt_onclose_destroy){
 	
 	/**
 	 * @type {Element}
@@ -31,7 +31,7 @@ vk2.utils.Modal = function(modal_id, parent_el, opt_onclose_destroy){
  * @return {Element}
  * @private
  */
-vk2.utils.Modal.prototype._initHtmlContent = function(modal_id){
+VK2.Utils.Modal.prototype._initHtmlContent = function(modal_id){
 	var modal_parent = goog.dom.createDom('div',{'class':'modal fade '+modal_id,'id':modal_id});
 	var modal_dialog = goog.dom.createDom('div',{'class':'modal-dialog'});
 	goog.dom.appendChild(modal_parent, modal_dialog);
@@ -79,7 +79,7 @@ vk2.utils.Modal.prototype._initHtmlContent = function(modal_id){
  * @param {boolean} onclose_destroy
  * @private
  */
-vk2.utils.Modal.prototype._initBehavior = function(modal_el, onclose_destroy){
+VK2.Utils.Modal.prototype._initBehavior = function(modal_el, onclose_destroy){
 	// after close clean up
 	$(modal_el).on('hidden.bs.modal', function(e){
 		// clean up modal body
@@ -113,7 +113,7 @@ vk2.utils.Modal.prototype._initBehavior = function(modal_el, onclose_destroy){
  *   classes (string=): class of the iframe
  * @private
  */
-vk2.utils.Modal.prototype._registerRemoteSrc = function(remote_src){
+VK2.Utils.Modal.prototype._registerRemoteSrc = function(remote_src){
 	// create iframe and append it to body
 	var modal_body = goog.dom.getElementByClass('modal-body', this._modalEl);
 	var iframe = goog.dom.createDom('iframe',{
@@ -138,7 +138,7 @@ vk2.utils.Modal.prototype._registerRemoteSrc = function(remote_src){
 	goog.dom.appendChild(modal_body, iframe);
 };
 
-vk2.utils.Modal.prototype._setTitle = function(title){
+VK2.Utils.Modal.prototype._setTitle = function(title){
 	var header_title = goog.dom.getElementByClass('modal-title', this._modalEl);
 	header_title.innerHTML = title;
 };
@@ -152,7 +152,7 @@ vk2.utils.Modal.prototype._setTitle = function(title){
  *   height (string=): heihgt of the body content
  *   classes (string=): class of the iframe
  */
-vk2.utils.Modal.prototype.open = function(opt_title, opt_modal_class, opt_remote_src){
+VK2.Utils.Modal.prototype.open = function(opt_title, opt_modal_class, opt_remote_src){
 	if (goog.isDefAndNotNull(opt_title)){
 		this._setTitle(opt_title);
 	} else {

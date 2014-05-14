@@ -17,3 +17,8 @@
 	position: relative; 
 	float: left;
 }
+
+/** overwrite size of list */
+ul.ui-autocomplete{
+	width: 300px !important;
+}

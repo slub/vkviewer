@@ -3,7 +3,7 @@
 <%block name="header_content">
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
 	<script>
-	    goog.require('VK2.Utils.AppLoader');
+	    goog.require('vk2.utils.AppLoader');
 	</script>
 </%block>
 
@@ -90,12 +90,6 @@
 				         	
 			        </li>
 			    </ul>
-	          	<form class="navbar-form vk2Gazetteer" role="search" onsubmit="return false;">
-	          		<div class="form-group">
-							<input type="text" id="vk2GazetteerSearchInput" class="form-control vk2GazetteerSearchInput" placeholder="${_('placeholder_town_name')}" />
-			        </div>
-			        <!--<button type="submit" class="btn btn-success gazetteer-submit-button">Search</button>-->  
-			    </form>
 	          	</div>
           	</div>
         </div><!-- /.navbar-collapse -->
@@ -106,9 +100,8 @@
         			
         			<!-- Map panel -->
 
-        				<div class="vk2MapPanel">
+        				<div id="vk2MapPanel" class="vk2MapPanel">
 			        		<div id="mapdiv" class="olMap" tabindex="0"></div>
-			        		<div id="vk2SBPanel" class="vk2SBPanel"></div>
 			        	</div>
       	
 			        	<!-- Footer panel -->
@@ -169,11 +162,11 @@
 	%>
 	
 	% if user_id:
-		var apploader = new VK2.Utils.AppLoader({
+		var apploader = new vk2.utils.AppLoader({
 			'georeference':true
 		});
 	% else:
-		var apploader = new VK2.Utils.AppLoader({});
+		var apploader = new vk2.utils.AppLoader({});
 	% endif
 	
 	</script>
