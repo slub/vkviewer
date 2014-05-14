@@ -20,7 +20,7 @@
 	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
 	   	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	   	<script src="${request.static_url('vkviewer:static/new/lib/ol.js')}"></script>
+	   	<script src="${request.static_url('vkviewer:static/new/lib/ol-whitespace.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/deps.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/new/deps.js')}"></script>    
@@ -57,8 +57,6 @@
 	    <script src="${request.static_url('vkviewer:static/lib/vkviewer-plugin-libarys.min.js')}"></script>  
 	    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script> -->
-	    
-
 	    	    
 	    <%block name="js_content" />
 	    

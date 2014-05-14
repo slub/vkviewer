@@ -1,29 +1,29 @@
-goog.provide('vk2.layer.MapSearch');
+goog.provide('VK2.Layer.MapSearch');
 
 goog.require('goog.net.XhrIo');
 goog.require('goog.events');
-goog.require('vk2.settings');
-goog.require('vk2.utils.Styles');
+goog.require('VK2.Settings');
+goog.require('VK2.Utils.Styles');
 
 /**
  * @param {Object} settings
  * @constructor
  * @extends {ol.layer.Vector}
  */
-vk2.layer.MapSearch = function(settings){
+VK2.Layer.MapSearch = function(settings){
 	
 	// create vector source
 	var vectorSource = new ol.source.ServerVector({
-		format: new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows']),
+		format: new ol.format.WFS(VK2.Settings.WFS_PARSER_CONFIG['mtbows']),
 		loader: function(extent, resolution, projection) {
 			if (goog.DEBUG)
 				console.log('Loader is called');
 
 			// call loading start callback
-			//if (goog.isDef(settings.loading_start))
-			//	settings.loading_start();
+			if (goog.isDef(settings.loading_start))
+				settings.loading_start();
 			
-			var url = vk2.settings.PROXY_URL+vk2.settings.WFS_URL+'?SERVICE=WFS&' +
+			var url = VK2.Settings.PROXY_URL+VK2.Settings.WFS_URL+'?SERVICE=WFS&' +
 		    	'VERSION=1.1.0&REQUEST=getfeature&TYPENAME=Historische_Messtischblaetter_WFS&MAXFEATURES=10000&srsname='+settings.projection+'&' +
 		    	'bbox=' + extent.join(',');
 		    
@@ -36,8 +36,8 @@ vk2.layer.MapSearch = function(settings){
 		    	this.addFeatures(this.readFeatures(data));
 		    	
 		    	// call load end callback
-		    	//goog.isDef(settings.loading_end)
-		    	//	settings.loading_end();
+		    	goog.isDef(settings.loading_end)
+		    		settings.loading_end();
 		    }, false, this);
 
 		    xhr.send(url);
@@ -58,9 +58,9 @@ vk2.layer.MapSearch = function(settings){
 	};
 	
 	// append/overwrite style function of settings
-	settings.style = goog.isDef(settings.style) ? settings.style :goog.bind(function(feature, resolution){
+	settings.style = goog.bind(function(feature, resolution){
 		if (feature.get('time') >= this._timeArr.START && feature.get('time') <= this._timeArr.END){
-			return [vk2.utils.Styles.MAP_SEARCH_FEATURE];
+			return [VK2.Utils.Styles.MAP_SEARCH_FEATURE];
 		} else { return undefined};
 	}, this);
 	
@@ -74,13 +74,13 @@ vk2.layer.MapSearch = function(settings){
 		window['vector'] = this;
 	
 };
-goog.inherits(vk2.layer.MapSearch, ol.layer.Vector);
+goog.inherits(VK2.Layer.MapSearch, ol.layer.Vector);
 
 /**
  * @param {number=} opt_start_time
  * @param {number=} opt_end_time
  */
-vk2.layer.MapSearch.prototype.setTimeFilter = function(opt_start_time, opt_end_time){
+VK2.Layer.MapSearch.prototype.setTimeFilter = function(opt_start_time, opt_end_time){
 	// incase of a resetting
 	var old_start = this._timeArr.START;
 	
@@ -103,7 +103,7 @@ vk2.layer.MapSearch.prototype.setTimeFilter = function(opt_start_time, opt_end_t
 /**
  * Refresh the layer after updating filter funtions.
  */
-vk2.layer.MapSearch.prototype.refresh = function(){
+VK2.Layer.MapSearch.prototype.refresh = function(){
 	// for updating the view of the layer
 	this.dispatchChangeEvent();
 };
@@ -112,7 +112,7 @@ vk2.layer.MapSearch.prototype.refresh = function(){
  * @param {ol.Extent} extent
  * @return {Array.<ol.Feature>}
  */
-vk2.layer.MapSearch.prototype.getTimeFilteredFeatures = function(extent){
+VK2.Layer.MapSearch.prototype.getTimeFilteredFeatures = function(extent){
 	var allFeatures = this.getSource().getFeaturesInExtent(extent);
 	//var allFeatures = this.getSource().getFeatures();
 	var returnArr = [];

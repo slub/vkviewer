@@ -19,9 +19,9 @@ describe('Test vk2.module.MapSearchModule', function() {
 		
 		expect(response).toBeTruthy();
 		expect(parentEl.innerHTML).toMatch(/<div class="mapsearch-container">/);
-		expect(parentEl.innerHTML).toMatch(/<div data-type="time" class="sort-element time">time <span class="caret caret-reversed"><\/span><\/div>/);
-		expect(parentEl.innerHTML).toMatch(/<div data-type="title" class="sort-element title">title <span class="caret caret-reversed"><\/span><\/div>/);
-		expect(parentEl.innerHTML).toMatch(/<div data-type="georeference" class="sort-element georeference">georeference <span class="caret caret-reversed"><\/span><\/div>/);
+		expect(parentEl.innerHTML).toMatch(/<div data-type="time" class="sort-element time">undefined <span class="caret caret-reversed"><\/span><\/div>/);
+		expect(parentEl.innerHTML).toMatch(/<div data-type="title" class="sort-element title">undefined <span class="caret caret-reversed"><\/span><\/div>/);
+		expect(parentEl.innerHTML).toMatch(/<div data-type="georeference" class="sort-element georeference">undefined <span class="caret caret-reversed"><\/span><\/div>/);
 	});
 	
 	it('Test if MapSearchModule correctly update features', function(){
@@ -34,7 +34,7 @@ describe('Test vk2.module.MapSearchModule', function() {
 		console.log('Feature list of MapSearchModule');
 		console.log(featureList);
 		
-		expect(parentEl.innerHTML).toMatch(/<img alt="" src="http:\/\/fotothek.slub-dresden.de\/thumbs\/df\/dk\/0010000\/undefined.jpg">/);
+		expect(parentEl.innerHTML).toMatch(/<img alt="..." src="http:\/\/fotothek.slub-dresden.de\/thumbs\/df\/dk\/0010000\/undefined.jpg">/);
 		expect(parentEl.innerHTML).toMatch(/<li class="mapsearch-record" id="111">/);
 		expect(parentEl.innerHTML).toMatch(/<li class="mapsearch-record" id="112">/);
 		expect(parentEl.innerHTML).toMatch(/<li class="mapsearch-record" id="113">/);
@@ -84,5 +84,15 @@ describe('Test vk2.module.MapSearchModule', function() {
 		};
 		
 		expect(i).toEqual(3);
+		expect(parentEl.innerHTML).toMatch(/<div class="panel-heading"><div class="content">3/);
+	});
+	
+	it('Test if MapSearchModule is _updateHeading', function(){
+		var parentEl = goog.dom.createDom('div',{'id':'container'});
+		var mapsearch = new vk2.module.MapSearchModule(parentEl);
+		mapsearch._updateHeading(10);
+		expect(parentEl.innerHTML).toMatch(/<div class="panel-heading"><div class="content">10/);
+		mapsearch._updateHeading(0);
+		expect(parentEl.innerHTML).toMatch(/<div class="panel-heading"><div class="content">undefined<\/div>/);
 	});
 });

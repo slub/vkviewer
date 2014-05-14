@@ -39,15 +39,13 @@ vk2.tool.TimeSlider.prototype._loadHtmlContent = function(parentEl){
 	var labelEl = goog.dom.createDom('label',{'innerHTML':'Cooming soon ...'});
 	goog.dom.appendChild(containerEl, labelEl);
 	
-	var  sliderContainer = goog.dom.createDom('div', {'class':'slider-container'});
-	goog.dom.appendChild(containerEl, sliderContainer);	
-	
+	// add mapsearch heading
 	/**
 	 * @type {Element}
 	 * @private
 	 */
 	this._sliderEl = goog.dom.createDom('div',{'class':'slider'});
-	goog.dom.appendChild(sliderContainer, this._sliderEl);	
+	goog.dom.appendChild(containerEl, this._sliderEl);	
 };
 
 /**

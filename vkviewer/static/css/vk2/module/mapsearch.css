@@ -1,6 +1,10 @@
 .mapsearch-container{
-	width: 600px;
-	height: 100%;
+	height: auto;
+	background: transparent; 
+}
+
+.mapsearch-container .panel{
+	background: transparent;
 }
 
 .mapsearch-container .panel-body {
@@ -11,20 +15,25 @@
 	list styling 
 */
 .mapsearch-list{
-	height: 800px;
+	height: auto;
 }
 
 /** list heading */
 .mapsearch-list .list-header{
-	height: 20px;
+	height: 30px;
 	border-bottom: 1px solid black;
 }
 
 .mapsearch-list .list-header .inner-col{
 	position: relative;
 	float: left;
+	padding: 5px;
 	margin-left: 20px;
 	margin-right: 20px;
+}
+
+.mapsearch-list .list-header .inner-col.georeference{
+	display:none;
 }
 
 /** list record */
@@ -68,9 +77,11 @@
 	position: relative;
 	float: left;
 	padding-left: 10px;
+	width: 240px;
 }
 
 .mapsearch-list .mapsearch-record .view-item .overview h2{
 	margin-top: 10px;
-	font-size: 20px;
+	font-size: 14px;
+	word-wrap: break-word;
 }

@@ -1,4 +1,4 @@
-goog.provide('VK2.Validation');
+goog.provide('vk2.validation');
 
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
@@ -8,7 +8,7 @@ goog.require('goog.dom.classes');
  * @param {string} string
  * @return {boolean}
  */
-VK2.Validation.isBlattnumber = function(string){
+vk2.validation.isBlattnumber = function(string){
 	var blattNrParts = [];
 	
 	var hasDoublePoints = (string.indexOf(':') !== -1)
@@ -36,7 +36,7 @@ VK2.Validation.isBlattnumber = function(string){
  * @param {string} string
  * @return {boolean}
  */
-VK2.Validation.isInt = function(string){
+vk2.validation.isInt = function(string){
 	isValideInteger = /^[0-9]+$/.test(string);
 	return isValideInteger;
 };
@@ -46,7 +46,7 @@ VK2.Validation.isInt = function(string){
  * @param {string} string
  * @return {boolean}
  */
-VK2.Validation.checkLength = function( string, minLength, maxLength ){
+vk2.validation.checkLength = function( string, minLength, maxLength ){
 	var isValide =  (string.length > maxLength || string.length < minLength ) ? false : true;
 	return isValide;
 };
@@ -56,7 +56,7 @@ VK2.Validation.checkLength = function( string, minLength, maxLength ){
  * @param {string} string
  * @return {boolean}
  */
-VK2.Validation.checkRegexp = function( string, regexp ){
+vk2.validation.checkRegexp = function( string, regexp ){
 	var isValide = regexp.test(string) ? true : false;
 	return isValide;
 }
@@ -67,7 +67,7 @@ VK2.Validation.checkRegexp = function( string, regexp ){
  * @param {string=} failureElementId The id of a dom element where to write the failure message
  * @param {string=} failureClass The failure class
  */
-VK2.Validation.setErrorMsg = function(msg, failureElementId, failureClass){
+vk2.validation.setErrorMsg = function(msg, failureElementId, failureClass){
 	var failureElement = goog.dom.getElement(failureElementId);
 	if (goog.isDef(failureElement)){
 		failureElement.innerHTML = msg;
@@ -82,7 +82,7 @@ VK2.Validation.setErrorMsg = function(msg, failureElementId, failureClass){
  * @param {string=} failureClass The failure class
  * @return {boolean}
  */ 
-VK2.Validation.checkPassword = function( elementId, failureElementId, failureClass ){
+vk2.validation.checkPassword = function( elementId, failureElementId, failureClass ){
 	var password = goog.dom.getElement(elementId);
 	var isValide = true;
 	
@@ -127,7 +127,7 @@ VK2.Validation.checkPassword = function( elementId, failureElementId, failureCla
  * @param {string=} failureClass The failure class
  * @return {boolean}
  */ 
-VK2.Validation.checkPasswordMatch = function( elementId_Pw1, elementId_Pw2, failureElementId, failureClass ){
+vk2.validation.checkPasswordMatch = function( elementId_Pw1, elementId_Pw2, failureElementId, failureClass ){
 	
 	var password_1 = goog.dom.getElement(elementId_Pw1);
 	var password_2 = goog.dom.getElement(elementId_Pw2);
@@ -165,7 +165,7 @@ VK2.Validation.checkPasswordMatch = function( elementId_Pw1, elementId_Pw2, fail
  * @param {string=} failureClass The failure class
  * @return {boolean}
  */ 
-VK2.Validation.checkUsername = function( elementId, failureElementId, failureClass ){
+vk2.validation.checkUsername = function( elementId, failureElementId, failureClass ){
 	
 	var username = goog.dom.getElement(elementId);
 	var isValide = true;
@@ -212,7 +212,7 @@ VK2.Validation.checkUsername = function( elementId, failureElementId, failureCla
  * @param {string=} failureClass The failure class
  * @return {boolean}
  */ 
-VK2.Validation.checkPersonName = function( elementId, failureElementId, failureClass ){
+vk2.validation.checkPersonName = function( elementId, failureElementId, failureClass ){
 	
 	var name = goog.dom.getElement(elementId);
 	var isValide = true;
@@ -258,7 +258,7 @@ VK2.Validation.checkPersonName = function( elementId, failureElementId, failureC
  * @param {string=} failureClass The failure class
  * @return {boolean}
  */ 
-VK2.Validation.checkEmailAdress = function( elementId, failureElementId, failureClass ){
+vk2.validation.checkEmailAdress = function( elementId, failureElementId, failureClass ){
 	
 	var email = goog.dom.getElement(elementId);
 	var isValide = true;

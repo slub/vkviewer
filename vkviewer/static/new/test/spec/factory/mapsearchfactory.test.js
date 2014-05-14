@@ -12,7 +12,7 @@ describe('Test vk2.factory.MapSearchFactory', function() {
 		expect(response).toBeTruthy();
 		expect(response.id).toEqual('111');
 		expect(response.innerHTML).toMatch(/<div class="timestamp">1912<\/div>/);
-		expect(response.innerHTML).toMatch(/<img alt="" src="http:\/\/fotothek.slub-dresden.de\/thumbs\/df\/dk\/0010000\/undefined.jpg">/);
+		expect(response.innerHTML).toMatch(/<img alt="..." src="http:\/\/fotothek.slub-dresden.de\/thumbs\/df\/dk\/0010000\/undefined.jpg">/);
 	});
 	
 });

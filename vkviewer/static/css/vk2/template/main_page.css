@@ -37,3 +37,22 @@
     height: 100%;
     background-color:#B3C6D4;
 }
+
+/* style for georeference points */
+.georef-point-container{
+	height: 40px !important;
+	width: 150px !important;
+	font-size: 20px;
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+	padding-left: 20px !important;
+	padding-right: 15px !important;
+	z-index: 10000;
+}
+
+.georef-point-container{
+	position:absolute;
+	top: 100px;
+	left: 100px;
+	display: none;
+}

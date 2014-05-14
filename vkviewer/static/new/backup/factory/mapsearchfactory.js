@@ -79,24 +79,20 @@ vk2.factory.MapSearchFactory.getMapSearchRecord = function(feature){
 /**
  * @param {Element} element
  * @param {ol.Feature} feature
- * @param {ol.FeatureOverlay} featureOverlay
+ * @param {ol.layer.Vector} layer
  * @static
  */
-vk2.factory.MapSearchFactory.addHoverToMapSearchRecord = function(element, feature, featureOverlay){
+vk2.factory.MapSearchFactory.addHoverToMapSearchRecord = function(element, feature, layer){
 	$(element).hover( 
 			// handlerIn
 			function(event){
 				if (!goog.dom.classes.has(this, 'hover')){
-					// clear old features and add hover feature
-					featureOverlay.getFeatures().clear();
-					featureOverlay.addFeature(feature);					
 					goog.dom.classes.add(this, 'hover');
 				};
 			}, 
 			// handlerOut
 			function(event){
 				if (goog.dom.classes.has(this, 'hover')){
-					featureOverlay.removeFeature(feature);	
 					goog.dom.classes.remove(this, 'hover');
 				}
 			}

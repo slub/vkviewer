@@ -1,0 +1,37 @@
+.gazetteersearch-container{
+	height: auto;
+}
+
+.gazetteersearch-container .gazetteersearch-input {
+	width: 300px;
+	position: relative; 
+	float: left;
+	border-radius: 0;  
+	font-weight: 300;
+}
+
+.gazetteersearch-container .gazetteersearch-input:focus{
+	border-color: #766; 
+	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(0,0,0,0.2); 
+	box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(0,0,0,0.2);
+}
+
+.gazetteersearch-container .gazetteersearch-input.loading{
+	background: url('/vkviewer/static/images/ui-anim_basic_16x16.gif') right center no-repeat;	
+	background-color: white;
+}
+
+.gazetteersearch-container .gazetteersearch-submit {
+	width: 70px;
+	position: relative; 
+	float: left;
+}
+
+/** overwrite size of list */
+ul.ui-autocomplete{
+	width: 300px !important;
+}
+
+
+
+

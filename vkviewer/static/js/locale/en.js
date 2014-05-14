@@ -6,8 +6,12 @@ var lang_dictionary = {
 		'displaytimestamp': 'Display timestamp',
 		'description': 'Description',
 		'timestamp': 'Time',
-		'titel': 'Titel',
+		'time': 'Time',
+		'titel': 'Title',
+		'title': 'Title',
+		'georeference': 'georeferenced',
 		'found_mtb': 'Plane survey sheet available.',
+		'found_no_maps': 'No maps founded.',
 		'change_zoomlevel': 'Please zoom in!',
 		'choose_valide_timestamp': 'Please choose valide timestamp',
 		'change_timeperiod': 'Adjust time periode:',
@@ -15,6 +19,8 @@ var lang_dictionary = {
 		'toolname_layerbar': 'Choose map layer',
 		
 		// They are assigned to the Gazetteersearch module
+		'gazetteer_placeholder':'Placename or map sheet number',
+		'gazetteer_submit':'Search',
 		'noResultsBlattnr': 'This blatt number is not supported by the Virtuelle Kartenforum 2.0!',
 			
 		// They are assigned to the Georeference Tools

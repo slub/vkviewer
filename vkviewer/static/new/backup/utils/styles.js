@@ -1,9 +1,9 @@
-goog.provide('vk2.utils.Styles');
+goog.provide('VK2.Utils.Styles');
 
 /**
  * @type {Object}
  */
-vk2.utils.Styles.MAP_SEARCH_FEATURE = new ol.style.Style({
+VK2.Utils.Styles.MAP_SEARCH_FEATURE = new ol.style.Style({
     stroke: new ol.style.Stroke({
     	color: 'rgba(0, 0, 255, 1.0)',
     	width: 2
@@ -13,7 +13,7 @@ vk2.utils.Styles.MAP_SEARCH_FEATURE = new ol.style.Style({
 /**
  * @type {Object} 
  */
-vk2.utils.Styles.MAP_SEARCH_HOVER_FEATURE = new ol.style.Style({
+VK2.Utils.Styles.MAP_SEARCH_HOVER_FEATURE = new ol.style.Style({
 	stroke: new ol.style.Stroke({
 		color: '#f00',
         width: 1
