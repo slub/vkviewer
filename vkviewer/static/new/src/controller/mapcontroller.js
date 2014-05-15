@@ -1,6 +1,13 @@
 goog.provide('vk2.controller.MapController');
 
 goog.require('goog.object');
+goog.require('goog.events');
+goog.require('vk2.tool.TimeSlider');
+goog.require('vk2.tool.GazetteerSearch');
+goog.require('vk2.module.SpatialTemporalSearchModule');
+goog.require('vk2.module.MapSearchModule');
+goog.require('vk2.layer.HistoricMap');
+goog.require('vk2.control.LayerSpy');
 
 /**
  * @param {Object} settings
@@ -49,13 +56,27 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 		],
 		renderer: 'canvas',
 		target: map_container,
+		interactions: ol.interaction.defaults().extend([
+		    new ol.interaction.DragRotateAndZoom()
+		]),
+		controls: [
+		    new ol.control.Attribution(),
+		   	new ol.control.Zoom(),
+		   	new ol.control.FullScreen(),
+			new vk2.control.LayerSpy({
+				'spyLayer':new ol.layer.Tile({
+					attribution: undefined,
+					source: new ol.source.OSM()
+				})
+			})	
+		],
 		view: new ol.View2D({
 			projection: 'EPSG:900913',
 	        minResolution: 1.194328566789627,
 	        maxResolution: 2445.9849047851562,
 	        extent: [640161.933,5958026.134,3585834.8011505,7847377.4901306],
-			center: [1528150, 6630500],
-			zoom: 2
+			center: [1531627.8847864927, 6632124.286850829],
+			zoom: 7
 		})
 	});
 	
@@ -79,6 +100,91 @@ vk2.controller.MapController.prototype._addFeatureClickBehavior = function(map){
 };
 
 /**
+ * @param {vk2.tool.GazetteerSearch} gazetteersearch
+ */
+vk2.controller.MapController.prototype._registerGazetteerSearchTool = function(gazetteersearch){
+	// jumps to extent
+	goog.events.listen(gazetteersearch, 'jumpto', function(event){
+		var view = this._map.getView().getView2D();
+		view.setCenter(ol.proj.transform([parseFloat(event.target.lonlat[0]),parseFloat(event.target.lonlat[1])], 
+				event.target.srs, 'EPSG:900913'));
+		view.setZoom(5);
+	}, undefined, this);
+};
+
+/**
+ * @param {vk2.module.MapSearchModule} mapsearch
+ */
+vk2.controller.MapController.prototype._registerMapSearchModule = function(mapsearch){
+	/**
+	 * @type {vk2.module.MapSearchModule}
+	 * @private
+	 */
+	this._mapsearch = mapsearch;
+	
+	// register mapsearchlayer for fetching search records from the wfs service
+	/**
+	 * @type {vk2.layer.MapSearch}
+	 * @private
+	 */
+	this._mapsearchLayer = new vk2.layer.MapSearch({
+		'projection':'EPSG:900913',
+		'style': function(feature, resolution){
+			return undefined;
+		}
+	});
+	this._map.addLayer(this._mapsearchLayer);
+	
+	// register map moveend event for looking if there are new search features
+	var lastMoveendCenter = null;
+	var lastMoveendFeatureCount = null;
+	this._map.on('moveend', function(event){
+		if (goog.DEBUG)
+			console.log('Moveend Event');
+		
+		var view = event.map.getView().getView2D();
+		var featureCount = this._mapsearchLayer.getSource().getFeatures().length;
+		if (lastMoveendCenter !== view.getCenter() || lastMoveendFeatureCount !== featureCount){
+			if (goog.DEBUG)
+				console.log('Moveened Event with update');
+			
+			lastMoveendCenter = view.getCenter();
+			lastMoveendFeatureCount = featureCount;
+			
+			// extract features in current extent
+			var current_extent = view.calculateExtent(event.map.getSize());
+			var features = this._mapsearchLayer.getTimeFilteredFeatures(current_extent);
+			this._mapsearch.updateFeatures(features);
+		}
+	}, this);
+	
+	// register addmtb event
+	goog.events.listen(this._mapsearch, 'addmtb', function(event){
+		var feature = event.target.feature;
+		var time = feature.get('time');
+		var border_coordinates = feature.getGeometry().getCoordinates();
+		map.addLayer(new vk2.layer.HistoricMap({
+			'time':time,
+			'border': border_coordinates[0],
+			'map':map
+		}));
+	}, undefined, this);
+};
+
+/**
+ * @param {vk2.tool.TimeSlider} timeSlider
+ */
+vk2.controller.MapController.prototype._registerTimeSliderTool = function(timeSlider){
+	// this event links the content of the map search list with the time slider
+	goog.events.listen(timeSlider, 'timechange', function(event){
+		this._mapsearchLayer.setTimeFilter(event.target.time[0], event.target.time[1]);
+		var current_extent = this._map.getView().getView2D().calculateExtent(this._map.getSize());
+		var features = this._mapsearchLayer.getTimeFilteredFeatures(current_extent)
+		this._mapsearch.updateFeatures(features);
+	}, undefined, this);
+};
+
+/**
  * @returns {ol.Map}
  * @export
  */
@@ -90,45 +196,7 @@ vk2.controller.MapController.prototype.getMap = function(){
  * @param {vk2.module.SpatialTemporalSearchModule}
  */
 vk2.controller.MapController.prototype.registerSpatialTemporalSearch = function(spatialTempSearch){
-
-	/**
-	 * @type {vk2.module.MapSearchModule}
-	 * @private
-	 */
-	this._mapsearch = spatialTempSearch.getMapSearchModule();
-	
-	// register mapsearchlayer for fetching search records from the wfs service
-	var mapsearchLayer = new vk2.layer.MapSearch({
-		'projection':'EPSG:900913',
-		'style': function(feature, resolution){
-			return undefined;
-		}
-	});
-	this._map.addLayer(mapsearchLayer);
-	
-	// register map moveend event for looking if there are new search features
-	var lastMoveendCenter = null;
-	var lastMoveendFeatureCount = null;
-	this._map.on('moveend', function(event){
-		if (goog.DEBUG)
-			console.log('Moveend Event');
-		
-		var view = event.map.getView().getView2D();
-		var featureCount = mapsearchLayer.getSource().getFeatures().length;
-		if (lastMoveendCenter !== view.getCenter() || lastMoveendFeatureCount !== featureCount){
-			if (goog.DEBUG)
-				console.log('Moveened Event with update');
-			
-			lastMoveendCenter = view.getCenter();
-			lastMoveendFeatureCount = featureCount;
-			
-			// extract features in current extent
-			var current_extent = view.calculateExtent(event.map.getSize());
-			var features = []
-			mapsearchLayer.getSource().forEachFeatureInExtent(current_extent, function(feature){
-				features.push(feature);
-			});
-			this._mapsearch.updateFeatures(features);
-		}
-	}, this);
+	this._registerMapSearchModule(spatialTempSearch.getMapSearchModule());
+	this._registerTimeSliderTool(spatialTempSearch.getTimesliderTool());
+	this._registerGazetteerSearchTool(spatialTempSearch.getGazetteerSearchTool());
 };
