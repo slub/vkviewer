@@ -52,31 +52,7 @@ vk2.utils.AppLoader = function(settings){
 
 	
 	if(goog.DEBUG){
-		window['map'] = map_controller.getMap();
-		
-		// load dummy data
-		var url = 'http://localhost:8080/vkviewer/static/new/test_pages/wfs.xml';
-		var parser = new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows'])
-		goog.net.XhrIo.send(url, goog.bind(function(e){
-			var xhr = /** @type {goog.net.XhrIo} */ (e.target);
-			var data = xhr.getResponseXml() ? xhr.getResponseXml() : xhr.getResponseText();
-			xhr.dispose();
-			var features = parser.readFeatures(data);
-			spatialSearch.getMapSearchModule().updateFeatures(features); 
-
-		}));
-		
-		// test listeners
-		goog.events.listen(spatialSearch.getMapSearchModule(), 'addmtb', function(event){
-			console.log(event);
-		});
-		goog.events.listen(spatialSearch.getGazetteerSearchTool(), 'jumpto', function(event){
-			console.log(event);
-		});
-		goog.events.listen(spatialSearch.getTimesliderTool(), 'timechange', function(event){
-			console.log(event);
-		});
-		
+		window['map'] = map_controller.getMap();		
 		// test mapsearch layer
 //		var mapsearchLayer = new vk2.layer.MapSearch({
 //			'projection':'EPSG:900913',

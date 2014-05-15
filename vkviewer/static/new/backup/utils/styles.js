@@ -22,3 +22,13 @@ VK2.Utils.Styles.MAP_SEARCH_HOVER_FEATURE = new ol.style.Style({
         color: 'rgba(255,0,0,0.1)'
     })
 });
+
+/**
+ * @type {Object}
+ */
+VK2.Utils.Styles.MESSTISCHBLATT_BORDER_STYLE = new ol.style.Style({
+	stroke: new ol.style.Stroke({
+		color: '#000000',
+		width: 3
+	})
+});

@@ -41,4 +41,10 @@ vk2.utils.getMsg = function(key){
 	}
 };
 
-
+/**
+ * @param {Array.<number>} extent
+ * @return {Array.<Array.<number>>}
+ */
+vk2.utils.getPolygonFromExtent = function(extent){
+	return [[extent[0],extent[1]], [extent[0],extent[3]], [extent[2],extent[3]], [extent[2],extent[1]]];
+};
