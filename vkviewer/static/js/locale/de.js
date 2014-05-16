@@ -16,6 +16,8 @@ var lang_dictionary = {
 		'choose_valide_timestamp': 'Wählen Sie validien Zeitstempel',
 		'change_timeperiod': 'Passe Zeitraum an:',
 		
+		// layermanagement
+		'layermanagement_label': 'Meine Kartenauswahl',
 		'toolname_layerbar': 'Auswahl Kartenlayer',
 		
 		// They are assigned to the Gazetteersearch module

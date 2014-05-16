@@ -21,7 +21,7 @@ vk2.control.LayerSpy = function(opt_options) {
 	   */
 	  this._spyLayer = goog.isDef(options.spyLayer) ? options.spyLayer : new ol.layer.Tile({
 			attribution: undefined,
-			source: new ol.source.OSM()
+			source: new ol.source.OSM({'attribution':undefined})
 	  });
 	  
 	  /**
