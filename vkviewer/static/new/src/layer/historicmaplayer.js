@@ -14,12 +14,24 @@ goog.require('vk2.layer.Messtischblatt');
  * @extends {ol.layer.LayerGroup}
  */
 vk2.layer.HistoricMap = function(settings){
-
+	
 	/**
 	 * @type {Object}
 	 * @private
 	 */
 	this._baseSettings = goog.object.clone(settings);
+	
+	/**
+	 * @type {string}
+	 * @private
+	 */
+	this._id = goog.isDef(settings['id']) ? settings['id'] : undefined;
+	
+	/**
+	 * @type {string} 
+	 * @private
+	 */
+	this._metadata = goog.isDef(settings['metadata']) && goog.isObject(settings['metadata']) ? settings['metadata'] : undefined;
 	
 	/**
 	 * @type {number}
@@ -37,13 +49,20 @@ vk2.layer.HistoricMap = function(settings){
 	 * @type {string}
 	 * @private
 	 */
-	this._name = goog.isDef(settings['name']) ? settings['name'] : 'Messtischblätter für '+ this._time; 
+	this._title = goog.isDef(settings['title']) ? settings['title'] : undefined; 
+	
+	/**
+	 * @type {string}
+	 * @private
+	 */
+	this._thumbnail = goog.isDef(settings['thumbnail']) ? settings['thumbnail'] : '/vkviewer/static/images/layer_default.png';
 	
 	/**
 	 * @type {boolean}
 	 * @private
 	 */
-	this._displayInLayerBar = true;
+	this._displayInLayerManagement = (goog.isDef(settings['displayinlayermanagement']) && goog.isBoolean(settings['displayinlayermanagement'])) ? 
+			settings['displayinlayermanagement'] : true;
 	
 	/**
 	 * @type {<Array.<Array<number>>}
@@ -55,7 +74,12 @@ vk2.layer.HistoricMap = function(settings){
 	 * @type {ol.layer.Tile}
 	 * @private
 	 */
-	this._mtbLayer = new vk2.layer.Messtischblatt({'time':this._time, 'border':settings['border'],'map':settings['map']}); 
+	this._mtbLayer = new vk2.layer.Messtischblatt({
+		'time':this._time, 
+		'border':settings['border'],
+		'map':settings['map'],
+		'extent':settings['extent']
+	}); 
 
 	
 	/**
@@ -86,20 +110,34 @@ vk2.layer.HistoricMap.prototype.getTime = function(){
 /**
  * @return {boolean}
  */
-vk2.layer.HistoricMap.prototype.getDisplayInLayerBar = function(){
-	return this._displayInLayerBar;
+vk2.layer.HistoricMap.prototype.getDisplayInLayerManagement = function(){
+	return this._displayInLayerManagement;
 };
 
 /**
  * @return {string}
  */
-vk2.layer.HistoricMap.prototype.getName = function(){
-	return this._name;
+vk2.layer.HistoricMap.prototype.getTitle = function(){
+	return this._title;
 };
 
 /**
  * @return {string}
  */
 vk2.layer.HistoricMap.prototype.getThumbnail = function(){
-	return "/vkviewer/static/images/layer_default.png";
+	return this._thumbnail;
+};
+
+/**
+ * @return {string}
+ */
+vk2.layer.HistoricMap.prototype.getId = function(){
+	return this._id;
+};
+
+/**
+ * @return {Object}
+ */
+vk2.layer.HistoricMap.prototype.getMetadata = function(){
+	return this._thumbnail;
 };

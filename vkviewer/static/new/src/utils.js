@@ -48,3 +48,11 @@ vk2.utils.getMsg = function(key){
 vk2.utils.getPolygonFromExtent = function(extent){
 	return [[extent[0],extent[1]], [extent[0],extent[3]], [extent[2],extent[3]], [extent[2],extent[1]]];
 };
+
+/**
+ * @param {string} dateiname
+ * @return {string}
+ */
+vk2.utils.generateMesstischblattThumbnailLink = function(dateiname){
+	return vk2.settings.THUMBNAIL_URL+dateiname+'.jpg';
+};

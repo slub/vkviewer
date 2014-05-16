@@ -8,6 +8,7 @@ goog.require('vk2.module.SpatialTemporalSearchModule');
 goog.require('vk2.module.MapSearchModule');
 goog.require('vk2.layer.HistoricMap');
 goog.require('vk2.control.LayerSpy');
+goog.require('vk2.control.RotateNorth');
 
 /**
  * @param {Object} settings
@@ -68,7 +69,8 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 					attribution: undefined,
 					source: new ol.source.OSM()
 				})
-			})	
+			}),
+			new vk2.control.RotateNorth()
 		],
 		view: new ol.View2D({
 			projection: 'EPSG:900913',
@@ -161,12 +163,14 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 	// register addmtb event
 	goog.events.listen(this._mapsearch, 'addmtb', function(event){
 		var feature = event.target.feature;
-		var time = feature.get('time');
-		var border_coordinates = feature.getGeometry().getCoordinates();
 		map.addLayer(new vk2.layer.HistoricMap({
-			'time':time,
-			'border': border_coordinates[0],
-			'map':map
+			'time':feature.get('time'),
+			'border': feature.getGeometry().getCoordinates()[0],
+			'map':map,
+			'extent': feature.getGeometry().getExtent(),
+			'thumbnail': vk2.utils.generateMesstischblattThumbnailLink(feature.get('dateiname')),
+			'title': feature.get('titel'),
+			'id': feature.get('mtbid')
 		}));
 	}, undefined, this);
 };

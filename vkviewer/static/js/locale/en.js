@@ -16,6 +16,8 @@ var lang_dictionary = {
 		'choose_valide_timestamp': 'Please choose valide timestamp',
 		'change_timeperiod': 'Adjust time periode:',
 		
+		// layermanagement module
+		'layermanagement_label': 'My Maps',
 		'toolname_layerbar': 'Choose map layer',
 		
 		// They are assigned to the Gazetteersearch module

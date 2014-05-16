@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="./css/mapsearch.css">
 		<link rel="stylesheet" href="./css/timeslider.css">
 		<link rel="stylesheet" href="./css/gazetteersearch.css">
+		<link rel="stylesheet" href="./css/layermanagement.css">
 		<style>
 		html, body{
 			width: 100%;
@@ -24,6 +25,12 @@
 			width: 400px;
 			height: 100px;
 		}
+		
+		.layermanagement-container{
+			position: absolute;
+			bottom: 30px;
+			right: 10px;
+		}
 		</style>	
 		<script src="../lib/jquery.min.js"></script>
 		<script src="../lib/jquery-ui.min.js"></script>
@@ -36,6 +43,7 @@
 		<script src="../src/validation.js"></script>
 		<script src="../src/factory/mapsearchfactory.js"></script>
 		<script src="../src/module/mapsearchmodule.js"></script>
+		<script src="../src/module/layermanagementmodule.js"></script>
 		<script src="../src/tool/timeslidertool.js"></script>
 		<script src="../src/tool/gazetteersearchtool.js"></script>
 		<script>
@@ -53,6 +61,7 @@
 	var mapsearch = new vk2.module.MapSearchModule('test', {});
 	var timeslider = new vk2.tool.TimeSlider('test');
 	var gazetteer = new vk2.tool.GazetteerSearch('test');
+	var layermanagement = new vk2.module.LayerManagementModule('test', {});
 	var url = 'http://localhost:8080/vkviewer/static/new/test_pages/wfs.xml';
 	var parser = new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows'])
 	goog.net.XhrIo.send(url, goog.bind(function(e){

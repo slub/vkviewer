@@ -96,4 +96,6 @@
 .main-page .olMap .ol-full-screen {	top: 100px;	right: 430px;}
 .main-page .olMap:-webkit-full-screen .ol-full-screen {	right: .5em; top: .5em;}
 .main-page .olMap .ol-layerspy { left: .5em; top: 150px; }
-.main-page .olMap:-webkit-full-screen .ol-layerspy { top: 50px; }
+.main-page .olMap:-webkit-full-screen .ol-layerspy { top: 58px; }
+.main-page .olMap .rotate-north { left: .5em; top: 177px; }
+.main-page .olMap:-webkit-full-screen .rotate-north { top: 85px; }

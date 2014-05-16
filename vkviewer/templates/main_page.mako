@@ -101,7 +101,8 @@
         			<!-- Map panel -->
 
         				<div id="vk2MapPanel" class="vk2MapPanel">
-			        		<div id="mapdiv" class="olMap" tabindex="0"></div>
+			        		<div id="mapdiv" class="olMap" tabindex="0">
+			        		</div>
 			        	</div>
       	
 			        	<!-- Footer panel -->

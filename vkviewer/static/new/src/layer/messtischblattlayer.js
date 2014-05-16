@@ -11,6 +11,8 @@ goog.require('vk2.utils');
  */
 vk2.layer.Messtischblatt = function(settings){
 	
+	var extent = goog.isDef(settings['extent']) ? settings['extent'] : [];
+	
 	// define source
 	var projection = goog.isDef(settings.projection) ? settings.projection : 'EPSG:900913';
 	settings.source = new ol.source.TileWMS({
@@ -20,7 +22,8 @@ vk2.layer.Messtischblatt = function(settings){
 			'TIME':settings.time,
 			'VERSION': '1.1.1'
 		}, 
-		'projection': projection
+		'projection': projection,
+		'extent': extent
 	});
 	var messtischblattLayer = new ol.layer.Tile(settings);
 	
