@@ -123,3 +123,17 @@ vk2.layer.MapSearch.prototype.getTimeFilteredFeatures = function(extent){
 	}, this);
 	return returnArr;
 };
+
+/**
+ * @param {string} blattnr
+ * @return {Array.<ol.Feature>}
+ */
+vk2.layer.MapSearch.prototype.getFeatureForBlattnr = function(blattnr){
+	var allFeatures = this.getSource().getFeatures();
+	var returnArr = [];
+	allFeatures.forEach(function(feature){
+		if (feature.get('blattnr') === blattnr)
+			returnArr.push(feature);
+	});
+	return returnArr;
+};

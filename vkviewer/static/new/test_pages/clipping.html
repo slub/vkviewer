@@ -17,8 +17,8 @@ html,body {
 	height: 100%;
 }
 </style>
-<!-- <script src="http://localhost:8080/vkviewer/static/new/lib/ol-whitespace.js"></script> -->
-<script src="http://sdvtypo3-3.slub-dresden.de/ol/ol-whitespace.js"></script>
+<script src="http://localhost:8080/vkviewer/static/new/lib/ol-whitespace.js"></script> 
+<!-- <script src="http://sdvtypo3-3.slub-dresden.de/ol/ol-whitespace.js"></script>-->
 </head>
 <body>
 	<div id="map"></div>
@@ -57,6 +57,13 @@ var clipPolygon = [[1521174.692018,6621076.134534], [1521174.279003, 6638782.006
 tileLayer.on('precompose', function(event){
 		var canvas = event.context;
 		
+		console.log('------------------------------------------');
+		console.log('Clip polygon ...');
+		for (var i = 0, ii = clipPolygon.length; i < ii; i++){
+			console.log(clipPolygon[i]);
+		};
+		console.log('------------------------------------------');
+		
 		// get clip pixel
 		var clip_pixel = [];
 		for (var i = 0, ii = clipPolygon.length; i < ii; i++){
@@ -64,11 +71,11 @@ tileLayer.on('precompose', function(event){
 		};
 		canvas.save();
 		
-		console.log('------------------------------------------');
+/* 		console.log('------------------------------------------');
 		for (var i = 0, ii = clip_pixel.length; i < ii; i++ ){
 			console.log(clip_pixel[i]);
 		};
-		console.log('------------------------------------------');
+		console.log('------------------------------------------'); */
 		
 		// draw clip polygon on canvas
 		canvas.beginPath();

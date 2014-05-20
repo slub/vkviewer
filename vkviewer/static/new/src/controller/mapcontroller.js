@@ -1,6 +1,7 @@
 goog.provide('vk2.controller.MapController');
 
 goog.require('goog.object');
+goog.require('goog.array');
 goog.require('goog.events');
 goog.require('vk2.tool.TimeSlider');
 goog.require('vk2.tool.GazetteerSearch');
@@ -159,20 +160,72 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 			this._mapsearch.updateFeatures(features);
 		}
 	}, this);
+
 	
 	// register addmtb event
 	goog.events.listen(this._mapsearch, 'addmtb', function(event){
 		var feature = event.target.feature;
-		map.addLayer(new vk2.layer.HistoricMap({
-			'time':feature.get('time'),
-			'border': feature.getGeometry().getCoordinates()[0],
-			'map':map,
-			'extent': feature.getGeometry().getExtent(),
-			'thumbnail': vk2.utils.generateMesstischblattThumbnailLink(feature.get('dateiname')),
-			'title': feature.get('titel'),
-			'id': feature.get('mtbid')
-		}));
+		
+		// request associated messtischblaetter for a blattnr
+		var layer = this._createHistoricMapForFeature(feature);
+		var assocatiedMaps = this._createAssociationMapsArray(feature);	
+		for (var i = 0; i < assocatiedMaps.length; i++){
+			if (assocatiedMaps[i].getId() === layer.getId()){
+				assocatiedMaps.splice(i, 1);
+				break;
+			};
+		};
+		layer.setAssociations(assocatiedMaps);
+		map.addLayer(layer);
 	}, undefined, this);
+};
+
+/**
+ * @param {ol.Feature} feature
+ * @return {vk2.layer.HistoricMap}
+ */
+vk2.controller.MapController.prototype._createHistoricMapForFeature = function(feature){
+	return new vk2.layer.HistoricMap({
+		'time':feature.get('time'),
+		'border': feature.getGeometry().getCoordinates()[0],
+		'extent': feature.getGeometry().getExtent(),
+		'thumbnail': vk2.utils.generateMesstischblattThumbnailLink(feature.get('dateiname')),
+		'title': feature.get('titel'),
+		'id': feature.get('mtbid'),
+	});
+};
+
+/**
+ * Functions generate an array of historicmap objects which are associated to each other and
+ * connected to there equal blattnr
+ * @param {ol.Feature} feature
+ * @return {Array.<vk2.layer.HistoricMap>}
+ */
+vk2.controller.MapController.prototype._createAssociationMapsArray = function(feature){
+	var relativeFeatures = this._mapsearchLayer.getFeatureForBlattnr(feature.get('blattnr'));
+	
+	// first create for every timestamp a relative map
+	var relativeMaps = [];
+	for (var i = 0; i < relativeFeatures.length; i++){
+		relativeMaps.push(this._createHistoricMapForFeature(relativeFeatures[i]));	
+	};
+	
+	// now associate the maps to each other
+	for (var i = 0; i < relativeMaps.length; i++){
+		
+		// clone the relativeMaps and remove the reference of the relativeMaps[i] object
+		var associatedMaps = goog.array.clone(relativeMaps);
+		for (var j = 0; j < associatedMaps.length; j++){
+			if (associatedMaps[j].getId() === relativeMaps[i].getId()){
+				associatedMaps.splice(j, 1);
+				break;
+			};
+		};
+		
+		relativeMaps[i].setAssociations(associatedMaps);
+	};
+	
+	return relativeMaps;	
 };
 
 /**

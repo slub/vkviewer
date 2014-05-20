@@ -77,10 +77,14 @@ vk2.layer.HistoricMap = function(settings){
 	this._mtbLayer = new vk2.layer.Messtischblatt({
 		'time':this._time, 
 		'border':settings['border'],
-		'map':settings['map'],
 		'extent':settings['extent']
 	}); 
 
+	/**
+	 * @type {Array.<vk2.layer.HistoricMap>|undefined}
+	 * @private
+	 */
+	this._associations = undefined;
 	
 	/**
 	 * @type {ol.layer.Vector}
@@ -136,8 +140,22 @@ vk2.layer.HistoricMap.prototype.getId = function(){
 };
 
 /**
+ * @return {Array.<vk2.layer.HistoricMap>}
+ */
+vk2.layer.HistoricMap.prototype.getAssociations = function(){
+	return this._associations;
+};
+
+/**
  * @return {Object}
  */
 vk2.layer.HistoricMap.prototype.getMetadata = function(){
-	return this._thumbnail;
+	return this._metadata;
+};
+
+/**
+ * @param {Array.<vk2.layer.HistoricMap>} array
+ */
+vk2.layer.HistoricMap.prototype.setAssociations = function(array){
+	this._associations = array;
 };

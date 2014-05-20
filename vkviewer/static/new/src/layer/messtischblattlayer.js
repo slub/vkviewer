@@ -28,25 +28,20 @@ vk2.layer.Messtischblatt = function(settings){
 	var messtischblattLayer = new ol.layer.Tile(settings);
 	
 	/**
-	 * @type {ol.Map}
-	 * @private
-	 */
-	messtischblattLayer._map = goog.isDef(settings['map']) ? settings['map'] : undefined;
-	
-	/**
 	 * @type {<Array.<Array.<number>>}
 	 * @private
 	 */
 	messtischblattLayer._borderPolygon = goog.isDef(settings['border']) ? settings['border'] : undefined;
 	
 	/**
+	 * @param {ol.Map}
 	 * @private
 	 * @return {Array.<Array.<number>>}
 	 */
-	messtischblattLayer._getPixelForClipPolygon = function(){
+	messtischblattLayer._getPixelForClipPolygon = function(){	
 		var clip_pixel = [];
 		for (var i = 0; i < this._borderPolygon.length; i++){
-			clip_pixel.push(this._map.getPixelFromCoordinate(this._borderPolygon[i]));
+			clip_pixel.push(map.getPixelFromCoordinate(this._borderPolygon[i]));
 		};
 		return clip_pixel;
 	};
@@ -97,11 +92,12 @@ vk2.layer.Messtischblatt = function(settings){
 	};
 	
 	// borderPolygon definded than add clip behavior
-	if (goog.isDef(messtischblattLayer._borderPolygon) && goog.isDef(messtischblattLayer._map)){
+	if (goog.isDef(messtischblattLayer._borderPolygon)){
 		messtischblattLayer.on('precompose', function(event){
+			var map = event.target.get('map');
 			//if (!this._isExtentWithinClipPolygon(event.frameState.extent)){
 				var canvas = event.context;
-				var clip_pixel = this._getPixelForClipPolygon();
+				var clip_pixel = this._getPixelForClipPolygon(map);
 				canvas.save();
 				
 //				if (goog.DEBUG){
