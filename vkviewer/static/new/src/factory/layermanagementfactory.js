@@ -149,5 +149,28 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, ma
 	// append opacity slider
 	var opacitySlider = new vk2.tool.OpacitySlider(maximizeContainer, layer);
 	
+	// append new messtischblatt mtb
+	if (goog.isDef(layer.getAssociations())){
+		var associatedMapsContainer = goog.dom.createDom('div',{'class':'timestamp-container'});
+		goog.dom.appendChild(maximizeContainer, associatedMapsContainer);
+		
+		// now add for every feature an add mtb event
+		var associatedMaps = layer.getAssociations();
+		for (var i = 0; i < associatedMaps.length; i++){
+			var associatedLayer = associatedMaps[i]
+			var associatedMap = goog.dom.createDom('a',{
+				'class': 'timestamp',
+				'href': '#',
+				'innerHTML': associatedLayer.getTime()
+			});
+			goog.dom.appendChild(associatedMapsContainer,associatedMap);
+			
+			goog.events.listen(associatedMap, 'click', function(event){
+				map.addLayer(this);
+				event.stopPropagation();
+			}, undefined, associatedLayer);
+		};
+	};
+	
 	return containerListEl;
 };

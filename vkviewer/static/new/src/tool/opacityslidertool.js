@@ -79,7 +79,7 @@ vk2.tool.OpacitySlider.prototype._appendSliderBehavior = function(sliderEl, laye
     });
 	
 	// append tooltips
-	valueEl = goog.dom.createDom('div',{
+	var valueEl = goog.dom.createDom('div',{
 		'class':'tooltip value',
 		'innerHTML':'100%'
 	});
