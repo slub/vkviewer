@@ -40,32 +40,16 @@ describe('Test vk2.module.MapSearchModule', function() {
 		expect(parentEl.innerHTML).toMatch(/<li class="mapsearch-record" id="113">/);
 	});
 	
-	it('Test if MapSearchModule sort behavior is function', function(){
-		var parentEl = goog.dom.createDom('div',{'id':'container'});
-		var mapsearchModule = new vk2.module.MapSearchModule(parentEl);
-		mapsearchModule.updateFeatures(moch_features);
-		
-		// sort for time
-		mapsearchModule._searchFeatures.sortFeatures('time');		
-		var features = mapsearchModule.getFeatures();
-		expect(features[1].get('time')).toEqual(1912);
-		
-		// sort for titel
-		mapsearchModule._searchFeatures.sortFeatures('title');		
-		var features = mapsearchModule.getFeatures();
-		expect(features[0].get('titel')).toEqual('AAA');
-	});
-	
-	it('Test if MapSearchModule sort and update list behavior is function', function(){
-		var parentEl = goog.dom.createDom('div',{'id':'container'});
-		var mapsearchModule = new vk2.module.MapSearchModule(parentEl);
-		mapsearchModule.updateFeatures(moch_features);
-		
-		// sort for time
-		mapsearchModule._sortFeatures('time');	
-		var list_elements = goog.dom.getElementsByClass('mapsearch-record', parentEl);
-		expect(list_elements[0].id).toEqual('111');	
-	});
+//	it('Test if MapSearchModule sort and update list behavior is function', function(){
+//		var parentEl = goog.dom.createDom('div',{'id':'container'});
+//		var mapsearchModule = new vk2.module.MapSearchModule(parentEl);
+//		mapsearchModule.updateFeatures(moch_features);
+//		
+//		// sort for time
+//		mapsearchModule._sortFeatures('time');	
+//		var list_elements = goog.dom.getElementsByClass('mapsearch-record', parentEl);
+//		expect(list_elements[0].id).toEqual('111');	
+//	});
 	
 	it('Test if MapSearchModule click event works', function(){
 		var parentEl = goog.dom.createDom('div',{'id':'container'});
