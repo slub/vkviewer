@@ -42,8 +42,8 @@
 		<script src="../src/utils.js"></script>
 		<script src="../src/validation.js"></script>
 		<script src="../src/factory/mapsearchfactory.js"></script>
+		<script src="../src/tool/searchlisttool.js"></script>
 		<script src="../src/module/mapsearchmodule.js"></script>
-		<script src="../src/module/layermanagementmodule.js"></script>
 		<script src="../src/tool/timeslidertool.js"></script>
 		<script src="../src/tool/gazetteersearchtool.js"></script>
 		<script>
@@ -58,10 +58,9 @@
 	
 	
 	<script type="text/javascript">
-	var mapsearch = new vk2.module.MapSearchModule('test', {});
+	var mapsearch = new vk2.module.MapSearchModule('test');
 	var timeslider = new vk2.tool.TimeSlider('test');
 	var gazetteer = new vk2.tool.GazetteerSearch('test');
-	var layermanagement = new vk2.module.LayerManagementModule('test', {});
 	var url = 'http://localhost:8080/vkviewer/static/new/test_pages/wfs.xml';
 	var parser = new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows'])
 	goog.net.XhrIo.send(url, goog.bind(function(e){
