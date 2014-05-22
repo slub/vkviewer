@@ -49,11 +49,27 @@ vk2.settings.PROXY_URL = 'http://localhost:8080/vkviewer/proxy/?url=';
 vk2.settings.GEONETWORK = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|';
 
 /**
- * @type {String}
+ * @type {string}
  */
 vk2.settings.CSW_URL = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw';
 
 /**
- * @type {String}
+ * @type {string}
  */
-vk2.settings.THUMBNAIL_URL = 'http://fotothek.slub-dresden.de/thumbs/df/dk/0010000/'
+vk2.settings.THUMBNAIL_URL = 'http://fotothek.slub-dresden.de/thumbs/df/dk/0010000/';
+
+/**
+ * @type {string}
+ */
+vk2.settings.GEOREFERENCE_VALIDATION = '/vkviewer/georeference/validation';
+
+/**
+ * @type {string}
+ */
+vk2.settings.GEOREFERENCE_CONFIRM = '/vkviewer/georeference/confirm';
+
+/**
+ * @type {string}
+ */
+vk2.settings.GEOREFERENCE_UPDATE = '/vkviewer/georeference/update';
+

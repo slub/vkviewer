@@ -68,34 +68,8 @@
 
 <%block name="js_content">
     <script>	
-		var url = new goog.Uri(window.location.href);
-		var mtbid = url.getQueryData().get('mtbid');
-		var imgWidth = url.getQueryData().get('zoomify_width');
-		var imgHeight = url.getQueryData().get('zoomify_height');
-		var zoomify_url = url.getQueryData().get('zoomify_prop').substring(0,url.getQueryData().get('zoomify_prop').lastIndexOf("/")+1);		
-		
-		var unparsed_extent = url.getQueryData().get('extent').split(',');
-		var parsed_extent = []
-		for (var i = 0; i < unparsed_extent.length; i++){parsed_extent.push(parseFloat(unparsed_extent[i]))};	
-		
-		var georeferencer = new vk2.georeference.Georeferencer({
-			// parameters for unreferenced map
-			'zoomify':{
-				'width': imgWidth,
-				'height': imgHeight,
-				'url': zoomify_url
-			},
-			'unreferenced_map':'unreferenced-map',
-			
-			// parameters for the referenced map
-			'referenced_map': 'georeferenced-map',
-			'result': {
-				'extent':parsed_extent
-			},
-			
-			// unused right now
-			'target_href': '${request.route_url('home_login')}?georef=on&points=20',
-		});
+		var georeferencer = new vk2.georeference.Georeferencer('unreferenced-map','georeferenced-map');
+
     </script> 
 </%block>
 

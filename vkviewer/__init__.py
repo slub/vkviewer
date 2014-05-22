@@ -69,6 +69,7 @@ def addRoutes(config):
     config.add_route('georeference_start', routePrefix+'/georeference/start')
     config.add_route('georeference_validate', routePrefix+'/georeference/validate')
     config.add_route('georeference_page', routePrefix+'/georeference')
+    config.add_route('georeference', routePrefix+'/georeference/{action}')
     config.add_route('report', routePrefix+'/report/{action}')
     
     # footer routes

@@ -68,7 +68,7 @@ VK2.Requests.CSW_GetRecordById.prototype.getRecord = function(record_id, service
 	}, false, this);
 	
 	// send request
-	xhr.send(requestUrl, 'POST', xmlRequest, {'Content-Type':'application/xml;charset=UTF-8'});	
+	xhr.send(requestUrl, 'POST', xmlRequest, {'Content-Type':'application/json;charset=UTF-8'});	
 };
 
 /**

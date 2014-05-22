@@ -51,12 +51,61 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 		  controls: [
 		       new ol.control.FullScreen(),
 		       new ol.control.Zoom(),
-		       new ol.control.Attribution()  
+		       new ol.control.Attribution(),
+		       new ol.control.ZoomToExtent({
+		   			extent: result_settings['extent']
+		   	   })
 		  ]
 	});
 	
 	if (this._settings.hasOwnProperty('extent'))
 		this._map.getView().fitExtent(this._settings['extent'], this._map.getSize());
+
+};
+
+/**
+ * @param {string} wms_url Url to the web mapping service which publish the validation file
+ * @param {string} layer_id
+ * @param {Array.<number>} clip_extent
+ */
+vk2.georeference.ResultViewer.prototype.displayValidationMap = function(wms_url, layer_id, clip_extent){
+	
+	// remove old layer
+	if (goog.isDef(this._validationLayer)){
+		this._map.removeLayer(this._validationLayer); 
+	};
+	
+	/**
+	 * @type {ol.source.TileWMS}
+	 * @private
+	 */
+	this._validationLayer = new ol.layer.Tile({
+			source: new ol.source.TileWMS({
+				url: wms_url,
+				params: {
+					'LAYERS':layer_id,
+					'VERSION': '1.1.1'
+				},
+				projection: 'EPSG:900913'
+			})
+	});
+
+	this._map.addLayer(this._validationLayer); 
+	
+	// zoom to extent by parsing getcapabilites request from wms
+	this._map.getView().fitExtent(clip_extent, this._map.getSize());
+	
+	//map.addControl(new VK2.Control.ClipControl(VK2.Utils.getPolygonFromExtent(clip_polygon),validation_layer));
+
+	// load layerspy tool for validation map
+//	map.addControl(
+//		new VK2.Control.LayerSpy({
+//			'spyLayer':new ol.layer.Tile({
+//				source: new ol.source.OSM(),
+//			}),
+//			'radius': 50
+//		})
+//	);
 };
 
 /**

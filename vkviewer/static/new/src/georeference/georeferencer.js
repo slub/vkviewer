@@ -1,72 +1,45 @@
 goog.provide('vk2.georeference.Georeferencer');
 
 goog.require('goog.dom');
+goog.require('goog.Uri');
 goog.require('vk2.georeference.ToolBox');
 goog.require('vk2.georeference.ZoomifyViewer');
 goog.require('vk2.georeference.ResultViewer');
-goog.require('vk2.georeference.MesstischblattGcp');
 
 /**
- * @param {Object} settings
+ * @param {string} unreferenced_map_container
+ * @param {string} referenced_map_container
  * @constructor
  */
-vk2.georeference.Georeferencer = function(settings){
+vk2.georeference.Georeferencer = function(unreferenced_map_container, referenced_map_container){
+	var url = new goog.Uri(window.location.href);
 	
-	/**
-	 * @type {Object}
-	 * @private
-	 */
-	this._settings = settings;
+	// parameters for unreferenced map
+	var zoomfiy_options = {
+		'width':  url.getQueryData().get('zoomify_width'),
+		'height': url.getQueryData().get('zoomify_height'),
+		'url': url.getQueryData().get('zoomify_prop').substring(0,url.getQueryData().get('zoomify_prop').lastIndexOf("/")+1)
+	};
+	
+	// parse extent
+	var unparsed_extent = url.getQueryData().get('extent').split(',');
+	var parsed_extent = []
+	for (var i = 0; i < unparsed_extent.length; i++){parsed_extent.push(parseFloat(unparsed_extent[i]))};
+	var result_options = {
+		'extent':parsed_extent
+	};
 	
 	// load unreferenced layer 
-	if (this._settings.hasOwnProperty('zoomify') && this._settings.hasOwnProperty('unreferenced_map'))
-		this._zoomifyViewer = new vk2.georeference.ZoomifyViewer(this._settings['unreferenced_map'], this._settings['zoomify']);
+	this._zoomifyViewer = new vk2.georeference.ZoomifyViewer(unreferenced_map_container, zoomfiy_options);
 	
 	// load validation map
-	if (this._settings.hasOwnProperty('referenced_map') && this._settings.hasOwnProperty('result'))
-		this._resultViewer = new vk2.georeference.ResultViewer(this._settings['referenced_map'], this._settings['result']);
+	this._resultViewer = new vk2.georeference.ResultViewer(referenced_map_container, result_options);
 	
+	// load toolbox
+	var object_id = url.getQueryData().get('id');
 	if (goog.isDef(this._zoomifyViewer) && goog.isDef(this._resultViewer)){
-		this._toolbox = new vk2.georeference.ToolBox(this._settings['unreferenced_map'], this._zoomifyViewer.getMap(), 
-				this._resultViewer.getMap());
-		this._loadMtbSpecificBehavior(this._toolbox.getFeatureSource(), this._resultViewer.getMap());
-	};
-};
-
-/**
- * @param {ol.source.Vector} featureSource
- * @param {ol.Map} map
- * @private
- */
-vk2.georeference.Georeferencer.prototype._loadMtbSpecificBehavior = function(featureSource, map){
-	// parse gcps
-	var gcpElements = goog.dom.getElementsByClass('hidden-gcps');
-	var parsedGcps = [];
-	for (var i = 0; i < gcpElements.length; i++){
-		parsedGcps.push(JSON.parse(gcpElements[i].value));
-	};
-	
-	// handling special case that only coordinates are delivered
-	if (parsedGcps.length > 0 && parsedGcps[0]['pixel'] === ""){
-		var coords = [];
-		for (var i = 0; i < parsedGcps.length; i++){
-			var parsed_coord = parsedGcps[i]['coords'].split(',');
-			coords.push([parseFloat(parsed_coord[0]),parseFloat(parsed_coord[1])])
-		};
-		
-		// append validationlayer
-		var drawSource = new ol.source.Vector()
-		map.addLayer(new ol.layer.Vector({
-			  'source': drawSource,
-			  'style': function(feature, resolution) {
-				  return [vk2.utils.Styles.GEOREFERENCE_POINT];
-			  }
-		}));
-		
-		/**
-		 * @type {vk2.georeference.MesstischblattGcp}
-		 * @private
-		 */
-		this._messtischblattGcps = new vk2.georeference.MesstischblattGcp(featureSource, drawSource, coords);
+		this._toolbox = new vk2.georeference.ToolBox(unreferenced_map_container, this._zoomifyViewer, 
+				this._resultViewer, object_id);
+		this._toolbox.open();
 	};
 };
