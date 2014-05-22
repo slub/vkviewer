@@ -17,6 +17,18 @@ goog.require('ol.interaction.DragZoom');
  */
 vk2.georeference.ZoomifyViewer = function(map_container, zoomify_settings){
 	
+		/**
+		 * @type {number}
+		 * @private
+		 */
+		this._height = zoomify_settings['height'];
+		
+		/**
+		 * @type {number}
+		 * @private
+		 */
+		this._width = zoomify_settings['width'];
+		
 		var imgCenter = [zoomify_settings['width'] / 2, - zoomify_settings['height'] / 2];
 		var extent = [0, 0, zoomify_settings['width'], zoomify_settings['height']];
 		
@@ -64,7 +76,12 @@ vk2.georeference.ZoomifyViewer = function(map_container, zoomify_settings){
 				zoom: 2,
 				maxZoom: 9
 		    })
-		}); 
+		});
+		
+		// add zoom to extent control
+		this._map.addControl(new ol.control.ZoomToExtent({
+			extent: this._map.getView().getView2D().calculateExtent(this._map.getSize())
+		}));
 };
 
 /**
@@ -79,4 +96,18 @@ vk2.georeference.ZoomifyViewer.prototype.getMap = function(){
  */
 vk2.georeference.ZoomifyViewer.prototype.getZoomifySource = function(){
 	return this._zoomifySource;
-}
+};
+
+/**
+ * @returns {number}
+ */
+vk2.georeference.ZoomifyViewer.prototype.getHeight = function(){
+	return parseInt(this._height);
+};
+
+/**
+ * @returns {number}
+ */
+vk2.georeference.ZoomifyViewer.prototype.getWidth = function(){
+	return parseInt(this._width);
+};

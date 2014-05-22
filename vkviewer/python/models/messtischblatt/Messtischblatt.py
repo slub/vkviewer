@@ -52,9 +52,11 @@ class Messtischblatt(Base):
     def getExtent(cls, id, session):
         query = 'SELECT st_extent(st_transform(boundingbox, 900913)) FROM messtischblatt WHERE id = :id;'
         pg_extent = session.execute(query,{'id':id}).fetchone()[0]
-        extent = pg_extent.replace(' ',',')
-        # for removing the "BOX( )" stuff only return a subset of the string
-        return extent[4:-1] 
+        extent = pg_extent.replace(' ',',')[4:-1].split(',')
+        parsed_extent = []
+        for i in range(0,len(extent)):
+            parsed_extent.append(float(extent[i]))
+        return parsed_extent
        
     @property
     def slug(self):

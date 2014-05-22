@@ -36,7 +36,7 @@ def getGeoreferencePage(request):
     log.info('Call view getGeoreferencePage.')
     
     if 'id' in request.params:
-        mtb_extent = Messtischblatt.getExtent(request.params['id'], request.db).split(',')
+        mtb_extent = Messtischblatt.getExtent(request.params['id'], request.db)
         mtb_gcps = [
                     '{"pixel":"", "coords":"%s,%s"}'%(mtb_extent[0],mtb_extent[1]),
                     '{"pixel":"", "coords":"%s,%s"}'%(mtb_extent[0],mtb_extent[3]),
