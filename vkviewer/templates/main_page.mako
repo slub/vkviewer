@@ -8,7 +8,7 @@
 </%block>
 
 <%block name="body_content">
-	<div class="main-page body-container">
+	<div id="main-page-container" class="body-container">
 		<div class="navbar navbar-fixed-top vk2HeaderNavBar" role="navigation">
 		
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -58,7 +58,14 @@
 					        <li class="listelement">
 					        	<a href="${request.route_url('impressum')}" data-src="${request.route_url('impressum')}" data-classes="impressum" 
 					        		class="vk2-modal-anchor" data-title="${_('footer_editorial')}">${_('footer_editorial')}</a>
-					        </li>          
+					        </li> 
+					        
+					        % if with_modify:  
+					        <li class="listelement">
+					        	<a href="${request.route_url('georeference_evaluation', action='evaluation')}" data-src="${request.route_url('georeference_evaluation', action='evaluation')}" data-classes="admin-evaluation" 
+					        		class="vk2-modal-anchor" data-title="">Evaluierung</a>
+					        </li> 
+					        % endif       
 		                </ul>
 	             	</li>
 	             	<!-- end navigation -->
@@ -76,7 +83,7 @@
 			              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"></span> ${user_id} <b class="caret"></b></a>
 			              	<ul class="dropdown-menu">
 				                <li><a href="${request.route_url('users_profile_georef')}" data-src="${request.route_url('users_profile_georef')}" data-classes="georef-history" 
-					        		class="vk2-modal-anchor" data-title="${_('georef_history')}">${_('georef_history')}</a></li>
+					        		class="vk2-modal-anchor" data-title="">${_('georef_history')}</a></li>
 				                <li><a href="${request.route_url('change_pw', action='page')}" data-src="${request.route_url('change_pw', action='page')}" data-classes="pw-change" 
 					        		class="vk2-modal-anchor" data-title="${_('change_pw_header')}">${_('change_pw_header')}</a></li>
 				                <li class="divider"></li>
@@ -90,8 +97,7 @@
 				         	
 			        </li>
 			    </ul>
-	          	</div>
-          	</div>
+	        </div>
         </div><!-- /.navbar-collapse -->
       
               
@@ -121,25 +127,25 @@
 					        		   		% if faq_url:
 					         				<li class="listelement leftborder">
 					        					<a href="${faq_url}" data-src="${faq_url}" data-classes="faq" 
-					        							class="vk2-modal-anchor" data-title="${_('faq_main_heading')}">FAQ</a>        				
+					        							class="vk2-modal-anchor" data-title="">FAQ</a>        				
 					        				</li>       		   		
 					        		   		% else:
 					        				<li class="listelement leftborder">
 					        					<a href="${request.route_url('faq')}" data-src="${request.route_url('faq')}" data-classes="faq" 
-					        							class="vk2-modal-anchor" data-title="${_('faq_main_heading')}">FAQ</a>        				
+					        							class="vk2-modal-anchor" data-title="">FAQ</a>        				
 					        				</li>
 					        				% endif
 					        				<li class="listelement leftborder">
 					         					<a href="${request.route_url('contact')}" data-src="${request.route_url('contact')}" data-classes="contact" 
-					        							class="vk2-modal-anchor" data-title="${_('contact_header')}">${_('footer_contact')}</a>		
+					        							class="vk2-modal-anchor" data-title="">${_('footer_contact')}</a>		
 					        				</li>        				
 					        				<li class="listelement leftborder">
 					        					<a href="${request.route_url('project')}" data-src="${request.route_url('project')}" data-classes="project" 
-					        							class="vk2-modal-anchor" data-title="${_('project_name_short')}">${_('footer_project')}</a>    				
+					        							class="vk2-modal-anchor" data-title="">${_('footer_project')}</a>    				
 					        				</li>
 					        				<li class="listelement">
 					        					<a href="${request.route_url('impressum')}" data-src="${request.route_url('impressum')}" data-classes="impressum" 
-					        							class="vk2-modal-anchor" data-title="${_('footer_editorial')}">${_('footer_editorial')}</a>
+					        							class="vk2-modal-anchor" data-title="">${_('footer_editorial')}</a>
 					        				</li>
 					        			</ul>
 					        		</div>
@@ -150,7 +156,8 @@
 		</div>
 
 		% if context.get('welcomepage') is not 'off':
-			<a href="${request.route_url('welcome')}" id="vk2WelcomePage"></a>
+			<a href="${request.route_url('welcome')}" id="vk2WelcomePage" data-src="${request.route_url('welcome')}" data-classes="welcomeBox" 
+				class="vk2-modal-anchor" data-title=""></a>
 		% endif  
 	</div>
 </%block>
@@ -164,7 +171,7 @@
 	
 	% if user_id:
 		var apploader = new vk2.utils.AppLoader({
-			'georeference':true
+			'authenticate':true
 		});
 	% else:
 		var apploader = new vk2.utils.AppLoader({});

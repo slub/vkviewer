@@ -1,3 +1,7 @@
+.vk2-overlay-modal {
+	z-index: 10000;	
+}
+
 /** Modal behavior for the faq page */
 .modal-content.faq{
 	width: auto;
@@ -75,4 +79,37 @@
 .modal-content.login iframe{
 	width: 100%;
 	height: 500px;
+}
+
+/** Modal behavior for the login page */
+.modal-content.pw-change{
+	width: auto;
+	margin-left: -100px;
+}
+			
+.modal-content.pw-change iframe{
+	width: 100%;
+	height: 370px;
+}
+
+/** Modal behavior for the login page */
+.modal-content.georef-history{
+	width: auto;
+	margin-left: -100px;
+}
+			
+.modal-content.georef-history iframe{
+	width: 100%;
+	height: 600px;
+}
+
+/** Modal behavior for the admin evaluation page */
+.modal-content.admin-evaluation{
+	width: 1200px;
+	margin-left: -300px;
+}
+			
+.modal-content.admin-evaluation iframe{
+	width: 100%;
+	height: 800px;
 }

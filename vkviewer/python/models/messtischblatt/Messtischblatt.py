@@ -27,6 +27,7 @@ class Messtischblatt(Base):
     zoomify_height = Column(Integer)
     boundingbox = Column(Geometry)   
     original_path = Column(String(255))
+    updated = Column(Boolean)
 
     
     @classmethod
@@ -49,8 +50,8 @@ class Messtischblatt(Base):
 
     #BOX(13.6666660308838 51,13.8333339691162 51.1000061035156)', 'time': 1930}, {'id': 71055581, 'extent': 'BOX(13.6666660308838 51,13.8333339691162 51.1000061035156)
     @classmethod
-    def getExtent(cls, id, session):
-        query = 'SELECT st_extent(st_transform(boundingbox, 900913)) FROM messtischblatt WHERE id = :id;'
+    def getExtent(cls, id, session, epsg=4314):
+        query = 'SELECT st_extent(st_transform(boundingbox, %s)) FROM messtischblatt WHERE id = :id;'%epsg
         pg_extent = session.execute(query,{'id':id}).fetchone()[0]
         extent = pg_extent.replace(' ',',')[4:-1].split(',')
         parsed_extent = []

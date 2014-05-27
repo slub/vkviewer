@@ -7,24 +7,44 @@ goog.require('vk2.utils');
 
 /**
  * @param {Object} settings
+ * @param {ol.Map} map
  * @constructor
  */
-vk2.layer.Messtischblatt = function(settings){
-	
+vk2.layer.Messtischblatt = function(settings, map){
 	var extent = goog.isDef(settings['extent']) ? settings['extent'] : [];
 	
-	// define source
+	var time = goog.isDef(settings['time'])? settings['time'] : undefined;
+	
 	var projection = goog.isDef(settings.projection) ? settings.projection : 'EPSG:900913';
-	settings.source = new ol.source.TileWMS({
-		'url': 'http://194.95.145.43/mapcache',
-		'params': {
-			'LAYERS':'messtischblaetter',
-			'TIME':settings.time,
-			'VERSION': '1.1.1'
-		}, 
-		'projection': projection,
-		'extent': extent
-	});
+	
+	var wms_url = goog.isDef(settings['wms_url'])? settings['wms_url'] : undefined;
+	
+	var layerid = goog.isDef(settings['layerid'])? settings['layerid'] : undefined;
+	
+	// define source
+	if (goog.isDef(time)){
+		settings.source = new ol.source.TileWMS({
+			'url': 'http://194.95.145.43/mapcache',
+			'params': {
+				'LAYERS':'messtischblaetter',
+				'TIME':time,
+				'VERSION': '1.1.1'
+			}, 
+			'projection': projection,
+			'extent': extent
+		});
+	} else if (goog.isDef(wms_url) && goog.isDef(layerid)){
+		settings.source = new ol.source.TileWMS({
+			url: wms_url,
+			params: {
+				'LAYERS':layerid,
+				'VERSION': '1.1.1'
+			},
+			'projection': projection,
+			'extent': extent
+		});
+	};
+	
 	var messtischblattLayer = new ol.layer.Tile(settings);
 	
 	/**
@@ -38,7 +58,7 @@ vk2.layer.Messtischblatt = function(settings){
 	 * @private
 	 * @return {Array.<Array.<number>>}
 	 */
-	messtischblattLayer._getPixelForClipPolygon = function(){	
+	messtischblattLayer._getPixelForClipPolygon = function(map){	
 		var clip_pixel = [];
 		for (var i = 0; i < this._borderPolygon.length; i++){
 			clip_pixel.push(map.getPixelFromCoordinate(this._borderPolygon[i]));
@@ -94,7 +114,9 @@ vk2.layer.Messtischblatt = function(settings){
 	// borderPolygon definded than add clip behavior
 	if (goog.isDef(messtischblattLayer._borderPolygon)){
 		messtischblattLayer.on('precompose', function(event){
-			var map = event.target.get('map');
+			if (goog.DEBUG)
+				console.log('Precompose event triggered. ');
+			
 			//if (!this._isExtentWithinClipPolygon(event.frameState.extent)){
 				var canvas = event.context;
 				var clip_pixel = this._getPixelForClipPolygon(map);

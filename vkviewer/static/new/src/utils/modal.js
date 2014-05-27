@@ -153,7 +153,7 @@ vk2.utils.Modal.prototype._setTitle = function(title){
  *   classes (string=): class of the iframe
  */
 vk2.utils.Modal.prototype.open = function(opt_title, opt_modal_class, opt_remote_src){
-	if (goog.isDefAndNotNull(opt_title)){
+	if (goog.isDefAndNotNull(opt_title) && opt_title){
 		this._setTitle(opt_title);
 	} else {
 		goog.style.showElement(this._modal_header, false);

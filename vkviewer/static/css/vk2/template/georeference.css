@@ -1,3 +1,20 @@
+/* header styling */
+.georeference-header-container {
+	height: 85px;
+	width: 100%;
+	background: rgba(255,51,51, 0.9) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjBAMAAADs965qAAAAGFBM…9r4aZtbxDd3QTnbox0r96eXRJOSHLdV2o16VUod84zYHiPyXZcVv+pLaSAAAAAElFTkSuQmCC') 0 0 repeat;
+	border-bottom: 0 none;
+	z-index: 5000;
+}
+
+.georeference-header-container > h2 {
+	color: #fff;
+	padding-left: 30px;
+	font-size: 2.8em;
+	line-height: 25px;
+	padding-top: 25px;
+}
+
 /* in case of responsive breakpoint behaviour display overflow */
 .georeference-validate.page-container{
 	overflow-y: auto;
@@ -6,7 +23,8 @@
 /* container and bootstrap row which contain the both map object */
 .georeference-validate-container{
 	width: 100%;
-	height: 95%;
+	height: 90%;;
+	padding-bottom: 25px;
 	margin-left: 0px;
 }
 

@@ -92,21 +92,9 @@ vk2.control.LayerSpy = function(opt_options) {
 					  this.getMap().render();
 				  }
 			  },
-			  'addlayer': function(event){
-				  var layers_array = event.target.getArray();
-				  
-				  // get actual spylayer index
-				  var actual_layerindex = null;
-				  for (var i = 0, ii = layers_array.length; i < ii; i++){
-					  if (layers_array[i] === this._spyLayer)
-						  actual_layerindex = i;
-					  
-				  };
-				  
-				  console.log('add layer '+ actual_layerindex);
-				  console.log('layer length'+ layers_array.length);
-				  
-				  if (actual_layerindex < (layers_array.length - 1)){
+			  'addlayer': function(event){	  
+				  var topLayer = event.target.getAt(event.target.getLength() - 1);
+				  if (topLayer !== this._spyLayer){
 					  this.getMap().removeLayer(this._spyLayer);
 					  this.getMap().addLayer(this._spyLayer);
 				  };

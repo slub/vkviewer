@@ -43,7 +43,7 @@
 	height: 60px;
 }
 
-.layermanagement-record .minimize > div, a{
+.layermanagement-record .minimize > div, .layermanagement-record .minimize > a{
 	height: 60px;
 }
 

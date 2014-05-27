@@ -27,6 +27,7 @@ vk2.controller.MapController = function(settings, map_container){
 	goog.object.extend(this._settings, settings);
 	
 	this._loadBaseMap(map_container);
+	this._appendMapClickBehavior(this._map);
 }
 
 /**
@@ -79,7 +80,7 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 	        maxResolution: 2445.9849047851562,
 	        extent: [640161.933,5958026.134,3585834.8011505,7847377.4901306],
 			center: [1531627.8847864927, 6632124.286850829],
-			zoom: 7
+			zoom: 2
 		})
 	});
 	
@@ -181,21 +182,6 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 };
 
 /**
- * @param {ol.Feature} feature
- * @return {vk2.layer.HistoricMap}
- */
-vk2.controller.MapController.prototype._createHistoricMapForFeature = function(feature){
-	return new vk2.layer.HistoricMap({
-		'time':feature.get('time'),
-		'border': feature.getGeometry().getCoordinates()[0],
-		'extent': feature.getGeometry().getExtent(),
-		'thumbnail': vk2.utils.generateMesstischblattThumbnailLink(feature.get('dateiname')),
-		'title': feature.get('titel'),
-		'id': feature.get('mtbid'),
-	});
-};
-
-/**
  * Functions generate an array of historicmap objects which are associated to each other and
  * connected to there equal blattnr
  * @param {ol.Feature} feature
@@ -229,6 +215,38 @@ vk2.controller.MapController.prototype._createAssociationMapsArray = function(fe
 };
 
 /**
+ * @param {ol.Feature} feature
+ * @return {vk2.layer.HistoricMap}
+ */
+vk2.controller.MapController.prototype._createHistoricMapForFeature = function(feature){
+	return new vk2.layer.HistoricMap({
+		'time':feature.get('time'),
+		'border': feature.getGeometry().getCoordinates()[0],
+		'extent': feature.getGeometry().getExtent(),
+		'thumbnail': vk2.utils.generateMesstischblattThumbnailLink(feature.get('dateiname')),
+		'title': feature.get('titel'),
+		'id': feature.get('mtbid'),
+	}, this._map);
+};
+
+
+/**
+ * @param {ol.Map} map
+ * @private
+ */
+vk2.controller.MapController.prototype._appendMapClickBehavior = function(map){
+	map.on('singleclick', function(event){
+		var features = [];
+		this.forEachFeatureAtPixel(event.pixel, function(feature){
+			features.push(feature);
+		});
+		
+		if (goog.DEBUG)
+			console.log(features);
+	});
+};
+
+/**
  * @param {vk2.tool.TimeSlider} timeSlider
  */
 vk2.controller.MapController.prototype._registerTimeSliderTool = function(timeSlider){
@@ -257,3 +275,4 @@ vk2.controller.MapController.prototype.registerSpatialTemporalSearch = function(
 	this._registerTimeSliderTool(spatialTempSearch.getTimesliderTool());
 	this._registerGazetteerSearchTool(spatialTempSearch.getGazetteerSearchTool());
 };
+

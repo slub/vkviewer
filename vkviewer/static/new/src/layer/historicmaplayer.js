@@ -10,10 +10,11 @@ goog.require('vk2.layer.Messtischblatt');
 
 /**
  * @param {Object} settings
+ * @param {ol.Map} map
  * @constructor
  * @extends {ol.layer.LayerGroup}
  */
-vk2.layer.HistoricMap = function(settings){
+vk2.layer.HistoricMap = function(settings, map){
 	
 	/**
 	 * @type {Object}
@@ -78,7 +79,7 @@ vk2.layer.HistoricMap = function(settings){
 		'time':this._time, 
 		'border':settings['border'],
 		'extent':settings['extent']
-	}); 
+	}, map); 
 
 	/**
 	 * @type {Array.<vk2.layer.HistoricMap>|undefined}

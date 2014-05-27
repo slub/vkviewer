@@ -2,6 +2,7 @@ goog.provide('vk2.validation');
 
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
+goog.require('vk2.utils');
 
 /**
  * Checks if a string represents a messtischblatt blattnumber
@@ -97,7 +98,7 @@ vk2.validation.checkPassword = function( elementId, failureElementId, failureCla
 	// check length
 	isValide = isValide && this.checkLength( password.value, 5, 16)
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(VK2.Utils.getMsg('password_to_short'), failureElementId, failureClass);
+		this.setErrorMsg(vk2.utils.getMsg('password_to_short'), failureElementId, failureClass);
 		goog.dom.classes.add(password.parentElement, 'has-error');
 		return isValide;
 	};
@@ -105,7 +106,7 @@ vk2.validation.checkPassword = function( elementId, failureElementId, failureCla
 	// check tokens
 	isValide = isValide && this.checkRegexp( password.value, /^([0-9a-zA-Z])+$/);
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(VK2.Utils.getMsg('password_wrong_token'), failureElementId, failureClass);
+		this.setErrorMsg(vk2.utils.getMsg('password_wrong_token'), failureElementId, failureClass);
 		goog.dom.classes.add(password.parentElement, 'has-error');
 		return isValide
 	};
@@ -143,7 +144,7 @@ vk2.validation.checkPasswordMatch = function( elementId_Pw1, elementId_Pw2, fail
 	isValide = isValide && goog.isDefAndNotNull(password_1) && goog.isDefAndNotNull(password_2);
 	isValide = isValide && (password_1.value == password_2.value)
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(VK2.Utils.getMsg('password_is_same'), failureElementId, failureClass);
+		this.setErrorMsg(vk2.utils.getMsg('password_is_same'), failureElementId, failureClass);
 		goog.dom.classes.add(password_2.parentElement, 'has-error');
 		return isValide
 	};
@@ -181,7 +182,7 @@ vk2.validation.checkUsername = function( elementId, failureElementId, failureCla
 	// check length
 	isValide = isValide && this.checkLength( username.value, 3, 16)
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(VK2.Utils.getMsg('username_to_short'), failureElementId, failureClass);
+		this.setErrorMsg(vk2.utils.getMsg('username_to_short'), failureElementId, failureClass);
 		goog.dom.classes.add(username.parentElement, 'has-error');
 		return isValide;
 	};
@@ -189,7 +190,7 @@ vk2.validation.checkUsername = function( elementId, failureElementId, failureCla
 	// check tokens
 	isValide = isValide && this.checkRegexp( username.value, /^([0-9a-zA-Z])+$/);
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(VK2.Utils.getMsg('username_wrong_token'), failureElementId, failureClass);
+		this.setErrorMsg(vk2.utils.getMsg('username_wrong_token'), failureElementId, failureClass);
 		goog.dom.classes.add(username.parentElement, 'has-error');
 		return isValide
 	};
@@ -228,7 +229,7 @@ vk2.validation.checkPersonName = function( elementId, failureElementId, failureC
 	// check length
 	isValide = isValide && this.checkLength( name.value, 3, 16)
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(VK2.Utils.getMsg('personname_to_short'), failureElementId, failureClass);
+		this.setErrorMsg(vk2.utils.getMsg('personname_to_short'), failureElementId, failureClass);
 		goog.dom.classes.add(name.parentElement, 'has-error');
 		return isValide;
 	};
@@ -236,7 +237,7 @@ vk2.validation.checkPersonName = function( elementId, failureElementId, failureC
 	// check tokens
 	isValide = isValide && this.checkRegexp( name.value, /^([a-zA-Z])+$/);
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(VK2.Utils.getMsg('personname_wrong_token'), failureElementId, failureClass);
+		this.setErrorMsg(vk2.utils.getMsg('personname_wrong_token'), failureElementId, failureClass);
 		goog.dom.classes.add(name.parentElement, 'has-error');
 		return isValide
 	};
@@ -274,7 +275,7 @@ vk2.validation.checkEmailAdress = function( elementId, failureElementId, failure
 	// check length
 	isValide = isValide && this.checkLength( email.value, 6, 80)
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(VK2.Utils.getMsg('email_to_short'), failureElementId, failureClass);
+		this.setErrorMsg(vk2.utils.getMsg('email_to_short'), failureElementId, failureClass);
 		goog.dom.classes.add(email.parentElement, 'has-error');
 		return isValide;
 	};
@@ -283,7 +284,7 @@ vk2.validation.checkEmailAdress = function( elementId, failureElementId, failure
 	regexp_email = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i;
 	isValide = isValide && this.checkRegexp( email.value, regexp_email);
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(VK2.Utils.getMsg('email_wrong_token'), failureElementId, failureClass);
+		this.setErrorMsg(vk2.utils.getMsg('email_wrong_token'), failureElementId, failureClass);
 		goog.dom.classes.add(email.parentElement, 'has-error');
 		return isValide
 	};
@@ -296,4 +297,57 @@ vk2.validation.checkEmailAdress = function( elementId, failureElementId, failure
 	}
 	
 	return isValide;
-}
+};
+
+/**
+ * Functions for the login screen (login_screen.mako)
+ */
+vk2.validation.validateLoginForm = function(){
+	var isValide = true;
+	
+	// check username
+	isValide = isValide && vk2.validation.checkUsername(loginUsername, 'validationTipsLogin', 'ui-state-error');
+	if (!isValide) return isValide;
+								
+	// check password
+	isValide = isValide && vk2.validation.checkPassword(loginPassword, 'validationTipsLogin', 'ui-state-error');
+	if (!isValide) return isValide;
+};
+
+vk2.validation.validateRegisterNewUser = function(){
+	var isValide = true;
+	
+	// check username
+	isValide = isValide && vk2.validation.checkUsername(loginNewUsername, 'validationTipsRegisterUser', 'ui-state-error');
+	if (!isValide) return isValide;
+		
+	// check new password
+	isValide = isValide && vk2.validation.checkPassword(loginNewPassword, 'validationTipsRegisterUser', 'ui-state-error');
+	if (!isValide) return isValide;
+		
+	// check if new password matches validation password
+	isValide = isValide && vk2.validation.checkPasswordMatch(loginNewPassword, loginNewPasswordValidate, 'validationTipsRegisterUser', 'ui-state-error'); 
+	if (!isValide) return isValide;
+	
+	// check sur- and familyname
+	isValide = isValide && vk2.validation.checkPersonName(loginNewVorname, 'validationTipsRegisterUser', 'ui-state-error');
+	if (!isValide) return isValide;
+	isValide = isValide && vk2.validation.checkPersonName(loginNewNachname, 'validationTipsRegisterUser', 'ui-state-error');
+	if (!isValide) return isValide;
+	
+	// check email adress
+	isValide = isValide && vk2.validation.checkEmailAdress(loginNewEmail, 'validationTipsRegisterUser', 'ui-state-error');
+	if (!isValide) return isValide;
+};
+
+vk2.validation.resetPasswordForm = function(){			
+	var isValide = true;
+	
+	// check username
+	isValide = isValide && vk2.validation.checkUsername(inputUsername, 'validationTips', 'ui-state-error');
+	if (!isValide) return isValide;
+		
+	// check email adress
+	isValide = isValide && vk2.validation.checkEmailAdress(inputEmail, 'validationTips', 'ui-state-error');
+	if (!isValide) return isValide;
+};

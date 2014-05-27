@@ -183,9 +183,14 @@ vk2.module.MapSearchModule.prototype._appendScrollBehavior = function(){
 			if (!scroll_event_blocked){
 				scroll_event_blocked = true;
 				
-				// check if there are still features to append
-				if (!this._featurePointer < this._searchFeatures.length)
-					this._appendFeaturesToList();				
+				var scrollEl = event.currentTarget;
+				// check if scrolled to end of list and if yes triggger append event
+				if (scrollEl.offsetHeight + scrollEl.scrollTop >= scrollEl.scrollHeight){
+					
+					// check if there are still features to append
+					if (!this._featurePointer < this._searchFeatures.length)
+						this._appendFeaturesToList();
+				};			
 				
 				scroll_event_blocked = false;
 			} else {

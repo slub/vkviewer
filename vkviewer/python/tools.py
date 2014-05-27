@@ -23,3 +23,9 @@ def generateRandomString(size):
     lst = [random.choice(string.ascii_letters + string.digits) for n in xrange(size)]
     str = ''.join(lst)
     return str
+
+def appendParameterToQueryDict(request, parameter, value):
+    query_dict = {parameter:value}
+    for val in request.params:
+        query_dict.update({val:request.params[val]})
+    return query_dict

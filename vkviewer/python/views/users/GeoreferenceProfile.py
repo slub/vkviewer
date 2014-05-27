@@ -14,14 +14,15 @@ from vkviewer import log
 
 # query for getting all georeference processes from a special user
 georeference_profile_query = 'SELECT georef.id as georef_id, georef.messtischblattid as mtbid, mtb.dateiname as key, box2d(st_transform(mtb.boundingbox, 900913)) as box,\
-georef.clipparameter as clip_params, georef.timestamp as time_georef, georef.isvalide as isvalide, md_core.titel as titel, md_zeit.datierung as time, mtb.isttransformiert \
-FROM georeferenzierungsprozess as georef, md_core, messtischblatt as mtb, md_zeit WHERE georef.nutzerid = \'%s\' AND georef.typevalidierung != \'waiting\' AND \
+georef.clipparameter as clip_params, georef.timestamp as time_georef, georef.isvalide as isvalide, md_core.titel as titel, md_zeit.datierung as time, mtb.isttransformiert, \
+georef.publish as published, georef.type as type \
+FROM georeferenzierungsprozess as georef, md_core, messtischblatt as mtb, md_zeit WHERE georef.nutzerid = \'%s\' AND \
 georef.messtischblattid = md_core.id AND georef.messtischblattid = mtb.id AND georef.messtischblattid = md_zeit.id AND \
 md_zeit.typ = \'a5064\' ORDER BY time_georef DESC'
 
 
 
-@view_config(route_name='users_profile_georef', renderer='users_profile_georef.mako', permission='view',http_cache=0)
+@view_config(route_name='users_profile_georef', renderer='georeference_profile.mako', permission='view',http_cache=0)
 def georeference_profile_page(request):
     log.info('Request - Get georeference profile page.')
     dbsession = request.db
@@ -39,7 +40,8 @@ def georeference_profile_page(request):
             georef_profile.append({'georef_id':record['georef_id'], 'mtb_id':record['mtbid'], 
                     'clip_params': record['clip_params'], 'time': record['time'], 'transformed': record['isttransformiert'],
                     'isvalide': record['isvalide'], 'titel': record['titel'], 'key': record['key'],
-                    'time_georef':record['time_georef'],'boundingbox':record['box'][4:-1].replace(' ',',')})
+                    'time_georef':record['time_georef'],'boundingbox':record['box'][4:-1].replace(' ',','),'type':record['type'],
+                    'published':record['published']})
              
         log.debug('Response: %s'%georef_profile) 
         
