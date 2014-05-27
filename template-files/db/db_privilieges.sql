@@ -8,6 +8,7 @@ GRANT SELECT, UPDATE ON TABLE messtischblatt TO vkviewer;
 GRANT SELECT ON TABLE md_zeit TO vkviewer;
 GRANT SELECT ON TABLE md_core TO vkviewer;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE georeferenzierungsprozess TO vkviewer;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE passpoint TO vkviewer;
 GRANT SELECT, INSERT ON TABLE fehlermeldungen TO vkviewer;
 GRANT ALL ON TABLE users_id_seq TO vkviewer;
 GRANT ALL ON TABLE georeferenzierungsprozess_id_seq TO vkviewer;

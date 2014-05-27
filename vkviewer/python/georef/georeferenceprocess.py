@@ -61,7 +61,7 @@ class GeoreferenceProcessManager(object):
         # get timestamp
         timestamp = getTimestampAsPGStr()
         georefProcess = Georeferenzierungsprozess(messtischblattid = messtischblattid, nutzerid = userid, 
-                clipparameter = clipParams, timestamp = timestamp, isvalide = isvalide, typevalidierung = typeValidation, refzoomify = refzoomify)
+                clipparameter = clipParams, timestamp = timestamp, isvalide = isvalide, typevalidierung = 'user', refzoomify = refzoomify)
         self.dbsession.add(georefProcess)
         self.dbsession.flush()
         return georefProcess  
@@ -128,7 +128,7 @@ class GeoreferenceProcessManager(object):
 
 
 
-            
+
 
 
       

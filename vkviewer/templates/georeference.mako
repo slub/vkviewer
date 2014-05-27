@@ -3,18 +3,26 @@
 <%block name="header_content">	 
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
 	<script>
-		goog.require('vk2.georeference.Georeferencer');
+		goog.require('vk2.utils.AppLoader');
 	</script>
 </%block>
 
 <%block name="body_content">
 	<div class="georeference-validate page-container full-display">
+		<!-- Header -->
+		<div class="georeference-header-container">
+			<h2>VK2-Georeferenzierer</h2>
+		</div>
+		
+		<!-- map content -->
 		<div class="row georeference-validate-container">
 			<div class="col-sm-6 col-md-6 col-lg-6 outer-map-container">
 				<div id="unreferenced-map" class="unreferenced-map map-container"></div>
 			</div>
 			<div class="col-sm-6 col-md-6 col-lg-6 outer-map-container">
-				<div id="georeferenced-map" class="georeferenced-map map-container"></div>
+				<div id="georeferenced-map" class="georeferenced-map map-container">
+					<div id="opacity-slider-container" class="opacity-slider-container"></div>
+				</div>
 			</div>	
 		</div>
 					 
@@ -68,8 +76,7 @@
 
 <%block name="js_content">
     <script>	
-		var georeferencer = new vk2.georeference.Georeferencer('unreferenced-map','georeferenced-map');
-
+		vk2.utils.AppLoader.loadGeoreferenceApp('unreferenced-map','georeferenced-map');
     </script> 
 </%block>
 

@@ -1,5 +1,6 @@
 goog.provide('vk2.utils');
 
+goog.require('goog.Uri');
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
 
@@ -13,6 +14,30 @@ vk2.utils.checkIfCookiesAreEnabble = function(){
 	} else if (goog.DEBUG) {
 		console.log('Cookies are enabled');		
 	}
+};
+
+/**
+ * @param {string} dateiname
+ * @return {string}
+ */
+vk2.utils.generateMesstischblattThumbnailLink = function(dateiname){
+	return vk2.settings.THUMBNAIL_URL+dateiname+'.jpg';
+};
+
+/**
+ * This function parse the query parameters of the given href. If href is undefined it tooks the actual window.location.href 
+ * @param {string|undefined} href
+ * @return {goog.Uri.QueryData}
+ * @static
+ */
+vk2.utils.getAllQueryParams = function(href){
+	if (goog.isDef(href)){
+		var url = new goog.Uri(href);
+	} else {
+		var url = new goog.Uri(window.location.href);
+	}
+
+	return url.getQueryData();
 };
 
 /**
@@ -50,9 +75,46 @@ vk2.utils.getPolygonFromExtent = function(extent){
 };
 
 /**
- * @param {string} dateiname
+ * This function parse for the given href the query parameter with the given name. If href is undefined it tooks the 
+ * actual window.location.href
+ * @param {string} name
+ * @param {string|undefined} href
  * @return {string}
+ * @static
  */
-vk2.utils.generateMesstischblattThumbnailLink = function(dateiname){
-	return vk2.settings.THUMBNAIL_URL+dateiname+'.jpg';
+vk2.utils.getQueryParam = function(name, href){
+	if (goog.isDef(href)){
+		return this.getAllQueryParams(href).get(name);
+	} else {
+		return this.getAllQueryParams().get(name);
+	}
+};
+
+/**
+ * @static
+ */
+vk2.utils.setProxyUrl = function(){
+	var origin = window.location.origin;
+	vk2.settings.PROXY_URL = window.location.origin+'/vkviewer/proxy/?url=';
+	
+	if (goog.DEBUG)
+		console.log('Proxy url is: '+vk2.settings.PROXY_URL);
+};
+
+/**
+ * @param {Element} parentEl
+ * @param {number} points
+ * @static
+ */
+vk2.utils.showAchievedPoints = function(parentEl, points){
+	var container = goog.dom.createDom('div',{
+		'class':'georef-point-container alert alert-warning',
+		'style':'display:none;'
+	});
+	goog.dom.appendChild(parentEl, container);
+	
+	container.innerHTML = '+' + points + ' ' + vk2.utils.getMsg('georef_points')
+	$(container).fadeIn(1000).effect('puff', {}, 3000, function(){
+		container.innerHTML = '';
+	});
 };

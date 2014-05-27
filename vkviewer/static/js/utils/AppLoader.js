@@ -94,7 +94,7 @@ VK2.Utils.AppLoader.prototype._loadGeoreferencerChooser = function(){
 	this._sidebar.appendSlimControl(this._settings.vk2GeorefChooserControl, georeferencerChooser);		
 		
 	// check if the georeference is active
-	if (VK2.Utils.getQueryParam('georef') == 'on'){
+	if (vk2.utils.getQueryParam('georef') == 'on'){
 		goog.dom.getElement(this._settings.vk2GeorefChooserControl).click();
 		this._map.setCenter(new OpenLayers.LonLat(1510110.8611321,6808180.3878471),0)
 	};		

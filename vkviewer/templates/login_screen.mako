@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 <%inherit file="basic_page.mako" />
 
+<%block name="header_content">
+	<script>
+	    goog.require('vk2.validation');
+	</script>
+</%block>
+
 <%block name="body_content">
 	<div class="login-screen page-container">
 		<div class="container">
@@ -15,7 +21,7 @@
 						</div>
 						<div class="panel-body panel-body-vk2Login">
 							<form class="form-user-login" action="${request.route_url('auth', action='in')}" target="_top" 
-								role="form" onsubmit="return validateLoginForm()" method="POST">
+								role="form" onsubmit="return vk2.validation.validateLoginForm()" method="POST">
 								<div class="form-group">
 									<label for="loginUsername" class="control-label">${_('loginScreen_placeholder_username')}</label>
 									<input type="text" name="username" class="form-control" id="loginUsername" 
@@ -42,7 +48,7 @@
 						
 						<div class="panel-body">
 							<form class="form-user-register" action="${request.route_url('auth', action='new')}" target="_top" 
-								role="form" onsubmit="return validateRegisterNewUser()" method="POST">
+								role="form" onsubmit="return vk2.validation.validateRegisterNewUser()" method="POST">
 								<div class="form-group">
 									<label for="loginNewUsername" class="control-label">${_('loginScreen_placeholder_username')}</label>
 									<input type="text" name="username" class="form-control" id="loginNewUsername" 
@@ -90,44 +96,7 @@
 	</div>
 	
     <script>
-    	var validateLoginForm = function(){
-    		var isValide = true;
-			
-			// check username
-			isValide = isValide && VK2.Validation.checkUsername(loginUsername, 'validationTipsLogin', 'ui-state-error');
-			if (!isValide) return isValide;
-										
-			// check password
-			isValide = isValide && VK2.Validation.checkPassword(loginPassword, 'validationTipsLogin', 'ui-state-error');
-			if (!isValide) return isValide;
-    	}
-    	
-    	var validateRegisterNewUser = function(){
-    	
-    		var isValide = true;
-    		
-			// check username
-			isValide = isValide && VK2.Validation.checkUsername(loginNewUsername, 'validationTipsRegisterUser', 'ui-state-error');
-			if (!isValide) return isValide;
-				
-			// check new password
-			isValide = isValide && VK2.Validation.checkPassword(loginNewPassword, 'validationTipsRegisterUser', 'ui-state-error');
-			if (!isValide) return isValide;
-				
-			// check if new password matches validation password
-			isValide = isValide && VK2.Validation.checkPasswordMatch(loginNewPassword, loginNewPasswordValidate, 'validationTipsRegisterUser', 'ui-state-error'); 
-			if (!isValide) return isValide;
-			
-			// check sur- and familyname
-			isValide = isValide && VK2.Validation.checkPersonName(loginNewVorname, 'validationTipsRegisterUser', 'ui-state-error');
-			if (!isValide) return isValide;
-			isValide = isValide && VK2.Validation.checkPersonName(loginNewNachname, 'validationTipsRegisterUser', 'ui-state-error');
-			if (!isValide) return isValide;
-			
-			// check email adress
-			isValide = isValide && VK2.Validation.checkEmailAdress(loginNewEmail, 'validationTipsRegisterUser', 'ui-state-error');
-			if (!isValide) return isValide;
-    	}
+
 
     </script> 
 </%block>

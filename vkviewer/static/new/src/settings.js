@@ -1,17 +1,9 @@
 goog.provide('vk2.settings');
 
-
 /**
- * @type {Object}
+ * @type {string}
  */
-vk2.settings.MAIN_MAP_SETTINGS = {
-	projection: 'EPSG:900913',
-    minResolution: 1.194328566789627,
-    maxResolution: 2445.9849047851562,
-    extent: [640161.933,5958026.134,3585834.8011505,7847377.4901306],
-    center: [1528150, 6630500],
-    zoom: 2
-};
+vk2.settings.DISPLAY_SRS = 'EPSG:900913';
 
 /**
  * @type {Object}
@@ -61,6 +53,21 @@ vk2.settings.THUMBNAIL_URL = 'http://fotothek.slub-dresden.de/thumbs/df/dk/00100
 /**
  * @type {string}
  */
+vk2.settings.GEOREFERENCECHOOSER_WMS = 'http://194.95.145.43/cgi-bin/mtb_grid';
+
+/**
+ * @type {string}
+ */
+vk2.settings.GEOREFERENCECHOOSER_LAYERID = 'mtb_grid_puzzle';
+
+/**
+ * @type {string}
+ */
+vk2.settings.GEOREFERENCE_GETPROCESS = '/vkviewer/georeference/getprocess';
+
+/**
+ * @type {string}
+ */
 vk2.settings.GEOREFERENCE_VALIDATION = '/vkviewer/georeference/validation';
 
 /**
@@ -73,3 +80,27 @@ vk2.settings.GEOREFERENCE_CONFIRM = '/vkviewer/georeference/confirm';
  */
 vk2.settings.GEOREFERENCE_UPDATE = '/vkviewer/georeference/update';
 
+/**
+ * @type {string}
+ */
+vk2.settings.MAIN_PAGE = '/vkviewer';
+
+/**
+ * @type {Object}
+ */
+vk2.settings.MAIN_MAP_SETTINGS = {
+	projection: 'EPSG:900913',
+    minResolution: 1.194328566789627,
+    maxResolution: 2445.9849047851562,
+    extent: [640161.933,5958026.134,3585834.8011505,7847377.4901306],
+    center: [1528150, 6630500],
+    zoom: 2
+};
+
+/**
+ * @type {Object}
+ */
+vk2.settings.MAIN_MAP_GEOREFERENCER_VIEW = {
+	'center': [1510110.8611321,6808180.3878471],
+	'zoom':0
+} 

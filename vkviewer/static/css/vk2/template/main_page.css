@@ -56,3 +56,41 @@
 	left: 100px;
 	display: none;
 }
+
+/* styling georeferencer chooser */
+.georeference-chooser-control { 
+	position: absolute; 
+	left: -46px; 
+	outline: none; 
+	background-color: rgba(0,177,158,0.9); 
+	cursor: pointer; 
+	border-radius: 0; 
+	border: 1px solid rgba(0,0,0,0.4); 
+	border-width: 0 0 1px 0; 
+}
+.georeference-chooser-control:after { 
+	position: absolute; 
+	left: -5px; 
+	top: 15px; 
+	height: 0; 
+	width: 0; 
+	border: 5px solid #00b19e; 
+	border-width: 5px 5px 5px 0; 
+	border-color: transparent #00b19e transparent transparent; 
+	content: ""; 
+}
+.georeference-chooser-control.open:after { border-right-color: rgba(51,68,68,0.9); }
+.georeference-chooser-control { top: 150px; }
+.georeference-chooser-control .georeference-chooser-icon { 
+	text-indent: 100%; 
+	display: inline-block;
+	overflow: hidden; 
+	vertical-align: top; 
+	width: 40px; 
+	height: 40px; 
+	background: url('/vkviewer/static/images/sidebarIcons.png') no-repeat 0 0; 
+	margin: 3px; 
+}
+.georeference-chooser-control .georeference-chooser-icon { background-position: -120px 0 } 
+.georeference-chooser-control:hover .georeference-chooser-icon { background-position: -120px -40px }
+.georeference-chooser-control.open { background: rgba(51,68,68,0.9); }

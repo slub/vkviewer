@@ -1,8 +1,10 @@
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
-        <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/users_profile_georef.css')}" />	
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />	
+    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/single/georeference_profile.css')}" />	
+	<script>
+	    goog.require('vk2.utils.AppLoader');
+	</script>
 </%block>
 
 <%block name="body_content">
@@ -32,14 +34,19 @@
  	
 				 	<article id="${record['georef_id']}" class="">
 				 		<div class="media">
-					 		<a class="pull-right"href="http://kartenforum.slub-dresden.de/cgi-bin/mtbows?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=Historische%20Messtischblaetter&amp;TRANSPARENT=true&amp;FORMAT=image/png&amp;STYLES=&amp;SRS=EPSG:900913&amp;BBOX=${record['boundingbox']}&amp;WIDTH=256&amp;HEIGHT=256&amp;TIME=${record['time']}">
-					 		
-					 			% if record['transformed']:
-					 			<img class="media-object thumbnail" src="" alt="..." data-src="http://kartenforum.slub-dresden.de/cgi-bin/mtbows?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=Historische%20Messtischblaetter&amp;TRANSPARENT=true&amp;FORMAT=image/png&amp;STYLES=&amp;SRS=EPSG:900913&amp;BBOX=${record['boundingbox']}&amp;WIDTH=256&amp;HEIGHT=256&amp;TIME=${record['time']}">
-					 			% else:
-					 			<img class="media-object thumbnail" src="${request.static_url('vkviewer:static/images/inprogress.png')}" alt="..." data-src="${request.static_url('vkviewer:static/images/inprogress.png')}">
-					 			% endif
+				 		
+				 			% if record['transformed']:
+					 		<a class="pull-right" href="http://kartenforum.slub-dresden.de/cgi-bin/mtbows?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=Historische%20Messtischblaetter&amp;TRANSPARENT=true&amp;FORMAT=image/png&amp;STYLES=&amp;SRS=EPSG:900913&amp;BBOX=${record['boundingbox']}&amp;WIDTH=256&amp;HEIGHT=256&amp;TIME=${record['time']}">
+					 		% else:
+					 		<a class="pull-right" href="#">
+					 		% endif
 					 			
+					 			% if 'key' in record:
+					 				<img onerror="this.onerror=null;this.src='/images/noimage/image120.jpg'" alt="" src="http://fotothek.slub-dresden.de/mids/df/dk/0010000/${record['key']}.jpg">
+					 			% else:
+					 				<img onerror="this.onerror=null;this.src='/images/noimage/image120.jpg'" alt="" src="/images/noimage/image120.jpg">
+					 			% endif
+				 			
 					 		</a>
 				 		
 				 			<div class="media-body">
@@ -61,7 +68,7 @@
 								<p>
 								 	<strong>${_('georef_persist_access')}:</strong><br>
 								 	
-								 	% if record['transformed']:
+								 	% if record['published']:
 								 		<a href="${request.route_url('mtb_profile')}?id=${record['mtb_id']}&amp;time=${record['time']}&amp;extent=${record['boundingbox']}" target="_blank">Klick</a> 
 								 	% else:
 								 		${_('georef_result_being_generated')}
@@ -82,25 +89,6 @@
 
 <%block name="js_content">
 	<script>
-   		$(document).ready(function(){
-   			var url = new goog.Uri(window.location.href);
-   			var georef_id = url.getQueryData().get('georefid'); 			
-   			// if query parameter is set add class to element with georefid
-   			if (goog.isDef(georef_id)){
-   				var article = goog.dom.getElement(georef_id);
-   				goog.dom.classes.add(georef_id, 'complete');
-   			}
-    			
-			var container = goog.dom.getElementByClass('georef-history');
-			var thumbnailsNodeList = goog.dom.getElementsByClass('thumbnail');	
-			var thumbnailsArr = VK2.Utils.castNodeListToArray(thumbnailsNodeList);
-			var lazyLoading = VK2.Utils.getLazyImageLoadingFn(thumbnailsArr, 'src', 'data-src');
-			var timeout;
-			goog.events.listen(container, goog.events.EventType.SCROLL, function(e){
-				clearTimeout(timeout);
-				timeout = setTimeout(lazyLoading, 1000);
-			});
-			lazyLoading();
-   		})
+		//vk2.utils.AppLoader.loadGeoreferenceProfilePage('georef-history');
     </script> 
 </%block>

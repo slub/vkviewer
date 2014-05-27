@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	 
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/new/lib/ol.css')}" />
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/vkviewer-libarys.min.css')}" media="screen" />
+		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
 		
 		<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>

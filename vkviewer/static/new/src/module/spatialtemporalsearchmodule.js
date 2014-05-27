@@ -46,7 +46,7 @@ vk2.module.SpatialTemporalSearchModule = function(parentEl, featureOverlay){
  */
 vk2.module.SpatialTemporalSearchModule.prototype._loadHtmlContent = function(parentEl){
 	
-	var containerEl = goog.dom.createDom('div',{'class':'spatialsearch-container'});
+	var containerEl = goog.dom.createDom('div',{'class':'spatialsearch-container','id':'spatialsearch-container'});
 	goog.dom.appendChild(parentEl, containerEl);
 	
 	var panelEl = goog.dom.createDom('div',{'class':'spatialsearch-content-panel'});

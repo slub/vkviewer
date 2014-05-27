@@ -13,7 +13,7 @@
 				
 				% for mtb in paginator.items:
 					
-					<a href="${request.route_url('georeference_start')}?mtbid=${mtb['mtbid']}&zoomify_prop=${mtb['zoomify_prop']}&zoomify_width=${mtb['zoomify_width']}&zoomify_height=${mtb['zoomify_height']}&layer=${mtb['titel']}" 
+					<a href="${request.route_url('georeference_page')}?id=${mtb['mtbid']}&zoomify_prop=${mtb['zoomify_prop']}&zoomify_width=${mtb['zoomify_width']}&zoomify_height=${mtb['zoomify_height']}&layer=${mtb['titel']}" 
 						target="_top">${mtb['titel']}</a> <br> 
 						
 				% endfor

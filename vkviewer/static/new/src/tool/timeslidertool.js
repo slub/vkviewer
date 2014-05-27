@@ -36,7 +36,7 @@ vk2.tool.TimeSlider.prototype._loadHtmlContent = function(parentEl){
 	var containerEl = goog.dom.createDom('div',{'class':'timeslider-container'});
 	goog.dom.appendChild(parentEl, containerEl);
 	
-	var labelEl = goog.dom.createDom('label',{'innerHTML':'Cooming soon ...'});
+	var labelEl = goog.dom.createDom('label',{'innerHTML':vk2.utils.getMsg('change_timeperiod')});
 	goog.dom.appendChild(containerEl, labelEl);
 	
 	var  sliderContainer = goog.dom.createDom('div', {'class':'slider-container'});

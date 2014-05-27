@@ -8,6 +8,10 @@ goog.require('ol.control.FullScreen');
 goog.require('ol.control.Zoom');
 goog.require('ol.View2D');
 goog.require('ol.interaction.DragZoom');
+goog.require('vk2.utils');
+goog.require('vk2.layer.Messtischblatt');
+goog.require('vk2.control.LayerSpy');
+goog.require('vk2.tool.OpacitySlider');
 
 /**
  * @param {string} map_container
@@ -54,7 +58,13 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 		       new ol.control.Attribution(),
 		       new ol.control.ZoomToExtent({
 		   			extent: result_settings['extent']
-		   	   })
+		   	   }),
+			   new vk2.control.LayerSpy({
+					'spyLayer':new ol.layer.Tile({
+						attribution: undefined,
+						source: new ol.source.OSM()
+					})
+			   }),
 		  ]
 	});
 	
@@ -76,36 +86,27 @@ vk2.georeference.ResultViewer.prototype.displayValidationMap = function(wms_url,
 	};
 	
 	/**
-	 * @type {ol.source.TileWMS}
+	 * @type {vk2.layer.Messtischblatt}
 	 * @private
 	 */
-	this._validationLayer = new ol.layer.Tile({
-			source: new ol.source.TileWMS({
-				url: wms_url,
-				params: {
-					'LAYERS':layer_id,
-					'VERSION': '1.1.1'
-				},
-				projection: 'EPSG:900913'
-			})
-	});
+	this._validationLayer = new vk2.layer.Messtischblatt({
+		'wms_url':wms_url, 
+		'layerid':layer_id,
+		'border':vk2.utils.getPolygonFromExtent(clip_extent),
+		'extent':clip_extent
+	}, this._map);
 
 	this._map.addLayer(this._validationLayer); 
 	
 	// zoom to extent by parsing getcapabilites request from wms
 	this._map.getView().fitExtent(clip_extent, this._map.getSize());
 	
-	//map.addControl(new VK2.Control.ClipControl(VK2.Utils.getPolygonFromExtent(clip_polygon),validation_layer));
-
-	// load layerspy tool for validation map
-//	map.addControl(
-//		new VK2.Control.LayerSpy({
-//			'spyLayer':new ol.layer.Tile({
-//				source: new ol.source.OSM(),
-//			}),
-//			'radius': 50
-//		})
-//	);
+	// remove old opactiy slider and add new one
+	if (goog.dom.getElement('opacity-slider-container')){
+		var opacitySliderEl = goog.dom.getElement('opacity-slider-container');
+		opacitySliderEl.innerHTML = '';
+		var opacitySlider = new vk2.tool.OpacitySlider(goog.dom.getElement('opacity-slider-container'), this._validationLayer)
+	};
 };
 
 /**
