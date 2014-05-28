@@ -12,16 +12,14 @@ goog.require('vk2.utils.Styles');
  */
 vk2.layer.MapSearch = function(settings){
 	
+	if (goog.DEBUG)
+		console.log('Parser options: '+vk2.settings.WFS_PARSER_CONFIG['mtbows']);
 	// create vector source
 	var vectorSource = new ol.source.ServerVector({
 		format: new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows']),
 		loader: function(extent, resolution, projection) {
 			if (goog.DEBUG)
 				console.log('Loader is called');
-
-			// call loading start callback
-			//if (goog.isDef(settings.loading_start))
-			//	settings.loading_start();
 			
 			var url = vk2.settings.PROXY_URL+vk2.settings.WFS_URL+'?SERVICE=WFS&' +
 		    	'VERSION=1.1.0&REQUEST=getfeature&TYPENAME=Historische_Messtischblaetter_WFS&MAXFEATURES=10000&srsname='+settings.projection+'&' +
@@ -30,14 +28,15 @@ vk2.layer.MapSearch = function(settings){
 		    var xhr = new goog.net.XhrIo();
 		    
 		    goog.events.listenOnce(xhr, 'success', function(e){
+		    	if (goog.DEBUG){
+		    		console.log('Receive features');
+		    	};
+		    	
 		    	var xhr = /** @type {goog.net.XhrIo} */ (e.target);
 		    	var data = xhr.getResponseXml() ? xhr.getResponseXml() : xhr.getResponseText();
 		    	xhr.dispose();
 		    	this.addFeatures(this.readFeatures(data));
-		    	
-		    	// call load end callback
-		    	//goog.isDef(settings.loading_end)
-		    	//	settings.loading_end();
+
 		    }, false, this);
 
 		    xhr.send(url);

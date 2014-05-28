@@ -188,7 +188,7 @@ vk2.module.MapSearchModule.prototype._appendScrollBehavior = function(){
 				if (scrollEl.offsetHeight + scrollEl.scrollTop >= scrollEl.scrollHeight){
 					
 					// check if there are still features to append
-					if (!this._featurePointer < this._searchFeatures.length)
+					if (this._featurePointer < this._searchFeatures.length)
 						this._appendFeaturesToList();
 				};			
 				
@@ -271,6 +271,9 @@ vk2.module.MapSearchModule.prototype._updateHeading = function(count_features){
  * @param {Array.<ol.Features>} features
  */
 vk2.module.MapSearchModule.prototype.updateFeatures = function(features){
+	if (goog.DEBUG)
+		console.log('Update Features');
+	
 	this._searchFeatures = features;
 	this._refreshMapSearchList();
 	this._updateHeading(this._searchFeatures.length);

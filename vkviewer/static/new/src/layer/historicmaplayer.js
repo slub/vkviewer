@@ -87,13 +87,21 @@ vk2.layer.HistoricMap = function(settings, map){
 	 */
 	this._associations = undefined;
 	
+	// feature
+	var feature = new ol.Feature(new ol.geom.Polygon([this._borderPolygon]))
+	feature.setValues({
+		'objectid':this._id,
+		'time':this._time,
+		'title':this._title
+	});
+	
 	/**
 	 * @type {ol.layer.Vector}
 	 * @private
 	 */
 	this._borderLayer = new ol.layer.Vector({
 		source: new ol.source.Vector({
-				'features':[ new ol.Feature(new ol.geom.Polygon([this._borderPolygon]))]
+				'features':[ feature ]
 		}),
 		'style': function(feature, resolution) {
 			return [vk2.utils.Styles.MESSTISCHBLATT_BORDER_STYLE];

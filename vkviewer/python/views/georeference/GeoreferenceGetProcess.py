@@ -8,7 +8,6 @@ import logging, json, ast
 from vkviewer import log
 from vkviewer.python.utils.validation import validateId
 from vkviewer.python.utils.parser import getJsonDictPasspointsForMapObject
-from vkviewer.python.tools import checkIsUser
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from vkviewer.python.models.messtischblatt.MetadatenCore import MetadatenCore

@@ -1,7 +1,6 @@
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
 	<script>
 	    goog.require('VK2.Module.SingleMapViewer');
 	</script>

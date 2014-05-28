@@ -45,6 +45,8 @@ vk2.layer.Messtischblatt = function(settings, map){
 		});
 	};
 	
+	// define preload behavior
+	settings.preload = Infinity; 
 	var messtischblattLayer = new ol.layer.Tile(settings);
 	
 	/**

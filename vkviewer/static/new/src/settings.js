@@ -103,4 +103,9 @@ vk2.settings.MAIN_MAP_SETTINGS = {
 vk2.settings.MAIN_MAP_GEOREFERENCER_VIEW = {
 	'center': [1510110.8611321,6808180.3878471],
 	'zoom':0
-} 
+};
+
+/**
+ * @type {string}
+ */
+vk2.settings.MAP_PROFILE_PAGE = '/vkviewer/profile/map';

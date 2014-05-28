@@ -1,8 +1,10 @@
 goog.provide('vk2.controller.MapController');
 
+goog.require('goog.dom');
 goog.require('goog.object');
 goog.require('goog.array');
 goog.require('goog.events');
+goog.require('vk2.utils');
 goog.require('vk2.tool.TimeSlider');
 goog.require('vk2.tool.GazetteerSearch');
 goog.require('vk2.module.SpatialTemporalSearchModule');
@@ -156,7 +158,8 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 			lastMoveendFeatureCount = featureCount;
 			
 			// extract features in current extent
-			var current_extent = view.calculateExtent(event.map.getSize());
+			var current_extent = vk2.utils.calculateMapExtentForPixelViewport(event.map);  			    
+			//var current_extent = view.calculateExtent(event.map.getSize());
 			var features = this._mapsearchLayer.getTimeFilteredFeatures(current_extent);
 			this._mapsearch.updateFeatures(features);
 		}
@@ -236,6 +239,9 @@ vk2.controller.MapController.prototype._createHistoricMapForFeature = function(f
  */
 vk2.controller.MapController.prototype._appendMapClickBehavior = function(map){
 	map.on('singleclick', function(event){
+		if (goog.DEBUG)
+			console.log('Pixel: '+event.pixel);
+		
 		var features = [];
 		this.forEachFeatureAtPixel(event.pixel, function(feature){
 			features.push(feature);
@@ -243,6 +249,22 @@ vk2.controller.MapController.prototype._appendMapClickBehavior = function(map){
 		
 		if (goog.DEBUG)
 			console.log(features);
+	
+		if (features.length > 0){
+			var modal = new vk2.utils.Modal('vk2-overlay-modal',document.body, true);
+			modal.open(undefined, 'mapcontroller-click-modal');
+			
+			for (var i = 0; i < features.length; i++){
+				var anchor = goog.dom.createDom('a', {
+					'href': vk2.settings.MAP_PROFILE_PAGE + '?objectid=' + features[i].get('objectid'),
+					'innerHTML': features[i].get('title') + ' ' + features[i].get('time')
+				});
+				modal.appendToBody(anchor, 'map-profile');			
+			};			
+			
+			if (features.length == 1)
+				anchor.click();
+		}
 	});
 };
 
