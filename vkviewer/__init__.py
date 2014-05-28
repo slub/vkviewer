@@ -96,6 +96,7 @@ def addRoutes(config):
     # profile pages
     config.add_route('users_profile_georef', routePrefix+'/profile/georef')
     config.add_route('mtb_profile', routePrefix+'/profile/mtb')
+    config.add_route('map_profile', routePrefix+'/profile/map')
     
     # error pages
     config.add_route('error_page', routePrefix+'/error')

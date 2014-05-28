@@ -3,6 +3,33 @@ goog.provide('vk2.utils');
 goog.require('goog.Uri');
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
+goog.require('goog.style');
+
+/**
+ * @static
+ * @param {ol.Map} map
+ * @return {Array.<number>}
+ */
+vk2.utils.calculateMapExtentForPixelViewport = function(map){
+	var padding = 50;
+	var offsetTop = 85;
+	var offsetBottom = 25;
+	
+	// this is a premise
+	var spatialsearchSize = goog.style.getSize(goog.dom.getElement('spatialsearch-container'));
+	var mapSize = goog.style.getSize(goog.dom.getElement('mapdiv'));
+	
+	// calculate pixelextent
+	var lowX = 0 + padding;
+	var lowY = mapSize.height - offsetBottom - padding;
+	var highX = mapSize.width - spatialsearchSize.width - padding;
+	var highY = offsetTop + padding;
+	
+	// get equivalent coordinates
+	var llc = map.getCoordinateFromPixel([lowX, lowY]);
+	var urc = map.getCoordinateFromPixel([highX, highY]);
+	return [llc[0],llc[1],urc[0],urc[1]];
+};
 
 /**
  * This function checks if cookies are enabled
@@ -95,7 +122,11 @@ vk2.utils.getQueryParam = function(name, href){
  */
 vk2.utils.setProxyUrl = function(){
 	var origin = window.location.origin;
-	vk2.settings.PROXY_URL = window.location.origin+'/vkviewer/proxy/?url=';
+	// for opera 
+	if (!window.location.origin)
+		origin = window.location.protocol+'//'+window.location.host;
+	
+	vk2.settings.PROXY_URL = origin+'/vkviewer/proxy/?url=';
 	
 	if (goog.DEBUG)
 		console.log('Proxy url is: '+vk2.settings.PROXY_URL);
