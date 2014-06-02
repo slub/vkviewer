@@ -19,7 +19,7 @@
 /** styling heading */
 .layermanagement-container .heading .header-label{
 	font-size: 14px;
-	line-heiht: 1.428571429;
+	line-height: 1.428571429;
 	font-weight: 300;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	color: #333;
@@ -87,7 +87,7 @@
 	height: 1.0em;
 	width: 1.375em;
 	line-height: .4em;
-	background-color: #7b98bc;
+	/* background-color: #7b98bc; */
 	background-color: rgba(0,60,136,0.5);
 	border: none;
 	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;

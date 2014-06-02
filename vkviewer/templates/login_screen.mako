@@ -94,11 +94,6 @@
 			</div>
 		</div>
 	</div>
-	
-    <script>
-
-
-    </script> 
 </%block>
 
 
