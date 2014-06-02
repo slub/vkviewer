@@ -82,7 +82,7 @@
 }
 
 /** ol3 overrides main page */
-.main-page .olMap .ol-attribution {
+.olMap .ol-attribution {
 	position: absolute;
 	bottom: 25px;
 	left: 0px;
@@ -90,13 +90,25 @@
 	padding: 0px;
 }
 
-.main-page .olMap:-webkit-full-screen .ol-attribution {bottom: 0px;}
-.main-page .olMap .ol-attribution .ol-attribution-bing-tos{	padding-top: 0px; }
-.main-page .olMap .ol-zoom {top: 100px;}
-.main-page .olMap:-webkit-full-screen .ol-zoom {top: .5em;}
-.main-page .olMap .ol-full-screen {	top: 100px;	right: 430px;}
-.main-page .olMap:-webkit-full-screen .ol-full-screen {	right: .5em; top: .5em;}
-.main-page .olMap .ol-layerspy { left: .5em; top: 150px; }
-.main-page .olMap:-webkit-full-screen .ol-layerspy { top: 58px; }
-.main-page .olMap .rotate-north { left: .5em; top: 177px; }
-.main-page .olMap:-webkit-full-screen .rotate-north { top: 85px; }
+/* Position of ol control elements (with fullscreen) */
+.olMap .ol-attribution .ol-attribution-bing-tos{	padding-top: 0px; }
+.olMap .ol-zoom {top: 100px;}
+.olMap .ol-full-screen {	top: 100px;	right: 430px;}
+.olMap .ol-layerspy { left: .5em; top: 150px; }
+.olMap .rotate-north { left: .5em; top: 177px; }
+
+.olMap:-webkit-full-screen .ol-attribution {bottom: 0px;}
+.olMap:-moz-full-screen .ol-attribution {bottom: 0px;} 
+.olMap:fullscreen .ol-attribution {bottom: 0px;}
+.olMap:-webkit-full-screen .ol-zoom {top: .5em;}
+.olMap:-moz-full-screen .ol-zoom {top: .5em;} 
+.olMap:fullscreen .ol-zoom {top: .5em;} 
+.olMap:-webkit-full-screen .ol-full-screen {right: .5em; top: .5em;}
+.olMap:-moz-full-screen .ol-full-screen {right: .5em; top: .5em;}
+.olMap:fullscreen .ol-full-screen {right: .5em; top: .5em;}
+.olMap:-webkit-full-screen .ol-layerspy { top: 58px; }
+.olMap:-moz-full-screen .ol-layerspy { top: 58px; } 
+.olMap:fullscreen .ol-layerspy { top: 58px; }
+.olMap:-webkit-full-screen .rotate-north { top: 85px; }
+.olMap:-moz-full-screen .rotate-north { top: 85px; } 
+.olMap:fullscreen .rotate-north { top: 85px; }
