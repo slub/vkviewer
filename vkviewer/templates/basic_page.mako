@@ -11,20 +11,24 @@
         
         <!-- js/css librarys via cdn -->
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	 
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/new/lib/ol.css')}" />
+		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/ol.css')}" />
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/vkviewer-libarys.min.css')}" media="screen" />
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
 		
 		<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/jquery.tablesorter.min.js')}"></script>  
 	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
-	   	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	   	<script src="${request.static_url('vkviewer:static/new/lib/ol-whitespace.js')}"></script>
+	   	<script src="${request.static_url('vkviewer:static/src/locale/'+_('js_library')+'.js')}"></script>
+	   	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
+	   	
+	   	<!-- For debugging -->
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/deps.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/new/deps.js')}"></script>    
+	    <script src="${request.static_url('vkviewer:static/src/vkviewer-deps.js')}"></script>
+	    
+	    <!-- For production -->
+	    <!-- <script src="${request.static_url('vkviewer:static/build/vkviewer-simple.js')}"></script> -->
 	    
 		<%block name="header_content" />
 	     
@@ -39,25 +43,6 @@
 		</noscript>
 	
 		<%block name="body_content" />
-
-	    <!-- development 
-	  	<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/jquery.fancybox.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/jquery.tablesorter.min.js')}"></script>  
-	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/OpenLayers.js')}"></script> -->
-	    
-	    <!-- production -->
-		<!-- js librarys 
-      	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-      	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>  
-        <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>	    
-	    <script src="${request.static_url('vkviewer:static/lib/OpenLayers.js')}"></script> 
-	    <script src="${request.static_url('vkviewer:static/lib/vkviewer-plugin-libarys.min.js')}"></script>  
-	    <script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/js/Vkviewer.js')}"></script> -->
 	    	    
 	    <%block name="js_content" />
 	    

@@ -29,9 +29,8 @@ vkviewer/static/test
 vkviewer/static/lib/debug
 
 # Don't log Vkviewer/Vkviewer-ol3.js
-vkviewer/static/js/Vkviewer.js
-vkviewer/static/js/Vkviewer-ol3.js
-vkviewer/static/css/styles.css
+vkviewer/static/build/*
+vkviewer/static/test/*
 
 # don't follow the deploy version of vkviewer
 deploy/vkviewer
