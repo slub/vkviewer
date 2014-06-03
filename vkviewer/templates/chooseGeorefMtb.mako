@@ -1,4 +1,4 @@
-<%inherit file="basic_page_slim.mako" />
+<%inherit file="basic_page.mako" />
 
 <%block name="body_content">
 	<div class="choose-georef page-container">

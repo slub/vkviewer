@@ -3,6 +3,7 @@
 <%block name="header_content">
 	<script>
 	    goog.require('vk2.georeference.ZoomifyViewer');
+	    goog.require('vk2.tool.MetadataBinding');
 	</script>
 </%block>
 
@@ -20,6 +21,8 @@
 						<a href="http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|${key}" class="btn btn-default" target="_blank">Zeige Metadatensatz</a>
 					</div>
 				</div>
+			</div>
+			<div class="row metadata" id="metadata-container">
 			</div>
 			
 			
@@ -44,6 +47,8 @@
 			'height':${zoomify_height},
 			'url': '${zoomify_prop}'.substring(0,'${zoomify_prop}'.lastIndexOf("/")+1)
 		});
+		
+		var metadatbinding = new vk2.tool.MetadataBinding('metadata-container', '${key}');
     	%endif
     </script> 
 </%block>
