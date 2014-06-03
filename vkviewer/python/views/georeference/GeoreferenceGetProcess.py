@@ -14,8 +14,8 @@ from vkviewer.python.models.messtischblatt.MetadatenCore import MetadatenCore
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 
 @view_config(route_name='georeference', renderer='string', permission='view', match_param='action=getprocess')
-def georeferenceConfirm(request):
-    log.info('Receive request for processing georeference validation result')
+def georeferenceGetProcess(request):
+    log.info('Receive request GetGeoreferenceProcess')
     
     try:
         request_data = None

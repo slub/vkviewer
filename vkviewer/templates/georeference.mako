@@ -26,43 +26,48 @@
 			</div>	
 		</div>
 					 
-		<!-- Footer panel -->
-		<div class="vk2FooterPanel">
-			<div id="vk2Footer" class="vk2Footer">
-				<div class="footerContainer">
-        			<div class="leftside">
-						<ul class="footerList">
-					    	<li class="listelement thick leftborder">${_('footer_project_name')}</li>
-					        <li class="listelement">${_('footer_project_desc_long')}</li>
-					    </ul>
-        			</div>
-					<div class="rightside">
-						<ul class="footerList">
-					    	
-					    	% if faq_url:
-					        	<li class="listelement leftborder">
-					        		<a href="${faq_url}" class="vk2FooterLinks fancybox-open">FAQ</a>        				
-					        	</li>       		   		
-					        % else:
-					        	<li class="listelement leftborder">
-					        		<a href="${request.route_url('faq')}" class="vk2FooterLinks fancybox-open">FAQ</a>        				
-					        	</li>
-					        % endif
-					        	<li class="listelement leftborder">
-					         		<a href="${request.route_url('contact')}" class="vk2FooterLinks fancybox-open">${_('footer_contact')}</a>		
-					        	</li>        				
-					        	<li class="listelement leftborder">
-					        		<a href="${request.route_url('project')}" class="vk2FooterLinks fancybox-open">${_('footer_project')}</a>    				
-					        	</li>
-					        	<li class="listelement">
-					        		<a href="${request.route_url('impressum')}" class="vk2FooterLinks fancybox-open">${_('footer_editorial')}</a>
-					        	</li>
-					        </ul>
-					 </div>
-        		</div>
-        	</div>
-		</div>
-        <!-- end footer -->
+			        	<!-- Footer panel -->
+			        	<div class="vk2FooterPanel">
+			        		<div id="vk2Footer" class="vk2Footer">
+			        			<div class="footerContainer">
+        							<div class="leftside">
+					        			<ul class="footerList">
+					        				<li class="listelement thick leftborder">${_('footer_project_name')}</li>
+					        				<li class="listelement">${_('footer_project_desc_long')}</li>
+					        			</ul>
+        							</div>
+					        		<div class="rightside">
+					        		   	<ul class="footerList">
+					        		   	
+					        		   		% if faq_url:
+					         				<li class="listelement leftborder">
+					        					<a href="${faq_url}" data-src="${faq_url}" data-classes="faq" 
+					        							class="vk2-modal-anchor" data-title="">FAQ</a>        				
+					        				</li>       		   		
+					        		   		% else:
+					        				<li class="listelement leftborder">
+					        					<a href="${request.route_url('faq')}" data-src="${request.route_url('faq')}" data-classes="faq" 
+					        							class="vk2-modal-anchor" data-title="">FAQ</a>        				
+					        				</li>
+					        				% endif
+					        				<li class="listelement leftborder">
+					         					<a href="${request.route_url('contact')}" data-src="${request.route_url('contact')}" data-classes="contact" 
+					        							class="vk2-modal-anchor" data-title="">${_('footer_contact')}</a>		
+					        				</li>        				
+					        				<li class="listelement leftborder">
+					        					<a href="${request.route_url('project')}" data-src="${request.route_url('project')}" data-classes="project" 
+					        							class="vk2-modal-anchor" data-title="">${_('footer_project')}</a>    				
+					        				</li>
+					        				<li class="listelement">
+					        					<a href="${request.route_url('impressum')}" data-src="${request.route_url('impressum')}" data-classes="impressum" 
+					        							class="vk2-modal-anchor" data-title="">${_('footer_editorial')}</a>
+					        				</li>
+					        			</ul>
+					        		</div>
+        						</div>
+        					</div>
+			        	</div>
+						<!-- end footer -->
 		</div>
 	</div>
 	

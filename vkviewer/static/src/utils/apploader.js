@@ -27,7 +27,6 @@ goog.require('vk2.georeference.MesstischblattGcpHandler');
  * @export
  */
 vk2.utils.AppLoader = function(settings){
-	vk2.utils.checkIfCookiesAreEnabble()
 	vk2.utils.setProxyUrl();
 	//vk2.utils.AppLoader.appendIEBehavior();
 	
@@ -123,6 +122,9 @@ vk2.utils.AppLoader.loadModalOverlayBehavior = function(className, opt_element){
  * @static
  */
 vk2.utils.AppLoader.loadGeoreferenceApp = function(unreferenced_map_container, referenced_map_container){
+	vk2.utils.checkIfCookiesAreEnabble();
+	vk2.utils.AppLoader.loadModalOverlayBehavior('vk2-modal-anchor');
+	
 	//Proj4js.defs["EPSG:4314"] = "+proj=longlat +ellps=bessel +towgs84=598.1,73.7,418.2,0.202,0.045,-2.455,6.7 +no_defs";
 	Proj4js.defs["EPSG:4314"] = '+proj=longlat +ellps=bessel +datum=potsdam +no_defs';
 	Proj4js.defs["EPSG:900913"] = '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +over no_defs';

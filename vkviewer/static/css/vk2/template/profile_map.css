@@ -2,3 +2,7 @@
 	float: right;
 	padding: 10px 10px 5px 5px;
 }
+
+.map-profile-page .container .row.metadata {
+	display: none;
+}

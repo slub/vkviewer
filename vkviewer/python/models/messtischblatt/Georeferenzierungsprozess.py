@@ -15,6 +15,10 @@ class Georeferenzierungsprozess(Base):
     publish = Column(Boolean)
     
     @classmethod
+    def all(cls, session):
+        return session.query(Georeferenzierungsprozess).order_by(desc(Georeferenzierungsprozess.id))
+    
+    @classmethod
     def by_id(cls, id, session):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.id == id).first()
     
