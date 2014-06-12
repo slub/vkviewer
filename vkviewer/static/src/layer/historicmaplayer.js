@@ -1,6 +1,5 @@
 goog.provide('vk2.layer.HistoricMap');
 
-goog.require('goog.net.XhrIo');
 goog.require('goog.events');
 goog.require('goog.object');
 goog.require('vk2.settings');

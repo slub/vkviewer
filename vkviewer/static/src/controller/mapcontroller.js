@@ -202,6 +202,28 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 };
 
 /**
+ * @param {vk2.tool.Permalink} permalink
+ */
+vk2.controller.MapController.prototype.registerPermalinkTool = function(permalink){
+	// register addmtb event
+	goog.events.listen(permalink, 'addmtb', function(event){
+		var feature = event.target.feature;
+		
+		// request associated messtischblaetter for a blattnr
+		var layer = this._createHistoricMapForFeature(feature);
+		var assocatiedMaps = this._createAssociationMapsArray(feature);	
+		for (var i = 0; i < assocatiedMaps.length; i++){
+			if (assocatiedMaps[i].getId() === layer.getId()){
+				assocatiedMaps.splice(i, 1);
+				break;
+			};
+		};
+		layer.setAssociations(assocatiedMaps);
+		this._map.addLayer(layer);
+	}, undefined, this);
+};
+
+/**
  * @param {vk2.tool.TimeSlider} timeSlider
  */
 vk2.controller.MapController.prototype._registerTimeSliderTool = function(timeSlider){

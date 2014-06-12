@@ -3,6 +3,7 @@ goog.provide('vk2.module.MapSearchModule');
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
 goog.require('goog.events');
+goog.require('goog.events.Event');
 goog.require('goog.events.EventTarget');
 goog.require('goog.events.EventType');
 //goog.require('ol.FeatureOverlay');
