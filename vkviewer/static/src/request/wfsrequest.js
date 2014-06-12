@@ -1,5 +1,7 @@
 goog.provide('vk2.request.WFS');
 
+goog.require('vk2.settings');
+
 vk2.request.WFS.transformStringToXml = function(text){
 	var xmlDoc;
 	if (window.DOMParser) {
@@ -50,3 +52,23 @@ vk2.request.WFS.getFeatureRequest_IntersectBBox = function(featureName, bbox){
 	return request;
 };
 
+/**
+ * @param {Array.<string>} objectids
+ * @return {string}
+ */
+vk2.request.WFS.getFeatureRequestForObjectIds = function(objectids){
+	var request = vk2.settings.PROXY_URL + vk2.settings.WFS_URL + '?' + 'SERVICE=WFS&VERSION=1.1.0&REQUEST=getfeature&TYPENAME=Historische_Messtischblaetter_WFS';
+	
+	if (objectids.length > 1){
+		// use OR filter
+		request += '&Filter=<Filter><OR>';
+		for (var i = 0; i < objectids.length; i++){
+			request += '<PropertyIsEqualTo><PropertyName>mtbid</PropertyName><Literal>' + objectids[i] + '</Literal></PropertyIsEqualTo>';
+		};
+		request += '</OR></Filter>';
+	} else {
+		request += '&Filter=<Filter><PropertyIsEqualTo><PropertyName>mtbid</PropertyName><Literal>' + objectids[0] + '</Literal></PropertyIsEqualTo></Filter>';
+	};
+	
+	return request;
+};

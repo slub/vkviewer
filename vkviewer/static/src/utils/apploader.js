@@ -13,6 +13,7 @@ goog.require('vk2.validation');
 goog.require('vk2.controller.MapController');
 goog.require('vk2.module.SpatialTemporalSearchModule');
 goog.require('vk2.module.LayerManagementModule');
+goog.require('vk2.tool.Permalink');
 goog.require('vk2.layer.MapSearch');
 goog.require('vk2.georeference.GeoreferencerChooser');
 goog.require('vk2.georeference.Georeferencer');
@@ -53,6 +54,10 @@ vk2.utils.AppLoader = function(settings){
 	// load layermanagement
 	var layermanagement = new vk2.module.LayerManagementModule('mapdiv', map_controller.getMap().getLayers(), map_controller.getMap());
 	
+	// load permalink tool
+	var permalink = new vk2.tool.Permalink(map_controller.getMap());
+	map_controller.registerPermalinkTool(permalink);
+	
 	if (isAuthenticate){
 		if (goog.DEBUG)
 			console.log('The application is loaded in authenticate mode.');
@@ -75,6 +80,7 @@ vk2.utils.AppLoader = function(settings){
 		window['map'] = map_controller.getMap();		
 		window['spatialsearch'] = spatialSearch;
 		window['mapsearch'] = spatialSearch.getMapSearchModule();
+		window['permalink'] = permalink;
 	};
 };
 
