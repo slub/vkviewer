@@ -110,7 +110,7 @@ vk2.layer.HistoricMap = function(settings, map){
 	settings.layers = [this._mtbLayer, this._borderLayer];
 	ol.layer.Group.call(this, settings);
 };
-goog.inherits(vk2.layer.HistoricMap, ol.layer.Group);
+ol.inherits(vk2.layer.HistoricMap, ol.layer.Group);
 
 /**
  * @return {number}

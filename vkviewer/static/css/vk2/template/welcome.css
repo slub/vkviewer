@@ -1,0 +1,40 @@
+/* body, html { height: 500px; width: 800px; background: transparent; }
+div { position: relative; float: left; } */
+
+.vk2WelcomePageBody { position: relative; float: left; height: 400px; width: 800px; background: #fff; }
+.vk2WelcomePageBody div {position: relative; float: left;}
+.vk2WelcomePageFooter { position: relative; float: left; height: 100px; width: 800px; }
+.vk2WelcomePageFooter div {position: relative; float: left;}
+
+/* Styling of the main body elements */
+.vk2WelcomePageBody .leftContainer { width: 55%; height: 70%; padding-top: 5%; padding-bottom: 5%; }
+.vk2WelcomePageBody .leftContainer .inner {	 margin-right: -1px; border-right: 1px dotted #525266; width: 100%; }
+.vk2WelcomePageBody .leftContainer .inner .logo { padding: 15% 10%; }
+.vk2WelcomePageBody .rightContainer { width: 45%; height: 70%; padding-top: 5%; padding-bottom: 5%; }
+.vk2WelcomePageBody .rightContainer .inner { padding: 15% 10%; }
+.vk2WelcomePageBody .footerContainer { position: absolute; bottom: 0; left: 0; width: 100%; height: 40px; }
+.vk2WelcomePageBody .rightContainer .heading { font-size: 1.1em; }
+
+/* Styling georeference progress  */
+.vk2WelcomePageBody .vk2GeoreferenceProgressText { width: 100%; height: 90%; font-size: 0.85em; font-weight: 200; color: #999; }
+.vk2WelcomePageBody .vk2GeoreferenceProgressText .content:after { position: absolute; left: 22%; bottom: -5px; height: 0; width: 0; border: 5px solid #ccc; border-width: 5px 5px 0 5px; border-color: #ccc transparent transparent transparent; content: ""; }
+.vk2WelcomePageBody .vk2GeoreferenceProgressBar { width: 100%; height:20%; overflow:hidden; }
+.vk2GeoreferenceProgressBar .done { height: 100%; margin-right: -1px; border-right: 1px solid #FFFFFF; background-color: #f33; }
+.vk2GeoreferenceProgressBar .todo { height: 100%; background-color: #B2B2B2; width: 100%; position:absolute; }
+
+/* Footer styling */
+.vk2WelcomePageFooter { opacity: 0.4; }
+.vk2WelcomePageFooter:hover { opacity: 1; }
+a.vk2FooterLinks { color: #fff; text-decoration: underline; }
+a.vk2FooterLinks:hover { color: #f33; }	
+.RankingContainer { height: 40%; width: 100%; margin-top: 20px; margin-bottom: 10px; border-bottom: 1px dotted #fff; border-top: 1px dotted #fff; font-size: 0.8em; color: #fff; }
+.RankingContainer .vk2GeoreferenceRanking { width: 70%; height: 90%; margin-top: 5px; }
+.RankingContainer .closeContainer { width: 30%; height: 90%; margin-top: 5px; }
+.RankingContainer .closeContainer a { float: right; }
+.RankingContainer .closeContainer span { float: right; cursor: pointer; }
+.vk2GeoreferenceRanking ol li { list-style-position: inside; position: relative; float: left; margin-left: 1.2em; }
+.vk2GeoreferenceRanking ol li:first-child { margin-left: 0; }
+.vk2GeoreferenceRanking .furtherItems { padding-left: 5px; }
+.vk2GeoreferenceRanking ol li span { padding-right: 5px; border-right: 1px dotted #fff; }
+.vk2WelcomePageFooter .SkipPageContainer { width: 100%; height: 25%; color: #fff; }
+.vk2WelcomePageFooter .SkipPageContainer label { font-weight: 300; font-size: 0.8em; }

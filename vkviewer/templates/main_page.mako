@@ -2,9 +2,6 @@
 
 <%block name="header_content">
 	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
-	<script>
-	    goog.require('vk2.utils.AppLoader');
-	</script>
 </%block>
 
 <%block name="body_content">
@@ -168,7 +165,7 @@
 		from pyramid.security import authenticated_userid
 		user_id = authenticated_userid(request)
 	%>
-	
+
 	% if user_id:
 		var apploader = new vk2.utils.AppLoader({
 			'authenticate':true

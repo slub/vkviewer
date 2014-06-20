@@ -101,6 +101,9 @@ def addRoutes(config):
     # error pages
     config.add_route('error_page', routePrefix+'/error')
     
+    # permalink page
+    config.add_route('permalink', routePrefix+'/permalink')
+    
     # test pages
     config.add_route('development_page', routePrefix+'/development')
 

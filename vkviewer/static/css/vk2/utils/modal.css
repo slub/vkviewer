@@ -132,3 +132,23 @@
 	width: 100%;
 	height: 700px;
 }
+
+/** Modal behavior for the welcome page */
+.modal-content.welcomeBox {
+	background: transparent;
+	height: 500px;
+	width: 800px;
+}
+			
+.modal-content.welcomeBox iframe{
+	width: 100%;
+	height: 500px;
+}
+
+.modal-content.welcomeBox .modal-footer{
+	display: none;
+}
+
+.modal-content.welcomeBox .modal-body{
+	padding: 0px;
+}

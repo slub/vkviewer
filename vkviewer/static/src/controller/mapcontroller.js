@@ -66,6 +66,7 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 	this._map = new ol.Map({
 		layers: [
 		   new ol.layer.Tile({
+			   preload: Infinity,
 			   source: new ol.source.OSM()
 //			   source: new ol.source.BingMaps({
 //				   key: 'ApU2pc7jDCWIlPogOWrr2FzQTj-1LyxAWKC6uSc26yuYv6gGxnQrXjAoeMmdngG_',
@@ -88,7 +89,8 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 					source: new ol.source.OSM()
 				})
 			}),
-			new vk2.control.RotateNorth()
+			new vk2.control.RotateNorth(),
+			new ol.control.ScaleLine()
 		],
 		view: new ol.View2D({
 			projection: 'EPSG:900913',

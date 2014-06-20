@@ -35,4 +35,4 @@ vk2.control.RotateNorth = function(opt_options) {
   });
 
 };
-goog.inherits(vk2.control.RotateNorth, ol.control.Control);
+ol.inherits(vk2.control.RotateNorth, ol.control.Control);

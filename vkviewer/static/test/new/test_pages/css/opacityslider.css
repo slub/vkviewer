@@ -1,9 +1,0 @@
-.opacity-container .slider .tooltip{
-	margin-top: 15px;
-	opacity: 1;
-}
-
-.opacity-container .slider .tooltip.value{
-	margin-left: -10px;
-	left: 100%;
-}

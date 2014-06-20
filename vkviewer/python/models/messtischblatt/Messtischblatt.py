@@ -58,6 +58,16 @@ class Messtischblatt(Base):
         for i in range(0,len(extent)):
             parsed_extent.append(float(extent[i]))
         return parsed_extent
+    
+    @classmethod
+    def getCentroid(cls, id, session, epsg=4314):
+        query = 'SELECT st_astext(st_centroid(st_transform(boundingbox, %s))) FROM messtischblatt WHERE id = %s'%(epsg, id)
+        pg_centroid = session.execute(query,{'id':id}).fetchone()[0]
+        centroid = pg_centroid[6:-1].split(' ')
+        parsed_centroid = []
+        for i in range(0,len(centroid)):
+            parsed_centroid.append(float(centroid[i]))
+        return parsed_centroid
        
     @property
     def slug(self):

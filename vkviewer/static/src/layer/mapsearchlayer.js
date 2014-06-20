@@ -68,7 +68,7 @@ vk2.layer.MapSearch = function(settings){
 	//ol.layer.Vector.call(this, settings);
 	ol.layer.Vector.call(this, settings);	
 };
-goog.inherits(vk2.layer.MapSearch, ol.layer.Vector);
+ol.inherits(vk2.layer.MapSearch, ol.layer.Vector);
 
 /**
  * @return {Array.<ol.Feature>}
@@ -103,14 +103,10 @@ vk2.layer.MapSearch.prototype.getTimeFilter = function(){
  * @return {Array.<ol.Feature>}
  */
 vk2.layer.MapSearch.prototype.getTimeFilteredFeatures = function(extent){
-	var allFeatures = this.getSource().getFeaturesInExtent(extent);
-	
-	if (goog.DEBUG)
-		console.log('Found unfiltered ' + allFeatures.length + ' features.');
 	
 	//var allFeatures = this.getSource().getFeatures();
 	var returnArr = [];
-	allFeatures.forEach(function(feature){
+	this.getSource().forEachFeatureInExtent(extent, function(feature){
 		if (feature.get('time') >= this._timeArr.START && feature.get('time') <= this._timeArr.END){
 			returnArr.push(feature);
 		}

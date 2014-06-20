@@ -20,16 +20,21 @@
 	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
 	   	<script src="${request.static_url('vkviewer:static/src/locale/'+_('js_library')+'.js')}"></script>
-	   	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
+	   	<script src="${request.static_url('vkviewer:static/lib/ol.vkviewer.min.js')}"></script>
 	   	
 	   	<!-- For debugging -->
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/deps.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/src/vkviewer-deps.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/src/vkviewer-deps.js')}"></script>  
 	    
 	    <!-- For production -->
-	    <!-- <script src="${request.static_url('vkviewer:static/build/vkviewer-simple.js')}"></script> -->
+		<!-- <script src="${request.static_url('vkviewer:static/build/vkviewer-min.js')}"></script> -->
+		<!-- <script src="${request.static_url('vkviewer:static/build/vkviewer-simple.js')}"></script> -->
 	    
+	    <script>
+	    	goog.require('vk2.utils.AppLoader');
+		</script>
+	
 		<%block name="header_content" />
 	     
     </head>

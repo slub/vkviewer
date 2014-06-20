@@ -92,8 +92,8 @@ vk2.control.LayerSpy = function(opt_options) {
 					  this.getMap().render();
 				  }
 			  },
-			  'addlayer': function(event){	  
-				  var topLayer = event.target.getAt(event.target.getLength() - 1);
+			  'addlayer': function(event){	
+				  var topLayer = event.target.getArray()[event.target.getLength() - 1];
 				  if (topLayer !== this._spyLayer){
 					  this.getMap().removeLayer(this._spyLayer);
 					  this.getMap().addLayer(this._spyLayer);
@@ -120,7 +120,7 @@ vk2.control.LayerSpy = function(opt_options) {
 	    target: options.target
 	  });
 };
-goog.inherits(vk2.control.LayerSpy, ol.control.Control);
+ol.inherits(vk2.control.LayerSpy, ol.control.Control);
 
 /**
  * @private

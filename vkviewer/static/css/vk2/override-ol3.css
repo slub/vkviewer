@@ -90,12 +90,14 @@
 	padding: 0px;
 }
 
+
 /* Position of ol control elements (with fullscreen) */
 .olMap .ol-attribution .ol-attribution-bing-tos{	padding-top: 0px; }
 .olMap .ol-zoom {top: 100px;}
 .olMap .ol-full-screen {	top: 100px;	right: 430px;}
 .olMap .ol-layerspy { left: .5em; top: 150px; }
 .olMap .rotate-north { left: .5em; top: 177px; }
+.olMap .ol-scale-line {bottom: 290px;}
 
 .olMap:-webkit-full-screen .ol-attribution {bottom: 0px;}
 .olMap:-moz-full-screen .ol-attribution {bottom: 0px;} 
