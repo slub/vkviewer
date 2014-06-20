@@ -10,7 +10,7 @@
 </%block>
 
 <%block name="body_content">
-	<div>
+	<div class="faq">
 			<h2 class="slubcolor">${_('faq_main_heading')}</h2>
   			<br>
   			Wir freuen uns Sie im Virtuellen Kartenforum 2.0 Willkommen zu heißen und wünschen Ihnen viel Spaß. Antworten auf verschiedene Fragen

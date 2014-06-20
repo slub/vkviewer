@@ -25,6 +25,7 @@ goog.require('vk2.georeference.MesstischblattGcpHandler');
  * @param {Object} settings Contains key/value pairs representing the settings
  * @param {Object} init_conf Initialise configuration object, which holds information over the mapping services, etc.
  * @constructor
+ * @expose
  * @export
  */
 vk2.utils.AppLoader = function(settings){
@@ -87,6 +88,7 @@ vk2.utils.AppLoader = function(settings){
 /**
  * @param {string} className
  * @param {Object=} opt_element
+ * @expose
  * @static
  */
 vk2.utils.AppLoader.loadModalOverlayBehavior = function(className, opt_element){
@@ -125,6 +127,7 @@ vk2.utils.AppLoader.loadModalOverlayBehavior = function(className, opt_element){
  * Function for loading the georeferencer
  * @param {string} unreferenced_map_container
  * @param {string} referenced_map_container
+ * @expose
  * @static
  */
 vk2.utils.AppLoader.loadGeoreferenceApp = function(unreferenced_map_container, referenced_map_container){
@@ -187,6 +190,7 @@ vk2.utils.AppLoader.loadGeoreferenceApp = function(unreferenced_map_container, r
 /**
  * Function for loading the georeferencer
  * @param {string} container_class
+ * @expose
  * @static
  */
 vk2.utils.AppLoader.loadGeoreferenceProfilePage = function(container_class){
@@ -216,6 +220,7 @@ vk2.utils.AppLoader.loadGeoreferenceProfilePage = function(container_class){
  * @param {string} className
  * @param {string} attributeNameHref
  * @param {string} attributeNameId
+ * @expose
  * @static
  */
 vk2.utils.AppLoader.loadGeoreferenceEvaluationRecordBehavior = function(className, attributeNameHref, attributeNameId){
@@ -236,6 +241,7 @@ vk2.utils.AppLoader.loadGeoreferenceEvaluationRecordBehavior = function(classNam
 };
 
 /**
+ * @expose
  * @static
  */
 vk2.utils.AppLoader.loadWelcomePage = function(){	

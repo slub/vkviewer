@@ -98,7 +98,7 @@ vk2.tool.Permalink.prototype.createPermalink = function(){
 		var zoom = this._map.getView().getZoom();
 		
 		// create permalink
-		var permalink = new goog.Uri(window.location.href);
+		var permalink = new goog.Uri(window.location.origin + '/vkviewer/?welcomepage=off');
 		var qData = permalink.getQueryData();
 		
 		// append zoom, center and objectids to queryData

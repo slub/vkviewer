@@ -1,1 +1,1 @@
-goog.provide('VK2');
+goog.provide('vk2');
