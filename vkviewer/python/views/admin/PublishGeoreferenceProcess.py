@@ -28,8 +28,8 @@ def publishGeorefParameters(request):
         georeferenceprocess = Georeferenzierungsprozess.by_id(georeferenceid, request.db)
         
         log.debug('Udpate parameters')
-        messtischblatt.updated = True
         georeferenceprocess.publish = True
+        messtischblatt.updated = False
         
         return json.dumps({'message':'The georeference process is now published. The georeference map will soon be updated and than ready for accessing.'}, ensure_ascii=False, encoding='utf-8')  
     except Exception as e:

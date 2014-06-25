@@ -5,6 +5,7 @@ goog.require('goog.style');
 goog.require('goog.dom.classes');
 //goog.require('ol.layer.Vector');
 goog.require('vk2.settings');
+goog.require('vk2.utils');
 goog.require('vk2.tool.OpacitySlider');
 
 /**
@@ -101,7 +102,7 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, ma
 	
 	var time = goog.dom.createDom('span', {
 		'class':'time',
-		'innerHTML': layer.getTime()
+		'innerHTML': vk2.utils.getMsg('timestamp') + ' ' + layer.getTime()
 	});
 	goog.dom.appendChild(metadata_container, time);
 	// append more timestamps

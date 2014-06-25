@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmd:MD_Metadata 
+xmlns:srv="http://www.isotc211.org/2005/srv" 
+xmlns:gco="http://www.isotc211.org/2005/gco" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:gmd="http://www.isotc211.org/2005/gmd" 
+xmlns:gml="http://www.opengis.net/gml">
+   <gmd:fileIdentifier>
+      <gco:CharacterString>e262fc21-67ba-475e-a124-b6cfe0a15baf</gco:CharacterString>
+  </gmd:fileIdentifier>
+   <gmd:language>
+      <gco:CharacterString>ger</gco:CharacterString>
+  </gmd:language>
+   <gmd:hierarchyLevel>
+      <gmd:MD_ScopeCode codeListValue="service" codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode"/>
+  </gmd:hierarchyLevel>
+   <gmd:hierarchyLevelName>
+      <gco:CharacterString>Virtuelles Kartenforum 2.0 mapping services</gco:CharacterString>
+  </gmd:hierarchyLevelName>
+   <gmd:contact>
+      <gmd:CI_ResponsibleParty>
+         <gmd:organisationName>
+            <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString>
+         </gmd:organisationName>
+         <gmd:contactInfo>
+            <gmd:CI_Contact>
+               <gmd:address>
+                  <gmd:CI_Address>
+                     <gmd:electronicMailAddress>
+                        <gco:CharacterString>Jacob.Mendt@slub-dresden.de</gco:CharacterString>
+                     </gmd:electronicMailAddress>
+                  </gmd:CI_Address>
+               </gmd:address>
+            </gmd:CI_Contact>
+         </gmd:contactInfo>
+         <gmd:role>
+            <gmd:CI_RoleCode codeListValue="custodian" codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode"/>
+         </gmd:role>
+      </gmd:CI_ResponsibleParty>
+  </gmd:contact>
+   <gmd:dateStamp>
+      <gco:DateTime>2014-01-08T11:39:57</gco:DateTime>
+  </gmd:dateStamp>
+   <gmd:metadataStandardName>
+      <gco:CharacterString>ISO 19115:2003, 19119:2006 (GDI-BW)</gco:CharacterString>
+  </gmd:metadataStandardName>
+   <gmd:referenceSystemInfo>
+      <gmd:MD_ReferenceSystem>
+         <gmd:referenceSystemIdentifier>
+            <gmd:RS_Identifier>
+               <gmd:code>
+                  <gco:CharacterString>EPSG:4314</gco:CharacterString>
+               </gmd:code>
+               <gmd:codeSpace>
+                  <gco:CharacterString>EPSG</gco:CharacterString>
+               </gmd:codeSpace>
+            </gmd:RS_Identifier>
+         </gmd:referenceSystemIdentifier>
+      </gmd:MD_ReferenceSystem>
+  </gmd:referenceSystemInfo>
+   <gmd:referenceSystemInfo>
+      <gmd:MD_ReferenceSystem>
+         <gmd:referenceSystemIdentifier>
+            <gmd:RS_Identifier>
+               <gmd:code>
+                  <gco:CharacterString>EPSG:900913</gco:CharacterString>
+               </gmd:code>
+               <gmd:codeSpace>
+                  <gco:CharacterString>EPSG</gco:CharacterString>
+               </gmd:codeSpace>
+            </gmd:RS_Identifier>
+         </gmd:referenceSystemIdentifier>
+      </gmd:MD_ReferenceSystem>
+  </gmd:referenceSystemInfo>
+   <gmd:identificationInfo>
+      <srv:SV_ServiceIdentification>
+         <gmd:citation>
+            <gmd:CI_Citation>
+               <gmd:title>
+                  <gco:CharacterString>Messtischblatt WMS fuer das historische Deutschland</gco:CharacterString>
+               </gmd:title>
+               <gmd:date>
+                  <gmd:CI_Date>
+                     <gmd:date>
+                        <gco:DateTime>2014-01-08T11:39:57</gco:DateTime>
+                     </gmd:date>
+                     <gmd:dateType>
+                        <gmd:CI_DateTypeCode codeListValue="revision" codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode"/>
+                     </gmd:dateType>
+                  </gmd:CI_Date>
+               </gmd:date>
+            </gmd:CI_Citation>
+         </gmd:citation>
+         <gmd:abstract>
+            <gco:CharacterString>Dieser Dienst veröffentlich die georeferenzierten Messtischblätter für das historische Deutschland aus dem Bestand der SLUB.</gco:CharacterString>
+         </gmd:abstract>
+         <gmd:pointOfContact>
+            <gmd:CI_ResponsibleParty>
+               <gmd:organisationName>
+                  <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString>
+               </gmd:organisationName>
+               <gmd:contactInfo>
+                  <gmd:CI_Contact>
+                     <gmd:address>
+                        <gmd:CI_Address>
+                           <gmd:electronicMailAddress>
+                              <gco:CharacterString>Jacob.Mendt@slub-dresden.de</gco:CharacterString>
+                           </gmd:electronicMailAddress>
+                        </gmd:CI_Address>
+                     </gmd:address>
+                  </gmd:CI_Contact>
+               </gmd:contactInfo>
+               <gmd:role>
+                  <gmd:CI_RoleCode codeListValue="custodian" codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode"/>
+               </gmd:role>
+            </gmd:CI_ResponsibleParty>
+         </gmd:pointOfContact>
+	 <gmd:graphicOverview>
+	    <gmd:MD_BrowseGraphic>
+		<gmd:fileName>
+		    <gco:CharacterString>http://kartenforum.slub-dresden.de/cgi-bin/mtbows?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=Historische%20Messtischblaetter&amp;TRANSPARENT=true&amp;FORMAT=image%2Fpng&amp;STYLES=&amp;EXCEPTIONS=application%2Fvnd.ogc.se_inimage&amp;SRS=EPSG%3A900913&amp;BBOX=1399103.3655371,6677538.7900635,1403995.3353467,6682430.759873&amp;WIDTH=256&amp;HEIGHT=256</gco:CharacterString>
+		</gmd:fileName>
+	    </gmd:MD_BrowseGraphic>
+	 </gmd:graphicOverview>
+         <gmd:descriptiveKeywords>
+            <gmd:MD_Keywords>
+               <gmd:keyword>
+                  <gco:CharacterString>SLUB</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>Messtischblaetter</gco:CharacterString>
+               </gmd:keyword>
+            </gmd:MD_Keywords>
+         </gmd:descriptiveKeywords>
+         <gmd:resourceConstraints>
+            <gmd:MD_Constraints>
+               <gmd:useLimitation>
+                  <gco:CharacterString>http://www.slub-dresden.de</gco:CharacterString>
+               </gmd:useLimitation>
+            </gmd:MD_Constraints>
+         </gmd:resourceConstraints>
+         <gmd:resourceConstraints>
+            <gmd:MD_LegalConstraints>
+               <gmd:accessConstraints>
+                  <gmd:MD_RestrictionCode codeListValue="copyright" codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_RestrictionCode"/>
+               </gmd:accessConstraints>
+            </gmd:MD_LegalConstraints>
+         </gmd:resourceConstraints>
+         <srv:serviceType>
+            <gco:LocalName>view</gco:LocalName>
+         </srv:serviceType>
+         <srv:serviceTypeVersion>
+            <gco:CharacterString>1.1.1</gco:CharacterString>
+         </srv:serviceTypeVersion>
+         <srv:extent>
+            <gmd:EX_Extent>
+               <gmd:geographicElement>
+                  <gmd:EX_GeographicBoundingBox>
+                     <gmd:westBoundLongitude>
+                        <gco:Decimal>5.833</gco:Decimal>
+                     </gmd:westBoundLongitude>
+                     <gmd:eastBoundLongitude>
+                        <gco:Decimal>23.000</gco:Decimal>
+                     </gmd:eastBoundLongitude>
+                     <gmd:southBoundLatitude>
+                        <gco:Decimal>47.200</gco:Decimal>
+                     </gmd:southBoundLatitude>
+                     <gmd:northBoundLatitude>
+                        <gco:Decimal>56.000</gco:Decimal>
+                     </gmd:northBoundLatitude>
+                  </gmd:EX_GeographicBoundingBox>
+               </gmd:geographicElement>
+            </gmd:EX_Extent>
+         </srv:extent>
+	<srv:coupledResource>
+            <srv:SV_CoupledResource>
+               <srv:operationName>
+                  <gco:CharacterString>Historische Messtischblaetter</gco:CharacterString>
+               </srv:operationName>
+               <srv:identifier>
+                  <gco:CharacterString>9a142459-749e-4904-aaa7-88cb3d418b85</gco:CharacterString>
+               </srv:identifier>
+            </srv:SV_CoupledResource>
+         </srv:coupledResource>
+         <srv:couplingType>
+            <srv:SV_CouplingType codeListValue="tight" codeList="http://www.isotc211.org/2005/iso19119/resources/Codelist/gmxCodelists.xml#SV_CouplingType"/>
+         </srv:couplingType>
+         <srv:containsOperations>
+            <srv:SV_OperationMetadata>
+               <srv:operationName>
+                  <gco:CharacterString>GetCapabilities</gco:CharacterString>
+               </srv:operationName>
+               <srv:DCP>
+                  <srv:DCPList codeListValue="WebServices" codeList="http://www.isotc211.org/2005/iso19119/resources/Codelist/gmxCodelists.xml#DCPList"/>
+               </srv:DCP>
+               <srv:connectPoint>
+                  <gmd:CI_OnlineResource>
+			<gmd:linkage>
+			     <gmd:URL>http://kartenforum.slub-dresden.de/cgi-bin/mtbows?</gmd:URL>
+			</gmd:linkage>
+			<gmd:protocol>
+			     <gco:CharacterString>OGC:WMS</gco:CharacterString>
+			</gmd:protocol>
+			<gmd:description>
+			     <gco:CharacterString>OGC:WMS, operation: GetCapabilities</gco:CharacterString>
+			</gmd:description>
+                  </gmd:CI_OnlineResource>
+               </srv:connectPoint>
+            </srv:SV_OperationMetadata>
+         </srv:containsOperations>
+         <srv:operatesOn uuidref="9a142459-749e-4904-aaa7-88cb3d418b85"/>
+      </srv:SV_ServiceIdentification>
+  </gmd:identificationInfo>
+   <gmd:distributionInfo>
+      <gmd:MD_Distribution>
+         <gmd:distributionFormat>
+            <gmd:MD_Format>
+               <gmd:name>
+                  <gco:CharacterString>png</gco:CharacterString>
+               </gmd:name>
+               <gmd:version>
+                  <gco:CharacterString>image/png</gco:CharacterString>
+               </gmd:version>
+            </gmd:MD_Format>
+         </gmd:distributionFormat>
+         <gmd:distributor>
+            <gmd:MD_Distributor>
+               <gmd:distributorContact>
+                  <gmd:CI_ResponsibleParty>
+                     <gmd:organisationName>
+                        <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString>
+                     </gmd:organisationName>
+                     <gmd:contactInfo>
+                        <gmd:CI_Contact>
+                           <gmd:address>
+                              <gmd:CI_Address>
+                                 <gmd:electronicMailAddress>
+                                    <gco:CharacterString>Jacob.Mendt@slub-dresden.de</gco:CharacterString>
+                                 </gmd:electronicMailAddress>
+                              </gmd:CI_Address>
+                           </gmd:address>
+                        </gmd:CI_Contact>
+                     </gmd:contactInfo>
+                     <gmd:role>
+                        <gmd:CI_RoleCode codeListValue="custodian" codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode"/>
+                     </gmd:role>
+                  </gmd:CI_ResponsibleParty>
+               </gmd:distributorContact>
+               <gmd:distributionOrderProcess>
+                  <gmd:MD_StandardOrderProcess>
+                     <gmd:fees>
+                        <gco:CharacterString>none</gco:CharacterString>
+                     </gmd:fees>
+                     <gmd:orderingInstructions>
+                        <gco:CharacterString>http://www.slub-dresden.de</gco:CharacterString>
+                     </gmd:orderingInstructions>
+                  </gmd:MD_StandardOrderProcess>
+               </gmd:distributionOrderProcess>
+            </gmd:MD_Distributor>
+         </gmd:distributor>
+         <gmd:transferOptions>
+            <gmd:MD_DigitalTransferOptions>
+               <gmd:onLine>
+                  <gmd:CI_OnlineResource>
+			<gmd:linkage>
+			     <gmd:URL>http://kartenforum.slub-dresden.de/cgi-bin/mtbows?</gmd:URL>
+			</gmd:linkage>
+			<gmd:protocol>
+			     <gco:CharacterString>OGC:WMS</gco:CharacterString>
+			</gmd:protocol>
+			<gmd:description>
+			     <gco:CharacterString>OGC:WMS, operation: GetCapabilities</gco:CharacterString>
+			</gmd:description>
+                  </gmd:CI_OnlineResource>
+               </gmd:onLine>
+            </gmd:MD_DigitalTransferOptions>
+         </gmd:transferOptions>
+      </gmd:MD_Distribution>
+  </gmd:distributionInfo>
+</gmd:MD_Metadata>

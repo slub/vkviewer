@@ -1,5 +1,8 @@
 eclipse.preferences.version=1
 encoding//vkviewer/__init__.py=utf-8
+encoding//vkviewer/python/scripts/UpdateDataBackends.py=utf-8
+encoding//vkviewer/python/scripts/csw/InsertMetadata.py=utf-8
+encoding//vkviewer/python/tests/scripts/csw/TestChildMetadataBinding.py=utf-8
 encoding//vkviewer/python/views/admin/AdminEvaluationPage.py=utf-8
 encoding//vkviewer/python/views/admin/DeleteGeoreferenceProcess.py=utf-8
 encoding//vkviewer/python/views/admin/PublishGeoreferenceProcess.py=utf-8

@@ -156,7 +156,7 @@ vk2.georeference.GeoreferencerChooser.prototype.deactivate = function() {
 	
 	if (goog.isDef(this._layer) && goog.isDef(this._map)){
 		this._map.removeLayer(this._layer);
-		this._map.un('singleclick', this._selectEventHandler, this._layer);
+		this._map.un('singleclick', this._selectEventHandler, this);
 	};
 	
 	goog.dom.classes.remove(this._anchorElement, 'open');

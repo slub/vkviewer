@@ -4,6 +4,7 @@ goog.require('goog.dom');
 goog.require('goog.dom.classes');
 //goog.require('ol.layer.Vector');
 goog.require('vk2.settings');
+goog.require('vk2.utils');
 
 /**
  * @param {ol.Feature} feature
@@ -63,13 +64,13 @@ vk2.factory.MapSearchFactory.getMapSearchRecord = function(feature){
 	
 	var time = goog.dom.createDom('div',{
 		'class':'timestamp',
-		'innerHTML':feature.get('time')
+		'innerHTML': vk2.utils.getMsg('timestamp') + ' ' + feature.get('time')
 	});
 	goog.dom.appendChild(details, time);
 	
 	var description = goog.dom.createDom('div',{
-		'class':'description',
-		'innerHTML': '...'
+		'class':'scale',
+		'innerHTML': vk2.utils.getMsg('scale') + ' 1:25.000'
 	});
 	goog.dom.appendChild(details, description);
 

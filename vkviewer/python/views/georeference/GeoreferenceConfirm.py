@@ -63,7 +63,7 @@ def georeferenceConfirm(request):
                                       refpoint = refPoint, deprecated = False, timestamp = timestamp, georeferenceprocessid =  georefProcess.id)
                 request.db.add(passpoint)
                 passpoints.append(passpoints)
-
+                
             log.debug('Create response ...')  
             gcps = getJsonDictPasspointsForMapObject(messtischblatt.id, request.db)
             response = {'text':'Georeference result saved. It will soon be ready for use.','georeferenceid':georefProcess.id, 'points':20, 'gcps':gcps ,'type':'confirm'}

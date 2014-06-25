@@ -84,7 +84,11 @@ var lang_dictionary = {
 		
 		// VK2.Tools.TimestampSwitcher
 		'timestamps': 'Zeitschnitte',
-		'found_timestamp': 'Zeitschnitte gefunden'
+		'found_timestamp': 'Zeitschnitte gefunden',
+			
+		// vk2.factory.MapSearchFactory
+		'scale':'Maßstab',
+		'timestamp':'Datierung'
 		
 }
 	

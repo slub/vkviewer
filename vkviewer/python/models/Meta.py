@@ -7,4 +7,11 @@ def initialize_sql(engine):
     Base.metadata.bind = engine
     Base.metadata.create_all(engine)
     
+def initializeDb(sqlalchemy_engine):
+    engine = create_engine(sqlalchemy_engine, encoding='utf8', echo=True)
+    DBSession = sessionmaker(bind=engine)
+    Base.metadata.bind = engine
+    Base.metadata.create_all(engine)
+    return DBSession()
+
 Base = declarative_base()
