@@ -10,7 +10,7 @@ from vkviewer.python.utils.validation import validateId
 from vkviewer.python.utils.parser import getJsonDictPasspointsForMapObject
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
-from vkviewer.python.models.messtischblatt.MetadatenCore import MetadatenCore
+from vkviewer.python.models.messtischblatt.MdCore import MdCore
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 
 @view_config(route_name='georeference', renderer='string', permission='view', match_param='action=getprocess')
@@ -71,7 +71,7 @@ def createGeneralResponse(objectid, request):
             
     # get zoomify and metadata information
     log.debug('Create response ...')  
-    metadata = MetadatenCore.by_id(messtischblatt.id, request.db)
+    metadata = MdCore.by_id(messtischblatt.id, request.db)
     return {
             'objectid': messtischblatt.id,
             'georeferenceid':lastGeoreferenceId, 
@@ -104,7 +104,7 @@ def createResponseForSpecificGeoreferenceProcess(objectid, georeferenceid, reque
           
     # get zoomify and metadata information
     log.debug('Create response ...')  
-    metadata = MetadatenCore.by_id(messtischblatt.id, request.db)
+    metadata = MdCore.by_id(messtischblatt.id, request.db)
     return {
             'objectid': messtischblatt.id,
             'georeferenceid':georeferenceid, 

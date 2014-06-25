@@ -84,5 +84,9 @@ var lang_dictionary = {
 		
 		// VK2.Tools.TimestampSwitcher
 		'timestamps': 'timestamps',
-		'found_timestamp': 'founded timestamps'
+		'found_timestamp': 'founded timestamps',
+			
+		// vk2.factory.MapSearchFactory
+		'scale':'Scale',
+		'timestamp':'Timestamp'
 }

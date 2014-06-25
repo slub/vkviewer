@@ -2,7 +2,7 @@ from vkviewer.python.models.Meta import Base
 
 from sqlalchemy import Column, Integer, String
 
-class MetadatenCore(Base):
+class MdCore(Base):
     __tablename__ = 'md_core'
     __table_args__ = {'extend_existing':True}
     id = Column(Integer, primary_key=True)
@@ -20,4 +20,4 @@ class MetadatenCore(Base):
     
     @classmethod
     def by_id(cls, id, session):
-        return session.query(MetadatenCore).filter(MetadatenCore.id == id).first()
+        return session.query(MdCore).filter(MdCore.id == id).first()

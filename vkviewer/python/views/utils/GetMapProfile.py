@@ -6,7 +6,7 @@ Created on Feb 6, 2014
 from pyramid.view import view_config
 from vkviewer import log
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
-from vkviewer.python.models.messtischblatt.MetadatenCore import MetadatenCore
+from vkviewer.python.models.messtischblatt.MdCore import MdCore
 from vkviewer.python.models.messtischblatt.MdDatensatz import MdDatensatz
 from vkviewer.python.utils.exceptions import InternalAuthentificationError
 
@@ -19,7 +19,7 @@ def getPage_profileMtb(request):
             log.info('Receive get map profile page for id %s.'%messtischblatt_id)
         
         messtischblatt = Messtischblatt.by_id(messtischblatt_id, request.db)                
-        metadata = MetadatenCore.by_id(messtischblatt.id, request.db)
+        metadata = MdCore.by_id(messtischblatt.id, request.db)
         metadata_datensatz = MdDatensatz.by_ObjectId(messtischblatt.id, request.db)
         return {'zoomify_prop':messtischblatt.zoomify_properties,'zoomify_width':messtischblatt.zoomify_width,
                 'zoomify_height':messtischblatt.zoomify_height,'key':messtischblatt.dateiname,

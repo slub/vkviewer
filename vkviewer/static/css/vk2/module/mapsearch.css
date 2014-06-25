@@ -45,7 +45,7 @@
 
 .mapsearch-list .mapsearch-record{
 	list-style: none;
-	height: 120px;
+	height: 100px;
 }
 
 .mapsearch-list .mapsearch-record .data-col{
@@ -59,8 +59,8 @@
 .mapsearch-list .mapsearch-record .thumbnail{
 	position: relative;
 	float: left;
-	width: 100px;
-	height: 100px;
+	width: 80px;
+	height: 80px;
 }
 
 .mapsearch-list .mapsearch-record .thumbnail img{
