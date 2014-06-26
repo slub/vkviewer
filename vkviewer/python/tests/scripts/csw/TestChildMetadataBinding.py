@@ -139,13 +139,30 @@ class TestChildMetadataBinding(unittest.TestCase):
         finally:
             shutil.rmtree(tmpDirectory)
             
-    def testUpdatePermalink(self):
+    def testUpdateOnlineResource(self):
         try:
-            updateValue = 'http://digital.slub-dresden.de/id33592272'            
+            updateValue = [
+                {
+                    'url':'http://kartenforum.slub-dresden.de/vkviewer/permalink?objectid=',
+                    'protocol':'HTTP',
+                    'name':'Permalink'
+                },
+                {
+                    'url':'testWMS',
+                    'protocol':'OGC:WMS-1.1.1-http-get-map',
+                    'name':'WEB MAP SERVICE (WMS)'
+                },
+                {
+                    'url':'testperma',
+                    'protocol':'HTTP',
+                    'name':'Permalink'
+                }                        
+            ]           
+            
             tmpDirectory = tempfile.mkdtemp('', 'tmp_', TEMPLATE_FILES['tmp_dir'])
             mdFile = createTemporaryCopy(TEMPLATE_FILES['child'], tmpDirectory)
             mdEditor = ChildMetadataBinding(mdFile, self.logger)
-            response = mdEditor.updatePermalink(updateValue)
+            response = mdEditor.updateOnlineResource(updateValue)
             self.assertTrue(response, 'Function: testUpdatePermalink - Response is not like expected.')
             
             # check if value is correctly set
@@ -258,28 +275,6 @@ class TestChildMetadataBinding(unittest.TestCase):
             raise
         finally:
             shutil.rmtree(tmpDirectory)
-                     
-    def testUpdateWMSLink(self):
-        try:
-            wms_params = {
-                'westBoundLongitude':21.49,
-                'southBoundLatitude':21.66,
-                'eastBoundLongitude':55.49,
-                'northBoundLatitude':55.59,
-                'srid':DATABASE_SRID,
-                'time':1919,
-                'width':256,
-                'height':256
-            }
-            tmpDirectory = tempfile.mkdtemp('', 'tmp_', TEMPLATE_FILES['tmp_dir'])
-            mdFile = createTemporaryCopy(TEMPLATE_FILES['child'], tmpDirectory)
-            mdEditor = ChildMetadataBinding(mdFile, self.logger)
-            response = mdEditor.updateWMSLink(wms_params)
-            self.assertTrue(response, 'Function: testUpdateWMSLink - Response is not like expected.')
-        except:
-            raise
-        finally:
-            shutil.rmtree(tmpDirectory)    
                                                    
     def testSaveFile(self):
         try:

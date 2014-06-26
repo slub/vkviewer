@@ -93,7 +93,33 @@ def getMetadataForMesstischblatt(id, db, logger):
                         'time':metadata_time.datierung,
                         'width':256,
                         'height':256
-                    }
+                    },
+                    'onlineresource':[
+                        {
+                            'url':'http://kartenforum.slub-dresden.de/vkviewer/permalink?objectid=%s'%mtb.id,
+                            'protocol':'HTTP',
+                            'name':'Permalink'
+                        },
+                        {
+                            'url':TEMPLATE_OGC_SERVICE_LINK['wms_template']%({
+                                'westBoundLongitude':str(mtb.BoundingBoxObj.llc.x),
+                                'southBoundLatitude':str(mtb.BoundingBoxObj.llc.y),
+                                'eastBoundLongitude':str(mtb.BoundingBoxObj.urc.x),
+                                'northBoundLatitude':str(mtb.BoundingBoxObj.urc.y),
+                                'srid':DATABASE_SRID,
+                                'time':metadata_time.datierung,
+                                'width':256,
+                                'height':256
+                            }),
+                            'protocol':'OGC:WMS-1.1.1-http-get-map',
+                            'name':'WEB MAP SERVICE (WMS)'
+                        },
+                        {
+                            'url':metadata_dataset.permalink,
+                            'protocol':'HTTP',
+                            'name':'Permalink'
+                        }                        
+                    ]
         }
         return metadata
     except:
@@ -110,13 +136,12 @@ def updateMetadata(file, metadata, logger):
         mdEditor.updateHierarchyLevelName(metadata['hierarchylevel'])
         mdEditor.updateBoundingBox(metadata['westBoundLongitude'], metadata['eastBoundLongitude'], 
                                    metadata['southBoundLatitude'], metadata['northBoundLatitude'])
-        mdEditor.updatePermalink(metadata['permalink'])
         mdEditor.updateDateStamp(metadata['dateStamp'])
         mdEditor.updateReferenceTime(metadata['temporalExtent_begin'], metadata['temporalExtent_end'])
         mdEditor.updateReferenceDate(metadata['cite_date'])
-        mdEditor.updateWMSLink(metadata['wms_params'])
         mdEditor.updateGraphicOverview(metadata['overviews'])
         mdEditor.updateIdCode(metadata['identifier'])
+        mdEditor.updateOnlineResource(metadata['onlineresource'])
         
         print '============================'
         print mdEditor.tostring()

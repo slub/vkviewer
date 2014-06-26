@@ -130,12 +130,7 @@ class ChildMetadataBinding(object):
             if len(rootElements) is loopSize:
                 for i in range(0, loopSize):
                     rootElements[i].text = links[i]
-#                              self.ns['gmd']+'MD_BrowseGraphic',
-#                              self.ns['gmd']+'fileName', 
-#                              self.ns['gco']+'CharacterString']
-#            
-#             value = TEMPLATE_OGC_SERVICE_LINK['wms_template']%(wms_params) 
-#             self.__changeSingleElement__(value, '/'.join(xmlHierarchy))     
+    
             return True
         except:
             self.logger.error('Problems while updating the <gmd:MD_DigitalTransferOptions> with params %s.'%links)
@@ -177,24 +172,6 @@ class ChildMetadataBinding(object):
             return True
         except:
             self.logger.error('Problems while updating the <gmd:fileIdentifier> with value %s.'%value)
-            raise
-        
-    def updatePermalink(self, value):
-        try: 
-            self.logger.debug('Update <gmd:MD_DigitalTransferOptions')
-            xmlHierarchy = [self.ns['gmd']+'distributionInfo', 
-                             self.ns['gmd']+'MD_Distribution',
-                             self.ns['gmd']+'transferOptions',
-                             self.ns['gmd']+'MD_DigitalTransferOptions',
-                             self.ns['gmd']+'onLine',
-                             self.ns['gmd']+'CI_OnlineResource',
-                             self.ns['gmd']+'linkage',
-                             self.ns['gmd']+'URL']
-            valueElement = self.root.findall('/'.join(xmlHierarchy))[0]
-            valueElement.text = value
-            return True
-        except:
-            self.logger.error('Problems while updating the <gmd:MD_DigitalTransferOptions> with value %s.'%value)
             raise
         
     def updateTitle(self, value):
@@ -274,23 +251,44 @@ class ChildMetadataBinding(object):
             self.logger.error('Problems while updating the <gmd:extent> with startValue %s and endValue %s.'%(startValue, endValue))    
             raise      
         
-    def updateWMSLink(self, wms_params):
-        try: 
-            self.logger.debug('Update <gmd:MD_DigitalTransferOptions')
-            xmlHierarchy = [self.ns['gmd']+'distributionInfo', 
-                             self.ns['gmd']+'MD_Distribution',
-                             self.ns['gmd']+'transferOptions',
-                             self.ns['gmd']+'MD_DigitalTransferOptions',
-                             self.ns['gmd']+'onLine',
-                             self.ns['gmd']+'CI_OnlineResource',
-                             self.ns['gmd']+'linkage',
-                             self.ns['gmd']+'URL']
-           
-            value = TEMPLATE_OGC_SERVICE_LINK['wms_template']%(wms_params)      
-            valueElement = self.root.findall('/'.join(xmlHierarchy))[1]
-            valueElement.text = value 
+    def updateOnlineResource(self, data):
+        try:
+            self.logger.debug('Update <gmd:MD_DigitalTransferOptions>')
+            xmlHierarchy = [
+                self.ns['gmd']+'distributionInfo', 
+                self.ns['gmd']+'MD_Distribution',
+                self.ns['gmd']+'transferOptions',
+                self.ns['gmd']+'MD_DigitalTransferOptions',
+                self.ns['gmd']+'onLine',
+                self.ns['gmd']+'CI_OnlineResource'
+            ]
+            rootElements = self.root.findall('/'.join(xmlHierarchy))
+            
+            loopSize = len(data)
+            if len(rootElements) is loopSize:
+                for i in range(0, loopSize):
+                    # set url
+                    urlElement = rootElements[i].find('/'.join([
+                        self.ns['gmd']+'linkage',
+                        self.ns['gmd']+'URL'
+                    ]))
+                    urlElement.text = data[i]['url']
+                    
+                    # set protocol
+                    protocolElement = rootElements[i].find('/'.join([
+                        self.ns['gmd']+'protocol',
+                        self.ns['gco']+'CharacterString'
+                    ]))
+                    protocolElement.text = data[i]['protocol']
+                    
+                    # set name
+                    nameElement = rootElements[i].find('/'.join([
+                        self.ns['gmd']+'name',
+                        self.ns['gco']+'CharacterString'
+                    ]))
+                    nameElement.text = data[i]['name']
             return True
         except:
-            self.logger.error('Problems while updating the <gmd:MD_DigitalTransferOptions> with params %s.'%wms_params)
-            raise
-                    
+            self.logger.error('Problems while updating the <gmd:MD_DigitalTransferOptions> with values %s.'%data)
+            raise                    
+            
