@@ -40,7 +40,11 @@
 .mapsearch-list > ul{
 	padding: 0px;
 	overflow: auto;
-	height: 600px;
+	position: absolute;
+	top: 200px;
+	bottom: 30px;
+	left: 15px;
+	right: 15px;
 }
 
 .mapsearch-list .mapsearch-record{

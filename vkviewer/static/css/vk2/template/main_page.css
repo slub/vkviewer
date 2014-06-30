@@ -94,3 +94,54 @@
 .georeference-chooser-control .georeference-chooser-icon { background-position: -120px 0 } 
 .georeference-chooser-control:hover .georeference-chooser-icon { background-position: -120px -40px }
 .georeference-chooser-control.open { background: rgba(51,68,68,0.9); }
+
+/* user-header */
+.user-header {
+	z-index: 2001;
+	top: 10px;
+	right: 10px;
+	position: absolute;
+	display: block;
+	background: #fff;
+	background: rgba(255,255,255,0.9);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+	padding: 10px;
+	
+}
+
+.user-header > ul {
+	position: relative;
+	float: left;
+}
+
+
+.user-header .langswitch { 
+	list-style-type: none; 
+}
+
+.user-header .langswitch li { 
+	width: 16px; 
+	height: 11px; 
+	overflow: hidden; 
+	padding: 0; 
+	margin: 0 0 6px 0; 
+	float: left;
+}
+
+.user-header .language_switcher { 
+	position: relative; 
+	float: left; 
+	height: 11px; 
+	width: 16px; 
+	display: block; 
+	overflow: hidden; 
+	text-indent: -9000px; 
+	background: url('/vkviewer/static/images/flags.png') no-repeat 
+}
+
+.language_switcher.switch_de { background-position: 0 0 }
+.language_switcher.switch_en { background-position: 0 -11px }
+
+
+
+

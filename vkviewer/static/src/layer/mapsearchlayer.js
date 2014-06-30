@@ -14,6 +14,7 @@ vk2.layer.MapSearch = function(settings){
 	
 	if (goog.DEBUG)
 		console.log('Parser options: '+vk2.settings.WFS_PARSER_CONFIG['mtbows']);
+	
 	// create vector source
 	var vectorSource = new ol.source.ServerVector({
 		format: new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows']),
@@ -40,7 +41,13 @@ vk2.layer.MapSearch = function(settings){
 
 		    xhr.send(url);
 		},
-		projection: settings.projection
+		projection: settings.projection,
+		strategy: 	function(extent, resolution){
+			if (resolution <= 611.4962261962891){
+				return [extent];
+			}
+			return [];
+		}
 	});
 	
 	// define time array

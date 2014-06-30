@@ -88,7 +88,11 @@ var lang_dictionary = {
 			
 		// vk2.factory.MapSearchFactory
 		'scale':'Maßstab',
-		'timestamp':'Datierung'
+		'timestamp':'Datierung',
+			
+		// tooltips
+		'layerspy':'Kartenlupe',
+		'rotatenorth':'Karten nach Norden ausrichten'
 		
 }
 	

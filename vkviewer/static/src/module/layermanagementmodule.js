@@ -46,6 +46,37 @@ vk2.module.LayerManagementModule = function(parentEl, layers, map){
 goog.inherits(vk2.module.LayerManagementModule, goog.events.EventTarget);
 
 /**
+ * This methods returns an array of layer which have should be display in the layerswitcher
+ * @return {Array.<ol.Layer>}
+ * @private
+ */
+vk2.module.LayerManagementModule.prototype._getLayers = function(){
+	var allLayers = this._layers.getArray();
+	var layers = [];
+	for (var i = 0, ii = allLayers.length; i < ii; i++){
+		if (goog.isDef(allLayers[i].getDisplayInLayerManagement)	&& allLayers[i].getDisplayInLayerManagement()){
+			layers.push(allLayers[i])
+		};
+	};
+	return layers;
+};
+
+/**
+ * @param {ol.Layer} layer
+ * @return {number}
+ * @private
+ */
+vk2.module.LayerManagementModule.prototype._getIndexToLayer = function(layer){
+	var layers = this._layers.getArray();
+	for (var i = 0, ii = layers.length; i < ii; i++){
+		if (layer === layers[i]){
+			return i
+		};
+	};
+	return undefined;
+};
+
+/**
  * @param {Element} parentEl
  * @private
  */
@@ -69,7 +100,7 @@ vk2.module.LayerManagementModule.prototype._loadHtmlContent = function(parentEl)
 	 * @type {Element}
 	 * @private
 	 */
-	this._bodyEl = goog.dom.createDom('div',{'class':'layermanagement-body'});
+	this._bodyEl = goog.dom.createDom('ul',{'class':'layermanagement-body'});
 	goog.dom.appendChild(containerEl, this._bodyEl);
 };
 
@@ -82,15 +113,38 @@ vk2.module.LayerManagementModule.prototype._refresh = function(event){
 			&& event.element.getDisplayInLayerManagement()){
 		// clear list
 		this._bodyEl.innerHTML = '';
-		
-		var layers = this._layers.getArray();
+
+		var layers = this._getLayers();
 		for (var i = layers.length-1, ii = 0; i >= ii; i--){
-			if (goog.isDef(layers[i].getDisplayInLayerManagement)	&& layers[i].getDisplayInLayerManagement()){
-				var layermanagementrecord = vk2.factory.LayerManagementFactory.getLayerManagementRecord(layers[i], this._map);
-				goog.dom.appendChild(this._bodyEl, layermanagementrecord);
-			};
+			var layermanagementrecord = vk2.factory.LayerManagementFactory.getLayerManagementRecord(layers[i], i, this._map);
+			goog.dom.appendChild(this._bodyEl, layermanagementrecord);
 		};
 	};
+	
+	// activates the sortable
+	$(this._bodyEl).sortable({
+		'revert': true,
+		'handle': '.drag-btn',
+		'stop': goog.bind(function(event, ui){
+			var layers = this._getLayers();
+			var newIndex = (layers.length - 1) - ui.item.index();
+			
+			if (goog.DEBUG){
+				console.log('Sort event stop!');
+				console.log(event.toElement.parentElement);
+			};
+			var layer = layers[event.toElement.parentElement.id];
+			
+			// remove old layer
+
+			var removeLayerIndex = this._getIndexToLayer(layer);
+			this._layers.removeAt(removeLayerIndex);
+			
+			// add new layer
+			var newLayerIndex = this._getIndexToLayer(layers[newIndex]);
+			this._layers.insertAt(newLayerIndex + 1, layer);
+		}, this)
+	});
 };
 
 /**

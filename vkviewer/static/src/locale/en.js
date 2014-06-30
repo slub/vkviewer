@@ -88,5 +88,9 @@ var lang_dictionary = {
 			
 		// vk2.factory.MapSearchFactory
 		'scale':'Scale',
-		'timestamp':'Timestamp'
+		'timestamp':'Timestamp',
+			
+		// tooltips
+		'layerspy':'Get a magnifier for the map',
+		'rotatenorth':'Align map to north'
 }

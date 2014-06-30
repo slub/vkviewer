@@ -5,7 +5,8 @@ goog.require('goog.events.EventType');
 goog.require('goog.events.KeyHandler');
 goog.require('goog.events.KeyCodes');
 goog.require('goog.dom');
-goog.require('goog.dom.classes');
+goog.require('goog.dom.classes')
+goog.require('vk2.utils');
 
 /**
  * @constructor
@@ -28,7 +29,7 @@ vk2.control.LayerSpy = function(opt_options) {
 	   * @type {Element}
 	   * @private
 	   */
-	  var activate_button = goog.dom.createDom('a',{'href':'#layerspy','innerHTML':'L'});
+	  var activate_button = goog.dom.createDom('a',{'class':'ol-has-tooltip', 'href':'#layerspy','innerHTML':'L'});
 	  
 	  /**
 	   * @type {Element}
@@ -37,6 +38,8 @@ vk2.control.LayerSpy = function(opt_options) {
 	  var control_container = goog.dom.createDom('div',{'class':'ol-layerspy ol-unselectable'});
 	  goog.dom.appendChild(control_container, activate_button);
 	  
+	  var tooltip = goog.dom.createDom('span', {'role':'tooltip','innerHTML':vk2.utils.getMsg('layerspy')})
+	  goog.dom.appendChild(activate_button, tooltip);
 	  
 	  /**
 	   * @type {number}
@@ -60,12 +63,14 @@ vk2.control.LayerSpy = function(opt_options) {
 			  // before rendering the layer, do some clipping
 			  'precompose': function(event) {
 				  var ctx = event.context;
+				  var pixelRatio = event.frameState.pixelRatio;
 				  ctx.save();
 				  ctx.beginPath();
+				  
 				  if (mousePosition) {
 				    // only show a circle around the mouse
-				    ctx.arc(mousePosition[0], mousePosition[1], this._clipRadius, 0, 2 * Math.PI);
-				    ctx.lineWidth = 5;
+				    ctx.arc(mousePosition[0] * pixelRatio, mousePosition[1] * pixelRatio, this._clipRadius * pixelRatio, 0, 2 * Math.PI);
+				    ctx.lineWidth = 5 * pixelRatio;
 				    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
 				    ctx.stroke();
 				  }
@@ -114,7 +119,7 @@ vk2.control.LayerSpy = function(opt_options) {
 				this._activate(activate_button);
 			}
 	  }, undefined, this);
-	
+	  
 	  ol.control.Control.call(this, {
 	    element: control_container,
 	    target: options.target

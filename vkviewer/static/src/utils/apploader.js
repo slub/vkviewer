@@ -49,7 +49,7 @@ vk2.utils.AppLoader = function(settings){
 		    return [vk2.utils.Styles.MAP_SEARCH_HOVER_FEATURE];
 		}	
 	});
-	var spatialSearch = new vk2.module.SpatialTemporalSearchModule('vk2MapPanel', featureOverlay);
+	var spatialSearch = new vk2.module.SpatialTemporalSearchModule('spatialsearch-container', featureOverlay);
 	map_controller.registerSpatialTemporalSearch(spatialSearch);
 
 	// load layermanagement
@@ -83,6 +83,8 @@ vk2.utils.AppLoader = function(settings){
 		window['mapsearch'] = spatialSearch.getMapSearchModule();
 		window['permalink'] = permalink;
 	};
+	
+	setTimeout(function(){vk2.utils.overwriteOlTitles('mapdiv');}, 500);
 };
 
 /**

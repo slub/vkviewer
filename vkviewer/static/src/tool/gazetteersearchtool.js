@@ -94,7 +94,7 @@ vk2.tool.GazetteerSearch.prototype._loadHtmlContent = function(parentEl){
 	 * @private
 	 */
 	this._inputText = goog.dom.createDom('input',{
-		'innerHTML': vk2.utils.getMsg('gazetteer_placeholder'),
+		'placeholder': vk2.utils.getMsg('gazetteer_placeholder'),
 		'type':'text',
 		'class':'form-control gazetteersearch-input'
 	});

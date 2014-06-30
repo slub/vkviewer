@@ -33,7 +33,7 @@ vk2.settings.WFS_GRID_URL = 'http://194.95.145.43/cgi-bin/mtb_grid';
 /**
  * @type {string}
  */
-vk2.settings.PROXY_URL = 'http://localhost:8080/vkviewer/proxy/?url=';
+vk2.settings.PROXY_URL = '/vkviewer/proxy/?url=';
 
 /**
  * @type {string}

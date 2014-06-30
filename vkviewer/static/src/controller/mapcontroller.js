@@ -67,11 +67,11 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 		layers: [
 		   new ol.layer.Tile({
 			   preload: Infinity,
-			   source: new ol.source.OSM()
-//			   source: new ol.source.BingMaps({
-//				   key: 'ApU2pc7jDCWIlPogOWrr2FzQTj-1LyxAWKC6uSc26yuYv6gGxnQrXjAoeMmdngG_',
-//				   imagerySet: 'Road'
-//			   })
+			   //source: new ol.source.OSM()
+			   source: new ol.source.BingMaps({
+				   key: 'ApU2pc7jDCWIlPogOWrr2FzQTj-1LyxAWKC6uSc26yuYv6gGxnQrXjAoeMmdngG_',
+				   imagerySet: 'Road'
+			   })
 		   })
 		],
 		renderer: 'canvas',

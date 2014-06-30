@@ -51,6 +51,8 @@ vk2.tool.OpacitySlider.prototype._loadHtmlContent = function(parentEl){
 vk2.tool.OpacitySlider.prototype._appendSliderBehavior = function(sliderEl, layer){
 	var baseMin = 0, baseMax = 100;
 	var minValueEl, maxValueEl;
+	var startValue = layer.getOpacity()*100;
+
 	/**
 	 * 	@param {number} value
 	 *	@param {Element} element 
@@ -64,7 +66,7 @@ vk2.tool.OpacitySlider.prototype._appendSliderBehavior = function(sliderEl, laye
 	$(sliderEl).slider({
         'min': 0,
         'max': 100,
-        'value': 100,
+        'value': startValue,
         'animate': 'slow',
         'orientation': 'horizontal',
         'step': 1,

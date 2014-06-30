@@ -10,10 +10,11 @@ goog.require('vk2.tool.OpacitySlider');
 
 /**
  * @param {vk2.layer.HistoricMap} layer
+ * @param {number} index
  * @param {ol.Map} map
  * @static
  */
-vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, map){
+vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, index, map){
 
 	var eventListener = {
 			'changevisibility': function(event){
@@ -63,8 +64,13 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, ma
 	// 
 	var containerListEl = goog.dom.createDom('li', {
 		'class':'layermanagement-record',
-		'id':layer.getId()
+		'id': index,
+		'data-id':layer.getId()
 	});
+	
+	// for testing 
+	var dragContainerEl = goog.dom.createDom('div',{'class':'drag-btn'});
+	goog.dom.appendChild(containerListEl, dragContainerEl);
 	
 	var containerEl = goog.dom.createDom('div',{'class':'visible'});
 	goog.dom.appendChild(containerListEl, containerEl);

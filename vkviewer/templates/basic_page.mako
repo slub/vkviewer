@@ -17,6 +17,7 @@
 		
 		<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
+	    <!-- <script src="${request.static_url('vkviewer:static/lib/jquery-ui.min.js')}"></script> -->
 	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
 	   	<script src="${request.static_url('vkviewer:static/src/locale/'+_('js_library')+'.js')}"></script>
