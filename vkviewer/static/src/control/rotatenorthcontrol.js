@@ -14,7 +14,11 @@ vk2.control.RotateNorth = function(opt_options) {
   var anchor = document.createElement('a');
   anchor.href = '#rotate-north';
   anchor.innerHTML = 'N';
+  anchor.className = 'ol-has-tooltip';
 
+  var tooltip = goog.dom.createDom('span', {'role':'tooltip','innerHTML':vk2.utils.getMsg('rotatenorth')})
+  goog.dom.appendChild(anchor, tooltip);
+  
   var this_ = this;
   var handleRotateNorth = function(e) {
     // prevent #rotate-north anchor from getting appended to the url

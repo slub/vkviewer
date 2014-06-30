@@ -65,9 +65,6 @@ def addRoutes(config):
 
     # routes for the georeference process
     config.add_route('choose_map_georef',routePrefix+'/choosegeoref')
-    config.add_route('georeferencer', routePrefix+'/georef/{action}')
-    config.add_route('georeference_start', routePrefix+'/georeference/start')
-    config.add_route('georeference_validate', routePrefix+'/georeference/validate')
     config.add_route('georeference_page', routePrefix+'/georeference')
     config.add_route('georeference', routePrefix+'/georeference/{action}')
     config.add_route('report', routePrefix+'/report/{action}')

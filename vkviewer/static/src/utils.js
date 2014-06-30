@@ -20,9 +20,9 @@ vk2.utils.calculateMapExtentForPixelViewport = function(map){
 	var mapSize = goog.style.getSize(goog.dom.getElement('mapdiv'));
 	
 	// calculate pixelextent
-	var lowX = 0 + padding;
+	var lowX = 0 + spatialsearchSize.width + padding;
 	var lowY = mapSize.height - offsetBottom - padding;
-	var highX = mapSize.width - spatialsearchSize.width - padding;
+	var highX = mapSize.width - padding;
 	var highY = offsetTop + padding;
 	
 	// get equivalent coordinates
@@ -115,6 +115,24 @@ vk2.utils.getQueryParam = function(name, href){
 	} else {
 		return this.getAllQueryParams().get(name);
 	}
+};
+
+/**
+ * @param {string} map_container
+ * @static
+ */
+vk2.utils.overwriteOlTitles = function(map_container){
+	var elements = goog.dom.getElementByClass('ol-overlaycontainer-stopevent', goog.dom.getElement(map_container));
+	for (var i = 0; i < elements.children.length; i++){
+		var childElement = elements.children[i];
+		if (goog.dom.classes.has(childElement.children[0], 'ol-has-tooltip')){
+			var tooltipEls = goog.dom.getElementsByClass('ol-has-tooltip', childElement);
+			for (var j = 0; j < tooltipEls.length; j++){
+				var tooltipText = tooltipEls[j].children[0].innerHTML;
+				tooltipEls[j].setAttribute('title', tooltipText);
+			};
+		};
+	};
 };
 
 /**

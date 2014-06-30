@@ -70,14 +70,15 @@ vk2.layer.Messtischblatt = function(settings, map){
 
 	/**
 	 * @param {Array.<Array.<number>>} clip_pixel
+	 * @param {number} pixelRatio
 	 * @param {Object} canvas
 	 * @private
 	 */
-	messtischblattLayer._drawClipPolygonOnCanvas = function(clip_pixel, canvas){
+	messtischblattLayer._drawClipPolygonOnCanvas = function(clip_pixel, pixelRatio, canvas){
 		canvas.beginPath();
-		canvas.moveTo(clip_pixel[0][0],clip_pixel[0][1]);
+		canvas.moveTo(clip_pixel[0][0] * pixelRatio,clip_pixel[0][1] * pixelRatio);
 		for (var i = 1; i < clip_pixel.length; i++){
-			canvas.lineTo(clip_pixel[i][0],clip_pixel[i][1]);
+			canvas.lineTo(clip_pixel[i][0] * pixelRatio,clip_pixel[i][1] * pixelRatio);
 		};
 		canvas.closePath();
 	};
@@ -132,7 +133,8 @@ vk2.layer.Messtischblatt = function(settings, map){
 //					console.log('------------------------------------------');
 //				}
 				
-				this._drawClipPolygonOnCanvas(clip_pixel, canvas);		
+				var pixelRatio = event.frameState.pixelRatio;
+				this._drawClipPolygonOnCanvas(clip_pixel, pixelRatio, canvas);		
 				canvas.clip();
 			//};
 		}, messtischblattLayer);

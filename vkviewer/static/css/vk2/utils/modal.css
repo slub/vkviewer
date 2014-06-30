@@ -2,6 +2,8 @@
 	z-index: 10000;	
 }
 
+.modal-content { border-radius: 0; }
+
 /** Modal behavior for the faq page */
 .modal-content.faq{
 	width: auto;

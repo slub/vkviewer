@@ -15,8 +15,6 @@ from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from vkviewer.python.models.messtischblatt.Users import Users
 from vkviewer.python.models.messtischblatt.Passpoint import Passpoint
-from vkviewer.python.views.georeference.AbstractGeoreference import AbstractGeoreference
-from vkviewer.python.georef.georeferenceprocess import GeoreferenceProcessManager
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 
 @view_config(route_name='georeference', renderer='string', permission='view', match_param='action=confirm')
