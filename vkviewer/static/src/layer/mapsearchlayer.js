@@ -22,7 +22,7 @@ vk2.layer.MapSearch = function(settings){
 		loader: function(extent, resolution, projection) {
 			if (goog.DEBUG)
 				console.log('Loader is called');
-					    
+		    
 		    // test with json
 			var url_json = 'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows?service=WFS&version=1.0.0&request=GetFeature&' +
 				'typeName=virtuelles_kartenforum:view_layer_vrt&maxFeatures=10000&outputFormat=text/javascript&' + 

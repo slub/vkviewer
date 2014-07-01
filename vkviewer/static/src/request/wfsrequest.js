@@ -38,6 +38,17 @@ vk2.request.WFS.getFeatureRequest = function(extent, time){
 };
 
 /**
+ * @param {Array.<number>} extent
+ * @param {string} projection
+ */
+vk2.request.WFS.getSimpleFeatureRequest = function(extent, projection){
+	var request = vk2.settings.PROXY_URL+vk2.settings.WFS_URL+'?SERVICE=WFS&' +
+		'VERSION=1.1.0&REQUEST=getfeature&TYPENAME=Historische_Messtischblaetter_WFS&MAXFEATURES=10000&srsname='+projection+'&' +
+		'bbox=' + extent.join(',');
+	return request;
+};
+
+/**
  * @param {string} featureName
  * @param {Array.<number>} bbox
  */
