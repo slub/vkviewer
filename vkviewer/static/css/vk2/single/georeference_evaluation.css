@@ -3,22 +3,31 @@ html, body{
 }
 
 /* own style definitions */
+.content-container {
+	position: absolute;
+	top: 100px;
+	bottom: 0px;
+}
+
+.content-container .container, .content-container .container .row { height: 1000px; }
+.content-container .container .row .list {overflow: scroll; height: 1000px;}
+.content-container .container .row .map {overflow: scroll; height: 1000px;}
+
 .georef-history{
 	height: 100%;
 }
 
-.content-container .media .thumbnail{
-	padding: 10px;
-	width: 256px;
-	height: 256px;
+.row.article{
+	height: 420px;
 }
 
-.content-container .media .media-body{
-	padding-right: 50px;
+.row.article > div {
+	height: 100%;
 }
-.content-container .media .media-body > p{
-	margin-bottom: 5px;
-	word-wrap: break-word;
+
+.evaluation-map{
+	width: 100%;
+	height: 100%;
 }
 /* 
     HTML5 ? Boilerplate 

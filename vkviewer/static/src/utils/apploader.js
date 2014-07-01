@@ -243,6 +243,17 @@ vk2.utils.AppLoader.loadGeoreferenceEvaluationRecordBehavior = function(classNam
 };
 
 /**
+ * This function is used by the admin evaluation page. It removes the dom element with the given id through the attribute value
+ * @param {string} idMapContainer
+ * @expose
+ * @static
+ */
+vk2.utils.AppLoader.loadGeoreferenceEvaluationMap = function(idMapContainer){
+	// load validation map
+	var resultViewer = new vk2.georeference.ResultViewer(idMapContainer);
+};
+
+/**
  * @expose
  * @static
  */
