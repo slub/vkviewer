@@ -47,7 +47,7 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 		  ]),
 		  renderer: 'canvas',
 		  target: map_container,
-		  view: new ol.View2D({
+		  view: new ol.View({
 			  	projection: 'EPSG:900913',
 			    center: [0, 0],
 			    zoom: 2
@@ -57,7 +57,7 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 		       new ol.control.Zoom(),
 		       new ol.control.Attribution(),
 		       new ol.control.ZoomToExtent({
-		   			extent: result_settings['extent']
+		   			extent: this._settings['extent']
 		   	   }),
 			   new vk2.control.LayerSpy({
 					'spyLayer':new ol.layer.Tile({
