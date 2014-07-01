@@ -2,6 +2,7 @@ goog.provide('vk2.layer.MapSearch');
 
 goog.require('goog.net.XhrIo');
 goog.require('goog.events');
+goog.require('goog.net.Jsonp');
 goog.require('vk2.settings');
 goog.require('vk2.utils.Styles');
 
@@ -17,37 +18,24 @@ vk2.layer.MapSearch = function(settings){
 	
 	// create vector source
 	var vectorSource = new ol.source.ServerVector({
-		format: new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows']),
+		format: new ol.format.GeoJSON(),
 		loader: function(extent, resolution, projection) {
 			if (goog.DEBUG)
 				console.log('Loader is called');
+					    
+		    // test with json
+			var url_json = 'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows?service=WFS&version=1.0.0&request=GetFeature&' +
+				'typeName=virtuelles_kartenforum:view_layer_vrt&maxFeatures=10000&outputFormat=text/javascript&' + 
+				'srsname='+settings.projection+'&bbox=' + extent.join(',') + '&format_options=callback:mapsearchlayer_callback';
 			
-			var url = vk2.settings.PROXY_URL+vk2.settings.WFS_URL+'?SERVICE=WFS&' +
-		    	'VERSION=1.1.0&REQUEST=getfeature&TYPENAME=Historische_Messtischblaetter_WFS&MAXFEATURES=10000&srsname='+settings.projection+'&' +
-		    	'bbox=' + extent.join(',');
-		    
-		    var xhr = new goog.net.XhrIo();
-		    
-		    goog.events.listenOnce(xhr, 'success', function(e){
-		    	if (goog.DEBUG){
-		    		console.log('Receive features');
-		    	};
-		    	
-		    	var xhr = /** @type {goog.net.XhrIo} */ (e.target);
-		    	var data = xhr.getResponseXml() ? xhr.getResponseXml() : xhr.getResponseText();
-		    	xhr.dispose();
-		    	this.addFeatures(this.readFeatures(data));
-		    }, false, this);
-
-		    xhr.send(url);
+			window['mapsearchlayer_callback'] = goog.bind(function(data){
+				this.addFeatures(this.readFeatures(data));
+			}, this);
+			
+			var jsonp = new goog.net.Jsonp(url_json);
+			jsonp.send();
 		},
-		projection: settings.projection,
-		strategy: 	function(extent, resolution){
-			if (resolution <= 611.4962261962891){
-				return [extent];
-			}
-			return [];
-		}
+		projection: settings.projection
 	});
 	
 	// define time array

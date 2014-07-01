@@ -50,6 +50,12 @@ vk2.module.MapSearchModule = function(parentEl, featureOverlay){
 	this._interval = 20;
 	
 	/**
+	 * @type {string}
+	 * @private
+	 */
+	this._sortType = 'title';
+	
+	/**
 	 * @type {ol.featureOverlay}
 	 * @private
 	 */
@@ -188,6 +194,8 @@ vk2.module.MapSearchModule.prototype._appendScrollBehavior = function(){
 				// check if scrolled to end of list and if yes triggger append event
 				if (scrollEl.offsetHeight + scrollEl.scrollTop >= scrollEl.scrollHeight){
 					
+					this._dispatchListEndEvent();
+					
 					// check if there are still features to append
 					if (this._featurePointer < this._searchFeatures.length)
 						this._appendFeaturesToList();
@@ -221,6 +229,24 @@ vk2.module.MapSearchModule.prototype._appendFeaturesToList = function(){
 /**
  * @private
  */
+vk2.module.MapSearchModule.prototype._dispatchListEndEvent = function(){
+	debugger;
+};
+
+/**
+ * @param {Array.<Element>} elements
+ * @param {string} type
+ * @private
+ */
+vk2.module.MapSearchModule.prototype._getSortOrder = function(elements, type){
+	for (var i = 0; i < sortElements.length; i++){
+		
+	}
+};
+
+/**
+ * @private
+ */
 vk2.module.MapSearchModule.prototype._refreshMapSearchList = function(){
 	this._searchListEl.innerHTML = '';
 	this._appendFeaturesToList();
@@ -240,6 +266,7 @@ vk2.module.MapSearchModule.prototype._sortFeatures = function(type){
 	var sortElements = goog.dom.getElementsByClass('sort-element');
 	for (var i = 0; i < sortElements.length; i++){
 		var has_descending_class = goog.dom.classes.has(sortElements[i], 'descending');
+		
 		// remove old classes
 		goog.dom.classes.remove(sortElements[i], 'descending');
 		goog.dom.classes.remove(sortElements[i], 'ascending');
@@ -291,5 +318,6 @@ vk2.module.MapSearchModule.prototype.getFeatures = function(){
  * @enum {string}
  */
 vk2.module.MapSearchModule.EventType = {
-		ADDMTB: 'addmtb'
+		ADDMTB: 'addmtb',
+		LISTEND: 'listend'
 };
