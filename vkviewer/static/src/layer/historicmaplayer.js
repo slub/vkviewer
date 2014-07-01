@@ -87,8 +87,8 @@ vk2.layer.HistoricMap = function(settings, map){
 	this._associations = undefined;
 	
 	// feature
-	var feature = new ol.Feature(new ol.geom.Polygon([this._borderPolygon]))
-	feature.setValues({
+	var feature = new ol.Feature(new ol.geom.Polygon([this._borderPolygon]));
+	feature.setProperties({
 		'objectid':this._id,
 		'time':this._time,
 		'title':this._title

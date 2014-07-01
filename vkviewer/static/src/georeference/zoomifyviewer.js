@@ -69,7 +69,7 @@ vk2.georeference.ZoomifyViewer = function(map_container, zoomify_settings){
 		    ],
 		    renderer: 'canvas',
 		    target: map_container,
-		    view: new ol.View2D({
+		    view: new ol.View({
 			    projection: proj,
 			    center: imgCenter,
 			    //adjust initial and max zoom level here
@@ -80,7 +80,7 @@ vk2.georeference.ZoomifyViewer = function(map_container, zoomify_settings){
 		
 		// add zoom to extent control
 		this._map.addControl(new ol.control.ZoomToExtent({
-			extent: this._map.getView().getView2D().calculateExtent(this._map.getSize())
+			extent: this._map.getView().calculateExtent(this._map.getSize())
 		}));
 };
 

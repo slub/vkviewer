@@ -92,7 +92,7 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 			new vk2.control.RotateNorth(),
 			new ol.control.ScaleLine()
 		],
-		view: new ol.View2D({
+		view: new ol.View({
 			projection: 'EPSG:900913',
 	        minResolution: 1.194328566789627,
 	        maxResolution: 2445.9849047851562,
@@ -127,7 +127,7 @@ vk2.controller.MapController.prototype._addFeatureClickBehavior = function(map){
 vk2.controller.MapController.prototype._registerGazetteerSearchTool = function(gazetteersearch){
 	// jumps to extent
 	goog.events.listen(gazetteersearch, 'jumpto', function(event){
-		var view = this._map.getView().getView2D();
+		var view = this._map.getView();
 		view.setCenter(ol.proj.transform([parseFloat(event.target.lonlat[0]),parseFloat(event.target.lonlat[1])], 
 				event.target.srs, 'EPSG:900913'));
 		view.setZoom(5);
@@ -164,7 +164,7 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 		if (goog.DEBUG)
 			console.log('Moveend Event');
 		
-		var view = event.map.getView().getView2D();
+		var view = event.map.getView();
 		var featureCount = this._mapsearchLayer.getSource().getFeatures().length;
 		if (lastMoveendCenter !== view.getCenter() || lastMoveendFeatureCount !== featureCount){
 			if (goog.DEBUG)
