@@ -230,7 +230,9 @@ vk2.module.MapSearchModule.prototype._appendFeaturesToList = function(){
  * @private
  */
 vk2.module.MapSearchModule.prototype._dispatchListEndEvent = function(){
-	debugger;
+	if (goog.DEBUG){
+		console.log('Dispatch ListEnd Event!');
+	}
 };
 
 /**
