@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
@@ -61,7 +62,8 @@
 										    <p>
 												<a href="#" data-href="${request.route_url('georeference_evaluation', action='publish')}?objectid=${record['mtb_id']}&georeferenceid=${record['georef_id']}" 
 													data-id="${record['georef_id']}" class="btn btn-primary action-btn">Publish</a>
-												<a href="${request.route_url('georeference_page')}?id=${record['mtb_id']}&georeferenceid=${record['georef_id']}" class="btn btn-primary" target="_blank">Show Georeference Process</a>
+												<!-- <a href="${request.route_url('georeference_page')}?id=${record['mtb_id']}&georeferenceid=${record['georef_id']}" class="btn btn-primary" target="_blank">Show Georeference Process</a> -->
+												<a data-params="${record['clip_params']}" data-id="${record['mtb_id']}" href="#" class="btn btn-primary btn-show-georef">Show</a>
 												<a href="#" data-href="${request.route_url('georeference_evaluation', action='delete')}?georeferenceid=${record['georef_id']}" data-id="${record['georef_id']}" 
 													class="btn btn-warning action-btn">Delete Georeference Process</a>
 											</p>
@@ -85,6 +87,6 @@
 <%block name="js_content">
 	<script>
 		vk2.utils.AppLoader.loadGeoreferenceEvaluationRecordBehavior('action-btn', 'data-href', 'data-id');
-		vk2.utils.AppLoader.loadGeoreferenceEvaluationMap('evaluation-map');
+		vk2.utils.AppLoader.loadGeoreferenceEvaluationMap('evaluation-map', 'btn-show-georef');
     </script> 
 </%block>

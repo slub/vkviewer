@@ -17,6 +17,7 @@ goog.require('vk2.tool.Permalink');
 goog.require('vk2.layer.MapSearch');
 goog.require('vk2.georeference.GeoreferencerChooser');
 goog.require('vk2.georeference.Georeferencer');
+goog.require('vk2.georeference.GeoreferencerService');
 goog.require('vk2.georeference.ZoomifyViewer');
 goog.require('vk2.georeference.ResultViewer');
 goog.require('vk2.georeference.MesstischblattGcpHandler');
@@ -68,8 +69,8 @@ vk2.utils.AppLoader = function(settings){
 		// check if the georeference is active
 		if (vk2.utils.getQueryParam('georef') == 'on'){
 			georeferencerChooser.activate();
-			map_controller.getMap().getView().getView2D().setCenter(vk2.settings.MAIN_MAP_GEOREFERENCER_VIEW['center']);
-			map_controller.getMap().getView().getView2D().setZoom(vk2.settings.MAIN_MAP_GEOREFERENCER_VIEW['zoom']);
+			map_controller.getMap().getView().setCenter(vk2.settings.MAIN_MAP_GEOREFERENCER_VIEW['center']);
+			map_controller.getMap().getView().setZoom(vk2.settings.MAIN_MAP_GEOREFERENCER_VIEW['zoom']);
 		};		
 		
 		if (vk2.utils.getQueryParam('points') && (parseInt(vk2.utils.getQueryParam('points')) > 0)){
@@ -245,12 +246,54 @@ vk2.utils.AppLoader.loadGeoreferenceEvaluationRecordBehavior = function(classNam
 /**
  * This function is used by the admin evaluation page. It removes the dom element with the given id through the attribute value
  * @param {string} idMapContainer
+ * @param {string} classNameEventBtns
  * @expose
  * @static
  */
-vk2.utils.AppLoader.loadGeoreferenceEvaluationMap = function(idMapContainer){
+vk2.utils.AppLoader.loadGeoreferenceEvaluationMap = function(idMapContainer, classNameEventBtns){
 	// load validation map
 	var resultViewer = new vk2.georeference.ResultViewer(idMapContainer);
+	
+//	var validationHandler = goog.bind(function(event){
+//		if (event.target.getStatus() != 200){
+//			alert('Something went wrong, while trying to process a georeference result. Please try again or contact the administrator.');
+//		};
+//		
+//		var response = event.target.getResponseJson();
+//		
+//		if (goog.DEBUG)
+//			console.log(response);
+//		
+//		this._resultViewer.displayValidationMap(response['wms_url'], response['layer_id'], 
+//				ol.proj.transform(response['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS ));
+//	});
+	
+	var targetElements = goog.dom.getElementsByClass(classNameEventBtns);
+	for (var i = 0; i < targetElements.length; i++){
+		goog.events.listen(targetElements[i], 'click', function(event){
+			// remove this record
+			var paramsAsString = this.getAttribute('data-params');
+			var objectid = parseInt(this.getAttribute('data-id'));
+			
+			// parse string
+			var paramsAsStringWithoutUnicode = paramsAsString.replace(/u\'/g,'\'');
+			var parseAwayOuterInvCommas = JSON.parse(paramsAsStringWithoutUnicode);
+			var paramsAsStringWithInvCommas = parseAwayOuterInvCommas.replace(/\'/g,'\"');
+			var paramsAsJson = JSON.parse(paramsAsStringWithInvCommas);
+			
+			var request = {
+					'id': objectid,
+				'georeference': paramsAsJson
+			};
+			vk2.georeference.GeoreferencerService.requestValidationResult(request, function(response){
+				console.log('Display evaluation response');
+			}, function(response){
+				console.log('Something went wrong while trying to fetch a evaluation result.');
+			});
+		});
+		
+
+	};
 };
 
 /**

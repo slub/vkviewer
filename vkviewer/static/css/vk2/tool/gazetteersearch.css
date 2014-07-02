@@ -1,4 +1,5 @@
-.gazetteersearch-container{
+.gazetteersearch-container {
+  position: relative;
 	height: auto;
 }
 
@@ -7,7 +8,6 @@
 .gazetteersearch-container .gazetteersearch-input {
 	width: 100%;
 	position: relative; 
-	float: left;
 	border-radius: 0;
 	font-weight: 300;
 }
@@ -24,14 +24,22 @@
 }
 
 .gazetteersearch-container .gazetteersearch-submit {
-	width: 50px;
-	position: relative; 
-	float: left;
+	position: absolute; 
+	top: 0;
+	right: 0;
+  width: 40px;
+	height: 34px;
 	border-radius: 0;
-	background: #ccc;
+	background: rgb(0,177,158);
+	overflow: hidden;
+	text-indent: 100%;
+	white-space: nowrap;
+	padding: 0;
+	border-left: 0 none;
+
 }
 
-.gazetteersearch-container .gazetteersearch-submit:before { position: absolute; top: 10px; left: 0; width: 0; height: 0; content: "sf"; border: 5px solid #fff; border-color: transparent transparent transparent #cfc; border-left-width: 0; }
+.gazetteersearch-container .form-group:after { position: absolute; right: 40px; top: 11px; width: 0; height: 0; content: ""; border: 6px solid rgb(0,177,158); border-color: transparent rgb(0,177,158) transparent transparent; border-left-width: 0; }
 
 /** overwrite size of list */
 ul.ui-autocomplete{

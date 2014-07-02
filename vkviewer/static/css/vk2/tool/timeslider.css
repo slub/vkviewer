@@ -1,7 +1,10 @@
 .timeslider-container{
-	height: auto;
-	margin-bottom: 20px;
+  position: relative;
+	margin-bottom: 40px;
+	padding-bottom: 40px;
 }
+
+.timeslider-container:after { position: absolute; bottom: 0; left: -15px; right: -15px; height: 1px; background: rgba(0,0,0,0.3); overflow: hidden; content: ""; }
 
 .timeslider-container .slider-container{
 	padding: 10px;
