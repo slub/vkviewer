@@ -115,9 +115,9 @@
 .olMap:-webkit-full-screen .rotate-north { left: .5em; top: 85px; }
 .olMap:-moz-full-screen .rotate-north { left: .5em; top: 85px; } 
 .olMap:fullscreen .rotate-north { left: .5em; top: 85px; }
-.olMap:-webkit-full-screen .ol-scale-line { left: .5em; bottom: .5em }
-.olMap:-moz-full-screen .ol-scale-line { left: .5em; bottom: .5em } 
-.olMap:fullscreen .ol-scale-line { left: .5em; bottom: .5em }
+.olMap:-webkit-full-screen .ol-scale-line {bottom: .5em }
+.olMap:-moz-full-screen .ol-scale-line {bottom: .5em } 
+.olMap:fullscreen .ol-scale-line { bottom: .5em }
 
 
 
