@@ -16,6 +16,9 @@ GRANT ALL ON TABLE users_id_seq TO vkviewer;
 GRANT ALL ON TABLE georeferenzierungsprozess_id_seq TO vkviewer;
 GRANT ALL ON TABLE fehlermeldungen_id_seq TO vkviewer;
 GRANT SELECT, DELETE ON TABLE refmtblayer TO vkviewer;
+-- User privileges for vkviewer for updating the database
+GRANT SELECT, INSERT, UPDATE ON virtualdatasets TO vkviewer;
+GRANT SELECT ON geometry_columns TO vkviewer;
 ﻿-- User privileges user_georef
 GRANT SELECT, UPDATE ON TABLE md_bildmedium TO user_georef;
 GRANT SELECT, UPDATE ON TABLE messtischblatt TO user_georef;

@@ -38,7 +38,7 @@
 # * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # * DEALINGS IN THE SOFTWARE.
 # ****************************************************************************/'''
-import logging, argparse, os, subprocess, sys
+import logging, argparse, os, subprocess, sys, ast
 from datetime import datetime
 from subprocess import CalledProcessError
 from sqlalchemy.exc import IntegrityError
@@ -48,6 +48,7 @@ BASE_PATH_PARENT = os.path.abspath(os.path.join(BASE_PATH, os.pardir))
 sys.path.insert(0, BASE_PATH)
 sys.path.append(BASE_PATH_PARENT)
 
+from vkviewer.python.utils.logger import createLogger
 from vkviewer.python.models.Meta import initializeDb
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
@@ -55,8 +56,10 @@ from vkviewer.python.models.messtischblatt.MdZeit import MdZeit
 from vkviewer.python.models.messtischblatt.RefMtbLayer import RefMtbLayer
 from vkviewer.python.models.messtischblatt.Virtualdatasets import Virtualdatasets
 from vkviewer.python.scripts.csw.InsertMetadata import insertMetadata
+from vkviewer.python.scripts.csw.CswTransactionBinding import gn_transaction_delete
 from vkviewer.python.georef.georeferenceprocess import GeoreferenceProcessManager
-from vkviewer.python.utils.logger import createLogger
+from vkviewer.python.georef.georeferencer import georeference, addOverviews
+from vkviewer.python.utils.parser import parseGcps
 from vkviewer.python.utils.exceptions import GeoreferenceProcessNotFoundError, GeoreferenceProcessingError, WrongParameterException
 
 """ Default options """
@@ -163,50 +166,107 @@ def buildCreateVrtOverviewCmd(vrt_path):
         Returns {String} """
     return "gdaladdo --config GDAL_CACHEMAX 500 -ro -r average --config PHOTOMETRIC_OVERVIEW RGB --config TILED_OVERVIEW YES %s %s"%(vrt_path,VRT_OVERVIEW_LEVELS)
 
-        
+
 def getGeoreferenceProcessQueue(dbsession, logger):
-    """ This function request the georeference processes together with the needed
-        information from the database.
+    """ This functions build a georeference process queue. For this it looks for entries 
+        in the georeference table with status unprocessed and extends it with georeference process
+        for which the equivalent map object has status updated. 
         
-    Arguments:
-        dbsession {sqlalchemy.orm.session.Session}
-        logger (Logger)
-    Returns:
-        dictionary where the key is a timestamp and the value a list object containing 
-        tuple which contain orm mapper for the tables georeferenzierungsprozess and
-        messtischblatt """ 
-    
-    georef_queue = {}
+        Arguments:
+            dbsession {sqlalchemy.orm.session.Session}
+            logger (Logger)
+        Returns:
+            dictionary where the key is a timestamp and the value a list object containing 
+            tuple which contain orm mapper for the tables georeferenzierungsprozess and
+            messtischblatt """
     try:
-        logger.debug('Generating georeference process queue ...')
+        # response object 
+        response = { 'georeference':{}, 'reset': [] }
         
-        # Request all new georeference process parameter from the database, for 
-        # messtischblätter which are not georeference yet.
-        for georefProc, mtb in dbsession.query(Georeferenzierungsprozess, Messtischblatt).\
-                        filter(Georeferenzierungsprozess.messtischblattid == Messtischblatt.id).\
-                        filter(Messtischblatt.isttransformiert == False).\
-                        all():
+        # get unprocessed georeference process
+        dictProcessingQueueGeoref = {}
+        unprocessedGeorefProcs = Georeferenzierungsprozess.by_getUnprocessedGeorefProcesses(dbsession)
+        for georefProc in unprocessedGeorefProcs:
+            dictProcessingQueueGeoref[georefProc.messtischblattid] = georefProc
             
-            # request timestamp for the messtischblatt
-            timestamp = MdZeit.by_id(mtb.id, dbsession).time.year
-            
-            logger.debug('Found georeference process with id {0} for messtischblatt {1} (time: {2}) from the date {3}'.format(georefProc.id,
-                georefProc.messtischblattid, timestamp, georefProc.timestamp))
-            
-            # append to response
-            if timestamp in georef_queue:
-                georef_queue[timestamp].append((georefProc, mtb))
+        # get updated messtischblätter
+        updatedMesstischblaetter = Messtischblatt.getUpdatedMesstischblaetter(dbsession)
+        for messtischblatt in updatedMesstischblaetter:
+            # if there is no process for this mtb in the dictProcessingQueueGeoref than get one and add it
+            if not messtischblatt.id in dictProcessingQueueGeoref:
+                georefProc = Georeferenzierungsprozess.getLatestGeorefProcessForObjectId(messtischblatt.id, dbsession)
+                # if georefProc is None there is no more georeference process and the map object 
+                # should be resetted
+                if georefProc is None:
+                    response['reset'].append(messtischblatt.id)
+                else:
+                    dictProcessingQueueGeoref[messtischblatt.id] = georefProc
+        
+        # sort the georeference process by timestamps
+        for key in dictProcessingQueueGeoref:
+            # get timestamp for the equivalent map object to the georeference process
+            time = MdZeit.by_id(dictProcessingQueueGeoref[key].messtischblattid, dbsession).time.year
+            if time in response['georeference']:
+                response['georeference'][time].append(dictProcessingQueueGeoref[key])
             else:
-                georef_queue[timestamp] = [(georefProc, mtb)]
-        
-        # if no new georeference processes found raise error 
-        if len(georef_queue) == 0:
-            raise GeoreferenceProcessNotFoundError('No process for georeference available.')
-            
-        return georef_queue 
+                response['georeference'][time] = [dictProcessingQueueGeoref[key]]
+        return response
     except:
-        logger.error('Unknown error while trying to accumulate georeference process information ...')
-        raise
+        logger.error('Unknown error while trying to create the georeference processing queue ...')
+        raise        
+
+def processSingleGeorefProc(georefProc, dbsession, logger, testing = False):
+    logger.debug('Process single georeference process with id %s ...'%georefProc.id)
+    
+    # calculate georeference result 
+    logger.debug('Create persistent georeference result ...')
+    messtischblatt = Messtischblatt.by_id(georefProc.messtischblattid, dbsession)
+    parsedGeorefParameter = ast.literal_eval(str(georefProc.clipparameter))
+    epsg_code = int(str(parsedGeorefParameter['target']).split(':')[1])
+    if parsedGeorefParameter['source'] == 'pixel' and epsg_code == 4314:
+        gcps = parseGcps(parsedGeorefParameter['gcps'])
+        clip_polygon = messtischblatt.BoundingBoxObj.asShapefile(os.path.join(TMP_DIR, messtischblatt.dateiname+'clip_polygon'))
+        destPath = georeference(messtischblatt.original_path, os.path.join(GEOREF_TARGET_DIR,messtischblatt.dateiname+'.tif'), 
+                         TMP_DIR, gcps, epsg_code, epsg_code, 'polynom', logger, clip_polygon)
+        addOverviews(destPath, '2 4 8 16 32', logger)
+        if destPath is None:
+            logger.error('Something went wrong while trying to process a georeference process.')
+            raise GeoreferenceProcessingError('Something went wrong while trying to process a georeference process.')
+    
+    if not testing:
+        # push metadata to catalogue
+        logger.debug('Push metadata record for messtischblatt %s to cataloge service ...'%messtischblatt.id)
+        insertMetadata(id=messtischblatt.id,db=dbsession,logger=logger)
+    
+        # update database
+        logger.debug('Update database ...')
+
+        # update verzeichnispfad for messtischblatt
+        messtischblatt.verzeichnispfad = destPath
+        messtischblatt.isttransformiert = True 
+        refmtblayer = RefMtbLayer.by_id(MTB_LAYER_ID, messtischblatt.id, dbsession)
+        if not refmtblayer:
+            refmtblayer = RefMtbLayer(layer=MTB_LAYER_ID, messtischblatt=messtischblatt.id)
+            dbsession.add(refmtblayer)
+        dbsession.flush()   
+        
+    return destPath
+
+def resetMapObject(mapObjectId, dbsession, logger, testing = False):
+    logger.debug('Reset map object into unreferenced state.')
+    messtischblatt = Messtischblatt.by_id(mapObjectId, dbsession)
+    messtischblatt.isttransformiert = False
+    messtischblatt.hasgeorefparams = 0
+    messtischblatt.verzeichnispfad = messtischblatt.original_path
+    refmtblayer = RefMtbLayer.by_id(MTB_LAYER_ID, messtischblatt.id, dbsession)
+    if refmtblayer:
+        dbsession.add(refmtblayer)
+        
+    if testing:
+        dbsession.rollback()
+    
+    # misses the clean from the geonetwork record
+    return True
     
 def getVirtualDatasetCreateCommands(time, database_params):
     """ This function create a virtual dataset for the given parameters 

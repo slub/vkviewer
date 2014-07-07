@@ -90,6 +90,7 @@
 }
 
 .olMap .ol-full-screen button { background:rgb(0,177,158) url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi…gY3g9IjExLjMiIGN5PSIxMC43IiByPSI0LjEiLz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4NCg==') no-repeat 0 0;}
+.olMap .ol-zoom-extent button { background:rgb(0,177,158) url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi…gY3g9IjExLjMiIGN5PSIxMC43IiByPSI0LjEiLz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4NCg==') no-repeat 0 0;}
 
 /* Position of ol control elements (with fullscreen) */
 .olMap .ol-attribution .ol-attribution-bing-tos{	padding-top: 0px; }

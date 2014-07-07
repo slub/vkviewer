@@ -74,7 +74,7 @@
 						</div>
 								
 								<div class="col-lg-6 col-md-6 map">
-									<div class="evaluation-map" id="evaluation-map"></div>
+									<div class="evaluation-map olMap" id="evaluation-map"></div>
 					 			</div>
 						</div>  
 

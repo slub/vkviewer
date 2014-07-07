@@ -13,6 +13,7 @@ class Georeferenzierungsprozess(Base):
     nutzerid = Column(String(255))
     refzoomify = Column(Boolean)
     publish = Column(Boolean)
+    processed = Column(Boolean)
     
     @classmethod
     def all(cls, session):
@@ -31,3 +32,17 @@ class Georeferenzierungsprozess(Base):
         if latest:
             return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.messtischblattid == id).order_by(desc(Georeferenzierungsprozess.timestamp)).first()
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.messtischblattid == id).first()
+    
+    @classmethod
+    def by_getLatestValidGeorefProcessForObjectId(cls, id, session):
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.messtischblattid == id)\
+            .filter(Georeferenzierungsprozess.publish == True)\
+            .order_by(desc(Georeferenzierungsprozess.timestamp)).first()
+            
+    @classmethod
+    def by_getUnprocessedGeorefProcesses(cls, session):
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.processed == False)
+
+    @classmethod    
+    def getLatestGeorefProcessForObjectId(cls, id, session):
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.messtischblattid == id).order_by(desc(Georeferenzierungsprozess.timestamp)).first()

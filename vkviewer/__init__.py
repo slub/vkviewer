@@ -185,5 +185,5 @@ def main(global_config, **settings):
 
 if __name__ == '__main__':
     app = createWsgiApp(None, debug=True)
-    server = make_server('0.0.0.0', 8090, app)
+    server = make_server('0.0.0.0', 8080, app)
     server.serve_forever()

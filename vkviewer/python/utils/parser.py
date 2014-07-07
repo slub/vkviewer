@@ -5,7 +5,6 @@ Created on May 23, 2014
 '''
 import gdal
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
-from vkviewer.python.models.messtischblatt.Passpoint import Passpoint
 
 def parseGcps(georeference):
     gcps = []
@@ -13,9 +12,12 @@ def parseGcps(georeference):
         gcps.append(gdal.GCP(georeference[i]['target'][0], georeference[i]['target'][1], 0, georeference[i]['source'][0],georeference[i]['source'][1]))
     return gcps
 
-def getJsonDictPasspointsForMapObject(messtischblattid, dbsession):
-    defaultDict = {'source':'pixel','target':'EPSG:4314','gcps':[]}
-    passpoints = Passpoint.allForObjectId(messtischblattid, dbsession)
-    for passpoint in passpoints:
-        defaultDict['gcps'].append({'source':passpoint.unrefpoint,'target':passpoint.refpointAsArray})
-    return defaultDict
+def convertUnicodeDictToUtf(input):
+    if isinstance(input, dict):
+        return {convertUnicodeDictToUtf(key): convertUnicodeDictToUtf(value) for key, value in input.iteritems()}
+    elif isinstance(input, list):
+        return [convertUnicodeDictToUtf(element) for element in input]
+    elif isinstance(input, unicode):
+        return input.encode('utf-8')
+    else:
+        return input
