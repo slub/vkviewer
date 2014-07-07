@@ -7,7 +7,6 @@ import logging, json, ast
 # own import stuff
 from vkviewer import log
 from vkviewer.python.utils.validation import validateId
-from vkviewer.python.utils.parser import getJsonDictPasspointsForMapObject
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from vkviewer.python.models.messtischblatt.MdCore import MdCore
@@ -52,11 +51,9 @@ def createGeneralResponse(objectid, request):
     lastTimestamp = ''
     messtischblatt = Messtischblatt.by_id(objectid, request.db)
     mtb_extent = Messtischblatt.getExtent(objectid, request.db)
-    isAlreadyGeorefProcess = Georeferenzierungsprozess.by_messtischblattid(messtischblatt.id, request.db, True)
+    isAlreadyGeorefProcess = Georeferenzierungsprozess.by_getLatestValidGeorefProcessForObjectId(messtischblatt.id, request.db)
     if isAlreadyGeorefProcess:
-        lastGeoreferenceId = isAlreadyGeorefProcess.id
-        lastTimestamp = isAlreadyGeorefProcess.timestamp
-        gcps = getJsonDictPasspointsForMapObject(messtischblatt.id, request.db)
+        return createResponseForSpecificGeoreferenceProcess(objectid, isAlreadyGeorefProcess.id, request)
     else: 
         gcps = {
             'source':'pixel',
@@ -69,26 +66,26 @@ def createGeneralResponse(objectid, request):
             ]
         }
             
-    # get zoomify and metadata information
-    log.debug('Create response ...')  
-    metadata = MdCore.by_id(messtischblatt.id, request.db)
-    return {
-            'objectid': messtischblatt.id,
-            'georeferenceid':lastGeoreferenceId, 
-            'timestamp':str(lastTimestamp), 
-            'gcps':gcps, 
-            'extent': mtb_extent,
-            'zoomify': {
-                'properties': messtischblatt.zoomify_properties,
-                'width': messtischblatt.zoomify_width,
-                'height': messtischblatt.zoomify_height
-            },
-            'metadata': {
-                'dateiname': messtischblatt.dateiname,
-                'titel_long': metadata.titel,
-                'titel_short': metadata.titel_short
-            }            
-    }
+        # get zoomify and metadata information
+        log.debug('Create response ...')  
+        metadata = MdCore.by_id(messtischblatt.id, request.db)
+        return {
+                'objectid': messtischblatt.id,
+                'georeferenceid':lastGeoreferenceId, 
+                'timestamp':str(lastTimestamp), 
+                'gcps':gcps, 
+                'extent': mtb_extent,
+                'zoomify': {
+                    'properties': messtischblatt.zoomify_properties,
+                    'width': messtischblatt.zoomify_width,
+                    'height': messtischblatt.zoomify_height
+                },
+                'metadata': {
+                    'dateiname': messtischblatt.dateiname,
+                    'titel_long': metadata.titel,
+                    'titel_short': metadata.titel_short
+                }            
+        }
     
 def createResponseForSpecificGeoreferenceProcess(objectid, georeferenceid, request):
     log.debug('Create response for specific georeference process ...')
@@ -98,8 +95,10 @@ def createResponseForSpecificGeoreferenceProcess(objectid, georeferenceid, reque
     pure_clipparameters = ast.literal_eval(str(georeferenceprocess.clipparameter))
     gcps = None
     if 'new' in pure_clipparameters:
+        # in case of an update process
         gcps = pure_clipparameters['new']
     else:
+        # in case of a new registered clip_parameter
         gcps = pure_clipparameters
           
     # get zoomify and metadata information

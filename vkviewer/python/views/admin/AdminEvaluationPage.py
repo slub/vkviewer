@@ -1,21 +1,10 @@
 # -*- coding: utf-8 -*-
-from pyramid.response import Response
+import ast, json
 from pyramid.view import view_config
 
 # database imports
-from sqlalchemy.exc import DBAPIError
 from vkviewer import log
-from vkviewer.settings import MTB_LAYER_ID
-from vkviewer.python.tools import checkIsUser
-from vkviewer.python.models.messtischblatt.Fehlermeldung import Fehlermeldung
-from vkviewer.python.models.messtischblatt.Users import Users
-from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
-from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
-from vkviewer.python.models.messtischblatt.RefMtbLayer import RefMtbLayer
-from vkviewer.python.georef.utils import getTimestampAsPGStr
-
-# renderer imports
-import json
+from vkviewer.python.utils.parser import convertUnicodeDictToUtf
 
 # query for getting all georeference processes from a special user
 georeference_evaluation_query = 'SELECT georef.id as georef_id, georef.messtischblattid as mtbid, mtb.dateiname as key,\
@@ -26,16 +15,17 @@ georef.messtischblattid = md_core.id AND georef.messtischblattid = mtb.id AND ge
 md_zeit.typ = \'a5064\' ORDER BY time_georef ASC'
 
 @view_config(route_name='georeference_evaluation', renderer='georeference_evaluation.mako', permission='moderator', match_param='action=evaluation')
-def resetGeorefParameters(request):
+def getAdminEvaluationPage(request):
     log.info('Request - Get georeference profile page.')
     try:            
         resultSet = request.db.execute(georeference_evaluation_query)
         
         log.debug('Create response list')
         georef_profile = []
-        for record in resultSet:              
+        for record in resultSet:   
+            encoded_clip_params = str(convertUnicodeDictToUtf(ast.literal_eval(record['clip_params'])))           
             georef_profile.append({'georef_id':record['georef_id'], 'mtb_id':record['mtbid'], 
-                    'clip_params': record['clip_params'], 'time': record['time'], 'transformed': record['isttransformiert'],
+                    'clip_params': encoded_clip_params, 'time': record['time'], 'transformed': record['isttransformiert'],
                     'isvalide': record['isvalide'], 'titel': record['titel'], 'key': record['key'],
                     'time_georef':record['time_georef'],'type':record['type'], 'userid': record['userid'],
                     'published':record['published']})

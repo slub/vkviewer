@@ -43,6 +43,10 @@ class Messtischblatt(Base):
         return session.query(Messtischblatt).filter(Messtischblatt.id == id).first()
     
     @classmethod
+    def getUpdatedMesstischblaetter(cls, session):
+        return session.query(Messtischblatt).filter(Messtischblatt.updated == True)
+    
+    @classmethod
     def get_paginator_forBlattnr(cls, request, blattnr, page=1):
         page_url = PageURL_WebOb(request)
         return Page([{'mtbid':1},{'mtbid':2},{'mtbid':3},{'mtbid':4}], page, url=page_url, items_per_page=10)
@@ -76,6 +80,12 @@ class Messtischblatt(Base):
     @property
     def BoundingBoxObj(self):
         return createBBoxFromPostGISString(self.boundingbox, srid_database)
+    
+    def setIsUpdated(self, isUpdated):
+        if self.isttransformiert:
+            self.updated = isUpdated
+            return None
+        raise Exception('Could net change update status because map object isn\'t updated yet.')
  
 
   

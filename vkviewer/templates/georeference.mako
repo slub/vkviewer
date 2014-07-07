@@ -17,10 +17,10 @@
 		<!-- map content -->
 		<div class="row georeference-validate-container">
 			<div class="col-sm-6 col-md-6 col-lg-6 outer-map-container">
-				<div id="unreferenced-map" class="unreferenced-map map-container"></div>
+				<div id="unreferenced-map" class="unreferenced-map map-container olMap"></div>
 			</div>
 			<div class="col-sm-6 col-md-6 col-lg-6 outer-map-container">
-				<div id="georeferenced-map" class="georeferenced-map map-container">
+				<div id="georeferenced-map" class="georeferenced-map map-container olMap">
 					<div id="opacity-slider-container" class="opacity-slider-container"></div>
 				</div>
 			</div>	

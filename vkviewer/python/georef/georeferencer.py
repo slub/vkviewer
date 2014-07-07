@@ -128,7 +128,17 @@ def createGCPs(clip_params, georef_coords, img_height):
         return gcps
     except:
         raise CreateGCPException('Error while trying to create the GCPs')
-    
+
+def addOverviews(targetPath, overviewLevels, logger):
+    try:
+        logger.debug('Adding overviews to raster %s'%targetPath)
+        command = "gdaladdo --config GDAL_CACHEMAX 500 -r average %s %s"%(targetPath,overviewLevels)
+        subprocess.check_call(command, shell=True)
+        return targetPath
+    except:
+        logger.error("%s - Unexpected error while trying add overviews to the raster: %s - with command - %s"%(sys.stderr,sys.exc_info()[0],command))
+        raise GeorefAddOverviewException("Error while running subprocess via commandline!")
+
 """ Exceptions """   
 class GeorefClipException(Exception):
     def __init__(self, value):
@@ -137,6 +147,12 @@ class GeorefClipException(Exception):
         return repr(self.value)    
     
 class CreateGCPException(Exception):
+    def __init__(self, value):
+       self.value = value       
+    def __str__(self):
+        return repr(self.value)  
+    
+class GeorefAddOverviewException(Exception):
     def __init__(self, value):
        self.value = value       
     def __str__(self):
