@@ -18,22 +18,41 @@ vk2.layer.MapSearch = function(settings){
 	
 	// create vector source
 	var vectorSource = new ol.source.ServerVector({
-		format: new ol.format.GeoJSON(),
+		//format: new ol.format.GeoJSON(),
+		format: new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows']),
 		loader: function(extent, resolution, projection) {
 			if (goog.DEBUG)
 				console.log('Loader is called');
 		    
-		    // test with json
-			var url_json = 'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows?service=WFS&version=1.0.0&request=GetFeature&' +
-				'typeName=virtuelles_kartenforum:view_layer_vrt&maxFeatures=10000&outputFormat=text/javascript&' + 
-				'srsname='+settings.projection+'&bbox=' + extent.join(',') + '&format_options=callback:mapsearchlayer_callback';
-			
-			window['mapsearchlayer_callback'] = goog.bind(function(data){
-				this.addFeatures(this.readFeatures(data));
-			}, this);
-			
-			var jsonp = new goog.net.Jsonp(url_json);
-			jsonp.send();
+			var url = vk2.settings.PROXY_URL+vk2.settings.WFS_URL+'?SERVICE=WFS&' +
+	    	'VERSION=1.1.0&REQUEST=getfeature&TYPENAME=Historische_Messtischblaetter_WFS&MAXFEATURES=10000&srsname='+settings.projection+'&' +
+	    	'bbox=' + extent.join(',');
+	    
+		    var xhr = new goog.net.XhrIo();
+		    
+		    goog.events.listenOnce(xhr, 'success', function(e){
+		    	if (goog.DEBUG){
+		    		console.log('Receive features');
+		    	};
+		    	
+		    	var xhr = /** @type {goog.net.XhrIo} */ (e.target);
+		    	var data = xhr.getResponseXml() ? xhr.getResponseXml() : xhr.getResponseText();
+		    	xhr.dispose();
+		    	this.addFeatures(this.readFeatures(data));
+		    }, false, this);
+	
+		    xhr.send(url);
+//		    // test with json
+//			var url_json = 'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows?service=WFS&version=1.0.0&request=GetFeature&' +
+//				'typeName=virtuelles_kartenforum:view_layer_vrt&maxFeatures=10000&outputFormat=text/javascript&' + 
+//				'srsname='+settings.projection+'&bbox=' + extent.join(',') + '&format_options=callback:mapsearchlayer_callback';
+//			
+//			window['mapsearchlayer_callback'] = goog.bind(function(data){
+//				this.addFeatures(this.readFeatures(data));
+//			}, this);
+//			
+//			var jsonp = new goog.net.Jsonp(url_json);
+//			jsonp.send();
 		},
 		projection: settings.projection
 	});

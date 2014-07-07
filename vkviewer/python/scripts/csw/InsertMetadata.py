@@ -71,18 +71,19 @@ def getMetadataForMesstischblatt(id, db, logger):
                     'permalink': metadata_dataset.permalink, 
                     'hierarchylevel': 'Messtischblatt' if mtb.mdtype == 'M' else 'Aequidistantenkarte', 
                     'overviews': [
-                        'http://fotothek.slub-dresden.de/thumbs/df/dk/0010000/%s.jpg'%mtb.dateiname,
-                        TEMPLATE_OGC_SERVICE_LINK['wms_template']%({
-                            'westBoundLongitude':str(mtb.BoundingBoxObj.llc.x),
-                            'southBoundLatitude':str(mtb.BoundingBoxObj.llc.y),
-                            'eastBoundLongitude':str(mtb.BoundingBoxObj.urc.x),
-                            'northBoundLatitude':str(mtb.BoundingBoxObj.urc.y),
-                            'srid':DATABASE_SRID,
-                            'time':metadata_time.datierung,
-                            'width':256,
-                            'height':256
-                        }),
-                        'http://fotothek.slub-dresden.de/mids/df/dk/0010000/%s.jpg'%mtb.dateiname 
+#                         'http://fotothek.slub-dresden.de/mids/df/dk/0010000/%s.jpg'%mtb.dateiname,
+#                         
+#                         TEMPLATE_OGC_SERVICE_LINK['wms_template']%({
+#                             'westBoundLongitude':str(mtb.BoundingBoxObj.llc.x),
+#                             'southBoundLatitude':str(mtb.BoundingBoxObj.llc.y),
+#                             'eastBoundLongitude':str(mtb.BoundingBoxObj.urc.x),
+#                             'northBoundLatitude':str(mtb.BoundingBoxObj.urc.y),
+#                             'srid':DATABASE_SRID,
+#                             'time':metadata_time.datierung,
+#                             'width':256,
+#                             'height':256
+#                         }),
+                        'http://fotothek.slub-dresden.de/thumbs/df/dk/0010000/%s.jpg'%mtb.dateiname
                     ],
                     'wms_params': {
                         'westBoundLongitude':str(mtb.BoundingBoxObj.llc.x),
