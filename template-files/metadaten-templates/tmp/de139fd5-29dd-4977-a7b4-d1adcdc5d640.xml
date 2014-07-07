@@ -4,9 +4,9 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:gco="http://www.isotc211.org/2005/gco"
         xmlns:gmd="http://www.isotc211.org/2005/gmd"
-	xmlns:gml="http://www.opengis.net/gml"
+	xmlns:gml="http://www.isotc211.org/2005/gml"
         xsi:schemaLocation="http://www.isotc211.org/2005/gco ../gco/gco.xsd
-    http://www.isotc211.org/2005/gmd ../gmd/gmd.xsd http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/base/gml.xsd">
+    http://www.isotc211.org/2005/gmd ../gmd/gmd.xsd http://www.isotc211.org/2005/gml ../gml/gml.xsd">
     <gmd:fileIdentifier>
         <gco:CharacterString>9a142459-749e-4904-aaa7-88cb3d418b85</gco:CharacterString><!-- was für einen Identifier nutzen -->
     </gmd:fileIdentifier>

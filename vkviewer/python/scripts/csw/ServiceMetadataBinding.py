@@ -12,12 +12,12 @@ from vkviewer.python.models.Meta import initializeDb
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.models.messtischblatt.MdCore import MdCore
 
-def createServiceDescription(template, db, logger):
+def createServiceDescription(template_path, target_dir, db, logger):
     logger.debug('Start creating service description')
     
     # create tempory copy
-    mdServiceFile = os.path.join( os.path.dirname(template), str(uuid.uuid4()) + '.xml')
-    shutil.copyfile(template, mdServiceFile)
+    mdServiceFile = os.path.join( target_dir, str(uuid.uuid4()) + '.xml')
+    shutil.copyfile(template_path, mdServiceFile)
 
     # Helper method which define the prefix of the namespaces
     for key in Namespaces:
@@ -37,7 +37,7 @@ def createServiceDescription(template, db, logger):
     logger.debug('Start appending new messtischblatt resources')
     for messtischblatt in messtischblaetter:
         metadata_core = MdCore.by_id(messtischblatt.id, db)
-        appendCoupledResource(rootElement = xmlElementServiceId, resourceId = messtischblatt.id, resourceTitle = metadata_core.titel)
+        appendCoupledResource(rootElement = xmlElementServiceId, resourceId = str(messtischblatt.id), resourceTitle = metadata_core.titel)
         
         # break condition for testing
 #         if i == 10:
@@ -87,4 +87,4 @@ if __name__ == '__main__':
     response = createServiceDescription(TEMPLATE_FILES['service'], dbSession, logger)
     
     print 'Insert service file %s ...'%response
-    gn_transaction_insert(response, GN_SETTINGS['gn_username'], GN_SETTINGS['gn_password'], logger)
+    #gn_transaction_insert(response, GN_SETTINGS['gn_username'], GN_SETTINGS['gn_password'], logger)
