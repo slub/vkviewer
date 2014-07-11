@@ -23,7 +23,7 @@ from zope.sqlalchemy import ZopeTransactionExtension
 
 
 # import of own python classes
-from settings import dbconfig, routePrefix, secret_key
+from settings import DBCONFIG, ROUTE_PREFIX, SECRET_KEY
 from vkviewer.python.utils.logger import createLogger
 from vkviewer.python.security import EntryFactory, groupfinder
 from vkviewer.python.proxy import proxy_post
@@ -49,67 +49,62 @@ def loadLogger(debug=True):
     
 def addRoutes(config):
     # add routes
-    config.add_static_view(routePrefix+'/static', 'vkviewer:static/', cache_max_age=3600)
-    config.add_route('proxy', routePrefix+'/proxy/')
-    config.add_route('home', routePrefix + '/')
-    config.add_route('home1', routePrefix)
-    config.add_route('home_login', routePrefix+'/auth')
-    config.add_route('set_locales', routePrefix+'/locales')
+    config.add_static_view(ROUTE_PREFIX+'/static', 'vkviewer:static/', cache_max_age=3600)
+    config.add_route('proxy', ROUTE_PREFIX+'/proxy/')
+    config.add_route('home', ROUTE_PREFIX + '/')
+    config.add_route('home1', ROUTE_PREFIX)
+    config.add_route('home_login', ROUTE_PREFIX+'/auth')
+    config.add_route('set_locales', ROUTE_PREFIX+'/locales')
     
     # route for authentification
-    config.add_route('auth', routePrefix+'/sign/{action}')
+    config.add_route('auth', ROUTE_PREFIX+'/sign/{action}')
     
     # for simple get requests for client feedback
-    config.add_route('gettimestamps',routePrefix+'/gettimestamps')
-    config.add_route('gettimestampsforid',routePrefix+'/gettimestampsforid')
+    config.add_route('gettimestamps',ROUTE_PREFIX+'/gettimestamps')
+    config.add_route('gettimestampsforid',ROUTE_PREFIX+'/gettimestampsforid')
 
     # routes for the georeference process
-    config.add_route('choose_map_georef',routePrefix+'/choosegeoref')
-    config.add_route('georeference_page', routePrefix+'/georeference')
-    config.add_route('georeference', routePrefix+'/georeference/{action}')
-    config.add_route('report', routePrefix+'/report/{action}')
+    config.add_route('choose_map_georef',ROUTE_PREFIX+'/choosegeoref')
+    config.add_route('georeference_page', ROUTE_PREFIX+'/georeference')
+    config.add_route('georeference', ROUTE_PREFIX+'/georeference/{action}')
+    config.add_route('report', ROUTE_PREFIX+'/report/{action}')
     
     # georeferencer evaluation
-    config.add_route('georeference_evaluation', routePrefix+'/admin/{action}')
+    config.add_route('georeference_evaluation', ROUTE_PREFIX+'/admin/{action}')
     
     # footer routes
-    config.add_route('contact', routePrefix+'/contact')
-    config.add_route('project', routePrefix+'/project')
-    config.add_route('impressum', routePrefix+'/impressum')
-    config.add_route('faq', routePrefix+'/faq')
-    config.add_route('faq_loggedIn', routePrefix+'/faq/loggedin')
-    
-    # further faqs
-    config.add_route('faq_georef_start', routePrefix+'/faq/georef/start')
-    config.add_route('faq_georef_validate', routePrefix+'/faq/georef/validate')
+    config.add_route('contact', ROUTE_PREFIX+'/contact')
+    config.add_route('project', ROUTE_PREFIX+'/project')
+    config.add_route('impressum', ROUTE_PREFIX+'/impressum')
+    config.add_route('faq', ROUTE_PREFIX+'/faq')
     
     # welcome page
-    config.add_route('welcome', routePrefix+'/welcome')
-    config.add_route('set_visitor_cookie', routePrefix+'/welcomeoff')
+    config.add_route('welcome', ROUTE_PREFIX+'/welcome')
+    config.add_route('set_visitor_cookie', ROUTE_PREFIX+'/welcomeoff')
 
     # change & reset pw
-    config.add_route('change_pw', routePrefix+'/change/pw/{action}')
+    config.add_route('change_pw', ROUTE_PREFIX+'/change/pw/{action}')
     
     # profile pages
-    config.add_route('users_profile_georef', routePrefix+'/profile/georef')
-    config.add_route('mtb_profile', routePrefix+'/profile/mtb')
-    config.add_route('map_profile', routePrefix+'/profile/map')
+    config.add_route('users_profile_georef', ROUTE_PREFIX+'/profile/georef')
+    config.add_route('mtb_profile', ROUTE_PREFIX+'/profile/mtb')
+    config.add_route('map_profile', ROUTE_PREFIX+'/profile/map')
     
     # error pages
-    config.add_route('error_page', routePrefix+'/error')
+    config.add_route('error_page', ROUTE_PREFIX+'/error')
     
     # permalink page
-    config.add_route('permalink', routePrefix+'/permalink')
+    config.add_route('permalink', ROUTE_PREFIX+'/permalink')
     
     # test pages
-    config.add_route('development_page', routePrefix+'/development')
+    config.add_route('development_page', ROUTE_PREFIX+'/development')
 
 def db(request):
     return request.registry.dbmaker()   
     
 def loadDB(config, settings, debug=False):
     if debug:
-        engine = create_engine(dbconfig, encoding='utf8', echo=True)
+        engine = create_engine(DBCONFIG, encoding='utf8', echo=True)
     else:
         engine = engine_from_config(settings, prefix='sqlalchemy.')
     config.registry.dbmaker = scoped_session(sessionmaker(bind=engine,extension=ZopeTransactionExtension()))
@@ -127,7 +122,7 @@ def setLocalizationOptions(config):
     config.set_locale_negotiator(custom_locale_negotiator)
 
 def getAuthenticationPolicy():
-    authPolicy = AuthTktAuthenticationPolicy(secret_key, callback=groupfinder)
+    authPolicy = AuthTktAuthenticationPolicy(SECRET_KEY, callback=groupfinder)
     return authPolicy
 
 def createWsgiApp(global_config, debug=False, **settings):

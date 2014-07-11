@@ -12,6 +12,7 @@ goog.require('vk2.module.MapSearchModule');
 goog.require('vk2.layer.HistoricMap');
 goog.require('vk2.control.LayerSpy');
 goog.require('vk2.control.RotateNorth');
+goog.require('vk2.control.Permalink');
 
 /**
  * @param {Object} settings
@@ -86,7 +87,8 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 				})
 			}),
 			new vk2.control.RotateNorth(),
-			new ol.control.ScaleLine()
+			new ol.control.ScaleLine(),
+			new vk2.control.Permalink()
 		],
 		view: new ol.View({
 			projection: 'EPSG:900913',

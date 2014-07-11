@@ -6,8 +6,8 @@
 
 /** Modal behavior for the faq page */
 .modal-content.faq{
-	width: auto;
-	margin-left: -100px;
+	width: 1200px;
+	margin-left: -300px;
 }
 			
 .modal-content.faq iframe.faq{

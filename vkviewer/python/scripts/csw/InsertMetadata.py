@@ -52,7 +52,12 @@ def getMetadataForMesstischblatt(id, db, logger):
         logger.debug('Start collection metadata information')
         mtb = Messtischblatt.by_id(id, db)
         metadata_core = MdCore.by_id(id, db)
-        metadata_time = MdZeit.by_id(id, db)
+        
+        mdZeit = MdZeit.by_id(id, db)
+        if mdZeit.datierung is None:
+            metadata_time = ''
+        else: 
+            metadata_time = mdZeit.datierung
         metadata_dataset = MdDatensatz.by_ObjectId(id, db)
         
         logger.debug('Metadata collection finish. Creating response')
@@ -61,15 +66,15 @@ def getMetadataForMesstischblatt(id, db, logger):
                     'eastBoundLongitude':str(mtb.BoundingBoxObj.urc.x),
                     'southBoundLatitude':str(mtb.BoundingBoxObj.llc.y),
                     'northBoundLatitude':str(mtb.BoundingBoxObj.urc.y),
-                    'identifier':mtb.id,
+                    'identifier':'vk20-md-%s'%mtb.id,
                     'dateStamp': datetime.now().strftime('%Y-%m-%d'),
                     'title': metadata_core.titel,
-                    'cite_date': str(metadata_time.datierung),
+                    'cite_date': str(metadata_time),
                     'abstract': metadata_core.beschreibung,
-                    'temporalExtent_begin': '%s-01-01'%metadata_time.datierung,
-                    'temporalExtent_end': '%s-12-31'%metadata_time.datierung,
+                    'temporalExtent_begin': '%s-01-01'%metadata_time,
+                    'temporalExtent_end': '%s-12-31'%metadata_time,
                     'permalink': metadata_dataset.permalink, 
-                    'hierarchylevel': 'Messtischblatt' if mtb.mdtype == 'M' else 'Aequidistantenkarte', 
+                    'hierarchylevel': 'Messtischblatt' if mtb.mdtype == 'M' else 'Äquidistantenkarte', 
                     'overviews': [
 #                         'http://fotothek.slub-dresden.de/mids/df/dk/0010000/%s.jpg'%mtb.dateiname,
 #                         
@@ -91,7 +96,7 @@ def getMetadataForMesstischblatt(id, db, logger):
                         'eastBoundLongitude':str(mtb.BoundingBoxObj.urc.x),
                         'northBoundLatitude':str(mtb.BoundingBoxObj.urc.y),
                         'srid':DATABASE_SRID,
-                        'time':metadata_time.datierung,
+                        'time':metadata_time,
                         'width':256,
                         'height':256
                     },
@@ -108,7 +113,7 @@ def getMetadataForMesstischblatt(id, db, logger):
                                 'eastBoundLongitude':str(mtb.BoundingBoxObj.urc.x),
                                 'northBoundLatitude':str(mtb.BoundingBoxObj.urc.y),
                                 'srid':DATABASE_SRID,
-                                'time':metadata_time.datierung,
+                                'time':metadata_time,
                                 'width':256,
                                 'height':256
                             }),
@@ -131,7 +136,7 @@ def updateMetadata(file, metadata, logger):
     try:
         logger.debug('Start updating the metadata in the xml file %s'%file)
         mdEditor = ChildMetadataBinding(file, logger)
-        mdEditor.updateId('vk20-md-%s'%metadata['identifier'])
+        mdEditor.updateId(metadata['identifier'])
         mdEditor.updateTitle(metadata['title'])
         mdEditor.updateAbstract(metadata['abstract'])
         mdEditor.updateHierarchyLevelName(metadata['hierarchylevel'])

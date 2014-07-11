@@ -6,27 +6,20 @@ Created on Nov 1, 2013
 
 """ Generel settings """
 # database connection string for sqlalchemy
-dbconfig = 'postgresql+psycopg2://user:password@host:port/database'
-
-# server side secret key (salt) for creating cookies
-secret_key = ''
+dbconfig = 'postgresql+psycopg2://user:pw@ip:port/db'
 
 # EPSG code of the geoinformation in the messtischblattdb
 srid_database = 4314
 
-# Prefix for url routing. This is important if the service run's under an apache server parallel to other 
-# applications
-routePrefix = '/vkviewer'
-
 """ Settings for the georeference process """
 # Directory where temporary files should be placed
-tmp_dir = '~/tmp/'
+tmp_dir = '/tmp'
 
 # Template mapfile for displaying validation results
 src_mapfilepath = "~/vkviewer/template-files/dynamic_template.map"
 
 # Destination diretory for the temporary mapfile 
-dest_mapfilefolder = "~/tmp/"
+dest_mapfilefolder = "/tmp"
 
 # Option parameters for the temporary created mapfile
 mapfileInitParameter = {
@@ -50,7 +43,71 @@ layer_id = 87
 MTB_LAYER_ID = 87
 
 """ Settings for the email client, for automatically sending emails """
-admin_addr = 'domain@domain'
-mail_server = 'gate.domain'
-sendmail_location = '/path/to/sendmail'
+admin_addr = 'admin@kartenforum.slub-dresden.de'
+mail_server = 'mailgate.slub-dresden.de'
+sendmail_location = '/usr/sbin/sendmail'
 admin_mail = 'Max.Mustermann@slub-dresden.de'
+
+# Generic parameters
+DBCONFIG = 'postgresql+psycopg2://user:pw@ip:port/db' 
+
+DBCONFIG_PARAMS = {
+    'host': 'localhost',
+    'user':'user',
+    'password':'pw',
+    'db':'db',    
+}
+
+DATABASE_SRID = 4314
+
+# Prefix for url routing. This is important if the service run's under an apache server parallel to other 
+# applications
+ROUTE_PREFIX = '/vkviewer'
+
+# server side secret key (salt) for creating cookies
+SECRET_KEY = '...'
+
+# Georeference Static parameters
+GEOREFERENCE_TMP_DIR = '/tmp'
+
+GEOREFERENCE_MAPFILE_FOLDER = '/tmp'
+
+GEOREFERENCE_MAPFILE_TEMPLATE = '~/vkviewer/template-files/dynamic_template.map'
+
+GEOREFERENCE_MAPFILE_DEFAULT_PARAMS = {
+    "METADATA": {
+        "wms_srs":"epsg:900913 epsg:3857 epsg:4314 epsg:31468 epsg:4326 epsg:25833 epsg:2398",
+        "wms_onlineresource":"http://localhost/cgi-bin/mapserv?",
+        "wms_enable_request":"*",
+        "wms_titel":"Temporary Messtischblatt WMS",
+        "wms_contactorganization":"Saxon State and University Library Dresden (SLUB)",
+        "wms_contactperson":"Max Mustermann", 
+        "wms_contactelectronicmailaddress":"admin@kartenforum.slub-dresden.de",
+        "wms_abstract":"This WMS provides the original Messtischblaetter without an spatial coordinate system."
+    }
+}
+
+GEOREFERENCE_OVERVIEW_LEVELS = '2 4 8 16 32'
+
+# Metadata / Geonetwork Options
+TEMPLATE_FILES = {
+    'child': '~/vkviewer/template-files/metadaten-templates/template.mtb.child.xml',
+    'service': '~/vkviewer/template-files/metadaten-templates/template.mtb.service.xml',
+    'insert': '~/vkviewer/template-files/metadaten-templates/template.request.insert.xml',
+    'parent': '~/vkviewer/template-files/metadaten-templates/template.parent.xml',
+    'tmp_dir': '/tmp'
+}
+
+GN_SETTINGS = {
+    'gn_baseURL': 'http://kartenforum.slub-dresden.de',
+    'gn_loginURI':'/geonetwork/j_spring_security_check',
+    'gn_logoutURI':'/geonetwork/j_spring_security_logout',
+    'gn_cswTransactionURI':'/geonetwork/srv/eng/csw-publication',
+    'gn_username':'user',
+    'gn_password':'pw'    
+}
+
+TEMPLATE_OGC_SERVICE_LINK = {
+    'wms_template':'http://kartenforum.slub-dresden.de/cgi-bin/mtbows?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=Historische Messtischblaetter&TRANSPARENT=true&FORMAT=image/png&STYLES=&SRS=EPSG:%(srid)s&BBOX=%(westBoundLongitude)s,%(southBoundLatitude)s,%(eastBoundLongitude)s,%(northBoundLatitude)s&WIDTH=%(width)s&HEIGHT=%(height)s&TIME=%(time)s'
+}
+

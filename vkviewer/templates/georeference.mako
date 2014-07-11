@@ -38,18 +38,10 @@
         							</div>
 					        		<div class="rightside">
 					        		   	<ul class="footerList">
-					        		   	
-					        		   		% if faq_url:
-					         				<li class="listelement leftborder">
-					        					<a href="${faq_url}" data-src="${faq_url}" data-classes="faq" 
-					        							class="vk2-modal-anchor" data-title="">FAQ</a>        				
-					        				</li>       		   		
-					        		   		% else:
 					        				<li class="listelement leftborder">
 					        					<a href="${request.route_url('faq')}" data-src="${request.route_url('faq')}" data-classes="faq" 
 					        							class="vk2-modal-anchor" data-title="">FAQ</a>        				
 					        				</li>
-					        				% endif
 					        				<li class="listelement leftborder">
 					         					<a href="${request.route_url('contact')}" data-src="${request.route_url('contact')}" data-classes="contact" 
 					        							class="vk2-modal-anchor" data-title="">${_('footer_contact')}</a>		

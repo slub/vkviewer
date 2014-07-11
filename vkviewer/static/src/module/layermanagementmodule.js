@@ -127,22 +127,38 @@ vk2.module.LayerManagementModule.prototype._refresh = function(event){
 		'handle': '.drag-btn',
 		'stop': goog.bind(function(event, ui){
 			var layers = this._getLayers();
-			var newIndex = (layers.length - 1) - ui.item.index();
+			var listElements = goog.dom.getElementsByClass('layermanagement-record', this._bodyEl);
+			var oldListIndex = listElements.length - parseInt(listElements[ui.item.index()].id) - 1;
+			var newListIndex = ui.item.index();
+			var newLayerIndex = (layers.length - 1) - newListIndex;
+			var oldLayerIndex = parseInt(listElements[newListIndex].id);
 			
 			if (goog.DEBUG){
 				console.log('Sort event stop!');
-				console.log(event.toElement.parentElement);
+				console.log('OldListId: '+oldListIndex);
+				console.log('NewListId: '+newListIndex);
+				console.log(layers);
+				console.log('OldLayerId: '+oldLayerIndex);
+				console.log('NewLayerId: '+newLayerIndex);
 			};
-			var layer = layers[event.toElement.parentElement.id];
-			
-			// remove old layer
-
-			var removeLayerIndex = this._getIndexToLayer(layer);
-			this._layers.removeAt(removeLayerIndex);
-			
-			// add new layer
-			var newLayerIndex = this._getIndexToLayer(layers[newIndex]);
-			this._layers.insertAt(newLayerIndex + 1, layer);
+		
+			// prevent from removing/adding the layer if it was drag on the same place
+			if (goog.isDef(oldLayerIndex) && (oldListIndex != newListIndex)){
+				var layer = layers[oldLayerIndex];
+					
+				// remove old layer
+				var removeLayerIndex = this._getIndexToLayer(layer);
+				this._layers.removeAt(removeLayerIndex);
+					
+				// add new layer
+				
+				var index = this._getIndexToLayer(layers[newLayerIndex]);
+				if (newLayerIndex > oldLayerIndex){
+					this._layers.insertAt(index + 1, layer);
+					return;
+				}
+				this._layers.insertAt(index, layer);	
+			};
 		}, this)
 	});
 };

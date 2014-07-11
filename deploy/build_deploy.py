@@ -59,6 +59,7 @@ DEL_DIR = [
 
 """ script path for building the js files """
 BUILD_SCRIPT_CMD = '../bin/python ../vkviewer/static/js/build.py'
+
 def buildFiles(logger, targetDir):
     """ In progress """
     logger.info('Building the compiled css and js files ...')
@@ -98,14 +99,14 @@ def deleteUnnecessaryFiles(logger, targetDir):
     
     # remove single files
     for file in DEL_FILES:
-        file_path = os.path.join(targetDir,file)
+        file_path = os.path.join(targetDir, file)
         if os.path.exists(file_path):
             os.remove(file_path)
         
     # remove diretory
     for dir in DEL_DIR:
         dir_path = os.path.join(targetDir, dir)
-        if os.path.exists(dir):
+        if os.path.exists(dir_path):
             shutil.rmtree(dir_path)
             
     logger.info('Unnecessary files removed.')
@@ -118,10 +119,10 @@ def createDeployVersion(logger, sourceDir, targetDir):
     targetPath = os.path.join(os.path.join(ROOT_PATH, targetDir), sourceDir)
     
     # copying source files to targetPath
-    logger.info('Copying files from %s to %s'%(sourcePath, targetPath))
     if os.path.exists(targetPath) and not targetPath == sourcePath:
         logger.info('Remove old vkviewer deploying directory ...')
         shutil.rmtree(targetPath)
+    logger.info('Copying files from %s to %s'%(sourcePath, targetPath))
     shutil.copytree(sourcePath, targetPath)
     
     buildFiles(logger, targetPath)

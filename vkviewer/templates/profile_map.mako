@@ -30,7 +30,7 @@
 
 				<div class="original-view">
 						<div class="container">
-							<div class="zoomify-container" id="zoomify-container"></div>
+							<div class="zoomify-container unreferenced-map olMap" id="zoomify-container"></div>
 						</div>				
 				</div>
 

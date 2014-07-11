@@ -56,7 +56,7 @@ vk2.utils.AppLoader = function(settings){
 	// load layermanagement
 	var layermanagement = new vk2.module.LayerManagementModule('mapdiv', map_controller.getMap().getLayers(), map_controller.getMap());
 	
-	// load permalink tool
+	// permalink 
 	var permalink = new vk2.tool.Permalink(map_controller.getMap());
 	map_controller.registerPermalinkTool(permalink);
 	
@@ -64,7 +64,7 @@ vk2.utils.AppLoader = function(settings){
 		if (goog.DEBUG)
 			console.log('The application is loaded in authenticate mode.');
 		
-		var georeferencerChooser = new vk2.georeference.GeoreferencerChooser('spatialsearch-container', map_controller.getMap());
+		var georeferencerChooser = new vk2.georeference.GeoreferencerChooser('georeference-chooser-container', map_controller.getMap());
 		
 		// check if the georeference is active
 		if (vk2.utils.getQueryParam('georef') == 'on'){
@@ -82,7 +82,6 @@ vk2.utils.AppLoader = function(settings){
 		window['map'] = map_controller.getMap();		
 		window['spatialsearch'] = spatialSearch;
 		window['mapsearch'] = spatialSearch.getMapSearchModule();
-		window['permalink'] = permalink;
 	};
 	
 	setTimeout(function(){vk2.utils.overwriteOlTitles('mapdiv');}, 500);

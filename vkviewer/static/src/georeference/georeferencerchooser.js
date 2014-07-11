@@ -81,7 +81,7 @@ vk2.georeference.GeoreferencerChooser.prototype._loadControlElement = function(p
 	this._anchorElement = goog.dom.createDom('a',{
 		'id': 'georeference-chooser-control',
 		'class': 'georeference-chooser-control',
-		'innerHTML': '<span class="georeference-chooser-icon"></span>',
+		'innerHTML': '<span class="glyphicon glyphicon-map-marker"></span> '+vk2.utils.getMsg('georeference'),
 		'href':'#'
 	});
 	goog.dom.appendChild(parentEl, this._anchorElement);

@@ -4,13 +4,21 @@ Created on Mar 6, 2014
 @author: mendt
 '''
 import unittest, logging
-from vkviewer.settings import DBCONFIG
+from vkviewer.settings import DBCONFIG, DBCONFIG_PARAMS
 from vkviewer.python.utils.logger import createLogger
 from vkviewer.python.models.Meta import initializeDb
 from vkviewer.python.georef.utils import getTimestampAsPGStr
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
-from vkviewer.python.scripts.UpdateDataSoruce import getGeoreferenceProcessQueue, processSingleGeorefProc, resetMapObject
+from vkviewer.python.scripts.UpdateDataSource import getGeoreferenceProcessQueue, processSingleGeorefProc, resetMapObject, updateDataSources
 
+# Target dir for georeference messtischblatt
+GEOREF_TARGET_DIR = '/tmp'
+
+# Target dir for saving the virtual datasets
+VRT_TARGET_DIR = '/tmp'
+
+# Directory for saving the temporary files
+TMP_DIR = '/tmp'
 
 class TestUpdateGeorefDataSources(unittest.TestCase):
 
@@ -42,6 +50,11 @@ class TestUpdateGeorefDataSources(unittest.TestCase):
     
     def testResetMapObject(self):
         response = resetMapObject(71055048, self.dbsession, self.logger, testing = True)
+        self.assertIsNotNone(response, 'Response is None.')
+        self.assertTrue(response, 'Response is not True.')
+        
+    def testUpdateDataSources(self):
+        response = updateDataSources(self.dbsession, DBCONFIG_PARAMS, VRT_TARGET_DIR, TMP_DIR, self.logger, testing = True)
         self.assertIsNotNone(response, 'Response is None.')
         self.assertTrue(response, 'Response is not True.')
         

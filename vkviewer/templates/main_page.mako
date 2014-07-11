@@ -20,7 +20,7 @@
 			        		
 			        		<!-- user header --> 
 			        		<div class="user-header">
-			        			<ul class="nav nav-pills vk2-navbar-user">
+			        			<ul class="nav nav-pills vk2-navbar-user" id="vk2-navbar-user">
 			        				<li class="dropdown user-dropdown">
 			        				
 						        		<%
@@ -30,7 +30,7 @@
 													
 										% if user_id:
 									
-						              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"></span> ${user_id} <b class="caret"></b></a>
+						              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> ${user_id} <b class="caret"></b></a>
 						              	<ul class="dropdown-menu">
 							                <li><a href="${request.route_url('users_profile_georef')}" data-src="${request.route_url('users_profile_georef')}" data-classes="georef-history" 
 								        		class="vk2-modal-anchor" data-title="">${_('georef_history')}</a></li>
@@ -45,6 +45,7 @@
 								        		class="vk2-modal-anchor" data-title="${_('login_button')}"> ${_('login_button')} <b class="caret"></b> </a>
 							         	% endif
 							         </li>
+							         <li id="georeference-chooser-container"></li>
 							    </ul>
 					         	
 					 			<!-- language switcher -->
@@ -127,18 +128,10 @@
         							</div>
 					        		<div class="rightside">
 					        		   	<ul class="footerList">
-					        		   	
-					        		   		% if faq_url:
-					         				<li class="listelement leftborder">
-					        					<a href="${faq_url}" data-src="${faq_url}" data-classes="faq" 
-					        							class="vk2-modal-anchor" data-title="">FAQ</a>        				
-					        				</li>       		   		
-					        		   		% else:
 					        				<li class="listelement leftborder">
 					        					<a href="${request.route_url('faq')}" data-src="${request.route_url('faq')}" data-classes="faq" 
-					        							class="vk2-modal-anchor" data-title="">FAQ</a>        				
+					        							class="vk2-modal-anchor" data-title="Häufig gestellte Fragen (FAQ)">FAQ</a>        				
 					        				</li>
-					        				% endif
 					        				<li class="listelement leftborder">
 					         					<a href="${request.route_url('contact')}" data-src="${request.route_url('contact')}" data-classes="contact" 
 					        							class="vk2-modal-anchor" data-title="">${_('footer_contact')}</a>		

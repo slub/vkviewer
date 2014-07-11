@@ -21,11 +21,13 @@ def getCookie(request, cookieName):
     
 def generateRandomString(size):
     lst = [random.choice(string.ascii_letters + string.digits) for n in xrange(size)]
-    str = ''.join(lst)
-    return str
+    response = ''.join(lst)
+    return response
 
-def appendParameterToQueryDict(request, parameter, value):
-    query_dict = {parameter:value}
+def appendParameterToQueryDict(request, parameter=None, value=None):
+    query_dict = {}
+    if parameter or value:
+        query_dict = {parameter:value}
     for val in request.params:
         query_dict.update({val:request.params[val]})
     return query_dict

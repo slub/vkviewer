@@ -34,3 +34,5 @@
 	padding-left: 0px;
 	padding-right: 0px;
 }
+
+.panel, .panel-heading { border: 0 none; border-radius: 0; box-shadow: none; }
