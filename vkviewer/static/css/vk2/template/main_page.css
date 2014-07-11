@@ -57,74 +57,45 @@
 	display: none;
 }
 
-/* styling georeferencer chooser */
-.georeference-chooser-control { 
-	position: absolute; 
-	left: -46px; 
-	outline: none; 
-	background-color: rgba(0,177,158,0.9); 
-	cursor: pointer; 
-	border-radius: 0; 
-	border: 1px solid rgba(0,0,0,0.4); 
-	border-width: 0 0 1px 0; 
-}
-.georeference-chooser-control:after { 
-	position: absolute; 
-	left: -5px; 
-	top: 15px; 
-	height: 0; 
-	width: 0; 
-	border: 5px solid #00b19e; 
-	border-width: 5px 5px 5px 0; 
-	border-color: transparent #00b19e transparent transparent; 
-	content: ""; 
-}
-.georeference-chooser-control.open:after { border-right-color: rgba(51,68,68,0.9); }
-.georeference-chooser-control { top: 150px; }
-.georeference-chooser-control .georeference-chooser-icon { 
-	text-indent: 100%; 
-	display: inline-block;
-	overflow: hidden; 
-	vertical-align: top; 
-	width: 40px; 
-	height: 40px; 
-	background: url('/vkviewer/static/images/sidebarIcons.png') no-repeat 0 0; 
-	margin: 3px; 
-}
-.georeference-chooser-control .georeference-chooser-icon { background-position: -120px 0 } 
-.georeference-chooser-control:hover .georeference-chooser-icon { background-position: -120px -40px }
-.georeference-chooser-control.open { background: rgba(51,68,68,0.9); }
 
 /* user-header */
 .user-header {
-	z-index: 2001;
+	z-index: 311;
 	top: 10px;
-	right: 10px;
+	right: 38px;
+	height: 28px;
 	position: absolute;
 	display: block;
 	background: #fff;
-	background: rgba(255,255,255,0.9);
-	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-	padding: 10px;
+	background: rgba(255,255,255,0.4);
+	padding: 3px;
 	
 }
 
 .user-header > ul {
 	position: relative;
-	float: left;
+	float: right;
 }
 
+.user-header .nav > li > a { background: rgb(0,177,158); padding: 3px 6px; color: #fff; border: 0 none; border-radius: 0; font-size: 11px; font-weight: 800; }
+.user-header .user-dropdown > a.vk2-modal-anchor { font-weight: 500; }
+.user-header .user-dropdown a:hover, .user-header .user-dropdown a:focus { background: #f33; }
+
+.user-header .user-dropdown a.vk2-modal-anchor .caret, .dropdown-menu .glyphicon { display: none; }
+
+
+.user-header .dropdown-menu { left: auto; right: 0; }
 
 .user-header .langswitch { 
 	list-style-type: none; 
+	margin-right: 5px;
 }
 
 .user-header .langswitch li { 
 	width: 16px; 
 	height: 11px; 
 	overflow: hidden; 
-	padding: 0; 
-	margin: 0 0 6px 0; 
+	margin: 5px 3px 0 3px; 
 	float: left;
 }
 
@@ -138,10 +109,10 @@
 	text-indent: -9000px; 
 	background: url('/vkviewer/static/images/flags.png') no-repeat 
 }
-
 .language_switcher.switch_de { background-position: 0 0 }
 .language_switcher.switch_en { background-position: 0 -11px }
 
 
+.user-header .nav > li > a.georeference-chooser-control.open { background: #f33; }
 
 

@@ -167,6 +167,11 @@ For bulding a minimize css files the command line tool cat and the closure-style
 
 	java -jar lib/closure-library/closure-stylesheets.jar build/styles-all.css > build/styles-min.css
 
+## Building a minimize JS files with Plovr
+
 When using plovr the vkviewer-min.json in the vkviewer/static/build folder is used. It contains the configuration options for the build process. For more information see http://code.google.com/p/plovr/
 
+	java -jar build/plovr-81ed862.jar build build/vkviewer-simple.json
+
+After building the minimified javascript / css version make sure your mako files are definied correctly. Then you can build a deployment version with the build_deploy.py in the deploy directory
 

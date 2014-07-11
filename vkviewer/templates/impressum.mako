@@ -1,14 +1,6 @@
 # -*- coding: utf-8 -*-
 <%inherit file="basic_page.mako" />
 
-<%block name="header_content">	 
-	<style>
-		html, body {
-			overflow-y: auto;
-		}
-	</style>
-</%block>
-
 <%block name="body_content">
 	<div class="impressum page-container">
 		<div class="vk2ImpressumPageContainer">

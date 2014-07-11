@@ -214,16 +214,18 @@ vk2.module.MapSearchModule.prototype._appendScrollBehavior = function(){
  * @private
  */
 vk2.module.MapSearchModule.prototype._appendFeaturesToList = function(){
-	var startIndex = (this._featurePointer + this._interval) < this._searchFeatures.length ? this._featurePointer : 0;
-	var endIndex = (this._featurePointer + this._interval) < this._searchFeatures.length ? (this._featurePointer + this._interval) : this._searchFeatures.length;
-	
-	for (var i = startIndex, ii = endIndex; i < ii; i++){
-		var element = vk2.factory.MapSearchFactory.getMapSearchRecord(this._searchFeatures[i]);
-		goog.dom.appendChild(this._searchListEl,element);
-		if (goog.isDef(this._featureOverlay))
-			vk2.factory.MapSearchFactory.addHoverToMapSearchRecord(element, this._searchFeatures[i], this._featureOverlay);
+	if (goog.isDef(this._searchFeatures)){
+		var startIndex = (this._featurePointer + this._interval) < this._searchFeatures.length ? this._featurePointer : 0;
+		var endIndex = (this._featurePointer + this._interval) < this._searchFeatures.length ? (this._featurePointer + this._interval) : this._searchFeatures.length;
+		
+		for (var i = startIndex, ii = endIndex; i < ii; i++){
+			var element = vk2.factory.MapSearchFactory.getMapSearchRecord(this._searchFeatures[i]);
+			goog.dom.appendChild(this._searchListEl,element);
+			if (goog.isDef(this._featureOverlay))
+				vk2.factory.MapSearchFactory.addHoverToMapSearchRecord(element, this._searchFeatures[i], this._featureOverlay);
+		};
+		this._featurePointer = endIndex;
 	};
-	this._featurePointer = endIndex;
 };
 
 /**

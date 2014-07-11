@@ -88,7 +88,7 @@
     		// event behavior for deactivation welcome page
 			$('#deactivateWelcomePage').change(function(){				
 				var welcomePageStatus = $(this).prop('checked') ? 'off' : 'on';
-				VK2.Utils.setCookie('welcomepage', welcomePageStatus);
+				vk2.utils.setCookie('welcomepage', welcomePageStatus);
 	   		});
 	   		
 	   		$('#vk2WelcomePageStart').click(function(event){

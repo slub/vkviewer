@@ -4,6 +4,7 @@ goog.require('goog.Uri');
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
 goog.require('goog.style');
+goog.require('goog.net.cookies');
 
 /**
  * @static
@@ -134,6 +135,46 @@ vk2.utils.overwriteOlTitles = function(map_container){
 		};
 	};
 };
+
+/**
+ * This functions does a get request for a given url_string and calls, if given, the success_callback or error_callback
+ * @param {string} url_string
+ * @param {Function=} success_callback
+ * @param {Function=} error_callback
+ * @static
+ */
+vk2.utils.sendReport = function(url_string, success_callback, error_callback){
+	
+	// create request object
+	var xhr = new goog.net.XhrIo();
+	
+	// add listener to request object
+	goog.events.listenOnce(xhr, 'success', function(e){
+		var xhr = /** @type {goog.net.XhrIo} */ (e.target);
+		if (goog.isDef(success_callback))
+			success_callback(xhr);
+		xhr.dispose();
+
+	}, false, this);
+	
+	goog.events.listenOnce(xhr, 'error', function(e){
+		var xhr = /** @type {goog.net.XhrIo} */ (e.target);
+		if (goog.isDef(error_callback))
+			error_callback(xhr);
+	}, false, this);
+	
+	// send request
+	xhr.send(url_string);	
+};
+
+
+/**
+ * @param {string} name
+ * @param {string} value
+ */
+vk2.utils.setCookie = function(name, value){
+	goog.net.cookies.set(name, value);
+}
 
 /**
  * @static

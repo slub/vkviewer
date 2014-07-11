@@ -1,6 +1,7 @@
 from pyramid.response import Response
 from pyramid.view import view_config
 
+
 # database imports
 from sqlalchemy.exc import DBAPIError
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
@@ -10,16 +11,19 @@ from vkviewer import log
 # renderer imports
 import json
 
+def createPermalink(request, objectid):
+    dbsession = request.db
+    centroid = Messtischblatt.getCentroid(objectid, dbsession, 900913)
+    return request.host_url + '/vkviewer/?welcomepage=off&z=5&c=%s,%s&oid=%s'%(centroid[0],centroid[1],objectid)
+        
 @view_config(route_name='permalink', renderer='string', permission='view')
 def getPermalinkForObjectid(request):
     """ Contains a permalink url for the given objectid"""
     try:
         log.info('Receive get permalink request.')
-        dbsession = request.db
         objectid = request.GET.get('objectid')
-        centroid = Messtischblatt.getCentroid(objectid, dbsession, 900913)
-        permalink = request.host_url + '/vkviewer/?welcomepage=off&z=5&c=%s,%s&oid=%s'%(centroid[0],centroid[1],objectid)
-        return Response(permalink, content_type='text/plain', status_int=500)
+        permalink = createPermalink(request, objectid)            
+        return Response(permalink, content_type='text/plain')
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
     

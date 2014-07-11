@@ -109,7 +109,9 @@ vk2.utils.Modal.prototype._initBehavior = function(modal_el, onclose_destroy){
 		// destroy modal on close
 		if (onclose_destroy){
 			goog.dom.removeNode(this);
-			console.log('register onclose destroy behavior');
+			
+			if (goog.DEBUG)
+				console.log('register onclose destroy behavior');
 		}
 	});	
 };

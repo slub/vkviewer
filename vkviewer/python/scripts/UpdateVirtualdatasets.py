@@ -109,16 +109,17 @@ def buildCreateShapeTileIndexCmd(timestamp, shp_path, database_params):
     }.items() + database_params.items()))
 
     
-def getVirtualDatasetCreateCommands(targetVrtPath, time, database_params):
+def getVirtualDatasetCreateCommands(targetVrtPath, tmp_dir, time, database_params):
     """ This function create a virtual dataset for the given parameters 
         
         Arguments:
             targetVrtPath {string}
+            tmp_dir {string}
             time {Integer}
             database_params {dict} for querying the database via pgsql2shp
             with_cache {Boolean} If true also a update cache command is created
         Returns: {list} commands for creating virtual datasets """
-    shpTilePath = os.path.join(TMP_DIR, (str(time)))
+    shpTilePath = os.path.join(tmp_dir, (str(time)))
 
     # collect commands 
     commands = []
@@ -129,7 +130,7 @@ def getVirtualDatasetCreateCommands(targetVrtPath, time, database_params):
     return commands
    
     
-def updateVrt( database_params, logger = None, dbsession = None, vrt = None):
+def updateVrt( database_params, vrt_target_dir, tmp_dir, logger = None, dbsession = None, vrt = None):
     """ Processes a refreshed virtual dataset, updates the cache and after all update the 
         database relations in messtischblatt db
             
@@ -141,8 +142,8 @@ def updateVrt( database_params, logger = None, dbsession = None, vrt = None):
         vrt {src.models.Virtualdataset} """
     try:
         logger.info('Starting updating virtual datasets for timestamp %s ...'%vrt.timestamp)
-        targetVrtPath  = os.path.join(VRT_TARGET_DIR, '%s.vrt'%vrt.timestamp.year)
-        commands = getVirtualDatasetCreateCommands(targetVrtPath, vrt.timestamp.year, database_params)
+        targetVrtPath  = os.path.join(vrt_target_dir, '%s.vrt'%vrt.timestamp.year)
+        commands = getVirtualDatasetCreateCommands(targetVrtPath, tmp_dir, vrt.timestamp.year, database_params)
         
         # now execute command
         for command in commands:
@@ -165,7 +166,7 @@ def updateVrt( database_params, logger = None, dbsession = None, vrt = None):
     except:
         raise
            
-def updateVirtualdatasetForTimestamp( timestamp, database_params, dbsession, logger, testing=False):
+def updateVirtualdatasetForTimestamp( timestamp, vrt_target_dir, tmp_dir, database_params, dbsession, logger, testing=False):
     """ This function controls the complete update process for one timestamp 
         
     Arguments:
@@ -175,7 +176,7 @@ def updateVirtualdatasetForTimestamp( timestamp, database_params, dbsession, log
         testing {Boolean} """ 
     logger.info('Update virtualdataset for timestamp %s ...'%timestamp)
     vrt = Virtualdatasets.by_timestamp(timestamp, dbsession)
-    targetVrtPath = updateVrt( database_params, logger = logger, dbsession = dbsession, vrt = vrt)
+    targetVrtPath = updateVrt( database_params, vrt_target_dir, tmp_dir, logger = logger, dbsession = dbsession, vrt = vrt)
 
     # necessary that following processes consider actual changes    
     if testing:
@@ -233,5 +234,5 @@ if __name__ == '__main__':
 
     logger.info('Start updating the virtualdatasets')
     for value in range(1868, 1946):
-        updateVirtualdatasetForTimestamp('%s-01-01 00:00:00'%value, database_params, loadDbSession(database_params), logger, testing=testing)
+        updateVirtualdatasetForTimestamp('%s-01-01 00:00:00'%value, VRT_TARGET_DIR, TMP_DIR, database_params, loadDbSession(database_params), logger, testing=testing)
         

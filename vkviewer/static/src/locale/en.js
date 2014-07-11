@@ -80,17 +80,26 @@ var lang_dictionary = {
 		'layerbar_choosetime': 'Choose timestamp',
 		
 		// alerts for GeoreferencerSearchLayer
+		'georeference': 'Georeference',
 		'clickout' : 'Area already completed or does not contain any maps',
 		
 		// VK2.Tools.TimestampSwitcher
 		'timestamps': 'timestamps',
+		'timestamp_dropdown': 'add more timestamps',
 		'found_timestamp': 'founded timestamps',
 			
 		// vk2.factory.MapSearchFactory
 		'scale':'Scale',
 		'timestamp':'Timestamp',
+		'showLayer':'Display Map',
+		'removeLayer':'Remove Map',
+		'moveToTop':'Move Map to Top',
 			
 		// tooltips
 		'layerspy':'Get a magnifier for the map',
-		'rotatenorth':'Align map to north'
+		'rotatenorth':'Align map to north',
+		'permalink':'Produce link for share this view',
+		
+		// permalink msg
+		'permalink_msg':'For copying the link push'
 }

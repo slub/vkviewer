@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Tiny//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd">
+<svg version="1.1" baseProfile="tiny" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" viewBox="-2 -4 13 18" xml:space="preserve">
+<g id="Ebene_2" display="none">
+	<rect x="-4.1" y="-2" display="inline" fill="#3C07FF" width="24.1" height="17.9"/>
+</g>
+<g id="xray" display="none">
+	<g display="inline">
+		<line fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" x1="6.2" y1="2.8" x2="7" y2="2"/>
+		<line fill="none" stroke="#FFFFFF" stroke-miterlimit="10" x1="4.1" y1="4.9" x2="5.2" y2="3.8"/>
+		<line fill="none" stroke="#FFFFFF" stroke-miterlimit="10" x1="5.8" y1="5.6" x2="6.8" y2="6.5"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" x1="2" y1="7" x2="3.1" y2="5.9"/>
+		<circle fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="4.6" cy="4.4" r="1.7"/>
+	</g>
+</g>
+<polyline fill="none" stroke="#FFFFFF" stroke-width="1.0061" stroke-miterlimit="10" points="0,2.8 -1.4,1.4 2.9,-2.9 9.3,3.6 
+	5.1,7.8 2.5,5.2 "/>
+<polyline fill="none" stroke="#FFFFFF" stroke-width="1.0061" stroke-miterlimit="10" points="8.4,7 9.8,8.4 5.6,12.7 -0.8,6.2 
+	3.4,2 5.9,4.5 "/>
+</svg>

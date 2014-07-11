@@ -32,15 +32,15 @@
 				var isValide = true;
 							
 				// check old password
-				isValide = isValide && VK2.Validation.checkPassword(inputOldPassword, 'validationTips', 'ui-state-error');
+				isValide = isValide && vk2.validation.checkPassword(inputOldPassword, 'validationTips', 'ui-state-error');
 				if (!isValide) return isValide;
 				
 				// check new password
-				isValide = isValide && VK2.Validation.checkPassword(inputNewPassword, 'validationTips', 'ui-state-error');
+				isValide = isValide && vk2.validation.checkPassword(inputNewPassword, 'validationTips', 'ui-state-error');
 				if (!isValide) return isValide;
 				
 				// check if new password matches validation password
-				isValide = isValide && VK2.Validation.checkPasswordMatch(inputNewPassword, inputNewPasswordValidate, 'validationTips', 'ui-state-error'); 
+				isValide = isValide && vk2.validation.checkPasswordMatch(inputNewPassword, inputNewPasswordValidate, 'validationTips', 'ui-state-error'); 
 				return isValide;
 			}
     </script> 

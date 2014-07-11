@@ -1,7 +1,7 @@
 /* body, html { height: 500px; width: 800px; background: transparent; }
 div { position: relative; float: left; } */
 
-.vk2WelcomePageBody { position: relative; float: left; height: 400px; width: 800px; background: #fff; }
+.vk2WelcomePageBody { position: relative; float: left; height: 400px; width: 800px; background: #fff; box-shadow: 0 3px 9px rgba(0,0,0,0.5); -webkit-box-shadow: 0 3px 9px rgba(0,0,0,0.5); -moz-box-shadow: 0 3px 9px rgba(0,0,0,0.5); -o-box-shadow: 0 3px 9px rgba(0,0,0,0.5);  }
 .vk2WelcomePageBody div {position: relative; float: left;}
 .vk2WelcomePageFooter { position: relative; float: left; height: 100px; width: 800px; }
 .vk2WelcomePageFooter div {position: relative; float: left;}
@@ -38,3 +38,6 @@ a.vk2FooterLinks:hover { color: #f33; }
 .vk2GeoreferenceRanking ol li span { padding-right: 5px; border-right: 1px dotted #fff; }
 .vk2WelcomePageFooter .SkipPageContainer { width: 100%; height: 25%; color: #fff; }
 .vk2WelcomePageFooter .SkipPageContainer label { font-weight: 300; font-size: 0.8em; }
+
+
+.welcomeBox { box-shadow: none; -webkit-box-shadow: none; border: 0 none; }

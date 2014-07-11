@@ -7,7 +7,7 @@ import shutil
 import tempfile
 import os
 
-from vkviewer.settings import srid_database, DATABASE_SRID, GEOREFERENCE_OVERVIEW_LEVELS
+from vkviewer.settings import DATABASE_SRID, GEOREFERENCE_OVERVIEW_LEVELS
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from vkviewer.python.georef.utils import getTimestampAsPGStr, runCommand
 from vkviewer.python.georef.georeferencer import georeference, createGCPs
@@ -57,7 +57,7 @@ class GeoreferenceProcessManager(object):
     """ Class encapsulated a georeference process for one mtb """   
          
     def __init__(self, dbsession, tmp_dir, logger):
-        self.srid = srid_database
+        self.srid = DATABASE_SRID
         self.dbsession = dbsession;
         self.tmp_dir = tmp_dir;
         self.logger = logger
@@ -107,7 +107,7 @@ class GeoreferenceProcessManager(object):
     def __runFastGeoreferencing__(self, georefObject, messtischblatt, tmpDir, destPath):    
         try:                           
             gcps = createGCPs(georefObject.clipparameter, messtischblatt.BoundingBoxObj.getCornerPointsAsList(), messtischblatt.zoomify_height)
-            return georeference(messtischblatt.original_path, destPath, tmpDir, gcps, srid_database, srid_database, 'polynom', self.logger)
+            return georeference(messtischblatt.original_path, destPath, tmpDir, gcps, DATABASE_SRID, DATABASE_SRID, 'polynom', self.logger)
         except:
             self.logger.error('Something went wrong while trying to process a fast georefercing process')
             raise

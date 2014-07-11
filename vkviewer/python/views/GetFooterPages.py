@@ -14,22 +14,6 @@ def partner_page(request):
 def kontakt_page(request):
     return {}
 
-
-""""
-FAQ Pages
-"""
-@view_config(route_name='faq', renderer='faqMainPage.mako', permission='view',http_cache=0)
+@view_config(route_name='faq', renderer='faq.mako', permission='view',http_cache=0)
 def faq_mainPage(request):
-    return {}
-
-@view_config(route_name='faq_loggedIn', renderer='faqLoggedIn.mako', permission='view',http_cache=0)
-def faq_mainPage_loggedIn(request):
-    return {}
-
-@view_config(route_name='faq_georef_start', renderer='faqGeorefStart.mako', permission='view',http_cache=0)
-def faq_georefStartPage(request):
-    return {}
-
-@view_config(route_name='faq_georef_validate', renderer='faqGeorefValidate.mako', permission='view',http_cache=0)
-def faq_georefValidationPage(request):
     return {}

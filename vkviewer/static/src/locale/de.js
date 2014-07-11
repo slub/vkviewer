@@ -80,19 +80,28 @@ var lang_dictionary = {
 		'layerbar_choosetime': 'Wähle Zeitschnitt',
 		
 		// alerts for GeoreferencerSearchLayer
+		'georeference': 'Georeferenzierung',
 		'clickout' : 'Bereich ist bereits vollständig bearbeitet oder enthält keine Karten',
 		
 		// VK2.Tools.TimestampSwitcher
 		'timestamps': 'Zeitschnitte',
+		'timestamp_dropdown': 'weitere Jahrgänge hinzufügen',
 		'found_timestamp': 'Zeitschnitte gefunden',
 			
 		// vk2.factory.MapSearchFactory
 		'scale':'Maßstab',
 		'timestamp':'Datierung',
+		'showLayer':'Zeige Karte',
+		'removeLayer':'Verwerfe Karte',
+		'moveToTop':'Karte in den Vordergrund',
 			
 		// tooltips
 		'layerspy':'Kartenlupe',
-		'rotatenorth':'Karten nach Norden ausrichten'
+		'rotatenorth':'Karten nach Norden ausrichten',
+		'permalink':'Erzeuge einen Link für diese Ansicht',
+		
+		// permalink msg
+		'permalink_msg':'Um den Link zu kopieren drücken Sie bitte'
 		
 }
 	
