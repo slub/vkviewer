@@ -13,7 +13,8 @@
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	 
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/ol.css')}" />
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/vkviewer-libarys.min.css')}" media="screen" />
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
+		<!-- <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" /> -->
+		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/styles-min.css')}" />
 		
 		<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
@@ -22,17 +23,17 @@
 	   	<script src="${request.static_url('vkviewer:static/src/locale/'+_('js_library')+'.js')}"></script>
 	   	
 	   	
-	   	<!-- For debugging -->
+	   	<!-- For debugging 
 	   	<script src="${request.static_url('vkviewer:static/lib/ol-whitespace.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/deps.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/src/vkviewer-deps.js')}"></script> 
+	    <script src="${request.static_url('vkviewer:static/src/vkviewer-deps.js')}"></script> --> 
 	    
 	    <!-- For production -->
 	    <!-- <script src="${request.static_url('vkviewer:static/lib/ol.vkviewer.min.js')}"></script> -->
 		<!-- <script src="${request.static_url('vkviewer:static/build/vkviewer-min.js')}"></script> -->
-		<!-- <script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
-		<script src="${request.static_url('vkviewer:static/build/vkviewer-simple.js')}"></script> --> 
+		<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
+		<script src="${request.static_url('vkviewer:static/vkviewer-simple.js')}"></script> 
 	    
 	    <script>
 	    	goog.require('vk2.utils.AppLoader');

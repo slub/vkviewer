@@ -52,6 +52,7 @@ ul.ui-autocomplete{
   overflow-x: hidden;
 	border-radius: 0;
 	border: 0 none;
+	/* @alternate */
 	background: #355;
 	background: rgba(51,85,85,0.9);
 	color: #fff;
