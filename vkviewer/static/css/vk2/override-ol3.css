@@ -168,10 +168,10 @@
     border-radius: 0;
 }
 
-#permaCopyBox { position: absolute; left: 40px; top: 0; width: 320px; background: #355; background: rgba(51,85,85,0.9); padding: 10px 15px; }
+#permaCopyBox { position: absolute; left: 40px; top: 0; width: 320px; /* @alternate */ background: #355; background: rgba(51,85,85,0.9); padding: 10px 15px; }
 #permaCopyBox:before { position: absolute; left: -5px; top: 10px; width: 0; height: 0; border: 5px solid transparent; border-right-color: rgba(51,85,85,0.9); border-left-width: 0; content: ""; }
 #permaCopyBox .moreDots { display: none; }
-#permaCopyBox input { width: 100%; outline: 0; background: #fff; background: rgba(255,255,255,0.5); border: 1px solid #fff; }
+#permaCopyBox input { width: 100%; outline: 0; /* @alternate */ background: #fff; background: rgba(255,255,255,0.5); border: 1px solid #fff; }
 #permaCopyBox label { font-size: 11px; color: #fff; margin: 0; }
 
 .olMap .permalink { left: 340px; top: 213px; border-radius: 0; }
