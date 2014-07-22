@@ -86,7 +86,7 @@ def buildSeedingCmd(time, seeder_threads, ogr_datasource=None):
         return "su - www-data -c \"mapcache_seed -c /usr/share/mapcache/mapcache.xml -t 'messtischblaetter' \
             -M 5,5 -v -D TIME=%s -i \"level-by-level\" -f -n %s -d \"%s\" \""%(time,seeder_threads,ogr_datasource)
     
-def updateCache(time, database_params, tmp_dir, seeder_threads, seeder_epgs, logger, restricted=True):
+def updateCache(time, database_params, tmp_dir, seeder_threads, seeder_epgs, logger, restricted=True, bbox=None):
     """ Processes for updating the cache 
             
     Arguments:
@@ -95,12 +95,19 @@ def updateCache(time, database_params, tmp_dir, seeder_threads, seeder_epgs, log
         restricted {Boolean} If the cache should be recalculate for the complete or a restricted area
         logger {Logger} """
 
-    if restricted:
+    if restricted and bbox is None:
+        logger.info('Run in restricted mode with out given bbox ...')
         restrict_cache_shp = os.path.join(tmp_dir, '%s_cache'%time)
         commands = []
         commands.append(buildCacheRestrictShapefile(time, restrict_cache_shp, database_params, seeder_epgs))
         commands.append(buildSeedingCmd(time, seeder_threads, restrict_cache_shp + '.shp'))
+    elif restricted and bbox:
+        logger.info('Run in restricted mode with given bbox ...')
+        restrict_cache_shp = bbox.asShapefile(os.path.join(tmp_dir, '%s_cache'%time))
+        commands = []
+        commands.append(buildSeedingCmd(time, seeder_threads, restrict_cache_shp))
     else:
+        logger.info('Run without restricted mode ...')
         # also add the creating command for restricted cache file for preventing the cache
         # to reseed time slots without timestamps 
         restrict_cache_shp = os.path.join(tmp_dir, '%s_cache'%time)
@@ -151,7 +158,8 @@ if __name__ == '__main__':
         PARAMS_DATABASE['db'] = arguments.db
     if arguments.tmp_dir:
         TMP_DIR = arguments.tmp_dir
-        
+    
+    RESTRICTED_MODE = True
     if arguments.with_restricted:
         if arguments.with_restricted.lower() == 'true':
             RESTRICTED_MODE = True

@@ -81,6 +81,12 @@ class Messtischblatt(Base):
     def BoundingBoxObj(self):
         return createBBoxFromPostGISString(self.boundingbox, srid_database)
     
+    @classmethod
+    def getBoundingBoxObjWithEpsg(cls, id, session, epsg=4314):
+        query = 'SELECT st_astext(st_transform(boundingbox,  %s)) FROM messtischblatt WHERE id = %s'%(epsg, id)
+        pg_geometry = session.execute(query,{'id':id}).fetchone()[0]
+        return createBBoxFromPostGISString(pg_geometry, epsg)
+    
     def setIsUpdated(self, isUpdated):
         if self.isttransformiert:
             self.updated = isUpdated
