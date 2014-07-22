@@ -16,7 +16,7 @@ vk2.control.Permalink = function(opt_options) {
   var element = goog.dom.createDom('div',{'class':'permalink ol-unselectable'});  
   
   var anchor = goog.dom.createDom('a',{
-	  'href':'#permalinl',
+	  'href':'#permalink',
 	  'innerHTML':'P',
 	  'class':'ol-has-tooltip'
   });
