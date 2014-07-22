@@ -81,7 +81,7 @@ vk2.georeference.MesstischblattGcpHandler.prototype._appendUpdateEventBehavior =
 			},
 			'min_features': function(event){
 				var allFeatures = event.target.getFeatures();
-				if (allFeatures.length < 3)
+				if (allFeatures.length < 4)
 					return false;
 				return true;
 			},
