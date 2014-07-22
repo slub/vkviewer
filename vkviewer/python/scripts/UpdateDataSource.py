@@ -49,6 +49,7 @@ sys.path.insert(0, BASE_PATH)
 sys.path.append(BASE_PATH_PARENT)
 
 from vkviewer.settings import GN_SETTINGS
+from vkviewer.python.models.Meta import initializeDb
 from vkviewer.python.utils.logger import createLogger
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
@@ -60,7 +61,7 @@ from vkviewer.python.scripts.csw.InsertMetadata import insertMetadata
 from vkviewer.python.scripts.csw.CswTransactionBinding import gn_transaction_delete
 from vkviewer.python.georef.georeferencer import georeference, addOverviews
 from vkviewer.python.utils.parser import parseGcps
-from vkviewer.python.utils.exceptions import GeoreferenceProcessingError
+from vkviewer.python.utils.exceptions import GeoreferenceProcessingError, WrongParameterException
 
 """ Default options """
 # Threads which the mapcache_seeder uses
@@ -81,16 +82,24 @@ VRT_OVERVIEW_LEVELS = '64 128 256 512'
 
 # Database parameter for messtischblatt db
 PARAMS_DATABASE = {
-    'host': 'localhost',
-    'user':'postgres',
-    'password':'postgres',
+    'host': '194.95.151.62',
+    'user':'vkviewer',
+    'password':'S1ubVK2.0!!',
     'db':'messtischblattdb',    
 }
 
 # Id of the database layer where the messtischblatt should be registered
 MTB_LAYER_ID = 87
 
-
+def loadDbSession(database_params): 
+    logger.info('Initialize new database connection ...')
+    sqlalchemy_enginge = 'postgresql+psycopg2://%(user)s:%(password)s@%(host)s:5432/%(db)s'%(database_params)
+    try:
+        return initializeDb(sqlalchemy_enginge)
+    except:
+        logger.error('Could not initialize database. Plase check your database settings parameter.')
+        raise WrongParameterException('Could not initialize database. Plase check your database settings parameter.')
+    
 def getGeoreferenceProcessQueue(dbsession, logger):
     """ This functions build a georeference process queue. For this it looks for entries 
         in the georeference table with status unprocessed and extends it with georeference process
@@ -170,6 +179,7 @@ def processSingleGeorefProc(georefProc, dbsession, logger, testing = False):
         logger.debug('Update database ...')
 
         # update verzeichnispfad for messtischblatt
+        georefProc.processed = True
         messtischblatt.verzeichnispfad = destPath
         messtischblatt.isttransformiert = True 
         refmtblayer = RefMtbLayer.by_id(MTB_LAYER_ID, messtischblatt.id, dbsession)
@@ -216,14 +226,14 @@ def updateDataSources(dbsession, database_params, vrt_target_dir, tmp_dir, logge
             processSingleGeorefProc(georefProcess, dbsession, logger, testing)
             
         logger.info('Recalculate virtualdataset ...')
+        if not testing:
+            dbsession.commit()
         updateVirtualdatasetForTimestamp('%s-01-01 00:00:00'%timestamp, vrt_target_dir, tmp_dir, database_params, dbsession, logger, testing=testing)
         
         logger.info('Update cache with restricted mode...')
-        if not testing:
-            updateCache(timestamp, database_params, tmp_dir, SEEDER_NRTHREADS, SEEDER_EPSG, logger, restricted=True)
-    
-    if not testing:
-        dbsession.commit()
+        for georefProcess in processingQueue['georeference'][timestamp]:
+            bbox = Messtischblatt.getBoundingBoxObjWithEpsg(georefProcess.messtischblattid, dbsession, SEEDER_EPSG)
+            updateCache(timestamp, database_params, tmp_dir, SEEDER_NRTHREADS, SEEDER_EPSG, logger, restricted=True, bbox=bbox)
         
     logger.info('Finishing updating the single georeferencing ...')        
             
@@ -280,5 +290,10 @@ if __name__ == '__main__':
     if arguments.layerid:
         MTB_LAYER_ID = arguments.layerid    
     
+    dbsession = loadDbSession(PARAMS_DATABASE)
+    if arguments.mode == 'testing':
+        updateDataSources(dbsession, PARAMS_DATABASE, VRT_TARGET_DIR, TMP_DIR, logger, testing = True)
+    else:
+        updateDataSources(dbsession, PARAMS_DATABASE, VRT_TARGET_DIR, TMP_DIR, logger, testing = False)
     #scriptProductionMode(arguments.mode, arguments.with_cache, logger)
         

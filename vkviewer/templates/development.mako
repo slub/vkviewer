@@ -1,109 +1,11 @@
-# -*- coding: utf-8 -*-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="vkviewer">
-    <head>
-        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8" />
-        <META HTTP-EQUIV="cache-control" CONTENT="max-age=3600" />
-        <title>Virtuelles Kartenforum 2.0</title>
-        <!-- js/css librarys via cdn -->
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	 
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/vkviewer-libarys.min.css')}" media="screen" />
-		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />	 
-		<style>
-			.modal-content.faq{
-				width: auto;
-				margin-left: -100px;
-			}
-			
-			.modal-content.faq iframe.faq{
-				width: 100%;
-				height: 600px;
-			}
-			
-			.modal-content.choose-georef iframe.choose-georef{
-				width: 100%;
-			}
-			
-			.modal-content.single-map-view{
-				width: 100%;
-				min-width: 1000px;
-				margin-left: -200px;
-				height: 100%;
-				min-height: 600px;
-			}
-			
-			.modal-content.single-map-view .modal-body{
-				width: 100%;
-				height: 700px;
-			}
-			
-			.modal-content.single-map-view iframe{
-				width: 100%;
-				height: 100%;
-			}
-		</style>
+<%inherit file="basic_page.mako" />
 
-		<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui-1.10.4.custom.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/jquery.tablesorter.min.js')}"></script>  
-	    <script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/proj4js.js')}"></script>
-	   	<script src="${request.static_url('vkviewer:static/js/locale/'+_('js_library')+'.js')}"></script>
-	   	<script src="${request.static_url('vkviewer:static/new/lib/ol-whitespace.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/ui/idgenerator.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/new/deps.js')}"></script>   
-	    <script>
-	    	goog.require('VK2.Utils.AppLoader');
-	    </script>
-    </head>
-	<body>
-	<div class="main-page body-container">
-		<div class="navbar navbar-fixed-top vk2HeaderNavBar" role="navigation">
+<%block name="header_content">
+</%block>
+
+<%block name="body_content">
+	<div id="main-page-container" class="body-container">
 		
-			<!-- Brand and toggle get grouped for better mobile display -->
-	        <div class="navbar-header">
-	          	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-		            <span class="sr-only">Toggle navigation</span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-	          	</button>
-	          	<a class="navbar-brand" href="#">Virtuelles Kartenforum 2.0</a>
-	          	
-	          	<!-- language switcher -->
-	          	<ul class="langswitch">
-	          		<li><a href="#"><span class="language_switcher switch_de"></span>Deutsch</a></li>
-			        <li><a href="#"><span class="language_switcher switch_en"></span>Englisch</a></li>  
-	          	</ul>
-	        </div>        
-	        
-	        <!-- Collect the nav links, forms, and other content for toggling -->
-        	<div class="collapse navbar-collapse navbar-ex1-collapse">
-        		<ul class="nav navbar-nav navbar-right vk2-navbar-user">
-        			<li class="dropdown info-dropdown">
-	                	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="${_('header_service')}">${_('header_service')} <b class="caret"></b></a>
-		                <ul class="dropdown-menu">
-		                	<li><a href="#" class="vk2FooterLinks fancybox-open" data-fancyclass="faq">FAQ</a></li>
-		                </ul>
-	             	</li>
-          		
-          			<!-- user menu -->
-			        <li class="dropdown user-dropdown">
-						<a href="#" id="vk2UserToolsLogin" class="vk2UserToolsLogin fancybox-open" data-fancyclass="login"> Anmelden <b class="caret"></b> </a>       	
-			        </li>
-			    </ul>
-	          	<form class="navbar-form vk2Gazetteer" role="search">
-	          		<div class="form-group">
-							<input type="text" id="vk2GazetteerSearchInput" class="form-control vk2GazetteerSearchInput" placeholder="Ortsname oder Blattnumber" />
-			        </div>
-			    </form>
-	          	</div>
-          	</div>
-        <!-- /.navbar-collapse -->
       
               
         <!-- Body -->
@@ -111,10 +13,108 @@
         			
         			<!-- Map panel -->
 
-        				<div class="vk2MapPanel" id="vk2MapPanel">
+        				<div id="vk2MapPanel" class="vk2MapPanel">
+        					<!-- map container -->
 			        		<div id="mapdiv" class="olMap" tabindex="0"></div>
-			        		<div id="vk2SBPanel" class="vk2SBPanel"></div>
-			        	</div>
+			        		<!-- /end map container -->
+			        		
+			        		<!-- user header --> 
+			        		<div class="user-header">
+			        			<ul class="nav nav-pills vk2-navbar-user" id="vk2-navbar-user">
+			        				<li class="dropdown user-dropdown">
+			        				
+						        		<%
+										from pyramid.security import authenticated_userid
+										user_id = authenticated_userid(request)
+										%>    
+													
+										% if user_id:
+									
+						              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> ${user_id} <b class="caret"></b></a>
+						              	<ul class="dropdown-menu">
+							                <li><a href="${request.route_url('users_profile_georef')}" data-src="${request.route_url('users_profile_georef')}" data-classes="georef-history" 
+								        		class="vk2-modal-anchor" data-title="">${_('georef_history')}</a></li>
+							                <li><a href="${request.route_url('change_pw', action='page')}" data-src="${request.route_url('change_pw', action='page')}" data-classes="pw-change" 
+								        		class="vk2-modal-anchor" data-title="${_('change_pw_header')}">${_('change_pw_header')}</a></li>
+							                <li class="divider"></li>
+							                <li><a href="${request.route_url('auth',action='out')}"><span class="glyphicon glyphicon-off"></span> ${_('logout_button')} </a></li>
+							              </ul>
+						              
+							            % else:
+							              <a href="${request.route_url('auth',action='getscreen')}" data-src="${request.route_url('auth',action='getscreen')}" data-classes="login" 
+								        		class="vk2-modal-anchor" data-title="${_('login_button')}"> ${_('login_button')} <b class="caret"></b> </a>
+							         	% endif
+							         </li>
+							         <li id="georeference-chooser-container"></li>
+							    </ul>
+					         	
+					 			<!-- language switcher -->
+					 			<ul class="langswitch">
+	          						<li><a href="${request.route_url('set_locales')}?language=de"><span class="language_switcher switch_de"></span>${_('header_language_de')}</a></li>
+			        				<li><a href="${request.route_url('set_locales')}?language=en"><span class="language_switcher switch_en"></span>${_('header_language_en')}</a></li>  
+	          					</ul>
+				         	
+			        		</div>
+			        		<!-- user header end -->
+			        		
+			        		<!-- spatial search div -->
+			        		<div class="spatialsearch-container" id="spatialsearch-container">
+			        				
+			        			<!-- navbar -->
+			        			<div class="vk2HeaderNavBar" role="navigation">
+		
+										<!-- Brand and toggle get grouped for better mobile display -->
+								        <div class="vk2-navbar-header">
+								          	<a class="navbar-brand" href="#">Virtuelles Kartenforum 2.0</a>  	
+								          	
+								          	<!-- Collect the nav links, forms, and other content for toggling -->
+								        	<ul class="nav nav-pills">
+								        		<li class="dropdown info-dropdown">
+									                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="${_('header_service')}">${_('header_service')} <b class="caret"></b></a>
+									                <ul class="dropdown-menu">
+					                	
+										            	% if faq_url:
+										            		<li class="listelement leftborder">
+													        	<a href="${faq_url}" data-src="${faq_url}" data-classes="faq" 
+													        			class="vk2-modal-anchor" data-title="${_('faq_main_heading')}">FAQ</a>        				
+													        </li>       		   		
+													    % else:
+													    	<li class="listelement leftborder">
+													        	<a href="${request.route_url('faq')}" data-src="${request.route_url('faq')}" data-classes="faq" 
+													        			class="vk2-modal-anchor" data-title="${_('faq_main_heading')}">FAQ</a>        				
+													        </li>
+													    % endif
+									        			
+													    <li class="listelement leftborder">
+													    	<a href="${request.route_url('contact')}" data-src="${request.route_url('contact')}" data-classes="contact" 
+													        		class="vk2-modal-anchor" data-title="${_('contact_header')}">${_('footer_contact')}</a>		
+													    </li>        				
+													    <li class="listelement leftborder">
+													    	<a href="${request.route_url('project')}" data-src="${request.route_url('project')}" data-classes="project" 
+													        		class="vk2-modal-anchor" data-title="${_('project_name_short')}">${_('footer_project')}</a>    				
+													    </li>
+													    <li class="listelement">
+													    	<a href="${request.route_url('impressum')}" data-src="${request.route_url('impressum')}" data-classes="impressum" 
+													        		class="vk2-modal-anchor" data-title="${_('footer_editorial')}">${_('footer_editorial')}</a>
+													    </li> 
+									        
+													    % if with_modify:  
+													    <li class="listelement">
+													    	<a href="${request.route_url('georeference_evaluation', action='evaluation')}" data-src="${request.route_url('georeference_evaluation', action='evaluation')}" data-classes="admin-evaluation" 
+													        		class="vk2-modal-anchor" data-title="">Evaluierung</a>
+													    </li> 
+													    % endif     
+												          
+									                </ul>
+								             	</li>
+			          						</ul>
+								        </div>        
+		        
+								        
+					        						        		
+        						</div>
+        						<!-- end spatial search -->
+        				</div>
       	
 			        	<!-- Footer panel -->
 			        	<div class="vk2FooterPanel">
@@ -122,39 +122,52 @@
 			        			<div class="footerContainer">
         							<div class="leftside">
 					        			<ul class="footerList">
-					        				<li class="listelement thick leftborder">Virtuelles Kartenforum 2.0</li>
-					        				<li class="listelement">ein Projekt der SLUB Dresden und der Universität Rostock</li>
+					        				<li class="listelement thick leftborder">${_('footer_project_name')}</li>
+					        				<li class="listelement">${_('footer_project_desc_long')}</li>
 					        			</ul>
         							</div>
 					        		<div class="rightside">
 					        		   	<ul class="footerList">
-					         				<li class="listelement leftborder">
+					        				<li class="listelement leftborder">
 					        					<a href="${request.route_url('faq')}" data-src="${request.route_url('faq')}" data-classes="faq" 
-					        							class="vk2-modal-anchor" data-title="FAQ">FAQ</a>        				
-					        				</li>       		   		
+					        							class="vk2-modal-anchor" data-title="Häufig gestellte Fragen (FAQ)">FAQ</a>        				
+					        				</li>
+					        				<li class="listelement leftborder">
+					         					<a href="${request.route_url('contact')}" data-src="${request.route_url('contact')}" data-classes="contact" 
+					        							class="vk2-modal-anchor" data-title="">${_('footer_contact')}</a>		
+					        				</li>        				
+					        				<li class="listelement leftborder">
+					        					<a href="${request.route_url('project')}" data-src="${request.route_url('project')}" data-classes="project" 
+					        							class="vk2-modal-anchor" data-title="">${_('footer_project')}</a>    				
+					        				</li>
+					        				<li class="listelement">
+					        					<a href="${request.route_url('impressum')}" data-src="${request.route_url('impressum')}" data-classes="impressum" 
+					        							class="vk2-modal-anchor" data-title="">${_('footer_editorial')}</a>
+					        				</li>
 					        			</ul>
 					        		</div>
         						</div>
         					</div>
 			        	</div>
 						<!-- end footer -->
-		</div> 
-	</div>    
+		</div>
 
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="vk2-modal" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      	<div class="modal-header">
-  			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-  		</div>
-    	<div class="modal-body"></div>
-    </div>
-  </div>
-</div>		
-		<!--<script src="${request.static_url('vkviewer:static/new/src/vkviewer-compiled.min.js')}"></script>-->  	
-		<script>
-			var apploader = new VK2.Utils.AppLoader();
-		</script>
-	 
-    </body>
-</html>
+		% if context.get('welcomepage') is not 'off':
+			<a href="${request.route_url('welcome')}" id="vk2WelcomePage" data-src="${request.route_url('welcome')}" data-classes="welcomeBox" 
+				class="vk2-modal-anchor" data-title=""></a>
+		% endif  
+	</div>
+</%block>
+
+<%block name="js_content">
+	<script>
+		var apploader = new vk2.utils.AppLoader({});
+		map.addLayer(new ol.layer.Tile({
+      			source: new ol.source.XYZ({
+						maxZoom: 15,
+						extent: ol.proj.transform([12.33178920492827,51.49869785793785,12.49844181465983,51.59868785547646], 'EPSG:4326', 'EPSG:900913'),
+        				url: 'http://localhost/tms/df_dk_0010001_4440_1912/{z}/{x}/{-y}.png'
+      				})
+    			}))
+	</script>
+</%block>
