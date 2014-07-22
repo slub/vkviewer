@@ -283,6 +283,7 @@ vk2.controller.MapController.prototype._createHistoricMapForFeature = function(f
 		'thumbnail': vk2.utils.generateMesstischblattThumbnailLink(feature.get('dateiname')),
 		'title': feature.get('titel'),
 		'id': feature.get('mtbid'),
+		'name': feature.get('dateiname')
 	}, this._map);
 };
 

@@ -71,16 +71,6 @@ vk2.layer.HistoricMap = function(settings, map){
 	this._borderPolygon = goog.isDef(settings['border']) ? settings['border'] : undefined;
 	
 	/**
-	 * @type {ol.layer.Tile}
-	 * @private
-	 */
-	this._mtbLayer = new vk2.layer.Messtischblatt({
-		'time':this._time, 
-		'border':settings['border'],
-		'extent':settings['extent']
-	}, map); 
-
-	/**
 	 * @type {Array.<vk2.layer.HistoricMap>|undefined}
 	 * @private
 	 */
@@ -95,10 +85,22 @@ vk2.layer.HistoricMap = function(settings, map){
 	});
 	
 	/**
+	 * @type {ol.layer.Tile}
+	 * @private
+	 */
+	var rasterLayer = new ol.layer.Tile({
+		source: new ol.source.XYZ({
+			'maxZoom': 15,
+			'extent': settings['extent'],
+			url: vk2.settings.TMS_URL + settings['name'] + '/{z}/{x}/{-y}.png'
+		})
+	});
+	
+	/**
 	 * @type {ol.layer.Vector}
 	 * @private
 	 */
-	this._borderLayer = new ol.layer.Vector({
+	var borderLayer = new ol.layer.Vector({
 		source: new ol.source.Vector({
 				'features':[ feature ]
 		}),
@@ -107,7 +109,7 @@ vk2.layer.HistoricMap = function(settings, map){
 		}
 	});
 	
-	settings.layers = [this._mtbLayer, this._borderLayer];
+	settings.layers = [rasterLayer, borderLayer];
 	ol.layer.Group.call(this, settings);
 };
 ol.inherits(vk2.layer.HistoricMap, ol.layer.Group);

@@ -109,3 +109,8 @@ vk2.settings.MAIN_MAP_GEOREFERENCER_VIEW = {
  * @type {string}
  */
 vk2.settings.MAP_PROFILE_PAGE = '/vkviewer/profile/map';
+
+/**
+ * @type {string}
+ */
+vk2.settings.TMS_URL = 'http://194.95.145.42/tms/';
