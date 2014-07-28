@@ -10,6 +10,7 @@ goog.require('vk2.tool.GazetteerSearch');
 goog.require('vk2.module.SpatialTemporalSearchModule');
 goog.require('vk2.module.MapSearchModule');
 goog.require('vk2.layer.HistoricMap');
+goog.require('vk2.layer.MapSearch');
 goog.require('vk2.control.LayerSpy');
 goog.require('vk2.control.RotateNorth');
 goog.require('vk2.control.Permalink');
@@ -66,14 +67,14 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 	 */
 	this._map = new ol.Map({
 		layers: [
-//		   new ol.layer.Tile({
-//			   preload: Infinity,
-//			   source: new ol.source.OSM()
-//		   })
-				new ol.layer.Tile({
-					style: 'Road',
-			    	source: new ol.source.MapQuest({layer: 'osm'})
-				})
+		   new ol.layer.Tile({
+			   preload: Infinity,
+			   source: new ol.source.OSM()
+		   })
+//				new ol.layer.Tile({
+//					style: 'Road',
+//			    	source: new ol.source.MapQuest({layer: 'osm'})
+//				})
 		],
 		renderer: 'canvas',
 		target: map_container,
@@ -81,7 +82,10 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 		    new ol.interaction.DragRotateAndZoom()
 		]),
 		controls: [
-		    new ol.control.Attribution(),
+		    new ol.control.Attribution({
+		    	collapsible:false,
+		    	collapsed:false
+		    }),
 		   	new ol.control.Zoom(),
 		   	new ol.control.FullScreen(),
 			new vk2.control.LayerSpy({
@@ -100,7 +104,7 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 	        maxResolution: 2445.9849047851562,
 	        extent: [640161.933,5958026.134,3585834.8011505,7847377.4901306],
 			center: [1531627.8847864927, 6632124.286850829],
-			zoom: 2
+			zoom: 4
 		})
 	});
 	
@@ -185,6 +189,9 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 	
 	// register addmtb event
 	goog.events.listen(this._mapsearch, 'addmtb', function(event){
+		if (goog.DEBUG)
+			console.log('Trigger map search event')
+			
 		var feature = event.target.feature;
 		
 		// request associated messtischblaetter for a blattnr
@@ -280,10 +287,10 @@ vk2.controller.MapController.prototype._createHistoricMapForFeature = function(f
 		'time':feature.get('time'),
 		'border': feature.getGeometry().getCoordinates()[0],
 		'extent': feature.getGeometry().getExtent(),
-		'thumbnail': vk2.utils.generateMesstischblattThumbnailLink(feature.get('dateiname')),
-		'title': feature.get('titel'),
-		'id': feature.get('mtbid'),
-		'name': feature.get('dateiname')
+		'thumbnail': vk2.utils.generateMesstischblattThumbnailLink(feature.get('dataid')),
+		'title': feature.get('title'),
+		'id': feature.get('id'),
+		'dataid':feature.get('dataid')
 	}, this._map);
 };
 

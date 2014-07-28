@@ -14,7 +14,7 @@ vk2.factory.MapSearchFactory.getMapSearchRecord = function(feature){
 	
 	var containerEl = goog.dom.createDom('li', {
 		'class':'mapsearch-record',
-		'id':feature.get('mtbid')
+		'id':feature.get('id')
 	});
 	
 	// add hidden cols
@@ -26,7 +26,7 @@ vk2.factory.MapSearchFactory.getMapSearchRecord = function(feature){
 	
 	var titleCol = goog.dom.createDom('span',{
 		'class':'data-col title',
-		'innerHTML': feature.get('titel')
+		'innerHTML': feature.get('title')
 	});
 	goog.dom.appendChild(containerEl, titleCol);
 		
@@ -49,14 +49,14 @@ vk2.factory.MapSearchFactory.getMapSearchRecord = function(feature){
 	var thumbnail = goog.dom.createDom('img',{
 		'onerror':'this.onerror=null;this.src="http://www.deutschefotothek.de/images/noimage/image120.jpg"',
 		'alt':'...',
-		'src':vk2.settings.THUMBNAIL_URL+feature.get('dateiname')+'.jpg'
+		'src':vk2.settings.THUMBNAIL_URL+feature.get('dataid')+'.jpg'
 	});
 	goog.dom.appendChild(anchor_thumbnails, thumbnail);
 	
 	var overview = goog.dom.createDom('div',{'class':'overview'});
 	goog.dom.appendChild(contentEl, overview);
 
-	var heading = goog.dom.createDom('h2',{'innerHTML':feature.get('titel')});
+	var heading = goog.dom.createDom('h2',{'innerHTML':feature.get('title')});
 	goog.dom.appendChild(overview, heading);
 	
 	var details = goog.dom.createDom('p',{'class':'details'});

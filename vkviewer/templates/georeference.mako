@@ -11,7 +11,9 @@
 	<div class="georeference-validate page-container full-display">
 		<!-- Header -->
 		<div class="georeference-header-container">
-			<h2>VK2-Georeferenzierer</h2>
+		  <h1><span class="vk2georef-brand">VK2-Georeferenzierer</span> Neue Georeferenzierung</h1>
+		  
+		  <div class="georef-validate-menu pull-right"></div>
 		</div>
 		
 		<!-- map content -->

@@ -105,7 +105,7 @@ vk2.georeference.ResultViewer.prototype.displayValidationMap = function(wms_url,
 	if (goog.dom.getElement('opacity-slider-container')){
 		var opacitySliderEl = goog.dom.getElement('opacity-slider-container');
 		opacitySliderEl.innerHTML = '';
-		var opacitySlider = new vk2.tool.OpacitySlider(goog.dom.getElement('opacity-slider-container'), this._validationLayer)
+		var opacitySlider = new vk2.tool.OpacitySlider(goog.dom.getElement('opacity-slider-container'), this._validationLayer, 'vertical')
 	};
 };
 

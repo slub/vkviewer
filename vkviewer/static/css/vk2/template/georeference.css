@@ -2,35 +2,72 @@
 .georeference-header-container {
 	height: 85px;
 	width: 100%;
-	background: rgba(255,51,51, 0.9) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjBAMAAADs965qAAAAGFBM…9r4aZtbxDd3QTnbox0r96eXRJOSHLdV2o16VUod84zYHiPyXZcVv+pLaSAAAAAElFTkSuQmCC') 0 0 repeat;
+	background: rgba(255,51,51, 0.9);
 	border-bottom: 0 none;
 	z-index: 5000;
+	overflow: hidden;
 }
 
-.georeference-header-container > h2 {
+.georeference-header-container > h1 {
 	color: #fff;
-	padding-left: 30px;
-	font-size: 2.8em;
-	line-height: 25px;
-	padding-top: 25px;
+	font-size: 1.6em;
+	line-height: 79px;
+	text-transform: uppercase;
+	font-weight: 100;
+	letter-spacing: 2px;
+	padding: 15px 15px;
+	float: left;
 }
+
+.georeference-header-container > h1 .vk2georef-brand {
+  position: relative;
+  display: block;
+  height: 55px;
+  width: 290px;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+  padding: 0 ;
+  margin: 0 10px 0 0;  
+  background: url('/vkviewer/static/images/georefLogo.svg') no-repeat 0 0;
+  background-size: 290px 55px;
+  float: left;
+}
+
+/* .georeference-header-container > h1:before { content: "+"; } */
+
+.georef-validate-menu { padding: 25px 20px 25px 25px; }
+.georef-validate-menu .btn { border-radius: 0; border: 1px solid #fff; background: transparent; color: #fff; text-transform: uppercase; font-size: 12px; }
+.georef-validate-menu .btn-submit { background: #fff; color: #f33; font-weight: 500; margin-left: 10px; }
+.georef-validate-menu .btn:hover { background: rgba(255,255,255,0.3); color: #fff; }
+
+
+
+
+
 
 /* in case of responsive breakpoint behaviour display overflow */
 .georeference-validate.page-container{
 	overflow-y: auto;
+	padding: 0;
 }
 
 /* container and bootstrap row which contain the both map object */
 .georeference-validate-container{
-	width: 100%;
-	height: 90%;;
-	padding-bottom: 25px;
-	margin-left: 0px;
+  position: absolute;
+  top: 95px;
+  bottom: 45px;
+  left: 20px;
+  right: 20px;
 }
 
 .georeference-validate-container .map-container{
-	padding: 10px;	
+  border: 3px solid #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+
 }
+
+.georeference-validate-container .map-container .ol-viewport { background: #ccc; }
 
 .outer-map-container{
 	height: 100%;
@@ -50,25 +87,21 @@
 }
 
 /* Placement and styling of opacity slider */
-.georeferenced-map .opacity-container{
-	position: absolute;
-	bottom: 25px;
-	left: 50%;
-	width: 300px;
-	z-index: 1000;
-	margin-left: -150px;
-	margin-right: 150px;
+
+
+
+.georeferenced-map .opacity-container {
+  position: absolute;
+  top: 150px;
+  left: 30px;
+  background: rgba(255,255,255,0.4);
+  height: 75px;
+  width: 22px;
+  padding: 0 13px;
+  z-index: 900;
 }
 
-.georeferenced-map .opacity-container .opacity-slider{
-	width: 100%;
-}
-
-.georeferenced-map .opacity-container .tooltip{
-			top: -33px;
-			left: 100px;
-			display: none;
-}
+.georeferenced-map .opacity-slider .slider { top: 10px; right: 6px; }
 		
 /* open error dialog button placement*/
 .open-error-dialog{
@@ -94,47 +127,70 @@
 
 /** style of the form- and input-elements*/
 .georeference-tools-container{
-	z-index: 1000;
-	position: absolute;
-	top: 200px;
-	width: 250px;
-	height: auto;
-	left: -250px;
-	border-top-width: 1px;
-	border-top-style: solid;
-	border-top-color: black;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: black;
-	border-right-width: 1px;
-	border-right-style: solid;
-	border-right-color: black;
-	background: white;
+  position:  absolute;
+  top: 110px;
+  left: 28px !important;
 }
 
 .georeference-tools-container .georeference-tools-handler{	
-	z-index: 1000;
+	z-index: 1001;
 	position: absolute;
-	top: 40px;
-	right: -40px;
+	top: 0;
+	left: 0;
 	outline: none;
-	background-color: rgba(0,0,0,0.5);
 	cursor: default;
 	border-radius: 0;
-	width: 40px;
-	height: 40px;
+background: rgba(255,255,255,0.4);
+padding: 3px;
+	width: 28px;
+	height: 28px;
 }
+
+.georeference-tools-container .georeference-tools-handler .icon {	
+  position: relative;
+  background: rgb(0,177,158) url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMiAyMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjIgMjIiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xNy40IDEwLjdjMS40LTEuNCAxLjctMy41LjgtNS4ybC0yLjIgMi4yaC0xLjh2LTEuOWwyLjItMi4zYy0xLjctLjktMy44LS42LTUuMi44LTEuNCAxLjQtMS43IDMuNS0uOSA1LjJsLTYuOCA2LjhjLS41LjUtLjYgMS40IDAgMiAuNS41IDEuNC41IDEuOSAwbDYuOC02LjhjMS43LjkgMy44LjYgNS4yLS44eiIvPjwvc3ZnPg==') no-repeat 0 0;
+  background-size: 22px 22px;
+  height: 22px;
+  width: 22px;
+  display: block;
+  cursor: pointer;
+}
+
+.georeference-tools-container .georeference-tools-handler.open .icon { background-color: rgb(19,141,141); }
+.georeference-tools-container .georeference-tools-handler.open:after { position: absolute; bottom: -6px; left: 10px; width: 0; height: 0; border: 4px solid rgb(19,141,141); border-color: rgb(19,141,141) transparent transparent transparent; border-bottom-width: 0;  content: ""; }
 
 .georeference-tools-container .georeference-tools-inner-container{
-	padding: 10px;
-	margin-left: 1px;
-	display: none; 
+  position: absolute;
+  top: 35px;
+  left: 0;
+  background: rgba(255,255,255,0.4);
+  padding: 3px;
+  display: none;
 }
 
-.georeference-tools-inner-container .vk2GeorefToolsBtn{
-	margin-bottom: 5px;
-	margin-top: 5px;
+.georeference-tools-container .tool > div {
+ position: relative;
+ width: 22px;
+ height: 22px;
+ display: block;
+ white-space: nowrap;
+ background-color: rgb(0,177,158);
+ margin-top: 1px;
+ background-size: 22px 22px;
+ cursor: pointer;
 }
+
+
+#noneToggle { background: rgb(0,177,158) url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMiAyMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjIgMjIiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik00IDR2N2gxdi01aDEydjhoLTF2MWgydi0xMXpNNyA4LjNjMC0uNi41LTEuMSAxLjEtMS4xLjYgMCAxLjEuNSAxLjEgMS4xdjQuNWwzLjMgMS4xYy43LjIuOSAxLjEuNyAxLjlsLS43IDQuMmgtNS44bC0yLjktNC41Yy0uNC0uNi0uNC0xLjUuMy0xLjVzMS41LjMgMi45IDIuNnYtOC4zeiIvPjwvc3ZnPg==') no-repeat 0 0; }
+#pointToggle { background: rgb(0,177,158) url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMiAyMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjIgMjIiPjxwYXRoIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBkPSJNNi41IDEwbC0zLjUtNyA3IDMuNS0yLjguN3oiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTMuNSA4Yy0zLjEgMC01LjUgMi41LTUuNSA1LjUgMCAzLjEgMi41IDUuNSA1LjUgNS41IDMuMSAwIDUuNS0yLjUgNS41LTUuNXMtMi41LTUuNS01LjUtNS41em0yLjUgNmgtMnYyaC0xdi0yaC0ydi0xaDJ2LTJoMXYyaDJ2MXoiLz48L3N2Zz4=') no-repeat 0 0; }
+#dragToggle { background: rgb(0,177,158) url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMiAyMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjIgMjIiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik05IDEyaDh2MWgtOHpNMTAgMTQuOWwtMy0yLjQgMy0yLjV6TTkgMTJoOHYxaC04ek0xMCAxNC45bC0zLTIuNCAzLTIuNXpNMTcgMTBsMyAyLjUtMyAyLjR6TTEzIDloMXY4aC0xek0xNiAxNmwtMi41IDMtMi41LTN6TTExIDlsMi41LTMgMi41IDN6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjZmZmIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIGQ9Ik02LjUgMTBsLTMuNS03IDcgMy41LTIuOC43eiIvPjwvc3ZnPg==') no-repeat 0 0; }
+#deleteToggle { background: rgb(0,177,158) url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMiAyMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjIgMjIiPjxwYXRoIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBkPSJNNi41IDkuOWwtMy41LTYuOSA3IDMuNC0yLjguN3oiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTMuNSA4Yy0zLjEgMC01LjUgMi40LTUuNSA1LjVzMi41IDUuNSA1LjUgNS41YzMuMSAwIDUuNS0yLjUgNS41LTUuNSAwLTMuMS0yLjUtNS41LTUuNS01LjV6bTIuNSA2aC01di0xaDV2MXoiLz48L3N2Zz4=') no-repeat 0 0; }
+
+.georeference-tools-container .tool:hover > div { background-color: rgb(19,141,141) !important; }
+.georeference-tools-container .tool .active { background-color: #f33 !important; }
+.georeference-tools-container .tool .tool-title { position: absolute; left: 30px; top: 0; background: rgb(19,141,141); color: #fff; display: none; padding: 2px 5px; font-size: 11px; font-weight: 700; height: 22px; }
+.georeference-tools-container .tool .tool-title:before { position: absolute; left: -5px; top: 6px; width: 0; height: 0; content: ""; border: 5px solid rgb(19,141,141); border-color: transparent rgb(19,141,141) transparent transparent; border-left-width: 0;  }
+.georeference-tools-container .tool:hover .tool-title { display: block; }
 
 /* Loading screen styling*/
 .georefLoadingScreen{
@@ -162,18 +218,3 @@
 	height: 100px;
 }
 
-/* Tempory content for toolbar icon */
-.georeference-tools-handler .icon{
-	color: white;
-	font-size: 16px;
-	font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
-	font-weight: bold;
-	text-decoration: none;
-	text-align: center;
-	display: block;
-	padding: 8px;
-}
-
-.georeference-tools-handler .icon:after{
-	content: "TB";
-}

@@ -18,15 +18,18 @@ vk2.layer.MapSearch = function(settings){
 	
 	// create vector source
 	var vectorSource = new ol.source.ServerVector({
-		//format: new ol.format.GeoJSON(),
-		format: new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows']),
+		format: new ol.format.GeoJSON({'defaultProjection':'EPSG:900913'}),
+		//format: new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows']),
 		loader: function(extent, resolution, projection) {
 			if (goog.DEBUG)
 				console.log('Loader is called');
 		    
 			var url = vk2.settings.PROXY_URL+vk2.settings.WFS_URL+'?SERVICE=WFS&' +
-	    	'VERSION=1.1.0&REQUEST=getfeature&TYPENAME=Historische_Messtischblaetter_WFS&MAXFEATURES=10000&srsname='+settings.projection+'&' +
-	    	'bbox=' + extent.join(',');
+	    	'VERSION=1.1.0&REQUEST=getfeature&TYPENAME=mapsearch&srsname='+settings.projection+'&' + //&MAXFEATURES=10000
+	    	'bbox=' + extent.join(',') +'&outputformat=geojson&format=application/json;%20subtype=geojson';
+//			  var url = vk2.settings.PROXY_URL + 'http://194.95.145.43/cgi-bin/mtbows?map=/srv/vk/data_archiv/' + 
+//			  'mapfiles/referenced_wms/historisch_messtischblaetter/test_template.map&SERVICE=WFS&VERSION=1.1.0&REQUEST' +
+//			  '=getfeature&TYPENAME=mapsearch&srsname=EPSG:900913&bbox='+ extent.join(',') +'&outputformat=geojson&format=application/json;%20subtype=geojson';
 	    
 		    var xhr = new goog.net.XhrIo();
 		    
@@ -34,15 +37,17 @@ vk2.layer.MapSearch = function(settings){
 		    	if (goog.DEBUG){
 		    		console.log('Receive features');
 		    	};
-		    	
 		    	var xhr = /** @type {goog.net.XhrIo} */ (e.target);
-		    	var data = xhr.getResponseXml() ? xhr.getResponseXml() : xhr.getResponseText();
+		    	//var data = xhr.getResponseXml() ? xhr.getResponseXml() : xhr.getResponseText();
+		    	var data = xhr.getResponseJson() ? xhr.getResponseJson() : xhr.getResponseText();
 		    	xhr.dispose();
-		    	this.addFeatures(this.readFeatures(data));
+		    	var parsed_data = this.readFeatures(data);
+		    	this.addFeatures(parsed_data);
 		    }, false, this);
 	
 		    xhr.send(url);
-//		    // test with json
+		    
+		    // test with json
 //			var url_json = 'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows?service=WFS&version=1.0.0&request=GetFeature&' +
 //				'typeName=virtuelles_kartenforum:view_layer_vrt&maxFeatures=10000&outputFormat=text/javascript&' + 
 //				'srsname='+settings.projection+'&bbox=' + extent.join(',') + '&format_options=callback:mapsearchlayer_callback';

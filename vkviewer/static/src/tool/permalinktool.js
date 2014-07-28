@@ -63,7 +63,7 @@ vk2.tool.Permalink.prototype._parsePermalink = function(){
 				var xhr = /** @type {goog.net.XhrIo} */ (e.target);
 		    	var data = xhr.getResponseXml() ? xhr.getResponseXml() : xhr.getResponseText();
 		    	xhr.dispose();
-		    	var parser = new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows']);
+		    	var parser = new ol.format.GeoJSON();
 		    	var features = parser.readFeatures(data);
 		    	
 		    	if (goog.DEBUG)

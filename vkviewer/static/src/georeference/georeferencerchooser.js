@@ -46,15 +46,14 @@ vk2.georeference.GeoreferencerChooser = function(parentEl, map){
 		var click_coords = event.map.getCoordinateFromPixel(event.pixel);
 		
 		// get request and request blattnr
-		var featureType = vk2.settings.WFS_PARSER_CONFIG['mtb_grid_puzzle']['featurePrefix']+':'+vk2.settings.WFS_PARSER_CONFIG['mtb_grid_puzzle']['featureType'];
+		var featureType = vk2.settings.WFS_PARSER_CONFIG['mtb_grid_puzzle']['featureType'];
 		var bbox = [click_coords[0],click_coords[1],click_coords[0]+1,click_coords[1]+1];
-		var request = vk2.request.WFS.getFeatureRequest_IntersectBBox(featureType, bbox)
-		var url = vk2.settings.PROXY_URL+vk2.settings.WFS_GRID_URL;
-		goog.net.XhrIo.send(url, goog.bind(function(e){
+		var request = vk2.request.WFS.getFeatureRequest_IntersectBBox(vk2.settings.WFS_GRID_URL, featureType, bbox)
+		goog.net.XhrIo.send(request, goog.bind(function(e){
 				var xhr = /** @type {goog.net.XhrIo} */ (e.target);
-		    	var data = xhr.getResponseXml() ? xhr.getResponseXml() : xhr.getResponseText();
+		    	var data = xhr.getResponseJson() ? xhr.getResponseJson() : xhr.getResponseText();
 		    	xhr.dispose();
-		    	var parser =  new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtb_grid_puzzle'])
+		    	var parser =  new ol.format.GeoJSON();
 		    	var features = parser.readFeatures(data);
 		    	if (features.length > 0 && features[0] instanceof ol.Feature && this._collectionHasUnreferencedFeatures(features)){
 		    		// check if there are features with no georef params
@@ -64,8 +63,7 @@ vk2.georeference.GeoreferencerChooser = function(parentEl, map){
 		    	} else {
 		    		alert(vk2.utils.getMsg('clickout'));
 		    	};
-			}, this), "POST", request, {'Content-Type':'application/xml;charset=UTF-8'}
-		);
+			}, this), "GET", request);
 	};
 	
 	this._loadControlElement(this._parentEl);

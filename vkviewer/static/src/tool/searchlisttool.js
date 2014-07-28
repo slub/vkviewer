@@ -73,9 +73,9 @@ vk2.tool.SearchList.prototype.sort = function(opt_type){
 			    return parseInt(a.get(opt_type)) - parseInt(b.get(opt_type));
 			},
 			'compareString':function(a, b){
-			    if (a.get('titel') > b.get('titel'))
+			    if (a.get('title') > b.get('title'))
 			       return 1;
-			    if (a.get('titel') < b.get('titel'))
+			    if (a.get('title') < b.get('title'))
 			       return -1;
 			    return 0;
 			}

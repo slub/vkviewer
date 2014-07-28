@@ -18,12 +18,13 @@ vk2.utils.calculateMapExtentForPixelViewport = function(map){
 	
 	// this is a premise
 	var spatialsearchSize = goog.style.getSize(goog.dom.getElement('spatialsearch-container'));
+	var layermanagementSize = goog.style.getSize(goog.dom.getElement('layermanagement-container'));
 	var mapSize = goog.style.getSize(goog.dom.getElement('mapdiv'));
 	
 	// calculate pixelextent
 	var lowX = 0 + spatialsearchSize.width + padding;
 	var lowY = mapSize.height - offsetBottom - padding;
-	var highX = mapSize.width - padding;
+	var highX = mapSize.width - layermanagementSize.width - padding;
 	var highY = offsetTop + padding;
 	
 	// get equivalent coordinates

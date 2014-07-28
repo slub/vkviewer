@@ -73,7 +73,7 @@ vk2.georeference.ZoomifyViewer = function(map_container, zoomify_settings){
 			    projection: proj,
 			    center: imgCenter,
 			    //adjust initial and max zoom level here
-				zoom: 2,
+				zoom: 1,
 				maxZoom: 9
 		    })
 		});

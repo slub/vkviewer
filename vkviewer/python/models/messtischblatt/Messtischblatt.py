@@ -41,7 +41,11 @@ class Messtischblatt(Base):
     @classmethod
     def by_id(cls, id, session):
         return session.query(Messtischblatt).filter(Messtischblatt.id == id).first()
-    
+
+    @classmethod
+    def by_ObjectId(cls, id, session):
+        return session.query(Messtischblatt).filter(Messtischblatt.dateiname == id).first()
+        
     @classmethod
     def getUpdatedMesstischblaetter(cls, session):
         return session.query(Messtischblatt).filter(Messtischblatt.updated == True)

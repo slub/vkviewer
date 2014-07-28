@@ -15,6 +15,7 @@ var lang_dictionary = {
 		'change_zoomlevel': 'Wählen Sie eine höhere Zoomstufe!',
 		'choose_valide_timestamp': 'Wählen Sie validien Zeitstempel',
 		'change_timeperiod': 'Passe Zeitraum an:',
+		'start_message': 'Herzlick Willkommen im Virtuellen Kartenforum 2.0. <br>Bitte wählen Sie zunächst links im Suchbereich einige Karten aus.',
 		
 		// layermanagement
 		'layermanagement_label': 'Meine Kartenauswahl',

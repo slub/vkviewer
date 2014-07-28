@@ -14,10 +14,13 @@
 				<div class="panel-heading" id="panelHeading"><p id="validationTips" class="validation-tips">${_('loginScreen_welcome')}</p></div>
 				
 				<div class="panel-body">
+				
 					<!-- Anmeldung für existierende Nutzer -->
 					<div class="panel panel-default panel-vk2Login">
 						<div class="panel-heading">
-							<p id="validationTipsLogin" class="validation-tips">${_('plz_login')}</p>
+							<p class="validation-tips">${_('plz_login')}</p>
+						</div>
+						<div id="validationTipsLogin" class="alert validation-error">
 						</div>
 						<div class="panel-body panel-body-vk2Login">
 							<form class="form-user-login" action="${request.route_url('auth', action='in')}" target="_top" 
@@ -32,20 +35,23 @@
 									<input type="password" name="password" class="form-control" id="loginPassword" 
 										placeholder="${_('loginScreen_placeholder_password')}" />
 								</div>
-								<div class="form-group">
-									<a class="forgot" href="${request.route_url('auth', action='page_reset')}">${_('loginScreen_reset_pw')}</a>
-								</div>
+								<div class="form-group"></div>
 								<button type="submit" name="form.submitted" class="btn btn-primary">${_('loginScreen_submit_btn')}</button>
+								<a class="forgot" href="${request.route_url('auth', action='page_reset')}">${_('loginScreen_reset_pw')}</a>
 							</form>
 						</div>
 					</div> 
 					
+					<!--  added ".back-to-login" for switch back if registration is active -->	
+					<div class="back-to-login">${_('loginScreen_backTo')} <span class="trigger-login">${_('loginScreen_registration')}</span></div>
+					
 					<!-- Neue registrierung für Nutzer -->
 					<div class="panel panel-default panel-vk2RegisterNewUser">
 						<div class="panel-heading">
-							<p id="validationTipsRegisterUser" class="validation-tips">${_('loginScreen_welcome_new')}</p>
+							<p class="validation-tips">${_('loginScreen_welcome_new')} <span class="trigger-registration">${_('loginScreen_register_now')}</span></p>
 						</div>
-						
+						<div id="validationTipsRegisterUser" class="alert validation-error">
+						</div>
 						<div class="panel-body">
 							<form class="form-user-register" action="${request.route_url('auth', action='new')}" target="_top" 
 								role="form" onsubmit="return vk2.validation.validateRegisterNewUser()" method="POST">
@@ -96,4 +102,14 @@
 	</div>
 </%block>
 
-
+<%block name="js_content">
+<script>
+$(document).ready(function(){
+  $('.trigger-registration, .trigger-login').click(function() {
+    $('.panel-vk2Login').slideToggle();
+    $('.panel-vk2RegisterNewUser .panel-body').slideToggle();
+    $('.back-to-login, #validationTipsRegisterUser').fadeToggle();
+  });      
+});
+</script>
+</%block>

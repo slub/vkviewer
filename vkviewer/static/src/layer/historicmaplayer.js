@@ -5,7 +5,6 @@ goog.require('goog.object');
 goog.require('vk2.settings');
 goog.require('vk2.utils');
 goog.require('vk2.utils.Styles');
-goog.require('vk2.layer.Messtischblatt');
 
 /**
  * @param {Object} settings
@@ -88,11 +87,16 @@ vk2.layer.HistoricMap = function(settings, map){
 	 * @type {ol.layer.Tile}
 	 * @private
 	 */
+	var urls = [];
+	for (var i = 0; i < vk2.settings.TMS_URL.length; i++){
+		urls.push(vk2.settings.TMS_URL[i] + settings['dataid'] + '/{z}/{x}/{-y}.png');
+	};
+	
 	var rasterLayer = new ol.layer.Tile({
-		source: new ol.source.XYZ({
+		'extent': settings['extent'],
+		'source': new ol.source.XYZ({
 			'maxZoom': 15,
-			'extent': settings['extent'],
-			url: vk2.settings.TMS_URL + settings['name'] + '/{z}/{x}/{-y}.png'
+			'urls': urls//vk2.settings.TMS_URL + settings['dataid'] + '/{z}/{x}/{-y}.png'
 		})
 	});
 	
