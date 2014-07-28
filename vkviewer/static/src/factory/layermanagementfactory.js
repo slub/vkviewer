@@ -62,8 +62,9 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 	//
 	// Build html content
 	// 
+	var classVisible = layer.getVisible() ? 'visible' : 'notvisible';
 	var containerListEl = goog.dom.createDom('li', {
-		'class':'layermanagement-record visible',
+		'class':'layermanagement-record ' + classVisible,
 		'id': index,
 		'data-id':layer.getId()
 	});

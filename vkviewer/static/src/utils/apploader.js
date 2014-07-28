@@ -74,7 +74,7 @@ vk2.utils.AppLoader = function(settings){
 		};		
 		
 		if (vk2.utils.getQueryParam('points') && (parseInt(vk2.utils.getQueryParam('points')) > 0)){
-			vk2.utils.showAchievedPoints(goog.dom.getElement('main-page-container'), vk2.utils.getQueryParam('points'));;	
+			//vk2.utils.showAchievedPoints(goog.dom.getElement('main-page-container'), vk2.utils.getQueryParam('points'));;	
 		};
 	};	
 	
@@ -137,8 +137,8 @@ vk2.utils.AppLoader.loadGeoreferenceApp = function(unreferenced_map_container, r
 	vk2.utils.AppLoader.loadModalOverlayBehavior('vk2-modal-anchor');
 	
 	//Proj4js.defs["EPSG:4314"] = "+proj=longlat +ellps=bessel +towgs84=598.1,73.7,418.2,0.202,0.045,-2.455,6.7 +no_defs";
-	Proj4js.defs["EPSG:4314"] = '+proj=longlat +ellps=bessel +datum=potsdam +no_defs';
-	Proj4js.defs["EPSG:900913"] = '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +over no_defs';
+	proj4.defs("EPSG:4314",'+proj=longlat +ellps=bessel +datum=potsdam +no_defs');
+	proj4.defs("EPSG:900913",'+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +over no_defs');
 
 	
 	// parse object id
@@ -169,8 +169,7 @@ vk2.utils.AppLoader.loadGeoreferenceApp = function(unreferenced_map_container, r
 		// load validation map
 		this._resultViewer = new vk2.georeference.ResultViewer(referenced_map_container, {
 			'extent':ol.proj.transform(data['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS )
-		});
-		
+		});		
 		
 		// load toolbox
 		var gcphandler = new vk2.georeference.MesstischblattGcpHandler(this._zoomifyViewer, new ol.source.Vector(), data['gcps']);
@@ -178,6 +177,7 @@ vk2.utils.AppLoader.loadGeoreferenceApp = function(unreferenced_map_container, r
 			this._georeferencer = new vk2.georeference.Georeferencer(unreferenced_map_container, {
 				'unreferencedviewer': this._zoomifyViewer,
 				'referenceviewer': this._resultViewer,
+				'validate_menu_container':'georef-validate-menu',
 				'objectid': objectid,
 				'gcphandler': gcphandler
 			});

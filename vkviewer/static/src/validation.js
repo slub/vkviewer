@@ -63,6 +63,20 @@ vk2.validation.checkRegexp = function( string, regexp ){
 }
 
 /**
+ * Clear error Msg
+ * @param {string=} failureElementId The id of a dom element where to write the failure message
+ * @param {string=} failureClass The failure class
+ */
+vk2.validation.clearValidationMsg = function(validationMsgContainerId, validationErrorClasses){
+	var errorMsgContainer = goog.dom.getElement(validationMsgContainerId);
+	if (goog.isDef(errorMsgContainer)){
+		errorMsgContainer.innerHTML = '';
+		if (goog.dom.classes.has(errorMsgContainer, validationErrorClasses))
+			goog.dom.classes.remove(errorMsgContainer, validationErrorClasses);
+	};
+};
+
+/**
  * Set error message
  * @param {string} msg
  * @param {string=} failureElementId The id of a dom element where to write the failure message
@@ -276,7 +290,7 @@ vk2.validation.checkEmailAdress = function( elementId, failureElementId, failure
 	isValide = isValide && this.checkLength( email.value, 6, 80)
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
 		this.setErrorMsg(vk2.utils.getMsg('email_to_short'), failureElementId, failureClass);
-		goog.dom.classes.add(email.parentElement, 'has-error');
+		goog.dom.classes.add(email.parentElement, 'validation-has-error');
 		return isValide;
 	};
 	
@@ -304,50 +318,65 @@ vk2.validation.checkEmailAdress = function( elementId, failureElementId, failure
  */
 vk2.validation.validateLoginForm = function(){
 	var isValide = true;
+	var validationMsgContainerId = 'validationTipsLogin';
+	var validationErrorClasses = 'alert-danger';
 	
 	// check username
-	isValide = isValide && vk2.validation.checkUsername('loginUsername', 'validationTipsLogin', 'ui-state-error');
+	isValide = isValide && vk2.validation.checkUsername('loginUsername', validationMsgContainerId, validationErrorClasses);
 	if (!isValide) return isValide;
 								
 	// check password
-	isValide = isValide && vk2.validation.checkPassword('loginPassword', 'validationTipsLogin', 'ui-state-error');
+	isValide = isValide && vk2.validation.checkPassword('loginPassword', validationMsgContainerId, validationErrorClasses);
 	if (!isValide) return isValide;
+	
+	vk2.validation.clearValidationMsg(validationMsgContainerId, validationErrorClasses);
+	return true;
 };
 
 vk2.validation.validateRegisterNewUser = function(){
 	var isValide = true;
+	var validationMsgContainerId = 'validationTipsRegisterUser';
+	var validationErrorClasses = 'alert-danger';
 	
 	// check username
-	isValide = isValide && vk2.validation.checkUsername('loginNewUsername', 'validationTipsRegisterUser', 'ui-state-error');
+	isValide = isValide && vk2.validation.checkUsername('loginNewUsername', validationMsgContainerId, validationErrorClasses);
 	if (!isValide) return isValide;
 		
 	// check new password
-	isValide = isValide && vk2.validation.checkPassword('loginNewPassword', 'validationTipsRegisterUser', 'ui-state-error');
+	isValide = isValide && vk2.validation.checkPassword('loginNewPassword', validationMsgContainerId, validationErrorClasses);
 	if (!isValide) return isValide;
 		
 	// check if new password matches validation password
-	isValide = isValide && vk2.validation.checkPasswordMatch('loginNewPassword', 'loginNewPasswordValidate', 'validationTipsRegisterUser', 'ui-state-error'); 
+	isValide = isValide && vk2.validation.checkPasswordMatch('loginNewPassword', 'loginNewPasswordValidate', validationMsgContainerId, validationErrorClasses); 
 	if (!isValide) return isValide;
 	
 	// check sur- and familyname
-	isValide = isValide && vk2.validation.checkPersonName('loginNewVorname', 'validationTipsRegisterUser', 'ui-state-error');
+	isValide = isValide && vk2.validation.checkPersonName('loginNewVorname', validationMsgContainerId, validationErrorClasses);
 	if (!isValide) return isValide;
-	isValide = isValide && vk2.validation.checkPersonName('loginNewNachname', 'validationTipsRegisterUser', 'ui-state-error');
+	isValide = isValide && vk2.validation.checkPersonName('loginNewNachname', validationMsgContainerId, validationErrorClasses);
 	if (!isValide) return isValide;
 	
 	// check email adress
-	isValide = isValide && vk2.validation.checkEmailAdress('loginNewEmail', 'validationTipsRegisterUser', 'ui-state-error');
+	isValide = isValide && vk2.validation.checkEmailAdress('loginNewEmail', validationMsgContainerId, validationErrorClasses);
 	if (!isValide) return isValide;
+	
+	vk2.validation.clearValidationMsg(validationMsgContainerId, validationErrorClasses);
+	return true;
 };
 
 vk2.validation.resetPasswordForm = function(){			
 	var isValide = true;
+	var validationMsgContainerId = 'validationTips';
+	var validationErrorClasses = 'alert-danger';
 	
 	// check username
-	isValide = isValide && vk2.validation.checkUsername('inputUsername', 'validationTips', 'ui-state-error');
+	isValide = isValide && vk2.validation.checkUsername('inputUsername', validationMsgContainerId, validationErrorClasses);
 	if (!isValide) return isValide;
 		
 	// check email adress
-	isValide = isValide && vk2.validation.checkEmailAdress('inputEmail', 'validationTips', 'ui-state-error');
+	isValide = isValide && vk2.validation.checkEmailAdress('inputEmail', validationMsgContainerId, validationErrorClasses);
 	if (!isValide) return isValide;
+	
+	vk2.validation.clearValidationMsg(validationMsgContainerId, validationErrorClasses);
+	return true;
 };

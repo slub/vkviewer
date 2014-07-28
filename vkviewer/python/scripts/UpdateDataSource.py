@@ -57,6 +57,7 @@ from vkviewer.python.models.messtischblatt.MdZeit import MdZeit
 from vkviewer.python.models.messtischblatt.RefMtbLayer import RefMtbLayer
 from vkviewer.python.scripts.UpdateVirtualdatasets import updateVirtualdatasetForTimestamp
 from vkviewer.python.scripts.UpdateCache import updateCache
+from vkviewer.python.scripts.UpdateTMSCache import buildTsmCache
 from vkviewer.python.scripts.csw.InsertMetadata import insertMetadata
 from vkviewer.python.scripts.csw.CswTransactionBinding import gn_transaction_delete
 from vkviewer.python.georef.georeferencer import georeference, addOverviews
@@ -175,18 +176,18 @@ def processSingleGeorefProc(georefProc, dbsession, logger, testing = False):
         logger.debug('Push metadata record for messtischblatt %s to cataloge service ...'%messtischblatt.id)
         insertMetadata(id=messtischblatt.id,db=dbsession,logger=logger)
     
-        # update database
-        logger.debug('Update database ...')
+    # update database
+    logger.debug('Update database ...')
 
-        # update verzeichnispfad for messtischblatt
-        georefProc.processed = True
-        messtischblatt.verzeichnispfad = destPath
-        messtischblatt.isttransformiert = True 
-        refmtblayer = RefMtbLayer.by_id(MTB_LAYER_ID, messtischblatt.id, dbsession)
-        if not refmtblayer:
-            refmtblayer = RefMtbLayer(layer=MTB_LAYER_ID, messtischblatt=messtischblatt.id)
-            dbsession.add(refmtblayer)
-        dbsession.flush()   
+    # update verzeichnispfad for messtischblatt
+    georefProc.processed = True
+    messtischblatt.verzeichnispfad = destPath
+    messtischblatt.isttransformiert = True 
+    refmtblayer = RefMtbLayer.by_id(MTB_LAYER_ID, messtischblatt.id, dbsession)
+    if not refmtblayer:
+        refmtblayer = RefMtbLayer(layer=MTB_LAYER_ID, messtischblatt=messtischblatt.id)
+        dbsession.add(refmtblayer)
+    dbsession.flush()   
         
     return str(destPath)
 
@@ -198,7 +199,7 @@ def resetMapObject(mapObjectId, dbsession, logger, testing = False):
     messtischblatt.verzeichnispfad = messtischblatt.original_path
     refmtblayer = RefMtbLayer.by_id(MTB_LAYER_ID, messtischblatt.id, dbsession)
     if refmtblayer:
-        dbsession.add(refmtblayer)
+        dbsession.remove(refmtblayer)
         
     if testing:
         dbsession.rollback()
@@ -208,7 +209,7 @@ def resetMapObject(mapObjectId, dbsession, logger, testing = False):
         gn_transaction_delete('vk20-md-%s'%messtischblatt.id, GN_SETTINGS['gn_username'], GN_SETTINGS['gn_password'], logger)
     return True
 
-def updateDataSources(dbsession, database_params, vrt_target_dir, tmp_dir, logger, testing = True):   
+def updateDataSources(dbsession, database_params, vrt_target_dir, tmp_dir, cache_dir, logger, testing = True):   
     
     logger.info('Get georeference processing queue ...')
     processingQueue = getGeoreferenceProcessQueue(dbsession, logger)
@@ -224,16 +225,15 @@ def updateDataSources(dbsession, database_params, vrt_target_dir, tmp_dir, logge
         for georefProcess in processingQueue['georeference'][timestamp]:
             logger.info('Update georeferencing for objectid %s ...'%georefProcess.messtischblattid)
             processSingleGeorefProc(georefProcess, dbsession, logger, testing)
+            logger.info('Calculating tms cache ...')
+            messtischblatt = Messtischblatt.by_id(georefProcess.messtischblattid, dbsession)
+            buildTsmCache(messtischblatt.verzeichnispfad, cache_dir, logger)
             
         logger.info('Recalculate virtualdataset ...')
         if not testing:
             dbsession.commit()
-        updateVirtualdatasetForTimestamp('%s-01-01 00:00:00'%timestamp, vrt_target_dir, tmp_dir, database_params, dbsession, logger, testing=testing)
         
-        logger.info('Update cache with restricted mode...')
-        for georefProcess in processingQueue['georeference'][timestamp]:
-            bbox = Messtischblatt.getBoundingBoxObjWithEpsg(georefProcess.messtischblattid, dbsession, SEEDER_EPSG)
-            updateCache(timestamp, database_params, tmp_dir, SEEDER_NRTHREADS, SEEDER_EPSG, logger, restricted=True, bbox=bbox)
+        updateVirtualdatasetForTimestamp('%s-01-01 00:00:00'%timestamp, vrt_target_dir, tmp_dir, database_params, dbsession, logger, testing=testing)
         
     logger.info('Finishing updating the single georeferencing ...')        
             
@@ -256,9 +256,8 @@ if __name__ == '__main__':
     parser.add_argument('--tmp_dir', default='/tmp', help='define directory for temporary files (default: /tmp')
     parser.add_argument('--vrt_dir', default='/tmp', help='define directory for vrt files (default: /tmp')
     parser.add_argument('--georef_dir', default='/tmp', help='define directory for georeference messtischblatt files (default: /tmp')
-    parser.add_argument('--seeder_threads', default=2, help='Number of threads the seeder utility should use (default: 2')  
-    parser.add_argument('--with_cache', default=False, help='update cache (default: False). Right now not in use')
     parser.add_argument('--layerid', default=87, help='database layer id, which represents the vrt time layer (default: 87)')
+    parser.add_argument('--cache_dir', default=87, help='directory where the cache files should be placed.')
     arguments = parser.parse_args()
     
     # create logger
@@ -285,15 +284,14 @@ if __name__ == '__main__':
         VRT_TARGET_DIR = arguments.vrt_dir
     if arguments.georef_dir:
         GEOREF_TARGET_DIR = arguments.georef_dir
-    if arguments.seeder_threads:
-        SEEDER_NRTHREADS = arguments.seeder_threads
     if arguments.layerid:
         MTB_LAYER_ID = arguments.layerid    
+    if arguments.cache_dir:
+        CACHE_DIR = arguments.cache_dir
     
-    dbsession = loadDbSession(PARAMS_DATABASE)
+    dbsession = loadDbSession(PARAMS_DATABASE)          
     if arguments.mode == 'testing':
-        updateDataSources(dbsession, PARAMS_DATABASE, VRT_TARGET_DIR, TMP_DIR, logger, testing = True)
+        updateDataSources(dbsession, PARAMS_DATABASE, VRT_TARGET_DIR, TMP_DIR, CACHE_DIR, logger, testing = True)
     else:
-        updateDataSources(dbsession, PARAMS_DATABASE, VRT_TARGET_DIR, TMP_DIR, logger, testing = False)
-    #scriptProductionMode(arguments.mode, arguments.with_cache, logger)
+        updateDataSources(dbsession, PARAMS_DATABASE, VRT_TARGET_DIR, TMP_DIR, CACHE_DIR, logger, testing = False)
         

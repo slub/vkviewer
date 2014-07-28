@@ -60,15 +60,14 @@ vk2.georeference.Georeferencer = function(parentEl, settings){
 	 * @private
 	 */
 	this._toolContainer = this._loadGcpControls(toolboxContainer);
-	this._loadSubmitControls(this._toolContainer);
+	this._loadSubmitControls(goog.dom.getElementByClass(settings['validate_menu_container']));
 	
 	if (this._gcpHandler.isUpdateState()){
 		this.updateHeader('update');	
 	} else {
 		this.updateHeader('confirm');
 	}
-	
-		
+
 };
 
 /**
@@ -77,6 +76,7 @@ vk2.georeference.Georeferencer = function(parentEl, settings){
  * @private
  */
 vk2.georeference.Georeferencer.prototype._loadOpenCloseHandler = function(parentEl){
+	
 	/**
 	 * @type {Element}
 	 * @private
@@ -88,22 +88,17 @@ vk2.georeference.Georeferencer.prototype._loadOpenCloseHandler = function(parent
 	goog.dom.appendChild(this._controlElement, goog.dom.createDom('span',{'class':'icon'}));
 	
 	// append event behavior (slidein/slideout)
-	goog.events.listen(this._controlElement, goog.events.EventType.CLICK, function(event){
-		var width = goog.style.getSize(event.currentTarget.parentElement).width;
-		var toolContainer = this._toolContainer;
-		
-		if (goog.dom.classes.has(event.currentTarget, 'open')){
-			$(event.currentTarget.parentElement).animate({'left': '-250px'}, 1000,	function(){
-				goog.dom.classes.remove(event.currentTarget, 'open');
-				goog.style.setStyle(toolContainer,'display','none');
-			});
-		} else {
-			goog.style.setStyle(toolContainer,'display','block');
-			$(event.currentTarget.parentElement).animate({'left': '-2px'}, 1000, function(){
-				goog.dom.classes.add(event.currentTarget, 'open');
-			});
-		}
-	}, undefined, this);
+	var controlElement = this._controlElement;
+	$('#georeference-tools-inner-container').slideToggle(300, function() {
+		$(controlElement).toggleClass('open');
+	});
+	
+	// change toolsnav state by click
+	$(controlElement).click(function() {
+		$('#georeference-tools-inner-container').slideToggle(300, function() {
+			$(controlElement).toggleClass('open');
+		});      
+	});
 };
 
 /**
@@ -112,86 +107,69 @@ vk2.georeference.Georeferencer.prototype._loadOpenCloseHandler = function(parent
  */
 vk2.georeference.Georeferencer.prototype._loadGcpControls = function(parentEl){
 	
-	var createInputElement = function(type, value, id, className, checked){
-		var checked = goog.isDef(checked) ? checked : '';
-		var className = goog.isDef(className) ? className : '';
-		
-		var inputElement = goog.dom.createDom('input',{
-			'type': type,
-			'name': 'type',
-			'value': value,
-			'id': id,
-			'class': className,
-			'checked': checked			
-		});
-		return inputElement;
-	};
-	
 	var toolContainer = goog.dom.createDom('div',{
 		'class': 'georeference-tools-inner-container',
 		'id': 'georeference-tools-inner-container'
 	});
 	goog.dom.appendChild(parentEl, toolContainer);
 	
-	var toggleControlElements = [];
-	
 	// create tool list elements
 	// move map
-	var divEl_MoveMap = goog.dom.createDom('div',{'class':'radio'});
-	goog.dom.appendChild(toolContainer ,divEl_MoveMap);
-	
-	var inputEl_moveMap = createInputElement('radio','none','noneToggle','toggle-elements','checked');
-	toggleControlElements.push(inputEl_moveMap);
-	var label_moveMap = goog.dom.createDom('label',{})
-	goog.dom.appendChild(label_moveMap, inputEl_moveMap);
-	goog.dom.appendChild(label_moveMap, goog.dom.createDom('span',{'innerHTML':vk2.utils.getMsg('moveMap')}));
-	goog.dom.appendChild(divEl_MoveMap, label_moveMap);
+	var divEl_MoveMap = goog.dom.createDom('div',{'class':'tool'});
+	goog.dom.appendChild(toolContainer ,divEl_MoveMap);	
+	var toggleControlMoveMap = goog.dom.createDom('div',{
+		'id':'noneToggle',
+		'class':'tool-move toggle-elements',
+		'value':'none',
+		'innerHTML':'<span class="tool-title">' + vk2.utils.getMsg('moveMap') + '</span>'
+	});
+	goog.dom.appendChild(divEl_MoveMap, toggleControlMoveMap);
 
 	// set point 	
-	var divEl_setPoint = goog.dom.createDom('div',{'class':'radio'});
+	var divEl_setPoint = goog.dom.createDom('div',{'class':'tool'});
 	goog.dom.appendChild(toolContainer ,divEl_setPoint);
-	var inputEl_setPoint = createInputElement('radio','addpoint','pointToggle','toggle-elements');
-	toggleControlElements.push(inputEl_setPoint);
-	var label_setPoint = goog.dom.createDom('label',{})
-	goog.dom.appendChild(label_setPoint, inputEl_setPoint);
-	goog.dom.appendChild(label_setPoint, goog.dom.createDom('span',{'innerHTML':vk2.utils.getMsg('setCornerPoint')}));
-	goog.dom.appendChild(divEl_setPoint, label_setPoint);
+	var toggleControlSetPoint = goog.dom.createDom('div',{
+		'id':'pointToggle',
+		'class':'tool-move toggle-elements',
+		'value':'addpoint',
+		'innerHTML':'<span class="tool-title">' + vk2.utils.getMsg('setCornerPoint') + '</span>'
+	});
+	goog.dom.appendChild(divEl_setPoint, toggleControlSetPoint);
 	
 	// drag point
-	var divEl_dragPoint = goog.dom.createDom('div',{'class':'radio'});
+	var divEl_dragPoint = goog.dom.createDom('div',{'class':'tool'});
 	goog.dom.appendChild(toolContainer ,divEl_dragPoint);
-	var inputEl_dragPoint = createInputElement('radio','dragpoint','dragToggle','toggle-elements');
-	toggleControlElements.push(inputEl_dragPoint);
-	var label_dragPoint = goog.dom.createDom('label',{})
-	goog.dom.appendChild(label_dragPoint, inputEl_dragPoint);
-	goog.dom.appendChild(label_dragPoint, goog.dom.createDom('span',{'innerHTML':vk2.utils.getMsg('moveCornerPoint')}));
-	goog.dom.appendChild(divEl_dragPoint, label_dragPoint);
-	
+	var toggleControlDragPoint = goog.dom.createDom('div',{
+		'id':'dragToggle',
+		'class':'tool-move toggle-elements',
+		'value':'dragpoint',
+		'innerHTML':'<span class="tool-title">' + vk2.utils.getMsg('moveCornerPoint') + '</span>'
+	});
+	goog.dom.appendChild(divEl_dragPoint, toggleControlDragPoint);
+
 	// del point 
-	var divEl_delPoint = goog.dom.createDom('div',{'class':'radio'});
+	var divEl_delPoint = goog.dom.createDom('div',{'class':'tool'});
 	goog.dom.appendChild(toolContainer ,divEl_delPoint);
-	var inputEl_delPoint = createInputElement('radio','deletepoint','deleteToggle','toggle-elements');
-	toggleControlElements.push(inputEl_delPoint);
-	var label_delPoint = goog.dom.createDom('label',{})
-	goog.dom.appendChild(label_delPoint, inputEl_delPoint);
-	goog.dom.appendChild(label_delPoint, goog.dom.createDom('span',{'innerHTML':vk2.utils.getMsg('deleteCornerPoint')}));
-	goog.dom.appendChild(divEl_delPoint, label_delPoint);
+	var divEl_dragPoint = goog.dom.createDom('div',{'class':'tool'});
+	goog.dom.appendChild(toolContainer ,divEl_dragPoint);
+	var toggleControlDelPoint = goog.dom.createDom('div',{
+		'id':'deleteToggle',
+		'class':'tool-move toggle-elements',
+		'value':'deletepoint',
+		'innerHTML':'<span class="tool-title">' + vk2.utils.getMsg('deleteCornerPoint') + '</span>'
+	});
+	goog.dom.appendChild(divEl_delPoint, toggleControlDelPoint);
 		
-	// append further input elements
-	goog.dom.appendChild(toolContainer, goog.dom.createDom('br',{}));
-	
-	// append behavior
-	
-	this._loadGcpControlsBehavior(toggleControlElements);
+	this._loadGcpControlsBehavior('toggle-elements');
 	
 	return toolContainer;
 };
 
 /**
- * @param {Array.<Element>}
+ * @param {string} toggleControlClassName
  * @private
  */
-vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(toggleControlElements){
+vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(toggleControlClassName){
 	
 	var drawSource = this._gcpHandler.getFeatureSource();
 	var map = this._zoomifyViewer.getMap()
@@ -266,17 +244,31 @@ vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(tog
 			}
 		}
 	};
+	
+	/**
+	 * @param {Element} active_element
+	 */
+	var setActive = function(active_element){
+		var toggleControlElements = goog.dom.getElementsByClass(toggleControlClassName);
+		for (var i = 0; i < toggleControlElements.length; i++){
+			if (goog.dom.classes.has(toggleControlElements[i],'active'))
+				goog.dom.classes.remove(toggleControlElements[i],'active')
+		};
+		goog.dom.classes.add(active_element,'active')
+	};
 		
 	// toggle controller
+	var toggleControlElements = goog.dom.getElementsByClass(toggleControlClassName)
 	for (var i = 0; i < toggleControlElements.length; i++){
 		goog.events.listen(toggleControlElements[i], goog.events.EventType.CLICK, function(event){
 			removeInteraction(interactions, map);
 			
 			// add choosen interaction
-			if (goog.isDef(event.target.value) && event.target.value != ''){
-				if (interactions.hasOwnProperty(event.target.value)){
-					for (var i = 0; i < interactions[event.target.value].length; i++){
-						map.addInteraction(interactions[event.target.value][i]);
+			if (goog.isDef(event.currentTarget.value) && event.currentTarget.value != ''){
+				setActive(event.currentTarget);
+				if (interactions.hasOwnProperty(event.currentTarget.value)){
+					for (var i = 0; i < interactions[event.currentTarget.value].length; i++){
+						map.addInteraction(interactions[event.currentTarget.value][i]);
 					}
 				}
 			}				
@@ -389,18 +381,16 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 	};
 
 	
-	var validate_button = goog.dom.createDom('input',{
-		'type':'button',
+	var validate_button = goog.dom.createDom('div',{
 		'class': 'vk2GeorefToolsBtn btn btn-default btn-validate',
-		'value': vk2.utils.getMsg('validateBtn_validate')
+		'innerHTML': '<span class="glyphicon glyphicon-refresh"></span> ' + vk2.utils.getMsg('validateBtn_validate')
 	});
 	goog.dom.appendChild(toolContainer, validate_button);
 	
 	// only load this html input element in case of validation state "True". 
-	var submit_button = goog.dom.createDom('input',{
-		'type':'button',
+	var submit_button = goog.dom.createDom('div',{
 		'class': 'vk2GeorefToolsBtn btn btn-default btn-submit deactivate',
-		'value': vk2.utils.getMsg('submitBtn_validate')
+		'innerHTML': '<span class="glyphicon glyphicon-ok"></span> ' + vk2.utils.getMsg('submitBtn_validate')
 	});
 	goog.dom.appendChild(toolContainer, submit_button);	
 		
@@ -415,8 +405,8 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
  */
 vk2.georeference.Georeferencer.prototype.updateHeader = function(type){
 	var headerEl = goog.dom.getFirstElementChild(goog.dom.getElementByClass('georeference-header-container'));
-	var headerContent = type == 'update' ? 'VK2-Georeferenzierer - Update' : 'VK2-Georeferenzierer - Neue Georeferenzierung';
-	headerEl.innerHTML = headerContent;
+	var headerContent = type == 'update' ? 'Update' : 'Neue Georeferenzierung';
+	headerEl.innerHTML = '<span class="vk2georef-brand">VK2-Georeferenzierer</span> - ' + headerContent;
 };
 
 /**

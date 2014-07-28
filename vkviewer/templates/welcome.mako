@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 <%inherit file="basic_page.mako" />
 
+<%block name="header_content">
+	<style>
+		.vk2WelcomePageBody .vk2GeoreferenceProgressText .content:after { left: ${georef_rel}%; }
+	</style>
+</%block>
+
 <%block name="body_content">
 	<div class="welcome-page">
 		<div class="vk2WelcomePage">

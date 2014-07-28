@@ -63,7 +63,7 @@ vk2.control.Permalink = function(opt_options) {
     	$(permalinkForm).fadeOut().removeClass('open');
 		$(permaLinkResult).blur();
     } else {
-    	permaLinkResult.setAttribute('value', permalink.createPermalink());
+    	permaLinkResult.value = permalink.createPermalink();
     	$(permalinkForm).fadeIn().addClass('open');
 		$(permaLinkResult).focus().select();
     };

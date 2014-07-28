@@ -153,7 +153,7 @@ vk2.module.MapSearchModule.prototype._appendClickBehavior = function(){
 			// get the corresponding feature to this event
 			var feature; 
 			for (var i = 0, ii = this._searchFeatures.length; i < ii; i++){
-				if (this._searchFeatures[i].get('mtbid') == origin_target.id)
+				if (this._searchFeatures[i].get('id') == origin_target.id)
 					feature =  this._searchFeatures[i];
 			};
 

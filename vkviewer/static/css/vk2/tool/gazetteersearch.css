@@ -20,8 +20,7 @@
 }
 
 .gazetteersearch-container .gazetteersearch-input.loading{
-	background: url('/vkviewer/static/images/ui-anim_basic_16x16.gif') right center no-repeat;	
-	background-color: white;
+	background: #fff url('/vkviewer/static/images/loader.gif') 220px center no-repeat;	
 }
 
 .gazetteersearch-container .gazetteersearch-submit {

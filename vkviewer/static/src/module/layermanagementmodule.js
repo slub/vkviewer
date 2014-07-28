@@ -82,7 +82,7 @@ vk2.module.LayerManagementModule.prototype._getIndexToLayer = function(layer){
  */
 vk2.module.LayerManagementModule.prototype._loadHtmlContent = function(parentEl){
 	
-	var containerEl = goog.dom.createDom('div',{'class':'layermanagement-container'});
+	var containerEl = goog.dom.createDom('div',{'class':'layermanagement-container', 'id':'layermanagement-container'});
 	goog.dom.appendChild(parentEl, containerEl);
 	
 	// header
@@ -100,7 +100,9 @@ vk2.module.LayerManagementModule.prototype._loadHtmlContent = function(parentEl)
 	 * @type {Element}
 	 * @private
 	 */
-	this._bodyEl = goog.dom.createDom('ul',{'class':'layermanagement-body'});
+	this._bodyEl = goog.dom.createDom('ul',{
+		'class':'layermanagement-body',
+		'innerHTML':'<li class="empty">' + vk2.utils.getMsg('start_message') + '</li>'});
 	goog.dom.appendChild(containerEl, this._bodyEl);
 };
 

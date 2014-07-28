@@ -15,6 +15,7 @@ var lang_dictionary = {
 		'change_zoomlevel': 'Please zoom in!',
 		'choose_valide_timestamp': 'Please choose valide timestamp',
 		'change_timeperiod': 'Adjust time periode:',
+		'start_message': 'Welcome to the Virtual Map Forum 2.0.<br> Please choose your map collection in the search menu on the left side. ',
 		
 		// layermanagement module
 		'layermanagement_label': 'My Maps',

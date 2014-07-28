@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">

@@ -23,12 +23,12 @@ vk2.settings.WFS_PARSER_CONFIG = {
 /**
  * @type {string}
  */
-vk2.settings.WFS_URL = 'http://194.95.145.43/cgi-bin/mtbows';
+vk2.settings.WFS_URL = 'http://kartenforum.slub-dresden.de/cgi-bin/mtbows';
 
 /**
  * @type {string}
  */
-vk2.settings.WFS_GRID_URL = 'http://194.95.145.43/cgi-bin/mtb_grid';
+vk2.settings.WFS_GRID_URL = 'http://kartenforum.slub-dresden.de/cgi-bin/mtb_grid';
 
 /**
  * @type {string}
@@ -48,12 +48,12 @@ vk2.settings.CSW_URL = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/cs
 /**
  * @type {string}
  */
-vk2.settings.THUMBNAIL_URL = 'http://fotothek.slub-dresden.de/thumbs/df/dk/0010000/';
+vk2.settings.THUMBNAIL_URL =  'http://fotothek.slub-dresden.de/thumbs/df/dk/0010000/'; 
 
 /**
  * @type {string}
  */
-vk2.settings.GEOREFERENCECHOOSER_WMS = 'http://194.95.145.43/cgi-bin/mtb_grid';
+vk2.settings.GEOREFERENCECHOOSER_WMS = 'http://kartenforum.slub-dresden.de/cgi-bin/mtb_grid';
 
 /**
  * @type {string}
@@ -113,4 +113,8 @@ vk2.settings.MAP_PROFILE_PAGE = '/vkviewer/profile/map';
 /**
  * @type {string}
  */
-vk2.settings.TMS_URL = 'http://194.95.145.42/tms/';
+vk2.settings.TMS_URL = [
+     'http://vk2-cdn1.slub-dresden.de/tms/', 
+     'http://vk2-cdn2.slub-dresden.de/tms/',
+     'http://vk2-cdn3.slub-dresden.de/tms/'
+]
