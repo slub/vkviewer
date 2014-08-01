@@ -13,7 +13,6 @@ local
 bin
 lib
 include
-doc-pak
 .settings
 
 # files which are holding sensible information

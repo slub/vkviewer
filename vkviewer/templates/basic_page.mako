@@ -10,7 +10,7 @@
         <title>Virtuelles Kartenforum 2.0</title>
         
         <!-- js/css librarys via cdn / build stuff / for production-->
-		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	 
+		<!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	 
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/jquery-ui-custom.min.css')}" media="screen" />		
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/styles-min.css')}" />	
@@ -21,10 +21,10 @@
 	   	<script src="${request.static_url('vkviewer:static/src/locale/'+_('js_library')+'.js')}"></script>
 		<script src="${request.static_url('vkviewer:static/lib/proj4.js')}"></script> 
 	    <script src="${request.static_url('vkviewer:static/lib/ol-vkviewer.js')}"></script>
-		<script src="${request.static_url('vkviewer:static/vkviewer-min.js')}"></script> 
+		<script src="${request.static_url('vkviewer:static/vkviewer-min.js')}"></script> --> 
 		
 		<!-- for development -->
-		<!-- <link rel="stylesheet" href="${request.static_url('vkviewer:static/lib/css/bootstrap.min.css')}">		
+		<link rel="stylesheet" href="${request.static_url('vkviewer:static/lib/css/bootstrap.min.css')}">		
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/jquery-ui-custom.min.css')}" media="screen" />
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
@@ -39,7 +39,7 @@
 	    <script src="${request.static_url('vkviewer:static/src/vkviewer-deps.js')}"></script>  
 	    <script>
 	    	goog.require('vk2.utils.AppLoader');
-		</script> -->
+		</script>
 	
 		<%block name="header_content" />
 	     
