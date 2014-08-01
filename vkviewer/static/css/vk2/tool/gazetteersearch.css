@@ -1,0 +1,66 @@
+.gazetteersearch-container {
+  position: relative;
+	height: auto;
+}
+
+.gazetteersearch-container .form-group { margin: 0; }
+
+.gazetteersearch-container .gazetteersearch-input {
+	width: 100%;
+	position: relative; 
+	border-radius: 0;
+	font-weight: 300;
+}
+
+.gazetteersearch-container .gazetteersearch-input:focus,
+.gazetteersearch-container .gazetteersearch-submit:focus {
+	border-color: #766; 
+	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(0,0,0,0.2); 
+	box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(0,0,0,0.2);
+}
+
+.gazetteersearch-container .gazetteersearch-input.loading{
+	background: #fff url('/vkviewer/static/images/loader.gif') 220px center no-repeat;	
+}
+
+.gazetteersearch-container .gazetteersearch-submit {
+	position: absolute; 
+	top: 0;
+	right: 0;
+  width: 40px;
+	height: 34px;
+	border-radius: 0;
+	background: rgb(0,177,158) url('/vkviewer/static/images/searchBtn.svg') no-repeat center center;
+	background-size: 18px 18px;
+	overflow: hidden;
+	text-indent: 100%;
+	white-space: nowrap;
+	padding: 0;
+	border-left: 0 none;
+
+}
+
+.gazetteersearch-container .form-group:after { position: absolute; right: 40px; top: 11px; width: 0; height: 0; content: ""; border: 6px solid rgb(0,177,158); border-color: transparent rgb(0,177,158) transparent transparent; border-left-width: 0; }
+
+/** overwrite size of list */
+ul.ui-autocomplete{
+	width: 390px !important;
+	max-height: 65%;
+	z-index: 1000;
+	overflow-y: auto;
+  overflow-x: hidden;
+	border-radius: 0;
+	border: 0 none;
+	/* @alternate */
+	background: #355;
+	background: rgba(51,85,85,0.9);
+	color: #fff;
+	font-family: inherit;
+}
+
+.ui-menu .ui-menu-item a { color: #fff; font-weight: normal; border: 0 none; padding: 4px 10px; font-size: 12px; margin: 0; border-bottom: 1px dotted rgba(255,255,255,0.2); }
+.ui-menu .ui-menu-item a.ui-state-focus,.ui-menu .ui-menu-item a.ui-state-active { background: rgb(0,177,158); border: 0 none; border-bottom: 1px solid transparent; border-radius: 0; color: #fff; padding: 4px 10px; margin: 0; }
+
+
+
+

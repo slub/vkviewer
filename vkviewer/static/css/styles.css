@@ -1,0 +1,26 @@
+/* 
+    Document   : styles
+    Created on : Jul 11, 2013, 4:54:36 PM
+    Author     : mendt
+    Description:
+        Purpose of the stylesheet follows.
+*/
+@import url("./vk2/vkviewer.css");
+@import url("./vk2/override-ol3.css");
+@import url("./vk2/override-jquery.css");
+@import url("./vk2/override-bootstrap.css");
+@import url("./vk2/template/template_pages.css");
+@import url("./vk2/template/main_page.css");
+@import url("./vk2/template/header.css");
+@import url("./vk2/template/georeference.css");
+@import url("./vk2/template/footer.css");
+@import url("./vk2/template/login_screen.css");
+@import url("./vk2/template/profile_map.css");
+@import url("./vk2/template/welcome.css");
+@import url("./vk2/module/mapsearch.css");
+@import url("./vk2/module/spatialtemporalsearch.css");
+@import url("./vk2/module/layermanagement.css");
+@import url("./vk2/tool/gazetteersearch.css");
+@import url("./vk2/tool/timeslider.css");
+@import url("./vk2/tool/opacityslider.css");
+@import url("./vk2/utils/modal.css");

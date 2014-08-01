@@ -2,8 +2,9 @@
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
-    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/templates/welcome.css')}" />
+	<style>
+		.vk2WelcomePageBody .vk2GeoreferenceProgressText .content:after { left: ${georef_rel}%; }
+	</style>
 </%block>
 
 <%block name="body_content">
@@ -93,7 +94,7 @@
     		// event behavior for deactivation welcome page
 			$('#deactivateWelcomePage').change(function(){				
 				var welcomePageStatus = $(this).prop('checked') ? 'off' : 'on';
-				VK2.Utils.setCookie('welcomepage', welcomePageStatus);
+				vk2.utils.setCookie('welcomepage', welcomePageStatus);
 	   		});
 	   		
 	   		$('#vk2WelcomePageStart').click(function(event){

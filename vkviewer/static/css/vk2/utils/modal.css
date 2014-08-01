@@ -1,0 +1,176 @@
+.modal-backdrop { background: rgb(36,50,50); }
+.modal-backdrop.in { opacity: 0.6; filter: alpha(opacity=60); }
+
+
+.vk2-overlay-modal { z-index: 10000;}
+
+.modal-body { padding: 5px; }
+
+.modal-header { background: #eee; border: 0 none; padding: 6px 15px; }
+.modal-header h4  { font-weight: 300; text-transform: uppercase; font-size: 14px; }
+.modal-header .close { position: absolute; top: -5px; right: -5px; padding: 3px 7px 5px 7px; background: rgb(19,141,141); border: 1px solid #eee; opacity: 1; text-shadow: none; color: #fff; z-index: 901; }
+.modal-header .close:hover { background: #f33; }
+
+/* force modal headers to appear (temporary) */
+.modal-header { display: block !important; }
+
+
+.modal-content {
+  border-radius: 0;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  
+}
+
+/** Modal behavior for the faq page */
+.modal-content.faq{
+	width: 1200px;
+	margin-left: -300px;
+}
+			
+.modal-content.faq iframe.faq{
+	width: 100%;
+	height: 600px;
+}
+
+/** Modal behavior for the choose georeference dialog */
+.modal-content.choose-georef iframe.choose-georef{ width: 100%; }
+.vk2ChooseGeorefMtb { padding: 10px; }
+.vk2ChooseGeorefMtb h2 { border-bottom: 1px dotted #ccc; margin-bottom: 20px; padding-bottom: 5px; text-transform: uppercase; font-size: 16px; }
+.vk2ChooseGeorefMtb a { color: rgb(19,141,141); font-size: 16px; }
+			
+/** Modal behavior for the single map view */
+.modal-content.single-map-view{
+	width: 100%;
+	min-width: 1000px;
+	margin-left: -200px;
+	height: 100%;
+	min-height: 600px;
+}
+			
+.modal-content.single-map-view .modal-body{
+	width: 100%;
+	height: 700px;
+}
+			
+.modal-content.single-map-view iframe{
+	width: 100%;
+	height: 100%;
+}
+
+/** Modal behavior for the contact page */
+.modal-content.contact{
+	width: auto;
+	margin-left: -100px;
+}
+			
+.modal-content.contact iframe{
+	width: 100%;
+	height: 400px;
+}
+
+/** Modal behavior for the project page */
+.modal-content.project{
+	width: auto;
+	margin-left: -100px;
+}
+			
+.modal-content.project iframe{
+	width: 100%;
+	height: 500px;
+}
+
+/** Modal behavior for the project page */
+.modal-content.impressum{
+	width: auto;
+	margin-left: -100px;
+}
+			
+.modal-content.impressum iframe{
+	width: 100%;
+	height: 500px;
+}
+
+/** Modal behavior for the login page */
+.modal-content.login{
+	width: 400px;
+	margin: 100px;
+}
+			
+.modal-content.login iframe{
+	width: 100%;
+	height: 500px;
+}
+
+/** Modal behavior for the login page */
+.modal-content.pw-change{
+	width: auto;
+	margin-left: -100px;
+}
+			
+.modal-content.pw-change iframe{
+	width: 100%;
+	height: 370px;
+}
+
+/** Modal behavior for the login page */
+.modal-content.georef-history{
+	width: auto;
+	margin-left: -100px;
+}
+			
+.modal-content.georef-history iframe{
+	width: 100%;
+	height: 600px;
+}
+
+/** Modal behavior for the admin evaluation page */
+.modal-content.admin-evaluation{
+	width: 1200px;
+	margin-left: -300px;
+}
+			
+.modal-content.admin-evaluation iframe{
+	width: 100%;
+	height: 800px;
+}
+
+/** Modal behavior for the map-profile-page */
+.modal-content.mapcontroller-click-modal{
+	width: auto;
+	min-width: 200px;
+	max-width: 400px;
+	margin-left: 100px;
+}
+			
+			
+.modal-content.map-profile{
+	width: 1200px;
+	margin-left: -300px;
+}
+
+.modal-content.map-profile iframe{
+	width: 100%;
+	height: 700px;
+}
+
+/** Modal behavior for the welcome page */
+.modal-content.welcomeBox {
+	height: 100%;
+  width: 900px;
+  margin-left: -150px;
+}
+			
+.modal-content.welcomeBox iframe{
+	width: 100%;
+	height: 500px;
+}
+.modal-content.welcomeBox .modal-body{
+	padding: 0px;
+}
+
+
+.modal-footer{ background: #eee; padding: 0; height: 5px; }
+.modal-footer .btn { display: none; }
+

@@ -7,12 +7,20 @@ GRANT SELECT ON TABLE spatial_ref_sys TO vkviewer;
 GRANT SELECT, UPDATE ON TABLE messtischblatt TO vkviewer;
 GRANT SELECT ON TABLE md_zeit TO vkviewer;
 GRANT SELECT ON TABLE md_core TO vkviewer;
+GRANT SELECT ON TABLE md_datensatz TO vkviewer;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE georeferenzierungsprozess TO vkviewer;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE passpoint TO vkviewer;
+GRANT ALL ON TABLE passpoint_id_seq TO vkviewer;
 GRANT SELECT, INSERT ON TABLE fehlermeldungen TO vkviewer;
 GRANT ALL ON TABLE users_id_seq TO vkviewer;
 GRANT ALL ON TABLE georeferenzierungsprozess_id_seq TO vkviewer;
 GRANT ALL ON TABLE fehlermeldungen_id_seq TO vkviewer;
 GRANT SELECT, DELETE ON TABLE refmtblayer TO vkviewer;
+GRANT SELECT ON md_datensatz TO vkviewer;
+GRANT UPDATE, INSERT, SELECT ON refmtblayer TO vkviewer
+-- User privileges for vkviewer for updating the database
+GRANT SELECT, INSERT, UPDATE ON virtualdatasets TO vkviewer;
+GRANT SELECT ON geometry_columns TO vkviewer;
 ﻿-- User privileges user_georef
 GRANT SELECT, UPDATE ON TABLE md_bildmedium TO user_georef;
 GRANT SELECT, UPDATE ON TABLE messtischblatt TO user_georef;

@@ -5,6 +5,7 @@ html, body {
 	margin: 0; 
 	overflow: hidden; 
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; 
+	background: transparent;
 }
 
 body { 
@@ -29,8 +30,7 @@ h3 {
 
 h2 { 
 	position: relative; 
-	color: #f33; 
-	font-style: italic; 
+	color: #f33;
 	font-weight: normal; 
 	line-height: 110% 
 }

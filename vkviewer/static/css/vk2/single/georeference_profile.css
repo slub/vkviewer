@@ -1,0 +1,15 @@
+.georef-history h1 { 
+
+padding: 0;
+color: #f33;
+font-size: 30px;
+font-weight: 300;
+margin: 15px 0 5px 0;
+}
+
+.georef-history h2 { color: #666; font-weight: 600; font-size: 16px; text-transform: uppercase; margin-bottom: 0; padding-bottom: 10px; border-bottom: 1px dotted #ccc; }
+.georef-history header hgroup > a { display: none; }
+
+.georef-history article { font-size: 12px; background: #eee; padding: 10px; margin-bottom: 20px; }
+.georef-history article a.pull-right { float: left !important; margin: 0 10px 0 0; }
+.georef-history article img { height: 200px; }

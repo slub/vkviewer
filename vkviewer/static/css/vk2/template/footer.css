@@ -1,0 +1,46 @@
+
+/* Footer styling */
+
+.vk2FooterPanel { 
+	position: absolute; 
+	bottom: 0; 
+	left: 0; 
+	width: 100%;
+	height: 25px; 
+	border-top: 1px solid rgba(255,255,255,0.8); 
+	padding: 0; overflow: hidden; 
+	background: rgba(51,68,68,0.9) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWBAMAAAA2mnEIAAAAGFBMVEU7Tk4AAAARFBMnKycnOjo6OjoTJyc6Tjqx/p3JAAAACHRSTlMNDQ0NDQ0NDTiWuKEAAADSSURBVBjTBcExU8IwGIDh90uKrF+aVNeE1rq2BPa2oK61Bzuc3LnCeefv93lIw2vn69/DIUUe+R6SmqV1BaUrUp/BJkHDHP4S4JTeM0cfu75RDi9NdNEc13iY7qtGW4myB3u5oO/fl2biE33LPqsNIx/7elteU2Ouhq9ys+iTDMgJN0E2YYdU7F3pcF1utldGM9pOz7p7FtbnCuZ64dGSGW7FLQrLiQ2mLia/zj8nAn3bjdn6oSKu+hTdfYrHCIsI4pQEc73dWHGFCFQ2UJVWRcI/fj0f6SmTv/kAAAAASUVORK5CYII=') 0 0 repeat; 
+	z-index: 1001; 
+}
+	
+.footerContainer .leftside { 
+	position: relative; 
+	float: left; 
+	opacity: 0.8; 
+	margin-left: 10px; 
+}
+
+.footerContainer .rightside { 
+	position: relative; 
+	float: right; 
+	opacity: 0.8; 
+	margin-right: 10px; 
+}
+
+.vk2Footer .footerContainer { 
+	font-size: 11px; 
+	color: #fff; 
+	margin-top: .15%; 
+}
+
+.vk2Footer .footerContainer .footerList { list-style: none }
+.footerContainer .footerList .listelement { 
+	float: left; 
+	margin-top: 2px; 
+	padding-left: 5px; 
+	padding-right: 5px;
+}
+
+.footerContainer .footerList .listelement a { color: #fff; }
+.footerContainer .footerList .thick { font-weight: 500; }
+.footerContainer .footerList .leftborder { border-right: 1px dotted #fff; }

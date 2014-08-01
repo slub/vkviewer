@@ -1,0 +1,26 @@
+body, html {
+	overflow-y: auto;
+}
+
+.login-screen .container, .reset-pw .container { width: 100%; padding: 10px; }
+.login-screen .panel-heading { padding: 0; background: transparent; margin: 30px 0 10px 0; }
+.panel-vk2Login .panel-heading { display: none; }
+
+
+.panel .panel-body { padding: 0; }
+
+.login-screen label, .change-pw label { display: none; }
+.login-screen .form-control, .change-pw .form-control { background: #eee; border-radius: 0; padding: 20px 10px; border: 1px solid #eee; box-shadow: none; } 
+.login-screen .form-control:focus, .change-pw .form-control:focus  { border: 1px solid #ccc; border-radius: 0; padding: 20px 10px; background: #fff; box-shadow:  inherit; }
+.login-screen .btn, .change-pw .btn { border-radius: 0; width: 100%; text-transform: uppercase; font-weight: 300; background: rgb(0,177,158); border: 0 none;  }
+.login-screen .forgot { text-align: right; color: #999; font-size: 11px; float: right; font-weight: 500; margin-top: 5px; }
+.change-pw .panel-heading { padding: 0; font-weight: 700; background: transparent; margin-bottom: 40px; }
+.form-reset-pw { margin-top: 40px; }
+
+.has-error .form-control { border: 3px solid #f33; }
+
+
+.panel-vk2RegisterNewUser .panel-body, .back-to-login { display: none; }
+.panel-vk2RegisterNewUser .validation-tips { border-top: 1px dotted #ccc; padding-top: 10px; margin-top: 40px; font-size: 12px; color: #666; }
+.trigger-registration, .trigger-login { font-weight: 600; cursor: pointer; }
+.trigger-registration:hover, .trigger-login:hover { color: #f33; text-decoration: underline; }
