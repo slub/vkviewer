@@ -68,7 +68,7 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 	this._map = new ol.Map({
 		layers: [
 		   new ol.layer.Tile({
-			   preload: Infinity,
+			 //  preload: Infinity,
 			   source: new ol.source.OSM()
 		   })
 //				new ol.layer.Tile({

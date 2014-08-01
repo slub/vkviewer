@@ -45,8 +45,10 @@ from sqlalchemy.exc import IntegrityError
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
 BASE_PATH_PARENT = os.path.abspath(os.path.join(BASE_PATH, os.pardir))
+ROOT_PATH = os.path.abspath(os.path.join(os.path.abspath(os.path.join(BASE_PATH_PARENT, os.pardir)), os.pardir))
 sys.path.insert(0, BASE_PATH)
 sys.path.append(BASE_PATH_PARENT)
+sys.path.append(ROOT_PATH)
 
 from vkviewer.settings import GN_SETTINGS
 from vkviewer.python.models.Meta import initializeDb
