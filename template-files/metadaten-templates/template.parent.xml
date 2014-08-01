@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Core gmd based instance document -->
+<gmd:MD_Metadata xmlns="http://www.w3.org"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:gco="http://www.isotc211.org/2005/gco"
+        xmlns:gmd="http://www.isotc211.org/2005/gmd"
+	xmlns:gml="http://www.opengis.net/gml"
+        xsi:schemaLocation="http://www.isotc211.org/2005/gco ../gco/gco.xsd
+    http://www.isotc211.org/2005/gmd ../gmd/gmd.xsd http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/base/gml.xsd">
+    <gmd:fileIdentifier>
+        <gco:CharacterString>9a142459-749e-4904-aaa7-88cb3d418b85</gco:CharacterString><!-- was für einen Identifier nutzen -->
+    </gmd:fileIdentifier>
+    <gmd:language>
+	<gco:CharacterString>ger</gco:CharacterString>
+    </gmd:language>
+    <gmd:characterSet>
+        <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8">UTF 8</gmd:MD_CharacterSetCode>
+    </gmd:characterSet>
+    <gmd:hierarchyLevel>
+        <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset" /> <!-- Frage welchen CodeListValue wählen? -->
+    </gmd:hierarchyLevel>
+    <gmd:hierarchyLevelName>
+        <gco:CharacterString>Topographische Karte (Messtischblaetter)</gco:CharacterString>
+    </gmd:hierarchyLevelName>
+    <gmd:contact>
+        <gmd:CI_ResponsibleParty>
+            <gmd:individualName>
+                <gco:CharacterString>Jacob Mendt</gco:CharacterString>
+            </gmd:individualName>
+            <gmd:organisationName>
+                <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString><!-- Name der SLUB -->
+            </gmd:organisationName>
+	    <gmd:contactInfo>
+		<gmd:CI_Contact>
+		    <gmd:address>
+		        <gmd:CI_Address>
+		            <gmd:deliveryPoint>
+		                <gco:CharacterString>Zellescher Weg 18</gco:CharacterString>
+		            </gmd:deliveryPoint>
+		            <gmd:city>
+		                <gco:CharacterString>Dresden</gco:CharacterString>
+		            </gmd:city>
+		            <gmd:administrativeArea>
+		                <gco:CharacterString>Sachsen</gco:CharacterString>
+		            </gmd:administrativeArea>
+		            <gmd:postalCode>
+		                <gco:CharacterString>01069</gco:CharacterString>
+		            </gmd:postalCode>
+		            <gmd:country>
+		                <gco:CharacterString>Deutschland</gco:CharacterString>
+		            </gmd:country>
+		            <gmd:electronicMailAddress>
+		                <gco:CharacterString>Jacob.Mendt@slub-dresden.de</gco:CharacterString>
+		            </gmd:electronicMailAddress>
+		        </gmd:CI_Address>
+		    </gmd:address>
+		    <gmd:onlineResource>
+			<gmd:CI_OnlineResource>
+			    <gmd:linkage>
+				<gmd:URL>http://www.slub-dresden.de</gmd:URL>
+			    </gmd:linkage>
+			</gmd:CI_OnlineResource>
+		    </gmd:onlineResource>
+	        </gmd:CI_Contact>
+	    </gmd:contactInfo>
+            <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
+                    codeListValue="custodian"/> <!-- custodian="party that accepts accountability and responsability for the data and ensures appropriate care and maintenance of the resource" , alternatives: owner/pointOfContact/user/publisher/...-->
+            </gmd:role>
+        </gmd:CI_ResponsibleParty>
+    </gmd:contact>
+    <gmd:dateStamp>
+        <gco:Date>2013-07-11</gco:Date><!-- Aktuelles Datum -->
+    </gmd:dateStamp>
+    <gmd:metadataStandardName>
+        <gco:CharacterString>ISO 19115</gco:CharacterString>
+    </gmd:metadataStandardName>
+    <gmd:metadataStandardVersion>
+        <gco:CharacterString>2003</gco:CharacterString>
+    </gmd:metadataStandardVersion>
+    <gmd:referenceSystemInfo>
+      <gmd:MD_ReferenceSystem>
+         <gmd:referenceSystemIdentifier>
+            <gmd:RS_Identifier>
+               <gmd:code>
+                  <gco:CharacterString>EPSG:4314</gco:CharacterString>
+               </gmd:code>
+               <gmd:codeSpace>
+                  <gco:CharacterString>EPSG</gco:CharacterString>
+               </gmd:codeSpace>
+            </gmd:RS_Identifier>
+         </gmd:referenceSystemIdentifier>
+      </gmd:MD_ReferenceSystem>
+  </gmd:referenceSystemInfo>
+   <gmd:referenceSystemInfo>
+      <gmd:MD_ReferenceSystem>
+         <gmd:referenceSystemIdentifier>
+            <gmd:RS_Identifier>
+               <gmd:code>
+                  <gco:CharacterString>EPSG:900913</gco:CharacterString>
+               </gmd:code>
+               <gmd:codeSpace>
+                  <gco:CharacterString>EPSG</gco:CharacterString>
+               </gmd:codeSpace>
+            </gmd:RS_Identifier>
+         </gmd:referenceSystemIdentifier>
+      </gmd:MD_ReferenceSystem>
+  </gmd:referenceSystemInfo>
+    <gmd:identificationInfo>
+        <gmd:MD_DataIdentification>
+            <gmd:citation>
+                <gmd:CI_Citation>
+                    <gmd:title>
+                        <gco:CharacterString>Historische Messtischblaetter</gco:CharacterString> <!-- md_core.titel -->
+                    </gmd:title>
+                    <gmd:date>
+                        <gmd:CI_Date>
+                            <gmd:date>
+                                <gco:Date>2014-01-08</gco:Date><!-- md_zeit.datierung where md_zeit.type = 'a5064' -->
+                            </gmd:date>
+                            <gmd:dateType>
+                                <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation"/>
+                            </gmd:dateType>
+                        </gmd:CI_Date>
+                    </gmd:date>
+                </gmd:CI_Citation>
+            </gmd:citation>
+            <gmd:abstract>
+                <gco:CharacterString>Die georeferenzierten Messtischblaetter liegen als Rasterdaten im Massstab 1:25000 vor.</gco:CharacterString>
+            </gmd:abstract>
+            <gmd:pointOfContact>
+                <gmd:CI_ResponsibleParty>
+                    <gmd:individualName>
+                        <gco:CharacterString>Jacob Mendt</gco:CharacterString>
+                    </gmd:individualName>
+                    <gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
+                        <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString><!-- Name der SLUB -->
+                    </gmd:organisationName>
+                    <gmd:address>
+                        <gmd:CI_Address>
+                            <gmd:deliveryPoint>
+                                <gco:CharacterString>Zellescher Weg 18</gco:CharacterString>
+                            </gmd:deliveryPoint>
+                            <gmd:city>
+                                <gco:CharacterString>Dresden</gco:CharacterString>
+                            </gmd:city>
+                            <gmd:administrativeArea>
+                                <gco:CharacterString>Sachsen</gco:CharacterString>
+                            </gmd:administrativeArea>
+                            <gmd:postalCode>
+                                <gco:CharacterString>01069</gco:CharacterString>
+                            </gmd:postalCode>
+                            <gmd:country>
+                                <gco:CharacterString>Deutschland</gco:CharacterString>
+                            </gmd:country>
+                            <gmd:electronicMailAddress>
+                                <gco:CharacterString>Jacob.Mendt@slub-dresden.de</gco:CharacterString>
+                            </gmd:electronicMailAddress>
+                        </gmd:CI_Address>
+                    </gmd:address>
+                    <gmd:role>
+                        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
+                            codeListValue="custodian"/> <!-- custodian="party that accepts accountability and responsability for the data and ensures appropriate care and maintenance of the resource" , alternatives: owner/pointOfContact/user/publisher/...-->
+                    </gmd:role>
+                </gmd:CI_ResponsibleParty>
+            </gmd:pointOfContact>
+            <gmd:descriptiveKeywords> <!-- md_core.sachbegriffe-->
+                <gmd:MD_Keywords>
+                    <gmd:keyword>
+                        <gco:CharacterString>Messtischblätter</gco:CharacterString>
+                    </gmd:keyword>
+                    <gmd:keyword>
+                        <gco:CharacterString>Messtischblatt</gco:CharacterString>
+                    </gmd:keyword>
+                </gmd:MD_Keywords>
+            </gmd:descriptiveKeywords>
+            <gmd:descriptiveKeywords>
+                <gmd:MD_Keywords>
+                    <gmd:keyword>
+                        <gco:CharacterString>Topographische Karte</gco:CharacterString>
+                    </gmd:keyword>
+                </gmd:MD_Keywords>
+            </gmd:descriptiveKeywords>
+            <gmd:descriptiveKeywords>
+                <gmd:MD_Keywords>
+                    <gmd:keyword>
+                        <gco:CharacterString>Druck</gco:CharacterString>
+                    </gmd:keyword>
+                </gmd:MD_Keywords>
+            </gmd:descriptiveKeywords>
+            <gmd:descriptiveKeywords><!-- md_core.schlagworte -->
+                <gmd:MD_Keywords>
+                    <gmd:keyword>
+                        <gco:CharacterString>Topografie</gco:CharacterString>
+                    </gmd:keyword>
+                </gmd:MD_Keywords>
+            </gmd:descriptiveKeywords>
+            <gmd:descriptiveKeywords><!-- md_core.Technik -->
+                <gmd:MD_Keywords>
+                    <gmd:keyword>
+                        <gco:CharacterString>Lithografie und Umdruck</gco:CharacterString>
+                    </gmd:keyword>
+                </gmd:MD_Keywords>
+            </gmd:descriptiveKeywords>
+	    <gmd:spatialRepresentationType>
+		<gmd:MD_SpatialRepresentationTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_SpatialRepresentationTypeCode" codeListValue="grid" />
+	    </gmd:spatialRepresentationType>
+            <gmd:resourceConstraints> <!-- Wie soll das Copyright aussehen? -->
+                <gmd:MD_LegalConstraints>
+                    <gmd:useLimitation>
+                        <gco:CharacterString>Copyright siehe Nutzungsbestimmungen auf den Webseiten der SLUB http://www.deutschefotothek.de</gco:CharacterString>
+                    </gmd:useLimitation>
+                </gmd:MD_LegalConstraints>
+            </gmd:resourceConstraints>
+            <gmd:spatialResolution>
+                <gmd:MD_Resolution>
+                    <gmd:equivalentScale>
+                        <gmd:MD_RepresentativeFraction>
+                            <gmd:denominator>
+                                <gco:Integer>25000</gco:Integer><!-- md_core.massstab-->
+                            </gmd:denominator>
+                        </gmd:MD_RepresentativeFraction>
+                    </gmd:equivalentScale>
+                </gmd:MD_Resolution>
+            </gmd:spatialResolution>
+            <gmd:language>
+                <gmd:LanguageCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#LanguageCode"
+                    codeListValue="ger"/>
+            </gmd:language>
+            <gmd:characterSet>
+                <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8"/>
+            </gmd:characterSet>
+            <gmd:topicCategory>
+                <gmd:MD_TopicCategoryCode>society</gmd:MD_TopicCategoryCode>
+            </gmd:topicCategory>
+            <gmd:topicCategory>
+                <gmd:MD_TopicCategoryCode>structure</gmd:MD_TopicCategoryCode>
+            </gmd:topicCategory>
+            <gmd:extent>
+                <gmd:EX_Extent>       
+                    <gmd:temporalElement> <!-- md_zeit.datierung where md_zeit.type = 'a5064' -->
+                        <gmd:EX_TemporalExtent>
+                            <gmd:extent>
+                                <gml:TimePeriod>
+				    <gml:begin>
+					<gml:TimeInstant>
+                                    	    <gml:timePosition>1868-01-01</gml:timePosition>
+					</gml:TimeInstant>
+				    </gml:begin>
+				    <gml:end>
+					<gml:TimeInstant>
+                                    	    <gml:timePosition>1945-12-31</gml:timePosition>
+					</gml:TimeInstant>
+				    </gml:end>
+                                </gml:TimePeriod>
+                            </gmd:extent>
+                        </gmd:EX_TemporalExtent>
+                    </gmd:temporalElement>
+                </gmd:EX_Extent>
+		     <gmd:EX_Extent>
+		       <gmd:geographicElement>
+		          <gmd:EX_GeographicBoundingBox>
+		             <gmd:westBoundLongitude>
+		                <gco:Decimal>5.833</gco:Decimal>
+		             </gmd:westBoundLongitude>
+		             <gmd:eastBoundLongitude>
+		                <gco:Decimal>23.000</gco:Decimal>
+		             </gmd:eastBoundLongitude>
+		             <gmd:southBoundLatitude>
+		                <gco:Decimal>47.200</gco:Decimal>
+		             </gmd:southBoundLatitude>
+		             <gmd:northBoundLatitude>
+		                <gco:Decimal>56.000</gco:Decimal>
+		             </gmd:northBoundLatitude>
+		          </gmd:EX_GeographicBoundingBox>
+		       </gmd:geographicElement>
+		    </gmd:EX_Extent>
+            </gmd:extent>
+        </gmd:MD_DataIdentification>
+    </gmd:identificationInfo>
+    <gmd:distributionInfo>
+        <gmd:MD_Distribution>
+            <gmd:distributionFormat> <!-- look for geotiff -->
+                <gmd:MD_Format>
+                    <gmd:name>
+                        <gco:CharacterString>png</gco:CharacterString>
+                    </gmd:name>
+                    <gmd:version>
+                        <gco:CharacterString>image/png</gco:CharacterString>
+                    </gmd:version>
+                </gmd:MD_Format>
+                <gmd:MD_Format>
+                    <gmd:name>
+                        <gco:CharacterString>jpeg</gco:CharacterString>
+                    </gmd:name>
+                    <gmd:version>
+                        <gco:CharacterString>image/jpeg</gco:CharacterString>
+                    </gmd:version>
+                </gmd:MD_Format>
+            </gmd:distributionFormat>
+            <gmd:distributor>
+                <gmd:MD_Distributor>
+                    <gmd:distributorContact>
+                        <gmd:CI_ResponsibleParty>
+                            <gmd:individualName>
+                                <gco:CharacterString>Jacob Mendt</gco:CharacterString>
+                            </gmd:individualName>
+                            <gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
+                                <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString><!-- Name der SLUB -->
+                            </gmd:organisationName>
+                            <gmd:address>
+                                <gmd:CI_Address>
+                                    <gmd:deliveryPoint>
+                                        <gco:CharacterString>Zellescher Weg 18</gco:CharacterString>
+                                    </gmd:deliveryPoint>
+                                    <gmd:city>
+                                        <gco:CharacterString>Dresden</gco:CharacterString>
+                                    </gmd:city>
+                                    <gmd:administrativeArea>
+                                        <gco:CharacterString>Sachsen</gco:CharacterString>
+                                    </gmd:administrativeArea>
+                                    <gmd:postalCode>
+                                        <gco:CharacterString>01069</gco:CharacterString>
+                                    </gmd:postalCode>
+                                    <gmd:country>
+                                        <gco:CharacterString>Deutschland</gco:CharacterString>
+                                    </gmd:country>
+                                    <gmd:electronicMailAddress>
+                                        <gco:CharacterString>Jacob.Mendt@slub-dresden.de</gco:CharacterString>
+                                    </gmd:electronicMailAddress>
+                                </gmd:CI_Address>
+                            </gmd:address>
+                            <gmd:role>
+                                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
+                                    codeListValue="custodian"/> <!-- custodian="party that accepts accountability and responsability for the data and ensures appropriate care and maintenance of the resource" , alternatives: owner/pointOfContact/user/publisher/...-->
+                            </gmd:role>
+                        </gmd:CI_ResponsibleParty>
+                    </gmd:distributorContact>
+                </gmd:MD_Distributor>
+            </gmd:distributor>
+        </gmd:MD_Distribution>
+    </gmd:distributionInfo>
+    <gmd:dataQualityInfo>
+        <gmd:DQ_DataQuality>
+            <gmd:scope>
+                <gmd:DQ_Scope>
+                    <gmd:level>
+                        <gmd:MD_ScopeCode
+                            codeList="http://www.isotc211.org/2005/resources/Codelist/gmxcodelists#MD_ScopeCode"
+                            codeListValue="dataset" />
+                    </gmd:level>
+                </gmd:DQ_Scope>
+            </gmd:scope>
+            <gmd:lineage>
+                <gmd:LI_Lineage>
+                    <gmd:statement>
+                        <gco:CharacterString>....</gco:CharacterString>
+                    </gmd:statement>
+                </gmd:LI_Lineage>
+            </gmd:lineage>
+        </gmd:DQ_DataQuality>
+    </gmd:dataQualityInfo>
+</gmd:MD_Metadata>

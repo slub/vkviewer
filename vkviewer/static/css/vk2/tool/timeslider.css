@@ -1,0 +1,20 @@
+.timeslider-container{ position: relative; margin-bottom: 20px; padding-bottom: 30px; }
+
+.timeslider-container:after { position: absolute; bottom: 0; left: -15px; right: -15px; height: 1px; background: rgba(0,0,0,0.3); overflow: hidden; content: ""; }
+
+.timeslider-container label { width: 100%; text-align: center; font-size: 11px; margin: 10px 0 0 0; color: rgba(0,177,158,0.4); text-transform: uppercase; font-weight: 500; }
+
+.timeslider-container .slider-container { padding: 10px 5px; margin-top: -7px; }
+
+
+.timeslider-container .slider { height: 3px; background: #eee; /* @alternate */ border: 0 none; border-radius: 0; border: 1px solid transparent; border-color: #ccc transparent transparent #ccc; }
+
+.ui-slider-horizontal .ui-slider-handle { top: -6px; width: 12px; height: 12px; background: rgb(0,177,158); border: 0 none; border-radius: 0; box-shadow: 1px 0px 2px rgba(0,0,0,0.2); cursor: col-resize; margin-left: -6px; }
+.ui-slider-horizontal .ui-slider-handle:focus, .ui-slider-horizontal .ui-slider-handle:active { border: 0; outline: none; }
+.ui-slider-horizontal .ui-slider-handle:after { position: absolute; bottom: -3px; left: 3px; width: 0; height: 0; content: ""; border: 3px solid transparent; border-bottom-width: 0; border-top-color: rgb(0,177,158); }
+
+.ui-slider-horizontal .ui-slider-range { background: rgba(0,177,158,0.5);  }
+
+.timeslider-container .slider .tooltip{ margin-top: 12px; opacity: 1; font-size: 10px; color: rgb(56,92,92); font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-weight: 500; }
+.timeslider-container .slider .tooltip.min-value{	margin-left: -12px; left: 0%; }
+.timeslider-container .slider .tooltip.max-value{ left: 100%; margin-left: -12px; }

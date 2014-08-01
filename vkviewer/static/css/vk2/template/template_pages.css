@@ -1,0 +1,192 @@
+/**
+ * Styles which are matching the template pages 
+ */
+/* Page: Change password */
+.container.change-pw{
+	min-width: 200px;
+	max-width: 600px; 
+}
+
+/* Page: Login screen */
+div.login-screen{
+
+}
+
+.form-user-register .form-group.double-input-field{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+.form-user-register .form-group.double-input-field > label{
+	width: 100%;
+}
+
+.form-user-register .form-group.double-input-field > input{
+	max-width: 49%;
+	display: inline;
+}
+
+.form-user-register .form-group.double-input-field .right{
+	float: right;
+}
+
+.page-container.full-display{
+	width: 100%;
+	height: 100%;
+}
+
+.page-container { padding: 15px; }
+.page-container h2 { margin-bottom: 20px; }
+.page-container h4 { margin: 20px 0 12px 0; }
+.page-container a { color: rgb(19,141,141); }
+
+/* Page: Forget password */
+div.reset-pw{
+	max-width: 600px;
+	max-height: 400px;
+}
+
+/* Page: Forget password reset successfully */
+div.reset-pw-success{
+	max-width: 600px;
+}
+
+.reset-pw-container{
+	padding: 10px;
+}
+
+/* Page: Error message */
+div.error{
+	max-width: 600px;
+}
+
+.error-container{
+	padding: 10px;
+}
+
+/* Page: Faq */
+div.faq{
+}
+
+.media-object{
+	border: solid black 1px;	
+}
+
+.panel-group.faq{
+	margin: 0px;
+    padding: 0px; 
+}
+
+.panel-group.faq > h2{
+	position: relative;
+	color: #c00;
+	font-style: italic;
+	font-weight: normal;
+	line-height: 110%;
+}
+
+.panel-group.faq > h3{
+	display: block;
+	font-size: 1.17em;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-weight: bold;
+}
+
+/* Page: Contact */
+.vk2-fancybox-wrapper.contact-page-container{
+	width: 665px !important;
+	height: auto;
+}
+
+.vk2-fancybox-wrapper.contact-page-container .fancybox-inner{
+	width: 615px !important;
+}
+
+.contact-formular{
+	width: 600px;
+}
+		
+.contact-formular .form-group.right{
+	float: right
+}
+
+.contact-formular .panel-heading { background: transparent; padding: 0; color: #f33; font-size: 30px; margin-bottom: 20px; }
+.contact-formular label { display: none; }
+.contact-formular .form-control { background: #eee; border-radius: 0; padding: 20px 10px; border: 1px solid #eee; box-shadow: none; } 
+.contact-formular .form-control:focus { border: 1px solid #ccc; border-radius: 0; padding: 20px 10px; background: #fff; box-shadow:  inherit; }
+.contact-formular .btn { border-radius: 0; width: 100%; text-transform: uppercase; font-weight: 300; background: rgb(0,177,158); border: 0 none;  }
+
+
+
+
+/* Page: Impressum */
+.vk2-fancybox-wrapper.impressum-page-container{
+	width: 665px !important;
+	height: auto;
+}
+
+.vk2-fancybox-wrapper.impressum-page-container .fancybox-inner{
+	width: 615px !important;
+}
+
+.vk2ImpressumPageContainer {
+    height: 500px;
+    width:  600px;
+    line-height: 160%;
+}
+
+.vk2ImpressumPageContainer .text{
+	width: 600px;
+}
+
+
+.vk2ImpressumPageContainer:before { position: absolute; top: 70px; right: 40px; font-size: 16em; content: "\00a7"; color: rgba(125,125,125,0.1); }
+
+
+/* Page: Project */
+.vk2-fancybox-wrapper.project-page-container{
+	width: 865px;
+	height: auto;
+}
+
+
+.vk2PartnerPageContainer .list{
+	margin-left: 20px;
+	list-style-type: disc;
+}
+
+/* Login page */
+.vk2-fancybox-wrapper.login-page-container{
+	width: 665px !important;
+	height: auto;
+}
+
+.vk2-fancybox-wrapper.login-page-container .fancybox-inner{
+	width: 615px !important;
+}
+
+/* Georeference history page */
+.vk2-fancybox-wrapper.georef-history-page-container{
+	width: 715px !important;
+	height: auto;
+}
+
+.vk2-fancybox-wrapper.georef-history-page-container .fancybox-inner{
+	width: 665px !important;
+}
+
+/* Change pw page */
+.vk2-fancybox-wrapper.pw-change-page-container{
+	width: 565px !important;
+	height: auto;
+}
+
+.vk2-fancybox-wrapper.pw-change-page-container .fancybox-inner{
+	width: 515px !important;
+}
+
+.faq { background: #fff; }

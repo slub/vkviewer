@@ -1,0 +1,119 @@
+/* 
+	main page 
+*/
+/* body layout */
+
+.main-page.content-container{
+	width: 100%;
+	height: 100%;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.vk2MapPanel{
+	position: absolute; 
+	box-sizing:border-box; 
+	-moz-box-sizing:border-box; 
+	width: 100%;
+	height: 100%;
+}
+
+.vk2FooterPanel{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 25px;
+	padding: 0;
+	overflow:hidden;
+	background-color:rgb(173,167,158);
+    opacity: 0.9;
+    z-index:1001;
+}
+
+/* map stuff */
+
+#mapdiv  { 
+    width:100%; 
+    height: 100%;
+    background-color:#B3C6D4;
+}
+
+/* style for georeference points */
+.georef-point-container{
+	height: 40px !important;
+	width: 150px !important;
+	font-size: 20px;
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+	padding-left: 20px !important;
+	padding-right: 15px !important;
+	z-index: 10000;
+}
+
+.georef-point-container{
+	position:absolute;
+	top: 100px;
+	left: 100px;
+	display: none;
+}
+
+
+/* user-header */
+.user-header {
+	z-index: 311;
+	top: 10px;
+	right: 38px;
+	height: 28px;
+	position: absolute;
+	display: block;
+	/* @alternate */
+	background: #fff;
+	background: rgba(255,255,255,0.4);
+	padding: 3px;
+	
+}
+
+.user-header > ul {
+	position: relative;
+	float: right;
+}
+
+.user-header .nav > li > a { background: rgb(0,177,158); padding: 3px 6px; color: #fff; border: 0 none; border-radius: 0; font-size: 11px; font-weight: 800; }
+.user-header .user-dropdown > a.vk2-modal-anchor { font-weight: 500; }
+.user-header .user-dropdown a:hover, .user-header .user-dropdown a:focus { background: #f33; }
+
+.user-header .user-dropdown a.vk2-modal-anchor .caret, .dropdown-menu .glyphicon { display: none; }
+
+
+.user-header .dropdown-menu { left: auto; right: 0; }
+
+.user-header .langswitch { 
+	list-style-type: none; 
+	margin-right: 5px;
+}
+
+.user-header .langswitch li { 
+	width: 16px; 
+	height: 11px; 
+	overflow: hidden; 
+	margin: 5px 3px 0 3px; 
+	float: left;
+}
+
+.user-header .language_switcher { 
+	position: relative; 
+	float: left; 
+	height: 11px; 
+	width: 16px; 
+	display: block; 
+	overflow: hidden; 
+	text-indent: -9000px; 
+	background: url('/vkviewer/static/images/flags.png') no-repeat 
+}
+.language_switcher.switch_de { background-position: 0 0 }
+.language_switcher.switch_en { background-position: 0 -11px }
+
+
+.user-header .nav > li > a.georeference-chooser-control.open { background: #f33; }
+
+

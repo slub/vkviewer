@@ -24,13 +24,14 @@ from pyramid.response import Response
 
 allowedHosts = ['www.openlayers.org', 'openlayers.org', 'slub-dresden.de/',
                 'www.openstreetmap.org','194.95.145.43','194.95.145.42','localhost', '139.30.111.16',
-                'kartenforum.slub-dresden.de', 'localhost:8080', 'http://139.30.132.26:8091',
-                'eiger.auf.uni-rostock.de']
+                'kartenforum.slub-dresden.de', 'localhost:8080', 'http://139.30.132.26:8091','194.95.144.96:8080',
+                'eiger.auf.uni-rostock.de','127.0.0.1:8080']
 
 def proxy_post(request):
     method = request.environ["REQUEST_METHOD"]
 
     qs = request.environ["QUERY_STRING"]
+     
     d = cgi.parse_qs(qs)
     if d.has_key("url"):
         url = d["url"][0]
@@ -56,17 +57,18 @@ def proxy_post(request):
                 r = urllib2.Request(url, request.body, headers)
                 y = urllib2.urlopen(r)
             else:
-                get_url = url
-                d.pop("url", None)
-                for key in d:
-                    get_url += '&' + key + '=' + d[key][0]
+#                 get_url = url
+#                 d.pop("url", None)
+#                 for key in d:
+#                     get_url += '&' + key + '=' + d[key][0]
+                getUrl = qs.split('url=')[1]
                   
                 if "AUTH_TYPE" in request.environ:
                     opener = urllib2.build_opener()
                     opener.addheaders.append(('Cookie','auth_tkt='+request.cookies['auth_tkt']))
-                    y = opener.open(get_url)
+                    y = opener.open(getUrl)
                 else:
-                    y = urllib2.urlopen(get_url)
+                    y = urllib2.urlopen(getUrl)
             
             # print content type header
             i = y.info()

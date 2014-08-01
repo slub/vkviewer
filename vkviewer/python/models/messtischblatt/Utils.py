@@ -1,6 +1,6 @@
 from vkviewer.python.models.Meta import Base
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
-from vkviewer.python.models.messtischblatt.MetadatenCore import MetadatenCore
+from vkviewer.python.models.messtischblatt.MdCore import MdCore
 from webhelpers.paginate import PageURL_WebOb, Page
 
 
@@ -46,7 +46,7 @@ def getZoomifyCollectionForBlattnr(request, blattnr, session, page=1):
     coll = []
     mtbs = Messtischblatt.allForBlattnr(blattnr, session)
     for mtb in mtbs:
-        metadata = MetadatenCore.by_id(mtb.id, session)
+        metadata = MdCore.by_id(mtb.id, session)
         if mtb.mdtype == 'M' and mtb.istaktiv and not mtb.isttransformiert and mtb.hasgeorefparams == 0:
             item = {'mtbid':mtb.id,'layername':mtb.dateiname,'titel':metadata.titel,'titel_short':metadata.titel_short,
                     'zoomify_prop':mtb.zoomify_properties,'zoomify_width':mtb.zoomify_width,'zoomify_height':mtb.zoomify_height}
@@ -60,7 +60,7 @@ def getCollectionForBlattnr(blattnr, session):
     mtbs = Messtischblatt.allForBlattnr(blattnr, session)
     for mtb in mtbs:
         wms_url = getWmsUrlForMtb(mtb.id, session)
-        metadata = MetadatenCore.by_id(mtb.id, session)
+        metadata = MdCore.by_id(mtb.id, session)
         item = {'wms_url':wms_url,'mtbid':mtb.id,'layername':mtb.dateiname,'titel':metadata.titel,
                 'zoomify_prop':mtb.zoomify_properties,'zoomify_width':mtb.zoomify_width,
                 'zoomify_height':mtb.zoomify_height}

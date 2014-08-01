@@ -27,6 +27,7 @@ class Messtischblatt(Base):
     zoomify_height = Column(Integer)
     boundingbox = Column(Geometry)   
     original_path = Column(String(255))
+    updated = Column(Boolean)
 
     
     @classmethod
@@ -40,6 +41,14 @@ class Messtischblatt(Base):
     @classmethod
     def by_id(cls, id, session):
         return session.query(Messtischblatt).filter(Messtischblatt.id == id).first()
+
+    @classmethod
+    def by_ObjectId(cls, id, session):
+        return session.query(Messtischblatt).filter(Messtischblatt.dateiname == id).first()
+        
+    @classmethod
+    def getUpdatedMesstischblaetter(cls, session):
+        return session.query(Messtischblatt).filter(Messtischblatt.updated == True)
     
     @classmethod
     def get_paginator_forBlattnr(cls, request, blattnr, page=1):
@@ -49,12 +58,24 @@ class Messtischblatt(Base):
 
     #BOX(13.6666660308838 51,13.8333339691162 51.1000061035156)', 'time': 1930}, {'id': 71055581, 'extent': 'BOX(13.6666660308838 51,13.8333339691162 51.1000061035156)
     @classmethod
-    def getExtent(cls, id, session):
-        query = 'SELECT st_extent(st_transform(boundingbox, 900913)) FROM messtischblatt WHERE id = :id;'
+    def getExtent(cls, id, session, epsg=4314):
+        query = 'SELECT st_extent(st_transform(boundingbox, %s)) FROM messtischblatt WHERE id = :id;'%epsg
         pg_extent = session.execute(query,{'id':id}).fetchone()[0]
-        extent = pg_extent.replace(' ',',')
-        # for removing the "BOX( )" stuff only return a subset of the string
-        return extent[4:-1] 
+        extent = pg_extent.replace(' ',',')[4:-1].split(',')
+        parsed_extent = []
+        for i in range(0,len(extent)):
+            parsed_extent.append(float(extent[i]))
+        return parsed_extent
+    
+    @classmethod
+    def getCentroid(cls, id, session, epsg=4314):
+        query = 'SELECT st_astext(st_centroid(st_transform(boundingbox, %s))) FROM messtischblatt WHERE id = %s'%(epsg, id)
+        pg_centroid = session.execute(query,{'id':id}).fetchone()[0]
+        centroid = pg_centroid[6:-1].split(' ')
+        parsed_centroid = []
+        for i in range(0,len(centroid)):
+            parsed_centroid.append(float(centroid[i]))
+        return parsed_centroid
        
     @property
     def slug(self):
@@ -63,6 +84,18 @@ class Messtischblatt(Base):
     @property
     def BoundingBoxObj(self):
         return createBBoxFromPostGISString(self.boundingbox, srid_database)
+    
+    @classmethod
+    def getBoundingBoxObjWithEpsg(cls, id, session, epsg=4314):
+        query = 'SELECT st_astext(st_transform(boundingbox,  %s)) FROM messtischblatt WHERE id = %s'%(epsg, id)
+        pg_geometry = session.execute(query,{'id':id}).fetchone()[0]
+        return createBBoxFromPostGISString(pg_geometry, epsg)
+    
+    def setIsUpdated(self, isUpdated):
+        if self.isttransformiert:
+            self.updated = isUpdated
+            return None
+        raise Exception('Could net change update status because map object isn\'t updated yet.')
  
 
   
