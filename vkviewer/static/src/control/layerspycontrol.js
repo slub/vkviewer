@@ -98,7 +98,7 @@ vk2.control.LayerSpy = function(opt_options) {
 				  }
 			  },
 			  'addlayer': function(event){	
-				  var topLayer = event.target.getArray()[event.target.getLength() - 1];
+				  var topLayer = event.currentTarget.getArray()[event.currentTarget.getLength() - 1];
 				  if (topLayer !== this._spyLayer){
 					  this.getMap().removeLayer(this._spyLayer);
 					  this.getMap().addLayer(this._spyLayer);
