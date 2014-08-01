@@ -99,4 +99,7 @@ WSGIScriptAlias /vkviewer ~/vkviewer/pyramid.wsgi
 
 The `python-path` reference to your python interpreter and the `WSGIScriptAlias` defines your server endpoint and your pyramid.wsgi file. For more information see the [pyramid docs](http://docs.pylonsproject.org/projects/pyramid/en/1.0-branch/tutorials/modwsgi/index.html).
 
+## Install mail client
 
+	apt-get install exim4
+	dpkg-reconfigure exim4-config (configure mail client)
