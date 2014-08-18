@@ -10,29 +10,9 @@ from vkviewer.python.models.messtischblatt.Fehlermeldung import Fehlermeldung
 from vkviewer.python.models.messtischblatt.Users import Users
 from vkviewer.python.georef.utils import getTimestampAsPGStr
 from vkviewer.python.utils.mail import sendMailCommandLine
+from vkviewer.python.utils.exceptions import MissingQueryParameterError, WrongParameterException, GENERAL_ERROR_MESSAGE
 # renderer imports
 import json
-
-@view_config(route_name='report', renderer='string', permission='edit', match_param='action=error')
-def logMtbError(request):
-    try:
-        log.info('Receive a report error for messtischblatt request.')
-        login = checkIsUser(request)
-        dbsession = request.db
-        objektid = request.params['id']
-        referenz = request.params['reference']
-        fehlerbeschreibung = request.params['message']
-        if login and objektid and referenz and fehlerbeschreibung:
-            # check if valide user
-            if Users.by_username(login, dbsession):
-                newFehlermeldung = Fehlermeldung(objektid = objektid, referenz = referenz, nutzerid = login,
-                        fehlerbeschreibung = fehlerbeschreibung, timestamp = getTimestampAsPGStr())
-                dbsession.add(newFehlermeldung)
-                log.debug('Report error is registered in database')
-                return json.dumps({'status':'confirmed'}, ensure_ascii=False, encoding='utf-8')
-    except DBAPIError:
-        log.error('Problems while trying to register report error in database')
-        return Response(conn_err_msg, content_type='text/plain', status_int=500)
 
 @view_config(route_name='report', renderer='string', permission='view', match_param='action=contact')     
 def logContactRequest(request):
@@ -40,44 +20,54 @@ def logContactRequest(request):
         log.info('Receive a contact message request.')
     
         # check if there is a userid from a registered user
-        login = checkIsUser(request)
-        if not login:
-            login = 'anonym'
+        userid = checkIsUser(request)
+        if not userid:
+            userid = 'anonym'
 
-            
-        referenz = request.params['reference']
-        fehlerbeschreibung = request.params['message']
-        email = request.params['email']
-        if login and email and referenz and fehlerbeschreibung:
-            # log into database
-            newContactMessage = Fehlermeldung(email = email, referenz = referenz, nutzerid = login,
-                        fehlerbeschreibung = fehlerbeschreibung, timestamp = getTimestampAsPGStr())
-            request.db.add(newContactMessage)
-            log.debug('Contact message is registered in database')  
-            # sending an email
-            log.debug('Sending the message as email to the admin');
-            email_msg = email_msg_template%(email, login, fehlerbeschreibung)
-            sendMailCommandLine(admin_mail, 'Your password has been changed!', email_msg)
-            log.debug('Send report message: %s'%email_msg)
-            return json.dumps({'status':'confirmed'}, ensure_ascii=False, encoding='utf-8')
+        if 'reference' in request.params:
+            reference = request.params['reference']
+        if 'message' in request.params:
+            message = request.params['message']
+        if 'email' in request.params:
+            email = request.params['email']
+
+        # check if the input parameters are valide
+        log.debug('Validate the query parameters ...')
+        if not email or not reference or not message:
+            raise MissingQueryParameterError('Missing query parameter ...')
+        if len(message) <= 5:
+            raise WrongParameterException('Message is to short. For a correct understanding of your matter please leave us a short explanation.')
+
+        # log into database
+        log.debug('Save contact message in the database ...')
+        fehlermeldung = Fehlermeldung(email = email, referenz = reference, nutzerid = userid,
+                    fehlerbeschreibung = message, timestamp = getTimestampAsPGStr())
+        request.db.add(fehlermeldung)
+
+        # sending an email
+        log.debug('Instruct admin about new contact message ...');
+        reportErrorMessageToAdmin(fehlermeldung, 'Request - Contact form', userid)
+        
+        log.debug('Create response message ...')
+        return json.dumps({'status':'confirmed'}, ensure_ascii=False, encoding='utf-8')
+    except MissingQueryParameterError:
+        log.error('Could not create correct error report because of missing query parameters.')
+        return Response(json.dumps({'error_message':'Missing form parameters','error_name':'MissingParameterException'}), content_type='application/json', status_int=500)
+    except WrongParameterException as e:
+        log.error(e.msg)
+        return Response(json.dumps({'error_message':e.msg,'error_name':'WrongParameterException'}), content_type='application/json', status_int=500)
     except DBAPIError:
         log.error('Problems while trying to register report error in database')
-        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+        return Response(GENERAL_ERROR_MESSAGE, content_type='text/plain', status_int=500)
+    except Exception:
+        log.error('Unknown error while trying to process a contact message request ...')
+        return Response(GENERAL_ERROR_MESSAGE, content_type='text/plain', status_int=500)
     
-conn_err_msg = """\
-Pyramid is having a problem using your SQL database.  The problem
-might be caused by one of the following things:
+def reportErrorMessageToAdmin(fehlermeldung, subject, userid):
+    email_msg = '\nEs wurde folgende Benachrichtigung ueber das Portal VK2.0. gestellt.\n\nEmail: {email}\nLogin: {userid}\nReferenz: {referencer}\nNachricht: {message}\n'.format(
+        email = str(fehlermeldung.email), userid = str(userid), referencer = str(fehlermeldung.referenz), message = str(fehlermeldung.fehlerbeschreibung))
+    sendMailCommandLine(admin_mail, subject, email_msg)
+    
 
-1.  You may need to run the "initialize_tutorial_db" script
-    to initialize your database tables.  Check your virtual 
-    environment's "bin" directory for this script and try to run it.
 
-2.  Your database server may not be running.  Check that the
-    database server referred to by the "sqlalchemy.url" setting in
-    your "development.ini" file is running.
 
-After you fix the problem, please restart the Pyramid application to
-try it again.
-"""
-
-email_msg_template = '\n Es wurde folgende Benachrichtigung ueber das Portal VK2.0. gestellt.\n\n Email: %s \n Login: %s \n Nachricht: %s \n'

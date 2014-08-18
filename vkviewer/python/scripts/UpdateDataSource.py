@@ -296,4 +296,3 @@ if __name__ == '__main__':
         updateDataSources(dbsession, PARAMS_DATABASE, VRT_TARGET_DIR, TMP_DIR, CACHE_DIR, logger, testing = True)
     else:
         updateDataSources(dbsession, PARAMS_DATABASE, VRT_TARGET_DIR, TMP_DIR, CACHE_DIR, logger, testing = False)
-        

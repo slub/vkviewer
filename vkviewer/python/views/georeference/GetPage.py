@@ -29,4 +29,4 @@ def getGeoreferencePage(request):
                     '{"pixel":"", "coords":"%s,%s"}'%(mtb_extent[2],mtb_extent[3])
         ]
         log.debug('Messtischblatt extent is : %s'%mtb_gcps)
-    return {'gcps':mtb_gcps}
+        return {'gcps':mtb_gcps, 'objectid':request.params['id']}
