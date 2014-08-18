@@ -45,7 +45,7 @@
 					        							class="vk2-modal-anchor" data-title="">FAQ</a>        				
 					        				</li>
 					        				<li class="listelement leftborder">
-					         					<a href="${request.route_url('contact')}" data-src="${request.route_url('contact')}" data-classes="contact" 
+					         					<a href="${request.route_url('contact')}" data-src="${request.route_url('contact')}?referencer=georeference:${objectid}" data-classes="contact" 
 					        							class="vk2-modal-anchor" data-title="">${_('footer_contact')}</a>		
 					        				</li>        				
 					        				<li class="listelement leftborder">

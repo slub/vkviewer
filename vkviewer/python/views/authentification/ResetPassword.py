@@ -40,7 +40,7 @@ def reset_pw(request):
                 user._set_password(newPassword)
                 
                 # send new password
-                reset_msg = password_reset_msg % newPassword
+                reset_msg = password_reset_msg.format(user = str(user.login), new_password = str(newPassword))
                 response = sendMailCommandLine(user.email, 'Your password has been changed!', reset_msg)
                 if not response:
                     raise InternalAuthentificationError('Internal server error while trying to send you your new password. Please try again or contact the page administrator.')
@@ -60,4 +60,4 @@ def reset_pw(request):
     except:
         raise
         
-password_reset_msg = 'Your password has be reset. Your new password is: \n %s \nPlease change your new password in your user menu.\n\nKind regards, \n\nyour SLUB Team.'
+password_reset_msg = 'Dear {user}, \n\nYour password has been resetted. Your new password is: \n\n{new_password}\n\nPlease change your new password in your user menu as soon as possible.\n\nKind regards, \n\nThe Virtual Map Forum Team.'

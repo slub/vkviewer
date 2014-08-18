@@ -31,6 +31,7 @@
     	var validateForm = function(){
     		var email = document.getElementById('input-email').value;
 			var message = document.getElementById('input-message').value;
+			var actual_url = window.location.href ? window.location.href : document.URL;
 			
 			// check email adress
 			var isValide = true;
@@ -38,7 +39,7 @@
 			if (!isValide) return isValide;
 			
 			// build request
-			var url = '${request.route_url('report', action='contact')}' + '?message=' + message + '&email=' + email + '&reference=contact';
+			var url = '${request.route_url('report', action='contact')}' + '?message=' + message + '&email=' + email + '&reference=' + actual_url;
 			var success_callback = function(xhrio){alert(vk2.utils.getMsg('send_con_message_suc'));};
 			var error_callback = function(xhrio){alert(vk2.utils.getMsg('send_con_message_err'));};
 			vk2.utils.sendReport(url, success_callback, error_callback);
