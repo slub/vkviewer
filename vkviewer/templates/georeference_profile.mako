@@ -71,7 +71,7 @@
 								<p>
 								 	<strong>${_('georef_persist_access')}:</strong><br>
 								 	
-								 	% if record['published']:
+								 	% if record['transformed']:
 								 		<a href="${request.route_url('map_profile')}?objectid=${record['mtb_id']}&georef=true" target="_blank">Klick</a> 
 								 	% else:
 								 		${_('georef_result_being_generated')}
