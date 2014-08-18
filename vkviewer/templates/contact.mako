@@ -7,6 +7,7 @@
 			<div class="panel-heading">${_('contact_header')}</div>
 			<div class="panel-body">
 				<p class="contant-message" id="contant-message">${_('contact_header_text')}</p><br>
+				<div id="contact-form-validation-message" class="alert validation-error" style="display:none;"></div>
 				<form role="form" onsubmit="return validateForm()">
 					<div class="form-group">
 						<label for="contactMessage">Email:</label>
@@ -35,8 +36,12 @@
 			
 			// check email adress
 			var isValide = true;
-			isValide = isValide && vk2.validation.checkEmailAdress('input-email', 'contant-message', 'ui-state-error');
-			if (!isValide) return isValide;
+			isValide = isValide && vk2.validation.checkEmailAdress('input-email', 'contact-form-validation-message', 'alert-danger');
+			if (!isValide){
+				$('#contact-form-validation-message').show();
+				return isValide;
+			}
+			$('#contact-form-validation-message').hide();
 			
 			// build request
 			var url = '${request.route_url('report', action='contact')}' + '?message=' + message + '&email=' + email + '&reference=' + actual_url;
