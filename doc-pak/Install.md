@@ -7,6 +7,7 @@ The vkviewer uses the Pyramid-Webframework, which is based on Python, a PostgreS
 	* Postgresql 9.1 / PostGis 1.5
 	* libgdal1  1.9 / libgdal1-dev / python-gdal 
 	* python-mapscript
+	* python-dev
 	* cgi-mapserver
 
 ## Creating of python virtual environment

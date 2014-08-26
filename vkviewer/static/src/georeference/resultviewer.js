@@ -95,7 +95,7 @@ vk2.georeference.ResultViewer.prototype.displayValidationMap = function(wms_url,
 		'border':vk2.utils.getPolygonFromExtent(clip_extent),
 		'extent':clip_extent
 	}, this._map);
-
+	
 	this._map.addLayer(this._validationLayer); 
 	
 	// zoom to extent by parsing getcapabilites request from wms
