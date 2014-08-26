@@ -9,10 +9,7 @@ pyramid.wsgi
 build
 dist
 vkviewer.egg-info
-local
-bin
-lib
-include
+python_env
 .settings
 
 # files which are holding sensible information
