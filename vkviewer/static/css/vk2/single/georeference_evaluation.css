@@ -7,6 +7,30 @@ html, body{
 	height: 100%;
 }
 
+.content-container {
+	position: absolute;
+	top: 100px;
+	bottom: 10px;
+	left: 50px;
+	right: 50px;
+}
+
+.content-container .list-container {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	width: 50%;
+	overflow-y: scroll;
+}
+
+.content-container .map-container {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	width: 50%;
+}
+
 .content-container .media .thumbnail{
 	padding: 10px;
 	width: 256px;
@@ -20,6 +44,8 @@ html, body{
 	margin-bottom: 5px;
 	word-wrap: break-word;
 }
+
+.georeferenced-map .opacity-container { left: 10px; }
 /* 
     HTML5 ? Boilerplate 
  

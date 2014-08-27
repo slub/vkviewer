@@ -21,6 +21,7 @@ goog.require('vk2.georeference.GeoreferencerService');
 goog.require('vk2.georeference.ZoomifyViewer');
 goog.require('vk2.georeference.ResultViewer');
 goog.require('vk2.georeference.MesstischblattGcpHandler');
+goog.require('vk2.georeference.utils');
 
 /**
  * @param {Object} settings Contains key/value pairs representing the settings
@@ -135,11 +136,7 @@ vk2.utils.AppLoader.loadModalOverlayBehavior = function(className, opt_element){
 vk2.utils.AppLoader.loadGeoreferenceApp = function(unreferenced_map_container, referenced_map_container){
 	vk2.utils.checkIfCookiesAreEnabble();
 	vk2.utils.AppLoader.loadModalOverlayBehavior('vk2-modal-anchor');
-	
-	//Proj4js.defs["EPSG:4314"] = "+proj=longlat +ellps=bessel +towgs84=598.1,73.7,418.2,0.202,0.045,-2.455,6.7 +no_defs";
-	proj4.defs("EPSG:4314",'+proj=longlat +ellps=bessel +datum=potsdam +no_defs');
-	proj4.defs("EPSG:900913",'+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +over no_defs');
-
+	vk2.georeference.utils.initializeGeorefenceCRS();
 	
 	// parse object id
 	var url = new goog.Uri(window.location.href);
@@ -250,22 +247,10 @@ vk2.utils.AppLoader.loadGeoreferenceEvaluationRecordBehavior = function(classNam
  * @static
  */
 vk2.utils.AppLoader.loadGeoreferenceEvaluationMap = function(idMapContainer, classNameEventBtns){
+	vk2.georeference.utils.initializeGeorefenceCRS();
+	
 	// load validation map
 	var resultViewer = new vk2.georeference.ResultViewer(idMapContainer);
-	
-//	var validationHandler = goog.bind(function(event){
-//		if (event.target.getStatus() != 200){
-//			alert('Something went wrong, while trying to process a georeference result. Please try again or contact the administrator.');
-//		};
-//		
-//		var response = event.target.getResponseJson();
-//		
-//		if (goog.DEBUG)
-//			console.log(response);
-//		
-//		this._resultViewer.displayValidationMap(response['wms_url'], response['layer_id'], 
-//				ol.proj.transform(response['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS ));
-//	});
 	
 	var targetElements = goog.dom.getElementsByClass(classNameEventBtns);
 	for (var i = 0; i < targetElements.length; i++){
@@ -275,17 +260,19 @@ vk2.utils.AppLoader.loadGeoreferenceEvaluationMap = function(idMapContainer, cla
 			var objectid = parseInt(this.getAttribute('data-id'));
 			
 			// parse string
-			var paramsAsStringWithoutUnicode = paramsAsString.replace(/u\'/g,'\'');
-			var parseAwayOuterInvCommas = JSON.parse(paramsAsStringWithoutUnicode);
-			var paramsAsStringWithInvCommas = parseAwayOuterInvCommas.replace(/\'/g,'\"');
-			var paramsAsJson = JSON.parse(paramsAsStringWithInvCommas);
+			var paramsAsJson = JSON.parse(paramsAsString);
 			
+			var gcps = goog.isDef(paramsAsJson['new']) ? paramsAsJson['new'] : paramsAsJson;
 			var request = {
-					'id': objectid,
-				'georeference': paramsAsJson
+				'id': objectid,
+				'georeference': gcps
 			};
+			
+			// request a validation result
 			vk2.georeference.GeoreferencerService.requestValidationResult(request, function(response){
-				console.log('Display evaluation response');
+				var data = response.target.getResponseJson();
+				resultViewer.displayValidationMap(data['wms_url'], data['layer_id'], 
+					ol.proj.transform(data['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS ));
 			}, function(response){
 				console.log('Something went wrong while trying to fetch a evaluation result.');
 			});
