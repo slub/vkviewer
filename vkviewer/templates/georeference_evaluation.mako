@@ -28,11 +28,8 @@
 			</header>
 			
 			<div id="content-container" class="content-container">     
-				<div class="container">
-					<div class="row">
-				 		<div class="col-lg-6 col-md-6 list">
-				 			<div class="inner-list-container">
-				 			
+				 <div class="list-container">
+				 				 			
 					 			% if georef_profile:
 									% for record in georef_profile:
 				 						<article id="${record['georef_id']}" class="">
@@ -62,7 +59,6 @@
 										    <p>
 												<a href="#" data-href="${request.route_url('georeference_evaluation', action='publish')}?objectid=${record['mtb_id']}&georeferenceid=${record['georef_id']}" 
 													data-id="${record['georef_id']}" class="btn btn-primary action-btn">Publish</a>
-												<!-- <a href="${request.route_url('georeference_page')}?id=${record['mtb_id']}&georeferenceid=${record['georef_id']}" class="btn btn-primary" target="_blank">Show Georeference Process</a> -->
 												<a data-params="${record['clip_params']}" data-id="${record['mtb_id']}" href="#" class="btn btn-primary btn-show-georef">Show</a>
 												<a href="#" data-href="${request.route_url('georeference_evaluation', action='delete')}?georeferenceid=${record['georef_id']}" data-id="${record['georef_id']}" 
 													class="btn btn-warning action-btn">Delete Georeference Process</a>
@@ -70,13 +66,14 @@
 										</article>
 									% endfor
 								% endif
-							</div>		
-						</div>
+				</div>		
+				
 								
-								<div class="col-lg-6 col-md-6 map">
-									<div class="evaluation-map olMap" id="evaluation-map"></div>
-					 			</div>
-						</div>  
+				<div class="map-container">
+					<div class="georeferenced-map olMap" id="evaluation-map">
+						<div id="opacity-slider-container" class="opacity-slider-container"></div>
+					</div>
+				</div>
 
 				
 			</div>

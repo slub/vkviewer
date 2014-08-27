@@ -10,6 +10,7 @@ build
 dist
 vkviewer.egg-info
 python_env
+tmp
 .settings
 
 # files which are holding sensible information

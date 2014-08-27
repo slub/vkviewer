@@ -16,7 +16,16 @@ vk2.georeference.GeoreferencerService.requestValidationResult = function(data, s
 		//return undefined;
 	};
 	
-	goog.net.XhrIo.send(vk2.settings.GEOREFERENCE_VALIDATION, success_callback, 'POST', JSON.stringify(data), {'Content-Type':'application/json;charset=UTF-8'});	
+	var callback = function(response){
+		if (response.target.getStatus() === 200){
+			success_callback(response);
+			return;
+		};
+		error_callback(response);
+		return;
+	};
+	
+	goog.net.XhrIo.send(vk2.settings.GEOREFERENCE_VALIDATION, callback, 'POST', JSON.stringify(data), {'Content-Type':'application/json;charset=UTF-8'});	
 	return undefined;
 };
 

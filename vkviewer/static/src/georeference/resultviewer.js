@@ -37,6 +37,14 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 	});
 	
 	/**
+	 * @type {ol.control.ZoomToExtent}
+	 * @private
+	 */
+	this._controlZoomToExtent = new ol.control.ZoomToExtent({
+			extent: this._settings['extent']
+	});
+	
+	/**
 	 * @type {ol.Map}
 	 * @private
 	 */
@@ -56,9 +64,6 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 		       new ol.control.FullScreen(),
 		       new ol.control.Zoom(),
 		       new ol.control.Attribution(),
-		       new ol.control.ZoomToExtent({
-		   			extent: this._settings['extent']
-		   	   }),
 			   new vk2.control.LayerSpy({
 					'spyLayer':new ol.layer.Tile({
 						attribution: undefined,
@@ -68,8 +73,12 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 		  ]
 	});
 	
+	// zoom to map extent
 	if (this._settings.hasOwnProperty('extent'))
 		this._map.getView().fitExtent(this._settings['extent'], this._map.getSize());
+	
+	// add zoom to extent control
+	this._map.addControl(this._controlZoomToExtent);
 
 };
 
@@ -81,9 +90,15 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 vk2.georeference.ResultViewer.prototype.displayValidationMap = function(wms_url, layer_id, clip_extent){
 	
 	// remove old layer
-	if (goog.isDef(this._validationLayer)){
-		this._map.removeLayer(this._validationLayer); 
-	};
+	if (goog.isDef(this._validationLayer))
+		this._map.removeLayer(this._validationLayer);
+	
+	// reset control zoomToExtent
+	this._map.removeControl(this._controlZoomToExtent);
+	this._controlZoomToExtent = new ol.control.ZoomToExtent({
+			extent: clip_extent
+	});
+	this._map.addControl(this._controlZoomToExtent);
 	
 	/**
 	 * @type {vk2.layer.Messtischblatt}

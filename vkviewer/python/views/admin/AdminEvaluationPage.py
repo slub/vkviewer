@@ -23,7 +23,7 @@ def getAdminEvaluationPage(request):
         log.debug('Create response list')
         georef_profile = []
         for record in resultSet:   
-            encoded_clip_params = str(convertUnicodeDictToUtf(ast.literal_eval(record['clip_params'])))           
+            encoded_clip_params = str(convertUnicodeDictToUtf(ast.literal_eval(record['clip_params']))).replace('\'','"')           
             georef_profile.append({'georef_id':record['georef_id'], 'mtb_id':record['mtbid'], 
                     'clip_params': encoded_clip_params, 'time': record['time'], 'transformed': record['isttransformiert'],
                     'isvalide': record['isvalide'], 'titel': record['titel'], 'key': record['key'],
