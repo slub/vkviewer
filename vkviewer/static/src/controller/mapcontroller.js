@@ -151,41 +151,41 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 	this._mapsearch = mapsearch;
 	
 	// register mapsearchlayer for fetching search records from the wfs service
-	/**
-	 * @type {vk2.layer.MapSearch}
-	 * @private
-	 */
-	this._mapsearchLayer = new vk2.layer.MapSearch({
-		'projection':'EPSG:900913',
-		'style': function(feature, resolution){
-			return undefined;
-		}
-	});
-	this._map.addLayer(this._mapsearchLayer);
+//	/**
+//	 * @type {vk2.layer.MapSearch}
+//	 * @private
+//	 */
+//	this._mapsearchLayer = new vk2.layer.MapSearch({
+//		'projection':'EPSG:900913',
+//		'style': function(feature, resolution){
+//			return undefined;
+//		}
+//	});
+//	this._map.addLayer(this._mapsearchLayer);
 	
-	// register map moveend event for looking if there are new search features
-	var lastMoveendCenter = null;
-	var lastMoveendFeatureCount = null;
-	this._map.on('moveend', function(event){
-		if (goog.DEBUG)
-			console.log('Moveend Event');
-		
-		var view = event.map.getView();
-		var featureCount = this._mapsearchLayer.getSource().getFeatures().length;
-		if (lastMoveendCenter !== view.getCenter() || lastMoveendFeatureCount !== featureCount){
-			if (goog.DEBUG)
-				console.log('Moveened Event with update');
-			
-			lastMoveendCenter = view.getCenter();
-			lastMoveendFeatureCount = featureCount;
-			this._handler['updateMapSearchModule']();
-		}
-	}, this);
-	
-	// register event for adding features after initial loading	
-	goog.events.listenOnce(this._mapsearchLayer.getSource(), 'addfeature', function(event){
-		setTimeout(this._handler['updateMapSearchModule'], 500);
-	}, undefined, this);
+//	// register map moveend event for looking if there are new search features
+//	var lastMoveendCenter = null;
+//	var lastMoveendFeatureCount = null;
+//	this._map.on('moveend', function(event){
+//		if (goog.DEBUG)
+//			console.log('Moveend Event');
+//		
+//		var view = event.map.getView();
+//		var featureCount = this._mapsearchLayer.getSource().getFeatures().length;
+//		if (lastMoveendCenter !== view.getCenter() || lastMoveendFeatureCount !== featureCount){
+//			if (goog.DEBUG)
+//				console.log('Moveened Event with update');
+//			
+//			lastMoveendCenter = view.getCenter();
+//			lastMoveendFeatureCount = featureCount;
+//			this._handler['updateMapSearchModule']();
+//		}
+//	}, this);
+//	
+//	// register event for adding features after initial loading	
+//	goog.events.listenOnce(this._mapsearchLayer.getSource(), 'addfeature', function(event){
+//		setTimeout(this._handler['updateMapSearchModule'], 500);
+//	}, undefined, this);
 	
 	// register addmtb event
 	goog.events.listen(this._mapsearch, 'addmtb', function(event){

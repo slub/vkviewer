@@ -9,6 +9,7 @@ goog.require('goog.events.EventType');
 //goog.require('ol.FeatureOverlay');
 goog.require('vk2.factory.MapSearchFactory');
 goog.require('vk2.tool.SearchList');
+goog.require('vk2.source.ServerPagination');
 
 
 /**
@@ -25,7 +26,23 @@ vk2.module.MapSearchModule = function(parentEl, featureOverlay, map){
 	 * @private
 	 */
 	this._parentEl = goog.isString(parentEl) ? goog.dom.getElement(parentEl) : parentEl;
-
+	
+	/**
+	 * @type {vk2.source.ServerPagination}
+	 * @private
+	 */
+	this.featureSource_ = new vk2.source.ServerPagination({
+		'projection': 'EPSG:900913',
+		'map': map
+	});
+	goog.events.listen(this.featureSource_, 'refresh', goog.bind(this.refresh_, this));
+	goog.events.listen(this.featureSource_, 'paginate', goog.bind(this.update_, this));
+	/**
+	 * @type {string}
+	 * @private
+	 */
+	this.sortOrder_ = 'ascending';
+	
 	/**
 	 * @type {Array.<string>}
 	 * @private
@@ -153,10 +170,16 @@ vk2.module.MapSearchModule.prototype._appendClickBehavior = function(){
 			
 			// get the corresponding feature to this event
 			var feature; 
-			for (var i = 0, ii = this._searchFeatures.length; i < ii; i++){
-				if (this._searchFeatures[i].get('id') == origin_target.id)
-					feature =  this._searchFeatures[i];
-			};
+			var features = this.featureSource_.getFeatures();
+			features.forEach(function(ft){
+				if (ft.get('id') == origin_target.id)
+					feature = ft;
+			});
+//			
+//			for (var i = 0, ii = this._searchFeatures.length; i < ii; i++){
+//				if (this._searchFeatures[i].get('id') == origin_target.id)
+//					feature =  this._searchFeatures[i];
+//			};
 
 			// dispatch event
 			this.dispatchEvent(new goog.events.Event(vk2.module.MapSearchModule.EventType.ADDMTB,{'feature':feature}));
@@ -173,7 +196,7 @@ vk2.module.MapSearchModule.prototype._appendSortBehavior = function(parentEl){
 	for (var i = 0; i < sortElements.length; i++){
 		goog.events.listen(sortElements[i], goog.events.EventType.CLICK, function(event){
 			var sort_type = event.target.getAttribute('data-type');
-			this._sortFeatures(sort_type);
+			this.sort_(sort_type);
 		}, undefined, this);
 	};
 };
@@ -195,11 +218,11 @@ vk2.module.MapSearchModule.prototype._appendScrollBehavior = function(){
 				// check if scrolled to end of list and if yes triggger append event
 				if (scrollEl.offsetHeight + scrollEl.scrollTop >= scrollEl.scrollHeight){
 					
-					this._dispatchListEndEvent();
+					//this._dispatchListEndEvent();
 					
 					// check if there are still features to append
-					if (this._featurePointer < this._searchFeatures.length)
-						this._appendFeaturesToList();
+					if (!this.featureSource_.isComplete())
+						this.featureSource_.paginate_()
 				};			
 				
 				scroll_event_blocked = false;
@@ -212,21 +235,16 @@ vk2.module.MapSearchModule.prototype._appendScrollBehavior = function(){
 };
 
 /**
+ * @param {Array.<ol.Feature>} features
  * @private
  */
-vk2.module.MapSearchModule.prototype._appendFeaturesToList = function(){
-	if (goog.isDef(this._searchFeatures)){
-		var startIndex = (this._featurePointer + this._interval) < this._searchFeatures.length ? this._featurePointer : 0;
-		var endIndex = (this._featurePointer + this._interval) < this._searchFeatures.length ? (this._featurePointer + this._interval) : this._searchFeatures.length;
-		
-		for (var i = startIndex, ii = endIndex; i < ii; i++){
-			var element = vk2.factory.MapSearchFactory.getMapSearchRecord(this._searchFeatures[i]);
-			goog.dom.appendChild(this._searchListEl,element);
-			if (goog.isDef(this._featureOverlay))
-				vk2.factory.MapSearchFactory.addHoverToMapSearchRecord(element, this._searchFeatures[i], this._featureOverlay);
-		};
-		this._featurePointer = endIndex;
-	};
+vk2.module.MapSearchModule.prototype._appendFeaturesToList = function(features){
+	for (var i = 0; i < features.length; i++){
+		var element = vk2.factory.MapSearchFactory.getMapSearchRecord(features[i]);
+		goog.dom.appendChild(this._searchListEl,element);
+		if (goog.isDef(this._featureOverlay))
+			vk2.factory.MapSearchFactory.addHoverToMapSearchRecord(element, features[i], this._featureOverlay);
+	};		
 };
 
 /**
@@ -236,6 +254,13 @@ vk2.module.MapSearchModule.prototype._dispatchListEndEvent = function(){
 	if (goog.DEBUG){
 		console.log('Dispatch ListEnd Event!');
 	}
+};
+
+/**
+ * @return {Array.<ol.Features>} 
+ */
+vk2.module.MapSearchModule.prototype.getFeatures = function(){
+	return this.featureSource_.getFeatures();
 };
 
 /**
@@ -261,62 +286,85 @@ vk2.module.MapSearchModule.prototype._refreshMapSearchList = function(){
  * @param {string|number}
  * @private
  */
-vk2.module.MapSearchModule.prototype._sortFeatures = function(type){
-	// sort features
-	var sorter = new vk2.tool.SearchList(this._searchFeatures);
-	sorter.sort(type);
+vk2.module.MapSearchModule.prototype.sort_ = function(type){
+	// get the sort control element and the sortOrder
+	var sortControlEl = goog.dom.getElementByClass('sort-element.'+type);
+	var sortOrder = goog.dom.classes.has(sortControlEl, 'ascending') ? 
+			'descending' : 'ascending';
 	
-	// add class to sort element
-	var display_order;
+	// remove old sort classes
 	var sortElements = goog.dom.getElementsByClass('sort-element');
 	for (var i = 0; i < sortElements.length; i++){
-		var has_descending_class = goog.dom.classes.has(sortElements[i], 'descending');
-		
-		// remove old classes
 		goog.dom.classes.remove(sortElements[i], 'descending');
 		goog.dom.classes.remove(sortElements[i], 'ascending');
-		
-		// find out display order and append class
-		if (goog.dom.classes.has(sortElements[i], type)){
-			display_order =  has_descending_class ? 'ascending' : 'descending';
-			goog.dom.classes.add(sortElements[i], display_order);
-		};
 	};
+	
+	// sort list
+	goog.dom.classes.add(sortControlEl, sortOrder);
+	this.featureSource_.setSortAttribute(type);
+	this.featureSource_.setSortOrder(sortOrder);
+	this.featureSource_.refresh();
+	
+	// add class to sort element
+//	var display_order;
+//	var sortElements = goog.dom.getElementsByClass('sort-element');
+//	for (var i = 0; i < sortElements.length; i++){
+//		var has_descending_class = goog.dom.classes.has(sortElements[i], 'descending');
+//		
+//		// remove old classes
+//		goog.dom.classes.remove(sortElements[i], 'descending');
+//		goog.dom.classes.remove(sortElements[i], 'ascending');
+//		
+//		// find out display order and append class
+//		if (goog.dom.classes.has(sortElements[i], type)){
+//			display_order =  has_descending_class ? 'ascending' : 'descending';
+//			goog.dom.classes.add(sortElements[i], display_order);
+//		};
+//	};
 
-	// refresh the mapsearch list
-	this._searchFeatures = sorter.getFeatures(display_order);
-	this._featurePointer = 0;
-	this._refreshMapSearchList();
+//	// refresh the mapsearch list
+//	this._searchFeatures = sorter.getFeatures(display_order);
+//	this._featurePointer = 0;
+//	this._refreshMapSearchList();
+};
+
+/**
+ * @private
+ * @param {Object} event
+ */
+vk2.module.MapSearchModule.prototype.refresh_ = function(event){
+	if (goog.DEBUG){
+		console.log('Refresh MapSearchModule.')
+	};
+	
+	this.updateHeading_(event.target.totalFeatureCount);
+	this._searchListEl.innerHTML = '';
+	this._appendFeaturesToList(event.target.features);
+};
+
+/**
+ * @private
+ * @param {Object} event
+ */
+vk2.module.MapSearchModule.prototype.update_ = function(event){
+	if (goog.DEBUG){
+		console.log('Refresh MapSearchModule.')
+	};
+	
+	this.updateHeading_(event.target.totalFeatureCount);
+	this._appendFeaturesToList(event.target.features);
 };
 
 /**
  * @param {number} count_features
  * @private
  */
-vk2.module.MapSearchModule.prototype._updateHeading = function(count_features){
+vk2.module.MapSearchModule.prototype.updateHeading_ = function(count_features){
 	if (count_features > 0){
 		this._headingContentEl.innerHTML = count_features + ' ' + vk2.utils.getMsg('found_mtb');
 		return undefined;
 	};
 	this._headingContentEl.innerHTML = vk2.utils.getMsg('found_no_maps');
-}
-/**
- * @param {Array.<ol.Features>} features
- */
-vk2.module.MapSearchModule.prototype.updateFeatures = function(features){
-	if (goog.DEBUG)
-		console.log('Update Features');
-	
-	this._searchFeatures = features;
-	this._refreshMapSearchList();
-	this._updateHeading(this._searchFeatures.length);
-};
-
-/**
- * @return {Array.<ol.Features>} 
- */
-vk2.module.MapSearchModule.prototype.getFeatures = function(){
-	return this._searchFeatures;
 };
 	
 /**
