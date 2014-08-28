@@ -28,6 +28,11 @@ vk2.settings.WFS_URL = 'http://kartenforum.slub-dresden.de/cgi-bin/mtbows';
 /**
  * @type {string}
  */
+vk2.settings.WFS_GEOSERVER_URL = 'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows';
+
+/**
+ * @type {string}
+ */
 vk2.settings.WFS_GRID_URL = 'http://kartenforum.slub-dresden.de/cgi-bin/mtb_grid';
 
 /**

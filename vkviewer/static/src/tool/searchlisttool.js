@@ -1,3 +1,6 @@
+/**
+ * @deprecated
+ */
 goog.provide('vk2.tool.SearchList');
 
 goog.require('goog.object');

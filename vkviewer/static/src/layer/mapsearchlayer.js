@@ -1,3 +1,6 @@
+/**
+ * @deprecated
+ */
 goog.provide('vk2.layer.MapSearch');
 
 goog.require('goog.net.XhrIo');

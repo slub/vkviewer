@@ -71,6 +71,18 @@ vk2.source.ServerPagination = function(options) {
 	 */
 	this.totalFeatures_ = undefined;
 	  
+	
+	var start = goog.isDef(options.start_time) ? options.start_time : 1868,
+		end = goog.isDef(options.end_time) ? options.end_time : 1945;
+	/**
+	 * @enum {number}
+	 * @private
+	 */
+	this.timeFilter_ = {
+		START: start,
+		END: end
+	};
+
 	/**
 	 * @private
 	 * @type {ol.format.GeoJSON} 
@@ -173,12 +185,19 @@ vk2.source.ServerPagination.prototype.isComplete = function(){
  */
 vk2.source.ServerPagination.prototype.loadFeatures_ = function(extent, projection, event_callback){
 	
-	var sortOrder = this.sortOrder_ === 'ascending' ? '+A' : '+D';
-	var url = vk2.settings.PROXY_URL+'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows?service=WFS&version=1.0.0&request=GetFeature&' +	
-			'typeName=virtuelles_kartenforum:mapsearch&outputFormat=application/json&' + 
-			'srsname=' + projection + '&bbox=' + extent.join(',') + '&sortBy=' + this.sortAttribute_ + sortOrder +
-			'&startIndex=' + this.index_ + '&maxFeatures=' + this.maxFeatures_;
-						
+	var sortOrder = this.sortOrder_ === 'ascending' ? '+A' : '+D';						
+	var extent_ = extent[0] + ',' + extent[1] + ' ' + extent[2] + ',' + extent[3];
+	var url = vk2.settings.PROXY_URL + vk2.settings.WFS_GEOSERVER_URL +'?service=WFS' +
+		'&version=1.0.0&request=GetFeature&typeName=virtuelles_kartenforum:mapsearch' + 
+		'&outputFormat=application/json&srsname=' + projection + '&Filter=<Filter><And>' +
+		'<BBOX><PropertyName>boundingbox</PropertyName><Box srsName="' + projection +'">' + 
+		'<coordinates decimal="." cs="," ts=" ">' + extent_ + '</coordinates></Box>' +
+		'</BBOX><And><PropertyIsGreaterThanOrEqualTo><PropertyName>time</PropertyName>' +
+		'<Literal>' + this.timeFilter_.START + '</Literal></PropertyIsGreaterThanOrEqualTo>' + 
+		'<PropertyIsLessThanOrEqualTo><PropertyName>time</PropertyName><Literal>' + this.timeFilter_.END +
+		'</Literal></PropertyIsLessThanOrEqualTo></And></And></Filter>&sortBy=' + this.sortAttribute_ + 
+		sortOrder +	'&startIndex=' + this.index_ + '&maxFeatures=' + this.maxFeatures_;
+
 	var xhr = new goog.net.XhrIo();
 	goog.events.listenOnce(xhr, 'success', function(e){
 		if (goog.DEBUG){
@@ -262,6 +281,30 @@ vk2.source.ServerPagination.prototype.setSortAttribute = function(sortAttribute)
  */
 vk2.source.ServerPagination.prototype.setSortOrder = function(sortOrder){
 	this.sortOrder_ = sortOrder;
+};
+
+/**
+ * @param {number=} opt_start_time
+ * @param {number=} opt_end_time
+ */
+vk2.source.ServerPagination.prototype.setTimeFilter = function(opt_start_time, opt_end_time){
+	// incase of a resetting
+	var old_start = this.timeFilter_.START;
+	
+	if (goog.isDefAndNotNull(opt_start_time) && goog.isNumber(opt_start_time)){
+		if (opt_start_time > this.timeFilter_.END)
+			throw {'name':'WrongParameterExecption','message':'Start value shouldn\'t be higher than the end value.'}
+		this.timeFilter_.START = opt_start_time;
+	};
+		
+	if (goog.isDefAndNotNull(opt_end_time) && goog.isNumber(opt_end_time)){
+		if (opt_end_time < this.timeFilter_.START){
+			// reset start value and throw error
+			this.timeFilter_.START = old_start;
+			throw {'name':'WrongParameterExecption','message':'End value shouldn\'t be lower than the start value.'};
+		};
+		this.timeFilter_.END = opt_end_time;
+	};
 };
 
 /**

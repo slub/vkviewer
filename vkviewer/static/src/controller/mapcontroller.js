@@ -240,8 +240,10 @@ vk2.controller.MapController.prototype.registerPermalinkTool = function(permalin
 vk2.controller.MapController.prototype._registerTimeSliderTool = function(timeSlider){
 	// this event links the content of the map search list with the time slider
 	goog.events.listen(timeSlider, 'timechange', function(event){
-		this._mapsearchLayer.setTimeFilter(event.target.time[0], event.target.time[1]);
-		this._handler['updateMapSearchModule']();
+		this._mapsearch.getFeatureSource().setTimeFilter(event.target.time[0], event.target.time[1]);
+		this._mapsearch.getFeatureSource().refresh();
+		//this._mapsearchLayer.setTimeFilter(event.target.time[0], event.target.time[1]);
+		//this._handler['updateMapSearchModule']();
 	}, undefined, this);
 };
 
