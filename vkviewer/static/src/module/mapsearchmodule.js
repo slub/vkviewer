@@ -25,7 +25,7 @@ vk2.module.MapSearchModule = function(parentEl, featureOverlay, map){
 	 * @type {Element}
 	 * @private
 	 */
-	this._parentEl = goog.isString(parentEl) ? goog.dom.getElement(parentEl) : parentEl;
+	this.parentEl_ = goog.isString(parentEl) ? goog.dom.getElement(parentEl) : parentEl;
 	
 	/**
 	 * @type {vk2.source.ServerPagination}
@@ -37,11 +37,6 @@ vk2.module.MapSearchModule = function(parentEl, featureOverlay, map){
 	});
 	goog.events.listen(this.featureSource_, 'refresh', goog.bind(this.refresh_, this));
 	goog.events.listen(this.featureSource_, 'paginate', goog.bind(this.update_, this));
-	/**
-	 * @type {string}
-	 * @private
-	 */
-	this.sortOrder_ = 'ascending';
 	
 	/**
 	 * @type {Array.<string>}
@@ -50,42 +45,18 @@ vk2.module.MapSearchModule = function(parentEl, featureOverlay, map){
 	this._searchCols = ['time','title','georeference'];
 	
 	/**
-	 * @type {Object}
-	 * @private
-	 */
-	this._searchFeatures = null;
-	
-	/**
-	 * @type {number}
-	 * @private
-	 */
-	this._featurePointer = 0
-	
-	/**
-	 * @type {number}
-	 * @private
-	 */
-	this._interval = 20;
-	
-	/**
-	 * @type {string}
-	 * @private
-	 */
-	this._sortType = 'title';
-	
-	/**
 	 * @type {ol.featureOverlay}
 	 * @private
 	 */
-	this._featureOverlay = goog.isDef(featureOverlay) ? featureOverlay : undefined;
+	this.featureOverlay_ = goog.isDef(featureOverlay) ? featureOverlay : undefined;
 	
 	// load html content
-	this._loadHtmlContent(this._parentEl);
+	this.loadHtmlContent_(this.parentEl_);
 	
 	// append different events 
-	this._appendSortBehavior(this._parentEl);
-	this._appendScrollBehavior();
-	this._appendClickBehavior();
+	this.appendSortBehavior_(this.parentEl_);
+	this.appendScrollBehavior_();
+	this.appendClickBehavior_();
 	
 	goog.base(this);
 };
@@ -95,7 +66,7 @@ goog.inherits(vk2.module.MapSearchModule, goog.events.EventTarget);
  * @param {Element} parentEl
  * @private
  */
-vk2.module.MapSearchModule.prototype._loadHtmlContent = function(parentEl){
+vk2.module.MapSearchModule.prototype.loadHtmlContent_ = function(parentEl){
 	
 	/**
 	 * @param {string} type
@@ -155,16 +126,16 @@ vk2.module.MapSearchModule.prototype._loadHtmlContent = function(parentEl){
 	 * @type {Element}
 	 * @private
 	 */
-	this._searchListEl = goog.dom.createDom('ul',{'id':'mapsearch-contentlist', 'class':'mapsearch-contentlist'});
-	goog.dom.appendChild(listContainer, this._searchListEl);	
+	this.searchListEl_ = goog.dom.createDom('ul',{'id':'mapsearch-contentlist', 'class':'mapsearch-contentlist'});
+	goog.dom.appendChild(listContainer, this.searchListEl_);	
 };
 
 /**
  * @private
  */
-vk2.module.MapSearchModule.prototype._appendClickBehavior = function(){
-	if (goog.isDef(this._searchListEl)){
-		goog.events.listen(this._searchListEl, goog.events.EventType.CLICK, function(event){
+vk2.module.MapSearchModule.prototype.appendClickBehavior_ = function(){
+	if (goog.isDef(this.searchListEl_)){
+		goog.events.listen(this.searchListEl_, goog.events.EventType.CLICK, function(event){
 			// get proper feature to the event
 			var origin_target = vk2.utils.getClosestParentElementForClass(event.getBrowserEvent().target, 'mapsearch-record');
 			
@@ -175,13 +146,7 @@ vk2.module.MapSearchModule.prototype._appendClickBehavior = function(){
 				if (ft.get('id') == origin_target.id)
 					feature = ft;
 			});
-//			
-//			for (var i = 0, ii = this._searchFeatures.length; i < ii; i++){
-//				if (this._searchFeatures[i].get('id') == origin_target.id)
-//					feature =  this._searchFeatures[i];
-//			};
 
-			// dispatch event
 			this.dispatchEvent(new goog.events.Event(vk2.module.MapSearchModule.EventType.ADDMTB,{'feature':feature}));
 		}, undefined, this);
 	};
@@ -191,7 +156,7 @@ vk2.module.MapSearchModule.prototype._appendClickBehavior = function(){
  * @param {Element} parentEl
  * @private
  */
-vk2.module.MapSearchModule.prototype._appendSortBehavior = function(parentEl){
+vk2.module.MapSearchModule.prototype.appendSortBehavior_ = function(parentEl){
 	var sortElements = goog.dom.getElementsByClass('sort-element', parentEl);
 	for (var i = 0; i < sortElements.length; i++){
 		goog.events.listen(sortElements[i], goog.events.EventType.CLICK, function(event){
@@ -204,12 +169,12 @@ vk2.module.MapSearchModule.prototype._appendSortBehavior = function(parentEl){
 /**
  * @private
  */
-vk2.module.MapSearchModule.prototype._appendScrollBehavior = function(){
+vk2.module.MapSearchModule.prototype.appendScrollBehavior_ = function(){
 	// this variable blocks the append behavior if another appendFeatureToListRequest is 
 	// right now in the pipe
 	var scroll_event_blocked = false;
-	if (goog.isDef(this._searchListEl)){
-		goog.events.listen(this._searchListEl, goog.events.EventType.SCROLL, function(event){
+	if (goog.isDef(this.searchListEl_)){
+		goog.events.listen(this.searchListEl_, goog.events.EventType.SCROLL, function(event){
 			// looks if another scroll event is already in the pipe
 			if (!scroll_event_blocked){
 				scroll_event_blocked = true;
@@ -217,9 +182,7 @@ vk2.module.MapSearchModule.prototype._appendScrollBehavior = function(){
 				var scrollEl = event.currentTarget;
 				// check if scrolled to end of list and if yes triggger append event
 				if (scrollEl.offsetHeight + scrollEl.scrollTop >= scrollEl.scrollHeight){
-					
-					//this._dispatchListEndEvent();
-					
+				
 					// check if there are still features to append
 					if (!this.featureSource_.isComplete())
 						this.featureSource_.paginate_()
@@ -238,22 +201,13 @@ vk2.module.MapSearchModule.prototype._appendScrollBehavior = function(){
  * @param {Array.<ol.Feature>} features
  * @private
  */
-vk2.module.MapSearchModule.prototype._appendFeaturesToList = function(features){
+vk2.module.MapSearchModule.prototype.appendFeaturesToList_ = function(features){
 	for (var i = 0; i < features.length; i++){
 		var element = vk2.factory.MapSearchFactory.getMapSearchRecord(features[i]);
-		goog.dom.appendChild(this._searchListEl,element);
-		if (goog.isDef(this._featureOverlay))
-			vk2.factory.MapSearchFactory.addHoverToMapSearchRecord(element, features[i], this._featureOverlay);
+		goog.dom.appendChild(this.searchListEl_,element);
+		if (goog.isDef(this.featureOverlay_))
+			vk2.factory.MapSearchFactory.addHoverToMapSearchRecord(element, features[i], this.featureOverlay_);
 	};		
-};
-
-/**
- * @private
- */
-vk2.module.MapSearchModule.prototype._dispatchListEndEvent = function(){
-	if (goog.DEBUG){
-		console.log('Dispatch ListEnd Event!');
-	}
 };
 
 /**
@@ -264,22 +218,18 @@ vk2.module.MapSearchModule.prototype.getFeatures = function(){
 };
 
 /**
- * @param {Array.<Element>} elements
- * @param {string} type
- * @private
+ * @return {vk2.source.ServerPagination} 
  */
-vk2.module.MapSearchModule.prototype._getSortOrder = function(elements, type){
-	for (var i = 0; i < sortElements.length; i++){
-		
-	}
+vk2.module.MapSearchModule.prototype.getFeatureSource = function(){
+	return this.featureSource_;
 };
 
 /**
  * @private
  */
-vk2.module.MapSearchModule.prototype._refreshMapSearchList = function(){
-	this._searchListEl.innerHTML = '';
-	this._appendFeaturesToList();
+vk2.module.MapSearchModule.prototype.refreshMapSearchList_ = function(){
+	this.searchListEl_.innerHTML = '';
+	this.appendFeaturesToList_();
 };
 
 /**
@@ -304,28 +254,6 @@ vk2.module.MapSearchModule.prototype.sort_ = function(type){
 	this.featureSource_.setSortAttribute(type);
 	this.featureSource_.setSortOrder(sortOrder);
 	this.featureSource_.refresh();
-	
-	// add class to sort element
-//	var display_order;
-//	var sortElements = goog.dom.getElementsByClass('sort-element');
-//	for (var i = 0; i < sortElements.length; i++){
-//		var has_descending_class = goog.dom.classes.has(sortElements[i], 'descending');
-//		
-//		// remove old classes
-//		goog.dom.classes.remove(sortElements[i], 'descending');
-//		goog.dom.classes.remove(sortElements[i], 'ascending');
-//		
-//		// find out display order and append class
-//		if (goog.dom.classes.has(sortElements[i], type)){
-//			display_order =  has_descending_class ? 'ascending' : 'descending';
-//			goog.dom.classes.add(sortElements[i], display_order);
-//		};
-//	};
-
-//	// refresh the mapsearch list
-//	this._searchFeatures = sorter.getFeatures(display_order);
-//	this._featurePointer = 0;
-//	this._refreshMapSearchList();
 };
 
 /**
@@ -338,8 +266,8 @@ vk2.module.MapSearchModule.prototype.refresh_ = function(event){
 	};
 	
 	this.updateHeading_(event.target.totalFeatureCount);
-	this._searchListEl.innerHTML = '';
-	this._appendFeaturesToList(event.target.features);
+	this.searchListEl_.innerHTML = '';
+	this.appendFeaturesToList_(event.target.features);
 };
 
 /**
@@ -352,7 +280,7 @@ vk2.module.MapSearchModule.prototype.update_ = function(event){
 	};
 	
 	this.updateHeading_(event.target.totalFeatureCount);
-	this._appendFeaturesToList(event.target.features);
+	this.appendFeaturesToList_(event.target.features);
 };
 
 /**
@@ -371,6 +299,5 @@ vk2.module.MapSearchModule.prototype.updateHeading_ = function(count_features){
  * @enum {string}
  */
 vk2.module.MapSearchModule.EventType = {
-		ADDMTB: 'addmtb',
-		LISTEND: 'listend'
+		ADDMTB: 'addmtb'
 };

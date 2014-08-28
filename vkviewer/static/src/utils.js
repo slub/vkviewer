@@ -12,8 +12,8 @@ goog.require('goog.net.cookies');
  * @return {Array.<number>}
  */
 vk2.utils.calculateMapExtentForPixelViewport = function(map){
-	var padding = 50;
-	var offsetTop = 85;
+	var padding = 30;
+	var offsetTop = 5;
 	var offsetBottom = 25;
 	
 	// this is a premise
