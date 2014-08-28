@@ -41,7 +41,7 @@ vk2.controller.MapController = function(settings, map_container){
 		'updateMapSearchModule': goog.bind(function(){
 			// extract features in current extent
 			var current_extent = vk2.utils.calculateMapExtentForPixelViewport(this._map);  			    
-			//var current_extent = view.calculateExtent(event.map.getSize());
+			//var current_extent = this._map.getView().calculateExtent(this._map.getSize());
 			var features = this._mapsearchLayer.getTimeFilteredFeatures(current_extent);
 			this._mapsearch.updateFeatures(features);
 		}, this)
@@ -67,14 +67,14 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 	 */
 	this._map = new ol.Map({
 		layers: [
-		   new ol.layer.Tile({
-			 //  preload: Infinity,
-			   source: new ol.source.OSM()
-		   })
-//				new ol.layer.Tile({
-//					style: 'Road',
-//			    	source: new ol.source.MapQuest({layer: 'osm'})
-//				})
+//		   new ol.layer.Tile({
+//			 //  preload: Infinity,
+//			   source: new ol.source.OSM()
+//		   })
+				new ol.layer.Tile({
+					style: 'Road',
+			    	source: new ol.source.MapQuest({layer: 'osm'})
+				})
 		],
 		renderer: 'canvas',
 		target: map_container,

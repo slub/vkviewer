@@ -5,6 +5,7 @@ goog.require('goog.events');
 goog.require('goog.net.Jsonp');
 goog.require('vk2.settings');
 goog.require('vk2.utils.Styles');
+goog.require('ol.source.ServerVector');
 
 /**
  * @param {Object} settings
@@ -19,7 +20,6 @@ vk2.layer.MapSearch = function(settings){
 	// create vector source
 	var vectorSource = new ol.source.ServerVector({
 		format: new ol.format.GeoJSON({'defaultProjection':'EPSG:900913'}),
-		//format: new ol.format.WFS(vk2.settings.WFS_PARSER_CONFIG['mtbows']),
 		loader: function(extent, resolution, projection) {
 			if (goog.DEBUG)
 				console.log('Loader is called');
@@ -61,6 +61,10 @@ vk2.layer.MapSearch = function(settings){
 		},
 		projection: settings.projection
 	});
+	
+	if (goog.DEBUG){
+		window['source'] = vectorSource;
+	}
 	
 	// define time array
 	var start = goog.isDef(settings.start_time) ? settings.start_time : 1868;
