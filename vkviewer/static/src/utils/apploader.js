@@ -14,7 +14,6 @@ goog.require('vk2.controller.MapController');
 goog.require('vk2.module.SpatialTemporalSearchModule');
 goog.require('vk2.module.LayerManagementModule');
 goog.require('vk2.tool.Permalink');
-goog.require('vk2.layer.MapSearch');
 goog.require('vk2.georeference.GeoreferencerChooser');
 goog.require('vk2.georeference.Georeferencer');
 goog.require('vk2.georeference.GeoreferencerService');
@@ -44,14 +43,8 @@ vk2.utils.AppLoader = function(settings){
 	var map_controller = new vk2.controller.MapController(vk2.settings.MAIN_MAP_SETTINGS, 'mapdiv');
 	
 	// load modules
-	// load spatialsearch
-	var featureOverlay = new ol.FeatureOverlay({
-		map: map_controller.getMap(),
-		style: function(feature, resolution) {
-		    return [vk2.utils.Styles.MAP_SEARCH_HOVER_FEATURE];
-		}	
-	});
-	var spatialSearch = new vk2.module.SpatialTemporalSearchModule('spatialsearch-container', featureOverlay, map_controller.getMap());
+	// load spatialsearch 
+	var spatialSearch = new vk2.module.SpatialTemporalSearchModule('spatialsearch-container', map_controller.getMap());
 	map_controller.registerSpatialTemporalSearch(spatialSearch);
 
 	// load layermanagement

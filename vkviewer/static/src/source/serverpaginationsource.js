@@ -150,6 +150,19 @@ vk2.source.ServerPagination.prototype.getFeatures = function(){
 };
 
 /**
+* @param {string} blattnr
+* @return {Array.<ol.Feature>}
+*/
+vk2.source.ServerPagination.prototype.getFeatureForBlattnr = function(blattnr){
+	var returnArr = [];
+	this.featureCol_.forEach(function(feature){
+		if (feature.get('blattnr') === blattnr)
+			returnArr.push(feature);
+	});
+	return returnArr;
+};
+
+/**
  * @return {number}
  */
 vk2.source.ServerPagination.prototype.getTotalFeatures = function(){
