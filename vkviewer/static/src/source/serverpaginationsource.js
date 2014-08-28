@@ -50,7 +50,13 @@ vk2.source.ServerPagination = function(options) {
 	 * @private
 	 * @type {string}
 	 */
-	this.sortObject_ = 'title';
+	this.sortAttribute_ = 'title';
+	
+	/**
+	 * @private
+	 * @type {string}
+	 */
+	this.sortOrder_ = 'ascending';
 	
 	/**
 	 * This variable give the starting point for pagination
@@ -87,14 +93,18 @@ goog.inherits(vk2.source.ServerPagination, goog.events.EventTarget);
  * 
  */
 vk2.source.ServerPagination.prototype.activate = function(){
-	this.map_.on('moveend', this.refresh_, this);
+	this.map_.on('moveend', this.update_, this);
 };
 
 /**
+ * @param {Array.<ol.Feature>} features
  * @private
  */
-vk2.source.ServerPagination.prototype.dispatchRefreshEvent_ = function(){
-	this.dispatchEvent(new goog.events.Event(vk2.source.ServerPagination.EventType.REFRESH,{}));
+vk2.source.ServerPagination.prototype.dispatchRefreshEvent_ = function(features){
+	this.dispatchEvent(new goog.events.Event(vk2.source.ServerPagination.EventType.REFRESH,{
+		'features': features,
+		'totalFeatureCount': this.totalFeatures_
+	}));
 	
 	if (goog.DEBUG){
 		console.log('Refresh event.');
@@ -104,10 +114,14 @@ vk2.source.ServerPagination.prototype.dispatchRefreshEvent_ = function(){
 };
 
 /**
+ * @param {Array.<ol.Feature>} features
  * @private
  */
-vk2.source.ServerPagination.prototype.dispatchPaginateEvent_ = function(){
-	this.dispatchEvent(new goog.events.Event(vk2.source.ServerPagination.EventType.PAGINATE,{}));
+vk2.source.ServerPagination.prototype.dispatchPaginateEvent_ = function(features){
+	this.dispatchEvent(new goog.events.Event(vk2.source.ServerPagination.EventType.PAGINATE,{
+		'features': features,
+		'totalFeatureCount': this.totalFeatures_
+	}));
 	
 	if (goog.DEBUG){
 		console.log('Paginate event.');
@@ -117,42 +131,79 @@ vk2.source.ServerPagination.prototype.dispatchPaginateEvent_ = function(){
 };
 
 /**
+ * @return {ol.Collection}
+ */
+vk2.source.ServerPagination.prototype.getFeatures = function(){
+	return this.featureCol_;
+};
+
+/**
+ * @return {number}
+ */
+vk2.source.ServerPagination.prototype.getTotalFeatures = function(){
+	return this.totalFeatures_;
+};
+
+/**
+ * @return {string}
+ */
+vk2.source.ServerPagination.prototype.getSortAttribute = function(){
+	return this.sortAttribute_;
+};
+
+/**
+ * @return {string}
+ */
+vk2.source.ServerPagination.prototype.getSortOrder = function(){
+	return this.sortOrder_;
+};
+
+/**
+ * Method checks if all features for a given extent are loaded. 
+ * @return {boolean}
+ */
+vk2.source.ServerPagination.prototype.isComplete = function(){
+	return this.featureCol_.getLength() >= this.totalFeatures_;
+};
+
+/**
  * @param {ol.Extent} extent
  * @param {string} projection
  * @param {Function} event_callback
  */
 vk2.source.ServerPagination.prototype.loadFeatures_ = function(extent, projection, event_callback){
-		  	
-		var url = vk2.settings.PROXY_URL+'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows?service=WFS&version=1.0.0&request=GetFeature&' +	
+	
+	var sortOrder = this.sortOrder_ === 'ascending' ? '+A' : '+D';
+	var url = vk2.settings.PROXY_URL+'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows?service=WFS&version=1.0.0&request=GetFeature&' +	
 			'typeName=virtuelles_kartenforum:mapsearch&outputFormat=application/json&' + 
-			'srsname=' + projection + '&bbox=' + extent.join(',') + '&sortedBy=' + this.sortObject_ + 
+			'srsname=' + projection + '&bbox=' + extent.join(',') + '&sortBy=' + this.sortAttribute_ + sortOrder +
 			'&startIndex=' + this.index_ + '&maxFeatures=' + this.maxFeatures_;
 						
-		var xhr = new goog.net.XhrIo();
-		goog.events.listenOnce(xhr, 'success', function(e){
-		    if (goog.DEBUG){
-		    	console.log('Receive features');
-		    };
+	var xhr = new goog.net.XhrIo();
+	goog.events.listenOnce(xhr, 'success', function(e){
+		if (goog.DEBUG){
+			console.log('Receive features');
+		};
 		    
-		    var xhr = /** @type {goog.net.XhrIo} */ (e.target);
-		    if (xhr.getResponseText()){
-			    // parse response GeoJSON 
-			    var data = xhr.getResponseJson();
-			    this.totalFeatures_ = data['totalFeatures'];
-			    xhr.dispose();
-			    var parsed_data = this.parser_.readFeatures(data);
+		var xhr = /** @type {goog.net.XhrIo} */ (e.target);
+		if (xhr.getResponseText()){
+			// parse response GeoJSON 
+			var data = xhr.getResponseJson();
+			this.totalFeatures_ = data['totalFeatures'];
+			xhr.dispose();
+			var parsed_data = this.parser_.readFeatures(data);
+			
+			// fill featureCol and increment startIndex
+			this.featureCol_.extend(parsed_data);
+			this.index_ += parsed_data.length;
 			    
-			    // fill featureCol and increment startIndex
-			    this.featureCol_.extend(parsed_data);
-			    this.index_ += parsed_data.length;
-			    
-			    event_callback.call(this, data);		
-		    } else {
-		    	console.log('Response is empty');
-		    };    
-		 }, false, this);
+			event_callback.call(this, parsed_data);		
+		} else {
+			console.log('Response is empty');
+		};    
+	}, false, this);
 	
-		 xhr.send(url);
+	xhr.send(url);
 };
 
 /**
@@ -163,21 +214,26 @@ vk2.source.ServerPagination.prototype.paginate_ = function(){
 		console.log('Update Data of ServerPaginationSource.');
 	};
 	
-	var actual_extent = vk2.utils.calculateMapExtentForPixelViewport(this.map_);
-	this.loadFeatures_(actual_extent, this.projection_, this.dispatchPaginateEvent_);
+	// check if there are anymore features to paginate and if yes gramp them
+	if (this.index_ < this.totalFeatures_){
+		var actual_extent = vk2.utils.calculateMapExtentForPixelViewport(this.map_);
+		this.loadFeatures_(actual_extent, this.projection_, this.dispatchPaginateEvent_);
+	};
+};
+
+vk2.source.ServerPagination.prototype.refresh = function(){
+	this.refreshFeatures_(vk2.utils.calculateMapExtentForPixelViewport(this.map_), this.projection_);
 };
 
 /**
  * @private
- * @param {Object} event
  */
-vk2.source.ServerPagination.prototype.refresh_ = function(event){
+vk2.source.ServerPagination.prototype.update_ = function(){
 	if (goog.DEBUG) {
 		console.log('Update Data of ServerPaginationSource.');
-		console.log(event);
 	};
 
-	var actual_extent = vk2.utils.calculateMapExtentForPixelViewport(event.currentTarget);
+	var actual_extent = vk2.utils.calculateMapExtentForPixelViewport(this.map_);
 	if (!goog.isDef(this.lastUpdateExtent_) || !ol.extent.equals(this.lastUpdateExtent_, actual_extent)){
 		this.refreshFeatures_(actual_extent, this.projection_);
 		this.lastUpdateExtent_ = goog.array.clone(actual_extent);
@@ -194,12 +250,25 @@ vk2.source.ServerPagination.prototype.refreshFeatures_ = function(extent, projec
 	this.loadFeatures_(extent, projection, this.dispatchRefreshEvent_);
 };
 
+/**
+ * @param {string} sortAttribute
+ */
+vk2.source.ServerPagination.prototype.setSortAttribute = function(sortAttribute){
+	this.sortAttribute_ = sortAttribute;
+};
 
+/**
+ * @param {string} sortOrder
+ */
+vk2.source.ServerPagination.prototype.setSortOrder = function(sortOrder){
+	this.sortOrder_ = sortOrder;
+};
 
 /**
  * @enum {string}
  */
 vk2.source.ServerPagination.EventType = {
+		// Is triggered if there was a pagination event. Incrementel data is added.
 		PAGINATE: 'paginate',
 		// Refresh is called when the complete search data is refreshed
 		REFRESH: 'refresh'
