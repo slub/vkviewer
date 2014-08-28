@@ -3,8 +3,6 @@ goog.provide('vk2.module.SpatialTemporalSearchModule');
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
 goog.require('goog.events');
-goog.require('goog.events.EventTarget');
-goog.require('goog.events.EventType');
 //goog.require('ol.FeatureOverlay');
 goog.require('vk2.factory.MapSearchFactory');
 goog.require('vk2.tool.TimeSlider');
@@ -14,10 +12,10 @@ goog.require('vk2.module.MapSearchModule');
 /**
  * @param {Element|string} parentEl_id
  * @param {ol.featureOverlay} featureOverlay
+ * @param {ol.Map} map
  * @constructor
- * @extends {goog.events.EventTarget}
  */
-vk2.module.SpatialTemporalSearchModule = function(parentEl, featureOverlay){
+vk2.module.SpatialTemporalSearchModule = function(parentEl, featureOverlay, map){
 	
 	/**
 	 * @type {Element}
@@ -37,7 +35,7 @@ vk2.module.SpatialTemporalSearchModule = function(parentEl, featureOverlay){
 	// load module and tools
 	this._loadGazetteerSearch(this._bodyContainerEl);
 	this._loadTimeSlider(this._bodyContainerEl);
-	this._loadMapSearchModule(this._bodyContainerEl);
+	this._loadMapSearchModule(this._bodyContainerEl, map);
 };
 
 /**
@@ -82,14 +80,15 @@ vk2.module.SpatialTemporalSearchModule.prototype._loadGazetteerSearch = function
 
 /**
  * @param {Element} parentEl
+ * @param {ol.Map} map
  * @private
  */
-vk2.module.SpatialTemporalSearchModule.prototype._loadMapSearchModule = function(parentEl){	
+vk2.module.SpatialTemporalSearchModule.prototype._loadMapSearchModule = function(parentEl, map){	
 	/**
 	 * @type {vk2.module.MapSearchModule}
 	 * @private
 	 */
-	this._mapsearch = new vk2.module.MapSearchModule(parentEl, this._featureOverlay);
+	this._mapsearch = new vk2.module.MapSearchModule(parentEl, this._featureOverlay, map);
 };
 
 vk2.module.SpatialTemporalSearchModule.prototype._loadTimeSlider = function(parentEl){

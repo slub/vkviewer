@@ -14,10 +14,11 @@ goog.require('vk2.tool.SearchList');
 /**
  * @param {Element|string} parentEl_id
  * @param {ol.FeatureOverlay=} featureOverlay
+ * @param {ol.Map} map
  * @constructor
  * @extends {goog.events.EventTarget}
  */
-vk2.module.MapSearchModule = function(parentEl, featureOverlay){
+vk2.module.MapSearchModule = function(parentEl, featureOverlay, map){
 	
 	/**
 	 * @type {Element}

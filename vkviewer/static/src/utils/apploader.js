@@ -51,7 +51,7 @@ vk2.utils.AppLoader = function(settings){
 		    return [vk2.utils.Styles.MAP_SEARCH_HOVER_FEATURE];
 		}	
 	});
-	var spatialSearch = new vk2.module.SpatialTemporalSearchModule('spatialsearch-container', featureOverlay);
+	var spatialSearch = new vk2.module.SpatialTemporalSearchModule('spatialsearch-container', featureOverlay, map_controller.getMap());
 	map_controller.registerSpatialTemporalSearch(spatialSearch);
 
 	// load layermanagement

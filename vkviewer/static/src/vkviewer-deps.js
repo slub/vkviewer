@@ -14,7 +14,7 @@ goog.addDependency('../../../../src/georeference/messtischblattgcphandler.js', [
 goog.addDependency('../../../../src/georeference/resultviewer.js', ['vk2.georeference.ResultViewer'], ['vk2.control.LayerSpy', 'vk2.layer.Messtischblatt', 'vk2.tool.OpacitySlider', 'vk2.utils']);
 goog.addDependency('../../../../src/georeference/zoomifyviewer.js', ['vk2.georeference.ZoomifyViewer'], []);
 goog.addDependency('../../../../src/layer/historicmaplayer.js', ['vk2.layer.HistoricMap'], ['goog.events', 'goog.object', 'vk2.settings', 'vk2.utils', 'vk2.utils.Styles']);
-goog.addDependency('../../../../src/layer/mapsearchlayer.js', ['vk2.layer.MapSearch'], ['goog.events', 'goog.net.Jsonp', 'goog.net.XhrIo', 'vk2.settings', 'vk2.utils.Styles']);
+goog.addDependency('../../../../src/layer/mapsearchlayer.js', ['vk2.layer.MapSearch'], ['goog.events', 'goog.net.Jsonp', 'goog.net.XhrIo', 'vk2.settings', 'vk2.source.ServerPagination', 'vk2.utils.Styles']);
 goog.addDependency('../../../../src/layer/messtischblattlayer.js', ['vk2.layer.Messtischblatt'], ['vk2.utils']);
 goog.addDependency('../../../../src/module/layermanagementmodule.js', ['vk2.module.LayerManagementModule'], ['goog.dom', 'goog.events', 'goog.events.EventTarget', 'goog.events.EventType', 'vk2.factory.LayerManagementFactory']);
 goog.addDependency('../../../../src/module/mapsearchmodule.js', ['vk2.module.MapSearchModule'], ['goog.dom', 'goog.dom.classes', 'goog.events', 'goog.events.Event', 'goog.events.EventTarget', 'goog.events.EventType', 'vk2.factory.MapSearchFactory', 'vk2.tool.SearchList']);
@@ -22,6 +22,7 @@ goog.addDependency('../../../../src/module/spatialtemporalsearchmodule.js', ['vk
 goog.addDependency('../../../../src/request/cswrequest.js', ['vk2.request.CSW'], ['goog.array', 'goog.dom', 'goog.events', 'goog.events.EventTarget', 'goog.net.EventType', 'goog.net.XhrIo', 'goog.object', 'vk2.settings']);
 goog.addDependency('../../../../src/request/wfsrequest.js', ['vk2.request.WFS'], ['vk2.settings']);
 goog.addDependency('../../../../src/settings.js', ['vk2.settings'], []);
+goog.addDependency('../../../../src/source/serverpaginationsource.js', ['vk2.source.ServerPagination'], ['ol.extent', 'ol.loadingstrategy', 'ol.source.FormatVector', 'ol.structs.RBush']);
 goog.addDependency('../../../../src/tool/gazetteersearchtool.js', ['vk2.tool.GazetteerSearch', 'vk2.tool.GazetteerSearch.EventType'], ['goog.dom', 'goog.dom.classes', 'goog.events', 'goog.events.Event', 'goog.events.EventTarget', 'goog.net.XhrIo', 'vk2.utils', 'vk2.validation']);
 goog.addDependency('../../../../src/tool/metadatabindingtool.js', ['vk2.tool.MetadataBinding'], ['goog.Uri', 'goog.dom', 'goog.object', 'goog.style', 'vk2.request.CSW', 'vk2.settings', 'vk2.utils']);
 goog.addDependency('../../../../src/tool/opacityslidertool.js', ['vk2.tool.OpacitySlider'], ['goog.dom']);
