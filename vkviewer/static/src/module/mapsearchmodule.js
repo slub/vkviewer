@@ -8,7 +8,6 @@ goog.require('goog.events.EventTarget');
 goog.require('goog.events.EventType');
 //goog.require('ol.FeatureOverlay');
 goog.require('vk2.factory.MapSearchFactory');
-goog.require('vk2.tool.SearchList');
 goog.require('vk2.source.ServerPagination');
 
 
@@ -19,7 +18,7 @@ goog.require('vk2.source.ServerPagination');
  * @constructor
  * @extends {goog.events.EventTarget}
  */
-vk2.module.MapSearchModule = function(parentEl, featureOverlay, map){
+vk2.module.MapSearchModule = function(parentEl, map){
 	
 	/**
 	 * @type {Element}
@@ -48,7 +47,12 @@ vk2.module.MapSearchModule = function(parentEl, featureOverlay, map){
 	 * @type {ol.featureOverlay}
 	 * @private
 	 */
-	this.featureOverlay_ = goog.isDef(featureOverlay) ? featureOverlay : undefined;
+	this.featureOverlay_ = new ol.FeatureOverlay({
+		map: map,
+		style: function(feature, resolution) {
+		    return [vk2.utils.Styles.MAP_SEARCH_HOVER_FEATURE];
+		}	
+	});
 	
 	// load html content
 	this.loadHtmlContent_(this.parentEl_);

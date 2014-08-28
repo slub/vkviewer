@@ -11,11 +11,10 @@ goog.require('vk2.module.MapSearchModule');
 
 /**
  * @param {Element|string} parentEl_id
- * @param {ol.featureOverlay} featureOverlay
  * @param {ol.Map} map
  * @constructor
  */
-vk2.module.SpatialTemporalSearchModule = function(parentEl, featureOverlay, map){
+vk2.module.SpatialTemporalSearchModule = function(parentEl, map){
 	
 	/**
 	 * @type {Element}
@@ -23,12 +22,6 @@ vk2.module.SpatialTemporalSearchModule = function(parentEl, featureOverlay, map)
 	 */
 	this._parentEl = goog.isString(parentEl) ? goog.dom.getElement(parentEl) : parentEl;
 
-	/**
-	 * @type {ol.featureOverlay}
-	 * @private
-	 */
-	this._featureOverlay = goog.isDef(featureOverlay) ? featureOverlay : undefined;
-	
 	// load html content
 	this._loadHtmlContent(this._parentEl);
 	
@@ -88,7 +81,7 @@ vk2.module.SpatialTemporalSearchModule.prototype._loadMapSearchModule = function
 	 * @type {vk2.module.MapSearchModule}
 	 * @private
 	 */
-	this._mapsearch = new vk2.module.MapSearchModule(parentEl, this._featureOverlay, map);
+	this._mapsearch = new vk2.module.MapSearchModule(parentEl, map);
 };
 
 vk2.module.SpatialTemporalSearchModule.prototype._loadTimeSlider = function(parentEl){

@@ -10,7 +10,6 @@ goog.require('vk2.tool.GazetteerSearch');
 goog.require('vk2.module.SpatialTemporalSearchModule');
 goog.require('vk2.module.MapSearchModule');
 goog.require('vk2.layer.HistoricMap');
-goog.require('vk2.layer.MapSearch');
 goog.require('vk2.control.LayerSpy');
 goog.require('vk2.control.RotateNorth');
 goog.require('vk2.control.Permalink');
@@ -32,21 +31,7 @@ vk2.controller.MapController = function(settings, map_container){
 	
 	this._loadBaseMap(map_container);
 	this._appendMapClickBehavior(this._map);
-	
-	/**
-	 * @type {Object}
-	 * @private
-	 */
-	this._handler = {
-		'updateMapSearchModule': goog.bind(function(){
-			// extract features in current extent
-			var current_extent = vk2.utils.calculateMapExtentForPixelViewport(this._map);  			    
-			//var current_extent = this._map.getView().calculateExtent(this._map.getSize());
-			var features = this._mapsearchLayer.getTimeFilteredFeatures(current_extent);
-			this._mapsearch.updateFeatures(features);
-		}, this)
-	}
-}
+};
 
 /**
  * @param {string} map_container
@@ -149,44 +134,7 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 	 * @private
 	 */
 	this._mapsearch = mapsearch;
-	
-	// register mapsearchlayer for fetching search records from the wfs service
-//	/**
-//	 * @type {vk2.layer.MapSearch}
-//	 * @private
-//	 */
-//	this._mapsearchLayer = new vk2.layer.MapSearch({
-//		'projection':'EPSG:900913',
-//		'style': function(feature, resolution){
-//			return undefined;
-//		}
-//	});
-//	this._map.addLayer(this._mapsearchLayer);
-	
-//	// register map moveend event for looking if there are new search features
-//	var lastMoveendCenter = null;
-//	var lastMoveendFeatureCount = null;
-//	this._map.on('moveend', function(event){
-//		if (goog.DEBUG)
-//			console.log('Moveend Event');
-//		
-//		var view = event.map.getView();
-//		var featureCount = this._mapsearchLayer.getSource().getFeatures().length;
-//		if (lastMoveendCenter !== view.getCenter() || lastMoveendFeatureCount !== featureCount){
-//			if (goog.DEBUG)
-//				console.log('Moveened Event with update');
-//			
-//			lastMoveendCenter = view.getCenter();
-//			lastMoveendFeatureCount = featureCount;
-//			this._handler['updateMapSearchModule']();
-//		}
-//	}, this);
-//	
-//	// register event for adding features after initial loading	
-//	goog.events.listenOnce(this._mapsearchLayer.getSource(), 'addfeature', function(event){
-//		setTimeout(this._handler['updateMapSearchModule'], 500);
-//	}, undefined, this);
-	
+		
 	// register addmtb event
 	goog.events.listen(this._mapsearch, 'addmtb', function(event){
 		if (goog.DEBUG)
@@ -242,8 +190,6 @@ vk2.controller.MapController.prototype._registerTimeSliderTool = function(timeSl
 	goog.events.listen(timeSlider, 'timechange', function(event){
 		this._mapsearch.getFeatureSource().setTimeFilter(event.target.time[0], event.target.time[1]);
 		this._mapsearch.getFeatureSource().refresh();
-		//this._mapsearchLayer.setTimeFilter(event.target.time[0], event.target.time[1]);
-		//this._handler['updateMapSearchModule']();
 	}, undefined, this);
 };
 
@@ -254,7 +200,7 @@ vk2.controller.MapController.prototype._registerTimeSliderTool = function(timeSl
  * @return {Array.<vk2.layer.HistoricMap>}
  */
 vk2.controller.MapController.prototype._createAssociationMapsArray = function(feature){
-	var relativeFeatures = this._mapsearchLayer.getFeatureForBlattnr(feature.get('blattnr'));
+	var relativeFeatures = this._mapsearch.getFeatureSource().getFeatureForBlattnr(feature.get('blattnr'));
 	
 	// first create for every timestamp a relative map
 	var relativeMaps = [];
