@@ -20,8 +20,8 @@ body, html {
 
 .has-error .form-control { border: 3px solid #f33; }
 
-
-.panel-vk2RegisterNewUser .panel-body, .back-to-login { display: none; }
+.panel-vk2RegisterNewUser .panel-body, .back-to-login, #validationTipsRegisterUser { display: none; }
 .panel-vk2RegisterNewUser .validation-tips { border-top: 1px dotted #ccc; padding-top: 10px; margin-top: 40px; font-size: 12px; color: #666; }
 .trigger-registration, .trigger-login { font-weight: 600; cursor: pointer; }
 .trigger-registration:hover, .trigger-login:hover { color: #f33; text-decoration: underline; }
+.back-to-login {margin-bottom: 5px;}

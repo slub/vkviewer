@@ -107,8 +107,10 @@
 $(document).ready(function(){
   $('.trigger-registration, .trigger-login').click(function() {
     $('.panel-vk2Login').slideToggle();
+    $('.panel-vk2RegisterNewUser .panel-heading').slideToggle();
     $('.panel-vk2RegisterNewUser .panel-body').slideToggle();
-    $('.back-to-login, #validationTipsRegisterUser').fadeToggle();
+    $('.panel-vk2RegisterNewUser #validationTipsRegisterUser').slideToggle();
+    $('.back-to-login').fadeToggle();
   });      
 });
 </script>
