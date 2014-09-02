@@ -12,7 +12,7 @@ For bulding a minimize css files the command line tools `cat` and the `closure-s
 
 	cat css/vk2/vkviewer.css css/vk2/override-ol3.css css/vk2/override-jquery.css css/vk2/override-bootstrap.css css/vk2/template/template_pages.css css/vk2/template/main_page.css css/vk2/template/header.css css/vk2/template/georeference.css css/vk2/template/profile_map.css css/vk2/template/footer.css css/vk2/template/login_screen.css css/vk2/module/mapsearch.css css/vk2/module/spatialtemporalsearch.css css/vk2/module/layermanagement.css css/vk2/tool/gazetteersearch.css css/vk2/tool/timeslider.css css/vk2/tool/opacityslider.css css/vk2/utils/modal.css > build/styles-all.css
 
-	java -jar lib/closure-library/closure-stylesheets.jar build/styles-all.css > ./styles-min.css
+	java -jar lib/closure-library/closure-stylesheets.jar --pretty-print build/styles-all.css > ./styles-min.css
 
 Right now there exist a problem with closure-stylesheets.jar because it shuffles the order of the css styles, which leads to wrong display. Because of this it is right now better to use the styles-all.css.
 
