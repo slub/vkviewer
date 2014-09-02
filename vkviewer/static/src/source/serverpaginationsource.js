@@ -1,6 +1,6 @@
 goog.provide('vk2.source.ServerPagination');
 
-goog.require('ol.extent');
+//goog.require('ol.extent');
 goog.require('goog.array');
 goog.require('goog.net.XhrIo');
 goog.require('goog.events');
