@@ -2,273 +2,326 @@
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">	 
-	<style>
-		.faq {
-			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-			font-size: 14px;
-			line-height: 1.42857143;
-			color: #333;
-		}
-		
-		/* header styling */
-		header {text-align: center; color: #fff;}
-		.header-faq {
-			background: rgba(255,52,52,0.9);
-		}
-		.header-faq > div { padding-top: 10px; padding-bottom: 10px; }
-		.header-faq .logo {
-			display: block;
-			margin: 0 auto 20px;
-		}
-		.header-faq .intro-text .name {
-			display: block;
-			text-transform: uppercase;
-			font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-			font-size: 2em;
-			font-weight: 700;
-		}
-		
-		/* section styling */
-		section > div { position: relative; float: left; display: block;}
-		p { margin: 0 0 10px;}
-		h1, .h1, h2, .h2, h3, .h3, h4, .h4 { margin-top: 20px; margin-bottom: 10px; color: black;}
-		h1 { color: #f33;}
-		img { margin: 10px; }
-		.section-header {
-			padding-top: 20px;
-			margin-top: 0;
-			padding-bottom: 9px;
-			margin: 40px 0 20px;
-			border-bottom: 1px solid #eee;
-			font-size: 36px;
-		}
-		.bs-callout{
-			padding: 20px;
-			margin: 20px 0;
-			border: 1px solid #eee;
-			border-left-width: 5px;
-			border-radius: 3px;
-		}
-		.bs-callout-warning  { border-left-color: #f0ad4e;}
-		
-		/* sidebar styling */
-		#faq-affix-sidebar {
-			position: fixed;
-		}
-		
-		.faq-sidebar { 
-			/*position: fixed; */
-			padding-left: 0;
-			margin-bottom: 0;
-			list-style: none;
-		}
-		.nav.faq-sidebar > li > a {
-			display: block;
-			padding: 4px 20px;
-			font-size: 13px;
-			font-weight: 500;
-			color: #999;
-		}
-		
-		.nav.faq-sidebar .nav {
-			padding-bottom: 10px;
-		}
-		
-		.nav.faq-sidebar .nav > li > a {
-			display: block;
-			padding: 4px 20px;
-			padding-top: 1px;
-			padding-bottom: 1px;
-			padding-left: 30px;
-			font-size: 12px;
-			font-weight: 400;
-			color: #999;
-		}
-	</style>
+
+<style>
+
+body { overflow: initial; }
+.container { margin: 30px auto 60px auto; }
+.content { margin-top: -50px; }
+h2 { border-bottom: 1px dotted #ccc; padding: 30px 0 10px 0; margin: 20px 0; clear: both; }
+h3 { font-size: 22px; color: #666; padding: 20px 0 0 0; margin: 10px 0; clear: both; }
+p { margin: 16px 0; }
+.media-container { position: relative; padding: 5px; border: 1px solid #ccc;}
+.media-container.pos-left { float: left; margin: 0 10px 10px 0; }
+.media-container.pos-right { float: right; margin: 0 0 10px 10px; text-align: right; }
+.media-container img { border: 1px solid #eee; }
+.caption { font-size: 11px; color: #666; margin: 4px 0; }
+#faq-affix-sidebar > .nav { border-top: 1px dotted #ccc; padding-top: 10px;  }
+#faq-affix-sidebar .nav .nav { display: none; }
+#faq-affix-sidebar .nav .active .nav { display: block; }    
+#faq-affix-sidebar .nav > li a { color: #666; font-size: 16px; padding: 2px 6px 2px 10px; border-left: 1px solid transparent; }
+#faq-affix-sidebar .nav > li a:hover { background: transparent; text-decoration: underline; }
+#faq-affix-sidebar .nav > li > a { font-weight: bold; }    
+#faq-affix-sidebar .nav > li li > a { font-weight: 300; font-size: 14px; padding-left: 20px; }      
+#faq-affix-sidebar .nav .active > a { color: #f33; border-left: 1px solid #f33; }
+#faq-affix-sidebar .nav .totop { font-weight: 300; border-top: 1px dotted #ccc; font-size: 12px; color: #999; margin-top: 10px; }
+.bs-callout{ padding: 20px; margin: 20px 0; border: 1px solid #eee; border-left-width: 5px; border-radius: 3px; }
+.bs-callout-warning { border-left-color: #f0ad4e;}
+</style>
+
 </%block>
 
 <%block name="body_content">
-	<div class="faq">
 
-		<div class="container">
-			<div class="row">
+	<div id="faq" data-spy="scroll" data-target="#faq-affix-sidebar" class="faq">
+		<h1 class="sr-only sr-only-focusable">${_('faq-title')}</h1>
+	
+	    <div class="container">
+	
+	      <div class="row">
+	
+	        <div class="content col-md-9">
+	          
+			<!--the article before the first article-->
+			<article id="general-navigation">
+				<h2>${_('faq-general-title')}</h2>
+				<p>${_('faq-general-content-1') | n}</p>
+					<figure class="media-container pos-left">
+						<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/anmelden.png')}" alt="anmelden">
+						<figcaption class="caption"></figcaption>
+					</figure>
+				<p>
+					${_('faq-general-content-2') | n}
+				</p>	
+			</article>	
+	
+	
+					
+	          	<!-- first article (eg. search maps) -->
+	        <article id="map-detection">
+	            	<h2>${_('faq-map-detection')}</h2>
+	            <p>
+					${_('faq-map-detection-1')}
+				</p>
+				<p>
+					${_('faq-map-detection-2')}
+				</p>
+					
+				<section id="search-for-a-place">
+					<h3>${_('faq-place-name')}</h3>
+					<figure class="media-container pos-left">
+						<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/ortsname.png')}" alt="ortsname_dt">
+						<figcaption class="caption"></figcaption>
+					</figure>
+					<p>
+						${_('faq-place-name-1') | n} 
+					</p>
+				</section>
+					
+				<section id="adjust-the-time">
+					<h3>${_('faq-time-bar')}</h3>
+					<figure class="media-container pos-left">
+						<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/zeitleiste.png')}" alt="zeitleiste">
+						<figcaption class="caption"></figcaption>
+					</figure>
+					<p>
+						${_('faq-time-bar-1')}
+					</p>
+				</section>
+					
+				<section id="the-search-list">
+					<h3>${_('faq-search-list')}</h3>
+					<figure class="media-container pos-left">
+						<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/suchliste.png')}" alt="suchliste">
+						<figcaption class="caption"></figcaption>
+					</figure>				
+					<p>
+						${_('faq-search-list-1') | n}
+					</p>
+					<p>
+						${_('faq-search-list-2')}
+					</p>		
+				</section>
+						
+				<section id="map-navigation">
+					<h3>${_('faq-map-navigation')}</h3>
+				    	<figure class="media-container pos-left">
+	                		<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/buttons.png')}" alt="buttons_dt">
+	                		<figcaption class="caption"></figcaption>
+	                	</figure>
+					<p>
+						${_('faq-map-navigation-1')}
+					</p> 
+					<p>
+						${_('faq-map-navigation-2') | n}
+					</p>
+					<p>
+						${_('faq-map-navigation-3') | n}
+					</p>
+					<p>
+						${_('faq-map-navigation-4') | n}
+					</p> 
+					<p>
+						${_('faq-map-navigation-5')}
+					</p>
+				</section>
+				
+			</article>	
 			
-				<!-- content container -->
-				<div class="col-md-9" role="main">
+			<!-- second article (eg. manage choosen maps) -->
+			<article id="manage-chosen-maps">
+				<h2>${_('faq-map-management')}</h2>
+				<figure class="media-container pos-left">
+					<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/kartenauswahl.png')}" alt="kartenauswahl">
+					<figcaption class="caption"></figcaption>
+				</figure>
+	            
+				<p>
+					${_('faq-map-management-1')}
+				</p>
 					
-					<!-- Suche Karten -->
-					<section id="faq-search-maps">
-						<h1 class="section-header">Suche von Karten</h1>
-						<p>Im Portal des Virtuellen Kartenforum 2.0 können aktuell über 2500 georeferenzierte Karten gesucht und 
-						dargestellt werden. Durch die Navigation auf der Karte oder die Eingabe eines Ortsnamen bzw. einer Kartenblattnummer 
-						im Suchfeld des raumzeitlichen Suchmodules (linker Bereich / Hauptseite) kann der relevante Raumausschnitt ausgewählt werden. 
-						In der Liste des raumzeitlichen Suchmodules werden außerdem die für die raumzeitlichen Suchkriterien relevanten Suchergebnisse
-						dargestellt. Mit Hilfe des Zeitschiebers kann außerdem die relevante Zeitperiode für die Suche eingeschränkt werden.</p>
-						
-						<h2 class="section-header-sub" id="faq-search-maps-spatialsearch">Raumzeitliches Suchmodule</h2>
-						<!-- Ortsnamens- / Kartenblattsuche -->
-						<div>
-							<h4>Ortsnamens- / Kartenblattsuche</h4>
-  							<a class="pull-left" href="#">
-    							<img class="media-object" src="${request.static_url('vkviewer:static/images/faq/placenamesearch.png')}" alt="Ortsnamens- / Kartenblattsuche">
-  							</a>
-    						<p>
-    							Wird in das eine Eingabefeld ein Ortsname eingetippt, bietet die Anwendung eine Auswahlliste möglicher Ortsnamen an. Wird ein Ortsname
-    							aus der Liste durch die Maus oder die Tastur ausgewählt springt die Karte zu diesem Ort. Alternativ kann auch eine Kartenblattnummer wie
-    							<code>49_48</code> eingegeben werden. Auch in diesem Fall springt die Karte zu dem entsprechenden Raumausschnitt.
-    						</p>
-						</div>
-						
-						<!-- Timeslider -->
-						<div>
-							<h4>Zeitschieber</h4>
-  							<a class="pull-left" href="#">
-    							<img class="media-object" src="${request.static_url('vkviewer:static/images/faq/timeslider.png')}" alt="Zeitschieber">
-  							</a>
-    						<p>
-    							Durch den Zeitschieber lässt sich der Suchzeitraum einschränken. Aktuell bietet das Portal Karten zwischen den Jahren 
-    							1868 und 1945 an. Diese Jahre bilden daher den maximalen Zeitraum ab. Das Einschränken des Suchzeitraum wirkt sich auch 
-    							auf die angezeigten Ergebnisse in der Suchliste aus.
-    						</p>
-						</div>
-						
-						<!-- Suchliste -->
-						<div>
-							<h4>Suchliste</h4>
-  							<a class="pull-left" href="#">
-    							<img class="media-object" src="${request.static_url('vkviewer:static/images/faq/searchlist.png')}" alt="Suchliste">
-  							</a>
-    						<p>
-    							In der Suchliste werden die gefunden Karten für den entsprechen Raumausschnitt und Suchzeitraum dargestellt. Im Kopf der 
-    							Suchliste werden die Suchtreffer angezeigt. Darunter kann man die Ergebnisse mit Hilfe der Buttons nach "Titel" oder "Jahr"
-    							sortieren. Durch das Klicken auf ein Suchergebnis, wird die entsprechende historische Karte auf der Hauptkarte dargestellt.
-    							<br><br>
-    							Die einzelnen Suchergebnisse werden in der Liste mit ihrem Kurztitel, ihrem Zeitstempel (Datierung) und ihrem Maßstab 
-    							abgebildet. Außerdem wird ein Thumbnail der entsprechenden Karte angezeigt. Führt man den Mauszeiger über einen Sucheintrag, 
-    							so wird die räumliche Ausdehnung der Karte auf der Hauptkarte mittels eines Polygon dargestellt.
-    						</p>
-						</div>			
-						
-									
-						<h2 class="section-header-sub" id="faq-search-maps-mapnavigation">Kartennavigation</h2>
-						<a class="pull-left" href="#">
-    						<img class="media-object" src="${request.static_url('vkviewer:static/images/faq/mapnavigation.png')}" alt="Kartennavigation">
-  						</a>
-    					<p>
-    						In der Abbildungs links werden die verschiedenen Navigation Werkzeuge für die Karte dargestellt. Durch drücken des <b>+</b>
-    						oder des <b>-</b> kann in die Karte herein oder heraus gezoomt werden. Die <b>Lupe</b> aktiviert eine Kartenlupe. Fährt man 
-    						mit dieser über eine historische Karte, wird für den Lupenausschnitt die aktuelle <a href="http://www.openstreetmap.org/" 
-    						target="_blank">OpenStreetMap</a> Karte angezeigt. Durch das Halten der Shift-Taste sowie das parellel drücken und ziehen der 
-    						der Maus auf der Karte, kann die Karte rotiert werden. Durch das Klicken auf den Button mit der <b>Nadel</b> wird die Karte
-    						anschließend wieder genordet. Der letzte Button ermöglicht die Erstellung eines Linkes, mit welchem man die aktuelle Kartensicht
-    						mit anderen Nutzern teilen kann.
-    					</p>
-					</section>
-					<!-- /Suche Karten -->
-					
-					<!-- Verwaltung von Karten -->
-					<section id="faq-control-maps">
-						<h1 class="section-header">Verwaltung der eigenen Kartenauswahl</h1>
-						<p>Durch die Auswahl einer Karte im raumzeitlichen Suchmodule wird diese der Hauptkarte und der Kartenverwaltung hinzugefügt. In der
-						 Kartenverwaltung kann die Transparenz der Karte geändert werden, die Karte kann aktiviert und deaktiviert werden, es können andere verwandte
-						 Karte hinzugefügt werden, die Karte kann von der eigenen Auswahl gelöscht werden und man kann die Reihenfolge der Darstellung der Karten auf 
-						 der Hauptkarte überarbeiten. <br>
-						 Außerdem kann der Nutzer durch das Klicken auf die Karte auf der Hauptkarte, die originale Ansicht dieses Blattes sowie eine kleine Auswahl an 
-						 Metadaten darstellen.</p>
-						
-						<h2 class="section-header-sub" id="faq-control-maps-manage">Kartenverwaltung</h2>
-						<!-- Kartenverwaltung -->
-						<div>
-							In Bearbeitung!
-						</div>
-					<!-- /Verwaltung von Karten -->
-					
-					<!-- Georeferenzierung von Karten -->
-					<section id="faq-georef">
-						<h1 class="section-header">Georeferenzierung von Karten (Messtischblättern)</h1>
-						<p>Aktuell bietet das Virtuelle Kartenforum 2.0 den Zugriff auf über 6000 digitalisierte Messtischblätter. Für deren Georeferenzierung benötigen wir 
-						Ihre Hilfe. <br>
-						Ihre Aufgabe ist es dabei, die Eckpunkte des eigentlichen Karteninhaltes der Messtischblätter zu ermitteln. Mit Hilfe der Eckpunkte können wir 
-						anschließend die Karten georeferenzieren. Wenn sie das erste mal im Virtuellen Kartenforum 2.0 den Georeferenzierungsclient nutzen, lesen Sie 
-						sich bitte die Anleitung durch. Wir danken Ihnen für Ihre Hilfe.
+				<section id="change-transparency">
+	              			<h3>${_('faq-change-transparency')}</h3>
+					<figure class="media-container pos-left">
+						<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/transparenz.png')}" alt="transparenz">
+						<figcaption class="caption"></figcaption>
+					</figure>
+			        	<p>
+							${_('faq-change-transparency-2')}
 						</p>
-						<div class="bs-callout bs-callout-warning">
-   							 <p>Bevor Sie im Virtuellen Kartenforum 2.0 georeferenzieren können, müssen Sie sich als Nutzer registrieren bzw. anmelden.</p>
-  						</div> 
-
-						<!-- Auswahl einer Karte für die Georeferenzierung -->
-						<h2 class="section-header-sub" id="faq-georef-choose">Auswahl einer Karte für die Georeferenzierung</h2>
-						<div>
-  							<a class="pull-left" href="#">
-    							<img class="media-object" src="${request.static_url('vkviewer:static/images/faq/georefchooser.png')}" alt="Aktiviere Georeferenzierung">
-  							</a>
-    						<p>
-    							Durch einen Klick auf das Georeferenzierungsymbol in der rechten oberen Ecke, wird das Gitter der zur Verfügung stehenden Messtischblätter 
-    							auf der Karte dargestellt. Die grauen Gitterzellen weisen dabei auf das vorhanden noch unreferenzierter Messtischblätter für diesen 
-    							Raumausschnitt hin. Demgegenüber bedeuteten grüne Gitterzellen, dass für diesen Raumausschnitt bereits georeferenzierte Karte vorliegen. 
-    							Durch einen Klick auf eine graue Gitterzelle öffnet sich ein Auswahlfenster, in welchem die entsprechenden unreferenzierten Messtischblätter
-    							 für diese Gitterzelle angezeigt werden. Klickt man erneut auf eines der angezeigten Messtischblätter, wird man zur Georeferenzierungsansicht 
-    							 weitergeleitet.
-    						</p>
-						</div>	
-						
-						<!-- Georeferenzierung -->
-						<h2 class="section-header-sub" id="faq-georef-compute">Georeferenzierung</h2>
-						<div>
-  							<a class="pull-left" href="#">
-    							<img class="media-object" src="${request.static_url('vkviewer:static/images/faq/uebersicht_kleiner.jpg')}" alt="Markiere Eckpunkte">
-  							</a>
-    						<p>
-    							In der Georeferenzierungsansicht sollen die eigentlichen Eckpunkte der Karte ermittelt werden. Diese können anschließend mit den 
-    							Eckpunktkoordinaten serverseitig abgeglichen werden und somit Passpunkte, welche die Basis für die Anwendung von 
-    							Georeferenzierungsalgorithmen bilden erzeugt werden. Dazu finden Sie auf der linken Seite eine Toolbox, die verschiedene Werkzeuge 
-    							für das setzen der Eckpunkte bereithält. Wählen Sie zuerst das Werkzeug "Eckpunkt setzen" aus und navigieren Sie anschließend
-    							 zu den entsprechenden Eckpunkten auf der Karte. Durch einen Klick auf die Karte können sie die Eckpunkte markieren. 
-    							 Im Falle eines falschen Klickes können Sie Ihr Ergebnis mit den Werkzeugen "Eckpunkt verschieben" 
-    							 (hierzu entsprechenden Eckpunkt vor dem Bewegen durch einmaliges Klicken selektieren) oder "Eckpunkt löschen" korrigieren. 
-    							 Nachdem setzen des 3 Eckpunktes wird Ihnen ein Testergebniss auf der rechten Karte angezeigt. Dieses aktualisiert sich mit jeden weiteren Punkt 
-    							 oder durch das Drücken des Buttons "Vorschau aktualisieren". Haben Sie 4 Eckpunkte gesetzt können und sind mit dem Ergebnis zufrieden, können 
-    							 Sie das Ergebnis absenden. Es wird anschließend zeitnah persistent georeferenziert und für andere Nutzer verfügbar gemacht.
-    						</p>
-						</div>	
-					<!-- /Georeferenzierung von Karten -->
-				</div>				
-				<!-- /content container -->
+				</section>
+				  
+				<section id="activate-deactivate-maps">
+					<h3>${_('faq-activate-deactivate')}</h3>
+					<figure class="media-container pos-left">
+						<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/aktiviert.png')}" alt="aktiviert">
+						<figcaption class="caption">${_('activate-deactivate-1')}</figcaption>
+					</figure>
+					<figure class="media-container pos-left">
+						<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/deaktiviert.png')}" alt="deaktiviert">
+						<figcaption class="caption">${_('activate-deactivate-2')}</figcaption>
+					</figure>
+	              	<p>
+						${_('faq-activate-deactivate-4')}
+					</p>
+				</section>
+				  
+				<section id="add-delete-maps">
+	              	<h3>${_('faq-add-delete')}</h3>
+	              	<p>
+						${_('faq-add-delte-1')}
+					</p>
+	              	<p>
+						${_('faq-add-delete-2') | n}
+					</p>
+	            </section>
+				  
+				<section id="reorder-maps">
+	              			<h3>${_('faq-reorder')}</h3>
+					<figure class="media-container pos-left">
+						<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/verschieben.png')}" alt="verschieben">
+						<figcaption class="caption"></figcaption>
+					</figure>
+					<p>
+						${_('faq-reorder-1')}
+					</p>
+				  	<p>
+						${_('faq-reorder-2')}
+					</p>
+	            </section>
+				  
+	            <section id="original-maps-meta-data">
+	              	<h3>${_('faq-original-meta')}</h3>
+					<figure class="media-container pos-left">
+						<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/meta.png')}" alt="meta_dt">
+						<figcaption class="caption"></figcaption>
+					</figure>
+					<p>
+						${_('faq-original-meta-1')}
+					</p>
+	              	<p>
+						${_('faq-original-meta-2') | n}
+					</p>		
+				</section>
+			</article>
+	          
+	          	<!-- third article (eg. georef) -->
+	        <article id="geo-referencing-of-maps">
+	            	<h2>${_('faq-geo-referencing-maps')}</h2>
+	            	<p>
+						${_('faq-geo-referencing-maps-1')}
+					<p>
+						${_('faq-geo-referencing-maps-2')}
+					</p>
+	            
+				<div class="bs-callout bs-callout-warning">
+					<p>
+						${_('faq-call-out')}
+					</p>
+				</div>
 				
-				<!-- navigation container -->
-				<div class="col-md-3">
-					<div data-spy="affix" data-offset-top="210" id="faq-affix-sidebar">
-						<ul class="nav faq-sidebar">
-							<li>
-								<a href="#faq-search-maps">Suche von Karten</a>
-								<ul class="nav">
-									<li><a href="#faq-search-maps-spatialsearch">Raumzeitliches Suchmodule</a></li>
-									<li><a href="#faq-search-maps-mapnavigation">Kartennavigation</a></li>
-								</ul>
-							</li>
-							<li>
-								<a href="#faq-control-maps">Verwaltung der eigenen Kartenauswahl</a>
-								<ul class="nav">
-									<li><a href="#faq-control-maps-manage">Kartenverwaltung</a></li>
-								</ul>
-							</li>
-							<li>
-								<a href="#faq-georef">Georeferenzierung von Karten</a>
-								<ul class="nav">
-									<li><a href="#faq-georef-choose">Auswahl der Karte</a></li>
-									<li><a href="#faq-georef-compute">Georeferenzierung</a></li>
-								</ul>
-							</li>
+				<section id="map-selection">
+	              	<h3>${_('faq-map-selection')}</h3>
+					<figure class="media-container pos-left">
+						<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/angemeldet.png')}" alt="angemeldet">
+						<figcaption class="caption"></figcaption>
+					</figure>
+					<p>
+						${_('faq-map-selection-1')}
+					</p>
+	            </section>
+				  
+	            <section id="geo-referencing">
+	            	<h3>${_('faq-geo-referencing')}</h3>
+	            		<figure class="media-container pos-left">
+	            			<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/georef.jpg')}" alt="Georeferenzierung">
+							<figcaption class="caption"></figcaption>
+	            		</figure>
+	              	<p>
+						${_('faq-geo-referencing-1')}
+					</p> 
+				  	<p>
+						${_('faq-geo-referencing-2')}
+					</p>
+				  	<p>
+						${_('faq-geo-referencing-3') | n}
+					</p>
+				  	<p>
+						${_('faq-geo-referencing-4') | n}
+					</p>		
+					<p>
+						${_('faq-geo-referencing-5') | n}
+					</p>
+					<p>
+						${_('faq-geo-referencing-6') | n}
+					</p>              
+				</section>
+	
+				<section id="geo-referncing-history">
+					<h3>${_('faq-geo-referencing-history')}</h3>
+					<figure class="media-container pos-left">
+						<img src="${request.static_url('vkviewer:static/images/faq/uploads_' + _('js_library') + '/kopf_rechts.png')}" alt="kopf_rechts">
+						<figcaption class="caption"></figcaption>
+					</figure>
+					<p>
+						${_('faq-geo-referencing-history-11') | n}
+					</p>
+				</section>
+			 
+			</article>
+	            
+	            
+	        </div>
+	        <div class="sidebar col-md-3">
+	        
+	          <nav id="faq-affix-sidebar">
+	            <ul class="nav sidenav" data-spy="affix" data-offset-top="0" data-offset-bottom="0">
+					<li class="active">
+						<a href="#general-navigation">${_('faq-sidebar')}</a>
+					</li>
+					<li>
+	                	<a href="#map-detection">${_('faq-sidebar-1')}</a>
+						<ul class="nav">
+							<li><a href="#search-for-a-place">${_('faq-sidebar-2')}</a></li>
+							<li><a href="#adjust-the-time">${_('faq-sidebar-3')}</a></li>
+							<li><a href="#the-search-list">${_('faq-sidebar-4')}</a></li>
+							<li><a href="#map-navigation">${_('faq-sidebar-5')}</a></li>
 						</ul>
-					</div>
-				</div>				
-				<!-- /navigation container -->
-				
-			</div>
-		</div>
+	              	</li>
+	              	<li>
+						<a href="#manage-chosen-maps">${_('faq-sidebar-6')}</a>
+						<ul class="nav">
+							<li><a href="#change-transparency">${_('faq-sidebar-7')}</a></li>
+							<li><a href="#activate-deactivate-maps">${_('faq-sidebar-8')}</a></li>
+							<li><a href="#add-delete-maps">${_('faq-sidebar-9')}</a></li>
+							<li><a href="#reorder-maps">${_('faq-sidebar-10')}</a></li>
+							<li><a href="#original-maps-meta-data">${_('faq-sidebar-11')}</a></li>
+						</ul>
+					</li>
+	              	<li>
+						<a href="#geo-referencing-of-maps">${_('faq-sidebar-12')}</a>
+						<ul class="nav">
+							<li><a href="#map-selection">${_('faq-sidebar-13')}</a></li>
+							<li><a href="#geo-referencing">${_('faq-sidebar-14')}</a></li>
+							<li><a href="#geo-referncing-history">${_('faq-sidebar-15')}</a></li>
+						</ul>
+	              	</li>
+	              	<li><a href="#top" class="totop">${_('faq-sidebar-16')}</a></li>
+	            </ul>
+	          </nav>
+	          
+	        </div> <!-- / sidebar -->
+	        
+	      </div> <!-- / row -->
+	      
+	    </div>  <!-- / container -->
+	</div>
 		
 		<script>
-
+			var body = document.getElementsByTagName('body')[0];
+			body.setAttribute('data-spy','scroll');
+			body.setAttribute('data-target','#faq-affix-sidebar');
+			body.className = 'faq';
 		</script>
         
 	</div>
