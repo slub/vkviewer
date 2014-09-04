@@ -31,7 +31,7 @@ setup(name='vkviewer',
         ],
       message_extractors = { 'vkviewer': [
 	('**.py', 'python', None),
-	('**.mako', 'mako', None),
+	('**.mako', 'mako', {'input_encoding': 'utf-8'}),
 	('static/**', 'ignore', None)
 	]},	
       author='',

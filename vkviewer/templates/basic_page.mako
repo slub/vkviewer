@@ -21,7 +21,7 @@
 	   	<script src="${request.static_url('vkviewer:static/src/locale/'+_('js_library')+'.js')}"></script>
 		<script src="${request.static_url('vkviewer:static/lib/proj4.js')}"></script> 
 	    <script src="${request.static_url('vkviewer:static/lib/ol-vkviewer.js')}"></script>
-		<script src="${request.static_url('vkviewer:static/vkviewer-min.js')}"></script>
+		<script src="${request.static_url('vkviewer:static/vkviewer-min.js')}"></script> 
 		
 		<!-- for development 
 		<link rel="stylesheet" href="${request.static_url('vkviewer:static/lib/css/bootstrap.min.css')}">		
