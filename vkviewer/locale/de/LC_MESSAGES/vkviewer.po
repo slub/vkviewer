@@ -146,7 +146,7 @@ msgstr "Informationen"
 #: vkviewer/templates/development.mako:85 vkviewer/templates/main_page.mako:80
 #: vkviewer/templates/main_page.mako:85
 msgid "faq_main_heading"
-msgstr "Häufig gestellte Frage"
+msgstr "Häufig gestellte Fragen (FAQ)"
 
 #: vkviewer/templates/development.mako:91
 #: vkviewer/templates/development.mako:138
@@ -202,7 +202,7 @@ msgstr "Allgemeine Navigation"
 msgid "faq-general-content-1"
 msgstr ""
 "Das Virtuellen Kartenforum 2.0 bietet den Zugriff auf eine Reihe von "
-"Werkzeugen und Inhalte. Allgemeine Themen wie die <b>FAQ</b>, "
+"Werkzeugen und Inhalten. Allgemeine Themen wie die <b>FAQ</b>, "
 "<b>Kontaktdaten</b>, eine <b>Projektbeschreibung</b> oder das "
 "<b>Impressum</b> können über den Button in der rechteren oberen Ecke der "
 "Kartensuche oder die Fussleiste gefunden werden."
@@ -211,7 +211,7 @@ msgstr ""
 msgid "faq-general-content-2"
 msgstr ""
 "Durch einen Klick auf die deutsche oder die englische Flagge kann die "
-"Sprache des Virtuelle Kartenforum 2.0 gewechselt werden. Die Anmeldung "
+"Sprachausgabe im Virtuellen Kartenforum 2.0 gewechselt werden. Die Anmeldung "
 "bzw. Registrierung erfolgt über den <b>Anmelden</b> Button. Der Button in"
 " der oberen rechten Kartenecke ermöglicht außerdem den Wechsel in den "
 "Vollbild-Modus."
@@ -223,23 +223,23 @@ msgstr "Suche von Karten"
 #: vkviewer/templates/faq.mako:63
 msgid "faq-map-detection-1"
 msgstr ""
-"Im Portal des Virtuellen Kartenforum 2.0 können aktuell über 4.700 "
+"Im Portal des Virtuellen Kartenforums 2.0 können aktuell über 4.700 "
 "georeferenzierte Karten gesucht und dargestellt werden."
 
 #: vkviewer/templates/faq.mako:66
 msgid "faq-map-detection-2"
 msgstr ""
 "Das Modul auf der linken Seite der Karte ermöglicht raumzeitliche Suchen."
-" Durch Kartennavigation oder die Eingabe eines Ortsnamen bzw. einer "
+" Durch Kartennavigation oder die Eingabe eines Ortsnamens bzw. einer "
 "Kartenblattnummer kann der relevante Raumausschnitt ausgewählt werden. "
 "Dieser synchronisiert sich mit der Ergebnisliste des raumzeitlichen "
-"Suchmodules, in dem er nur Ergebnisse für den relevanten Raumausschnitt "
+"Suchmoduls, indem er nur Ergebnisse für den relevanten Raumausschnitt "
 "anzeigt. Mit Hilfe eines Zeitschiebers kann außerdem die relevante "
 "Zeitperiode für die Suche eingeschränkt werden."
 
 #: vkviewer/templates/faq.mako:70
 msgid "faq-place-name"
-msgstr "Ortsnamens- / Kartenblattsuche"
+msgstr "Ortsnamen- / Kartenblattsuche"
 
 #: vkviewer/templates/faq.mako:76
 msgid "faq-place-name-1"
@@ -301,7 +301,7 @@ msgstr ""
 msgid "faq-map-navigation-2"
 msgstr ""
 "Durch Drücken des <b>+</b> oder des <b>-</b> kann in die Karte hinein "
-"oder heraus gezoomt werden (Alternativ kann auch das Mausrad zum zoomen "
+"oder heraus gezoomt werden (Alternativ kann auch das Mausrad zum Zoomen "
 "verwendet werden)."
 
 #: vkviewer/templates/faq.mako:118
@@ -413,7 +413,7 @@ msgstr ""
 msgid "faq-reorder-2"
 msgstr ""
 "Falls eine Karte ad hoc an die erste Stelle verschoben werden soll, kann "
-"man entweder die Drag-and-Drop nutzen oder auf das Symbol "
+"man entweder die Drag-and-Drop-Methode nutzen oder auf das Symbol "
 "oberhalb des Aktivierungs- / Deaktivierungstools klicken. Auf diese Weise"
 " wird die gerade angeklickte Karte automatisch als oberste Karte dargestellt."
 
@@ -434,7 +434,7 @@ msgid "faq-original-meta-2"
 msgstr ""
 "Noch mehr Informationen werden zur Verfügung gestellt wenn man auf eines "
 "der beiden Felder in der links abgebildeten Box klickt. <b>Gehe zu "
-"Fotothek</b> führt Sie zu der Fotothek, die das Kartenblatt bereithält "
+"Fotothek</b> führt Sie zu der Fotothek, die das original Kartenblatt verwaltet "
 "und <b>Zeige Metadatensatz</b> hält weitere Metadaten bereit."
 
 #: vkviewer/templates/faq.mako:219
@@ -473,7 +473,7 @@ msgstr ""
 "Sobald man eingeloggt ist, wird durch einen Klick auf das "
 "Georeferenzierungsymbol in der rechten oberen Ecke das Gitter der zur "
 "Verfügung stehenden Messtischblätter auf der Karte dargestellt. Die "
-"grauen Gitterzellen weisen dabei auf die vorhandenen noch "
+"grauen Gitterzellen weisen dabei auf die vorhandenen, noch "
 "unreferenzierten Messtischblätter für diesen Rumausschnitt hin. "
 "Demgegenüber bedeuteten grüne Gitterzellen, dass für diesen "
 "Raumausschnitt bereits georeferenzierte Karten vorliegen. Durch einen "
@@ -500,15 +500,15 @@ msgid "faq-geo-referencing-2"
 msgstr ""
 "Hierfür ist auf der linken Seite eine Toolbox angebracht, die "
 "verschiedene Werkzeuge für das setzen der Eckpunkte bereithält. Drückt "
-"man den Button mit dem Schraubenschlüssel kann diese Toolbox falls nötig "
+"man den Button mit dem Schraubenschlüssel kann diese Toolbox, falls nötig, "
 "auch deaktiviert werden."
 
 #: vkviewer/templates/faq.mako:256
 msgid "faq-geo-referencing-3"
 msgstr ""
-"Der erste Abreitsschritt besteht daraus <b>Eckpunkte zu  setzen</b>. "
+"Der erste Abreitsschritt besteht daraus <b>Eckpunkte zu setzen</b>. "
 "Hierfür wählt man das entsprechende Symbol aus und navigiert anschließend"
-" zu den entsprechenden Eckpunkten auf der Karte. Durch einen Klick auf "
+" zu den Eckpunkten auf der Karte. Durch einen Klick auf "
 "die Karte werden die Eckpunkte markiert. Im Falle eines falschen Klicks "
 "kann das Ergebnis mit den Werkzeugen <b>Eckpunkt verschieben</b> (hierzu "
 "entsprechenden Eckpunkt vor dem Bewegen durch einmaliges Klicken "
@@ -526,13 +526,13 @@ msgstr ""
 #: vkviewer/templates/faq.mako:262
 msgid "faq-geo-referencing-5"
 msgstr ""
-"Nach dem Setzen des 4 Eckpunktes wird ein Testergebniss auf der rechten "
-"Karte angezeigt. Dieses aktualisiert durch das Drücken des Buttons <b>Vorschau aktualisieren</b>."
+"Nach dem Setzen des vierten Eckpunktes wird ein Testergebnis auf der rechten "
+"Karte angezeigt. Dieses aktualisiert sich durch das Drücken des Buttons <b>Vorschau aktualisieren</b>."
 
 #: vkviewer/templates/faq.mako:265
 msgid "faq-geo-referencing-6"
 msgstr ""
-"Sind 4 Eckpunkte gesetzt und Sie sind mit dem Ergebnis zufrieden, können "
+"Sind vier Eckpunkte gesetzt und Sie sind mit dem Ergebnis zufrieden, können "
 "Sie das Ergebnis absenden. Es wird anschließend zeitnah persistent "
 "georeferenziert und für andere Nutzer verfügbar gemacht."
 
@@ -543,7 +543,7 @@ msgstr "Georeferenzierungs-Historie"
 #: vkviewer/templates/faq.mako:276
 msgid "faq-geo-referencing-history-11"
 msgstr ""
-"Angemeldete Nutzer können durch einen Klick auf ihren Namen (linke obere "
+"Angemeldete Nutzer können durch einen Klick auf ihren Namen (rechte obere "
 "Ecke) sich Ihre <b>Historie der Georeferenzierung</b> ansehen, Ihr "
 "<b>Passwort ändern</b> oder sich <b>Abmelden</b>."
 
@@ -557,7 +557,7 @@ msgstr "Suche von Karten"
 
 #: vkviewer/templates/faq.mako:294
 msgid "faq-sidebar-2"
-msgstr "Ortsnamens- / Kartenblattsuche"
+msgstr "Ortsnamen- / Kartenblattsuche"
 
 #: vkviewer/templates/faq.mako:295
 msgid "faq-sidebar-3"
