@@ -434,7 +434,7 @@ msgid "faq-original-meta-2"
 msgstr ""
 "Noch mehr Informationen werden zur Verfügung gestellt wenn man auf eines "
 "der beiden Felder in der links abgebildeten Box klickt. <b>Gehe zu "
-"Fotothek</b> führt Sie zu der Fotothek, die das original Kartenblatt verwaltet "
+"Fotothek</b> führt Sie zu der Fotothek, die das originale Kartenblatt verwaltet "
 "und <b>Zeige Metadatensatz</b> hält weitere Metadaten bereit."
 
 #: vkviewer/templates/faq.mako:219
