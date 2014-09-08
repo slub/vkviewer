@@ -25,7 +25,7 @@
     <gmd:contact>
         <gmd:CI_ResponsibleParty>
             <gmd:individualName>
-                <gco:CharacterString>Jacob Mendt</gco:CharacterString>
+                <gco:CharacterString>Dr. Georg Zimmermann</gco:CharacterString>
             </gmd:individualName>
             <gmd:organisationName>
                 <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString><!-- Name der SLUB -->
@@ -50,7 +50,7 @@
 		                <gco:CharacterString>Deutschland</gco:CharacterString>
 		            </gmd:country>
 		            <gmd:electronicMailAddress>
-		                <gco:CharacterString>Jacob.Mendt@slub-dresden.de</gco:CharacterString>
+		                <gco:CharacterString>Georg.Zimmermann@slub-dresden.de</gco:CharacterString>
 		            </gmd:electronicMailAddress>
 		        </gmd:CI_Address>
 		    </gmd:address>
@@ -131,7 +131,7 @@
             <gmd:pointOfContact>
                 <gmd:CI_ResponsibleParty>
                     <gmd:individualName>
-                        <gco:CharacterString>Jacob Mendt</gco:CharacterString>
+                        <gco:CharacterString>Dr. Georg Zimmermann</gco:CharacterString>
                     </gmd:individualName>
                     <gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
                         <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString><!-- Name der SLUB -->
@@ -154,7 +154,7 @@
                                 <gco:CharacterString>Deutschland</gco:CharacterString>
                             </gmd:country>
                             <gmd:electronicMailAddress>
-                                <gco:CharacterString>Jacob.Mendt@slub-dresden.de</gco:CharacterString>
+                                <gco:CharacterString>Georg.Zimmermann@slub-dresden.de</gco:CharacterString>
                             </gmd:electronicMailAddress>
                         </gmd:CI_Address>
                     </gmd:address>
@@ -169,8 +169,12 @@
                     <gmd:keyword>
                         <gco:CharacterString>Messtischblätter</gco:CharacterString>
                     </gmd:keyword>
+                </gmd:MD_Keywords>
+            </gmd:descriptiveKeywords>
+            <gmd:descriptiveKeywords> <!-- md_core.sachbegriffe-->
+                <gmd:MD_Keywords>
                     <gmd:keyword>
-                        <gco:CharacterString>Messtischblatt</gco:CharacterString>
+                        <gco:CharacterString>Georeferenced topographic map</gco:CharacterString>
                     </gmd:keyword>
                 </gmd:MD_Keywords>
             </gmd:descriptiveKeywords>
@@ -184,21 +188,7 @@
             <gmd:descriptiveKeywords>
                 <gmd:MD_Keywords>
                     <gmd:keyword>
-                        <gco:CharacterString>Druck</gco:CharacterString>
-                    </gmd:keyword>
-                </gmd:MD_Keywords>
-            </gmd:descriptiveKeywords>
-            <gmd:descriptiveKeywords><!-- md_core.schlagworte -->
-                <gmd:MD_Keywords>
-                    <gmd:keyword>
-                        <gco:CharacterString>Topografie</gco:CharacterString>
-                    </gmd:keyword>
-                </gmd:MD_Keywords>
-            </gmd:descriptiveKeywords>
-            <gmd:descriptiveKeywords><!-- md_core.Technik -->
-                <gmd:MD_Keywords>
-                    <gmd:keyword>
-                        <gco:CharacterString>Lithografie und Umdruck</gco:CharacterString>
+                        <gco:CharacterString>Topographic map sheets</gco:CharacterString>
                     </gmd:keyword>
                 </gmd:MD_Keywords>
             </gmd:descriptiveKeywords>
@@ -208,7 +198,7 @@
             <gmd:resourceConstraints> <!-- Wie soll das Copyright aussehen? -->
                 <gmd:MD_LegalConstraints>
                     <gmd:useLimitation>
-                        <gco:CharacterString>Copyright siehe Nutzungsbestimmungen auf den Webseiten der SLUB http://www.deutschefotothek.de</gco:CharacterString>
+                        <gco:CharacterString>Alle Metadaten stehen unter der CC0-Lizenz zur Verfügung. Alle über die Infrastruktur des Virtuellen Kartenforum angeboten Karten mit einer Datierung vor 1900 stehen unter CC-BY-SA 4.0 zur Verfügung. Für jüngere Karten gilt aus urheberrechtlichen Gründen "Rechte vorbehalten/rights reserved". Nähere Informationen finden sie auch in den Nutzungsbestimmungen auf den Webseiten der SLUB (http://www.deutschefotothek.de)</gco:CharacterString>
                     </gmd:useLimitation>
                 </gmd:MD_LegalConstraints>
             </gmd:resourceConstraints>
@@ -231,10 +221,7 @@
                 <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8"/>
             </gmd:characterSet>
             <gmd:topicCategory>
-                <gmd:MD_TopicCategoryCode>society</gmd:MD_TopicCategoryCode>
-            </gmd:topicCategory>
-            <gmd:topicCategory>
-                <gmd:MD_TopicCategoryCode>structure</gmd:MD_TopicCategoryCode>
+                <gmd:MD_TopicCategoryCode>imageryBaseMapsEarthCover</gmd:MD_TopicCategoryCode>
             </gmd:topicCategory>
             <gmd:extent>
                 <gmd:EX_Extent>       
