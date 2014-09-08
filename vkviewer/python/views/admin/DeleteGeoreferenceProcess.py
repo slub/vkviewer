@@ -21,9 +21,16 @@ import json
 def deleteGeorefParameters(request):
     log.info('Request - Delete georeference result.')
     try:           
+        # remove georeference process
         georeferenceid = request.params['georeferenceid']
         georeferenceprocess = Georeferenzierungsprozess.by_id(georeferenceid, request.db)
-        request.db.delete(georeferenceprocess)        
+        messtischblattid = georeferenceprocess.messtischblattid
+        request.db.delete(georeferenceprocess)
+        
+        # mark the messtischblatt as updated
+        messtischblatt = Messtischblatt.by_ObjectId(messtischblattid, request.db)
+        messtischblatt.udpated = True
+                
         return json.dumps({'message':'The georeference process has been removed.'}, ensure_ascii=False, encoding='utf-8') 
     except Exception as e:
         log.error('Error while trying to request georeference history information');
