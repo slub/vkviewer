@@ -316,14 +316,16 @@ p { margin: 16px 0; }
 	      
 	    </div>  <!-- / container -->
 	</div>
-		
-		<script>
-			var body = document.getElementsByTagName('body')[0];
-			body.setAttribute('data-spy','scroll');
-			body.setAttribute('data-target','#faq-affix-sidebar');
-			body.className = 'faq';
-		</script>
-        
-	</div>
+	
 </%block>
 
+<%block name="js_content">
+		
+<script>
+	var body = document.getElementsByTagName('body')[0];
+	body.className = 'faq';
+	body.setAttribute('data-spy','scroll');
+	body.setAttribute('data-target','#faq-affix-sidebar');
+</script>
+
+</%block>
