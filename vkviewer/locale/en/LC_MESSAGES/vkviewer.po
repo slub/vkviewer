@@ -194,7 +194,7 @@ msgstr "General navigation"
 
 #: vkviewer/templates/faq.mako:47
 msgid "faq-general-content-1"
-msgstr "The Virtual Map Forum 2.0 offers a lot of tools and content. General topics as the <b>FAQ</b>, the <b>Contact details</b>, the <b>Project</b> or the <b>Masthead / Impressum</b> can be accessed through the buttons in the footer or the button above the map search on the left side."
+msgstr "The Virtual Map Forum 2.0 offers a lot of tools and content. General topics as the <b>FAQ</b>, the <b>Contact</b> details, the <b>Project</b> or the <b>Masthead / Impressum</b> can be accessed through the buttons in the footer or the button above the map search on the left side."
 
 #: vkviewer/templates/faq.mako:53
 msgid "faq-general-content-2"
@@ -210,7 +210,7 @@ msgstr "Right now you can find and displayed more than 4.700 georeferenced maps 
 
 #: vkviewer/templates/faq.mako:66
 msgid "faq-map-detection-2"
-msgstr "Using the navigation directly on the map or through the input of a place name respectively a map sheet number in the search field of the spatiotemporal search module (left part / main page) you can choose the relevant spatial area. The spatiotemporal search module also displayed the relevant search results for your spatiotemporally selected criteria. Through using the time slider you can also adjust the relevant time period for your search results."
+msgstr "Using the navigation directly on the map or through the input of a place name respectively a map sheet number in the search field of the spatiotemporal search module (left part / main page) you can choose the relevant spatial area. The spatiotemporal search module also displays the relevant search results for your spatiotemporally selected criteria. Through using the time slider you can also adjust the relevant time period for your search results."
 
 #: vkviewer/templates/faq.mako:70
 msgid "faq-place-name"
@@ -234,11 +234,11 @@ msgstr "The search list"
 
 #: vkviewer/templates/faq.mako:98
 msgid "faq-search-list-1"
-msgstr "The search list displays all available maps for the appropriate spatial segment and search time. The header of the search list shows the number of search hits. Beneath you can sort the results by pressing the buttons <b>Title</b> or <b>Time</b>. If you click on a search result, the appropriate historical map will be displayed on the main map and automatically be transferred to the &quot;My Maps&quot; map container."
+msgstr "The search list displays all available maps for the appropriate spatial segment and search time. The header of the search list shows the number of search hits. Beneath, you can sort the results by pressing the buttons <b>Title</b> or <b>Time</b>. If you click on a search result, the appropriate historical map will be displayed on the main map and automatically be transferred to the &quot;My Maps&quot; map container."
 
 #: vkviewer/templates/faq.mako:101
 msgid "faq-search-list-2"
-msgstr "Every single search result will be displayed with its lemma, time stamp (dating) and its scale. Furthermore there will be given a Thumbnail to the relevant map. If you move your mouse over a search result, the spatial expansion of the map will be represented in a polygon on the main map."
+msgstr "Every single search result will be displayed with its lemma, time stamp (dating) and its scale. Furthermore there will be given a Thumbnail image of the relevant map. If you move your mouse over a search result, the spatial expansion of the map will be represented in a polygon on the main map."
 
 #: vkviewer/templates/faq.mako:106
 msgid "faq-map-navigation"
@@ -286,7 +286,7 @@ msgstr "On the right side of every chosen map in the &quot;My Maps&quot; map con
 
 #: vkviewer/templates/faq.mako:156
 msgid "faq-change-transparency-2"
-msgstr "If you click with your mouse on the bar and slide it up- or downwards you can change the transparency of the chosen map. This will help you to see the changing in the landscapes and to check the geo-referencing of your map."
+msgstr "If you click with your mouse on the bar and slide it up- or downwards you can change the transparency of the chosen map. This will help you to see the changing in the landscapes and to check the georeferencing of your map."
 
 #: vkviewer/templates/faq.mako:161
 msgid "faq-activate-deactivate"
@@ -326,7 +326,7 @@ msgstr "Reorder maps"
 
 #: vkviewer/templates/faq.mako:195
 msgid "faq-reorder-1"
-msgstr "To reorder maps use your mouse cursor. Click on the thumbnail version of one map sheet in your &quot;My Maps&quot; map container and press and hold it. Then you can easily move it up- or downwards in the container to change the order of the map sheets."
+msgstr "To reorder maps use your mouse cursor. Click on the thumbnail version of one map sheets in your &quot;My Maps&quot; map container and press and hold it. Then you can easily move it up- or downwards in the container to change the order of the map sheets."
 
 #: vkviewer/templates/faq.mako:198
 msgid "faq-reorder-2"
@@ -354,7 +354,7 @@ msgstr "Right now the Virtual Map Forum 2.0 gives you access to more than 6000 d
 
 #: vkviewer/templates/faq.mako:223
 msgid "faq-geo-referencing-maps-2"
-msgstr "The task therefore is to localize the corner points of the map content itself. With the marked corner points we can now geo-reference the map. If you use the geo-referencing client on the Virtuelles Kartenforum 2.0 for the first time please read the instructions. We thank you for your help and participation."
+msgstr "The task therefore is to localize the corner points of the map content itself. With the marked corner points we can now georeference the map. If you use the georeferencing client on the Virtuelles Kartenforum 2.0 for the first time please read the instructions. We thank you for your help and participation."
 
 #: vkviewer/templates/faq.mako:228
 msgid "faq-call-out"
@@ -366,7 +366,7 @@ msgstr "Map selection"
 
 #: vkviewer/templates/faq.mako:239
 msgid "faq-map-selection-1"
-msgstr "If you are logged in, you can display a grid with all available ordnance maps on the main map by clicking on the geo-referencing symbol in the right upper corner. The grey grid cells show you the available and yet not referenced ordnance maps for this spatial segment. By contrast shows you a green grid cell, that for this spatial segment there are already geo-referenced maps available. By clicking on a grey grid cell a selection window appears, which displays the yet not geo-referenced ordnance maps for the corresponding grid cell. By clicking again on one of the displayed ordnance maps you will be forwarded to the geo-referencing view."
+msgstr "If you are logged in, you can display a grid with all available ordnance maps on the main map by clicking on the georeferencing symbol in the right upper corner. The grey grid cells show you the available and yet not referenced ordnance maps for this spatial segment. By contrast a green grid cell shows you, that for this spatial segment there are already georeferenced maps available. By clicking on a grey grid cell a selection window appears, which displays the yet not georeferenced ordnance maps for the corresponding grid cell. By clicking again on one of the displayed ordnance maps you will be forwarded to the georeferencing view."
 
 #: vkviewer/templates/faq.mako:244
 msgid "faq-geo-referencing"
@@ -378,11 +378,11 @@ msgstr "In this georeferencing view there shall be marked the real corner points
 
 #: vkviewer/templates/faq.mako:253
 msgid "faq-geo-referencing-2"
-msgstr "Therefore you can find on the left hand side a tool box which offers different tools for placing the corner points. If needed this toolbox can be deactivated by pressing the button with the wrench on it."
+msgstr "Therefore you can find on the left hand side a tool box which offers different tools for placing the corner points. If needed, this toolbox can be deactivated by pressing the button with the wrench on it."
 
 #: vkviewer/templates/faq.mako:256
 msgid "faq-geo-referencing-3"
-msgstr "To start the geo-refernce process select the tool <b>Set corner point</b> and then navigate to the corresponding corner points on the map. By clicking on the map you can place the corner point. If you did a miss-click you can adjust your result with the tools <b>Move corner point</b> (therefore select the corresponding corner point by clicking on it before displacing) or <b>Delete corner point</b>."
+msgstr "To start the georefernce process select the tool <b>Set corner point</b> and then navigate to the corresponding corner points on the map. By clicking on the map you can place the corner point. If you did a miss-click you can adjust your result with the tools <b>Move corner point</b> (therefore select the corresponding corner point by clicking on it before displacing) or <b>Delete corner point</b>."
 
 #: vkviewer/templates/faq.mako:259
 msgid "faq-geo-referencing-4"
@@ -394,7 +394,7 @@ msgstr "If you have selected three corner points you will be displayed a test re
 
 #: vkviewer/templates/faq.mako:265
 msgid "faq-geo-referencing-6"
-msgstr "When you have marked four corner points and if you are satisfied by the result, you can send it by pressing the <b>Confirm Georeferencing button</b>. Then it will be promptly and persistently geo-referenced and made available for other users."
+msgstr "When you have marked four corner points and if you are satisfied by the result, you can send it by pressing the <b>Confirm Georeferencing button</b>. Then it will be promptly and persistently georeferenced and made available for other users."
 
 #: vkviewer/templates/faq.mako:270
 
@@ -726,7 +726,7 @@ msgstr ""
 "In the research project an operational platform will be developed for "
 "researchers being interested in space and time aspects related to the "
 "area of the Federal Republic of Germany. On the one hand, it requires the"
-" development of tools for geo-referencing old maps and the creation of a "
+" development of tools for georeferencing old maps and the creation of a "
 "Germany-wide site name directory. On the other hand at the supply sidean "
 "operating and business model for a national hosting site for providing "
 "and receiving of digital old maps needs to be developed. In scientific "
