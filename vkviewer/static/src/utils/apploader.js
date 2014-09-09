@@ -222,12 +222,19 @@ vk2.utils.AppLoader.loadGeoreferenceEvaluationRecordBehavior = function(classNam
 			// remove this record
 			var recordEl = goog.dom.getElement(this.getAttribute(attributeNameId));
 			
-			// send the request
-			var url = this.getAttribute(attributeNameHref)
-			goog.net.XhrIo.send(url, function(event){
-				alert(event.target.getResponseJson()['message']);
-				goog.dom.removeNode(recordEl);
-			}, 'GET');	
+			// add confirm method
+			var confirmResponse = confirm('Are you sure you wanna ' + event.currentTarget.text + ' this record?');
+			if (confirmResponse == true) {
+				var url = this.getAttribute(attributeNameHref)
+				goog.net.XhrIo.send(url, function(event){
+					alert(event.target.getResponseJson()['message']);
+					goog.dom.removeNode(recordEl);
+				}, 'GET');	
+			} else {
+				if (goog.DEBUG)
+					console.log('No we won\'t will do this.');
+			};
+				
 		});
 	};
 };

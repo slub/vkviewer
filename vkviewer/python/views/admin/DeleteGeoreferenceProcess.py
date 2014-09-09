@@ -28,7 +28,7 @@ def deleteGeorefParameters(request):
         request.db.delete(georeferenceprocess)
         
         # mark the messtischblatt as updated
-        messtischblatt = Messtischblatt.by_ObjectId(messtischblattid, request.db)
+        messtischblatt = Messtischblatt.by_id(messtischblattid, request.db)
         messtischblatt.udpated = True
                 
         return json.dumps({'message':'The georeference process has been removed.'}, ensure_ascii=False, encoding='utf-8') 

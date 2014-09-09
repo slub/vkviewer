@@ -60,8 +60,10 @@
 												<a href="#" data-href="${request.route_url('georeference_evaluation', action='publish')}?objectid=${record['mtb_id']}&georeferenceid=${record['georef_id']}" 
 													data-id="${record['georef_id']}" class="btn btn-primary action-btn">Publish</a>
 												<a data-params="${record['clip_params']}" data-id="${record['mtb_id']}" href="#" class="btn btn-primary btn-show-georef">Show</a>
+												<a href="${request.route_url('georeference_page')}?id=${record['mtb_id']}&georeferenceid=${record['georef_id']}" 
+													class="btn btn-primary action-btn" target="_blank">Go to Process</a>
 												<a href="#" data-href="${request.route_url('georeference_evaluation', action='delete')}?georeferenceid=${record['georef_id']}" data-id="${record['georef_id']}" 
-													class="btn btn-warning action-btn">Delete Georeference Process</a>
+													class="btn btn-warning action-btn">Delete</a>
 											</p>
 										</article>
 									% endfor
