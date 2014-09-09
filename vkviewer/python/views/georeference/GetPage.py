@@ -19,14 +19,5 @@ def getPage_chooseGeorefMtb(request):
 @view_config(route_name='georeference_page', renderer='georeference.mako', permission='edit',http_cache=0)
 def getGeoreferencePage(request):
     log.info('Call view getGeoreferencePage.')
-    
     if 'id' in request.params:
-        mtb_extent = Messtischblatt.getExtent(request.params['id'], request.db)
-        mtb_gcps = [
-                    '{"pixel":"", "coords":"%s,%s"}'%(mtb_extent[0],mtb_extent[1]),
-                    '{"pixel":"", "coords":"%s,%s"}'%(mtb_extent[0],mtb_extent[3]),
-                    '{"pixel":"", "coords":"%s,%s"}'%(mtb_extent[2],mtb_extent[1]),
-                    '{"pixel":"", "coords":"%s,%s"}'%(mtb_extent[2],mtb_extent[3])
-        ]
-        log.debug('Messtischblatt extent is : %s'%mtb_gcps)
-        return {'gcps':mtb_gcps, 'objectid':request.params['id']}
+        return {'objectid':request.params['id']}

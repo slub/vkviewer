@@ -6,3 +6,6 @@
 .map-profile-page .container .row.metadata {
 	display: none;
 }
+
+.map-profile-page { height: 100%; }
+.map-profile-page .container { height: 100%; }

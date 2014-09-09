@@ -26,7 +26,7 @@
 			</div>
 			
 			
-			<div class="row body">
+			<div class="row map">
 
 				<div class="original-view">
 						<div class="container">

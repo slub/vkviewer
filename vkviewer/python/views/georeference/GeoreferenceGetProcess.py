@@ -70,6 +70,7 @@ def createGeneralResponse(objectid, request):
         log.debug('Create response ...')  
         metadata = MdCore.by_id(messtischblatt.id, request.db)
         return {
+                'type':'new',
                 'objectid': messtischblatt.id,
                 'georeferenceid':lastGeoreferenceId, 
                 'timestamp':str(lastTimestamp), 
@@ -105,6 +106,7 @@ def createResponseForSpecificGeoreferenceProcess(objectid, georeferenceid, reque
     log.debug('Create response ...')  
     metadata = MdCore.by_id(messtischblatt.id, request.db)
     return {
+            'type':'update',
             'objectid': messtischblatt.id,
             'georeferenceid':georeferenceid, 
             'timestamp':str(georeferenceprocess.timestamp), 

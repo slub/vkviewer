@@ -64,13 +64,6 @@
 						<!-- end footer -->
 		</div>
 	</div>
-	
-	<!-- append ground control points -->
-	% if gcps:
-		% for gcp in gcps:
-			<input type="hidden" name="gcp" class="hidden-gcps" value="${gcp}">
-		% endfor
-	% endif
 </%block>
 
 <%block name="js_content">
