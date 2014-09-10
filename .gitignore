@@ -43,3 +43,6 @@ log
 
 vkviewer/python/tests/test-data/
 /home/mendt/workspaces/vkviewer/template-files/metadaten-templates/tmp/
+
+# do not commit
+vkviewer/python/scripts/CheckForUpdatedMesstischblaetter.py
