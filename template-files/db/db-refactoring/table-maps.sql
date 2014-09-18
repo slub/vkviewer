@@ -11,6 +11,9 @@ CREATE TABLE maps
   hasgeorefparams integer DEFAULT 0,
   boundingbox geometry,
   CONSTRAINT maps_pkey PRIMARY KEY (id),
+  CONSTRAINT maps_messtischblatt_fkey FOREIGN KEY (apsobjectid)
+      REFERENCES messtischblatt (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT enforce_dims_boundingbox CHECK (st_ndims(boundingbox) = 2),
   CONSTRAINT enforce_geotype_boundingbox CHECK (geometrytype(boundingbox) = 'POLYGON'::text OR boundingbox IS NULL),
   CONSTRAINT enforce_srid_boundingbox CHECK (st_srid(boundingbox) = 4314)
