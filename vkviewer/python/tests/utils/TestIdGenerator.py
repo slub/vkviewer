@@ -34,4 +34,4 @@ class TestIdGenerator(unittest.TestCase):
         # test correct assert behavior
         self.assertRaises(ParsingException, parseOAI, 'oai:de:slub-dresden:vk:id-70000001z')
         self.assertRaises(ParsingException, parseOAI, 'oai:de:slub-dresden:id-70000001')
-
+        self.assertRaises(ParsingException, parseOAI, 'oai:de:slub-dresden:vk:iqd-10000003')

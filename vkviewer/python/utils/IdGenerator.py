@@ -33,8 +33,8 @@ def parseOAI(oai):
         raise ParsingException('The given OAI is not valide conforming to the VK rules.')
     
     # parse the oai
-    oai = str(splitted_oai[-1]).split('-')[1]
-    if is_number_tryexcept(oai):
-        return int(oai)
+    oai = str(splitted_oai[-1]).split('-')
+    if is_number_tryexcept(oai[1]) and (oai[0] == 'id' or oai[0] == 'set'):
+        return int(oai[1])
     else:
         raise ParsingException('The given OAI is not valide conforming to the VK rules. The parsed id is not an Integer.')

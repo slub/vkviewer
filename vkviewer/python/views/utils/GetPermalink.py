@@ -8,6 +8,8 @@ from vkviewer.python.utils.IdGenerator import parseOAI
 from vkviewer.python.utils.exceptions import NotFoundException
 from vkviewer import log
 
+ERROR_MSG = "Please check the syntax of your request parameters or contact the administrator."
+
 def mapObjectId(objectid, dbsession):
     """ 
         This function is need for mapping from the new id schema to old one.
@@ -43,7 +45,7 @@ def getPermalinkForObjectid(request):
         return {'url':permalink}
     except NotFoundException as e:
         log.error(e)
-        raise HTTPNotFound(e)
+        raise HTTPNotFound(ERROR_MSG)
     except Exception as e:
         log.error(e)
-        raise HTTPBadRequest(e)
+        raise HTTPBadRequest(ERROR_MSG)
