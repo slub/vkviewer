@@ -46,3 +46,6 @@ vkviewer/python/tests/test-data/
 
 # do not commit
 vkviewer/python/scripts/CheckForUpdatedMesstischblaetter.py
+
+# scripts which shouldn't be pushed to the repo
+vkviewer/python/scripts/db/*
