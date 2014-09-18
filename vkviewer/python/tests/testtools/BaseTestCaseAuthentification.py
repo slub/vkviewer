@@ -1,6 +1,6 @@
 import transaction
 from pyramid import testing
-from vkviewer.python.tests.utils.BaseTestCase import BaseTestCase
+from vkviewer.python.tests.testtools.BaseTestCase import BaseTestCase
 from vkviewer.python.models.messtischblatt.Users import Users
 
 login = 'test_pyramid'

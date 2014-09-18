@@ -4,14 +4,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from zope.sqlalchemy import ZopeTransactionExtension
 
-from vkviewer.settings import dbconfig
-from vkviewer import db
+from vkviewer.settings import DBCONFIG_PARAMS
+
  
 class BaseTestCase(unittest.TestCase):
      
     @classmethod
     def setUpClass(cls):     
-        cls.engine = create_engine(dbconfig, encoding='utf8', echo=True)
+        sqlalchemy_enginge = 'postgresql+psycopg2://%(user)s:%(password)s@%(host)s:5432/%(db)s'%(DBCONFIG_PARAMS)
+        cls.engine = create_engine(sqlalchemy_enginge, encoding='utf8', echo=True)
         cls.Session = scoped_session(sessionmaker(bind=cls.engine,extension=ZopeTransactionExtension()))
         cls.dbsession = cls.Session()
 

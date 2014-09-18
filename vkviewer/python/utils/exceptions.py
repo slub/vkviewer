@@ -120,7 +120,28 @@ class MissingParameterException(Exception):
         self.msg = msg
         
     def __str__(self):
-        return repr(self.msg)  
+        return repr(self.msg)
+    
+class ParsingException(Exception):
+    """ Raised if the are problems with the parsing
+        
+        Attributes:
+            msg  -- explanation of the error
+    """
+    
+    def __init__(self, msg):
+        self.msg = msg
+        
+    def __str__(self):
+        return repr(self.msg)    
+    
+class NotFoundException(Exception):
+   
+    def __init__(self, msg):
+        self.msg = msg
+        
+    def __str__(self):
+        return repr(self.msg)
     
 # Error Messages
 GENERAL_ERROR_MESSAGE = 'Something went wrong while trying to process your requests. Please try again or contact the administrators of the Virtual Map Forum 2.0.'
