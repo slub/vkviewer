@@ -245,8 +245,8 @@ class TestChildMetadataBinding(unittest.TestCase):
     def testUpdateGraphicOverview(self):
         try:
             updateValue = [
-                'http://kartenforum.slub-dresden.de/cgi-bin/mtbows?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=Historische%20Messtischblaetter&amp;TRANSPARENT=true&amp;FORMAT=image%2Fpng&amp;STYLES=&amp;SRS=EPSG%3A4314&amp;BBOX=20.9999980927,55.7999992371,21.1666679382,55.9000015259&amp;WIDTH=40&amp;HEIGHT=40&amp;TIME=19344',
-                'http://fotothek.slub-dresden.de/thumbs/df/dk/0010000/df_dk_0010001_0192.jpg',
+                #'http://kartenforum.slub-dresden.de/cgi-bin/mtbows?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=Historische%20Messtischblaetter&amp;TRANSPARENT=true&amp;FORMAT=image%2Fpng&amp;STYLES=&amp;SRS=EPSG%3A4314&amp;BBOX=20.9999980927,55.7999992371,21.1666679382,55.9000015259&amp;WIDTH=40&amp;HEIGHT=40&amp;TIME=19344',
+                #'http://fotothek.slub-dresden.de/thumbs/df/dk/0010000/df_dk_0010001_0192.jpg',
                 'http://fotothek.slub-dresden.de/mids/df/dk/0010000/df_dk_0010001_0192.jpg'
             ]
             
@@ -267,10 +267,10 @@ class TestChildMetadataBinding(unittest.TestCase):
             ]
             valueElements = mdEditor.root.findall('/'.join(xmlHierarchy))
                     
-            self.assertTrue(len(valueElements) == 3, 'Function: testUpdateGraphicOverview - Response has not the expected length')
+            self.assertTrue(len(valueElements) == 1, 'Function: testUpdateGraphicOverview - Response has not the expected length')
             self.assertEqual(valueElements[0].text,updateValue[0], 'Function: testUpdateGraphicOverview - Response is not equal to the expected response.')
-            self.assertEqual(valueElements[1].text,updateValue[1], 'Function: testUpdateGraphicOverview - Response is not equal to the expected response.')
-            self.assertEqual(valueElements[2].text,updateValue[2], 'Function: testUpdateGraphicOverview - Response is not equal to the expected response.')
+            #self.assertEqual(valueElements[1].text,updateValue[1], 'Function: testUpdateGraphicOverview - Response is not equal to the expected response.')
+            #self.assertEqual(valueElements[2].text,updateValue[2], 'Function: testUpdateGraphicOverview - Response is not equal to the expected response.')
         except:
             raise
         finally:
@@ -289,3 +289,17 @@ class TestChildMetadataBinding(unittest.TestCase):
             raise
         finally:
             shutil.rmtree(tmpDirectory)        
+            
+def test_suite():
+    suite = unittest.TestSuite()
+    loader = unittest.TestLoader()
+    
+    print '=============='
+    print '=============='
+    print 'Run test suite'
+    
+    suite.addTests(loader.loadTestsFromTestCase(TestChildMetadataBinding))
+    return suite
+
+if __name__ == '__main__':
+    unittest.TextTestRunner(verbosity=2).run(test_suite())

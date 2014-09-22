@@ -9,6 +9,7 @@ import subprocess
 
 from os import *
 from datetime import datetime
+from osgeo import gdal
 
 def runCommand(command):
     try:
@@ -122,3 +123,15 @@ def getPathsToFiles(parentDirectory, listFiles, responseDictList = None):
             getPathsToFiles(directory, listFiles, responseDictList)
     
     return responseDictList
+
+def getImageSize(filePath):
+    """
+    Functions looks for the image size of an given path
+    @param {string} filePath
+    @return {Dictionary}
+    """
+    datafile = gdal.Open(filePath)
+    if datafile:
+        return {'x':datafile.RasterXSize,'y':datafile.RasterYSize}
+    return None
+    

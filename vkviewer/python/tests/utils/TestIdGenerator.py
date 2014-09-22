@@ -1,6 +1,6 @@
 import unittest
  
-from vkviewer.python.utils.IdGenerator import createOAI, parseOAI
+from vkviewer.python.utils.idgenerator import createOAI, parseOAI
 from vkviewer.python.utils.exceptions import ParsingException
  
 class TestIdGenerator(unittest.TestCase):

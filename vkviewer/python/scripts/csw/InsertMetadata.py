@@ -12,9 +12,15 @@ from vkviewer.python.scripts.csw.ChildMetadataBinding import ChildMetadataBindin
 from vkviewer.python.scripts.csw.CswTransactionBinding import gn_transaction_insert, gn_transaction_delete
 from vkviewer.python.models.Meta import initializeDb
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
+from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.MdZeit import MdZeit
 from vkviewer.python.models.messtischblatt.MdCore import MdCore
 from vkviewer.python.models.messtischblatt.MdDatensatz import MdDatensatz
+from vkviewer.python.utils.idgenerator import createOAI
+from vkviewer.python.georef.utils import getImageSize
+
+
+PERMALINK_PATTERN = 'http://digital.slub-dresden.de/'
 
 def insertMetadata(id, db, logger):
     logger.debug('Start inserting metadata')
@@ -46,13 +52,60 @@ def createTemporaryCopy(srcFile, destDir, ending='xml'):
         return destFile
     except:
         raise
+
+def getOnlineResourceData(mapObj, time, bboxObj, oai):    
+    image_size = getImageSize(mapObj.georefimage)
     
+    onlineResList = [
+        {
+            'url':TEMPLATE_OGC_SERVICE_LINK['wms_template']%({
+                'westBoundLongitude':str(bboxObj.llc.x),
+                'southBoundLatitude':str(bboxObj.llc.y),
+                'eastBoundLongitude':str(bboxObj.urc.x),
+                'northBoundLatitude':str(bboxObj.urc.y),
+                'srid':DATABASE_SRID,
+                'time':time,
+                'width':256,
+                'height':256
+            }),
+            'protocol':'OGC:WMS-1.1.1-http-get-map',
+            'name':'WEB MAP SERVICE (WMS)'
+        },{
+            'url':PERMALINK_PATTERN+oai,
+            'protocol':'HTTP',
+            'name':'Permalink'
+        }
+    ]
+    
+    if time <= 1900:
+        onlineResList.append({
+            'url':TEMPLATE_OGC_SERVICE_LINK['wcs_template']%({
+                'westBoundLongitude':str(bboxObj.llc.x),
+                'southBoundLatitude':str(bboxObj.llc.y),
+                'eastBoundLongitude':str(bboxObj.urc.x),
+                'northBoundLatitude':str(bboxObj.urc.y),
+                'srid':DATABASE_SRID,
+                'time':time,
+                'width':str(image_size['x']),
+                'height':str(image_size['y'])
+            }),
+            'protocol':'OGC:WCS-1.0.0-http-get-coverage',
+            'name':'WEB COVERAGE SERVICE (WCS)'
+        })  
+    return onlineResList
+         
 def getMetadataForMesstischblatt(id, db, logger):
     try:
         logger.debug('Start collection metadata information')
         mtb = Messtischblatt.by_id(id, db)
         metadata_core = MdCore.by_id(id, db)
+        bbox_4326 = mtb.getBoundingBoxObjWithEpsg(id, db, 4326)
+        mapObj = Map.by_apsObjectId(id, db)
         
+        # create metadata record id 
+        oai = createOAI(mapObj.id)
+        
+ 
         mdZeit = MdZeit.by_id(id, db)
         if mdZeit.datierung is None:
             metadata_time = ''
@@ -60,13 +113,16 @@ def getMetadataForMesstischblatt(id, db, logger):
             metadata_time = mdZeit.datierung
         metadata_dataset = MdDatensatz.by_ObjectId(id, db)
         
+        bbox_srid =  Map.getBoundingBoxObjWithEpsg(mapObj.id, db, DATABASE_SRID)
+        onlineResList = getOnlineResourceData(mapObj, metadata_time, bbox_srid, oai)
+        
         logger.debug('Metadata collection finish. Creating response')
         metadata = {
-                    'westBoundLongitude':str(mtb.BoundingBoxObj.llc.x),
-                    'eastBoundLongitude':str(mtb.BoundingBoxObj.urc.x),
-                    'southBoundLatitude':str(mtb.BoundingBoxObj.llc.y),
-                    'northBoundLatitude':str(mtb.BoundingBoxObj.urc.y),
-                    'identifier':'vk20-md-%s'%mtb.id,
+                    'westBoundLongitude':str(bbox_4326.llc.x),
+                    'eastBoundLongitude':str(bbox_4326.urc.x),
+                    'southBoundLatitude':str(bbox_4326.llc.y),
+                    'northBoundLatitude':str(bbox_4326.urc.y),
+                    'identifier':oai,
                     'dateStamp': datetime.now().strftime('%Y-%m-%d'),
                     'title': metadata_core.titel,
                     'cite_date': str(metadata_time),
@@ -76,56 +132,19 @@ def getMetadataForMesstischblatt(id, db, logger):
                     'permalink': metadata_dataset.permalink, 
                     'hierarchylevel': 'Messtischblatt' if mtb.mdtype == 'M' else 'Äquidistantenkarte', 
                     'overviews': [
-#                         'http://fotothek.slub-dresden.de/mids/df/dk/0010000/%s.jpg'%mtb.dateiname,
-#                         
-#                         TEMPLATE_OGC_SERVICE_LINK['wms_template']%({
-#                             'westBoundLongitude':str(mtb.BoundingBoxObj.llc.x),
-#                             'southBoundLatitude':str(mtb.BoundingBoxObj.llc.y),
-#                             'eastBoundLongitude':str(mtb.BoundingBoxObj.urc.x),
-#                             'northBoundLatitude':str(mtb.BoundingBoxObj.urc.y),
-#                             'srid':DATABASE_SRID,
-#                             'time':metadata_time.datierung,
-#                             'width':256,
-#                             'height':256
-#                         }),
-                        'http://fotothek.slub-dresden.de/thumbs/df/dk/0010000/%s.jpg'%mtb.dateiname
+                        'http://fotothek.slub-dresden.de/thumbs/df/dk/0010000/%s.jpg'%mapObj.apsdateiname
                     ],
                     'wms_params': {
-                        'westBoundLongitude':str(mtb.BoundingBoxObj.llc.x),
-                        'southBoundLatitude':str(mtb.BoundingBoxObj.llc.y),
-                        'eastBoundLongitude':str(mtb.BoundingBoxObj.urc.x),
-                        'northBoundLatitude':str(mtb.BoundingBoxObj.urc.y),
+                        'westBoundLongitude':str(bbox_srid.llc.x),
+                        'southBoundLatitude':str(bbox_srid.llc.y),
+                        'eastBoundLongitude':str(bbox_srid.urc.x),
+                        'northBoundLatitude':str(bbox_srid.urc.y),
                         'srid':DATABASE_SRID,
                         'time':metadata_time,
                         'width':256,
                         'height':256
                     },
-                    'onlineresource':[
-                        {
-                            'url':'http://kartenforum.slub-dresden.de/vkviewer/permalink?objectid=%s'%mtb.id,
-                            'protocol':'HTTP',
-                            'name':'Permalink'
-                        },
-                        {
-                            'url':TEMPLATE_OGC_SERVICE_LINK['wms_template']%({
-                                'westBoundLongitude':str(mtb.BoundingBoxObj.llc.x),
-                                'southBoundLatitude':str(mtb.BoundingBoxObj.llc.y),
-                                'eastBoundLongitude':str(mtb.BoundingBoxObj.urc.x),
-                                'northBoundLatitude':str(mtb.BoundingBoxObj.urc.y),
-                                'srid':DATABASE_SRID,
-                                'time':metadata_time,
-                                'width':256,
-                                'height':256
-                            }),
-                            'protocol':'OGC:WMS-1.1.1-http-get-map',
-                            'name':'WEB MAP SERVICE (WMS)'
-                        },
-                        {
-                            'url':metadata_dataset.permalink,
-                            'protocol':'HTTP',
-                            'name':'Permalink'
-                        }                        
-                    ]
+                    'onlineresource':onlineResList
         }
         return metadata
     except:

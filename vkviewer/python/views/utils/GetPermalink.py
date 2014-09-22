@@ -4,7 +4,7 @@ from pyramid.httpexceptions import HTTPNotFound, HTTPBadRequest
 # database imports
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.models.messtischblatt.Map import Map
-from vkviewer.python.utils.IdGenerator import parseOAI
+from vkviewer.python.utils.idgenerator import parseOAI
 from vkviewer.python.utils.exceptions import NotFoundException
 from vkviewer import log
 

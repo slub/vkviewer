@@ -16,7 +16,7 @@
         <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8">UTF 8</gmd:MD_CharacterSetCode>
     </gmd:characterSet>
     <gmd:parentIdentifier>
-        <gco:CharacterString>9a142459-749e-4904-aaa7-88cb3d418b85</gco:CharacterString> 
+        <gco:CharacterString>oai:de:slub-dresden:vk:set-87</gco:CharacterString> 
     </gmd:parentIdentifier>
     <gmd:hierarchyLevel>
         <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset" /> 
@@ -336,51 +336,6 @@
                 </gmd:MD_Distributor>
             </gmd:distributor>
             <gmd:transferOptions>
-                <gmd:MD_DigitalTransferOptions>
-                    <gmd:onLine>
-                        <gmd:CI_OnlineResource>
-                            <gmd:linkage>
-                                <gmd:URL>http://kartenforum.slub-dresden.de/vkviewer/permalink?objectid=335922473</gmd:URL>
-                            </gmd:linkage>
-			    <gmd:protocol>
-				<gco:CharacterString>HTTP</gco:CharacterString>
-			    </gmd:protocol>
-			    <gmd:name>
-				<gco:CharacterString>Permalink</gco:CharacterString>
-			    </gmd:name>
-                        </gmd:CI_OnlineResource>
-		    </gmd:onLine>
-		</gmd:MD_DigitalTransferOptions>
-		<gmd:MD_DigitalTransferOptions>
-		    <gmd:onLine>
-                        <gmd:CI_OnlineResource>
-                            <gmd:linkage>
-                                <gmd:URL>http://digital.slub-dresden.de/id335922473</gmd:URL>
-                            </gmd:linkage>
-			    <gmd:protocol>
-				<gco:CharacterString>HTTP</gco:CharacterString>
-			    </gmd:protocol>
-			    <gmd:name>
-				<gco:CharacterString>Permalink</gco:CharacterString>
-			    </gmd:name>
-                        </gmd:CI_OnlineResource>
-                    </gmd:onLine>
-		</gmd:MD_DigitalTransferOptions>
-		<gmd:MD_DigitalTransferOptions>
-		    <gmd:onLine>
-			<gmd:CI_OnlineResource>
-			    <gmd:linkage>
-				<gmd:URL>http://kartenforum.slub-dresden.de/cgi-bin/mtbows?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;LAYERS=Historische%20Messtischblaetter&amp;TRANSPARENT=true&amp;FORMAT=image%2Fpng&amp;STYLES=&amp;SRS=EPSG%3A4314&amp;BBOX=20.9999980927,55.7999992371,21.1666679382,55.9000015259&amp;WIDTH=256&amp;HEIGHT=256&amp;TIME=1939</gmd:URL>
-			    </gmd:linkage>
-			    <gmd:protocol>
-				<gco:CharacterString>OGC:WMS-1.1.1-http-get-map</gco:CharacterString>
-			    </gmd:protocol>
-			    <gmd:name>
-				<gco:CharacterString>WEB MAP SERVICE (WMS)</gco:CharacterString>
-			    </gmd:name>
-			</gmd:CI_OnlineResource>
-		     </gmd:onLine>
-                </gmd:MD_DigitalTransferOptions>
             </gmd:transferOptions>
         </gmd:MD_Distribution>
     </gmd:distributionInfo>

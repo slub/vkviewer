@@ -8,6 +8,20 @@ import copy
 from vkviewer.python.scripts.csw.Namespaces import Namespaces
 from vkviewer.settings import TEMPLATE_OGC_SERVICE_LINK 
  
+def appendElements(elements, parentElement):
+    """ 
+    @param {list} elements
+    @param {ET.Element} parentElement
+    @return {ET.Element}
+    """    
+    for elString in elements:
+        elem = ET.Element(elString)
+        parentElement.append(elem)
+        elements.remove(elString)
+        if len(elements) > 0:
+            elem = appendElements(elements, elem)    
+        return elem
+    
 class ChildMetadataBinding(object):
     '''
     This class encapsulate the functions which are bind to a metadata template document for a messtischblatt. 
@@ -47,7 +61,7 @@ class ChildMetadataBinding(object):
     def saveFile(self, destFile):
         self.tree.write(destFile, encoding="utf-8", xml_declaration=True)
         return destFile
-
+    
     def updateAbstract(self, value):
         try:
             self.logger.debug('Update <gmd:abstract> with value %s.'%value)
@@ -253,40 +267,46 @@ class ChildMetadataBinding(object):
         
     def updateOnlineResource(self, data):
         try:
-            self.logger.debug('Update <gmd:MD_DigitalTransferOptions>')
-            xmlHierarchy = [
+            self.logger.debug('Update online resources as <gmd:MD_DigitalTransferOptions>')
+            
+            # search parent element
+            xmlSearchHierarchy = [
                 self.ns['gmd']+'distributionInfo', 
                 self.ns['gmd']+'MD_Distribution',
-                self.ns['gmd']+'transferOptions',
-                self.ns['gmd']+'MD_DigitalTransferOptions',
-                self.ns['gmd']+'onLine',
-                self.ns['gmd']+'CI_OnlineResource'
+                self.ns['gmd']+'transferOptions'
             ]
-            rootElements = self.root.findall('/'.join(xmlHierarchy))
+            rootElement = self.root.find('/'.join(xmlSearchHierarchy))
             
-            loopSize = len(data)
-            if len(rootElements) is loopSize:
-                for i in range(0, loopSize):
-                    # set url
-                    urlElement = rootElements[i].find('/'.join([
-                        self.ns['gmd']+'linkage',
-                        self.ns['gmd']+'URL'
-                    ]))
-                    urlElement.text = data[i]['url']
-                    
-                    # set protocol
-                    protocolElement = rootElements[i].find('/'.join([
-                        self.ns['gmd']+'protocol',
-                        self.ns['gco']+'CharacterString'
-                    ]))
-                    protocolElement.text = data[i]['protocol']
-                    
-                    # set name
-                    nameElement = rootElements[i].find('/'.join([
-                        self.ns['gmd']+'name',
-                        self.ns['gco']+'CharacterString'
-                    ]))
-                    nameElement.text = data[i]['name']
+            for dict in data:
+                # now append online resources
+                xmlOnlineResourceHierarchy = [
+                    self.ns['gmd']+'MD_DigitalTransferOptions',
+                    self.ns['gmd']+'onLine',
+                    self.ns['gmd']+'CI_OnlineResource'
+                ]
+                onlineResourceElem = appendElements(xmlOnlineResourceHierarchy, rootElement)
+                
+                # now create and append the elements
+                linkageRes = ET.Element(self.ns['gmd']+'linkage')
+                urlRes = ET.Element(self.ns['gmd']+'URL')
+                urlRes.text = dict['url']
+                linkageRes.append(urlRes)
+                onlineResourceElem.append(linkageRes)
+                
+                protocolRes = ET.Element(self.ns['gmd']+'protocol')
+                charRes = ET.Element(self.ns['gco']+'CharacterString')
+                charRes.text = dict['protocol']
+                protocolRes.append(charRes)
+                onlineResourceElem.append(protocolRes)
+
+                
+                nameRes = ET.Element(self.ns['gmd']+'name')
+                charRes = ET.Element(self.ns['gco']+'CharacterString')
+                charRes.text = dict['name']
+                nameRes.append(charRes)
+                onlineResourceElem.append(nameRes)
+
+
             return True
         except:
             self.logger.error('Problems while updating the <gmd:MD_DigitalTransferOptions> with values %s.'%data)
