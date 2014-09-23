@@ -174,6 +174,13 @@ def processSingleGeorefProc(georefProc, dbsession, logger, testing = False):
         if destPath is None:
             logger.error('Something went wrong while trying to process a georeference process.')
             raise GeoreferenceProcessingError('Something went wrong while trying to process a georeference process.')
+ 
+    # for bridging the database refactoring updating the equivalent map object
+    # this has to be update but a better workflow should be relazied with refactoring
+    map = Map.by_apsObjectId(messtischblatt.id, dbsession)
+    map.georefimage = destPath
+    map.isttransformiert = True
+    dbsession.flush()
     
     if not testing:
         # push metadata to catalogue
@@ -192,11 +199,6 @@ def processSingleGeorefProc(georefProc, dbsession, logger, testing = False):
     if not refmtblayer:
         refmtblayer = RefMtbLayer(layer=MTB_LAYER_ID, messtischblatt=messtischblatt.id)
         dbsession.add(refmtblayer)
-    
-    # for bridging the database refactoring updating the equivalent map object
-    map = Map.by_apsObjectId(messtischblatt.id, dbsession)
-    map.georefimage = destPath
-    map.isttransformiert = True
     
     dbsession.flush()   
         
