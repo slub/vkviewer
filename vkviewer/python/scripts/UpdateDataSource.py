@@ -65,6 +65,8 @@ from vkviewer.python.scripts.csw.CswTransactionBinding import gn_transaction_del
 from vkviewer.python.georef.georeferencer import georeference, addOverviews
 from vkviewer.python.utils.parser import parseGcps
 from vkviewer.python.utils.exceptions import GeoreferenceProcessingError, WrongParameterException
+from vkviewer.python.models.messtischblatt.Map import Map
+from vkviewer.python.utils.idgenerator import createOAI
 
 """ Default options """
 # Threads which the mapcache_seeder uses
@@ -185,10 +187,17 @@ def processSingleGeorefProc(georefProc, dbsession, logger, testing = False):
     georefProc.processed = True
     messtischblatt.verzeichnispfad = destPath
     messtischblatt.isttransformiert = True 
+    messtischblatt.updated = False
     refmtblayer = RefMtbLayer.by_id(MTB_LAYER_ID, messtischblatt.id, dbsession)
     if not refmtblayer:
         refmtblayer = RefMtbLayer(layer=MTB_LAYER_ID, messtischblatt=messtischblatt.id)
         dbsession.add(refmtblayer)
+    
+    # for bridging the database refactoring updating the equivalent map object
+    map = Map.by_apsObjectId(messtischblatt.id, dbsession)
+    map.georefimage = destPath
+    map.isttransformiert = True
+    
     dbsession.flush()   
         
     return str(destPath)
@@ -202,13 +211,20 @@ def resetMapObject(mapObjectId, dbsession, logger, testing = False):
     refmtblayer = RefMtbLayer.by_id(MTB_LAYER_ID, messtischblatt.id, dbsession)
     if refmtblayer:
         dbsession.delete(refmtblayer)
-        
+    
+    # for bridging the database refactoring updating the equivalent map object
+    map = Map.by_apsObjectId(messtischblatt.id, dbsession)
+    map.georefimage = ''
+    map.isttransformiert = False
+    map.hasgeorefparams = 0
+    
     if testing:
         dbsession.rollback()
     
     logger.debug('Remove metadata record from catalog instance')
     if not testing:
-        gn_transaction_delete('vk20-md-%s'%messtischblatt.id, GN_SETTINGS['gn_username'], GN_SETTINGS['gn_password'], logger)
+        oai = createOAI(map.id)
+        gn_transaction_delete(oai, GN_SETTINGS['gn_username'], GN_SETTINGS['gn_password'], logger)
     return True
 
 def updateDataSources(dbsession, database_params, vrt_target_dir, tmp_dir, cache_dir, logger, testing = True):   

@@ -224,7 +224,7 @@
             </gmd:topicCategory>
             <gmd:extent>
                 <gmd:EX_Extent>       
-                    <gmd:temporalElement> <!-- md_zeit.datierung where md_zeit.type = 'a5064' -->
+                    <gmd:temporalElement> 
                         <gmd:EX_TemporalExtent>
                             <gmd:extent>
                                 <gml:TimePeriod>
@@ -300,7 +300,7 @@
                                 <gco:CharacterString>Jacob Mendt</gco:CharacterString>
                             </gmd:individualName>
                             <gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
-                                <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString><!-- Name der SLUB -->
+                                <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString>
                             </gmd:organisationName>
                             <gmd:address>
                                 <gmd:CI_Address>

@@ -189,7 +189,7 @@ if __name__ == '__main__':
     # get all messtischblätter
     messtischblaetter = Messtischblatt.all(dbSession)
     for messtischblatt in messtischblaetter:
-        if messtischblatt.isttransformiert and messtischblatt.id == 71051613:
+        if messtischblatt.isttransformiert:
             #response = gn_transaction_delete(messtischblatt.dateiname, gn_settings['gn_username'], gn_settings['gn_password'], logger)
             response = insertMetadata(id=messtischblatt.id,db=dbSession,logger=logger)
             print "Response - delete record"
