@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Core gmd based instance document -->
 <gmd:MD_Metadata xmlns="http://www.w3.org"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:gco="http://www.isotc211.org/2005/gco"
@@ -8,7 +7,7 @@
         xsi:schemaLocation="http://www.isotc211.org/2005/gco ../gco/gco.xsd
     http://www.isotc211.org/2005/gmd ../gmd/gmd.xsd http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/base/gml.xsd">
     <gmd:fileIdentifier>
-        <gco:CharacterString>oai:de:slub-dresden:vk:set-87</gco:CharacterString><!-- was für einen Identifier nutzen -->
+        <gco:CharacterString>oai:de:slub-dresden:vk:set-87</gco:CharacterString>
     </gmd:fileIdentifier>
     <gmd:language>
 	<gco:CharacterString>ger</gco:CharacterString>
@@ -17,7 +16,7 @@
         <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8">UTF 8</gmd:MD_CharacterSetCode>
     </gmd:characterSet>
     <gmd:hierarchyLevel>
-        <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset" /> <!-- Frage welchen CodeListValue wählen? -->
+        <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset" /> 
     </gmd:hierarchyLevel>
     <gmd:hierarchyLevelName>
         <gco:CharacterString>Topographische Karte (Messtischblaetter)</gco:CharacterString>
@@ -28,7 +27,7 @@
                 <gco:CharacterString>Dr. Georg Zimmermann</gco:CharacterString>
             </gmd:individualName>
             <gmd:organisationName>
-                <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString><!-- Name der SLUB -->
+                <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString>
             </gmd:organisationName>
 	    <gmd:contactInfo>
 		<gmd:CI_Contact>
@@ -65,12 +64,12 @@
 	    </gmd:contactInfo>
             <gmd:role>
                 <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
-                    codeListValue="custodian"/> <!-- custodian="party that accepts accountability and responsability for the data and ensures appropriate care and maintenance of the resource" , alternatives: owner/pointOfContact/user/publisher/...-->
+                    codeListValue="custodian"/> 
             </gmd:role>
         </gmd:CI_ResponsibleParty>
     </gmd:contact>
     <gmd:dateStamp>
-        <gco:Date>2013-07-11</gco:Date><!-- Aktuelles Datum -->
+        <gco:Date>2013-07-11</gco:Date>
     </gmd:dateStamp>
     <gmd:metadataStandardName>
         <gco:CharacterString>ISO 19115</gco:CharacterString>
@@ -111,12 +110,12 @@
             <gmd:citation>
                 <gmd:CI_Citation>
                     <gmd:title>
-                        <gco:CharacterString>Historische Messtischblaetter</gco:CharacterString> <!-- md_core.titel -->
+                        <gco:CharacterString>Historische Messtischblaetter</gco:CharacterString> 
                     </gmd:title>
                     <gmd:date>
                         <gmd:CI_Date>
                             <gmd:date>
-                                <gco:Date>2014-01-08</gco:Date><!-- md_zeit.datierung where md_zeit.type = 'a5064' -->
+                                <gco:Date>2014-01-08</gco:Date>
                             </gmd:date>
                             <gmd:dateType>
                                 <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/ML_gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation"/>
@@ -134,7 +133,7 @@
                         <gco:CharacterString>Dr. Georg Zimmermann</gco:CharacterString>
                     </gmd:individualName>
                     <gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
-                        <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString><!-- Name der SLUB -->
+                        <gco:CharacterString>Saechsische Landesbibliothek - Staats- und Universitätsbibliothek</gco:CharacterString>
                     </gmd:organisationName>
                     <gmd:address>
                         <gmd:CI_Address>
@@ -160,18 +159,18 @@
                     </gmd:address>
                     <gmd:role>
                         <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
-                            codeListValue="custodian"/> <!-- custodian="party that accepts accountability and responsability for the data and ensures appropriate care and maintenance of the resource" , alternatives: owner/pointOfContact/user/publisher/...-->
+                            codeListValue="custodian"/> 
                     </gmd:role>
                 </gmd:CI_ResponsibleParty>
             </gmd:pointOfContact>
-            <gmd:descriptiveKeywords> <!-- md_core.sachbegriffe-->
+            <gmd:descriptiveKeywords> 
                 <gmd:MD_Keywords>
                     <gmd:keyword>
                         <gco:CharacterString>Messtischblätter</gco:CharacterString>
                     </gmd:keyword>
                 </gmd:MD_Keywords>
             </gmd:descriptiveKeywords>
-            <gmd:descriptiveKeywords> <!-- md_core.sachbegriffe-->
+            <gmd:descriptiveKeywords> 
                 <gmd:MD_Keywords>
                     <gmd:keyword>
                         <gco:CharacterString>Georeferenced topographic map</gco:CharacterString>
@@ -195,7 +194,7 @@
 	    <gmd:spatialRepresentationType>
 		<gmd:MD_SpatialRepresentationTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_SpatialRepresentationTypeCode" codeListValue="grid" />
 	    </gmd:spatialRepresentationType>
-            <gmd:resourceConstraints> <!-- Wie soll das Copyright aussehen? -->
+            <gmd:resourceConstraints> 
                 <gmd:MD_LegalConstraints>
                     <gmd:useLimitation>
                         <gco:CharacterString>Alle Metadaten stehen unter der CC0-Lizenz zur Verfügung. Alle über die Infrastruktur des Virtuellen Kartenforum angeboten Karten mit einer Datierung vor 1900 stehen unter CC-BY-SA 4.0 zur Verfügung. Für jüngere Karten gilt aus urheberrechtlichen Gründen "Rechte vorbehalten/rights reserved". Nähere Informationen finden sie auch in den Nutzungsbestimmungen auf den Webseiten der SLUB (http://www.deutschefotothek.de)</gco:CharacterString>
@@ -207,7 +206,7 @@
                     <gmd:equivalentScale>
                         <gmd:MD_RepresentativeFraction>
                             <gmd:denominator>
-                                <gco:Integer>25000</gco:Integer><!-- md_core.massstab-->
+                                <gco:Integer>25000</gco:Integer>
                             </gmd:denominator>
                         </gmd:MD_RepresentativeFraction>
                     </gmd:equivalentScale>
@@ -267,7 +266,7 @@
     </gmd:identificationInfo>
     <gmd:distributionInfo>
         <gmd:MD_Distribution>
-            <gmd:distributionFormat> <!-- look for geotiff -->
+            <gmd:distributionFormat> 
                 <gmd:MD_Format>
                     <gmd:name>
                         <gco:CharacterString>png</gco:CharacterString>

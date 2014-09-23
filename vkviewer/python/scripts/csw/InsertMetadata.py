@@ -107,10 +107,10 @@ def getMetadataForMesstischblatt(id, db, logger):
         
  
         mdZeit = MdZeit.by_id(id, db)
-        if mdZeit.datierung is None:
-            metadata_time = ''
-        else: 
+        metadata_time = ''
+        if hasattr(mdZeit, 'datierung'):
             metadata_time = mdZeit.datierung
+            
         metadata_dataset = MdDatensatz.by_ObjectId(id, db)
         
         bbox_srid =  Map.getBoundingBoxObjWithEpsg(mapObj.id, db, DATABASE_SRID)
@@ -189,7 +189,7 @@ if __name__ == '__main__':
     # get all messtischblätter
     messtischblaetter = Messtischblatt.all(dbSession)
     for messtischblatt in messtischblaetter:
-        if messtischblatt.isttransformiert:
+        if messtischblatt.isttransformiert and messtischblatt.id == 71051613:
             #response = gn_transaction_delete(messtischblatt.dateiname, gn_settings['gn_username'], gn_settings['gn_password'], logger)
             response = insertMetadata(id=messtischblatt.id,db=dbSession,logger=logger)
             print "Response - delete record"
