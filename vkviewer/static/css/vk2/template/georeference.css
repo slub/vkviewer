@@ -129,8 +129,11 @@
 .georeference-tools-container{
   position:  absolute;
   top: 110px;
-  left: 28px !important;
+  left: 28px;
 }
+.olMap:-webkit-full-screen .georeference-tools-container {left: 1em !important; }
+.olMap:-moz-full-screen .georeference-tools-container {left: 1em !important; } 
+.olMap:fullscreen .georeference-tools-container {left: 1em !important; } 
 
 .georeference-tools-container .georeference-tools-handler{	
 	z-index: 1001;
