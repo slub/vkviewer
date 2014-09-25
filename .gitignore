@@ -49,3 +49,4 @@ vkviewer/python/scripts/CheckForUpdatedMesstischblaetter.py
 
 # scripts which shouldn't be pushed to the repo
 # vkviewer/python/scripts/db/*
+georeference/settings.py

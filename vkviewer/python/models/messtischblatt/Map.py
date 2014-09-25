@@ -1,7 +1,9 @@
+from sqlalchemy import Column, Integer, Boolean, String
+from sqlalchemy import desc
 from vkviewer.python.models.Meta import Base
 from vkviewer.python.models.messtischblatt.Geometry import Geometry
 from vkviewer.python.georef.geometry import createBBoxFromPostGISString
-from sqlalchemy import Column, Integer, Boolean, String
+
 
 class Map(Base):
     __tablename__ = 'maps'
@@ -16,7 +18,11 @@ class Map(Base):
     maptype = Column(String(255))
     hasgeorefparams = Column(Integer)
     boundingbox = Column(Geometry)    
-    
+
+    @classmethod
+    def all(cls, session):
+        return session.query(Map).order_by(desc(Map.id))
+        
     @classmethod
     def by_id(cls, id, session):
         return session.query(Map).filter(Map.id == id).first()
