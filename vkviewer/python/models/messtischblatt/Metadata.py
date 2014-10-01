@@ -1,6 +1,6 @@
 from vkviewer.python.models.Meta import Base
 
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, desc
 
 class Metadata(Base):
     __tablename__ = 'metadata'
@@ -21,7 +21,12 @@ class Metadata(Base):
     imagejpg = Column(String(255))
     imagezoomify = Column(String(255))
     timepublish = Column(DateTime(timezone=False))
+    blattnr = Column(String(10))
     
     @classmethod
     def by_id(cls, id, session):
         return session.query(Metadata).filter(Metadata.mapid == id).first()
+    
+    @classmethod
+    def all_byBlattnr(cls, blattnr, session):
+        return session.query(Metadata).filter(Metadata.blattnr == blattnr).order_by(desc(Metadata.mapid))

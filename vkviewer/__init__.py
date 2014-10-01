@@ -96,10 +96,7 @@ def addRoutes(config):
     # permalink page
     config.add_route('permalink', ROUTE_PREFIX+'/permalink')
     config.add_route('permalinkv2', ROUTE_PREFIX+'/permalinkv2')
-    
-    # test pages
-    config.add_route('development_page', ROUTE_PREFIX+'/development')
-
+ 
 def db(request):
     return request.registry.dbmaker()   
     

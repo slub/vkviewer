@@ -19,8 +19,7 @@ class BaseTestCaseAuthentification(BaseTestCase):
     
     @classmethod
     def tearDownClass(cls):     
-        cls.dbsession.delete(cls.user)
-        transaction.commit()
+        cls.dbsession.rollback()
         
     @classmethod
     def createTestUser(cls):

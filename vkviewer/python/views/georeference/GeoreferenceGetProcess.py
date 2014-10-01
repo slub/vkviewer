@@ -6,13 +6,29 @@ import logging, json, ast
 
 # own import stuff
 from vkviewer import log
+from vkviewer.settings import ADMIN_ADDR
 from vkviewer.python.utils.validation import validateId
-from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
+from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
-from vkviewer.python.models.messtischblatt.MdCore import MdCore
+from vkviewer.python.models.messtischblatt.Metadata import Metadata
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 
-@view_config(route_name='georeference', renderer='string', permission='view', match_param='action=getprocess')
+ERROR_MSG = "Please check your request parameters or contact the administrator (%s)."%ADMIN_ADDR
+
+def parseMapObjForId(request_data, dbsession):
+    if 'objectid' in request_data:
+        validateId(request_data['objectid'])         
+        # @deprecated     
+        # do mapping for support of new name schema
+        apsObjectId = int(request_data['objectid'])
+        mapObj = Map.by_apsObjectId(apsObjectId, dbsession)
+        if mapObj is None:
+            raise GeoreferenceParameterError('Missing objectid parameter.')           
+        else:
+            return mapObj
+    raise GeoreferenceParameterError('Missing objectid parameter.')      
+    
+@view_config(route_name='georeference', renderer='json', permission='view', match_param='action=getprocess')
 def georeferenceGetProcess(request):
     log.info('Receive request GetGeoreferenceProcess')
     
@@ -21,40 +37,34 @@ def georeferenceGetProcess(request):
         if request.method == 'POST':
             request_data = request.json_body
         
-        objectid = None
-        if 'objectid' in request_data:
-            validateId(request_data['objectid'])
-            objectid = int(request_data['objectid'])
-            log.debug('Objectid is valide: %s'%request_data)
+        mapObj = parseMapObjForId(request_data, request.db)
+        log.debug('Objectid is valide: %s'%request_data)
         
         georeferenceid = None
         if 'georeferenceid' in request_data:
             georeferenceid = int(request_data['georeferenceid'])
             
+        log.debug('Parsed parameters - mapid: %s, georeferenceid: %s'%(mapObj.id, georeferenceid))
         if georeferenceid:
-            response = createResponseForSpecificGeoreferenceProcess(objectid, georeferenceid, request)
+            response = createResponseForSpecificGeoreferenceProcess(mapObj, request, georeferenceid)
         else:
-            response = createGeneralResponse(objectid, request)
+            response = createGeneralResponse(mapObj, request)
         return json.dumps(response, ensure_ascii=False, encoding='utf-8')               
     except GeoreferenceParameterError as e:
-        message = 'Wrong or missing service parameter - %s'%e.value
-        log.error(message)
-        return HTTPBadRequest(message) 
+        log.error(e)
+        raise HTTPBadRequest(ERROR_MSG) 
     except Exception as e:
-        message = 'Problems while creating response for getprocess request - %s'%e
-        log.error(message)
-        return HTTPInternalServerError(message)
+        log.error(e)
+        raise HTTPInternalServerError(ERROR_MSG)
 
-def createGeneralResponse(objectid, request):
+def createGeneralResponse(mapObj, request):
     log.debug('Create general response ...')
-    lastGeoreferenceId = ''
-    lastTimestamp = ''
-    messtischblatt = Messtischblatt.by_id(objectid, request.db)
-    mtb_extent = Messtischblatt.getExtent(objectid, request.db)
-    isAlreadyGeorefProcess = Georeferenzierungsprozess.by_getLatestValidGeorefProcessForObjectId(messtischblatt.id, request.db)
+    
+    isAlreadyGeorefProcess = Georeferenzierungsprozess.isGeoreferenced(mapObj.id, request.db)
     if isAlreadyGeorefProcess:
-        return createResponseForSpecificGeoreferenceProcess(objectid, isAlreadyGeorefProcess.id, request)
+        return createResponseForSpecificGeoreferenceProcess(mapObj, request)
     else: 
+        mtb_extent = Map.getExtent(mapObj.id, request.db)
         gcps = {
             'source':'pixel',
             'target':'EPSG:4314',
@@ -68,58 +78,54 @@ def createGeneralResponse(objectid, request):
             
         # get zoomify and metadata information
         log.debug('Create response ...')  
-        metadata = MdCore.by_id(messtischblatt.id, request.db)
+        metadata = Metadata.by_id(mapObj.id, request.db)
         return {
                 'type':'new',
-                'objectid': messtischblatt.id,
-                'georeferenceid':lastGeoreferenceId, 
-                'timestamp':str(lastTimestamp), 
+                'objectid': mapObj.id,
+                'georeferenceid':"", 
+                'timestamp':"", 
                 'gcps':gcps, 
                 'extent': mtb_extent,
-                'zoomify': {
-                    'properties': messtischblatt.zoomify_properties,
-                    'width': messtischblatt.zoomify_width,
-                    'height': messtischblatt.zoomify_height
-                },
+                'zoomify': metadata.imagezoomify,
                 'metadata': {
-                    'dateiname': messtischblatt.dateiname,
-                    'titel_long': metadata.titel,
-                    'titel_short': metadata.titel_short
+                    'dateiname': mapObj.apsdateiname,
+                    'titel_long': metadata.title,
+                    'titel_short': metadata.titleshort
                 }            
         }
     
-def createResponseForSpecificGeoreferenceProcess(objectid, georeferenceid, request):
+def createResponseForSpecificGeoreferenceProcess(mapObj, request, georeferenceid = None):
     log.debug('Create response for specific georeference process ...')
-    messtischblatt = Messtischblatt.by_id(objectid, request.db)
-    mtb_extent = Messtischblatt.getExtent(objectid, request.db)
-    georeferenceprocess = Georeferenzierungsprozess.by_id(georeferenceid, request.db)
-    pure_clipparameters = ast.literal_eval(str(georeferenceprocess.clipparameter))
-    gcps = None
-    if 'new' in pure_clipparameters:
-        # in case of an update process
-        gcps = pure_clipparameters['new']
+    mtb_extent = Map.getExtent(mapObj.id, request.db)
+    if georeferenceid is None:
+        georeferenceprocess = Georeferenzierungsprozess.getActualGeoreferenceProcessForMapId(mapObj.id, request.db)
     else:
+        georeferenceprocess = Georeferenzierungsprozess.by_id(georeferenceid, request.db)
+    pure_clipparameters = ast.literal_eval(str(georeferenceprocess.clipparameter))
+    
+    # get the actual valide gcps
+    gcps = None
+    if georeferenceprocess.type == 'new':
         # in case of a new registered clip_parameter
         gcps = pure_clipparameters
+    else:
+        # in case of an update process
+        gcps = pure_clipparameters['new']
           
     # get zoomify and metadata information
     log.debug('Create response ...')  
-    metadata = MdCore.by_id(messtischblatt.id, request.db)
+    metadata = Metadata.by_id(mapObj.id, request.db)
     return {
             'type':'update',
-            'objectid': messtischblatt.id,
-            'georeferenceid':georeferenceid, 
+            'objectid': mapObj.id,
+            'georeferenceid':georeferenceprocess.id, 
             'timestamp':str(georeferenceprocess.timestamp), 
             'gcps':gcps, 
             'extent': mtb_extent,
-            'zoomify': {
-                'properties': messtischblatt.zoomify_properties,
-                'width': messtischblatt.zoomify_width,
-                'height': messtischblatt.zoomify_height
-            },
+            'zoomify': metadata.imagezoomify,
             'metadata': {
-                'dateiname': messtischblatt.dateiname,
-                'titel_long': metadata.titel,
-                'titel_short': metadata.titel_short
+                'dateiname': mapObj.apsdateiname,
+                'titel_long': metadata.title,
+                'titel_short': metadata.titleshort
             }            
     }

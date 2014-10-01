@@ -1,5 +1,7 @@
 from vkviewer.python.models.Meta import Base
 from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
+from vkviewer.python.models.messtischblatt.Map import Map
+from vkviewer.python.models.messtischblatt.Metadata import Metadata
 from vkviewer.python.models.messtischblatt.MdCore import MdCore
 from webhelpers.paginate import PageURL_WebOb, Page
 
@@ -42,18 +44,18 @@ def getCountOfGeorefMesstischblaetter(session):
     @param page - {Integer}
     @return {Paginator} 
 """
-def getZoomifyCollectionForBlattnr(request, blattnr, session, page=1):
-    coll = []
-    mtbs = Messtischblatt.allForBlattnr(blattnr, session)
-    for mtb in mtbs:
-        metadata = MdCore.by_id(mtb.id, session)
-        if mtb.mdtype == 'M' and mtb.istaktiv and not mtb.isttransformiert and mtb.hasgeorefparams == 0:
-            item = {'mtbid':mtb.id,'layername':mtb.dateiname,'titel':metadata.titel,'titel_short':metadata.titel_short,
-                    'zoomify_prop':mtb.zoomify_properties,'zoomify_width':mtb.zoomify_width,'zoomify_height':mtb.zoomify_height}
-            coll.append(item)
-    # create paginator
-    page_url = PageURL_WebOb(request)
-    return Page(coll, page, url=page_url, items_per_page=10)
+# def getZoomifyCollectionForBlattnr(request, blattnr, session, page=1):
+#     coll = []
+#     metadata = Metadata.all_byBlattnr(blattnr, session)
+#     for record in metadata:
+#         map = Map.by_id(record.mapid, session)
+#         if map.istaktiv and not map.isttransformiert and map.hasgeorefparams == 0:
+#             item = {'mapid':map.id,'name':map.apsdateiname,'title':record.title,'title_short':record.titleshort,
+#                     'zoomify':record.imagezoomify}
+#             coll.append(item)
+#     # create paginator
+#     page_url = PageURL_WebOb(request)
+#     return Page(coll, page, url=page_url, items_per_page=10)
 
 def getCollectionForBlattnr(blattnr, session):
     coll =[]

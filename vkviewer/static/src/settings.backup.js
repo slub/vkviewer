@@ -33,7 +33,7 @@ vk2.settings.WFS_GEOSERVER_URL = 'http://kartenforum.slub-dresden.de/geoserver/v
 /**
  * @type {string}
  */
-vk2.settings.WFS_GRID_URL = 'http://kartenforum.slub-dresden.de/cgi-bin/testows'; //'http://kartenforum.slub-dresden.de/cgi-bin/mtb_grid';
+vk2.settings.WFS_GRID_URL = 'http://kartenforum.slub-dresden.de/cgi-bin/mtb_grid';
 
 /**
  * @type {string}
@@ -58,7 +58,7 @@ vk2.settings.THUMBNAIL_URL =  'http://fotothek.slub-dresden.de/thumbs/df/dk/0010
 /**
  * @type {string}
  */
-vk2.settings.GEOREFERENCECHOOSER_WMS = 'http://kartenforum.slub-dresden.de/cgi-bin/testows'; //'http://kartenforum.slub-dresden.de/cgi-bin/mtb_grid';
+vk2.settings.GEOREFERENCECHOOSER_WMS = 'http://kartenforum.slub-dresden.de/cgi-bin/mtb_grid';
 
 /**
  * @type {string}

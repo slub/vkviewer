@@ -1,5 +1,5 @@
 from vkviewer.python.models.Meta import Base
-from sqlalchemy import Column, Integer, Boolean, String, DateTime, desc
+from sqlalchemy import Column, Integer, Boolean, String, DateTime, desc, asc
 
 class Georeferenzierungsprozess(Base):
     __tablename__ = 'georeferenzierungsprozess'
@@ -8,12 +8,14 @@ class Georeferenzierungsprozess(Base):
     messtischblattid = Column(Integer)
     clipparameter = Column(String(255))
     timestamp = Column(DateTime(timezone=False))
-    isvalide = Column(Boolean)
     type = Column(String(255))
     nutzerid = Column(String(255))
     refzoomify = Column(Boolean)
-    publish = Column(Boolean)
     processed = Column(Boolean)
+    isactive = Column(Boolean)
+    overwrites = Column(Integer)
+    adminvalidation = Column(String(20))
+    mapsid = Column(Integer)
     
     @classmethod
     def all(cls, session):
@@ -34,11 +36,18 @@ class Georeferenzierungsprozess(Base):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.messtischblattid == id).first()
     
     @classmethod
+    def by_getNewGeorefProcessForObjectId(cls, id, session):
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.messtischblattid == id)\
+            .filter(Georeferenzierungsprozess.type == 'New')\
+            .order_by(desc(Georeferenzierungsprozess.timestamp))
+            
+    # @deprecated
+    @classmethod
     def by_getLatestValidGeorefProcessForObjectId(cls, id, session):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.messtischblattid == id)\
             .filter(Georeferenzierungsprozess.publish == True)\
             .order_by(desc(Georeferenzierungsprozess.timestamp)).first()
-            
+                                 
     @classmethod
     def by_getUnprocessedGeorefProcesses(cls, session):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.processed == False)
@@ -46,3 +55,17 @@ class Georeferenzierungsprozess(Base):
     @classmethod    
     def getLatestGeorefProcessForObjectId(cls, id, session):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.messtischblattid == id).order_by(desc(Georeferenzierungsprozess.timestamp)).first()
+    
+    @classmethod
+    def getActualGeoreferenceProcessForMapId(cls, mapId, session):
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapsid == mapId)\
+            .filter(Georeferenzierungsprozess.isactive == True).first()
+        
+    @classmethod
+    def isGeoreferenced(cls, mapId, session):
+        georefProcess = session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapsid == mapId)\
+            .filter(Georeferenzierungsprozess.isactive == True)\
+            .order_by(desc(Georeferenzierungsprozess.timestamp)).first()
+        if georefProcess is None:
+            return False
+        return True

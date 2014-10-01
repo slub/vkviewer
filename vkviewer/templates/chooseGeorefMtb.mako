@@ -11,10 +11,10 @@
 			
 				<h2>${_('georef_choose_map')}</h2>
 				
-				% for mtb in paginator.items:
+				% for map in paginator.items:
 					
-					<a href="${request.route_url('georeference_page')}?id=${mtb['mtbid']}&zoomify_prop=${mtb['zoomify_prop']}&zoomify_width=${mtb['zoomify_width']}&zoomify_height=${mtb['zoomify_height']}&layer=${mtb['titel']}" 
-						target="_top">${mtb['titel']}</a> <br> 
+					<a href="${request.route_url('georeference_page')}?id=${map['mapid']}&zoomify=${map['zoomify']}&layer=${map['title']}" 
+						target="_top">${map['title']}</a> <br> 
 						
 				% endfor
 			

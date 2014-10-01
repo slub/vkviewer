@@ -10,7 +10,7 @@ def validateId(id):
     try:
         # check if mtbid is valide
         if (id != None):
-            if isinstance(int(id), int) and len(str(id)) == 8:
+            if isinstance(int(id), int):
                 return True
             else:
                 raise GeoreferenceParameterError(errorMsg)
