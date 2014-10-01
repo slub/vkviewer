@@ -47,7 +47,7 @@ class GeoreferenceGetProcessTest(BaseTestCaseAuthentification):
         self.dbsession.add(georefProc)
         self.dbsession.flush()
         
-        params = {'objectid':90015724}
+        params = {'objectid':10000023}
         request = self.getRequestWithAuthentification(params)
         request.json_body = params
         response = georeferenceGetProcess(request)
@@ -74,7 +74,7 @@ class GeoreferenceGetProcessTest(BaseTestCaseAuthentification):
         print "\n"
         print "Testing correct working of georeferenceGetProcess for a new objectid ..."
 
-        params = {'objectid':90015724}
+        params = {'objectid':10000023}
         request = self.getRequestWithAuthentification(params)
         request.json_body = params
         response = georeferenceGetProcess(request)
@@ -104,7 +104,7 @@ class GeoreferenceGetProcessTest(BaseTestCaseAuthentification):
         print "\n"
         print "Testing correct error behavior in case of wrong one parameter inputs ..."
         
-        params_wrongObjId = {'objectid':900157244}
+        params_wrongObjId = {'objectid':100000233}
         request_wrongObjId = self.getRequestWithAuthentification(params_wrongObjId)
         request_wrongObjId.json_body = params_wrongObjId
         self.assertRaises(HTTPBadRequest, georeferenceGetProcess, request_wrongObjId)
@@ -134,7 +134,7 @@ class GeoreferenceGetProcessTest(BaseTestCaseAuthentification):
         self.dbsession.add(georefProc)
         self.dbsession.flush()
         
-        params = {'objectid':90015724, 'georeferenceid':georefProc.id}
+        params = {'objectid':10000023, 'georeferenceid':georefProc.id}
         request = self.getRequestWithAuthentification(params)
         request.json_body = params
         response = georeferenceGetProcess(request)

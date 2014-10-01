@@ -9,12 +9,10 @@ from webhelpers.paginate import PageURL_WebOb, Page
 
 from vkviewer import log
 from vkviewer.settings import ADMIN_ADDR
-from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.Metadata import Metadata
 
 ERROR_MSG = "Please check your request parameters or contact the administrator (%s)."%ADMIN_ADDR
-
 
 """ Returns a page for choosing a messtischblatt for georeferencering """
 @view_config(route_name='choose_map_georef', renderer='chooseGeorefMtb.mako', permission='view',http_cache=0)
@@ -29,8 +27,7 @@ def chooseGeoreferenceMap(request):
         for record in metadata:
             map = Map.by_id(record.mapid, request.db)
             if map.istaktiv and not map.isttransformiert and map.hasgeorefparams == 0:
-                item = {'mapid':map.id,'name':map.apsdateiname,'title':record.title,'title_short':record.titleshort,
-                    'zoomify':record.imagezoomify}
+                item = {'mapid':map.id,'title':record.title}
                 collection.append(item)
     
         log.debug('Create paginator for collection - %s'%collection)

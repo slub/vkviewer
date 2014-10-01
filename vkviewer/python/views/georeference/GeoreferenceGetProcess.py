@@ -7,27 +7,14 @@ import logging, json, ast
 # own import stuff
 from vkviewer import log
 from vkviewer.settings import ADMIN_ADDR
-from vkviewer.python.utils.validation import validateId
 from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from vkviewer.python.models.messtischblatt.Metadata import Metadata
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
+from vkviewer.python.utils.parser import parseMapObjForId
 
 ERROR_MSG = "Please check your request parameters or contact the administrator (%s)."%ADMIN_ADDR
-
-def parseMapObjForId(request_data, dbsession):
-    if 'objectid' in request_data:
-        validateId(request_data['objectid'])         
-        # @deprecated     
-        # do mapping for support of new name schema
-        apsObjectId = int(request_data['objectid'])
-        mapObj = Map.by_apsObjectId(apsObjectId, dbsession)
-        if mapObj is None:
-            raise GeoreferenceParameterError('Missing objectid parameter.')           
-        else:
-            return mapObj
-    raise GeoreferenceParameterError('Missing objectid parameter.')      
-    
+ 
 @view_config(route_name='georeference', renderer='json', permission='view', match_param='action=getprocess')
 def georeferenceGetProcess(request):
     log.info('Receive request GetGeoreferenceProcess')
@@ -37,7 +24,7 @@ def georeferenceGetProcess(request):
         if request.method == 'POST':
             request_data = request.json_body
         
-        mapObj = parseMapObjForId(request_data, request.db)
+        mapObj = parseMapObjForId(request_data, 'objectid', request.db)
         log.debug('Objectid is valide: %s'%request_data)
         
         georeferenceid = None

@@ -2,6 +2,7 @@
 
 <%block name="header_content">	 
 	<script>
+		goog.require('vk2.app.GeoreferenceApp');
 		goog.require('vk2.utils.AppLoader');
 	</script>
 </%block>
@@ -67,7 +68,8 @@
 
 <%block name="js_content">
     <script>	
-		vk2.utils.AppLoader.loadGeoreferenceApp('unreferenced-map','georeferenced-map');
+    	var georeferenceApp = new vk2.app.GeoreferenceApp('unreferenced-map','georeferenced-map');
+		//vk2.utils.AppLoader.loadGeoreferenceApp('unreferenced-map','georeferenced-map');
     </script> 
 </%block>
 

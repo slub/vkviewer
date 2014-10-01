@@ -46,3 +46,5 @@ class Map(Base):
         for i in range(0,len(extent)):
             parsed_extent.append(float(extent[i]))
         return parsed_extent
+    
+    

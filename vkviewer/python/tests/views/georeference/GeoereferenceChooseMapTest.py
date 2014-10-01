@@ -9,7 +9,6 @@ from webhelpers.paginate import Page
 
 from vkviewer.python.tests.testtools.BaseTestCaseAuthentification import BaseTestCaseAuthentification
 from vkviewer.python.views.georeference.GeoreferenceChooseMap import chooseGeoreferenceMap
-from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 
 class GeoreferenceChooseMapTest(BaseTestCaseAuthentification):
     

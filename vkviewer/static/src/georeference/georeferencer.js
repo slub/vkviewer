@@ -161,7 +161,7 @@ vk2.georeference.Georeferencer.prototype._loadGcpControls = function(parentEl){
 	goog.dom.appendChild(divEl_delPoint, toggleControlDelPoint);
 		
 	this._loadGcpControlsBehavior('toggle-elements');
-	
+
 	return toolContainer;
 };
 
@@ -170,7 +170,6 @@ vk2.georeference.Georeferencer.prototype._loadGcpControls = function(parentEl){
  * @private
  */
 vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(toggleControlClassName){
-	
 	var drawSource = this._gcpHandler.getFeatureSource();
 	var map = this._zoomifyViewer.getMap()
 	map.addLayer(new ol.layer.Vector({
@@ -295,11 +294,11 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 			alert('Something went wrong, while trying to process a georeference result. Please try again or contact the administrator.');
 		};
 		
-		var response = event.target.getResponseJson();
+		var response = JSON.parse(event.target.getResponseJson());
 		
 		if (goog.DEBUG)
 			console.log(response);
-		
+
 		this._resultViewer.displayValidationMap(response['wms_url'], response['layer_id'], 
 				ol.proj.transform(response['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS ));
 	});

@@ -4,7 +4,10 @@ Created on May 23, 2014
 @author: mendt
 '''
 import gdal
-from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
+
+from vkviewer.python.utils.validation import validateId
+from vkviewer.python.models.messtischblatt.Map import Map
+from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 
 def parseGcps(georeference):
     gcps = []
@@ -21,3 +24,16 @@ def convertUnicodeDictToUtf(input):
         return input.encode('utf-8')
     else:
         return input
+    
+def parseMapObjForId(request_data, name, dbsession):
+    """ This functions parses a map objectid from an objectid """
+    if name in request_data:
+        validateId(request_data[name])         
+        # @deprecated     
+        # do mapping for support of new name schema
+        mapObj = Map.by_id(int(request_data[name]), dbsession)
+        if mapObj is None:
+            raise GeoreferenceParameterError('Missing or wrong objectid parameter.')           
+        else:
+            return mapObj
+    raise GeoreferenceParameterError('Missing or wrong objectid parameter.')  
