@@ -99,10 +99,11 @@ def createResponseForSpecificGeoreferenceProcess(mapObj, request, georeferenceid
         # in case of an update process
         gcps = pure_clipparameters['new']
           
+
     # get zoomify and metadata information
     log.debug('Create response ...')  
     metadata = Metadata.by_id(mapObj.id, request.db)
-    return {
+    response = {
             'type':'update',
             'objectid': mapObj.id,
             'georeferenceid':georeferenceprocess.id, 
@@ -114,5 +115,11 @@ def createResponseForSpecificGeoreferenceProcess(mapObj, request, georeferenceid
                 'dateiname': mapObj.apsdateiname,
                 'titel_long': metadata.title,
                 'titel_short': metadata.titleshort
-            }            
-    }
+            }
+    }    
+                
+    # check if there is an other user is working on this map right now
+    areTherePendingUpdateProcesses = Georeferenzierungsprozess.arePendingProcessForMapId(mapObj.id, request.db)
+    if areTherePendingUpdateProcesses:
+        response['warn'] = 'There are other users who are working on this map right now. For preventing information losses please wait a minute and try again later.'   
+    return response

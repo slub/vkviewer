@@ -46,7 +46,7 @@ vk2.georeference.GeoreferencerChooser = function(parentEl, map){
 		var click_coords = event.map.getCoordinateFromPixel(event.pixel);
 		
 		// get request and request blattnr
-		var featureType = vk2.settings.WFS_PARSER_CONFIG['mtb_grid_puzzle']['featureType'];
+		var featureType = vk2.settings.WFS_PARSER_CONFIG[vk2.settings.GEOREFERENCECHOOSER_LAYERID]['featureType'];
 		var bbox = [click_coords[0],click_coords[1],click_coords[0]+1,click_coords[1]+1];
 		var request = vk2.request.WFS.getFeatureRequest_IntersectBBox(vk2.settings.WFS_GRID_URL, featureType, bbox)
 		goog.net.XhrIo.send(request, goog.bind(function(e){

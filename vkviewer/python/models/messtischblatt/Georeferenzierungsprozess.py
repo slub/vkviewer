@@ -69,3 +69,14 @@ class Georeferenzierungsprozess(Base):
         if georefProcess is None:
             return False
         return True
+    
+    @classmethod
+    def arePendingProcessForMapId(cls, mapId, session):
+        # at first get the actual overwrite id
+        actualOverwriteId = cls.getActualGeoreferenceProcessForMapId(mapId, session).id
+        georefProcesses = session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapsid == mapId)\
+            .filter(Georeferenzierungsprozess.overwrites == actualOverwriteId)\
+            .filter(Georeferenzierungsprozess.isactive == False).all()
+        if len(georefProcesses) > 0:
+            return True
+        return False

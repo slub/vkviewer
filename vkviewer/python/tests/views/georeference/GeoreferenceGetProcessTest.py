@@ -31,6 +31,24 @@ class GeoreferenceGetProcessTest(BaseTestCaseAuthentification):
                     overwrites = 0,
                     adminvalidation = ''
         )
+        self.dummyProcessUpdate = Georeferenzierungsprozess(
+                    mapsid = 10000023, 
+                    messtischblattid = 90015724, 
+                    nutzerid = login, 
+                    clipparameter = "{'new': {'source': 'pixel', 'target': 'EPSG:4314', 'gcps': [\
+                        {'source': [467, 923], 'target': [10.6666660308838, 51.4000015258789]}, \
+                        {'source': [7281, 999], 'target': [10.8333339691162, 51.4000015258789]}, \
+                        {'source': [7224, 7432], 'target': [10.8333339691162, 51.2999992370605]},\
+                        {'source': [258, 7471], 'target': [10.6666660308838, 51.2999992370605]}]},\
+                                    'remove':{'source': 'pixel', 'target': 'EPSG:4314', 'gcps':[]}}", 
+                    timestamp = "2014-08-09 12:20:26", 
+                    type = 'update', 
+                    refzoomify = True,
+                    isactive = False,
+                    processed = False,
+                    overwrites = 0,
+                    adminvalidation = ''
+        )
          
     def tearDown(self):
         testing.tearDown()    
@@ -97,7 +115,39 @@ class GeoreferenceGetProcessTest(BaseTestCaseAuthentification):
         self.assertEqual(parsed_response['zoomify'], "http://fotothek.slub-dresden.de/zooms/df/dk/0010000/df_dk_0010001_3352_1918/ImageProperties.xml",'Wrong or missing parameter in response ...')
         self.assertEqual(parsed_response['metadata']['dateiname'], "df_dk_0010001_3352_1918"
                          ,'Wrong or missing parameter in response ...')
+
+    def test_georeferenceGetProcessWithOneParamValideAndRaceCondition_success(self):
         
+        print "--------------------------------------------------------------------------------------------"
+        print "\n"
+        print "Testing correct working of georeferenceGetProcess for an objectid for a existing process ..."
+
+        # First test if it correctly response in case of existing georef process
+        # Create dummy process
+        georefProc = self.dummyProcess
+        self.dbsession.add(georefProc)
+        self.dbsession.flush()
+        
+        georefProcUpdate = self.dummyProcessUpdate
+        georefProcUpdate.overwrites = georefProc.id
+        self.dbsession.add(georefProcUpdate)
+        self.dbsession.flush()
+        
+        params = {'objectid':10000023}
+        request = self.getRequestWithAuthentification(params)
+        request.json_body = params
+        response = georeferenceGetProcess(request)
+        
+        print "Response - %s"%response
+                
+        # Do tests
+        parsed_response = json.loads(response)
+        self.assertTrue('warn' in parsed_response, 'Missing parameter (warn) in response ...')
+        
+        self.dbsession.delete(georefProc)
+        self.dbsession.delete(georefProcUpdate)
+        self.dbsession.flush()      
+   
     def test_georeferenceGetProcessWithOneParamInvalide_correctFail(self):
         
         print "--------------------------------------------------------------------------------------------"
