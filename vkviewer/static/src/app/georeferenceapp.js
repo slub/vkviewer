@@ -92,7 +92,6 @@ vk2.app.GeoreferenceApp.prototype.initializeWithObjectId_ = function(objectid, o
  * @param {Object} data
  */
 vk2.app.GeoreferenceApp.prototype.loaderFunction_ = function(originalMapContainerId, geoMapContainerId, data){
-	
 	if (goog.DEBUG){
 		console.log('Sucessfully fetch data from server - ' + data);
 	};
@@ -109,7 +108,7 @@ vk2.app.GeoreferenceApp.prototype.loaderFunction_ = function(originalMapContaine
 	goog.events.listen(this._zoomifyViewer, 'loadend', function(){
 
 		// load toolbox
-		var gcphandler = new vk2.georeference.MesstischblattGcpHandler(this._zoomifyViewer, new ol.source.Vector(), data['gcps']);
+		var gcphandler = new vk2.georeference.MesstischblattGcpHandler(this._zoomifyViewer, new ol.source.Vector(), data['gcps'], data['type']);
 		if (goog.isDef(this._zoomifyViewer) && goog.isDef(this._resultViewer)){
 			this._georeferencer = new vk2.georeference.Georeferencer(originalMapContainerId, {
 				'unreferencedviewer': this._zoomifyViewer,

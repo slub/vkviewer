@@ -50,7 +50,7 @@ def georeferenceConfirm(request):
             timestamp = getTimestampAsPGStr()
             georeference_parameter = str(convertUnicodeDictToUtf(request_data['georeference']))
             georefProcess = Georeferenzierungsprozess(messtischblattid = mapObj.apsobjectid, nutzerid = userid, 
-                clipparameter = json.dumps(georeference_parameter, ensure_ascii=False, encoding='utf-8'), timestamp = timestamp, isactive = True, type = 'new', 
+                clipparameter = georeference_parameter, timestamp = timestamp, isactive = True, type = 'new', 
                 refzoomify = True, adminvalidation = '', processed = False, mapsid = mapObj.id, overwrites = 0)
             request.db.add(georefProcess)
             request.db.flush()

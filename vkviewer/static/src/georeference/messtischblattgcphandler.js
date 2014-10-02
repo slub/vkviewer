@@ -6,10 +6,11 @@ goog.require('goog.events');
 /**
  * @param {vk2.georeference.ZoomifyViewer} zoomifyViewer
  * @param {ol.source.Vector} featureSource
- * @param {Object} opt_gcps
+ * @param {Object=} opt_gcps
+ * @param {string=} opt_type
  * @constructor
  */
-vk2.georeference.MesstischblattGcpHandler = function(zoomifyViewer, featureSource, opt_gcps){
+vk2.georeference.MesstischblattGcpHandler = function(zoomifyViewer, featureSource, opt_gcps, opt_type){
 	
 	/**
 	 * @type {vk2.georeference.ZoomifyViewer}
@@ -30,13 +31,13 @@ vk2.georeference.MesstischblattGcpHandler = function(zoomifyViewer, featureSourc
 	 * @type {boolean}
 	 * @private
 	 */
-	this._isUpdateState = this._checkIfUpdateState(this._gcps);
+	this.isUpdateState_ = this._checkIfUpdateState(opt_type);
 
 	/**
 	 * @type {ol.source.Vector}
 	 * @private
 	 */
-	this._featureSource = this._loadFeatureSource(this._gcps);
+	this._featureSource = this._loadFeatureSource(this._gcps, this.isUpdateState_);
 	
 	/**
 	 * @type {Object} 
@@ -44,22 +45,21 @@ vk2.georeference.MesstischblattGcpHandler = function(zoomifyViewer, featureSourc
 	 */
 	this._corners = {};
 	this._parseMtbCornerPoints(this._gcps);
-	this._appendUpdateEventBehavior(2);
+	this._appendUpdateEventBehavior(4);
 		
 	goog.base(this);
 };
 goog.inherits(vk2.georeference.MesstischblattGcpHandler, goog.events.EventTarget);
 
 /**
- * @param {Object} gcps
+ * @param {string=} opt_type
+ * @return {boolean}
  * @private
  */
-vk2.georeference.MesstischblattGcpHandler.prototype._checkIfUpdateState = function(gcps){
-	var passpoints = gcps['gcps']
-	if (passpoints.length > 0){	
-		if (passpoints[0]['source'].length > 0 && passpoints[0]['target'].length > 0)
-			return true;
-	}
+vk2.georeference.MesstischblattGcpHandler.prototype._checkIfUpdateState = function(opt_type){
+	if (goog.isDef(opt_type) && opt_type === 'update'){
+		return true;
+	};
 	return false;
 };
 
@@ -72,16 +72,16 @@ vk2.georeference.MesstischblattGcpHandler.prototype._appendUpdateEventBehavior =
 			'max_features': function(event){
 				var allFeatures = event.target.getFeatures();
 				//check for corner point number (<4!)
-				if (allFeatures.length > 4){
+				if (allFeatures.length > min_count_features){
 					alert(vk2.utils.getMsg('checkCornerPoint_count'));
-					event.target.removeFeature(allFeatures[4]);
+					event.target.removeFeature(allFeatures[min_count_features]);
 					return undefined;
 				}
 				return true;
 			},
 			'min_features': function(event){
 				var allFeatures = event.target.getFeatures();
-				if (allFeatures.length < 4)
+				if (allFeatures.length < min_count_features)
 					return false;
 				return true;
 			},
@@ -158,11 +158,12 @@ vk2.georeference.MesstischblattGcpHandler.prototype._isSameGcp = function(source
 
 /**
  * @param {Object} gcps
+ * @param {boolean} isUpdateState
  * @private
  * @return {ol.source.Vector} source
  */
-vk2.georeference.MesstischblattGcpHandler.prototype._loadFeatureSource = function(gcps){
-	if (this._checkIfUpdateState(gcps)){
+vk2.georeference.MesstischblattGcpHandler.prototype._loadFeatureSource = function(gcps, isUpdateState){
+	if (isUpdateState){
 		var features = [];
 		for (var i = 0; i < gcps['gcps'].length; i++){
 			var latlon = this._transformGeoCoordsToPixel(gcps['gcps'][i]['source']);
@@ -284,7 +285,7 @@ vk2.georeference.MesstischblattGcpHandler.prototype.getUpdateGcps = function(){
  * @return {boolean}
  */
 vk2.georeference.MesstischblattGcpHandler.prototype.isUpdateState = function(){
-	return this._isUpdateState;
+	return this.isUpdateState_;
 };
 
 vk2.georeference.MesstischblattGcpHandler.prototype.isValide = function(){
@@ -295,11 +296,12 @@ vk2.georeference.MesstischblattGcpHandler.prototype.isValide = function(){
 
 /**
  * @param {Object} gcps
+ * @param {string=} opt_type;
  */
 vk2.georeference.MesstischblattGcpHandler.prototype.registerGcps = function(gcps){
 	this._gcps = gcps;
 	this._parseMtbCornerPoints(this._gcps);
-	this._isUpdateState = this._checkIfUpdateState(this._gcps);
+	this.isUpdateState_ = tthis._checkIfUpdateState(opt_type);
 };
 
 /**
