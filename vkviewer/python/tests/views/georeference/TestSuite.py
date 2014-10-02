@@ -1,16 +1,22 @@
 import unittest
-from vkviewer.python.tests.views.georeference import GeoreferenceValidationTest
-from vkviewer.python.tests.views.georeference.GeoreferenceConfirmTest import ViewGeoreferenceConfirmTest_Short, ViewGeoreferenceConfirmTest_Long
-from GetPageTest import ViewGetPage_chooseGeorefMtbTests
+from vkviewer.python.tests.views.georeference.GeoreferenceConfirmTest import GeoreferenceConfirmTest
+from vkviewer.python.tests.views.georeference.GeoreferenceChooseMapTest import GeoreferenceChooseMapTest
+from vkviewer.python.tests.views.georeference.GeoreferenceGetProcessTest import GeoreferenceGetProcessTest
+from vkviewer.python.tests.views.georeference.GeoreferenceUpdateTest import GeoreferenceUpdateTest
+from vkviewer.python.tests.views.georeference.GeoreferenceValidationTest import GeoreferenceValidationTest
+from vkviewer.python.tests.views.georeference.GetPageTest import GetPageTest
 
 def test_suite():
     suite = unittest.TestSuite()
     loader = unittest.TestLoader()
     
-    suite.addTests(loader.loadTestsFromTestCase(ViewGetPage_chooseGeorefMtbTests))
+    suite.addTests(loader.loadTestsFromTestCase(GetPageTest))
+    suite.addTests(loader.loadTestsFromTestCase(GeoreferenceConfirmTest))
+    suite.addTests(loader.loadTestsFromTestCase(GeoreferenceChooseMapTest))
+    suite.addTests(loader.loadTestsFromTestCase(GeoreferenceGetProcessTest))
+    suite.addTests(loader.loadTestsFromTestCase(GeoreferenceUpdateTest))
     suite.addTests(loader.loadTestsFromTestCase(GeoreferenceValidationTest))
-    suite.addTests(loader.loadTestsFromTestCase(ViewGeoreferenceConfirmTest_Short))
-    suite.addTests(loader.loadTestsFromTestCase(ViewGeoreferenceConfirmTest_Long))
+
     return suite
 
 if __name__ == '__main__':

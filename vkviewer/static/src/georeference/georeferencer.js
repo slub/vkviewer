@@ -338,7 +338,8 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 			alert('Something went wrong, while trying to update the georeference parameter. Please try again or contact the administrator.');
 		};
 		
-		var response = event.target.getResponseJson();
+		var response = JSON.parse(event.target.getResponseJson());
+		
 		this._gcpHandler.registerGcps(response['gcps'], response['type']);
 		
 		if (goog.DEBUG)

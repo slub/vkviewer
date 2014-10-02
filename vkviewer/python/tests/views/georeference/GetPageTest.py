@@ -3,10 +3,10 @@ import json
  
 from pyramid import testing
 from webhelpers.paginate import Page
-from vkviewer.python.views.georeference.GetPage import getPage_chooseGeorefMtb
-from vkviewer.python.tests import BaseTestCase
+from vkviewer.python.views.georeference.GetPage import getGeoreferencePage
+from vkviewer.python.tests.testtools.BaseTestCase import BaseTestCase
  
-class ViewGetPage_chooseGeorefMtbTests(BaseTestCase):
+class GetPageTest(BaseTestCase):
      
     def setUp(self):     
         self.config = testing.setUp()   
@@ -15,23 +15,18 @@ class ViewGetPage_chooseGeorefMtbTests(BaseTestCase):
     def tearDown(self):
         testing.tearDown()
     
-    def testGetPage_chooseGeorefMtb_Passed_1(self):
-        params = {'blattnr':'46_48'}
-        request = self.getRequestWithDb(testing.DummyRequest(params=params, post=params))
-        result = getPage_chooseGeorefMtb(request)         
-        print "Test: testGetTimestamps_forBlattnr_Passed_1 - Result: %s"%result        
-        self.assertTrue(isinstance(result['paginator'], Page))
-
-    def testGetPage_chooseGeorefMtb_Passed_2(self):
-        params = {'blattnr':'100_100'}
-        request = self.getRequestWithDb(testing.DummyRequest(params=params, post=params))
-        result = getPage_chooseGeorefMtb(request)         
-        print "Test: testGetTimestamps_forBlattnr_Passed_2 - Result: %s"%result        
-        self.assertTrue(isinstance(result['paginator'], Page))
+    def testGetPage_getGeoreferencePage_Passed(self):
         
-    def testGetPage_chooseGeorefMtb_Fail_MissingParams(self):
-        request = self.getRequestWithDb(testing.DummyRequest())
-        result = getPage_chooseGeorefMtb(request)         
-        print "Test: testGetPage_chooseGeorefMtb_Fail_MissingParams - Result: %s"%result        
-        self.assertTrue(isinstance(result, dict))
+        print "--------------------------------------------------------------------------------------------"
+        print "\n"
+        print "Testing correct working of getGeoreferencePage with valide parameters ..."
+        
+        params = {'id':10002567}
+        request = self.getRequestWithDb(testing.DummyRequest(params=params, post=params))
+        response = getGeoreferencePage(request)               
+        
+        print "Response - %s"%response
+        
+        self.assertTrue('objectid' in response, 'Missing parameter objectid ....')
+        self.assertEqual(response['objectid'], 10002567, 'Response for objectid not like expected ...')
         

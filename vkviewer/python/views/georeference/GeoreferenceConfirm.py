@@ -10,9 +10,7 @@ from vkviewer import log
 from vkviewer.python.utils.parser import convertUnicodeDictToUtf
 from vkviewer.python.tools import checkIsUser
 from vkviewer.python.georef.utils import getTimestampAsPGStr
-from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
-from vkviewer.python.models.messtischblatt.Users import Users
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 from vkviewer.python.utils.parser import parseMapObjForId
 from vkviewer.settings import ADMIN_ADDR
@@ -25,7 +23,7 @@ def georeferenceConfirm(request):
     
     try:
         userid = checkIsUser(request)
-        user = Users.by_username(userid, request.db)
+        
         request_data = None
         if request.method == 'POST':
             request_data = request.json_body

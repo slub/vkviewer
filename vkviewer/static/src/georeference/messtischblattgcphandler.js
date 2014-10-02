@@ -298,10 +298,10 @@ vk2.georeference.MesstischblattGcpHandler.prototype.isValide = function(){
  * @param {Object} gcps
  * @param {string=} opt_type;
  */
-vk2.georeference.MesstischblattGcpHandler.prototype.registerGcps = function(gcps){
+vk2.georeference.MesstischblattGcpHandler.prototype.registerGcps = function(gcps, opt_type){
 	this._gcps = gcps;
 	this._parseMtbCornerPoints(this._gcps);
-	this.isUpdateState_ = tthis._checkIfUpdateState(opt_type);
+	this.isUpdateState_ = this._checkIfUpdateState(opt_type);
 };
 
 /**

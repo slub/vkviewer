@@ -1,22 +1,22 @@
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest, HTTPInternalServerError
-from sqlalchemy.exc import InvalidRequestError
 
 # further tools
-import logging
 import json
 
 # own import stuff
 from vkviewer import log
 from vkviewer.python.utils.parser import convertUnicodeDictToUtf
-from vkviewer.python.utils.validation import validateId
 from vkviewer.python.tools import checkIsUser
 from vkviewer.python.georef.utils import getTimestampAsPGStr
-from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
+from vkviewer.python.utils.parser import parseMapObjForId
+from vkviewer.settings import ADMIN_ADDR
+        
+ERROR_MSG = "Please check your request parameters or contact the administrator (%s)."%ADMIN_ADDR
 
-@view_config(route_name='georeference', renderer='string', permission='view', match_param='action=update')
+@view_config(route_name='georeference', renderer='json', permission='view', match_param='action=update')
 def georeferenceUpdate(request):
     log.info('Receive request for processing georeference update result')
     
@@ -27,14 +27,11 @@ def georeferenceUpdate(request):
         if request.method == 'POST':
             request_data = request.json_body
             
-        if request_data:
-            validateId(request_data['id'])
-            log.debug('Request data is valide: %s'%request_data)
+        mapObj = parseMapObjForId(request_data, 'id', request.db)
+        log.debug('Id is valide: %s'%request_data)
             
         log.debug('Check if there exists a registered georeference process for this messtischblatt ...')
-        messtischblatt = Messtischblatt.by_id(request_data['id'], request.db)
-        isAlreadyGeorefProcess = Georeferenzierungsprozess.by_messtischblattid(messtischblatt.id, request.db)
-        if isAlreadyGeorefProcess is None:
+        if Georeferenzierungsprozess.isGeoreferenced(mapObj.id, request.db) == False:
             response = {'text':'There is no registered georeference process for this messtischblatt. Please move back to the confirm process.'}
             return json.dumps(response, ensure_ascii=False, encoding='utf-8')        
         
@@ -42,16 +39,12 @@ def georeferenceUpdate(request):
         log.debug('Saving georeference process in the database ...')
         if request_data['georeference']:
             encoded_clip_params = convertUnicodeDictToUtf(request_data['georeference'])
-            georefProcess = registerNewGeoreferenceProcessInDb(messtischblatt.id, userid, str(encoded_clip_params), 'update', request.db)
-            
-            log.debug('Set update status for messtischblatt ...')
-            messtischblatt.setIsUpdated(True)
+            georefProcess = registerUpdateGeoreferenceProcessInDb(mapObj, userid, str(encoded_clip_params), request.db)
             
             log.debug('Create response ...')
             # right now the premise is that for the updated gcps are equal to the removed gcps. For every
             # updated gcps the users get new points
             achievement_points = len(request_data['georeference']['remove']['gcps'])*5  
-            #gcps = getJsonDictPasspointsForMapObject(messtischblatt.id, request.db)
             response = {'text':'Georeference result updated. It will soon be ready for use.','georeferenceid':georefProcess.id, 'points':achievement_points, 
                         'gcps':request_data['georeference']['new'] ,'type':'update'}
             return json.dumps(response, ensure_ascii=False, encoding='utf-8') 
@@ -61,19 +54,18 @@ def georeferenceUpdate(request):
       
         
     except GeoreferenceParameterError as e:
-        message = 'Wrong or missing service parameter - %s'%e.value
-        log.error(message)
-        return HTTPBadRequest(message) 
+        log.error(e)
+        raise HTTPBadRequest(ERROR_MSG) 
     except Exception as e:
-        message = 'Problems while computing validation result - %s'%e
-        log.error(message)
-        return HTTPInternalServerError(message)
+        log.error(e)
+        raise HTTPInternalServerError(ERROR_MSG)
     
-def registerNewGeoreferenceProcessInDb(objectid, userid, gcps, type, dbsession):
+def registerUpdateGeoreferenceProcessInDb(mapObj, userid, gcps, dbsession):
     log.debug('Create georeference process record ...')
-    timestamp = getTimestampAsPGStr()
-    georefProcess = Georeferenzierungsprozess(messtischblattid = objectid, nutzerid = userid, 
-        clipparameter = gcps, timestamp = timestamp, isvalide = True, type = type, refzoomify = True, publish = False, processed = False)
+    activeGeorefProcess = Georeferenzierungsprozess.getActualGeoreferenceProcessForMapId(mapObj.id, dbsession)
+    georefProcess = Georeferenzierungsprozess(messtischblattid = mapObj.apsobjectid, nutzerid = userid, 
+                clipparameter = gcps, timestamp = getTimestampAsPGStr(), isactive = False, type = 'update', 
+                refzoomify = True, adminvalidation = '', processed = False, mapsid = mapObj.id, overwrites = activeGeorefProcess.id)
     dbsession.add(georefProcess)
     dbsession.flush()  
     return georefProcess
