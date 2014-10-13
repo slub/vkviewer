@@ -6,7 +6,7 @@ class Georeferenzierungsprozess(Base):
     __table_args__ = {'extend_existing':True}
     id = Column(Integer, primary_key=True)
     messtischblattid = Column(Integer)
-    clipparameter = Column(String(255))
+    georefparams = Column(String(255))
     timestamp = Column(DateTime(timezone=False))
     type = Column(String(255))
     nutzerid = Column(String(255))
@@ -50,7 +50,8 @@ class Georeferenzierungsprozess(Base):
                                  
     @classmethod
     def by_getUnprocessedGeorefProcesses(cls, session):
-        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.processed == False)
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.processed == False)\
+            .filter(Georeferenzierungsprozess.adminvalidation != 'invalide')
 
     @classmethod    
     def getLatestGeorefProcessForObjectId(cls, id, session):
@@ -60,7 +61,17 @@ class Georeferenzierungsprozess(Base):
     def getActualGeoreferenceProcessForMapId(cls, mapId, session):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapsid == mapId)\
             .filter(Georeferenzierungsprozess.isactive == True).first()
-        
+    
+    @classmethod
+    def getResetJobs(cls, session):
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.isactive == True)\
+            .filter(Georeferenzierungsprozess.adminvalidation == 'invalide')
+            
+    @classmethod
+    def getJobsWithSameOverwrites(cls, overwrites, session):
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.overwrites == overwrites)\
+            .order_by(desc(Georeferenzierungsprozess.timestamp))
+            
     @classmethod
     def isGeoreferenced(cls, mapId, session):
         georefProcess = session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapsid == mapId)\
