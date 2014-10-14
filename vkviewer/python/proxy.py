@@ -24,7 +24,7 @@ from pyramid.response import Response
 
 allowedHosts = ['www.openlayers.org', 'openlayers.org', 'slub-dresden.de/',
                 'www.openstreetmap.org','194.95.145.43','194.95.145.42','localhost', '139.30.111.16',
-                'kartenforum.slub-dresden.de', 'localhost:8080', 'http://139.30.132.26:8091','194.95.144.96:8080',
+                'kartenforum.slub-dresden.de', 'localhost:8080', 'localhost:8085', 'http://139.30.132.26:8091','194.95.144.96:8080',
                 'eiger.auf.uni-rostock.de','127.0.0.1:8080', 'fotothek.slub-dresden.de', '194.95.145.43:8080']
 
 def proxy_post(request):

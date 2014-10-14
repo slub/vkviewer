@@ -2,8 +2,7 @@
 
 <%block name="header_content">
 	<script>
-	    goog.require('vk2.georeference.ZoomifyViewer');
-	    goog.require('vk2.tool.MetadataBinding');
+	    goog.require('vk2.app.MapProfileApp');
 	</script>
 </%block>
 
@@ -41,14 +40,14 @@
 
 <%block name="js_content">
     <script>
-    	% if key and zoomify_prop and zoomify_width and zoomify_height:
-    	var zoomifyViewer = new vk2.georeference.ZoomifyViewer('zoomify-container', {
-			'width':  ${zoomify_width},
-			'height':${zoomify_height},
-			'url': '${zoomify_prop}'.substring(0,'${zoomify_prop}'.lastIndexOf("/")+1)
-		});
-		
-		var metadatbinding = new vk2.tool.MetadataBinding('metadata-container', '${key}');
+    	% if key and zoomify:
+    	var mapProfileApp = new vk2.app.MapProfileApp({
+    		'metadataId': '${key}',
+    		'metadataContainer': 'metadata-container',
+    		'zoomify': '${zoomify}',
+    		'zoomifyContainer': 'zoomify-container'
+    	});
+
     	%endif
     </script> 
 </%block>

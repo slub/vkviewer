@@ -53,7 +53,7 @@ vk2.settings.GEONETWORK = 'http://localhost:8085.de/geonetwork/srv/eng/search#|'
 /**
  * @type {string}
  */
-vk2.settings.CSW_URL = 'http://localhost:8085.de/geonetwork/srv/eng/csw';
+vk2.settings.CSW_URL = 'http://localhost:8085/geonetwork/srv/eng/csw';
 
 /**
  * @type {string}
