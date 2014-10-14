@@ -124,4 +124,16 @@ vk2.app.GeoreferenceApp.prototype.loaderFunction_ = function(originalMapContaine
 			window['gcphandler'] = gcphandler;
 		};
 	},undefined, this);
+	
+	// if the server response a warn message display it
+	if (data.hasOwnProperty('warn')){
+		var warnMsg  = data['warn'];
+		var warnEl = goog.dom.createDom('div', {
+			'innerHTML': warnMsg + ' <a href="' + vk2.settings.MAIN_PAGE + '?georef=on">' + vk2.utils.getMsg('backToMain') + '</a>',
+			'class': 'alert alert-danger warn-msg'
+		});
+		
+		var parentContainer = goog.dom.getElement(originalMapContainerId);
+		goog.dom.appendChild(parentContainer, warnEl);
+	}
 };

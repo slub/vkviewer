@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-09-04 17:42+0200\n"
+"POT-Creation-Date: 2014-10-14 15:22+0200\n"
 "PO-Revision-Date: 2014-07-28 13:58+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -16,6 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+
+#: vkviewer/python/views/georeference/GeoreferenceGetProcess.py:125
+#, fuzzy
+#| msgid "faq-geo-referencing"
+msgid "warn-msg-concurrent-georeferencing"
+msgstr "Right now another users is working on the georeferencing of this map sheet. For preventing information losses please try again in 15 minutes."
 
 #: vkviewer/python/views/utils/GetErrorPage.py:17
 msgid "error_msg_wrong_pw"
@@ -37,18 +43,18 @@ msgstr "Missing query parameters. Please try again."
 msgid "error_msg_interal_auth"
 msgstr "Internal error while authentification process. Please try again."
 
-#: vkviewer/templates/basic_page.mako:21 vkviewer/templates/basic_page.mako:36
-#: vkviewer/templates/faq.mako:49 vkviewer/templates/faq.mako:72
-#: vkviewer/templates/faq.mako:83 vkviewer/templates/faq.mako:94
-#: vkviewer/templates/faq.mako:108 vkviewer/templates/faq.mako:134
-#: vkviewer/templates/faq.mako:149 vkviewer/templates/faq.mako:163
-#: vkviewer/templates/faq.mako:167 vkviewer/templates/faq.mako:191
-#: vkviewer/templates/faq.mako:205 vkviewer/templates/faq.mako:235
-#: vkviewer/templates/faq.mako:246 vkviewer/templates/faq.mako:272
+#: vkviewer/templates/basic_page.mako:21 vkviewer/templates/basic_page.mako:34
+#: vkviewer/templates/faq.mako:50 vkviewer/templates/faq.mako:73
+#: vkviewer/templates/faq.mako:84 vkviewer/templates/faq.mako:95
+#: vkviewer/templates/faq.mako:109 vkviewer/templates/faq.mako:135
+#: vkviewer/templates/faq.mako:146 vkviewer/templates/faq.mako:157
+#: vkviewer/templates/faq.mako:161 vkviewer/templates/faq.mako:182
+#: vkviewer/templates/faq.mako:196 vkviewer/templates/faq.mako:226
+#: vkviewer/templates/faq.mako:237 vkviewer/templates/faq.mako:263
 msgid "js_library"
 msgstr "en"
 
-#: vkviewer/templates/basic_page.mako:54
+#: vkviewer/templates/basic_page.mako:52
 msgid "javascript_disabled"
 msgstr "Please activate Javascript to use the Virtuelles Kartenforum 2.0"
 
@@ -184,292 +190,411 @@ msgstr "a project from the SLUB Dresden and the University of Rostock"
 msgid "try_again"
 msgstr "Go back to main page."
 
-#: vkviewer/templates/faq.mako:36
+#: vkviewer/templates/faq.mako:37
 msgid "faq-title"
 msgstr "Frequently Asked Questions (FAQ)"
 
-#: vkviewer/templates/faq.mako:46
+#: vkviewer/templates/faq.mako:47
 msgid "faq-general-title"
 msgstr "General navigation"
 
-#: vkviewer/templates/faq.mako:47
+#: vkviewer/templates/faq.mako:48
 msgid "faq-general-content-1"
-msgstr "The Virtual Map Forum 2.0 offers a lot of tools and content. General topics as the <b>FAQ</b>, the <b>Contact</b> details, the <b>Project</b> or the <b>Masthead / Impressum</b> can be accessed through the buttons in the footer or the button above the map search on the left side."
+msgstr ""
+"The Virtual Map Forum 2.0 offers a lot of tools and content. General "
+"topics as the <b>FAQ</b>, the <b>Contact</b> details, the <b>Project</b> "
+"or the <b>Masthead / Impressum</b> can be accessed through the buttons in"
+" the footer or the button above the map search on the left side."
 
-#: vkviewer/templates/faq.mako:53
+#: vkviewer/templates/faq.mako:54
 msgid "faq-general-content-2"
-msgstr "If you click either on the German or the English flag you can change the language of the Virtual Map Forum 2.0. You can log in or register by clicking on the <b>login button</b>. With the button in the right upper corner you can toggle in the full-screen-mode."
+msgstr ""
+"If you click either on the German or the English flag you can change the "
+"language of the Virtual Map Forum 2.0. You can log in or register by "
+"clicking on the <b>login button</b>. With the button in the right upper "
+"corner you can toggle in the full-screen-mode."
 
-#: vkviewer/templates/faq.mako:61
+#: vkviewer/templates/faq.mako:62
 msgid "faq-map-detection"
 msgstr "Map detection"
 
-#: vkviewer/templates/faq.mako:63
+#: vkviewer/templates/faq.mako:64
 msgid "faq-map-detection-1"
-msgstr "Right now you can find and displayed more than 4.700 georeferenced maps in the portal of the  Virtual Map Forum 2.0."
+msgstr ""
+"Right now you can find and displayed more than 4.700 georeferenced maps "
+"in the portal of the  Virtual Map Forum 2.0."
 
-#: vkviewer/templates/faq.mako:66
+#: vkviewer/templates/faq.mako:67
 msgid "faq-map-detection-2"
-msgstr "Using the navigation directly on the map or through the input of a place name respectively a map sheet number in the search field of the spatiotemporal search module (left part / main page) you can choose the relevant spatial area. The spatiotemporal search module also displays the relevant search results for your spatiotemporally selected criteria. Through using the time slider you can also adjust the relevant time period for your search results."
+msgstr ""
+"Using the navigation directly on the map or through the input of a place "
+"name respectively a map sheet number in the search field of the "
+"spatiotemporal search module (left part / main page) you can choose the "
+"relevant spatial area. The spatiotemporal search module also displays the"
+" relevant search results for your spatiotemporally selected criteria. "
+"Through using the time slider you can also adjust the relevant time "
+"period for your search results."
 
-#: vkviewer/templates/faq.mako:70
+#: vkviewer/templates/faq.mako:71
 msgid "faq-place-name"
 msgstr "Search for a place"
 
-#: vkviewer/templates/faq.mako:76
+#: vkviewer/templates/faq.mako:77
 msgid "faq-place-name-1"
-msgstr "If you type in the input box a <b>place name</b> the application offers you a select list of possible place names. By choosing a place name from this list with your mouse or the keyboard the map jumps right to this place. You can alternatively type in the <b>map sheet number</b> (like <code>49_48</code>) and this will guide you to the right place as well."
+msgstr ""
+"If you type in the input box a <b>place name</b> the application offers "
+"you a select list of possible place names. By choosing a place name from "
+"this list with your mouse or the keyboard the map jumps right to this "
+"place. You can alternatively type in the <b>map sheet number</b> (like "
+"<code>49_48</code>) and this will guide you to the right place as well."
 
-#: vkviewer/templates/faq.mako:81
+#: vkviewer/templates/faq.mako:82
 msgid "faq-time-bar"
 msgstr "Adjust the time"
 
-#: vkviewer/templates/faq.mako:87
+#: vkviewer/templates/faq.mako:88
 msgid "faq-time-bar-1"
-msgstr "With the help of the time bar you can adjust the period of your search time. Right now the portal offers you maps between the years 1868 and 1945. Therefore these years represent the maximum range of time. The adjusting of the search period affects the listed results in the search list."
+msgstr ""
+"With the help of the time bar you can adjust the period of your search "
+"time. Right now the portal offers you maps between the years 1868 and "
+"1945. Therefore these years represent the maximum range of time. The "
+"adjusting of the search period affects the listed results in the search "
+"list."
 
-#: vkviewer/templates/faq.mako:92
+#: vkviewer/templates/faq.mako:93
 msgid "faq-search-list"
 msgstr "The search list"
 
-#: vkviewer/templates/faq.mako:98
+#: vkviewer/templates/faq.mako:99
 msgid "faq-search-list-1"
-msgstr "The search list displays all available maps for the appropriate spatial segment and search time. The header of the search list shows the number of search hits. Beneath, you can sort the results by pressing the buttons <b>Title</b> or <b>Time</b>. If you click on a search result, the appropriate historical map will be displayed on the main map and automatically be transferred to the &quot;My Maps&quot; map container."
+msgstr ""
+"The search list displays all available maps for the appropriate spatial "
+"segment and search time. The header of the search list shows the number "
+"of search hits. Beneath, you can sort the results by pressing the buttons"
+" <b>Title</b> or <b>Time</b>. If you click on a search result, the "
+"appropriate historical map will be displayed on the main map and "
+"automatically be transferred to the &quot;My Maps&quot; map container."
 
-#: vkviewer/templates/faq.mako:101
+#: vkviewer/templates/faq.mako:102
 msgid "faq-search-list-2"
-msgstr "Every single search result will be displayed with its lemma, time stamp (dating) and its scale. Furthermore there will be given a Thumbnail image of the relevant map. If you move your mouse over a search result, the spatial expansion of the map will be represented in a polygon on the main map."
+msgstr ""
+"Every single search result will be displayed with its lemma, time stamp "
+"(dating) and its scale. Furthermore there will be given a Thumbnail image"
+" of the relevant map. If you move your mouse over a search result, the "
+"spatial expansion of the map will be represented in a polygon on the main"
+" map."
 
-#: vkviewer/templates/faq.mako:106
+#: vkviewer/templates/faq.mako:107
 msgid "faq-map-navigation"
 msgstr "Map navigation"
 
-#: vkviewer/templates/faq.mako:112
+#: vkviewer/templates/faq.mako:113
 msgid "faq-map-navigation-1"
-msgstr "The picture left hand side shows the different navigation tools which can be used on the maps."
+msgstr ""
+"The picture left hand side shows the different navigation tools which can"
+" be used on the maps."
 
-#: vkviewer/templates/faq.mako:115
+#: vkviewer/templates/faq.mako:116
 msgid "faq-map-navigation-2"
-msgstr "By pressing the <b>+</b> or the <b>-</b> you can zoom into or out of the map (you can also use the mouse wheel)."
+msgstr ""
+"By pressing the <b>+</b> or the <b>-</b> you can zoom into or out of the "
+"map (you can also use the mouse wheel)."
 
-#: vkviewer/templates/faq.mako:118
+#: vkviewer/templates/faq.mako:119
 msgid "faq-map-navigation-3"
-msgstr "The <b>Magnifier button</b> activates a map magnifier. If you move it over a historical map it will show the recent <a href=\"http://www.openstreetmap.org/#map=5/51.500/-0.100\">OpenStreetMap</a> for this part. Press <b>y</b> and the area for the magnifier gets bigger. Press <b>x</b> and the area gets smaller."
+msgstr ""
+"The <b>Magnifier button</b> activates a map magnifier. If you move it "
+"over a historical map it will show the recent <a "
+"href=\"http://www.openstreetmap.org/#map=5/51.500/-0.100\">OpenStreetMap</a>"
+" for this part. Press <b>y</b> and the area for the magnifier gets "
+"bigger. Press <b>x</b> and the area gets smaller."
 
-#: vkviewer/templates/faq.mako:121
+#: vkviewer/templates/faq.mako:122
 msgid "faq-map-navigation-4"
-msgstr "Press and hold the Shift key and press and move the mouse at the same time you rotate the map. Press the <b>Needle button</b> the map will be &quot;northed&quot; again."
+msgstr ""
+"Press and hold the Shift key and press and move the mouse at the same "
+"time you rotate the map. Press the <b>Needle button</b> the map will be "
+"&quot;northed&quot; again."
 
-#: vkviewer/templates/faq.mako:124
+#: vkviewer/templates/faq.mako:125
 msgid "faq-map-navigation-5"
-msgstr "The last button allows you to create a link of the current map view and to share it with other users."
+msgstr ""
+"The last button allows you to create a link of the current map view and "
+"to share it with other users."
 
-#: vkviewer/templates/faq.mako:132
+#: vkviewer/templates/faq.mako:133
 msgid "faq-map-management"
 msgstr "Manage chosen maps"
 
-#: vkviewer/templates/faq.mako:139
+#: vkviewer/templates/faq.mako:140
 msgid "faq-map-management-1"
-msgstr "If you choose a map in the spatiotemporal search module it will be added automatically to the main map and to the map management container. In this map management container you can change the transparency of maps, activate and deactivate maps, you can add related maps, delete any map from your own selection and it is possible to change the order of the presentation of the maps on the main map."
+msgstr ""
+"If you choose a map in the spatiotemporal search module it will be added "
+"automatically to the main map and to the map management container. In "
+"this map management container you can change the transparency of maps, "
+"activate and deactivate maps, you can add related maps, delete any map "
+"from your own selection and it is possible to change the order of the "
+"presentation of the maps on the main map."
 
-#: vkviewer/templates/faq.mako:143
-msgid "faq-map-management-2"
-msgstr "Furthermore you can display the original view of the map sheet and some meta data by clicking on this map sheet on the main map."
-
-#: vkviewer/templates/faq.mako:147
+#: vkviewer/templates/faq.mako:144
 msgid "faq-change-transparency"
 msgstr "Change transparency"
 
-#: vkviewer/templates/faq.mako:153
-msgid "faq-change-transparency-1"
-msgstr "On the right side of every chosen map in the &quot;My Maps&quot; map container you see the symbol shown on the left."
-
-#: vkviewer/templates/faq.mako:156
+#: vkviewer/templates/faq.mako:150
 msgid "faq-change-transparency-2"
-msgstr "If you click with your mouse on the bar and slide it up- or downwards you can change the transparency of the chosen map. This will help you to see the changing in the landscapes and to check the georeferencing of your map."
+msgstr ""
+"If you click with your mouse on the bar and slide it up- or downwards you"
+" can change the transparency of the chosen map. This will help you to see"
+" the changing in the landscapes and to check the georeferencing of your "
+"map."
 
-#: vkviewer/templates/faq.mako:161
+#: vkviewer/templates/faq.mako:155
 msgid "faq-activate-deactivate"
 msgstr "Activate / deactivate maps"
 
-#: vkviewer/templates/faq.mako:164
+#: vkviewer/templates/faq.mako:158
 msgid "activate-deactivate-1"
 msgstr "activated"
 
-#: vkviewer/templates/faq.mako:168
+#: vkviewer/templates/faq.mako:162
 msgid "activate-deactivate-2"
 msgstr "deactivated"
 
-#: vkviewer/templates/faq.mako:171
-msgid "faq-activate-deactivate-3"
-msgstr "On the left side of every chosen map in the &quot;My Maps&quot; map container you see the symbol shown on the left."
-
-#: vkviewer/templates/faq.mako:174
+#: vkviewer/templates/faq.mako:165
 msgid "faq-activate-deactivate-4"
-msgstr "By clicking with your mouse on the green square you can either activate or deactivate the corresponding map sheet."
+msgstr ""
+"By clicking with your mouse on the green square you can either activate "
+"or deactivate the corresponding map sheet."
 
-#: vkviewer/templates/faq.mako:179
+#: vkviewer/templates/faq.mako:170
 msgid "faq-add-delete"
 msgstr "Add / delete maps"
 
-#: vkviewer/templates/faq.mako:181
+#: vkviewer/templates/faq.mako:172
 msgid "faq-add-delte-1"
-msgstr "To add a map sheet choose the one you would like to work on from the listed map sheets beneath the spatiotemporal search module by just clicking on it with your mouse or by using the keyboard. The map sheet will automatically be transferred to the &quot;My Maps&quot; map container."
+msgstr ""
+"To add a map sheet choose the one you would like to work on from the "
+"listed map sheets beneath the spatiotemporal search module by just "
+"clicking on it with your mouse or by using the keyboard. The map sheet "
+"will automatically be transferred to the &quot;My Maps&quot; map "
+"container."
 
-#: vkviewer/templates/faq.mako:184
+#: vkviewer/templates/faq.mako:175
 msgid "faq-add-delete-2"
-msgstr "To delete a map sheet just press the &quot;<b>x</b>&quot; <b>button</b> beneath the activate / deactivate tool."
+msgstr ""
+"To delete a map sheet just press the &quot;<b>x</b>&quot; <b>button</b> "
+"beneath the activate / deactivate tool."
 
-#: vkviewer/templates/faq.mako:189
+#: vkviewer/templates/faq.mako:180
 msgid "faq-reorder"
 msgstr "Reorder maps"
 
-#: vkviewer/templates/faq.mako:195
+#: vkviewer/templates/faq.mako:186
 msgid "faq-reorder-1"
-msgstr "To reorder maps use your mouse cursor. Click on the thumbnail version of one map sheets in your &quot;My Maps&quot; map container and press and hold it. Then you can easily move it up- or downwards in the container to change the order of the map sheets."
+msgstr ""
+"To reorder maps use your mouse cursor. Click on the thumbnail version of "
+"one map sheets in your &quot;My Maps&quot; map container and press and "
+"hold it. Then you can easily move it up- or downwards in the container to"
+" change the order of the map sheets."
 
-#: vkviewer/templates/faq.mako:198
+#: vkviewer/templates/faq.mako:189
 msgid "faq-reorder-2"
-msgstr "If you want to have a map at the very top you can either use the drag-and-drop method or you can just click on the symbol above the activate / deactivate switch. So the map you just clicked on will automatically be moved to the top of the list."
+msgstr ""
+"If you want to have a map at the very top you can either use the drag-"
+"and-drop method or you can just click on the symbol above the activate / "
+"deactivate switch. So the map you just clicked on will automatically be "
+"moved to the top of the list."
 
-#: vkviewer/templates/faq.mako:203
+#: vkviewer/templates/faq.mako:194
 msgid "faq-original-meta"
 msgstr "Original maps and meta data"
 
-#: vkviewer/templates/faq.mako:209
+#: vkviewer/templates/faq.mako:200
 msgid "faq-original-meta-1"
-msgstr "If you selected one map from the plane survey sheet search list by clicking on it and then click on the corresponding square in the main map you will get further information about the map sheet. You will also be given a picture of the original map sheet."
+msgstr ""
+"If you selected one map from the plane survey sheet search list by "
+"clicking on it and then click on the corresponding square in the main map"
+" you will get further information about the map sheet. You will also be "
+"given a picture of the original map sheet."
 
-#: vkviewer/templates/faq.mako:212
+#: vkviewer/templates/faq.mako:203
 msgid "faq-original-meta-2"
-msgstr "And you can receive even more information by clicking on one of the two boxes shown left. &quot;Gehe zu Fotothek&quot; leads you to the photographic library which provides the map sheet and &quot;Zeige Metadatensatz&quot; gives you more meta data."
+msgstr ""
+"And you can receive even more information by clicking on one of the two "
+"boxes shown left. &quot;Gehe zu Fotothek&quot; leads you to the "
+"photographic library which provides the map sheet and &quot;Zeige "
+"Metadatensatz&quot; gives you more meta data."
 
-#: vkviewer/templates/faq.mako:219
+#: vkviewer/templates/faq.mako:210
 msgid "faq-geo-referencing-maps"
 msgstr "Georeferencing of maps (plane survey sheets)"
 
-#: vkviewer/templates/faq.mako:221
+#: vkviewer/templates/faq.mako:212
 msgid "faq-geo-referencing-maps-1"
-msgstr "Right now the Virtual Map Forum 2.0 gives you access to more than 6000 digitised plane survey sheets. For georeferencing them we need your help."
+msgstr ""
+"Right now the Virtual Map Forum 2.0 gives you access to more than 6000 "
+"digitised plane survey sheets. For georeferencing them we need your help."
 
-#: vkviewer/templates/faq.mako:223
+#: vkviewer/templates/faq.mako:214
 msgid "faq-geo-referencing-maps-2"
-msgstr "The task therefore is to localize the corner points of the map content itself. With the marked corner points we can now georeference the map. If you use the georeferencing client on the Virtuelles Kartenforum 2.0 for the first time please read the instructions. We thank you for your help and participation."
+msgstr ""
+"The task therefore is to localize the corner points of the map content "
+"itself. With the marked corner points we can now georeference the map. If"
+" you use the georeferencing client on the Virtuelles Kartenforum 2.0 for "
+"the first time please read the instructions. We thank you for your help "
+"and participation."
 
-#: vkviewer/templates/faq.mako:228
+#: vkviewer/templates/faq.mako:219
 msgid "faq-call-out"
-msgstr "Before you can start to georeference in the Virtual Map Forum 2.0 you have to register or log in as a user."
+msgstr ""
+"Before you can start to georeference in the Virtual Map Forum 2.0 you "
+"have to register or log in as a user."
 
-#: vkviewer/templates/faq.mako:233
+#: vkviewer/templates/faq.mako:224
 msgid "faq-map-selection"
 msgstr "Map selection"
 
-#: vkviewer/templates/faq.mako:239
+#: vkviewer/templates/faq.mako:230
 msgid "faq-map-selection-1"
-msgstr "If you are logged in, you can display a grid with all available ordnance maps on the main map by clicking on the georeferencing symbol in the right upper corner. The grey grid cells show you the available and yet not referenced ordnance maps for this spatial segment. By contrast a green grid cell shows you, that for this spatial segment there are already georeferenced maps available. By clicking on a grey grid cell a selection window appears, which displays the yet not georeferenced ordnance maps for the corresponding grid cell. By clicking again on one of the displayed ordnance maps you will be forwarded to the georeferencing view."
+msgstr ""
+"If you are logged in, you can display a grid with all available ordnance "
+"maps on the main map by clicking on the georeferencing symbol in the "
+"right upper corner. The grey grid cells show you the available and yet "
+"not referenced ordnance maps for this spatial segment. By contrast a "
+"green grid cell shows you, that for this spatial segment there are "
+"already georeferenced maps available. By clicking on a grey grid cell a "
+"selection window appears, which displays the yet not georeferenced "
+"ordnance maps for the corresponding grid cell. By clicking again on one "
+"of the displayed ordnance maps you will be forwarded to the "
+"georeferencing view."
 
-#: vkviewer/templates/faq.mako:244
+#: vkviewer/templates/faq.mako:235
 msgid "faq-geo-referencing"
 msgstr "Georeferencing"
 
-#: vkviewer/templates/faq.mako:250
+#: vkviewer/templates/faq.mako:241
 msgid "faq-geo-referencing-1"
-msgstr "In this georeferencing view there shall be marked the real corner points of the maps. Once done they can be matched with the corner coordinates on the server side and can now be used as control points, which create the basis for georeferencing algorithms."
+msgstr ""
+"In this georeferencing view there shall be marked the real corner points "
+"of the maps. Once done they can be matched with the corner coordinates on"
+" the server side and can now be used as control points, which create the "
+"basis for georeferencing algorithms."
+
+#: vkviewer/templates/faq.mako:244
+msgid "faq-geo-referencing-2"
+msgstr ""
+"Therefore you can find on the left hand side a tool box which offers "
+"different tools for placing the corner points. If needed, this toolbox "
+"can be deactivated by pressing the button with the wrench on it."
+
+#: vkviewer/templates/faq.mako:247
+msgid "faq-geo-referencing-3"
+msgstr ""
+"To start the georefernce process select the tool <b>Set corner point</b> "
+"and then navigate to the corresponding corner points on the map. By "
+"clicking on the map you can place the corner point. If you did a miss-"
+"click you can adjust your result with the tools <b>Move corner point</b> "
+"(therefore select the corresponding corner point by clicking on it before"
+" displacing) or <b>Delete corner point</b>."
+
+#: vkviewer/templates/faq.mako:250
+msgid "faq-geo-referencing-4"
+msgstr ""
+"Furthermore you can move the map when you press and hold the mouse or "
+"click on the <b>Move map button</b> and centralise the map again by "
+"pressing the button beneath the &quot;<b>-</b>&quot; <b>button</b>."
 
 #: vkviewer/templates/faq.mako:253
-msgid "faq-geo-referencing-2"
-msgstr "Therefore you can find on the left hand side a tool box which offers different tools for placing the corner points. If needed, this toolbox can be deactivated by pressing the button with the wrench on it."
+msgid "faq-geo-referencing-5"
+msgstr ""
+"If you have selected three corner points you will be displayed a test "
+"result on the right side. This test result will be updated with every "
+"other corner point or by pressing the <b>Update Preview button</b>"
 
 #: vkviewer/templates/faq.mako:256
-msgid "faq-geo-referencing-3"
-msgstr "To start the georefernce process select the tool <b>Set corner point</b> and then navigate to the corresponding corner points on the map. By clicking on the map you can place the corner point. If you did a miss-click you can adjust your result with the tools <b>Move corner point</b> (therefore select the corresponding corner point by clicking on it before displacing) or <b>Delete corner point</b>."
-
-#: vkviewer/templates/faq.mako:259
-msgid "faq-geo-referencing-4"
-msgstr "Furthermore you can move the map when you press and hold the mouse or click on the <b>Move map button</b> and centralise the map again by pressing the button beneath the &quot;<b>-</b>&quot; <b>button</b>."
-
-#: vkviewer/templates/faq.mako:262
-msgid "faq-geo-referencing-5"
-msgstr "If you have selected three corner points you will be displayed a test result on the right side. This test result will be updated with every other corner point or by pressing the <b>Update Preview button</b>"
-
-#: vkviewer/templates/faq.mako:265
 msgid "faq-geo-referencing-6"
-msgstr "When you have marked four corner points and if you are satisfied by the result, you can send it by pressing the <b>Confirm Georeferencing button</b>. Then it will be promptly and persistently georeferenced and made available for other users."
+msgstr ""
+"When you have marked four corner points and if you are satisfied by the "
+"result, you can send it by pressing the <b>Confirm Georeferencing "
+"button</b>. Then it will be promptly and persistently georeferenced and "
+"made available for other users."
 
-#: vkviewer/templates/faq.mako:270
-
+#: vkviewer/templates/faq.mako:261
 msgid "faq-geo-referencing-history"
 msgstr "Georeference History"
 
-#: vkviewer/templates/faq.mako:276
+#: vkviewer/templates/faq.mako:267
 msgid "faq-geo-referencing-history-11"
-msgstr "When you push the button with your registered name on it (after you logged yourself in) you can look up your <b>Georeference History</b>, you can <b>Chance your Password</b> or <b>Logout</b>"
+msgstr ""
+"When you push the button with your registered name on it (after you "
+"logged yourself in) you can look up your <b>Georeference History</b>, you"
+" can <b>Chance your Password</b> or <b>Logout</b>"
 
-#: vkviewer/templates/faq.mako:289
+#: vkviewer/templates/faq.mako:280
 msgid "faq-sidebar"
 msgstr "General navigation"
 
-#: vkviewer/templates/faq.mako:292
+#: vkviewer/templates/faq.mako:283
 msgid "faq-sidebar-1"
 msgstr "Map detection"
 
-#: vkviewer/templates/faq.mako:294
+#: vkviewer/templates/faq.mako:285
 msgid "faq-sidebar-2"
 msgstr "Search for a place"
 
-#: vkviewer/templates/faq.mako:295
+#: vkviewer/templates/faq.mako:286
 msgid "faq-sidebar-3"
 msgstr "Adjust the time"
 
-#: vkviewer/templates/faq.mako:296
+#: vkviewer/templates/faq.mako:287
 msgid "faq-sidebar-4"
 msgstr "The search list"
 
-#: vkviewer/templates/faq.mako:297
+#: vkviewer/templates/faq.mako:288
 msgid "faq-sidebar-5"
 msgstr "Map navigation"
 
-#: vkviewer/templates/faq.mako:301
+#: vkviewer/templates/faq.mako:292
 msgid "faq-sidebar-6"
 msgstr "Manage chosen maps"
 
-#: vkviewer/templates/faq.mako:303
+#: vkviewer/templates/faq.mako:294
 msgid "faq-sidebar-7"
 msgstr "Change transparency"
 
-#: vkviewer/templates/faq.mako:304
+#: vkviewer/templates/faq.mako:295
 msgid "faq-sidebar-8"
 msgstr "Activate / deactivate maps"
 
-#: vkviewer/templates/faq.mako:305
+#: vkviewer/templates/faq.mako:296
 msgid "faq-sidebar-9"
 msgstr "Add / delete maps"
 
-#: vkviewer/templates/faq.mako:306
+#: vkviewer/templates/faq.mako:297
 msgid "faq-sidebar-10"
 msgstr "Reorder maps"
 
-#: vkviewer/templates/faq.mako:307
+#: vkviewer/templates/faq.mako:298
 msgid "faq-sidebar-11"
 msgstr "Original maps and meta data"
 
-#: vkviewer/templates/faq.mako:311
+#: vkviewer/templates/faq.mako:302
 msgid "faq-sidebar-12"
 msgstr "Georeferencing of maps"
 
-#: vkviewer/templates/faq.mako:313
+#: vkviewer/templates/faq.mako:304
 msgid "faq-sidebar-13"
 msgstr "Map selection"
 
-#: vkviewer/templates/faq.mako:314
+#: vkviewer/templates/faq.mako:305
 msgid "faq-sidebar-14"
 msgstr "Georeferencing"
 
-#: vkviewer/templates/faq.mako:315
+#: vkviewer/templates/faq.mako:306
 msgid "faq-sidebar-15"
 msgstr "Georeference History"
 
-#: vkviewer/templates/faq.mako:318
+#: vkviewer/templates/faq.mako:309
 msgid "faq-sidebar-16"
 msgstr "Back to top"
 
@@ -848,4 +973,13 @@ msgstr "Go back to main page."
 
 #~ msgid "singlemapview_metadatatab"
 #~ msgstr "Metadata for the map"
+
+#~ msgid "faq-map-management-2"
+#~ msgstr ""
+
+#~ msgid "faq-change-transparency-1"
+#~ msgstr ""
+
+#~ msgid "faq-activate-deactivate-3"
+#~ msgstr ""
 

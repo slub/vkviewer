@@ -10,10 +10,13 @@ from georeference.jobs.newjobs import runNewGeoreferenceProcess
 from georeference.jobs.updatejobs import runUpdateGeoreferenceProcess
 
 
-def do(logger):
-    logger.info('Start doing ...')
-    time.sleep(7)
-    logger.info('End doing ...')
+def lookForUpdateProcess(dbsession, logger, testing = False):
+    runningResetJobs(dbsession, logger, testing)
+    runningNewJobs(dbsession, logger, testing)
+    runningUpdateJobs(dbsession, logger, testing)
+    
+    if not testing:
+        dbsession.commit()    
     
 def runningResetJobs(dbsession, logger, testing = False):
     logger.info('Check for reset jobs ...')
@@ -52,15 +55,46 @@ def runningUpdateJobs(dbsession, logger, testing = False):
     logger.info('Check for unprocessed georeference jobs ...')
     unprocessedJobs = Georeferenzierungsprozess.by_getUnprocessedGeorefProcesses(dbsession)
     
-    counterUpdate = 0
-    # the overwrites parameter is important to prevent multiple processing
-    # of conflicting georeference update processes
-    overwrites= []
+    # sort jobs by overwrite id
+    overwrites = []
     for job in unprocessedJobs:
         if job.type == 'update' and job.overwrites > 0 and job.overwrites not in overwrites:
-            logger.debug('Process a update georeference process with id - %s'%job.id)
-            runUpdateGeoreferenceProcess(job, dbsession, logger, testing)
             overwrites.append(job.overwrites)
-            counterUpdate += 1
+            
+    counter = 0
+    # clear all unnecessary overwrites and run update process for the actual process
+    for overwrite in overwrites:
+        # check if there is an old race conflict
+        if not clearRaceConflicts(overwrite, dbsession):
+            counter += 1
+            jobs = Georeferenzierungsprozess.getJobsWithSameOverwrites(overwrite, dbsession)
+            pendingJob = None
+            for job in jobs:
+                if pendingJob is None:
+                    pendingJob = job
+                else:
+                    dbsession.delete(job)
+                    
+            logger.debug('Process a update georeference process with id - %s'%job.id)
+            runUpdateGeoreferenceProcess(pendingJob, dbsession, logger, testing)
     
-    logger.debug('Processed %s update georeference process.'%counterUpdate)
+    logger.debug('Processed %s update georeference process.'%counter)
+    
+def clearRaceConflicts(overwrite, dbsession):
+    # double check if there are jobs which should be deleted
+    # this clears the case that while there was on job activated in the past
+    # there was still because of concurrency another jobs registered with the same
+    # overwrites id
+    possibleConflictJobs = Georeferenzierungsprozess.getJobsWithSameOverwrites(overwrite, dbsession)
+
+    alreadyActiveJob = None
+    for conflictJob in possibleConflictJobs:
+        if conflictJob.isactive == True:
+            alreadyActiveJob = conflictJob
+            
+    if alreadyActiveJob is not None:
+        for conflictJob in possibleConflictJobs:
+            if conflictJob.id != alreadyActiveJob.id:
+                dbsession.delete(conflictJob)  
+        return True
+    return False

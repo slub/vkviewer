@@ -201,7 +201,7 @@ vk2.source.ServerPagination.prototype.loadFeatures_ = function(extent, projectio
 	var sortOrder = this.sortOrder_ === 'ascending' ? '+A' : '+D';						
 	var extent_ = extent[0] + ',' + extent[1] + ' ' + extent[2] + ',' + extent[3];
 	var url = vk2.settings.PROXY_URL + vk2.settings.WFS_GEOSERVER_URL +'?service=WFS' +
-		'&version=1.0.0&request=GetFeature&typeName=virtuelles_kartenforum:mapsearch' + 
+		'&version=1.0.0&request=GetFeature&typeName=' + vk2.settings.WFS_GEOSERVER_SEARCHLAYER + 
 		'&outputFormat=application/json&srsname=' + projection + '&Filter=<Filter><And>' +
 		'<BBOX><PropertyName>boundingbox</PropertyName><Box srsName="' + projection +'">' + 
 		'<coordinates decimal="." cs="," ts=" ">' + extent_ + '</coordinates></Box>' +

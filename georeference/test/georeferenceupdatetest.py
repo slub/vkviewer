@@ -4,10 +4,10 @@ Created on Sep 29, 2014
 @author: mendt
 '''
 
-import unittest, logging
+import unittest, logging, time
 from georeference.settings import DBCONFIG_PARAMS
 from georeference.utils.tools import loadDbSession
-from georeference.georeferenceupdate import runningResetJobs, runningNewJobs, runningUpdateJobs
+from georeference.georeferenceupdate import runningResetJobs, runningNewJobs, runningUpdateJobs, lookForUpdateProcess
 from vkviewer.python.utils.logger import createLogger
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 
@@ -38,7 +38,7 @@ class GeoreferenceUpdateTest(unittest.TestCase):
         
         dbsession.rollback()
         
-    #@unittest.skip('Skip testRunningNewJobs')
+    @unittest.skip('Skip testRunningNewJobs')
     def testRunningNewJobs(self):
         print "--------------------------------------------------------------------------------------------"
         print "\n"
@@ -52,7 +52,7 @@ class GeoreferenceUpdateTest(unittest.TestCase):
         
         dbsession.rollback()
   
-    #@unittest.skip('Skip testRunningNewJobs')
+    @unittest.skip('Skip testRunningNewJobs')
     def testRunningUpdateJobs(self):
         print "--------------------------------------------------------------------------------------------"
         print "\n"
@@ -65,6 +65,40 @@ class GeoreferenceUpdateTest(unittest.TestCase):
         # @TODO
         
         dbsession.rollback()
+        
+    @unittest.skip('Skip testLookForUpdateProcess')
+    def testLookForUpdateProcess(self):
+        print "--------------------------------------------------------------------------------------------"
+        print "\n"
+        print "Test if testLookForUpdateProcess runs correctly ..." 
+        
+        dbsession = loadDbSession(DBCONFIG_PARAMS, self.logger)      
+        response = lookForUpdateProcess(dbsession, self.logger, True)
+        
+        # add tests
+        # @TODO
+        
+        dbsession.rollback()
+        
+    #@unittest.skip('Skip testLookForUpdateProcess_Infinity')
+    def testLookForUpdateProcess_Infinity(self):
+        print "--------------------------------------------------------------------------------------------"
+        print "\n"
+        print "Test if testLookForUpdateProcess_Infinity runs correctly ..." 
+        
+        dbsession = loadDbSession(DBCONFIG_PARAMS, self.logger)      
+        while True:
+            print "New loop run ..."
+            lookForUpdateProcess(dbsession, self.logger, True)
+            dbsession.commit()
+            print "Long sleep ..."
+            time.sleep(10)
+            
+        
+        # add tests
+        # @TODO
+        
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

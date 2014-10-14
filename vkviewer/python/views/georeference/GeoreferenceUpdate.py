@@ -64,7 +64,7 @@ def registerUpdateGeoreferenceProcessInDb(mapObj, userid, gcps, dbsession):
     log.debug('Create georeference process record ...')
     activeGeorefProcess = Georeferenzierungsprozess.getActualGeoreferenceProcessForMapId(mapObj.id, dbsession)
     georefProcess = Georeferenzierungsprozess(messtischblattid = mapObj.apsobjectid, nutzerid = userid, 
-                clipparameter = gcps, timestamp = getTimestampAsPGStr(), isactive = False, type = 'update', 
+                georefparams = gcps, clipparameter = gcps, timestamp = getTimestampAsPGStr(), isactive = False, type = 'update', 
                 refzoomify = True, adminvalidation = '', processed = False, mapsid = mapObj.id, overwrites = activeGeorefProcess.id)
     dbsession.add(georefProcess)
     dbsession.flush()  

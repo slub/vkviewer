@@ -36,7 +36,7 @@ var lang_dictionary = {
 		'validateBtn_validate': 'Vorschau aktualisieren',
 		'submitBtn_validate': 'Georeferenzierung bestätigen',
 		'checkCornerPoint_count' : 'Bitte nur 4 Punkte setzen',
-		'checkCornerPoint_distance' : 'Eckpunkt in diesem Bereich bereits gesetzt! Verwenden Sie "Eckpunkt verschieben"!',
+		'checkCornerPoint_distance' : 'Eckpunkt in diesem Bereich bereits gesetzt! Verwenden Sie "Eckpunkt verschieben"!'
 		
 		// report error
 		'report_error_alert': 'Fehler konnte nicht gemeldet werden. Wenden Sie sich an die Administrator dieser Seite.',
@@ -102,7 +102,10 @@ var lang_dictionary = {
 		'permalink':'Erzeuge einen Link für diese Ansicht',
 		
 		// permalink msg
-		'permalink_msg':'Um den Link zu kopieren drücken Sie bitte'
+		'permalink_msg':'Um den Link zu kopieren drücken Sie bitte',
+		
+		// generic
+		'backToMain': 'zurück zur Hauptseite ...'
 		
 }
 	

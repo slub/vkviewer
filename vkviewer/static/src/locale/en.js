@@ -102,5 +102,8 @@ var lang_dictionary = {
 		'permalink':'Produce link for share this view',
 		
 		// permalink msg
-		'permalink_msg':'For copying the link push'
+		'permalink_msg':'For copying the link push',
+		
+		// generic
+		'backToMain': 'back to main page ...'
 }

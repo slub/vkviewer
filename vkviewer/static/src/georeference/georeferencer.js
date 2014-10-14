@@ -316,7 +316,7 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 		
 		if (goog.isDef(response['gcps'])){
 			this._gcpHandler.registerGcps(response['gcps']);
-			//goBackToMainPage(response['points']);
+			goBackToMainPage(response['points']);
 		} else {
 			alert(response['text']);
 		}
@@ -333,7 +333,6 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 	 * This function is a callback for handling the response of a confirmation request
 	 */
 	var updateHandler = goog.bind(function(event){
-		debugger;
 		if (event.target.getStatus() != 200){
 			alert('Something went wrong, while trying to update the georeference parameter. Please try again or contact the administrator.');
 		};
@@ -345,7 +344,7 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 		if (goog.DEBUG)
 			console.log(response);
 		
-		//goBackToMainPage(response['points']);
+		goBackToMainPage(response['points']);
 	}, this);
 	
 	/**

@@ -221,3 +221,10 @@ padding: 3px;
 	height: 100px;
 }
 
+.warn-msg {
+	position: absolute;
+	z-index: 3000;
+	width: 400px;
+	margin-bottom: 1px;
+	bottom: 0px;
+}

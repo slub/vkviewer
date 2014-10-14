@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-09-04 17:42+0200\n"
+"POT-Creation-Date: 2014-10-14 15:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+
+#: vkviewer/python/views/georeference/GeoreferenceGetProcess.py:125
+msgid "warn-msg-concurrent-georeferencing"
+msgstr ""
 
 #: vkviewer/python/views/utils/GetErrorPage.py:17
 msgid "error_msg_wrong_pw"
@@ -37,18 +41,18 @@ msgstr ""
 msgid "error_msg_interal_auth"
 msgstr ""
 
-#: vkviewer/templates/basic_page.mako:21 vkviewer/templates/basic_page.mako:36
-#: vkviewer/templates/faq.mako:49 vkviewer/templates/faq.mako:72
-#: vkviewer/templates/faq.mako:83 vkviewer/templates/faq.mako:94
-#: vkviewer/templates/faq.mako:108 vkviewer/templates/faq.mako:134
-#: vkviewer/templates/faq.mako:149 vkviewer/templates/faq.mako:163
-#: vkviewer/templates/faq.mako:167 vkviewer/templates/faq.mako:191
-#: vkviewer/templates/faq.mako:205 vkviewer/templates/faq.mako:235
-#: vkviewer/templates/faq.mako:246 vkviewer/templates/faq.mako:272
+#: vkviewer/templates/basic_page.mako:21 vkviewer/templates/basic_page.mako:34
+#: vkviewer/templates/faq.mako:50 vkviewer/templates/faq.mako:73
+#: vkviewer/templates/faq.mako:84 vkviewer/templates/faq.mako:95
+#: vkviewer/templates/faq.mako:109 vkviewer/templates/faq.mako:135
+#: vkviewer/templates/faq.mako:146 vkviewer/templates/faq.mako:157
+#: vkviewer/templates/faq.mako:161 vkviewer/templates/faq.mako:182
+#: vkviewer/templates/faq.mako:196 vkviewer/templates/faq.mako:226
+#: vkviewer/templates/faq.mako:237 vkviewer/templates/faq.mako:263
 msgid "js_library"
 msgstr ""
 
-#: vkviewer/templates/basic_page.mako:54
+#: vkviewer/templates/basic_page.mako:52
 msgid "javascript_disabled"
 msgstr ""
 
@@ -176,291 +180,279 @@ msgstr ""
 msgid "try_again"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:36
+#: vkviewer/templates/faq.mako:37
 msgid "faq-title"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:46
+#: vkviewer/templates/faq.mako:47
 msgid "faq-general-title"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:47
+#: vkviewer/templates/faq.mako:48
 msgid "faq-general-content-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:53
+#: vkviewer/templates/faq.mako:54
 msgid "faq-general-content-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:61
+#: vkviewer/templates/faq.mako:62
 msgid "faq-map-detection"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:63
+#: vkviewer/templates/faq.mako:64
 msgid "faq-map-detection-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:66
+#: vkviewer/templates/faq.mako:67
 msgid "faq-map-detection-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:70
+#: vkviewer/templates/faq.mako:71
 msgid "faq-place-name"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:76
+#: vkviewer/templates/faq.mako:77
 msgid "faq-place-name-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:81
+#: vkviewer/templates/faq.mako:82
 msgid "faq-time-bar"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:87
+#: vkviewer/templates/faq.mako:88
 msgid "faq-time-bar-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:92
+#: vkviewer/templates/faq.mako:93
 msgid "faq-search-list"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:98
+#: vkviewer/templates/faq.mako:99
 msgid "faq-search-list-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:101
+#: vkviewer/templates/faq.mako:102
 msgid "faq-search-list-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:106
+#: vkviewer/templates/faq.mako:107
 msgid "faq-map-navigation"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:112
+#: vkviewer/templates/faq.mako:113
 msgid "faq-map-navigation-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:115
+#: vkviewer/templates/faq.mako:116
 msgid "faq-map-navigation-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:118
+#: vkviewer/templates/faq.mako:119
 msgid "faq-map-navigation-3"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:121
+#: vkviewer/templates/faq.mako:122
 msgid "faq-map-navigation-4"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:124
+#: vkviewer/templates/faq.mako:125
 msgid "faq-map-navigation-5"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:132
+#: vkviewer/templates/faq.mako:133
 msgid "faq-map-management"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:139
+#: vkviewer/templates/faq.mako:140
 msgid "faq-map-management-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:143
-msgid "faq-map-management-2"
-msgstr ""
-
-#: vkviewer/templates/faq.mako:147
+#: vkviewer/templates/faq.mako:144
 msgid "faq-change-transparency"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:153
-msgid "faq-change-transparency-1"
-msgstr ""
-
-#: vkviewer/templates/faq.mako:156
+#: vkviewer/templates/faq.mako:150
 msgid "faq-change-transparency-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:161
+#: vkviewer/templates/faq.mako:155
 msgid "faq-activate-deactivate"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:164
+#: vkviewer/templates/faq.mako:158
 msgid "activate-deactivate-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:168
+#: vkviewer/templates/faq.mako:162
 msgid "activate-deactivate-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:171
-msgid "faq-activate-deactivate-3"
-msgstr ""
-
-#: vkviewer/templates/faq.mako:174
+#: vkviewer/templates/faq.mako:165
 msgid "faq-activate-deactivate-4"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:179
+#: vkviewer/templates/faq.mako:170
 msgid "faq-add-delete"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:181
+#: vkviewer/templates/faq.mako:172
 msgid "faq-add-delte-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:184
+#: vkviewer/templates/faq.mako:175
 msgid "faq-add-delete-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:189
+#: vkviewer/templates/faq.mako:180
 msgid "faq-reorder"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:195
+#: vkviewer/templates/faq.mako:186
 msgid "faq-reorder-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:198
+#: vkviewer/templates/faq.mako:189
 msgid "faq-reorder-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:203
+#: vkviewer/templates/faq.mako:194
 msgid "faq-original-meta"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:209
+#: vkviewer/templates/faq.mako:200
 msgid "faq-original-meta-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:212
+#: vkviewer/templates/faq.mako:203
 msgid "faq-original-meta-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:219
+#: vkviewer/templates/faq.mako:210
 msgid "faq-geo-referencing-maps"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:221
+#: vkviewer/templates/faq.mako:212
 msgid "faq-geo-referencing-maps-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:223
+#: vkviewer/templates/faq.mako:214
 msgid "faq-geo-referencing-maps-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:228
+#: vkviewer/templates/faq.mako:219
 msgid "faq-call-out"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:233
+#: vkviewer/templates/faq.mako:224
 msgid "faq-map-selection"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:239
+#: vkviewer/templates/faq.mako:230
 msgid "faq-map-selection-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:244
+#: vkviewer/templates/faq.mako:235
 msgid "faq-geo-referencing"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:250
+#: vkviewer/templates/faq.mako:241
 msgid "faq-geo-referencing-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:253
+#: vkviewer/templates/faq.mako:244
 msgid "faq-geo-referencing-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:256
+#: vkviewer/templates/faq.mako:247
 msgid "faq-geo-referencing-3"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:259
+#: vkviewer/templates/faq.mako:250
 msgid "faq-geo-referencing-4"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:262
+#: vkviewer/templates/faq.mako:253
 msgid "faq-geo-referencing-5"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:265
+#: vkviewer/templates/faq.mako:256
 msgid "faq-geo-referencing-6"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:270
+#: vkviewer/templates/faq.mako:261
 msgid "faq-geo-referencing-history"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:276
+#: vkviewer/templates/faq.mako:267
 msgid "faq-geo-referencing-history-11"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:289
+#: vkviewer/templates/faq.mako:280
 msgid "faq-sidebar"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:292
+#: vkviewer/templates/faq.mako:283
 msgid "faq-sidebar-1"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:294
+#: vkviewer/templates/faq.mako:285
 msgid "faq-sidebar-2"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:295
+#: vkviewer/templates/faq.mako:286
 msgid "faq-sidebar-3"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:296
+#: vkviewer/templates/faq.mako:287
 msgid "faq-sidebar-4"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:297
+#: vkviewer/templates/faq.mako:288
 msgid "faq-sidebar-5"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:301
+#: vkviewer/templates/faq.mako:292
 msgid "faq-sidebar-6"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:303
+#: vkviewer/templates/faq.mako:294
 msgid "faq-sidebar-7"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:304
+#: vkviewer/templates/faq.mako:295
 msgid "faq-sidebar-8"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:305
+#: vkviewer/templates/faq.mako:296
 msgid "faq-sidebar-9"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:306
+#: vkviewer/templates/faq.mako:297
 msgid "faq-sidebar-10"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:307
+#: vkviewer/templates/faq.mako:298
 msgid "faq-sidebar-11"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:311
+#: vkviewer/templates/faq.mako:302
 msgid "faq-sidebar-12"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:313
+#: vkviewer/templates/faq.mako:304
 msgid "faq-sidebar-13"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:314
+#: vkviewer/templates/faq.mako:305
 msgid "faq-sidebar-14"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:315
+#: vkviewer/templates/faq.mako:306
 msgid "faq-sidebar-15"
 msgstr ""
 
-#: vkviewer/templates/faq.mako:318
+#: vkviewer/templates/faq.mako:309
 msgid "faq-sidebar-16"
 msgstr ""
 

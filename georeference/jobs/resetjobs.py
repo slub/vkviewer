@@ -3,13 +3,15 @@ Created on Oct 7, 2014
 
 @author: mendt
 '''
-from georeference.csw.CswTransactionBinding import gn_transaction_delete
-from georeference.settings import GN_SETTINGS
 from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.RefMtbLayer import RefMtbLayer
 from vkviewer.python.utils.idgenerator import createOAI
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
+from vkviewer.python.utils.exceptions import GeoreferenceProcessingError
 
+from georeference.csw.CswTransactionBinding import gn_transaction_delete
+from georeference.settings import GN_SETTINGS
+from georeference.jobs.genericjobs import updateServices, processGeorefImage, getParsedGeorefParams
 
 def rollbackGeoreferenceProcess(job, dbsession, logger, testing = False):
     logger.debug('Doing a rollback from georeference process %s to %s ...'%(job.id, job.overwrites))
@@ -19,7 +21,16 @@ def rollbackGeoreferenceProcess(job, dbsession, logger, testing = False):
     oldJob = Georeferenzierungsprozess.by_id(job.overwrites, dbsession)
     if oldJob.adminvalidation == 'isvalide':
         # update image for this process
-        # @TODO
+        logger.info('Update persistent georeference result ...')
+        mapObj = Map.by_id(job.mapsid, dbsession)
+        
+        georefParams = getParsedGeorefParams(oldJob)
+        destPath = processGeorefImage(mapObj, georefParams, dbsession, logger)
+        updateServices(mapObj, destPath, dbsession, logger)
+    
+        if destPath is None:
+            logger.error('Something went wrong while trying to process a georeference process.')
+            raise GeoreferenceProcessingError('Something went wrong while trying to process a georeference process.')
          
         logger.debug('Doing georeference process rollback on database ...')
         # reset actual process

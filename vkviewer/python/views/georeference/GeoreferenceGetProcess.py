@@ -1,8 +1,9 @@
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest, HTTPInternalServerError
+from pyramid.i18n import TranslationString, get_localizer
 
 # further tools
-import logging, json, ast
+import json, ast
 
 # own import stuff
 from vkviewer import log
@@ -88,7 +89,7 @@ def createResponseForSpecificGeoreferenceProcess(mapObj, request, georeferenceid
         georeferenceprocess = Georeferenzierungsprozess.getActualGeoreferenceProcessForMapId(mapObj.id, request.db)
     else:
         georeferenceprocess = Georeferenzierungsprozess.by_id(georeferenceid, request.db)
-    pure_clipparameters = ast.literal_eval(str(georeferenceprocess.clipparameter))
+    pure_clipparameters = ast.literal_eval(str(georeferenceprocess.georefparams))
     
     # get the actual valide gcps
     gcps = None
@@ -119,7 +120,12 @@ def createResponseForSpecificGeoreferenceProcess(mapObj, request, georeferenceid
     }    
                 
     # check if there is an other user is working on this map right now
+    # @TODO use babel lingua fpr translation
     areTherePendingUpdateProcesses = Georeferenzierungsprozess.arePendingProcessForMapId(mapObj.id, request.db)
     if areTherePendingUpdateProcesses:
-        response['warn'] = 'There are other users who are working on this map right now. For preventing information losses please wait a minute and try again later.'   
+        if request.locale_name == 'de':
+            warnMsg = 'Aktuell wird das Kartenblatt von anderen Nutzern bearbeitet. Um Informationsverluste zu vermeiden versuchen Sie es bitte noch einmal in ein 15 Minuten.'
+        else:
+            warnMsg = 'Right now another users is working on the georeferencing of this map sheet. For preventing information losses please try again in 15 minutes.'
+        response['warn'] = warnMsg  
     return response

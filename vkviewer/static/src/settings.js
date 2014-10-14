@@ -28,7 +28,12 @@ vk2.settings.WFS_URL = 'http://kartenforum.slub-dresden.de/cgi-bin/mtbows';
 /**
  * @type {string}
  */
-vk2.settings.WFS_GEOSERVER_URL = 'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows';
+vk2.settings.WFS_GEOSERVER_URL = 'http://194.95.145.43:8080/geoserver/testing/ows'; //'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows';
+
+/**
+ * @type {string}
+ */
+vk2.settings.WFS_GEOSERVER_SEARCHLAYER = 'vkdb-test:mapsearch-test'// 'virtuelles_kartenforum:mapsearch' 
 
 /**
  * @type {string}
@@ -43,12 +48,12 @@ vk2.settings.PROXY_URL = '/vkviewer/proxy/?url=';
 /**
  * @type {string}
  */
-vk2.settings.GEONETWORK = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|';
+vk2.settings.GEONETWORK = 'http://localhost:8085.de/geonetwork/srv/eng/search#|';
 
 /**
  * @type {string}
  */
-vk2.settings.CSW_URL = 'http://kartenforum.slub-dresden.de/geonetwork/srv/eng/csw';
+vk2.settings.CSW_URL = 'http://localhost:8085.de/geonetwork/srv/eng/csw';
 
 /**
  * @type {string}
@@ -118,8 +123,11 @@ vk2.settings.MAP_PROFILE_PAGE = '/vkviewer/profile/map';
 /**
  * @type {string}
  */
+//vk2.settings.TMS_URL = [
+//     'http://vk2-cdn1.slub-dresden.de/tms/', 
+//     'http://vk2-cdn2.slub-dresden.de/tms/',
+//     'http://vk2-cdn3.slub-dresden.de/tms/'
+//]
 vk2.settings.TMS_URL = [
-     'http://vk2-cdn1.slub-dresden.de/tms/', 
-     'http://vk2-cdn2.slub-dresden.de/tms/',
-     'http://vk2-cdn3.slub-dresden.de/tms/'
+       'http://localhost/tms/'
 ]

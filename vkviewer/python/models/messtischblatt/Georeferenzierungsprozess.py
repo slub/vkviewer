@@ -7,6 +7,7 @@ class Georeferenzierungsprozess(Base):
     id = Column(Integer, primary_key=True)
     messtischblattid = Column(Integer)
     georefparams = Column(String(255))
+    clipparameter = Column(String(255))
     timestamp = Column(DateTime(timezone=False))
     type = Column(String(255))
     nutzerid = Column(String(255))
@@ -51,7 +52,8 @@ class Georeferenzierungsprozess(Base):
     @classmethod
     def by_getUnprocessedGeorefProcesses(cls, session):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.processed == False)\
-            .filter(Georeferenzierungsprozess.adminvalidation != 'invalide')
+            .filter(Georeferenzierungsprozess.adminvalidation != 'invalide')\
+            .order_by(asc(Georeferenzierungsprozess.timestamp))
 
     @classmethod    
     def getLatestGeorefProcessForObjectId(cls, id, session):
