@@ -52,6 +52,7 @@ goog.require('vk2.settings');
  * @param {string} ows_url
  * @param {string} featureName
  * @param {Array.<number>} bbox
+ * @static
  */
 vk2.request.WFS.getFeatureRequest_IntersectBBox = function(ows_url, featureName, bbox){
 	var request = vk2.settings.PROXY_URL + ows_url + '?' + 'SERVICE=WFS&VERSION=1.1.0&REQUEST=getfeature&TYPENAME=' + featureName + '&outputformat=geojson&format=application/json;%20subtype=geojson';
@@ -63,9 +64,11 @@ vk2.request.WFS.getFeatureRequest_IntersectBBox = function(ows_url, featureName,
 /**
  * @param {Array.<string>} objectids
  * @return {string}
+ * @static
  */
 vk2.request.WFS.getFeatureRequestForObjectIds = function(objectids){
-	var request = vk2.settings.PROXY_URL + vk2.settings.WFS_URL + '?' + 'SERVICE=WFS&VERSION=1.1.0&REQUEST=getfeature&TYPENAME=mapsearch&outputformat=geojson&format=application/json;%20subtype=geojson';
+	var request = vk2.settings.PROXY_URL + vk2.settings.WFS_GEOSERVER_URL + '?' + 'SERVICE=WFS&VERSION=1.1.0&REQUEST=getfeature&TYPENAME=' + 
+		vk2.settings.WFS_GEOSERVER_SEARCHLAYER + '&outputformat=application/json';
 	
 	if (objectids.length > 1){
 		// use OR filter
@@ -79,4 +82,29 @@ vk2.request.WFS.getFeatureRequestForObjectIds = function(objectids){
 	};
 	
 	return request;
+};
+
+/**
+ * @param {string} projection
+ * @param {Array.<number>} extent
+ * @param {Enum.<number>} timeFilter - START|END
+ * @param {string} sortBy
+ * @param {number} startIndex
+ * @param {number} maxFeatures
+ * @return {string}
+ * @static
+ */
+vk2.request.WFS.getFeatureForBBoxTimeFilter = function(projection, extent, timeFilter, sortBy, startIndex, maxFeatures){
+	var extent_ = extent[0] + ',' + extent[1] + ' ' + extent[2] + ',' + extent[3];
+	var url = vk2.settings.PROXY_URL + vk2.settings.WFS_GEOSERVER_URL +'?service=WFS' +
+		'&version=1.0.0&request=GetFeature&typeName=' + vk2.settings.WFS_GEOSERVER_SEARCHLAYER + 
+		'&outputFormat=application/json&srsname=' + projection + '&Filter=<Filter><And>' +
+		'<BBOX><PropertyName>boundingbox</PropertyName><Box srsName="' + projection +'">' + 
+		'<coordinates decimal="." cs="," ts=" ">' + extent_ + '</coordinates></Box>' +
+		'</BBOX><And><PropertyIsGreaterThanOrEqualTo><PropertyName>time</PropertyName>' +
+		'<Literal>' + timeFilter.START + '</Literal></PropertyIsGreaterThanOrEqualTo>' + 
+		'<PropertyIsLessThanOrEqualTo><PropertyName>time</PropertyName><Literal>' + timeFilter.END +
+		'</Literal></PropertyIsLessThanOrEqualTo></And></And></Filter>&sortBy=' + sortBy
+		+	'&startIndex=' + startIndex + '&maxFeatures=' + maxFeatures;
+	return url;
 };

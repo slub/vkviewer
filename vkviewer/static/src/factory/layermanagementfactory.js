@@ -3,6 +3,7 @@ goog.provide('vk2.factory.LayerManagementFactory');
 goog.require('goog.dom');
 goog.require('goog.style');
 goog.require('goog.dom.classes');
+goog.require('goog.net.cookies');
 //goog.require('ol.layer.Vector');
 goog.require('vk2.settings');
 goog.require('vk2.utils');
@@ -173,7 +174,21 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 			}, undefined, associatedLayer);
 		};
 	};
+	
+	// add update georeference anchor if login  
+	if (goog.net.cookies.get('auth_tkt')){
 
+		var georeferenceUpdateContainer = goog.dom.createDom('div', {'class':'georeference-update'});
+		goog.dom.appendChild(metadataContainer, georeferenceUpdateContainer);
+		
+		var anchorGeoreferenceUpdate = goog.dom.createDom('a', {
+			'innerHTML': vk2.utils.getMsg('updateGeoref') + ' ...',
+			'target':'_blank',
+			'href': vk2.settings.GEOREFERENCE_PAGE + '?id=' + layer.getId()
+		});
+		goog.dom.appendChild(georeferenceUpdateContainer, anchorGeoreferenceUpdate);
+	};
+	
 	// opdacity slider
 	var opacitySlider = new vk2.tool.OpacitySlider(containerListEl, layer, 'vertical');
 	

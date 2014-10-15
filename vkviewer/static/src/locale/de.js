@@ -36,7 +36,7 @@ var lang_dictionary = {
 		'validateBtn_validate': 'Vorschau aktualisieren',
 		'submitBtn_validate': 'Georeferenzierung bestätigen',
 		'checkCornerPoint_count' : 'Bitte nur 4 Punkte setzen',
-		'checkCornerPoint_distance' : 'Eckpunkt in diesem Bereich bereits gesetzt! Verwenden Sie "Eckpunkt verschieben"!'
+		'checkCornerPoint_distance' : 'Eckpunkt in diesem Bereich bereits gesetzt! Verwenden Sie "Eckpunkt verschieben"!',
 		
 		// report error
 		'report_error_alert': 'Fehler konnte nicht gemeldet werden. Wenden Sie sich an die Administrator dieser Seite.',
@@ -84,7 +84,7 @@ var lang_dictionary = {
 		'georeference': 'Georeferenzierung',
 		'clickout' : 'Bereich ist bereits vollständig bearbeitet oder enthält keine Karten',
 		
-		// VK2.Tools.TimestampSwitcher
+		// vk2.tool.TimeSlider
 		'timestamps': 'Zeitschnitte',
 		'timestamp_dropdown': 'weitere Jahrgänge hinzufügen',
 		'found_timestamp': 'Zeitschnitte gefunden',
@@ -95,6 +95,9 @@ var lang_dictionary = {
 		'showLayer':'Zeige Karte',
 		'removeLayer':'Verwerfe Karte',
 		'moveToTop':'Karte in den Vordergrund',
+		
+		// vk2.factory.LayerManagementFactory
+		'updateGeoref': 'Aktualisiere Georeferenzierung',
 			
 		// tooltips
 		'layerspy':'Kartenlupe',

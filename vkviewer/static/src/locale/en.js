@@ -95,6 +95,9 @@ var lang_dictionary = {
 		'showLayer':'Display Map',
 		'removeLayer':'Remove Map',
 		'moveToTop':'Move Map to Top',
+		
+		// vk2.factory.LayerManagementFactor
+		'updateGeoref': 'Update georeferencing',
 			
 		// tooltips
 		'layerspy':'Get a magnifier for the map',

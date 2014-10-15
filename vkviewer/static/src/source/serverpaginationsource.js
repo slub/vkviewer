@@ -8,6 +8,7 @@ goog.require('goog.events.EventTarget');
 goog.require('goog.events.EventType');
 goog.require('vk2.settings');
 goog.require('vk2.utils');
+goog.require('vk2.request.WFS');
 
 
 /**
@@ -199,17 +200,8 @@ vk2.source.ServerPagination.prototype.isComplete = function(){
 vk2.source.ServerPagination.prototype.loadFeatures_ = function(extent, projection, event_callback){
 	
 	var sortOrder = this.sortOrder_ === 'ascending' ? '+A' : '+D';						
-	var extent_ = extent[0] + ',' + extent[1] + ' ' + extent[2] + ',' + extent[3];
-	var url = vk2.settings.PROXY_URL + vk2.settings.WFS_GEOSERVER_URL +'?service=WFS' +
-		'&version=1.0.0&request=GetFeature&typeName=' + vk2.settings.WFS_GEOSERVER_SEARCHLAYER + 
-		'&outputFormat=application/json&srsname=' + projection + '&Filter=<Filter><And>' +
-		'<BBOX><PropertyName>boundingbox</PropertyName><Box srsName="' + projection +'">' + 
-		'<coordinates decimal="." cs="," ts=" ">' + extent_ + '</coordinates></Box>' +
-		'</BBOX><And><PropertyIsGreaterThanOrEqualTo><PropertyName>time</PropertyName>' +
-		'<Literal>' + this.timeFilter_.START + '</Literal></PropertyIsGreaterThanOrEqualTo>' + 
-		'<PropertyIsLessThanOrEqualTo><PropertyName>time</PropertyName><Literal>' + this.timeFilter_.END +
-		'</Literal></PropertyIsLessThanOrEqualTo></And></And></Filter>&sortBy=' + this.sortAttribute_ + 
-		sortOrder +	'&startIndex=' + this.index_ + '&maxFeatures=' + this.maxFeatures_;
+	var url = vk2.request.WFS.getFeatureForBBoxTimeFilter(projection, extent, this.timeFilter_, this.sortAttribute_ + sortOrder, 
+			this.index_, this.maxFeatures_);
 
 	var xhr = new goog.net.XhrIo();
 	goog.events.listenOnce(xhr, 'success', function(e){

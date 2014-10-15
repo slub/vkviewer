@@ -23,7 +23,7 @@ vk2.settings.WFS_PARSER_CONFIG = {
 /**
  * @type {string}
  */
-vk2.settings.WFS_URL = 'http://kartenforum.slub-dresden.de/cgi-bin/mtbows';
+//vk2.settings.WFS_URL = 'http://kartenforum.slub-dresden.de/cgi-bin/mtbows';
 
 /**
  * @type {string}
@@ -69,6 +69,11 @@ vk2.settings.GEOREFERENCECHOOSER_WMS = 'http://kartenforum.slub-dresden.de/cgi-b
  * @type {string}
  */
 vk2.settings.GEOREFERENCECHOOSER_LAYERID = 'mtb_grid_puzzle';
+
+/**
+ * @type {string}
+ */
+vk2.settings.GEOREFERENCE_PAGE = '/vkviewer/georeference';
 
 /**
  * @type {string}

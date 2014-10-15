@@ -6,8 +6,8 @@ from vkviewer.python.tools import checkIsUser, getCookie, appendParameterToQuery
 from vkviewer import log
 
 """ basic start site """
-@view_config(route_name='home', renderer='main_page.mako', permission='view',http_cache=(0, {'public':True}))
-@view_config(route_name='home1', renderer='main_page.mako', permission='view',http_cache=(0, {'public':True}))
+@view_config(route_name='home', renderer='main.mako', permission='view',http_cache=(0, {'public':True}))
+@view_config(route_name='home1', renderer='main.mako', permission='view',http_cache=(0, {'public':True}))
 def getMainPage(request):  
     log.info('Call view get_index_page.')
        
@@ -24,7 +24,7 @@ def getMainPage(request):
         return {}
 
 """ basic start site but logged in """
-@view_config(route_name='home_login', renderer='main_page.mako', permission='edit',http_cache=(0, {'public':True}))
+@view_config(route_name='home_login', renderer='main.mako', permission='edit',http_cache=(0, {'public':True}))
 def getMainPageLoggedIn(request):
     # check if user has priviliges and if yes allow him to modify
     groups = groupfinder(unauthenticated_userid(request), request)
