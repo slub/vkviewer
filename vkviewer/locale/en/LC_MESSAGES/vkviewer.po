@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkviewer 0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-10-14 15:22+0200\n"
+"POT-Creation-Date: 2014-10-15 11:06+0200\n"
 "PO-Revision-Date: 2014-07-28 13:58+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -16,12 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-
-#: vkviewer/python/views/georeference/GeoreferenceGetProcess.py:125
-#, fuzzy
-#| msgid "faq-geo-referencing"
-msgid "warn-msg-concurrent-georeferencing"
-msgstr "Right now another users is working on the georeferencing of this map sheet. For preventing information losses please try again in 15 minutes."
 
 #: vkviewer/python/views/utils/GetErrorPage.py:17
 msgid "error_msg_wrong_pw"
@@ -59,7 +53,7 @@ msgid "javascript_disabled"
 msgstr "Please activate Javascript to use the Virtuelles Kartenforum 2.0"
 
 #: vkviewer/templates/change_pw.mako:6 vkviewer/templates/development.mako:39
-#: vkviewer/templates/main_page.mako:39
+#: vkviewer/templates/main.mako:39
 msgid "change_pw_header"
 msgstr "Change password"
 
@@ -98,7 +92,7 @@ msgstr ""
 "number."
 
 #: vkviewer/templates/contact.mako:7 vkviewer/templates/development.mako:91
-#: vkviewer/templates/main_page.mako:91
+#: vkviewer/templates/main.mako:101
 msgid "contact_header"
 msgstr "Contact form"
 
@@ -118,71 +112,69 @@ msgstr "Contact message"
 msgid "contact_message_help"
 msgstr "Please insert your contact message in this text field."
 
-#: vkviewer/templates/development.mako:37 vkviewer/templates/main_page.mako:37
+#: vkviewer/templates/development.mako:37 vkviewer/templates/main.mako:37
 msgid "georef_history"
 msgstr "Georeference History"
 
-#: vkviewer/templates/development.mako:41 vkviewer/templates/main_page.mako:41
+#: vkviewer/templates/development.mako:41 vkviewer/templates/main.mako:49
 msgid "logout_button"
 msgstr "Logout"
 
-#: vkviewer/templates/development.mako:46 vkviewer/templates/main_page.mako:46
+#: vkviewer/templates/development.mako:46 vkviewer/templates/main.mako:54
 msgid "login_button"
 msgstr "Login"
 
-#: vkviewer/templates/development.mako:54 vkviewer/templates/main_page.mako:54
+#: vkviewer/templates/development.mako:54 vkviewer/templates/main.mako:64
 msgid "header_language_de"
 msgstr "German"
 
-#: vkviewer/templates/development.mako:55 vkviewer/templates/main_page.mako:55
+#: vkviewer/templates/development.mako:55 vkviewer/templates/main.mako:65
 msgid "header_language_en"
 msgstr "English"
 
-#: vkviewer/templates/development.mako:74 vkviewer/templates/main_page.mako:74
+#: vkviewer/templates/development.mako:74 vkviewer/templates/main.mako:84
 msgid "header_service"
 msgstr "Informations"
 
 #: vkviewer/templates/development.mako:80
-#: vkviewer/templates/development.mako:85 vkviewer/templates/main_page.mako:80
-#: vkviewer/templates/main_page.mako:85
+#: vkviewer/templates/development.mako:85 vkviewer/templates/main.mako:90
+#: vkviewer/templates/main.mako:95
 msgid "faq_main_heading"
 msgstr "Frequently Asked Questions"
 
 #: vkviewer/templates/development.mako:91
 #: vkviewer/templates/development.mako:138
-#: vkviewer/templates/georeference.mako:49 vkviewer/templates/main_page.mako:91
-#: vkviewer/templates/main_page.mako:138
+#: vkviewer/templates/georeference.mako:49 vkviewer/templates/main.mako:101
+#: vkviewer/templates/main.mako:148
 msgid "footer_contact"
 msgstr "Contact"
 
-#: vkviewer/templates/development.mako:95 vkviewer/templates/main_page.mako:95
+#: vkviewer/templates/development.mako:95 vkviewer/templates/main.mako:105
 #: vkviewer/templates/project.mako:14
 msgid "project_name_short"
 msgstr "Project Virtuelles Kartenforum 2.0"
 
 #: vkviewer/templates/development.mako:95
 #: vkviewer/templates/development.mako:142
-#: vkviewer/templates/georeference.mako:53 vkviewer/templates/main_page.mako:95
-#: vkviewer/templates/main_page.mako:142
+#: vkviewer/templates/georeference.mako:53 vkviewer/templates/main.mako:105
+#: vkviewer/templates/main.mako:152
 msgid "footer_project"
 msgstr "Project"
 
 #: vkviewer/templates/development.mako:99
 #: vkviewer/templates/development.mako:146
 #: vkviewer/templates/georeference.mako:57 vkviewer/templates/impressum.mako:7
-#: vkviewer/templates/main_page.mako:99 vkviewer/templates/main_page.mako:146
+#: vkviewer/templates/main.mako:109 vkviewer/templates/main.mako:156
 msgid "footer_editorial"
 msgstr "Impressum"
 
 #: vkviewer/templates/development.mako:126
-#: vkviewer/templates/georeference.mako:37
-#: vkviewer/templates/main_page.mako:126
+#: vkviewer/templates/georeference.mako:37 vkviewer/templates/main.mako:136
 msgid "footer_project_name"
 msgstr "Virtuelles Kartenforum 2.0"
 
 #: vkviewer/templates/development.mako:127
-#: vkviewer/templates/georeference.mako:38
-#: vkviewer/templates/main_page.mako:127
+#: vkviewer/templates/georeference.mako:38 vkviewer/templates/main.mako:137
 msgid "footer_project_desc_long"
 msgstr "a project from the SLUB Dresden and the University of Rostock"
 
@@ -599,31 +591,47 @@ msgid "faq-sidebar-16"
 msgstr "Back to top"
 
 #: vkviewer/templates/georeference_evaluation.mako:23
-#, fuzzy
-msgid "georef_evaluation"
-msgstr "Result validated"
+msgid "admin_validation"
+msgstr "Welcome to the evaluation page"
 
 #: vkviewer/templates/georeference_evaluation.mako:24
 #: vkviewer/templates/georeference_profile.mako:27
 msgid "georef_back_to_overview"
 msgstr "Back to map sheet overview"
 
-#: vkviewer/templates/georeference_evaluation.mako:37
+#: vkviewer/templates/georeference_evaluation.mako:35
+msgid "admin_getAllUnvalidProcesses"
+msgstr "Get all pending processes"
+
+#: vkviewer/templates/georeference_evaluation.mako:41
+msgid "admin_enterMapId"
+msgstr "Enter map id"
+
+#: vkviewer/templates/georeference_evaluation.mako:42
+#: vkviewer/templates/georeference_evaluation.mako:49
+msgid "admin_getAllProcesses"
+msgstr "Get processes"
+
+#: vkviewer/templates/georeference_evaluation.mako:48
+msgid "admin_enterUserId"
+msgstr "Enter user id"
+
+#: vkviewer/templates/georeference_evaluation.mako:59
 #: vkviewer/templates/georeference_profile.mako:57
 msgid "georef_process_id"
 msgstr "Process-ID"
 
-#: vkviewer/templates/georeference_evaluation.mako:40
+#: vkviewer/templates/georeference_evaluation.mako:62
 #: vkviewer/templates/georeference_profile.mako:60
 msgid "georef_result_validate"
 msgstr "Result validated"
 
-#: vkviewer/templates/georeference_evaluation.mako:49
+#: vkviewer/templates/georeference_evaluation.mako:71
 #: vkviewer/templates/georeference_profile.mako:66
 msgid "georef_map_sheet_info"
 msgstr "Map sheet information"
 
-#: vkviewer/templates/georeference_evaluation.mako:52
+#: vkviewer/templates/georeference_evaluation.mako:74
 #: vkviewer/templates/georeference_profile.mako:69
 msgid "georef_parameter"
 msgstr "Set corner points (lon:lat)"
@@ -982,4 +990,11 @@ msgstr "Go back to main page."
 
 #~ msgid "faq-activate-deactivate-3"
 #~ msgstr ""
+
+# | msgid "faq-geo-referencing"
+#~ msgid "warn-msg-concurrent-georeferencing"
+#~ msgstr ""
+
+#~ msgid "georef_evaluation"
+#~ msgstr "Result validated"
 

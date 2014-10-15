@@ -239,48 +239,7 @@ vk2.utils.AppLoader.loadGeoreferenceEvaluationRecordBehavior = function(classNam
 	};
 };
 
-/**
- * This function is used by the admin evaluation page. It removes the dom element with the given id through the attribute value
- * @param {string} idMapContainer
- * @param {string} classNameEventBtns
- * @expose
- * @static
- */
-vk2.utils.AppLoader.loadGeoreferenceEvaluationMap = function(idMapContainer, classNameEventBtns){
-	vk2.georeference.utils.initializeGeorefenceCRS();
-	
-	// load validation map
-	var resultViewer = new vk2.georeference.ResultViewer(idMapContainer);
-	
-	var targetElements = goog.dom.getElementsByClass(classNameEventBtns);
-	for (var i = 0; i < targetElements.length; i++){
-		goog.events.listen(targetElements[i], 'click', function(event){
-			// remove this record
-			var paramsAsString = this.getAttribute('data-params');
-			var objectid = parseInt(this.getAttribute('data-id'));
-			
-			// parse string
-			var paramsAsJson = JSON.parse(paramsAsString);
-			
-			var gcps = goog.isDef(paramsAsJson['new']) ? paramsAsJson['new'] : paramsAsJson;
-			var request = {
-				'id': objectid,
-				'georeference': gcps
-			};
-			
-			// request a validation result
-			vk2.georeference.GeoreferencerService.requestValidationResult(request, function(response){
-				var data = response.target.getResponseJson();
-				resultViewer.displayValidationMap(data['wms_url'], data['layer_id'], 
-					ol.proj.transform(data['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS ));
-			}, function(response){
-				console.log('Something went wrong while trying to fetch a evaluation result.');
-			});
-		});
-		
 
-	};
-};
 
 /**
  * @expose

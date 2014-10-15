@@ -70,7 +70,7 @@ def addRoutes(config):
     config.add_route('report', ROUTE_PREFIX+'/report/{action}')
     
     # georeferencer evaluation
-    config.add_route('georeference_evaluation', ROUTE_PREFIX+'/admin/{action}')
+    config.add_route('evaluation-georeference', ROUTE_PREFIX+'/admin/{action}')
     
     # footer routes
     config.add_route('contact', ROUTE_PREFIX+'/contact')

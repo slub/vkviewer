@@ -12,7 +12,6 @@ from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from vkviewer.python.models.messtischblatt.Metadata import Metadata
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
-from vkviewer.python.utils.parser import parseMapObjForId
 
 ERROR_MSG = "Please check your request parameters or contact the administrator (%s)."%ADMIN_ADDR
  
@@ -23,21 +22,22 @@ def georeferenceGetProcess(request):
     try:
         request_data = None
         if request.method == 'POST':
-            request_data = request.json_body
-        
-        mapObj = parseMapObjForId(request_data, 'objectid', request.db)
-        log.debug('Objectid is valide: %s'%request_data)
-        
-        georeferenceid = None
+            request_data = request.json_body     
+               
         if 'georeferenceid' in request_data:
             georeferenceid = int(request_data['georeferenceid'])
-            
-        log.debug('Parsed parameters - mapid: %s, georeferenceid: %s'%(mapObj.id, georeferenceid))
-        if georeferenceid:
+            log.debug('Parsed parameters - georeferenceid: %s'%georeferenceid)
+            mapObj = Map.by_id(int(Georeferenzierungsprozess.by_id(georeferenceid, request.db).mapsid), request.db)
             response = createResponseForSpecificGeoreferenceProcess(mapObj, request, georeferenceid)
-        else:
+        elif 'objectid' in request_data:
+            mapObjId = request_data['objectid']
+            log.debug('Parsed parameters - mapid: %s'%mapObjId)
+            mapObj = Map.by_id(int(mapObjId), request.db)
             response = createGeneralResponse(mapObj, request)
-        return json.dumps(response, ensure_ascii=False, encoding='utf-8')               
+        else:
+            log.error('Could not find a georeferenceid or and objectid in the post request parameters ...')
+            raise GeoreferenceParameterError
+        return response    
     except GeoreferenceParameterError as e:
         log.error(e)
         raise HTTPBadRequest(ERROR_MSG) 

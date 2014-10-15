@@ -128,6 +128,16 @@ vk2.settings.MAP_PROFILE_PAGE = '/vkviewer/profile/map';
 /**
  * @type {string}
  */
+vk2.settings.EVALUATION_GETPROCESS = '/vkviewer/admin/getprocess';
+
+/**
+ * @type {string}
+ */
+vk2.settings.EVALUATION_API = '/vkviewer/admin';
+
+/**
+ * @type {string}
+ */
 //vk2.settings.TMS_URL = [
 //     'http://vk2-cdn1.slub-dresden.de/tms/', 
 //     'http://vk2-cdn2.slub-dresden.de/tms/',

@@ -38,7 +38,7 @@ def georeferenceConfirm(request):
             
             georeferenceid = Georeferenzierungsprozess.getActualGeoreferenceProcessForMapId(mapObj.id, request.db).id
             response = {'text':msg,'georeferenceid':georeferenceid}
-            return json.dumps(response, ensure_ascii=False, encoding='utf-8')        
+            return response
         
         # actual only support this option if target srs is EPSG:4314
         log.debug('Start saving georeference process in the database ...')
@@ -56,7 +56,7 @@ def georeferenceConfirm(request):
             log.debug('Create response ...')  
             response = {'text':'Georeference result saved. It will soon be ready for use.','georeferenceid':georefProcess.id, 'points':20,
                          'gcps':request_data['georeference'] ,'type':'confirm'}
-            return json.dumps(response, ensure_ascii=False, encoding='utf-8') 
+            return response
         else:
             raise GeoreferenceParameterError('Wrong or missing service parameter')
         

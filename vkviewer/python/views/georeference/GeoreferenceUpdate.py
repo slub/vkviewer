@@ -33,7 +33,7 @@ def georeferenceUpdate(request):
         log.debug('Check if there exists a registered georeference process for this messtischblatt ...')
         if Georeferenzierungsprozess.isGeoreferenced(mapObj.id, request.db) == False:
             response = {'text':'There is no registered georeference process for this messtischblatt. Please move back to the confirm process.'}
-            return json.dumps(response, ensure_ascii=False, encoding='utf-8')        
+            return response
         
         # actual only support this option if target srs is EPSG:4314
         log.debug('Saving georeference process in the database ...')
@@ -47,7 +47,7 @@ def georeferenceUpdate(request):
             achievement_points = len(request_data['georeference']['remove']['gcps'])*5  
             response = {'text':'Georeference result updated. It will soon be ready for use.','georeferenceid':georefProcess.id, 'points':achievement_points, 
                         'gcps':request_data['georeference']['new'] ,'type':'update'}
-            return json.dumps(response, ensure_ascii=False, encoding='utf-8') 
+            return response
         else:
             log.error('The remove and new parameters are not valide - %s')
             raise GeoreferenceParameterError('The remove and new parameters are not valide.')

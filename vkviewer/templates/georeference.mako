@@ -69,7 +69,6 @@
 <%block name="js_content">
     <script>	
     	var georeferenceApp = new vk2.app.GeoreferenceApp('unreferenced-map','georeferenced-map');
-		//vk2.utils.AppLoader.loadGeoreferenceApp('unreferenced-map','georeferenced-map');
     </script> 
 </%block>
 

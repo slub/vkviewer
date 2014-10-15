@@ -46,7 +46,7 @@ def georeferenceValidation(request):
             
             log.debug('Create response ...')  
             response = {'wms_url':wms_url,'layer_id':mapObj.apsdateiname,'extent':Map.getExtent(mapObj.id, request.db)}
-            return json.dumps(response, ensure_ascii=False, encoding='utf-8') 
+            return response 
         else:
             raise GeoreferenceParameterError('Wrong or missing service parameter')
     except GeoreferenceParameterError as e:

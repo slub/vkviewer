@@ -17,7 +17,7 @@ from vkviewer.python.georef.utils import getTimestampAsPGStr
 # renderer imports
 import json
 
-@view_config(route_name='georeference_evaluation', renderer='string', permission='moderator', match_param='action=publish')
+@view_config(route_name='evaluation-georeference', renderer='string', permission='moderator', match_param='action=publish')
 def publishGeorefParameters(request):
     log.info('Request - Publish georeference result.')
     try:
