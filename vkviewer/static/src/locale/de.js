@@ -100,6 +100,9 @@ var lang_dictionary = {
 		// vk2.factory.LayerManagementFactory
 		'updateGeoref': 'Aktualisiere Georeferenzierung',
 			
+		// vk2.control.ImageManipulation
+		'openImagemanipulation':'Öffne Bildbearbeitungs-Toolbox',
+		
 		// tooltips
 		'layerspy':'Kartenlupe',
 		'rotatenorth':'Karten nach Norden ausrichten',

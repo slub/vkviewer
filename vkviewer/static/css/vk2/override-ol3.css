@@ -189,3 +189,34 @@
 .olMap:-moz-full-screen .permalink { left: .5em; top: 115px; } 
 .olMap:fullscreen .permalink { left: .5em; top: 115px; }
 .ol-attribution > button { display: none; }
+
+/* image manipulation control */
+.image-manipulation {
+	position: absolute;
+	background: rgba(255,255,255,0.4);
+    border-radius: 4px;
+    padding: 2px;
+}
+.image-manipulation a {
+	display: block;
+	margin: 1px;
+	padding: 0;
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	height: 22px;
+	width: 22px;
+	text-indent: 200%;
+	white-space: nowrap;
+	overflow: hidden;
+	border-radius: 0;
+  	background: rgb(0,177,158);
+ 	background-size: 22px 22px;
+}
+.image-manipulation a.active { background-color: #f33; }
+.unreferenced-map.olMap .image-manipulation { left: .7em; top: 113px; border-radius: 0; }
+.unreferenced-map.olMap:-webkit-full-screen .manipulation { left: .5em; top: 115px; }
+.unreferenced-map.olMap:-moz-full-screen .manipulation { left: .5em; top: 115px; } 
+.unreferenced-map.olMap:fullscreen .manipulation { left: .5em; top: 115px; }
+.unreferenced-map.ol-attribution > button { display: none; }	  	

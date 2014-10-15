@@ -99,6 +99,9 @@ var lang_dictionary = {
 		
 		// vk2.factory.LayerManagementFactor
 		'updateGeoref': 'Update georeferencing',
+		
+		// vk2.control.ImageManipulation
+		'openImagemanipulation':'Open Image-manipulation-toolbox',
 			
 		// tooltips
 		'layerspy':'Get a magnifier for the map',
