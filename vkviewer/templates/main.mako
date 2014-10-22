@@ -2,6 +2,9 @@
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
+	<script>
+	    goog.require('vk2.app.PresentationApp');
+	</script>
 </%block>
 
 <%block name="body_content">
@@ -178,11 +181,19 @@
 	%>
 
 	% if user_id:
-		var apploader = new vk2.utils.AppLoader({
-			'authenticate':true
+		var app = new vk2.app.PresentationApp({
+			'authenticate':true,
+			'modalAnchorClassName':'vk2-modal-anchor',
+			'mapContainerId':'mapdiv',
+			'spatialsearchContainerId':'spatialsearch-container',
+			'georefChooserContainerId':'georeference-chooser-container'
 		});
 	% else:
-		var apploader = new vk2.utils.AppLoader({});
+		var app = new vk2.app.PresentationApp({
+			'modalAnchorClassName':'vk2-modal-anchor',
+			'mapContainerId':'mapdiv',
+			'spatialsearchContainerId':'spatialsearch-container'
+		});
 	% endif
 	
 	</script>

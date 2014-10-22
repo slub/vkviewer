@@ -36,10 +36,6 @@
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/deps.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/src/vkviewer-deps.js')}"></script> 
-	    <script>
-	    	goog.require('vk2.utils.AppLoader');
-		</script>
-	
 		<%block name="header_content" />
 	     
     </head>
