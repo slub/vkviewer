@@ -37,6 +37,7 @@ var lang_dictionary = {
 		'submitBtn_validate': 'Georeferenzierung bestätigen',
 		'checkCornerPoint_count' : 'Bitte nur 4 Punkte setzen',
 		'checkCornerPoint_distance' : 'Eckpunkt in diesem Bereich bereits gesetzt! Verwenden Sie "Eckpunkt verschieben"!',
+		'georef_validate_msg':'Sind Sie sicher das Sie die Georeferenzierung persistent abspeichern wollen?',
 		
 		// report error
 		'report_error_alert': 'Fehler konnte nicht gemeldet werden. Wenden Sie sich an die Administrator dieser Seite.',
@@ -108,7 +109,9 @@ var lang_dictionary = {
 		'permalink_msg':'Um den Link zu kopieren drücken Sie bitte',
 		
 		// generic
-		'backToMain': 'zurück zur Hauptseite ...'
+		'backToMain': 'zurück zur Hauptseite ...',
+		'yes':'Ja',
+		'no':'Nein'
 		
 }
 	

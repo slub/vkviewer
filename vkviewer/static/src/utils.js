@@ -3,6 +3,7 @@ goog.provide('vk2.utils');
 goog.require('goog.Uri');
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
+goog.require('goog.events');
 goog.require('goog.style');
 goog.require('goog.net.cookies');
 
@@ -117,6 +118,64 @@ vk2.utils.getQueryParam = function(name, href){
 	} else {
 		return this.getAllQueryParams().get(name);
 	}
+};
+
+/**
+ * @param {string=} title
+ * @param {string=} message
+ * @param {Function=} submitCallback
+ * @param {string=} opt_classNames
+ */
+vk2.utils.getConfirmationDialog = function(title, message, submitCallback, opt_classNames){
+	var modal = new vk2.utils.Modal('vk2-overlay-modal',document.body, true);
+	var title = title;
+	var classes = goog.isDef(opt_classNames) ? opt_classNames : '';
+	var msg = message;
+	
+	modal.open(title, classes);
+	modal.appendToBody('<p>' + msg + '</p><br><button type="button" class="btn btn-primary" id="confirm-dialog-btn-yes"' +
+			'>' + vk2.utils.getMsg('yes') + '</button><button type="button" class="btn btn-primary"' +
+			'id="confirm-dialog-btn-no">' + vk2.utils.getMsg('no') + '</button>');
+	
+	var callback = goog.isDef(submitCallback) ? submitCallback : function(){};
+	goog.events.listen(goog.dom.getElement('confirm-dialog-btn-yes'), 'click', function(event){callback();});	
+	goog.events.listen(goog.dom.getElement('confirm-dialog-btn-no'), 'click', function(event){modal.close();});
+};
+
+/**
+ * @param {string} className
+ * @param {Object=} opt_element
+ * @static
+ */
+vk2.utils.loadModalOverlayBehavior = function(className, opt_element){
+	var parent_el = goog.isDef(opt_element) ? opt_element : document.body;
+	var modal_anchors = goog.dom.getElementsByClass(className, parent_el.body);
+	
+	// iteratore over modal_anchors and init the behavior for them
+	for (var i = 0; i < modal_anchors.length; i++){
+		goog.events.listen(modal_anchors[i], goog.events.EventType.CLICK, function(e){
+			try {	
+				var modal = new vk2.utils.Modal('vk2-overlay-modal',document.body, true);
+				
+				// parse the modal parameters
+				var title = this.getAttribute('data-title');
+				var classes = this.getAttribute('data-classes');
+				var href = this.getAttribute('data-src');
+	
+				modal.open(title, classes, {
+					'href':href,
+					'classes':classes
+				});
+				
+				// stopping the default behavior of the anchor 
+				e.preventDefault();
+			} catch (e) {
+				if (goog.DEBUG){
+					console.log('Error while trying to load remote page in modal.');
+				}
+			};
+		});
+	};
 };
 
 /**

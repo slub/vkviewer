@@ -34,7 +34,7 @@ vk2.app.PresentationApp = function(settings){
 	
 	// append modal behavior to page anchors
 	var modalAnchorClassName = goog.isDef(settings['modalAnchorClassName']) ? settings['modalAnchorClassName'] : 'vk2-modal-anchor';
-	this.loadModalOverlayBehavior_(modalAnchorClassName);
+	vk2.utils.loadModalOverlayBehavior(modalAnchorClassName);
 	
 	// check if there is a main page and if yes load it
 	this.loadWelcomePage_();
@@ -84,42 +84,6 @@ vk2.app.PresentationApp = function(settings){
 	
 	// for correct displaying of tooltips
 	setTimeout(function(){vk2.utils.overwriteOlTitles(settings['mapContainerId']);}, 500);
-};
-
-/**
- * @param {string} className
- * @param {Object=} opt_element
- * @private
- */
-vk2.app.PresentationApp.prototype.loadModalOverlayBehavior_ = function(className, opt_element){
-	var parent_el = goog.isDef(opt_element) ? opt_element : document.body;
-	var modal_anchors = goog.dom.getElementsByClass(className, parent_el.body);
-	
-	// iteratore over modal_anchors and init the behavior for them
-	for (var i = 0; i < modal_anchors.length; i++){
-		goog.events.listen(modal_anchors[i], goog.events.EventType.CLICK, function(e){
-			try {	
-				var modal = new vk2.utils.Modal('vk2-overlay-modal',document.body, true);
-				
-				// parse the modal parameters
-				var title = this.getAttribute('data-title');
-				var classes = this.getAttribute('data-classes');
-				var href = this.getAttribute('data-src');
-	
-				modal.open(title, classes, {
-					'href':href,
-					'classes':classes
-				});
-				
-				// stopping the default behavior of the anchor 
-				e.preventDefault();
-			} catch (e) {
-				if (goog.DEBUG){
-					console.log('Error while trying to load remote page in modal.');
-				}
-			};
-		});
-	};
 };
 
 /**

@@ -8,7 +8,6 @@ goog.require('goog.net.XhrIo');
 
 goog.require('vk2.settings');
 goog.require('vk2.utils');
-goog.require('vk2.utils.AppLoader');
 goog.require('vk2.georeference.utils');
 goog.require('vk2.georeference.GeoreferencerChooser');
 goog.require('vk2.georeference.Georeferencer');
@@ -24,7 +23,7 @@ goog.require('vk2.georeference.utils');
  */
 vk2.app.GeoreferenceApp = function(originalMapContainerId, geoMapContainerId){
 	vk2.utils.checkIfCookiesAreEnabble();
-	vk2.utils.AppLoader.loadModalOverlayBehavior('vk2-modal-anchor');
+	vk2.utils.loadModalOverlayBehavior('vk2-modal-anchor');
 	vk2.georeference.utils.initializeGeorefenceCRS();
 	
 	// parse object id

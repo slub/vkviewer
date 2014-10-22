@@ -294,7 +294,7 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 			alert('Something went wrong, while trying to process a georeference result. Please try again or contact the administrator.');
 		};
 		
-		var response = JSON.parse(event.target.getResponseJson());
+		var response = event.target.getResponseJson();
 		
 		if (goog.DEBUG)
 			console.log(response);
@@ -312,7 +312,7 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 			alert('Something went wrong, while trying to confirm the georeference parameter. Please try again or contact the administrator.');
 		};
 		
-		var response = JSON.parse(event.target.getResponseJson());
+		var response = event.target.getResponseJson();
 		
 		if (goog.isDef(response['gcps'])){
 			this._gcpHandler.registerGcps(response['gcps']);
@@ -337,7 +337,7 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 			alert('Something went wrong, while trying to update the georeference parameter. Please try again or contact the administrator.');
 		};
 		
-		var response = JSON.parse(event.target.getResponseJson());
+		var response = event.target.getResponseJson();
 		
 		this._gcpHandler.registerGcps(response['gcps'], response['type']);
 		
@@ -404,7 +404,9 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 	// event for validate button
 	goog.events.listen(validate_button, goog.events.EventType.CLICK, submitHandler['update'], undefined, this);
 	goog.events.listen(this._gcpHandler, 'update', submitHandler['update'] , undefined, this);
-	goog.events.listen(submit_button, goog.events.EventType.CLICK, submitHandler['confirm'] , undefined, this);
+	var submitCallback = goog.partial(vk2.utils.getConfirmationDialog, vk2.utils.getMsg('submitBtn_validate'), 
+			vk2.utils.getMsg('georef_validate_msg'), submitHandler['confirm']);
+	goog.events.listen(submit_button, goog.events.EventType.CLICK, submitCallback, undefined, this);
 };
 
 /**

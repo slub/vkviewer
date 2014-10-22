@@ -20,11 +20,11 @@ vk2.utils.Modal = function(modal_id, parent_el, opt_onclose_destroy){
 	 * @type {Element}
 	 * @private
 	 */
-	this._modalEl = this._initHtmlContent(modal_id);
-	goog.dom.appendChild(parent_el, this._modalEl);
+	this.modalEl_ = this._initHtmlContent(modal_id);
+	goog.dom.appendChild(parent_el, this.modalEl_);
 	
 	var onclose_destroy = opt_onclose_destroy || false;
-	this._initBehavior(this._modalEl, onclose_destroy);
+	this._initBehavior(this.modalEl_, onclose_destroy);
 };
 
 /**
@@ -96,7 +96,7 @@ vk2.utils.Modal.prototype._initBehavior = function(modal_el, onclose_destroy){
 		body_content.innerHTML = '';
 		
 		// clean up header title
-		var header_title = goog.dom.getElementByClass('modal-title', this._modalEl);
+		var header_title = goog.dom.getElementByClass('modal-title', this.modalEl_);
 		header_title.innerHTML = '';
 		
 		// clean up content className
@@ -122,7 +122,7 @@ vk2.utils.Modal.prototype._initBehavior = function(modal_el, onclose_destroy){
  * @private
  */
 vk2.utils.Modal.prototype._openAnchorInIframe = function(node, className){
-	var modal_content = goog.dom.getElementByClass('modal-content', this._modalEl);
+	var modal_content = goog.dom.getElementByClass('modal-content', this.modalEl_);
 	if (goog.DEBUG)
 		console.log('Append open in iframe behavior');
 	
@@ -150,7 +150,7 @@ vk2.utils.Modal.prototype._openAnchorInIframe = function(node, className){
  */
 vk2.utils.Modal.prototype._registerRemoteSrc = function(remote_src){
 	// create iframe and append it to body
-	var modal_body = goog.dom.getElementByClass('modal-body', this._modalEl);
+	var modal_body = goog.dom.getElementByClass('modal-body', this.modalEl_);
 	modal_body.innerHTML = '';
 	
 	var iframe = goog.dom.createDom('iframe',{
@@ -176,8 +176,20 @@ vk2.utils.Modal.prototype._registerRemoteSrc = function(remote_src){
 };
 
 vk2.utils.Modal.prototype._setTitle = function(title){
-	var header_title = goog.dom.getElementByClass('modal-title', this._modalEl);
+	var header_title = goog.dom.getElementByClass('modal-title', this.modalEl_);
 	header_title.innerHTML = title;
+};
+
+/**
+ * 
+ */
+vk2.utils.Modal.prototype.close = function(){
+	if (goog.DEBUG)
+		console.log('Close modal ...');
+	
+	if (goog.isDef(this.modalEl_)){
+		$(this.modalEl_).modal('hide');
+	};		
 };
 
 /**
@@ -197,7 +209,7 @@ vk2.utils.Modal.prototype.open = function(opt_title, opt_modal_class, opt_remote
 	};
 	
 	if (goog.isDef(opt_modal_class)){
-		var modal_content = goog.dom.getElementByClass('modal-content', this._modalEl);
+		var modal_content = goog.dom.getElementByClass('modal-content', this.modalEl_);
 		goog.dom.classes.add(modal_content, opt_modal_class);
 	};
 	
@@ -205,7 +217,7 @@ vk2.utils.Modal.prototype.open = function(opt_title, opt_modal_class, opt_remote
 		this._registerRemoteSrc(opt_remote_src);
 	
 	// open modal
-	$(this._modalEl).modal('show');
+	$(this.modalEl_).modal('show');
 };
 
 /**
@@ -213,7 +225,7 @@ vk2.utils.Modal.prototype.open = function(opt_title, opt_modal_class, opt_remote
  * @param {string} className
  */
 vk2.utils.Modal.prototype.appendToBody = function(content, className){
-	var modal_body = goog.dom.getElementByClass('modal-body', this._modalEl);
+	var modal_body = goog.dom.getElementByClass('modal-body', this.modalEl_);
 	
 	if (goog.dom.isElement(content)){
 		goog.dom.appendChild(modal_body, content);

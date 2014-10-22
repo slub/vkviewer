@@ -3,7 +3,6 @@
 <%block name="header_content">	 
 	<script>
 		goog.require('vk2.app.GeoreferenceApp');
-		goog.require('vk2.utils.AppLoader');
 	</script>
 </%block>
 
