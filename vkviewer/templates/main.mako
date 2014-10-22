@@ -40,7 +40,7 @@
 								        		
 								        	% if with_modify:  
 							              		<li class="listelement">
-													<a href="${request.route_url('georeference_evaluation', action='evaluation')}" data-src="${request.route_url('georeference_evaluation', action='evaluation')}" data-classes="admin-evaluation" 
+													<a href="${request.route_url('evaluation-georeference', action='evaluation')}" data-src="${request.route_url('evaluation-georeference', action='evaluation')}" data-classes="admin-evaluation" 
 													  		data-title="">Evaluierung</a>
 												</li> 
 											% endif 
@@ -111,7 +111,7 @@
 									        
 													    % if with_modify:  
 													    <li class="listelement">
-													    	<a href="${request.route_url('georeference_evaluation', action='evaluation')}" data-src="${request.route_url('georeference_evaluation', action='evaluation')}" data-classes="admin-evaluation" 
+													    	<a href="${request.route_url('evaluation-georeference', action='evaluation')}" data-src="${request.route_url('evaluation-georeference', action='evaluation')}" data-classes="admin-evaluation" 
 													        		class="vk2-modal-anchor" data-title="">Evaluierung</a>
 													    </li> 
 													    % endif     

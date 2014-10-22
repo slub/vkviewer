@@ -27,7 +27,7 @@ def georeferenceGetProcess(request):
         if 'georeferenceid' in request_data:
             georeferenceid = int(request_data['georeferenceid'])
             log.debug('Parsed parameters - georeferenceid: %s'%georeferenceid)
-            mapObj = Map.by_id(int(Georeferenzierungsprozess.by_id(georeferenceid, request.db).mapsid), request.db)
+            mapObj = Map.by_id(int(Georeferenzierungsprozess.by_id(georeferenceid, request.db).mapid), request.db)
             response = createResponseForSpecificGeoreferenceProcess(mapObj, request, georeferenceid)
         elif 'objectid' in request_data:
             mapObjId = request_data['objectid']

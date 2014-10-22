@@ -1,12 +1,16 @@
+import json
 from vkviewer.python.models.Meta import Base
-from sqlalchemy import Column, Integer, Boolean, String, DateTime, desc, asc
+from sqlalchemy import Column, Integer, Boolean, String, DateTime, desc, asc, PickleType
 
+class JsonPickleType(PickleType):
+    impl = String
+    
 class Georeferenzierungsprozess(Base):
     __tablename__ = 'georeferenzierungsprozess'
     __table_args__ = {'extend_existing':True}
     id = Column(Integer, primary_key=True)
     messtischblattid = Column(Integer)
-    georefparams = Column(String(255))
+    georefparams = Column(JsonPickleType(pickler=json))
     clipparameter = Column(String(255))
     timestamp = Column(DateTime(timezone=False))
     type = Column(String(255))
@@ -16,7 +20,7 @@ class Georeferenzierungsprozess(Base):
     isactive = Column(Boolean)
     overwrites = Column(Integer)
     adminvalidation = Column(String(20))
-    mapsid = Column(Integer)
+    mapid = Column(Integer)
     
     @classmethod
     def all(cls, session):
@@ -61,7 +65,7 @@ class Georeferenzierungsprozess(Base):
     
     @classmethod
     def getActualGeoreferenceProcessForMapId(cls, mapId, session):
-        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapsid == mapId)\
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapid == mapId)\
             .filter(Georeferenzierungsprozess.isactive == True).first()
     
     @classmethod
@@ -76,7 +80,7 @@ class Georeferenzierungsprozess(Base):
             
     @classmethod
     def isGeoreferenced(cls, mapId, session):
-        georefProcess = session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapsid == mapId)\
+        georefProcess = session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapid == mapId)\
             .filter(Georeferenzierungsprozess.isactive == True)\
             .order_by(desc(Georeferenzierungsprozess.timestamp)).first()
         if georefProcess is None:
@@ -87,7 +91,7 @@ class Georeferenzierungsprozess(Base):
     def arePendingProcessForMapId(cls, mapId, session):
         # at first get the actual overwrite id
         actualOverwriteId = cls.getActualGeoreferenceProcessForMapId(mapId, session).id
-        georefProcesses = session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapsid == mapId)\
+        georefProcesses = session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapid == mapId)\
             .filter(Georeferenzierungsprozess.overwrites == actualOverwriteId)\
             .filter(Georeferenzierungsprozess.isactive == False).all()
         if len(georefProcesses) > 0:

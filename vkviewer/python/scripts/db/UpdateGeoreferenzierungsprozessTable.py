@@ -104,7 +104,12 @@ def setIsActiveAttributeAndOverwrite(doubleProcesses, dbsession):
 #             else:
 #                 proc.adminvalidation = 'invalide'
 #            print "Mapid %s - procid %s - timestamp %s - overwrite %s"%(key, proc.id, proc.timestamp, overwrite)
-            
+     
+def transformGeorefParamsToJSON(dbsession):
+    processes = Georeferenzierungsprozess.all(dbsession)
+    for process in processes:    
+        process.test = ast.literal_eval(process.georefparams)
+           
 def main():
     logger = createLogger('FillMapsTable', logging.DEBUG)   
     dbsession = loadDbSession(DBCONFIG_PARAMS, logger)
@@ -116,25 +121,26 @@ def main():
         count += 1
         logger.info('Georeference process with id %s - number %s'%(georef_process.id, count))
     
-    oneProcesses = {}
-    doubleProcesses = {}
-    for georef_process in georeferenzierungsprozesse:
-        if georef_process.messtischblattid in oneProcesses:
-            if georef_process.messtischblattid in doubleProcesses:
-                doubleProcesses[georef_process.messtischblattid].append(georef_process)
-            else:
-                doubleProcesses[georef_process.messtischblattid] = [georef_process, oneProcesses[georef_process.messtischblattid]]
-                del oneProcesses[georef_process.messtischblattid]
-        else: 
-            oneProcesses[georef_process.messtischblattid] = georef_process
-    
-
-    for key in doubleProcesses:
-        for proc in doubleProcesses[key]:
-            print "Objectid %s - processid %s"%(key, proc.id)
-        print "--------------------------------"
+#     oneProcesses = {}
+#     doubleProcesses = {}
+#     for georef_process in georeferenzierungsprozesse:
+#         if georef_process.messtischblattid in oneProcesses:
+#             if georef_process.messtischblattid in doubleProcesses:
+#                 doubleProcesses[georef_process.messtischblattid].append(georef_process)
+#             else:
+#                 doubleProcesses[georef_process.messtischblattid] = [georef_process, oneProcesses[georef_process.messtischblattid]]
+#                 del oneProcesses[georef_process.messtischblattid]
+#         else: 
+#             oneProcesses[georef_process.messtischblattid] = georef_process
+#     
+# 
+#     for key in doubleProcesses:
+#         for proc in doubleProcesses[key]:
+#             print "Objectid %s - processid %s"%(key, proc.id)
+#         print "--------------------------------"
     #setIsActiveAttribute(oneProcesses, dbsession)
-    setIsActiveAttributeAndOverwrite(doubleProcesses, dbsession)
+    #setIsActiveAttributeAndOverwrite(doubleProcesses, dbsession)
+    transformGeorefParamsToJSON(dbsession)
     dbsession.commit()
     
 """ Main """    

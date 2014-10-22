@@ -2,8 +2,7 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest, HTTPInternalServerError
 
 # further tools
-import logging
-import json
+import ast
 
 # own import stuff
 from vkviewer import log
@@ -48,8 +47,8 @@ def georeferenceConfirm(request):
             timestamp = getTimestampAsPGStr()
             georeference_parameter = str(convertUnicodeDictToUtf(request_data['georeference']))
             georefProcess = Georeferenzierungsprozess(messtischblattid = mapObj.apsobjectid, nutzerid = userid, 
-                georefparams = georeference_parameter, clipparameter = georeference_parameter, timestamp = timestamp, isactive = True, type = 'new', 
-                refzoomify = True, adminvalidation = '', processed = False, mapsid = mapObj.id, overwrites = 0)
+                georefparams = ast.literal_eval(georeference_parameter), clipparameter = georeference_parameter, timestamp = timestamp, isactive = True, type = 'new', 
+                refzoomify = True, adminvalidation = '', processed = False, mapid = mapObj.id, overwrites = 0)
             request.db.add(georefProcess)
             request.db.flush()
                 

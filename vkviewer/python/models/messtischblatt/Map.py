@@ -6,7 +6,7 @@ from vkviewer.python.georef.geometry import createBBoxFromPostGISString
 
 
 class Map(Base):
-    __tablename__ = 'maps'
+    __tablename__ = 'map'
     __table_args__ = {'extend_existing':True}
     id = Column(Integer, primary_key=True)
     apsobjectid = Column(Integer)
@@ -33,13 +33,13 @@ class Map(Base):
     
     @classmethod
     def getBoundingBoxObjWithEpsg(cls, id, session, epsg=4314):
-        query = 'SELECT st_astext(st_transform(boundingbox,  %s)) FROM maps WHERE id = %s'%(epsg, id)
+        query = 'SELECT st_astext(st_transform(boundingbox,  %s)) FROM map WHERE id = %s'%(epsg, id)
         pg_geometry = session.execute(query,{'id':id}).fetchone()[0]
         return createBBoxFromPostGISString(pg_geometry, epsg)
     
     @classmethod
     def getExtent(cls, id, session, epsg=4314):
-        query = 'SELECT st_extent(st_transform(boundingbox, %s)) FROM maps WHERE id = :id;'%epsg
+        query = 'SELECT st_extent(st_transform(boundingbox, %s)) FROM map WHERE id = :id;'%epsg
         pg_extent = session.execute(query,{'id':id}).fetchone()[0]
         extent = pg_extent.replace(' ',',')[4:-1].split(',')
         parsed_extent = []
@@ -50,7 +50,7 @@ class Map(Base):
     @classmethod
     def getCentroid(cls, id, session, epsg=4314):
         # Used for creating a permalink
-        query = 'SELECT st_astext(st_centroid(st_transform(boundingbox, %s))) FROM maps WHERE id = %s'%(epsg, id)
+        query = 'SELECT st_astext(st_centroid(st_transform(boundingbox, %s))) FROM map WHERE id = %s'%(epsg, id)
         pg_centroid = session.execute(query,{'id':id}).fetchone()[0]
         centroid = pg_centroid[6:-1].split(' ')
         parsed_centroid = []
