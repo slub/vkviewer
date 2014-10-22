@@ -1,4 +1,4 @@
-goog.provide('vk2.georeference.ZoomifyViewer');
+goog.provide('vk2.viewer.ZoomifyViewer');
 
 goog.require('goog.dom');
 goog.require('goog.net.XhrIo');
@@ -23,7 +23,7 @@ goog.require('vk2.settings');
  * @constructor
  * @extends {goog.events.EventTarget}
  */
-vk2.georeference.ZoomifyViewer = function(containerEl, zoomify_properties_url){
+vk2.viewer.ZoomifyViewer = function(containerEl, zoomify_properties_url){
 	
 	goog.net.XhrIo.send(vk2.settings.PROXY_URL + zoomify_properties_url, goog.bind(function(event){
 		if (event.target.getStatus() != 200){
@@ -43,7 +43,7 @@ vk2.georeference.ZoomifyViewer = function(containerEl, zoomify_properties_url){
 		
 	goog.base(this);
 };
-goog.inherits(vk2.georeference.ZoomifyViewer, goog.events.EventTarget);
+goog.inherits(vk2.viewer.ZoomifyViewer, goog.events.EventTarget);
 
 /**
  * @param {string} url
@@ -51,7 +51,7 @@ goog.inherits(vk2.georeference.ZoomifyViewer, goog.events.EventTarget);
  * @param {number} width
  * @param {string} containerEl
  */
-vk2.georeference.ZoomifyViewer.prototype.initialize_ = function(url, height, width, containerEl){
+vk2.viewer.ZoomifyViewer.prototype.initialize_ = function(url, height, width, containerEl){
 
 	/**
 	 * @type {number}
@@ -119,41 +119,41 @@ vk2.georeference.ZoomifyViewer.prototype.initialize_ = function(url, height, wid
 	}));
 	
 	// dispatch for other observers who are waiting 
-	this.dispatchEvent(new goog.events.Event(vk2.georeference.ZoomifyViewer.EventType.LOADEND,{}));	
+	this.dispatchEvent(new goog.events.Event(vk2.viewer.ZoomifyViewer.EventType.LOADEND,{}));	
 };
 
 /**
  * @returns {ol.Map}
  */
-vk2.georeference.ZoomifyViewer.prototype.getMap = function(){
+vk2.viewer.ZoomifyViewer.prototype.getMap = function(){
 	return this._map;
 };
 
 /**
  * @returns {ol.source.Zoomify}
  */
-vk2.georeference.ZoomifyViewer.prototype.getZoomifySource = function(){
+vk2.viewer.ZoomifyViewer.prototype.getZoomifySource = function(){
 	return this._zoomifySource;
 };
 
 /**
  * @returns {number}
  */
-vk2.georeference.ZoomifyViewer.prototype.getHeight = function(){
+vk2.viewer.ZoomifyViewer.prototype.getHeight = function(){
 	return parseInt(this._height);
 };
 
 /**
  * @returns {number}
  */
-vk2.georeference.ZoomifyViewer.prototype.getWidth = function(){
+vk2.viewer.ZoomifyViewer.prototype.getWidth = function(){
 	return parseInt(this._width);
 };
 
 /**
  * @enum {string}
  */
-vk2.georeference.ZoomifyViewer.EventType = {
+vk2.viewer.ZoomifyViewer.EventType = {
 	// Is triggered after zoomify layer loaded
 	LOADEND: 'loadend',
 };

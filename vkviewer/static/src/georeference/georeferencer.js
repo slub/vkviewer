@@ -7,7 +7,6 @@ goog.require('goog.events.EventType');
 goog.require('goog.style');
 goog.require('vk2.utils');
 goog.require('vk2.utils.Styles');
-goog.require('vk2.georeference.ZoomifyViewer');
 goog.require('vk2.georeference.GeoreferencerService');
 
 /**

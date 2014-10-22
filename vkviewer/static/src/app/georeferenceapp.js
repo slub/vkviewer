@@ -8,11 +8,11 @@ goog.require('goog.net.XhrIo');
 
 goog.require('vk2.settings');
 goog.require('vk2.utils');
+goog.require('vk2.viewer.ZoomifyViewer');
 goog.require('vk2.georeference.utils');
 goog.require('vk2.georeference.GeoreferencerChooser');
 goog.require('vk2.georeference.Georeferencer');
 goog.require('vk2.georeference.GeoreferencerService');
-goog.require('vk2.georeference.ZoomifyViewer');
 goog.require('vk2.georeference.ResultViewer');
 goog.require('vk2.georeference.MesstischblattGcpHandler');
 goog.require('vk2.georeference.utils');
@@ -96,7 +96,7 @@ vk2.app.GeoreferenceApp.prototype.loaderFunction_ = function(originalMapContaine
 	};
 		
 	// load unreferenced layer 
-	this._zoomifyViewer = new vk2.georeference.ZoomifyViewer(originalMapContainerId, data['zoomify']);
+	this._zoomifyViewer = new vk2.viewer.ZoomifyViewer(originalMapContainerId, data['zoomify']);
 	
 	// load validation map
 	this._resultViewer = new vk2.georeference.ResultViewer(geoMapContainerId, {
