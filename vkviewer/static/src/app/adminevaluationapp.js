@@ -27,7 +27,13 @@ vk2.app.AdminEvaluationApp = function(settings){
 	this.initializeEvaluationMap_(settings['map_container']);
 	
 	if (settings.hasOwnProperty('btn_getallprocess'))
-		this.addFetchProcessEvent_(settings['btn_getallprocess'], settings['process_list'])
+		this.addFetchProcessEvent_(settings['btn_getallprocess'], settings['process_list']);
+	
+	if (settings.hasOwnProperty('btn_getsingleprocess_mapid'))
+		this.addFetchSingleProcessForMapId_(settings['btn_getsingleprocess_mapid'], settings['process_list']);
+	
+	if (settings.hasOwnProperty('btn_getsingleprocess_userid'))
+		this.addFetchSingleProcessForUserId_(settings['btn_getsingleprocess_userid'], settings['process_list']);
 };
 
 /**
@@ -63,6 +69,78 @@ vk2.app.AdminEvaluationApp.prototype.addFetchProcessEvent_ = function(idEventTri
 };
 
 /**
+ * @param {string} idEventTrigger
+ * @param {string} resultContainer
+ * @private
+ */
+vk2.app.AdminEvaluationApp.prototype.addFetchSingleProcessForMapId_ = function(idEventTrigger, resultContainer){
+	var eventTrigger = goog.dom.getElement(idEventTrigger);
+	
+	// add event to the trigger
+	goog.events.listen(eventTrigger, 'click', function(event){
+		if (goog.DEBUG)
+			console.log('fetch data from server ...');
+		
+		var inputFieldId = event.currentTarget.getAttribute('data-src');
+		var inputFieldEl = goog.dom.getElement(inputFieldId);
+		var mapid = inputFieldEl.value;
+		
+		var xhr = new goog.net.XhrIo();
+		
+		// add listener to request object
+		goog.events.listenOnce(xhr, goog.net.EventType.SUCCESS, function(e){
+			var xhr = /** @type {goog.net.XhrIo} */ (e.target);
+			this.displayProcesses_(resultContainer, xhr.getResponseJson());
+			xhr.dispose();
+		}, false, this);
+		
+		goog.events.listenOnce(xhr, goog.net.EventType.ERROR, function(e){
+			alert('Something went wrong, while trying to fetch data from the server.')
+		}, false, this);
+		
+		// send request
+		var url = vk2.settings.EVALUATION_GETPROCESS + '?mapid=' + mapid;
+		xhr.send(url, 'GET');	
+	}, undefined, this);
+};
+
+/**
+ * @param {string} idEventTrigger
+ * @param {string} resultContainer
+ * @private
+ */
+vk2.app.AdminEvaluationApp.prototype.addFetchSingleProcessForUserId_ = function(idEventTrigger, resultContainer){
+	var eventTrigger = goog.dom.getElement(idEventTrigger);
+	
+	// add event to the trigger
+	goog.events.listen(eventTrigger, 'click', function(event){
+		if (goog.DEBUG)
+			console.log('fetch data from server ...');
+		
+		var inputFieldId = event.currentTarget.getAttribute('data-src');
+		var inputFieldEl = goog.dom.getElement(inputFieldId);
+		var userid = inputFieldEl.value;
+		
+		var xhr = new goog.net.XhrIo();
+		
+		// add listener to request object
+		goog.events.listenOnce(xhr, goog.net.EventType.SUCCESS, function(e){
+			var xhr = /** @type {goog.net.XhrIo} */ (e.target);
+			this.displayProcesses_(resultContainer, xhr.getResponseJson());
+			xhr.dispose();
+		}, false, this);
+		
+		goog.events.listenOnce(xhr, goog.net.EventType.ERROR, function(e){
+			alert('Something went wrong, while trying to fetch data from the server.')
+		}, false, this);
+		
+		// send request
+		var url = vk2.settings.EVALUATION_GETPROCESS + '?userid=' + userid;
+		xhr.send(url, 'GET');	
+	}, undefined, this);
+};
+
+/**
  * @param {Object} record
  * @return {Element}
  * @private
@@ -85,7 +163,7 @@ vk2.app.AdminEvaluationApp.prototype.createProcessListElement_ = function(record
 			'class':'btn btn-primary action-btn',
 			'innerHTML': 'Is valide'
 		});
-		this.registerSetIsValideEventListener_(setIsValideBtn);
+		this.registerSetIsValideEventListener_(setIsValideBtn, parentEl);
 		goog.dom.appendChild(phrase, setIsValideBtn);
 		
 		// show map
@@ -112,7 +190,7 @@ vk2.app.AdminEvaluationApp.prototype.createProcessListElement_ = function(record
 			'class':'btn btn-warning action-btn',
 			'innerHTML': 'Is invalide'
 		});
-		this.registerSetIsInvalideEventListener_(deactiveBtn);
+		this.registerSetIsInvalideEventListener_(deactiveBtn, parentEl);
 		goog.dom.appendChild(phrase, deactiveBtn);
 		
 		return phrase;
@@ -190,9 +268,10 @@ vk2.app.AdminEvaluationApp.prototype.initializeEvaluationMap_ = function(idMapCo
 
 /**
  * @param {Element} element
+ * @param {Element} parentEl
  * @private
  */
-vk2.app.AdminEvaluationApp.prototype.registerSetIsInvalideEventListener_ = function(element){
+vk2.app.AdminEvaluationApp.prototype.registerSetIsInvalideEventListener_ = function(element, parentEl){
 	goog.events.listen(element, 'click', function(event){
 		if (goog.DEBUG)
 			console.log('Fire set is invalide map event ...');
@@ -205,7 +284,7 @@ vk2.app.AdminEvaluationApp.prototype.registerSetIsInvalideEventListener_ = funct
 				
 			goog.net.XhrIo.send(url, function(event){
 				alert(event.target.getResponseJson()['message']);
-				goog.dom.removeNode(element);
+				goog.dom.removeNode(parentEl);
 			}, 'GET');	
 		} else {
 			if (goog.DEBUG)
@@ -216,9 +295,10 @@ vk2.app.AdminEvaluationApp.prototype.registerSetIsInvalideEventListener_ = funct
 
 /**
  * @param {Element} element
+ * @param {Element} parentEl
  * @private
  */
-vk2.app.AdminEvaluationApp.prototype.registerSetIsValideEventListener_ = function(element){
+vk2.app.AdminEvaluationApp.prototype.registerSetIsValideEventListener_ = function(element, parentEl){
 	goog.events.listen(element, 'click', function(event){
 		if (goog.DEBUG)
 			console.log('Fire set is valide map event ...');
@@ -231,7 +311,7 @@ vk2.app.AdminEvaluationApp.prototype.registerSetIsValideEventListener_ = functio
 				
 			goog.net.XhrIo.send(url, function(event){
 				alert(event.target.getResponseJson()['message']);
-				goog.dom.removeNode(element);
+				goog.dom.removeNode(parentEl);
 			}, 'GET');	
 		} else {
 			if (goog.DEBUG)

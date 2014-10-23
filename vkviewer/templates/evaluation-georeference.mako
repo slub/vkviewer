@@ -38,15 +38,15 @@
 						<!-- get all processes for id -->
 						<div class="form-group">
 						    <label class="sr-only" for="mapid">Map Id</label>
-						    <input type="name" class="form-control" id="mapid" placeholder="${_('admin_enterMapId')}">
-						    <button class="btn btn-primary">${_('admin_getAllProcesses')}</button>
+						    <input type="name" class="form-control" id="input-mapid" placeholder="${_('admin_enterMapId')}">
+						    <button class="btn btn-primary" id="getsingleprocesss-mapid" data-src="input-mapid" >${_('admin_getAllProcesses')}</button>
 						 </div>
 						 
 						 <!-- get all processes for user -->
 						<div class="form-group">
 						    <label class="sr-only" for="mapid">User Id</label>
-						    <input type="name" class="form-control" id="mapid" placeholder="${_('admin_enterUserId')}">
-						    <button class="btn btn-primary">${_('admin_getAllProcesses')}</button>
+						    <input type="name" class="form-control" id="input-userid" placeholder="${_('admin_enterUserId')}">
+						    <button class="btn btn-primary" id="getsingleprocesss-userid" data-src="input-userid">${_('admin_getAllProcesses')}</button>
 						</div>
 					</div>
 				</div>  
@@ -72,8 +72,9 @@
 		var app = new vk2.app.AdminEvaluationApp({
 			'process_list':'list-container',
 			'btn_getallprocess':'getallprocesses',
-			'map_container':'evaluation-map'
+			'map_container':'evaluation-map',
+			'btn_getsingleprocess_mapid':'getsingleprocesss-mapid',
+			'btn_getsingleprocess_userid':'getsingleprocesss-userid'
 		});
-		//vk2.utils.AppLoader.loadGeoreferenceEvaluationRecordBehavior('action-btn', 'data-href', 'data-id');
     </script> 
 </%block>

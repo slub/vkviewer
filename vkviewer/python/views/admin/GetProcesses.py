@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import ast
 from pyramid.view import view_config
 from sqlalchemy import desc
 
@@ -13,11 +12,22 @@ from vkviewer.python.utils.parser import convertUnicodeDictToUtf
 def getProcesses(request):
     log.info('Request - Get georeference processes.')
     
-    log.debug('Get all pending processes ...')
-    queryData = request.db.query(Georeferenzierungsprozess, Metadata).join(Metadata, Georeferenzierungsprozess.mapid == Metadata.mapid)\
-        .filter(Georeferenzierungsprozess.adminvalidation == '')\
-        .order_by(desc(Georeferenzierungsprozess.id))
-    
+    if 'mapid' in request.params:
+        log.debug('Get processes for mapid %s ...'%request.params['mapid'])
+        queryData = request.db.query(Georeferenzierungsprozess, Metadata).join(Metadata, Georeferenzierungsprozess.mapid == Metadata.mapid)\
+            .filter(Georeferenzierungsprozess.mapid == request.params['mapid'])\
+            .order_by(desc(Georeferenzierungsprozess.id))
+    elif 'userid' in request.params:
+        log.debug('Get processes for userid %s ...'%request.params['userid'])
+        queryData = request.db.query(Georeferenzierungsprozess, Metadata).join(Metadata, Georeferenzierungsprozess.mapid == Metadata.mapid)\
+            .filter(Georeferenzierungsprozess.nutzerid == request.params['userid'])\
+            .order_by(desc(Georeferenzierungsprozess.id))
+    else:
+        log.debug('Get all pending processes ...')
+        queryData = request.db.query(Georeferenzierungsprozess, Metadata).join(Metadata, Georeferenzierungsprozess.mapid == Metadata.mapid)\
+            .filter(Georeferenzierungsprozess.adminvalidation == '')\
+            .order_by(desc(Georeferenzierungsprozess.id))
+
     response = []
     for record in queryData:
         georef = record[0]
