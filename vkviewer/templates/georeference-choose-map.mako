@@ -13,7 +13,7 @@
 				
 				% for map in paginator.items:
 					
-					<a href="${request.route_url('georeference_page')}?id=${map['mapid']}" 
+					<a href="${request.route_url('georeference-page')}?id=${map['mapid']}" 
 						target="_top">${map['title']}</a> <br> 
 						
 				% endfor

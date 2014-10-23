@@ -15,7 +15,7 @@ from vkviewer.python.models.messtischblatt.Metadata import Metadata
 ERROR_MSG = "Please check your request parameters or contact the administrator (%s)."%ADMIN_ADDR
 
 """ Returns a page for choosing a messtischblatt for georeferencering """
-@view_config(route_name='choose_map_georef', renderer='chooseGeorefMtb.mako', permission='view',http_cache=0)
+@view_config(route_name='georeference-choose-map', renderer='georeference-choose-map.mako', permission='view',http_cache=0)
 def chooseGeoreferenceMap(request):
     log.info('Call view getPage_chooseGeorefMtb.')
     if 'blattnr' in request.params:

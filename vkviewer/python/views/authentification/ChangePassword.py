@@ -9,12 +9,12 @@ from vkviewer.python.tools import checkIsUser
 from vkviewer.python.utils.exceptions import MissingQueryParameterError, WrongPasswordError, InternalAuthentificationError
 from vkviewer.python.models.messtischblatt.Users import Users
 
-@view_config(route_name='change_pw', renderer='change_pw.mako', match_param='action=page', permission='edit',http_cache=0)
+@view_config(route_name='pw-change', renderer='auth-pw-change.mako', match_param='action=page', permission='edit',http_cache=0)
 def change_pw_page(request):
     return {}
 
 """ update the passwords  """
-@view_config(route_name='change_pw', match_param='action=update', permission='edit', request_method='POST')
+@view_config(route_name='pw-change', match_param='action=update', permission='edit', request_method='POST')
 def change_pw(request):
     login = ''
     old_password = ''

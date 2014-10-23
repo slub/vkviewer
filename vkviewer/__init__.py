@@ -64,8 +64,8 @@ def addRoutes(config):
     config.add_route('gettimestampsforid',ROUTE_PREFIX+'/gettimestampsforid')
 
     # routes for the georeference process
-    config.add_route('choose_map_georef',ROUTE_PREFIX+'/choosegeoref')
-    config.add_route('georeference_page', ROUTE_PREFIX+'/georeference')
+    config.add_route('georeference-choose-map',ROUTE_PREFIX+'/choosegeoref')
+    config.add_route('georeference-page', ROUTE_PREFIX+'/georeference')
     config.add_route('georeference', ROUTE_PREFIX+'/georeference/{action}')
     config.add_route('report', ROUTE_PREFIX+'/report/{action}')
     
@@ -83,7 +83,7 @@ def addRoutes(config):
     config.add_route('set_visitor_cookie', ROUTE_PREFIX+'/welcomeoff')
 
     # change & reset pw
-    config.add_route('change_pw', ROUTE_PREFIX+'/change/pw/{action}')
+    config.add_route('pw-change', ROUTE_PREFIX+'/change/pw/{action}')
     
     # profile pages
     config.add_route('profile-georeference', ROUTE_PREFIX+'/profile/georef')

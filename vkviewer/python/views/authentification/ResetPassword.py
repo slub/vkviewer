@@ -9,11 +9,11 @@ from vkviewer.python.utils.exceptions import MissingQueryParameterError, Interna
 from vkviewer.python.utils.mail import sendMailCommandLine
 from vkviewer.python.tools import generateRandomString
 
-@view_config(route_name='auth', renderer='reset_pw.mako', match_param='action=page_reset', http_cache=0)
+@view_config(route_name='auth', renderer='auth-pw-reset.mako', match_param='action=page_reset', http_cache=0)
 def reset_pw_page(request):
     return {}
 
-@view_config(route_name='auth', renderer='reset_pw_success.mako', match_param='action=page_reset_success', http_cache=0)
+@view_config(route_name='auth', renderer='auth-pw-reset-success.mako', match_param='action=page_reset_success', http_cache=0)
 def reset_pw_page_success(request):
     return {}
 
