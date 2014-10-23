@@ -11,6 +11,7 @@ dist
 vkviewer.egg-info
 python_env
 tmp
+scripts
 .settings
 
 # files which are holding sensible information
@@ -44,8 +45,6 @@ log
 vkviewer/python/tests/test-data/
 /home/mendt/workspaces/vkviewer/template-files/metadaten-templates/tmp/
 
-# do not commit
-vkviewer/python/scripts/CheckForUpdatedMesstischblaetter.py
 
 # scripts which shouldn't be pushed to the repo
 # vkviewer/python/scripts/db/*

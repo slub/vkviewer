@@ -4,7 +4,6 @@ from pyramid.security import remember
 
 from vkviewer.python.models.messtischblatt.Users import Users
 from vkviewer.python.utils.exceptions import InternalAuthentificationError, WrongLoginDataError, WrongPasswordError
-import json
 
 """ this view checks if the login is registered in the database and gets the vorname/nachname and 
     sends it back to client """

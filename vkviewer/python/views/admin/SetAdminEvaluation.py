@@ -1,24 +1,11 @@
 # -*- coding: utf-8 -*-
-from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest
 
-# database imports
-from sqlalchemy.exc import DBAPIError
 from vkviewer import log
+from vkviewer.python.utils.exceptions import GENERAL_ERROR_MESSAGE
 from vkviewer.settings import ADMIN_ADDR
-from vkviewer.python.tools import checkIsUser
-from vkviewer.python.models.messtischblatt.Fehlermeldung import Fehlermeldung
-from vkviewer.python.models.messtischblatt.Users import Users
-from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
-from vkviewer.python.models.messtischblatt.RefMtbLayer import RefMtbLayer
-from vkviewer.python.georef.utils import getTimestampAsPGStr
-
-# renderer imports
-import json
-
-ERROR_MSG = "Please check your request parameters or contact the administrator (%s)."%ADMIN_ADDR
 
 @view_config(route_name='evaluation-georeference', renderer='json', permission='moderator', match_param='action=setinvalide')
 def setProcessToInValide(request):
@@ -35,7 +22,7 @@ def setProcessToInValide(request):
             raise Exception('Missing parameter (georeferenceid) ...')
     except Exception as e:
         log.error(e)
-        return HTTPBadRequest(ERROR_MSG);
+        return HTTPBadRequest(GENERAL_ERROR_MESSAGE);
     
 @view_config(route_name='evaluation-georeference', renderer='json', permission='moderator', match_param='action=setisvalide')
 def setProcessToIsValide(request):
@@ -52,5 +39,5 @@ def setProcessToIsValide(request):
             raise Exception('Missing parameter (georeferenceid) ...')
     except Exception as e:
         log.error(e)
-        return HTTPBadRequest(ERROR_MSG);
+        return HTTPBadRequest(GENERAL_ERROR_MESSAGE);
     

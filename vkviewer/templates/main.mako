@@ -36,7 +36,7 @@
 									
 						              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> ${user_id} <b class="caret"></b></a>
 						              	<ul class="dropdown-menu">
-							                <li><a href="${request.route_url('users_profile_georef')}" data-src="${request.route_url('users_profile_georef')}" data-classes="georef-history" 
+							                <li><a href="${request.route_url('profile-georeference')}" data-src="${request.route_url('profile-georeference')}" data-classes="georef-history" 
 								        		class="vk2-modal-anchor" data-title="">${_('georef_history')}</a></li>
 							                <li><a href="${request.route_url('change_pw', action='page')}" data-src="${request.route_url('change_pw', action='page')}" data-classes="pw-change" 
 								        		class="vk2-modal-anchor" data-title="${_('change_pw_header')}">${_('change_pw_header')}</a></li>

@@ -87,7 +87,6 @@ def addRoutes(config):
     
     # profile pages
     config.add_route('profile-georeference', ROUTE_PREFIX+'/profile/georef')
-    config.add_route('mtb_profile', ROUTE_PREFIX+'/profile/mtb')
     config.add_route('profile-map', ROUTE_PREFIX+'/profile/map')
     
     # error pages

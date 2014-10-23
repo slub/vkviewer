@@ -3,7 +3,6 @@ Created on Jan 27, 2014
 
 @author: mendt
 '''
-import transaction
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from vkviewer.python.tools import checkIsUser

@@ -2,9 +2,6 @@
 
 <%block name="header_content">
     <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/single/georeference_profile.css')}" />	
-	<script>
-	    goog.require('vk2.utils.AppLoader');
-	</script>
 	<style>
 		html {overflow: hidden;}
 	</style>
@@ -60,7 +57,7 @@
 				          			<strong>${_('georef_result_validate')}:</strong><br> ${record['isvalide']}  
 				        		</p>
 								<p>  
-						          	<strong>Messtischblatt-ID:</strong><br> ${record['mtb_id']}  
+						          	<strong>Map-ID:</strong><br> ${record['mapid']}  
 						        </p>
 								<p>  
 						          	<strong>${_('georef_map_sheet_info')}:</strong><br> ${record['titel']}
@@ -72,7 +69,7 @@
 								 	<strong>${_('georef_persist_access')}:</strong><br>
 								 	
 								 	% if record['transformed']:
-								 		<a href="${request.route_url('map_profile')}?objectid=${record['mtb_id']}&georef=true" target="_blank">Klick</a> 
+								 		<a href="${request.route_url('profile-map')}?objectid=${record['mapid']}&georef=true" target="_blank">Klick</a> 
 								 	% else:
 								 		${_('georef_result_being_generated')}
 								 	% endif
@@ -88,10 +85,4 @@
 			</div>
 		</div>
 	</div>
-</%block>
-
-<%block name="js_content">
-	<script>
-		//vk2.utils.AppLoader.loadGeoreferenceProfilePage('georef-history');
-    </script> 
 </%block>

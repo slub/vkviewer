@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 <%inherit file="basic_page.mako" />
 
+<%block name="header_content">	 
+	<script>
+		goog.require('vk2.utils');
+		goog.require('vk2.validation');
+	</script>
+</%block>
+
 <%block name="body_content">
 	<div class="contact-formular page-container">
 		<div class="panel panel-default">

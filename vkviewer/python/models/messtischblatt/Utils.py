@@ -1,36 +1,28 @@
 from vkviewer.python.models.Meta import Base
-from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
 from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.Metadata import Metadata
-from vkviewer.python.models.messtischblatt.MdCore import MdCore
 from webhelpers.paginate import PageURL_WebOb, Page
 
 
 ''' Specific query operations '''
-def getWmsUrlForMtb(mtbid, session):
-    query = 'SELECT webmappingservice.onlineressource FROM webmappingservice, refmtbwms WHERE \
-                    refmtbwms.messtischblatt = :mtbid AND webmappingservice.servicename = \
-                    refmtbwms.webmappingservice;'
-    result = session.execute(query,{'mtbid':mtbid}).fetchone()
-    return result['onlineressource']
 
 """ This function computes via a SQL Query the total number of messtischblaetter, which
     are right now published for georeferencing
     @parma session - {SQLAlchemy.SessionObject} 
 """
 
-def getCountOfPublishedMesstischblaetter(session):
-    query = 'SELECT count(istaktiv) FROM messtischblatt WHERE istaktiv = True'
+def getCountOfPublishedMaps(session):
+    query = 'SELECT count(istaktiv) FROM map WHERE istaktiv = True'
     result = session.execute(query).fetchone()
     return result['count']    
-
+ 
 """  This function computes via a SQL Query the occurrence of georeferenced 
      messtischblaetter. 
-     
+      
      @param session - {SQLAlchemy.SessionObject}
 """
-def getCountOfGeorefMesstischblaetter(session):
-    query = 'SELECT count(isttransformiert) FROM messtischblatt WHERE isttransformiert = True'
+def getCountOfGeorefMaps(session):
+    query = 'SELECT count(isttransformiert) FROM map WHERE isttransformiert = True'
     result = session.execute(query).fetchone()
     return result['count']
 
@@ -57,21 +49,10 @@ def getCountOfGeorefMesstischblaetter(session):
 #     page_url = PageURL_WebOb(request)
 #     return Page(coll, page, url=page_url, items_per_page=10)
 
-def getCollectionForBlattnr(blattnr, session):
-    coll =[]
-    mtbs = Messtischblatt.allForBlattnr(blattnr, session)
-    for mtb in mtbs:
-        wms_url = getWmsUrlForMtb(mtb.id, session)
-        metadata = MdCore.by_id(mtb.id, session)
-        item = {'wms_url':wms_url,'mtbid':mtb.id,'layername':mtb.dateiname,'titel':metadata.titel,
-                'zoomify_prop':mtb.zoomify_properties,'zoomify_width':mtb.zoomify_width,
-                'zoomify_height':mtb.zoomify_height}
-        coll.append(item)
-    return coll
 
-def getPaginatorForBlattnr(request, blattnr, session, page=1):
-    page_url = PageURL_WebOb(request)
-    
-    # get the collection for the paginator
-    pageinateColl = getCollectionForBlattnr(blattnr, session)
-    return Page(pageinateColl, page, url=page_url, items_per_page=10)
+# def getPaginatorForBlattnr(request, blattnr, session, page=1):
+#     page_url = PageURL_WebOb(request)
+#     
+#     # get the collection for the paginator
+#     pageinateColl = getCollectionForBlattnr(blattnr, session)
+#     return Page(pageinateColl, page, url=page_url, items_per_page=10)

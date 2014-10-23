@@ -8,11 +8,16 @@ Created on Jan 22, 2014
 '''
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPInternalServerError
+from sqlalchemy import desc
 
 from vkviewer import log
 from vkviewer.python.utils.exceptions import GENERAL_ERROR_MESSAGE
 from vkviewer.python.models.messtischblatt.Users import Users
+from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
+from vkviewer.python.models.messtischblatt.Metadata import Metadata
+from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.tools import checkIsUser
+
 
 # query for getting all georeference processes from a special user
 georeference_profile_query = 'SELECT georef.id as georef_id, georef.messtischblattid as mtbid, mtb.dateiname as key, box2d(st_transform(mtb.boundingbox, 900913)) as box,\
@@ -22,8 +27,6 @@ FROM georeferenzierungsprozess as georef, md_core, messtischblatt as mtb, md_zei
 georef.messtischblattid = md_core.id AND georef.messtischblattid = mtb.id AND georef.messtischblattid = md_zeit.id AND \
 md_zeit.typ = \'a5064\' ORDER BY time_georef DESC'
 
-
-
 @view_config(route_name='profile-georeference', renderer='profile-georeference.mako', permission='edit',http_cache=0)
 def georeference_profile_page(request):
     log.info('Request - Get georeference profile page.')
@@ -32,18 +35,23 @@ def georeference_profile_page(request):
     user = Users.by_username(userid, dbsession)
     try:
         log.debug('Query georeference profile information from database for user %s'%userid)
-        query_georefprocess = georeference_profile_query%userid
-                    
-        resultSet = dbsession.execute(query_georefprocess)
-        
+        queryData = request.db.query(Georeferenzierungsprozess, Metadata, Map).join(Metadata, Georeferenzierungsprozess.mapid == Metadata.mapid)\
+            .join(Map, Georeferenzierungsprozess.mapid == Map.id)\
+            .filter(Georeferenzierungsprozess.nutzerid == userid)\
+            .order_by(desc(Georeferenzierungsprozess.id))
+
         log.debug('Create response list')
         georef_profile = []
-        for record in resultSet:              
-            georef_profile.append({'georef_id':record['georef_id'], 'mtb_id':record['mtbid'], 
-                    'clip_params': record['clip_params'], 'time': record['time'], 'transformed': record['isttransformiert'],
-                    'isvalide': record['isvalide'], 'titel': record['titel'], 'key': record['key'],
-                    'time_georef':record['time_georef'],'boundingbox':record['box'][4:-1].replace(' ',','),'type':record['type'],
-                    'published':record['published']})
+        for record in queryData:
+            georef = record[0]
+            metadata = record[1]
+            mapObj = record[2]
+            boundingbox = Map.getBox2d(georef.mapid, dbsession, 900913)
+            georef_profile.append({'georef_id':georef.id, 'mapid':georef.mapid, 
+                    'clip_params': georef.georefparams, 'time': metadata.timepublish, 'transformed': georef.processed,
+                    'isvalide': georef.adminvalidation, 'titel': metadata.title, 'key': mapObj.apsdateiname,
+                    'time_georef':georef.timestamp,'boundingbox':boundingbox[4:-1].replace(' ',','),'type':georef.type,
+                    'published':georef.processed})
              
         log.debug('Response: %s'%georef_profile) 
         

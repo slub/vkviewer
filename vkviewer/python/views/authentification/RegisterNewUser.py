@@ -1,11 +1,10 @@
+import transaction
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.security import remember
 
 from vkviewer.python.models.messtischblatt.Users import Users
 from vkviewer.python.utils.exceptions import InternalAuthentificationError, WrongUserRegistrationData
-import transaction
-import json
 
 @view_config(route_name='auth', renderer='string', match_param='action=new', request_method='POST')
 def register_new_user(request):

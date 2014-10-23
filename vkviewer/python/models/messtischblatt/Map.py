@@ -57,3 +57,8 @@ class Map(Base):
         for i in range(0,len(centroid)):
             parsed_centroid.append(float(centroid[i]))
         return parsed_centroid
+    
+    @classmethod
+    def getBox2d(cls, id, session, epsg=4314):
+        query = 'SELECT box2d(st_transform(map.boundingbox, %s)) as box FROM map WHERE id = %s'%(epsg, id)
+        return session.execute(query).fetchone()[0]

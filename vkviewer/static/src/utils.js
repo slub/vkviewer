@@ -6,6 +6,7 @@ goog.require('goog.dom.classes');
 goog.require('goog.events');
 goog.require('goog.style');
 goog.require('goog.net.cookies');
+goog.require('goog.net.XhrIo');
 
 /**
  * @static
