@@ -6,11 +6,13 @@ Created on Jan 22, 2014
 
 @author: mendt
 '''
-
 from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPInternalServerError
+
+from vkviewer import log
+from vkviewer.python.utils.exceptions import GENERAL_ERROR_MESSAGE
 from vkviewer.python.models.messtischblatt.Users import Users
 from vkviewer.python.tools import checkIsUser
-from vkviewer import log
 
 # query for getting all georeference processes from a special user
 georeference_profile_query = 'SELECT georef.id as georef_id, georef.messtischblattid as mtbid, mtb.dateiname as key, box2d(st_transform(mtb.boundingbox, 900913)) as box,\
@@ -22,7 +24,7 @@ md_zeit.typ = \'a5064\' ORDER BY time_georef DESC'
 
 
 
-@view_config(route_name='users_profile_georef', renderer='georeference_profile.mako', permission='view',http_cache=0)
+@view_config(route_name='profile-georeference', renderer='profile-georeference.mako', permission='edit',http_cache=0)
 def georeference_profile_page(request):
     log.info('Request - Get georeference profile page.')
     dbsession = request.db
@@ -49,7 +51,7 @@ def georeference_profile_page(request):
     except Exception as e:
         log.error('Error while trying to request georeference history information');
         log.error(e)
-        return {}
+        raise HTTPInternalServerError(GENERAL_ERROR_MESSAGE)
     
 def parseGeorefTransformed(resultProxy):
     resultDict = {}

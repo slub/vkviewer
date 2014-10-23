@@ -5,7 +5,7 @@ Created on Oct 13, 2014
 author: mendt
 '''
 from vkviewer.python.models.messtischblatt.Map import Map
-from vkviewer.python.models.messtischblatt.RefMapsLayer import RefMapsLayer
+from vkviewer.python.models.messtischblatt import RefMapLayer.RefMapsLayer
 from vkviewer.python.utils.exceptions import GeoreferenceProcessingError
 
 from georeference.csw.InsertMetadata import insertMetadata
@@ -42,9 +42,9 @@ def updateNewGeoreferenceMapInDatabase(mapObj, job, destPath, dbsession):
     mapObj.isttransformiert = True
     
     # has to be updated
-    refmapslayer = RefMapsLayer.by_id(87, mapObj.id, dbsession)
+    refmapslayer = RefMapLayer.by_id(87, mapObj.id, dbsession)
     if not refmapslayer:
-        refmapslayer = RefMapsLayer(layerid=87, mapid=mapObj.id)
+        refmapslayer = RefMapLayer(layerid=87, mapid=mapObj.id)
         dbsession.add(refmapslayer)
     
     # update process

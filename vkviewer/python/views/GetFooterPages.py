@@ -1,5 +1,4 @@
 from pyramid.view import view_config
-from pyramid.renderers import render_to_response
 
 @view_config(route_name='impressum', renderer='impressum.mako', permission='view',http_cache=0)
 def impressum_page(request):

@@ -86,7 +86,7 @@ def addRoutes(config):
     config.add_route('change_pw', ROUTE_PREFIX+'/change/pw/{action}')
     
     # profile pages
-    config.add_route('users_profile_georef', ROUTE_PREFIX+'/profile/georef')
+    config.add_route('profile-georeference', ROUTE_PREFIX+'/profile/georef')
     config.add_route('mtb_profile', ROUTE_PREFIX+'/profile/mtb')
     config.add_route('profile-map', ROUTE_PREFIX+'/profile/map')
     

@@ -1,13 +1,11 @@
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPNotFound, HTTPBadRequest
 
-# database imports
+from vkviewer import log
+from vkviewer.python.utils.exceptions import GENERAL_ERROR_MESSAGE
 from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.utils.idgenerator import parseOAI
 from vkviewer.python.utils.exceptions import NotFoundException
-from vkviewer import log
-
-ERROR_MSG = "Please check the syntax of your request parameters or contact the administrator."
     
 def createPermalink(request, objectid):
     try:
@@ -32,7 +30,7 @@ def getPermalinkForObjectid(request):
         return {'url':permalink}
     except NotFoundException as e:
         log.error(e)
-        raise HTTPNotFound(ERROR_MSG)
+        raise HTTPNotFound(GENERAL_ERROR_MESSAGE)
     except Exception as e:
         log.error(e)
-        raise HTTPBadRequest(ERROR_MSG)
+        raise HTTPBadRequest(GENERAL_ERROR_MESSAGE)

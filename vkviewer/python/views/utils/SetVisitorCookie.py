@@ -35,4 +35,4 @@ def set_visitor_cookie(request):
     else: 
         log.debug('Value of query parameter \'welcomepage\' is not supported')
         response = Response()
-        return HTTPBadRequest(headers = response.headers)  
+        raise HTTPBadRequest(headers = response.headers)  

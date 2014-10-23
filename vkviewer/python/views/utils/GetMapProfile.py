@@ -5,6 +5,7 @@ Created on Feb 6, 2014
 '''
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
+
 from vkviewer import log
 from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.Metadata import Metadata

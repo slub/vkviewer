@@ -1,7 +1,10 @@
 from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPInternalServerError
+
+from vkviewer import log
+from vkviewer.python.utils.exceptions import GENERAL_ERROR_MESSAGE
 from vkviewer.python.models.messtischblatt.Users import Users
 from vkviewer.python.models.messtischblatt.Utils import getCountOfGeorefMesstischblaetter, getCountOfPublishedMesstischblaetter
-from vkviewer import log
 
 @view_config(route_name='welcome', renderer='welcome.mako', permission='view',http_cache=0)
 def getWelcomePage(request):  
@@ -16,6 +19,6 @@ def getWelcomePage(request):
         paginator = Users.get_paginator(request, dbsession)
         return {'paginator':paginator,'occurrence_mtbs':occurrenceGeorefMtbs, 'possible_mtbs': possibleMtbs, 'georef_rel': georefRelation}
     except Exception:
-        log.debug('Error while creating paginator for user georeference ranking')
-        log.debug(Exception)
-        return {}
+        log.error('Error while creating paginator for user georeference ranking')
+        log.error(Exception)
+        raise HTTPInternalServerError(GENERAL_ERROR_MESSAGE)

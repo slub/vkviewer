@@ -1,6 +1,7 @@
 from pyramid.view import view_config
 from pyramid.security import unauthenticated_userid
 from pyramid.httpexceptions import HTTPFound
+
 from vkviewer.python.security import groupfinder
 from vkviewer.python.tools import checkIsUser, getCookie, appendParameterToQueryDict
 from vkviewer import log
