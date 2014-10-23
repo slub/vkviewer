@@ -8,8 +8,7 @@ import time
 from daemon import runner
 from vkviewer.python.utils.logger import createLogger, getLoggerFileHandler
 from georeference.settings import DAEMON_SETTINGS, LOGGER_NAME, LOGGER_FILE, LOGGER_LEVEL, LOGGER_FORMATTER
-from georeference.georeferenceupdate import do
-
+from georeference.georeferenceupdate import lookForUpdateProcess
 
 # Initialize the logger
 handler = getLoggerFileHandler(LOGGER_FILE, LOGGER_FORMATTER)
@@ -27,7 +26,7 @@ class GeoreferenceDaemonApp():
     def run(self):
         while True:
             logger.info('Run program ...')
-            do(logger)
+            lookForUpdateProcess(logger)
             time.sleep(5)
             logger.info('End program ...')
 

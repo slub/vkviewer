@@ -3,10 +3,9 @@ Created on Sep 25, 2014
 
 @author: mendt
 '''
-import time 
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from georeference.jobs.resetjobs import rollbackGeoreferenceProcess, resetGeoreferenceProcess
-from georeference.jobs.newjobs import runNewGeoreferenceProcess
+from georeference.jobs.newjobs import runNewGeoreferenceProcess 
 from georeference.jobs.updatejobs import runUpdateGeoreferenceProcess
 
 
@@ -40,27 +39,20 @@ def runningResetJobs(dbsession, logger, testing = False):
     
 def runningNewJobs(dbsession, logger, testing = False):
     logger.info('Check for unprocessed georeference jobs ...')
-    unprocessedJobs = Georeferenzierungsprozess.by_getUnprocessedGeorefProcesses(dbsession)
+    unprocessedJobs = Georeferenzierungsprozess.by_getUnprocessedGeorefProcessesTypeOfNew(dbsession)
     
     counterNew = 0
     for job in unprocessedJobs:
-        if job.type == 'new' and job.overwrites == 0:
-            logger.debug('Process a new georeference process with id - %s'%job.id)
-            runNewGeoreferenceProcess(job, dbsession, logger, testing)
-            counterNew += 1
+        logger.debug('Process a new georeference process with id - %s'%job.id)
+        runNewGeoreferenceProcess(job, dbsession, logger, testing)
+        counterNew += 1
     
     logger.debug('Processed %s new georeference process.'%counterNew)
     
 def runningUpdateJobs(dbsession, logger, testing = False):
-    logger.info('Check for unprocessed georeference jobs ...')
-    unprocessedJobs = Georeferenzierungsprozess.by_getUnprocessedGeorefProcesses(dbsession)
-    
-    # sort jobs by overwrite id
-    overwrites = []
-    for job in unprocessedJobs:
-        if job.type == 'update' and job.overwrites > 0 and job.overwrites not in overwrites:
-            overwrites.append(job.overwrites)
-            
+    logger.info('Fetch overwrite id for unprocessed georeference jobs ...')
+    overwrites = Georeferenzierungsprozess.by_getOverwriteIdsOfUnprocessedGeorefProcessesTypeOfUpdate(dbsession)
+                 
     counter = 0
     # clear all unnecessary overwrites and run update process for the actual process
     for overwrite in overwrites:

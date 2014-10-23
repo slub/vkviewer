@@ -16,7 +16,7 @@ def runUpdateGeoreferenceProcess(job, dbsession, logger, testing = False):
 
     # calculate georeference result 
     logger.info('Create persistent georeference result ...')
-    mapObj = Map.by_id(job.mapsid, dbsession)
+    mapObj = Map.by_id(job.mapid, dbsession)
     georefParams = getParsedGeorefParams(job)
     destPath = processGeorefImage(mapObj, georefParams, dbsession, logger)
          

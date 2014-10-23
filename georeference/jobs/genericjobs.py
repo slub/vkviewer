@@ -16,10 +16,10 @@ from georeference.scripts.updatevrt import updateVirtualdatasetForTimestamp
 
 def updateServices(mapObj, destPath, dbsession, logger):
     logger.info('Calculating tms cache and vrt...')
-    buildTMSCache(destPath, CACHE_DIR, DATABASE_SRID, logger)
+    #buildTMSCache(destPath, CACHE_DIR, DATABASE_SRID, logger)
     
     metadata = Metadata.by_id(mapObj.id, dbsession)
-    updateVirtualdatasetForTimestamp('%s-01-01 00:00:00'%metadata.timepublish.year, VRT_TARGET_DIR, TMP_DIR, DBCONFIG_PARAMS, dbsession, logger)
+    #updateVirtualdatasetForTimestamp('%s-01-01 00:00:00'%metadata.timepublish.year, VRT_TARGET_DIR, TMP_DIR, DBCONFIG_PARAMS, dbsession, logger)
     
 def processGeorefImage(mapObj, georefParams, dbsession, logger):  
     clip_polygon = Map.getBoundingBoxObjWithEpsg(mapObj.id, dbsession, DATABASE_SRID).asShapefile(os.path.join(TMP_DIR, mapObj.apsdateiname+'clip_polygon'))

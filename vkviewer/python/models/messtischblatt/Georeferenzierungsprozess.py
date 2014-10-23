@@ -58,7 +58,37 @@ class Georeferenzierungsprozess(Base):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.processed == False)\
             .filter(Georeferenzierungsprozess.adminvalidation != 'invalide')\
             .order_by(asc(Georeferenzierungsprozess.timestamp))
+            
+    @classmethod
+    def by_getUnprocessedGeorefProcessesTypeOfNew(cls, session):
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.processed == False)\
+            .filter(Georeferenzierungsprozess.adminvalidation != 'invalide')\
+            .filter(Georeferenzierungsprozess.type == 'new')\
+            .filter(Georeferenzierungsprozess.overwrites == 0)\
+            .order_by(asc(Georeferenzierungsprozess.timestamp))
+            
+    @classmethod
+    def by_getUnprocessedGeorefProcessesTypeOfUpdate(cls, session):
+        return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.processed == False)\
+            .filter(Georeferenzierungsprozess.adminvalidation != 'invalide')\
+            .filter(Georeferenzierungsprozess.type == 'update')\
+            .filter(Georeferenzierungsprozess.overwrites > 0)\
+            .order_by(asc(Georeferenzierungsprozess.timestamp))
 
+    @classmethod
+    def by_getOverwriteIdsOfUnprocessedGeorefProcessesTypeOfUpdate(cls, session):
+        query_overwrites = session.query(Georeferenzierungsprozess.overwrites).filter(Georeferenzierungsprozess.processed == False)\
+            .filter(Georeferenzierungsprozess.adminvalidation != 'invalide')\
+            .filter(Georeferenzierungsprozess.type == 'update')\
+            .filter(Georeferenzierungsprozess.overwrites > 0)\
+            .group_by(Georeferenzierungsprozess.overwrites)
+        
+        # sort jobs by overwrite id
+        overwrites = []
+        for tuple in query_overwrites:
+            overwrites.append(tuple[0])
+        return overwrites
+            
     @classmethod    
     def getLatestGeorefProcessForObjectId(cls, id, session):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.messtischblattid == id).order_by(desc(Georeferenzierungsprozess.timestamp)).first()
