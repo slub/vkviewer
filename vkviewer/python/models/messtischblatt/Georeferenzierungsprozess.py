@@ -1,5 +1,6 @@
 import json
 from vkviewer.python.models.Meta import Base
+from vkviewer.python.utils.exceptions import ProcessIsInvalideException
 from sqlalchemy import Column, Integer, Boolean, String, DateTime, desc, asc, PickleType
 
 class JsonPickleType(PickleType):
@@ -120,7 +121,12 @@ class Georeferenzierungsprozess(Base):
     @classmethod
     def arePendingProcessForMapId(cls, mapId, session):
         # at first get the actual overwrite id
-        actualOverwriteId = cls.getActualGeoreferenceProcessForMapId(mapId, session).id
+        actualOverwriteProcess = cls.getActualGeoreferenceProcessForMapId(mapId, session)
+        
+        if actualOverwriteProcess is None:
+            raise ProcessIsInvalideException('There is no activated georeference process for this map sheet, ...')
+        
+        actualOverwriteId = actualOverwriteProcess.id
         georefProcesses = session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapid == mapId)\
             .filter(Georeferenzierungsprozess.overwrites == actualOverwriteId)\
             .filter(Georeferenzierungsprozess.isactive == False).all()

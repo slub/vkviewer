@@ -143,5 +143,13 @@ class NotFoundException(Exception):
     def __str__(self):
         return repr(self.msg)
     
+class ProcessIsInvalideException(Exception):
+   
+    def __init__(self, msg):
+        self.msg = msg
+        
+    def __str__(self):
+        return repr(self.msg)
+    
 # Error Messages
 GENERAL_ERROR_MESSAGE = 'Something went wrong while trying to process your requests. Please try again or contact the administrators of the Virtual Map Forum 2.0.'

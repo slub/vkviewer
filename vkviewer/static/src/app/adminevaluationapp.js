@@ -157,14 +157,16 @@ vk2.app.AdminEvaluationApp.prototype.createProcessListElement_ = function(record
 	var helperFactoryAnchors = goog.bind(function(record){
 		var phrase = goog.dom.createDom('p');
 		
-		// set is valid
-		var setIsValideBtn = goog.dom.createDom('button', {
-			'data-href': vk2.settings.EVALUATION_API + '/setisvalide?georeferenceid=' + record['georef_id'] + '&id=' + record['mapid'],
-			'class':'btn btn-primary action-btn',
-			'innerHTML': 'Is valide'
-		});
-		this.registerSetIsValideEventListener_(setIsValideBtn, parentEl);
-		goog.dom.appendChild(phrase, setIsValideBtn);
+		if (record['adminvalidation'] != 'isvalide'){
+			// set is valid
+			var setIsValideBtn = goog.dom.createDom('button', {
+				'data-href': vk2.settings.EVALUATION_API + '/setisvalide?georeferenceid=' + record['georef_id'] + '&id=' + record['mapid'],
+				'class':'btn btn-primary action-btn',
+				'innerHTML': 'Is valide'
+			});
+			this.registerSetIsValideEventListener_(setIsValideBtn, parentEl);
+			goog.dom.appendChild(phrase, setIsValideBtn);
+		};
 		
 		// show map
 		var showMapBtn = goog.dom.createDom('button', {
@@ -176,23 +178,24 @@ vk2.app.AdminEvaluationApp.prototype.createProcessListElement_ = function(record
 		this.registerShowMapEventListener_(showMapBtn);
 		goog.dom.appendChild(phrase, showMapBtn);
 		
-		// go to process
-		goog.dom.appendChild(phrase, goog.dom.createDom('a', {
-			'href': vk2.settings.GEOREFERENCE_PAGE + '?georeferenceid=' + record['georef_id'],
-			'class':'btn btn-primary action-btn',
-			'target':'_blank',
-			'innerHTML': 'Go to process ...'
-		}));
-		
-		// deactivete
-		var deactiveBtn = goog.dom.createDom('button', {
-			'data-href': vk2.settings.EVALUATION_API + '/setinvalide?georeferenceid=' + record['georef_id'],
-			'class':'btn btn-warning action-btn',
-			'innerHTML': 'Is invalide'
-		});
-		this.registerSetIsInvalideEventListener_(deactiveBtn, parentEl);
-		goog.dom.appendChild(phrase, deactiveBtn);
-		
+		if (record['adminvalidation'] != 'invalide'){
+			// go to process
+			goog.dom.appendChild(phrase, goog.dom.createDom('a', {
+				'href': vk2.settings.GEOREFERENCE_PAGE + '?georeferenceid=' + record['georef_id'],
+				'class':'btn btn-primary action-btn',
+				'target':'_blank',
+				'innerHTML': 'Go to process ...'
+			}));
+			
+			// deactivete
+			var deactiveBtn = goog.dom.createDom('button', {
+				'data-href': vk2.settings.EVALUATION_API + '/setinvalide?georeferenceid=' + record['georef_id'],
+				'class':'btn btn-warning action-btn',
+				'innerHTML': 'Is invalide'
+			});
+			this.registerSetIsInvalideEventListener_(deactiveBtn, parentEl);
+			goog.dom.appendChild(phrase, deactiveBtn);
+		};		
 		return phrase;
 	}, this);
 	

@@ -11,6 +11,7 @@ from vkviewer.settings import ADMIN_ADDR
 from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
 from vkviewer.python.models.messtischblatt.Metadata import Metadata
+from vkviewer.python.utils.exceptions import ProcessIsInvalideException
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 
 ERROR_MSG = "Please check your request parameters or contact the administrator (%s)."%ADMIN_ADDR
@@ -41,6 +42,9 @@ def georeferenceGetProcess(request):
     except GeoreferenceParameterError as e:
         log.error(e)
         raise HTTPBadRequest(ERROR_MSG) 
+    except ProcessIsInvalideException as e:
+        log.error(e)
+        raise HTTPBadRequest('This georeference process is blocked for further work!')
     except Exception as e:
         log.error(e)
         raise HTTPInternalServerError(ERROR_MSG)
@@ -89,7 +93,7 @@ def createResponseForSpecificGeoreferenceProcess(mapObj, request, georeferenceid
         georeferenceprocess = Georeferenzierungsprozess.getActualGeoreferenceProcessForMapId(mapObj.id, request.db)
     else:
         georeferenceprocess = Georeferenzierungsprozess.by_id(georeferenceid, request.db)
-    pure_clipparameters = ast.literal_eval(str(georeferenceprocess.georefparams))
+    pure_clipparameters = georeferenceprocess.georefparams
     
     # get the actual valide gcps
     gcps = None
@@ -127,5 +131,5 @@ def createResponseForSpecificGeoreferenceProcess(mapObj, request, georeferenceid
             warnMsg = 'Aktuell wird das Kartenblatt von anderen Nutzern bearbeitet. Um Informationsverluste zu vermeiden versuchen Sie es bitte noch einmal in ein 15 Minuten.'
         else:
             warnMsg = 'Right now another users is working on the georeferencing of this map sheet. For preventing information losses please try again in 15 minutes.'
-        response['warn'] = warnMsg  
+        response['warn'] = warnMsg         
     return response
