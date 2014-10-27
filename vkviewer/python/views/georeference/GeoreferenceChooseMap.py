@@ -3,6 +3,7 @@ Created on Oct 1, 2014
 
 @author: mendt
 '''
+import traceback
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest
 from webhelpers.paginate import PageURL_WebOb, Page
@@ -35,4 +36,5 @@ def chooseGeoreferenceMap(request):
         return {'paginator': Page(collection, 1, url=page_url, items_per_page=10)}
     else: 
         log.error('Could not find a blattnr parameter value ...')
+        log.error(traceback.format_exc())
         raise HTTPBadRequest(ERROR_MSG) 

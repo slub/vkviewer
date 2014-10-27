@@ -2,7 +2,7 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest, HTTPInternalServerError
 
 # further tools
-import os, gdal, json
+import os, traceback
 
 # own import stuff
 from vkviewer import log
@@ -51,7 +51,9 @@ def georeferenceValidation(request):
             raise GeoreferenceParameterError('Wrong or missing service parameter')
     except GeoreferenceParameterError as e:
         log.error(e)
+        log.error(traceback.format_exc())
         raise HTTPBadRequest(ERROR_MSG) 
     except Exception as e:
         log.error(e)
+        log.error(traceback.format_exc())
         raise HTTPInternalServerError(ERROR_MSG)

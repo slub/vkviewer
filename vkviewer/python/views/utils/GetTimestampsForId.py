@@ -1,3 +1,4 @@
+import traceback
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPInternalServerError
 
@@ -29,4 +30,5 @@ def getTimestampsForId(request):
         return {'maps':response}
     except DBAPIError as e:
         log.error(e)
+        log.error(traceback.format_exc())
         raise HTTPInternalServerError(GENERAL_ERROR_MESSAGE)

@@ -2,7 +2,7 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest, HTTPInternalServerError
 
 # further tools
-import json, ast
+import traceback, ast
 
 # own import stuff
 from vkviewer import log
@@ -55,9 +55,11 @@ def georeferenceUpdate(request):
         
     except GeoreferenceParameterError as e:
         log.error(e)
+        log.error(traceback.format_exc())
         raise HTTPBadRequest(ERROR_MSG) 
     except Exception as e:
         log.error(e)
+        log.error(traceback.format_exc())
         raise HTTPInternalServerError(ERROR_MSG)
     
 def registerUpdateGeoreferenceProcessInDb(mapObj, userid, gcps, dbsession):

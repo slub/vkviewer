@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import traceback
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest
 
@@ -22,6 +23,7 @@ def setProcessToInValide(request):
             raise Exception('Missing parameter (georeferenceid) ...')
     except Exception as e:
         log.error(e)
+        log.error(traceback.format_exc())
         return HTTPBadRequest(GENERAL_ERROR_MESSAGE);
     
 @view_config(route_name='evaluation-georeference', renderer='json', permission='moderator', match_param='action=setisvalide')
@@ -39,5 +41,6 @@ def setProcessToIsValide(request):
             raise Exception('Missing parameter (georeferenceid) ...')
     except Exception as e:
         log.error(e)
+        log.error(traceback.format_exc())
         return HTTPBadRequest(GENERAL_ERROR_MESSAGE);
     

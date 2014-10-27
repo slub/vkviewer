@@ -3,6 +3,7 @@ Created on Feb 6, 2014
 
 @author: mendt
 '''
+import traceback
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 
@@ -37,4 +38,5 @@ def getPage_profileMtb(request):
                 'titel_long': metadata.title,'titel_short': metadata.titleshort, 'permalink': metadata.apspermalink}
     except:
         log.error('Internal server error while trying to get profile page. Please try again or contact the page administrator.')
+        log.error(traceback.format_exc())
         raise InternalAuthentificationError('Internal server error while trying to get profile page. Please try again or contact the page administrator.')

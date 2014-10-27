@@ -1,3 +1,4 @@
+import traceback
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPInternalServerError
 
@@ -21,4 +22,5 @@ def getWelcomePage(request):
     except Exception:
         log.error('Error while creating paginator for user georeference ranking')
         log.error(Exception)
+        log.error(traceback.format_exc())
         raise HTTPInternalServerError(GENERAL_ERROR_MESSAGE)

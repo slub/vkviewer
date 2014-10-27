@@ -1,3 +1,4 @@
+import traceback
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest,HTTPInternalServerError
 from sqlalchemy.exc import DBAPIError
@@ -49,15 +50,19 @@ def logContactRequest(request):
         return {'status':'confirmed'}
     except MissingQueryParameterError:
         log.error('Could not create correct error report because of missing query parameters.')
+        log.error(traceback.format_exc())
         raise HTTPBadRequest('Missing form parameters')
     except WrongParameterException as e:
         log.error(e.msg)
+        log.error(traceback.format_exc())
         raise HTTPBadRequest('Wrong form parameters')
     except DBAPIError:
         log.error('Problems while trying to register report error in database')
+        log.error(traceback.format_exc())
         raise HTTPInternalServerError(GENERAL_ERROR_MESSAGE)
     except Exception:
         log.error('Unknown error while trying to process a contact message request ...')
+        log.error(traceback.format_exc())
         raise HTTPInternalServerError(GENERAL_ERROR_MESSAGE)
     
 def reportErrorMessageToAdmin(fehlermeldung, subject, userid):

@@ -1,9 +1,8 @@
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest, HTTPInternalServerError
-from pyramid.i18n import TranslationString, get_localizer
 
 # further tools
-import json, ast
+import traceback
 
 # own import stuff
 from vkviewer import log
@@ -41,12 +40,15 @@ def georeferenceGetProcess(request):
         return response    
     except GeoreferenceParameterError as e:
         log.error(e)
+        log.error(traceback.format_exc())
         raise HTTPBadRequest(ERROR_MSG) 
     except ProcessIsInvalideException as e:
         log.error(e)
+        log.error(traceback.format_exc())
         raise HTTPBadRequest('This georeference process is blocked for further work!')
     except Exception as e:
         log.error(e)
+        log.error(traceback.format_exc())
         raise HTTPInternalServerError(ERROR_MSG)
 
 def createGeneralResponse(mapObj, request):

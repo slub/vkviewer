@@ -1,3 +1,4 @@
+import traceback
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
 from sqlalchemy.exc import DBAPIError
@@ -15,4 +16,5 @@ def getPermalinkForObjectidv2(request):
         permalink = createPermalink(request, objectid)            
         return HTTPFound(location=permalink)
     except DBAPIError:
+        log.error(traceback.format_exc())
         raise HTTPBadRequest(GENERAL_ERROR_MESSAGE)

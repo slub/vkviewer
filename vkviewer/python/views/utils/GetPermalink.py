@@ -1,3 +1,4 @@
+import traceback
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPNotFound, HTTPBadRequest
 
@@ -30,7 +31,9 @@ def getPermalinkForObjectid(request):
         return {'url':permalink}
     except NotFoundException as e:
         log.error(e)
+        log.error(traceback.format_exc())
         raise HTTPNotFound(GENERAL_ERROR_MESSAGE)
     except Exception as e:
         log.error(e)
+        log.error(traceback.format_exc())
         raise HTTPBadRequest(GENERAL_ERROR_MESSAGE)

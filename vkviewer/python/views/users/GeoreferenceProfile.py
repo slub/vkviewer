@@ -6,6 +6,7 @@ Created on Jan 22, 2014
 
 @author: mendt
 '''
+import traceback
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPInternalServerError
 from sqlalchemy import desc
@@ -59,6 +60,7 @@ def georeference_profile_page(request):
     except Exception as e:
         log.error('Error while trying to request georeference history information');
         log.error(e)
+        log.error(traceback.format_exc())
         raise HTTPInternalServerError(GENERAL_ERROR_MESSAGE)
     
 def parseGeorefTransformed(resultProxy):
