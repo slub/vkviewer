@@ -23,6 +23,9 @@ class GeoreferenceDaemonApp():
     
     def __init__(self):
         self.stdin_path = DAEMON_SETTINGS['stdin']
+        if not os.path.exists(self.stdin_path):
+            open(self.stdin_path, 'a').close()
+            
         self.stdout_path = DAEMON_SETTINGS['stdout']            
         self.stderr_path = DAEMON_SETTINGS['stderr']            
         self.pidfile_path = DAEMON_SETTINGS['pidfile_path']

@@ -59,6 +59,17 @@ class Map(Base):
         return parsed_centroid
     
     @classmethod
+    def getCentroid_byApsObjectid(cls, id, session, epsg=4314):
+        # Used for creating a permalink
+        query = 'SELECT st_astext(st_centroid(st_transform(boundingbox, %s))) FROM map WHERE apsobjectid = %s'%(epsg, id)
+        pg_centroid = session.execute(query,{'id':id}).fetchone()[0]
+        centroid = pg_centroid[6:-1].split(' ')
+        parsed_centroid = []
+        for i in range(0,len(centroid)):
+            parsed_centroid.append(float(centroid[i]))
+        return parsed_centroid
+    
+    @classmethod
     def getBox2d(cls, id, session, epsg=4314):
         query = 'SELECT box2d(st_transform(map.boundingbox, %s)) as box FROM map WHERE id = %s'%(epsg, id)
         return session.execute(query).fetchone()[0]
