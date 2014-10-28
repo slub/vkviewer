@@ -72,11 +72,11 @@ vk2.request.WFS.getFeatureRequestForObjectIds = function(objectids){
 	
 	if (objectids.length > 1){
 		// use OR filter
-		request += '&Filter=<Filter><OR>';
+		request += '&Filter=<Filter><Or>';
 		for (var i = 0; i < objectids.length; i++){
 			request += '<PropertyIsEqualTo><PropertyName>id</PropertyName><Literal>' + objectids[i] + '</Literal></PropertyIsEqualTo>';
 		};
-		request += '</OR></Filter>';
+		request += '</Or></Filter>';
 	} else {
 		request += '&Filter=<Filter><PropertyIsEqualTo><PropertyName>id</PropertyName><Literal>' + objectids[0] + '</Literal></PropertyIsEqualTo></Filter>';
 	};
