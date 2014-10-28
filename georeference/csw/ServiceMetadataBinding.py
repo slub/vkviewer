@@ -5,14 +5,15 @@ Created on Jan 16, 2014
 '''
 import logging, shutil, uuid, os
 import xml.etree.ElementTree as ET
-from georeference.settings import TEMPLATE_FILES, DBCONFIG_PARAMS
+from georeference.settings import TEMPLATE_FILES, DBCONFIG_PARAMS, TMP_DIR, GN_SETTINGS
 from georeference.utils.tools import loadDbSession 
 from georeference.csw.Namespaces import Namespaces
-from vkviewer.python.models.Meta import initializeDb
-from vkviewer.python.models.messtischblatt.Messtischblatt import Messtischblatt
-from vkviewer.python.models.messtischblatt.MdCore import MdCore
+from georeference.csw.CswTransactionBinding import gn_transaction_insert
+from vkviewer.python.utils.idgenerator import createOAI
+from vkviewer.python.models.messtischblatt.Metadata import Metadata
+from vkviewer.python.models.messtischblatt.Map import Map
 
-def createServiceDescription(template_path, target_dir, db, logger):
+def createServiceDescription(template_path, target_dir, db, logger, wcs = False):
     logger.debug('Start creating service description')
     
     # create tempory copy
@@ -32,23 +33,26 @@ def createServiceDescription(template_path, target_dir, db, logger):
     xmlElementServiceId = xmlElementRoot.find('/'.join(searchHierarchy))
         
     # get all messtischblaetter
-    i = 0
-    messtischblaetter = Messtischblatt.all(db)
+    maps = Map.all(db)
     logger.debug('Start appending new messtischblatt resources')
-    for messtischblatt in messtischblaetter:
-        metadata_core = MdCore.by_id(messtischblatt.id, db)
-        appendCoupledResource(rootElement = xmlElementServiceId, resourceId = str(messtischblatt.id), resourceTitle = metadata_core.titel)
+    for mapObj in maps:
+        if mapObj.isttransformiert:
+            metadataObj = Metadata.by_id(mapObj.id, db)
+            
+            if wcs:
+                if metadataObj.timepublish.year <= 1900:
+                    oai = createOAI(mapObj.id)
+                    appendCoupledResource(rootElement = xmlElementServiceId, resourceId = oai, resourceTitle = metadataObj.title)
+            else: 
+                oai = createOAI(mapObj.id)
+                appendCoupledResource(rootElement = xmlElementServiceId, resourceId = oai, resourceTitle = metadataObj.title)
         
-        # break condition for testing
-#         if i == 10:
-#             break
-#         i += 1
 
     logger.debug('Save modified file in %s.'%mdServiceFile)        
     
-    #print 'Service document'
-    #print '================'
-    #print ET.tostring(xmlElementRoot, encoding='utf-8', method='xml')
+#     print 'Service document'
+#     print '================'
+#     print ET.tostring(xmlElementRoot, encoding='utf-8', method='xml')
     
     xmlTree.write(mdServiceFile, encoding="utf-8", xml_declaration=True)
     return mdServiceFile
@@ -83,8 +87,14 @@ def appendCoupledResource(rootElement, resourceId, resourceTitle):
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
     logger = logging.getLogger('sqlalchemy.engine')
-    dbSession = loadDbSession(DBCONFIG_PARAMS, logger)        
-    response = createServiceDescription(TEMPLATE_FILES['service'], dbSession, logger)
+    dbSession = loadDbSession(DBCONFIG_PARAMS, logger)      
     
-    print 'Insert service file %s ...'%response
-    #gn_transaction_insert(response, GN_SETTINGS['gn_username'], GN_SETTINGS['gn_password'], logger)
+    # create service document for wms& wcs
+    wmsServiceResponse = createServiceDescription(TEMPLATE_FILES['service-wms'], TMP_DIR, dbSession, logger)
+    wcsServiceResponse = createServiceDescription(TEMPLATE_FILES['service-wcs'], TMP_DIR, dbSession, logger, True)
+    
+    print 'Insert wms service file %s ...'%wmsServiceResponse
+    gn_transaction_insert(wmsServiceResponse, GN_SETTINGS['gn_username'], GN_SETTINGS['gn_password'], logger)
+    
+    print 'Insert wcs service file %s ...'%wcsServiceResponse
+    gn_transaction_insert(wcsServiceResponse, GN_SETTINGS['gn_username'], GN_SETTINGS['gn_password'], logger)

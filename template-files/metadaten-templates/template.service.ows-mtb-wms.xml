@@ -6,7 +6,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:gmd="http://www.isotc211.org/2005/gmd" 
 xmlns:gml="http://www.opengis.net/gml">
    <gmd:fileIdentifier>
-      <gco:CharacterString>e262fc21-67ba-475e-a124-b6cfe0a15baf</gco:CharacterString>
+      <gco:CharacterString>oai:de:slub-dresden:vk:ows-mtb-wms</gco:CharacterString>
   </gmd:fileIdentifier>
    <gmd:language>
       <gco:CharacterString>ger</gco:CharacterString>
@@ -15,7 +15,7 @@ xmlns:gml="http://www.opengis.net/gml">
       <gmd:MD_ScopeCode codeListValue="service" codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode"/>
   </gmd:hierarchyLevel>
    <gmd:hierarchyLevelName>
-      <gco:CharacterString>Virtuelles Kartenforum 2.0 mapping services</gco:CharacterString>
+      <gco:CharacterString>Virtuelles Kartenforum 2.0 - Web Mapping Service</gco:CharacterString>
   </gmd:hierarchyLevelName>
    <gmd:contact>
       <gmd:CI_ResponsibleParty>
@@ -178,7 +178,7 @@ xmlns:gml="http://www.opengis.net/gml">
                   <gco:CharacterString>Historische Messtischblaetter</gco:CharacterString>
                </srv:operationName>
                <srv:identifier>
-                  <gco:CharacterString>9a142459-749e-4904-aaa7-88cb3d418b85</gco:CharacterString>
+                  <gco:CharacterString>oai:de:slub-dresden:vk:set-87</gco:CharacterString>
                </srv:identifier>
             </srv:SV_CoupledResource>
          </srv:coupledResource>
@@ -208,7 +208,7 @@ xmlns:gml="http://www.opengis.net/gml">
                </srv:connectPoint>
             </srv:SV_OperationMetadata>
          </srv:containsOperations>
-         <srv:operatesOn uuidref="9a142459-749e-4904-aaa7-88cb3d418b85"/>
+         <srv:operatesOn uuidref="oai:de:slub-dresden:vk:set-87"/>
       </srv:SV_ServiceIdentification>
   </gmd:identificationInfo>
    <gmd:distributionInfo>
