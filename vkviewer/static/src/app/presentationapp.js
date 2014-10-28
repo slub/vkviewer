@@ -11,6 +11,7 @@ goog.require('vk2.utils');
 goog.require('vk2.utils.Modal');
 goog.require('vk2.controller.MapController');
 goog.require('vk2.tool.Permalink');
+goog.require('vk2.tool.DynamicMapVisualization');
 goog.require('vk2.module.SpatialTemporalSearchModule');
 goog.require('vk2.module.LayerManagementModule');
 goog.require('vk2.georeference.GeoreferencerChooser');
@@ -80,6 +81,9 @@ vk2.app.PresentationApp = function(settings){
 		window['map'] = map_controller.getMap();		
 		window['spatialsearch'] = spatialSearch;
 		window['mapsearch'] = spatialSearch.getMapSearchModule();
+		
+		// testing
+		window['dmv'] = new vk2.tool.DynamicMapVisualization();
 	};
 	
 	// for correct displaying of tooltips
