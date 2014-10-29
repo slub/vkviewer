@@ -161,11 +161,3 @@ vk2.viewer.ZoomifyViewer.prototype.getHeight = function(){
 vk2.viewer.ZoomifyViewer.prototype.getWidth = function(){
 	return parseInt(this._width);
 };
-
-/**
- * @enum {string}
- */
-vk2.viewer.ZoomifyViewer.EventType = {
-	// Is triggered after zoomify layer loaded
-	LOADEND: 'loadend',
-};
