@@ -141,18 +141,7 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 			console.log('Trigger map search event')
 			
 		var feature = event.target.feature;
-		
-		// request associated messtischblaetter for a blattnr
-		var layer = this._createHistoricMapForFeature(feature);
-		var assocatiedMaps = this._createAssociationMapsArray(feature);	
-		for (var i = 0; i < assocatiedMaps.length; i++){
-			if (assocatiedMaps[i].getId() === layer.getId()){
-				assocatiedMaps.splice(i, 1);
-				break;
-			};
-		};
-		layer.setAssociations(assocatiedMaps);
-		this._map.addLayer(layer);
+		this._map.addLayer(this._createHistoricMapForFeature(feature));
 	}, undefined, this);
 	
 	if (goog.DEBUG){
@@ -169,16 +158,7 @@ vk2.controller.MapController.prototype.registerPermalinkTool = function(permalin
 		var feature = event.target.feature;
 		
 		// request associated messtischblaetter for a blattnr
-		var layer = this._createHistoricMapForFeature(feature);
-		var assocatiedMaps = this._createAssociationMapsArray(feature);	
-		for (var i = 0; i < assocatiedMaps.length; i++){
-			if (assocatiedMaps[i].getId() === layer.getId()){
-				assocatiedMaps.splice(i, 1);
-				break;
-			};
-		};
-		layer.setAssociations(assocatiedMaps);
-		this._map.addLayer(layer);
+		this._map.addLayer(this._createHistoricMapForFeature(feature));
 	}, undefined, this);
 };
 
@@ -191,39 +171,6 @@ vk2.controller.MapController.prototype._registerTimeSliderTool = function(timeSl
 		this._mapsearch.getFeatureSource().setTimeFilter(event.target.time[0], event.target.time[1]);
 		this._mapsearch.getFeatureSource().refresh();
 	}, undefined, this);
-};
-
-/**
- * Functions generate an array of historicmap objects which are associated to each other and
- * connected to there equal blattnr
- * @param {ol.Feature} feature
- * @return {Array.<vk2.layer.HistoricMap>}
- */
-vk2.controller.MapController.prototype._createAssociationMapsArray = function(feature){
-	var relativeFeatures = this._mapsearch.getFeatureSource().getFeatureForBlattnr(feature.get('blattnr'));
-	
-	// first create for every timestamp a relative map
-	var relativeMaps = [];
-	for (var i = 0; i < relativeFeatures.length; i++){
-		relativeMaps.push(this._createHistoricMapForFeature(relativeFeatures[i]));	
-	};
-	
-	// now associate the maps to each other
-	for (var i = 0; i < relativeMaps.length; i++){
-		
-		// clone the relativeMaps and remove the reference of the relativeMaps[i] object
-		var associatedMaps = goog.array.clone(relativeMaps);
-		for (var j = 0; j < associatedMaps.length; j++){
-			if (associatedMaps[j].getId() === relativeMaps[i].getId()){
-				associatedMaps.splice(j, 1);
-				break;
-			};
-		};
-		
-		relativeMaps[i].setAssociations(associatedMaps);
-	};
-	
-	return relativeMaps;	
 };
 
 /**

@@ -138,11 +138,11 @@ vk2.settings.EVALUATION_API = '/vkviewer/admin';
 /**
  * @type {string}
  */
-//vk2.settings.TMS_URL = [
-//     'http://vk2-cdn1.slub-dresden.de/tms/', 
-//     'http://vk2-cdn2.slub-dresden.de/tms/',
-//     'http://vk2-cdn3.slub-dresden.de/tms/'
-//]
 vk2.settings.TMS_URL = [
-       'http://localhost/tms/'
+     'http://vk2-cdn1.slub-dresden.de/tms/', 
+     'http://vk2-cdn2.slub-dresden.de/tms/',
+     'http://vk2-cdn3.slub-dresden.de/tms/'
 ]
+//vk2.settings.TMS_URL = [
+//       'http://localhost/tms/'
+//]

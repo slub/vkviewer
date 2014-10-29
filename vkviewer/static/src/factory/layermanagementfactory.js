@@ -128,52 +128,11 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 	var timestampContainer = goog.dom.createDom('div',{'class':'timestamps'});
 	goog.dom.appendChild(metadataContainer, timestampContainer);
 	
-	if (layer.getAssociations().length == 0){
-		var time = goog.dom.createDom('span', {
-			'class':'timestamps-label',
-			'innerHTML': vk2.utils.getMsg('timestamp') + ' ' + layer.getTime()
-		});
-		goog.dom.appendChild(timestampContainer, time);
-	} else {
-		var time = goog.dom.createDom('span', {
-			'class':'timestamps-label',
-			'innerHTML': vk2.utils.getMsg('timestamp') + ' ' + layer.getTime() + '<b class="caret"></b>'
-		});
-		goog.dom.appendChild(timestampContainer, time);
-		
-		var timestampDropdown = goog.dom.createDom('div', {'class':'timestamps-dropdown'});
-		goog.dom.appendChild(timestampContainer, timestampDropdown);
-		
-		var timestampDropdownLabel = goog.dom.createDom('span', {
-			'class':'timestamps-intro-text',
-			'innerHTML': vk2.utils.getMsg('timestamp_dropdown') + ':'
-		});
-		goog.dom.appendChild(timestampDropdown, timestampDropdownLabel);
-		
-		var timestampDropdownList = goog.dom.createDom('ul',{});
-		goog.dom.appendChild(timestampDropdown, timestampDropdownList);
-				
-		// now add for every feature an add mtb event
-		var associatedMaps = layer.getAssociations();
-		for (var i = 0; i < associatedMaps.length; i++){
-			var associatedLayer = associatedMaps[i];
-			
-			var listEl = goog.dom.createDom('li',{});
-			goog.dom.appendChild(timestampDropdownList,listEl);
-			
-			var anchorEl = goog.dom.createDom('a',{
-				'class': 'timestamp',
-				'href': '#',
-				'innerHTML': associatedLayer.getTime()
-			});
-			goog.dom.appendChild(listEl,anchorEl);
-			
-			goog.events.listen(anchorEl, 'click', function(event){
-				map.addLayer(this);
-				event.stopPropagation();
-			}, undefined, associatedLayer);
-		};
-	};
+	var time = goog.dom.createDom('span', {
+		'class':'timestamps-label',
+		'innerHTML': vk2.utils.getMsg('timestamp') + ' ' + layer.getTime()
+	});
+	goog.dom.appendChild(timestampContainer, time);
 	
 	// add update georeference anchor if login  
 	if (goog.net.cookies.get('auth_tkt')){

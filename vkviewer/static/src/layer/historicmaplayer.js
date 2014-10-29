@@ -68,13 +68,7 @@ vk2.layer.HistoricMap = function(settings, map){
 	 * @private
 	 */
 	this._borderPolygon = goog.isDef(settings['border']) ? settings['border'] : undefined;
-	
-	/**
-	 * @type {Array.<vk2.layer.HistoricMap>|undefined}
-	 * @private
-	 */
-	this._associations = undefined;
-	
+		
 	// feature
 	var feature = new ol.Feature(new ol.geom.Polygon([this._borderPolygon]));
 	feature.setProperties({
@@ -154,22 +148,8 @@ vk2.layer.HistoricMap.prototype.getId = function(){
 };
 
 /**
- * @return {Array.<vk2.layer.HistoricMap>}
- */
-vk2.layer.HistoricMap.prototype.getAssociations = function(){
-	return this._associations;
-};
-
-/**
  * @return {Object}
  */
 vk2.layer.HistoricMap.prototype.getMetadata = function(){
 	return this._metadata;
-};
-
-/**
- * @param {Array.<vk2.layer.HistoricMap>} array
- */
-vk2.layer.HistoricMap.prototype.setAssociations = function(array){
-	this._associations = array;
 };
