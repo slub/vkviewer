@@ -94,9 +94,8 @@ vk2.viewer.ZoomifyViewer.prototype.initialize_ = function(url, height, width, co
 	 * @private
 	 */
 	this._zoomifySource = new ol.source.Zoomify({
-		  'url': url,
-		  'size': [width, height],
-		  'crossOrigin':'anonymous'
+		  url: url,
+		  size: [width, height]
 	});
 	
 	/**
@@ -161,4 +160,12 @@ vk2.viewer.ZoomifyViewer.prototype.getHeight = function(){
  */
 vk2.viewer.ZoomifyViewer.prototype.getWidth = function(){
 	return parseInt(this._width);
+};
+
+/**
+ * @enum {string}
+ */
+vk2.viewer.ZoomifyViewer.EventType = {
+	// Is triggered after zoomify layer loaded
+	LOADEND: 'loadend',
 };
