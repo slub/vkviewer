@@ -40,14 +40,14 @@ vk2.tool.MetadataBinding.prototype.displayCswIsoRecord = function(data){
 	this._displayMetadata(data);
 };
 
-/**
- * @param {string} title
- * @private
- */
-vk2.tool.MetadataBinding.prototype._setPageTitle = function(title){
-	var page_header = goog.dom.getElement('singlemapview-title');
-	page_header.innerHTML = title;
-};
+///**
+// * @param {string} title
+// * @private
+// */
+//vk2.tool.MetadataBinding.prototype._setPageTitle = function(title){
+//	var page_header = goog.dom.getElement('singlemapview-title');
+//	page_header.innerHTML = title;
+//};
 
 /**
  * @param {Object} metadata 
@@ -199,10 +199,23 @@ vk2.tool.MetadataBinding.prototype._setOnlineRessource = function(container, lab
 	var content_container = goog.dom.createDom('div');
 	goog.dom.appendChild(row, content_container);	
 	
-	// for preventing to long urls cut query
+		
 	url = new goog.Uri(ahref);
+	
+	// check if it is a download link
+	var isDownloadLink = false;
+	if (goog.isDef(url.getParameterValue('SERVICE')) && url.getParameterValue('SERVICE').toLowerCase() == 'wcs')
+		isDownloadLink = true;
+
+	// for preventing to long urls cut query
 	url.setQuery('');
-	var content = goog.dom.createDom('a', {'target':'_blank','href':ahref,'innerHTML':url.toString()});
+	
+	if (!isDownloadLink){
+		var content = goog.dom.createDom('a', {'target':'_blank','href':ahref,'innerHTML':url.toString()});
+	} else {
+		var content = goog.dom.createDom('a', {'target':'_blank','href':ahref,'innerHTML':url.toString(), 'class':'download'});
+	};
+	
 	goog.dom.appendChild(content_container, content);
 };
 
