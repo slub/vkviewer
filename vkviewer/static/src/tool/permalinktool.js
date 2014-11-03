@@ -20,17 +20,15 @@ vk2.tool.Permalink = function(map){
 	 * @private
 	 */
 	this._map = map;
-	
-	this._parsePermalink();
-	
+		
 	goog.base(this);
 };
 goog.inherits(vk2.tool.Permalink, goog.events.EventTarget);
 
 /**
- * @private
+ * 
  */
-vk2.tool.Permalink.prototype._parsePermalink = function(){
+vk2.tool.Permalink.prototype.parsePermalink = function(){
 	if (goog.isDef(this._map)){
 		var actual_href = new goog.Uri(window.location.href);
 		var qData = actual_href.getQueryData();

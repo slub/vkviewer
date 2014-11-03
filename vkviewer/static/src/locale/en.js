@@ -111,5 +111,9 @@ var lang_dictionary = {
 		// generic
 		'backToMain': 'back to main page ...',
 		'yes':'Yes',
-		'no':'No'
+		'no':'No',
+		
+		// vk2.control.DynamicMapVisualization
+		'dynMapVisStart':'Start timeseries visualization',
+		'dynMapVisStop':'Stop timeseries visualization'
 }

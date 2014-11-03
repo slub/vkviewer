@@ -6,7 +6,7 @@ goog.require('goog.events.EventTarget');
 goog.require('goog.events.EventType');
 //goog.require('ol.Collection');
 goog.require('vk2.factory.LayerManagementFactory');
-
+goog.require('vk2.control.DynamicMapVisualization');
 
 /**
  * @param {Element|string} parentEl_id
@@ -33,10 +33,11 @@ vk2.module.LayerManagementModule = function(parentEl, layers, map){
 	 * @type {ol.Map}
 	 * @private
 	 */
-	this._map = map;
+	this.map_ = map;
 	
+	this.dynamicMapVisControl_ = new vk2.control.DynamicMapVisualization(this.map_);
 	// load html content
-	this._loadHtmlContent(this._parentEl);
+	this.loadHtmlContent_(this._parentEl, this.dynamicMapVisControl_);
 	
 	// listeners for registering new or removed layers
 	this._activate();
@@ -78,9 +79,10 @@ vk2.module.LayerManagementModule.prototype._getIndexToLayer = function(layer){
 
 /**
  * @param {Element} parentEl
+ * @param {vk2.control.DynamicMapVisualization} controlDynMapVis
  * @private
  */
-vk2.module.LayerManagementModule.prototype._loadHtmlContent = function(parentEl){
+vk2.module.LayerManagementModule.prototype.loadHtmlContent_ = function(parentEl, controlDynMapVis){
 	
 	var containerEl = goog.dom.createDom('div',{'class':'layermanagement-container', 'id':'layermanagement-container'});
 	goog.dom.appendChild(parentEl, containerEl);
@@ -95,6 +97,7 @@ vk2.module.LayerManagementModule.prototype._loadHtmlContent = function(parentEl)
 	});
 	goog.dom.appendChild(headerContainer, headerLabel);
 	
+	goog.dom.appendChild(headerContainer, controlDynMapVis.getElement());
 	// body
 	/**
 	 * @type {Element}
@@ -118,7 +121,7 @@ vk2.module.LayerManagementModule.prototype._refresh = function(event){
 
 		var layers = this._getLayers();
 		for (var i = layers.length-1, ii = 0; i >= ii; i--){
-			var layermanagementrecord = vk2.factory.LayerManagementFactory.getLayerManagementRecord(layers[i], i, this._map);
+			var layermanagementrecord = vk2.factory.LayerManagementFactory.getLayerManagementRecord(layers[i], i, this.map_);
 			goog.dom.appendChild(this._bodyEl, layermanagementrecord);
 		};
 	};

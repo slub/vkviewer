@@ -7,7 +7,6 @@
 .layermanagement-container .heading { position: relative; background: #eee; padding: 5px 15px; z-index: 310; }
 .layermanagement-container .heading:after { position: absolute; bottom: -5px; right: 10px; width: 0; height: 0; content: ""; border: 5px solid transparent; border-bottom-width: 0; border-top-color: #eee; z-index: 300; }
 
-
 /* styling body */
 .layermanagement-body { position: absolute; top: 30px; bottom: 10px; left: 0; right: 0; list-style: none; overflow: hidden; overflow-y: auto; }
 .layermanagement-record { position: relative; height: 100px; width: 100%; overflow: hidden; display: table; border: 1px solid #ccc; border-width: 1px 0; margin-top: -1px; }

@@ -111,8 +111,11 @@ var lang_dictionary = {
 		// generic
 		'backToMain': 'zurück zur Hauptseite ...',
 		'yes':'Ja',
-		'no':'Nein'
+		'no':'Nein',
 		
+		// vk2.control.DynamicMapVisualization
+		'dynMapVisStart':'Starte Zeitreihen Visualisierung',
+		'dynMapVisStop':'Stoppe Zeitreihen Visualisierung'
 }
 	
 

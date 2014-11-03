@@ -11,7 +11,6 @@ goog.require('vk2.utils');
 goog.require('vk2.utils.Modal');
 goog.require('vk2.controller.MapController');
 goog.require('vk2.tool.Permalink');
-goog.require('vk2.tool.DynamicMapVisualization');
 goog.require('vk2.module.SpatialTemporalSearchModule');
 goog.require('vk2.module.LayerManagementModule');
 goog.require('vk2.georeference.GeoreferencerChooser');
@@ -54,6 +53,7 @@ vk2.app.PresentationApp = function(settings){
 	
 	// permalink 
 	var permalink = new vk2.tool.Permalink(map_controller.getMap());
+	permalink.parsePermalink();
 	map_controller.registerPermalinkTool(permalink);
 	
 	// in case of authenticated user load further modules
@@ -81,18 +81,6 @@ vk2.app.PresentationApp = function(settings){
 		window['map'] = map_controller.getMap();		
 		window['spatialsearch'] = spatialSearch;
 		window['mapsearch'] = spatialSearch.getMapSearchModule();
-		
-		// testing
-		window['dmv'] = new vk2.tool.DynamicMapVisualization();
-		
-		goog.events.listen(map_controller.getMap().getLayers(),'add', function(event){
-			var layers = map_controller.getHistoricMapLayer();
-			var map = map_controller.getMap();
-			
-			window['test'] = function(){
-				window['dmv'].startTimerseriesAnimation(layers, map);
-			}
-		});
 	};
 	
 	// for correct displaying of tooltips

@@ -3,13 +3,26 @@ goog.provide('vk2.tool.DynamicMapVisualization');
 goog.require('goog.Timer');
 
 /**
+ * @param {Element=} opt_feedbackEl
  * @constructor
  */
-vk2.tool.DynamicMapVisualization = function(){
+vk2.tool.DynamicMapVisualization = function(opt_feedbackEl){
 	
 	if (goog.DEBUG){
 		console.log('Initialize vk2.tool.DynamicMapVisualization ...');		
 	};
+	
+	/**
+	 * @type {Element}
+	 * @private
+	 */
+	this.feedbackEl_ = goog.isDef(opt_feedbackEl) ? opt_feedbackEl : undefined;
+	
+	/**
+	 * @type {boolean}
+	 * @private
+	 */
+	this.active_ = false;
 };
 
 /**
@@ -45,6 +58,9 @@ vk2.tool.DynamicMapVisualization.prototype.startAnimation_ = function(sortedLaye
 	
 	var animationJobObj = {
 		start: function(sortedLayers, delay, context){
+			if (!context.active_)
+				return;
+			
 			if (goog.DEBUG)
 				console.log(sortedLayers);
 			
@@ -62,9 +78,7 @@ vk2.tool.DynamicMapVisualization.prototype.startAnimation_ = function(sortedLaye
 			};
 			
 			// update user feedback
-			if (goog.isDef(startkey)){
-				console.log('The actual timestamp is ' + startkey);
-			};
+			context.updateFeedback_(startkey);			
 		}
 	};
 	
@@ -119,7 +133,10 @@ vk2.tool.DynamicMapVisualization.prototype.startFadeInAnimation = function(layer
 	var delay = 500;
 	
 	var animationJobObj = {
-		incrementalFadeIn: function(layer, steps, delay, opt_success_callback){
+		incrementalFadeIn: function(layer, steps, delay, opt_success_callback, context){
+			if (!context.active_)
+				return;
+			
 			if (goog.DEBUG){
 				console.log('Incremental FadeIn Function called!');
 			};
@@ -139,18 +156,18 @@ vk2.tool.DynamicMapVisualization.prototype.startFadeInAnimation = function(layer
 				};
 				
 				layer.setOpacity(newOpacity);
-				goog.Timer.callOnce(goog.partial(this.incrementalFadeIn, layer, steps, delay, opt_success_callback), delay, this);
+				goog.Timer.callOnce(goog.partial(this.incrementalFadeIn, layer, steps, delay, opt_success_callback, context), delay, this);
 			};
 		},
-		start: function(layer, steps, delay, opt_success_callback){
+		start: function(layer, steps, delay, opt_success_callback, context){
 			layer.setOpacity(0);
 			layer.setVisible(true);
 			
-			goog.Timer.callOnce(goog.partial(this.incrementalFadeIn, layer, steps, delay, opt_success_callback), delay, this);
+			goog.Timer.callOnce(goog.partial(this.incrementalFadeIn, layer, steps, delay, opt_success_callback, context), delay, this);
 		}
 	};
 	
-	animationJobObj.start(layer, steps, delay, opt_success_callback);
+	animationJobObj.start(layer, steps, delay, opt_success_callback, this);
 };
 
 /**
@@ -158,10 +175,45 @@ vk2.tool.DynamicMapVisualization.prototype.startFadeInAnimation = function(layer
  * @param {ol.Map} map
  */
 vk2.tool.DynamicMapVisualization.prototype.startTimerseriesAnimation = function(layers, map){
-	var sortedLayers = this.sortLayers_(layers, map);
-	
+	if (!this.active_) {
+		// important for allowing to run the animation
+		this.active_ = true;
+		
+		// bring the layers in the correct order
+		var sortedLayers = this.sortLayers_(layers, map);
+		
+		if (goog.DEBUG)
+			console.log(sortedLayers);
+		
+		this.startAnimation_(sortedLayers);
+	} else {
+		if (goog.DEBUG)
+			console.log('Dynamic timeseries visualization is already running ...');
+	}
+
+};
+
+/**
+ *
+ */
+vk2.tool.DynamicMapVisualization.prototype.stopTimerseriesAnimation = function(){
 	if (goog.DEBUG)
-		console.log(sortedLayers);
+		console.log("Stop time series animation");
 	
-	this.startAnimation_(sortedLayers);
+	this.active_ = false;
+	this.updateFeedback_();	
+};
+
+/**
+ * @param {string=} opt_feedbackMsg
+ * @private
+ */
+vk2.tool.DynamicMapVisualization.prototype.updateFeedback_ = function(opt_feedbackMsg){
+	if (goog.isDef(this.feedbackEl_)){
+		if (goog.isDef(opt_feedbackMsg)){
+			this.feedbackEl_.innerHTML = opt_feedbackMsg;
+			return;
+		};
+		this.feedbackEl_.innerHTML = '';	
+	};
 };

@@ -1,0 +1,27 @@
+.dyn-map-vis-control { 
+	right: 10px;
+	top: 5px;
+	position: absolute;
+}
+
+.dyn-map-vis-control > div {
+	position: relative;
+	float: left;
+}
+
+.dyn-map-vis-control > div > a {
+	display: block;
+	margin: 1px;
+	padding: 0;
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	height: 15px;
+	width: 15px;
+	text-indent: 200%;
+	white-space: nowrap;
+	overflow: hidden;
+	border-radius: 0;
+	background: rgb(0,177,158);
+}

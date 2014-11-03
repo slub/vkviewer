@@ -14,6 +14,17 @@ goog.require('vk2.control.LayerSpy');
 goog.require('vk2.control.RotateNorth');
 goog.require('vk2.control.Permalink');
 
+ol.Map.prototype.getHistoricMapLayer = function(){
+	var layers = this.getLayers().getArray();
+	var historicMapLayers = [];
+	for (var i = 0; i < layers.length; i++){
+		if (layers[i] instanceof vk2.layer.HistoricMap){
+			historicMapLayers.push(layers[i]);
+		};
+	};
+	return historicMapLayers;
+};
+
 /**
  * @param {Object} settings
  * @param {string} map_container
@@ -225,19 +236,19 @@ vk2.controller.MapController.prototype._appendMapClickBehavior = function(map){
 	});
 };
 
-/**
- * @return {Array.<vk2.layer.HistoricMap>}
- */
-vk2.controller.MapController.prototype.getHistoricMapLayer = function(){
-	var layers = this.map_.getLayers().getArray();
-	var historicMapLayers = [];
-	for (var i = 0; i < layers.length; i++){
-		if (layers[i] instanceof vk2.layer.HistoricMap){
-			historicMapLayers.push(layers[i]);
-		};
-	};
-	return historicMapLayers;
-};
+///**
+// * @return {Array.<vk2.layer.HistoricMap>}
+// */
+//vk2.controller.MapController.prototype.getHistoricMapLayer = function(){
+//	var layers = this.map_.getLayers().getArray();
+//	var historicMapLayers = [];
+//	for (var i = 0; i < layers.length; i++){
+//		if (layers[i] instanceof vk2.layer.HistoricMap){
+//			historicMapLayers.push(layers[i]);
+//		};
+//	};
+//	return historicMapLayers;
+//};
 
 /**
  * @returns {ol.Map}
