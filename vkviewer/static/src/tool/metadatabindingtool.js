@@ -29,8 +29,12 @@ vk2.tool.MetadataBinding = function(parentEl, metadataId){
  * @param {Object} data
  */
 vk2.tool.MetadataBinding.prototype.displayCswIsoRecord = function(data){
+	if (goog.DEBUG){
+		console.log(data);
+	};
+		
 	// set page title
-	this._setPageTitle(data['TITEL'][0]);
+	// this._setPageTitle(data['TITEL'][0]);
 	
 	// display the metadata
 	this._displayMetadata(data);

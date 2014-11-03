@@ -17,7 +17,6 @@
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
 					<div class="btn-group-vertical header-btn">
 						<a href="${permalink}" class="btn btn-default" target="_blank">Gehe zu Fotothek</a>
-						<a href="http://kartenforum.slub-dresden.de/geonetwork/srv/eng/search#|${key}" class="btn btn-default" target="_blank">Zeige Metadatensatz</a>
 					</div>
 				</div>
 			</div>

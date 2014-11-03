@@ -21,6 +21,7 @@ goog.require('vk2.control.ImageManipulation');
  * 		{string} zoomifyContainer
  */
 vk2.app.MapProfileApp = function(settings){
+	
 	if (goog.DEBUG)
 		console.log(settings);
 	
