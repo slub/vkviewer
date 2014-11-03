@@ -39,7 +39,7 @@
 							                <li><a href="${request.route_url('profile-georeference')}" data-src="${request.route_url('profile-georeference')}" data-classes="georef-history" 
 								        		class="vk2-modal-anchor" data-title="">${_('georef_history')}</a></li>
 							                <li><a href="${request.route_url('pw-change', action='page')}" data-src="${request.route_url('pw-change', action='page')}" data-classes="pw-change" 
-								        		class="vk2-modal-anchor" data-title="${_('pw-change_header')}">${_('pw-change_header')}</a></li>
+								        		class="vk2-modal-anchor" data-title="${_('pw-change_header')}">${_('change_pw_header')}</a></li>
 								        		
 								        	% if with_modify:  
 							              		<li class="listelement">
