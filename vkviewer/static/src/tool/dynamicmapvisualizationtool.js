@@ -69,16 +69,17 @@ vk2.tool.DynamicMapVisualization.prototype.startAnimation_ = function(sortedLaye
 			
 			var layers = goog.isDef(sortedLayers[startkey]) ? sortedLayers[startkey] : [];
 			delete sortedLayers[startkey];
-			for (var i = 0; i < layers.length; i++){
-				if (i == 0){
-					var success_callback = goog.bind(this.start, this, sortedLayers, delay, context)
-					goog.Timer.callOnce(goog.partial(context.startFadeInAnimation, layers[i], success_callback) , delay, context);
-				};
-				goog.Timer.callOnce(goog.partial(context.startFadeInAnimation, layers[i]) , delay, context);				
-			};
+			
+			// call the fadein animation together with the creating of the callback
+			var success_callback = goog.bind(this.start, this, sortedLayers, delay, context)
+			goog.Timer.callOnce(goog.partial(context.startFadeInAnimation, layers, success_callback) , delay, context);
+	
 			
 			// update user feedback
 			context.updateFeedback_(startkey);			
+			
+			if (!goog.isDef(startkey))
+				context.active_ = false;
 		}
 	};
 	
@@ -125,15 +126,15 @@ vk2.tool.DynamicMapVisualization.prototype.sortLayers_ = function(layers, map){
 };
 
 /**
- * @param {vk2.layer.HistoricMap} layer
+ * @param {Array.<vk2.layer.HistoricMap>} layers
  * @param {Function} opt_success_callback
  */
-vk2.tool.DynamicMapVisualization.prototype.startFadeInAnimation = function(layer, opt_success_callback){
+vk2.tool.DynamicMapVisualization.prototype.startFadeInAnimation = function(layers, opt_success_callback){
 	var steps = 0.1;
 	var delay = 500;
 	
 	var animationJobObj = {
-		incrementalFadeIn: function(layer, steps, delay, opt_success_callback, context){
+		incrementalFadeIn: function(layers, steps, delay, opt_success_callback, context){
 			if (!context.active_)
 				return;
 			
@@ -141,8 +142,19 @@ vk2.tool.DynamicMapVisualization.prototype.startFadeInAnimation = function(layer
 				console.log('Incremental FadeIn Function called!');
 			};
 			
-			var newOpacity = layer.getOpacity() + steps;
-			if (newOpacity >= 1){
+			var newOpacity = layers[0].getOpacity() + steps;
+			// use 1.05 as break value for catching inaccuracies in caculating like 1.000001
+			if (newOpacity <= 1.05){
+				if (goog.DEBUG){
+					console.log('Set opacity to ' + newOpacity);
+				};
+				
+				// increment the opacity
+				for (var i = 0; i < layers.length; i++){
+					layers[i].setOpacity(newOpacity);			
+				};			
+				goog.Timer.callOnce(goog.partial(this.incrementalFadeIn, layers, steps, delay, opt_success_callback, context), delay, this);
+			} else {
 				if (goog.DEBUG) {
 					console.log('Animation successful.');
 				}
@@ -150,24 +162,19 @@ vk2.tool.DynamicMapVisualization.prototype.startFadeInAnimation = function(layer
 				if (goog.isDef(opt_success_callback)){
 					opt_success_callback();
 				};					
-			} else {
-				if (goog.DEBUG){
-					console.log('Set opacity to ' + newOpacity);
-				};
-				
-				layer.setOpacity(newOpacity);
-				goog.Timer.callOnce(goog.partial(this.incrementalFadeIn, layer, steps, delay, opt_success_callback, context), delay, this);
 			};
 		},
-		start: function(layer, steps, delay, opt_success_callback, context){
-			layer.setOpacity(0);
-			layer.setVisible(true);
+		start: function(layers, steps, delay, opt_success_callback, context){
+			for (var i = 0; i < layers.length; i++){
+				layers[i].setOpacity(0);
+				layers[i].setVisible(true);				
+			};			
 			
-			goog.Timer.callOnce(goog.partial(this.incrementalFadeIn, layer, steps, delay, opt_success_callback, context), delay, this);
+			goog.Timer.callOnce(goog.partial(this.incrementalFadeIn, layers, steps, delay, opt_success_callback, context), delay, this);
 		}
 	};
 	
-	animationJobObj.start(layer, steps, delay, opt_success_callback, this);
+	animationJobObj.start(layers, steps, delay, opt_success_callback, this);
 };
 
 /**

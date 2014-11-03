@@ -96,5 +96,16 @@ vk2.tool.OpacitySlider.prototype._appendSliderBehavior = function(sliderEl, laye
 		'innerHTML':'100%'
 	});
 	goog.dom.appendChild(sliderEl, valueEl);
+	
+	// append slide behavior 
+	var breakValue = 19;
+	layer.on('change:opacity', function(event){
+		var opacity = this.getOpacity() * 100;
+		//console.log('Opacity: ' + opacity + ', Slider value: ' + $(sliderEl).slider('value'));
+
+		if (Math.abs(opacity - $(sliderEl).slider('value')) > breakValue){
+			$(sliderEl).slider('value', opacity);
+		};
+	});
 };
 
