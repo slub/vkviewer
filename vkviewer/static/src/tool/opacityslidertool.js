@@ -96,6 +96,5 @@ vk2.tool.OpacitySlider.prototype._appendSliderBehavior = function(sliderEl, laye
 		'innerHTML':'100%'
 	});
 	goog.dom.appendChild(sliderEl, valueEl);
-	
 };
 

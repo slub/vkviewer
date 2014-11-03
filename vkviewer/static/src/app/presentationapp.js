@@ -84,6 +84,15 @@ vk2.app.PresentationApp = function(settings){
 		
 		// testing
 		window['dmv'] = new vk2.tool.DynamicMapVisualization();
+		
+		goog.events.listen(map_controller.getMap().getLayers(),'add', function(event){
+			var layers = map_controller.getHistoricMapLayer();
+			var map = map_controller.getMap();
+			
+			window['test'] = function(){
+				window['dmv'].startTimerseriesAnimation(layers, map);
+			}
+		});
 	};
 	
 	// for correct displaying of tooltips

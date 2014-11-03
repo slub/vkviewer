@@ -32,6 +32,15 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 					layer.setVisible(true);
 				};
 			},
+			'updatevisibility': function(event){
+				if (!layer.getVisible() && goog.dom.classes.has(containerListEl, 'visible')){
+					// hide layer
+					goog.dom.classes.addRemove(containerListEl, 'visible', 'notvisible');
+				} else if (layer.getVisible() && goog.dom.classes.has(containerListEl, 'notvisible')){
+					// display layer
+					goog.dom.classes.addRemove(containerListEl, 'notvisible', 'visible');
+				};
+			},
 			'maximize': function(event){
 				if (goog.style.getStyle(maximizeList, 'display') !== 'none'){
 					if (goog.DEBUG)
@@ -151,5 +160,7 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 	// opdacity slider
 	var opacitySlider = new vk2.tool.OpacitySlider(containerListEl, layer, 'vertical');
 	
+	// append listeners for update view regarding to extern layer controls
+	layer.on('change:visible', eventListener['updatevisibility']);
 	return containerListEl;
 };

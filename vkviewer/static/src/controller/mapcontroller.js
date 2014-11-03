@@ -30,7 +30,7 @@ vk2.controller.MapController = function(settings, map_container){
 	goog.object.extend(this._settings, settings);
 	
 	this._loadBaseMap(map_container);
-	this._appendMapClickBehavior(this._map);
+	this._appendMapClickBehavior(this.map_);
 };
 
 /**
@@ -50,7 +50,7 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 	 * @type {ol.Map}
 	 * @private
 	 */
-	this._map = new ol.Map({
+	this.map_ = new ol.Map({
 		layers: [
 //		   new ol.layer.Tile({
 //			 //  preload: Infinity,
@@ -93,7 +93,7 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 		})
 	});
 	
-	this._addFeatureClickBehavior(this._map);
+	this._addFeatureClickBehavior(this.map_);
 };
 
 /**
@@ -118,7 +118,7 @@ vk2.controller.MapController.prototype._addFeatureClickBehavior = function(map){
 vk2.controller.MapController.prototype._registerGazetteerSearchTool = function(gazetteersearch){
 	// jumps to extent
 	goog.events.listen(gazetteersearch, 'jumpto', function(event){
-		var view = this._map.getView();
+		var view = this.map_.getView();
 		view.setCenter(ol.proj.transform([parseFloat(event.target.lonlat[0]),parseFloat(event.target.lonlat[1])], 
 				event.target.srs, 'EPSG:900913'));
 		view.setZoom(5);
@@ -133,19 +133,19 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 	 * @type {vk2.module.MapSearchModule}
 	 * @private
 	 */
-	this._mapsearch = mapsearch;
+	this.map_search = mapsearch;
 		
 	// register addmtb event
-	goog.events.listen(this._mapsearch, 'addmtb', function(event){
+	goog.events.listen(this.map_search, 'addmtb', function(event){
 		if (goog.DEBUG)
 			console.log('Trigger map search event')
 			
 		var feature = event.target.feature;
-		this._map.addLayer(this._createHistoricMapForFeature(feature));
+		this.map_.addLayer(this._createHistoricMapForFeature(feature));
 	}, undefined, this);
 	
 	if (goog.DEBUG){
-		window['mapsearchLayer'] = this._mapsearchLayer;
+		window['mapsearchLayer'] = this.map_searchLayer;
 	};
 };
 
@@ -158,7 +158,7 @@ vk2.controller.MapController.prototype.registerPermalinkTool = function(permalin
 		var feature = event.target.feature;
 		
 		// request associated messtischblaetter for a blattnr
-		this._map.addLayer(this._createHistoricMapForFeature(feature));
+		this.map_.addLayer(this._createHistoricMapForFeature(feature));
 	}, undefined, this);
 };
 
@@ -168,8 +168,8 @@ vk2.controller.MapController.prototype.registerPermalinkTool = function(permalin
 vk2.controller.MapController.prototype._registerTimeSliderTool = function(timeSlider){
 	// this event links the content of the map search list with the time slider
 	goog.events.listen(timeSlider, 'timechange', function(event){
-		this._mapsearch.getFeatureSource().setTimeFilter(event.target.time[0], event.target.time[1]);
-		this._mapsearch.getFeatureSource().refresh();
+		this.map_search.getFeatureSource().setTimeFilter(event.target.time[0], event.target.time[1]);
+		this.map_search.getFeatureSource().refresh();
 	}, undefined, this);
 };
 
@@ -186,7 +186,7 @@ vk2.controller.MapController.prototype._createHistoricMapForFeature = function(f
 		'title': feature.get('title'),
 		'id': feature.get('id'),
 		'dataid':feature.get('dataid')
-	}, this._map);
+	}, this.map_);
 };
 
 
@@ -226,11 +226,25 @@ vk2.controller.MapController.prototype._appendMapClickBehavior = function(map){
 };
 
 /**
+ * @return {Array.<vk2.layer.HistoricMap>}
+ */
+vk2.controller.MapController.prototype.getHistoricMapLayer = function(){
+	var layers = this.map_.getLayers().getArray();
+	var historicMapLayers = [];
+	for (var i = 0; i < layers.length; i++){
+		if (layers[i] instanceof vk2.layer.HistoricMap){
+			historicMapLayers.push(layers[i]);
+		};
+	};
+	return historicMapLayers;
+};
+
+/**
  * @returns {ol.Map}
  * @export
  */
 vk2.controller.MapController.prototype.getMap = function(){
-	return this._map;
+	return this.map_;
 };
 
 /**
