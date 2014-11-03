@@ -1,15 +1,20 @@
-.dyn-map-vis-control { 
+.dyn-vis-control { 
 	right: 10px;
 	top: 5px;
 	position: absolute;
 }
 
-.dyn-map-vis-control > div {
+.dyn-vis-control .open-dyn-vis {
+	position: relative; 
+	float: left;
+}
+
+.dyn-vis-control .content, .dyn-vis-control .content > div {
 	position: relative;
 	float: left;
 }
 
-.dyn-map-vis-control > div > a {
+.dyn-vis-control .content > div > a, .dyn-vis-control > a {
 	display: block;
 	margin: 1px;
 	padding: 0;

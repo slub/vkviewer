@@ -21,9 +21,13 @@ vk2.control.DynamicMapVisualization = function(map){
 	 * @type {Element}
 	 * @private
 	 */
-	this.parentEl_ = goog.dom.createDom('div', {'class':'dyn-map-vis-control'});
+	this.parentEl_ = goog.dom.createDom('div', {'class':'dyn-vis-control'});
 	
-	var feedbackEl = this.createFeedbackEl_(this.parentEl_);
+	// create content container with control / feedback elements
+	var contentEl = goog.dom.createDom('div', {'class':'content', 'style':'display:none;'});
+	goog.dom.appendChild(this.parentEl_, contentEl);	
+	
+	var feedbackEl = this.createFeedbackEl_(contentEl);
 	
 	/**
 	 * @type {vk2.tool.DynamicMapVisualization}
@@ -31,15 +35,38 @@ vk2.control.DynamicMapVisualization = function(map){
 	 */
 	this.dynamicMapVis_ = new vk2.tool.DynamicMapVisualization(feedbackEl);
 
-	this.createContentEl_(this.parentEl_);
+	this.createContentEl_(contentEl);
+	
+	// create control element for the content container
+	this.createMenuEl_(this.parentEl_, contentEl);
 };
 
 /**
  * @param {Element} parentEl
- * @param {vk2.tool.DynamicMapVisualization} dynMapVis
+ * @param {Element} contentEl
  * @private
  */
-vk2.control.DynamicMapVisualization.prototype.createContentEl_ = function(parentEl){
+vk2.control.DynamicMapVisualization.prototype.createMenuEl_ = function(parentEl, contentEl){
+	var controlEl = goog.dom.createDom('a', {'innerHTML':'o','class':'open-dyn-vis'});
+	goog.dom.insertChildAt(parentEl, controlEl, 0);
+	
+	goog.events.listen(controlEl,'click', function(event){
+		$(contentEl).slideToggle();
+		
+		if (goog.dom.classes.has(event.currentTarget, 'open')){
+			this.dynamicMapVis_.stopTimerseriesAnimation();
+			goog.dom.classes.remove(event.currentTarget, 'open');
+		} else {
+			goog.dom.classes.add(event.currentTarget, 'open');
+		};
+	}, undefined, this);
+};
+
+/**
+ * @param {Element} contentEl
+ * @private
+ */
+vk2.control.DynamicMapVisualization.prototype.createContentEl_ = function(contentEl){
 		
 	var eventListeners = {
 		start: function(event){
@@ -50,10 +77,10 @@ vk2.control.DynamicMapVisualization.prototype.createContentEl_ = function(parent
 			this.dynamicMapVis_.stopTimerseriesAnimation();
 		}
 	};
-	
+
 	// create start button
 	var startContainerEl = goog.dom.createDom('div', {'class':'start-container'});
-	goog.dom.appendChild(parentEl, startContainerEl);
+	goog.dom.appendChild(contentEl, startContainerEl);
 	
 	var startAnchor = goog.dom.createDom('a', {
 		'href':'#dynamic-start',
@@ -68,7 +95,7 @@ vk2.control.DynamicMapVisualization.prototype.createContentEl_ = function(parent
 	
 	// create stop button
 	var stopContainerEl = goog.dom.createDom('div', {'class':'stop-container'});
-	goog.dom.appendChild(parentEl, stopContainerEl);
+	goog.dom.appendChild(contentEl, stopContainerEl);
 	
 	var stopAnchor = goog.dom.createDom('a', {
 		'href':'#dynamic-stop',
@@ -83,14 +110,14 @@ vk2.control.DynamicMapVisualization.prototype.createContentEl_ = function(parent
 };
 
 /**
- * @param {Element} parentEl
+ * @param {Element} contentEl
  * @return {Element}
  * @private
  */
-vk2.control.DynamicMapVisualization.prototype.createFeedbackEl_ = function(parentEl){
+vk2.control.DynamicMapVisualization.prototype.createFeedbackEl_ = function(contentEl){
 	
 	var feedbackEl = goog.dom.createDom('div', {'class':'feedback'});
-	goog.dom.appendChild(parentEl, feedbackEl);
+	goog.dom.appendChild(contentEl, feedbackEl);
 	
 	return feedbackEl;
 };
