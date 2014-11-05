@@ -95,7 +95,8 @@ vk2.viewer.ZoomifyViewer.prototype.initialize_ = function(url, height, width, co
 	 */
 	this._zoomifySource = new ol.source.Zoomify({
 		  url: url,
-		  size: [width, height]
+		  size: [width, height],
+		  crossOrigin: '*'
 	});
 	
 	/**

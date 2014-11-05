@@ -34,14 +34,14 @@ vk2.app.MapProfileApp = function(settings){
 	
 	// first the access-origin-allow header has to be reset for the zoomify tiles
 	// load the hole application with a webgl renderer
-	//var zoomifyViewer = new vk2.viewer.ZoomifyViewer(settings['zoomifyContainer'], settings['zoomify'], true);
-	var zoomifyViewer = new vk2.viewer.ZoomifyViewer(settings['zoomifyContainer'], settings['zoomify']);
+	var zoomifyViewer = new vk2.viewer.ZoomifyViewer(settings['zoomifyContainer'], settings['zoomify'], true);
+	//var zoomifyViewer = new vk2.viewer.ZoomifyViewer(settings['zoomifyContainer'], settings['zoomify']);
 	var metadatbinding = new vk2.tool.MetadataBinding(settings['metadataContainer'], settings['metadataId']);
 	
 	// append image manipulation tool
-//	goog.events.listen(zoomifyViewer, vk2.viewer.ZoomifyViewerEventType.LOADEND, function(event){
-//		zoomifyViewer.getMap().addControl(new vk2.control.ImageManipulation());
-//	});
+	goog.events.listen(zoomifyViewer, vk2.viewer.ZoomifyViewerEventType.LOADEND, function(event){
+		zoomifyViewer.getMap().addControl(new vk2.control.ImageManipulation());
+	});
 	
 	return;
 };

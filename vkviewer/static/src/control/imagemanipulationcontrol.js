@@ -113,9 +113,10 @@ vk2.control.ImageManipulation.prototype.createSlider_ = function(className, orie
     });
 	
 	// append tooltips
+	var innerHtml = goog.isDef(opt_baseValue) ? opt_baseValue + '%' : '100%'; 
 	var valueEl = goog.dom.createDom('div',{
 		'class':'tooltip value '+className,
-		'innerHTML':'100%'
+		'innerHTML': innerHtml
 	});
 	goog.dom.appendChild(sliderEl, valueEl);
 	
@@ -141,19 +142,19 @@ vk2.control.ImageManipulation.prototype.initializeSliderContainer_ = function(pa
 	goog.dom.appendChild(parentEl, sliderContainer);
 	
 	// add contrast slider
-	var contrastSlider = this.createSlider_('slider-contrast', 'vertical', goog.bind(function(value){
+	var contrastSlider = this.createSlider_('slider-contrast', 'horizontal', goog.bind(function(value){
 		this.getBaseLayer_().setContrast(value/100);
 	}, this));
 	goog.dom.appendChild(sliderContainer, contrastSlider);
 	
 	// add satuartion slider
-	var saturationSlider = this.createSlider_('slider-saturation', 'vertical', goog.bind(function(value){
+	var saturationSlider = this.createSlider_('slider-saturation', 'horizontal', goog.bind(function(value){
 		this.getBaseLayer_().setSaturation(value/100);
 	}, this));
 	goog.dom.appendChild(sliderContainer, saturationSlider);
 	
 	// add brightness slider
-	var brightnessSlider = this.createSlider_('slider-brightness', 'vertical', goog.bind(function(value){
+	var brightnessSlider = this.createSlider_('slider-brightness', 'horizontal', goog.bind(function(value){
 		// doing linar mapping (normalisierung)
 		var linarMapping = 2 * value / 100 -1;
 		this.getBaseLayer_().setBrightness(linarMapping);
@@ -162,7 +163,7 @@ vk2.control.ImageManipulation.prototype.initializeSliderContainer_ = function(pa
 
 	// add contrast slider
 	var baseValue = 50;
-	var hueSlider = this.createSlider_('slider-hue', 'vertical', goog.bind(function(value){
+	var hueSlider = this.createSlider_('slider-hue', 'horizontal', goog.bind(function(value){
 		// doing arbitray mapping 
 		var mapping = (value - baseValue) * 0.25;
 		var hueValue = mapping == 0 ? 0 : mapping + this.getBaseLayer_().getHue();
