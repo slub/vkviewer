@@ -62,7 +62,7 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 	 * @private
 	 */
 	this.map_ = new ol.Map({
-		layers: [
+		'layers': [
 //		   new ol.layer.Tile({
 //			 //  preload: Infinity,
 //			   source: new ol.source.OSM()
@@ -72,12 +72,12 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 			    	source: new ol.source.MapQuest({layer: 'osm'})
 				})
 		],
-		renderer: 'canvas',
-		target: map_container,
-		interactions: ol.interaction.defaults().extend([
+		'renderer': 'canvas',
+		'target': map_container,
+		'interactions': ol.interaction.defaults().extend([
 		    new ol.interaction.DragRotateAndZoom()
 		]),
-		controls: [
+		'controls': [
 		    new ol.control.Attribution({
 		    	collapsible:false,
 		    	collapsed:false
@@ -94,13 +94,13 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 			new ol.control.ScaleLine(),
 			new vk2.control.Permalink()
 		],
-		view: new ol.View({
-			projection: 'EPSG:900913',
-	        minResolution: 1.194328566789627,
-	        maxResolution: 2445.9849047851562,
-	        extent: [640161.933,5958026.134,3585834.8011505,7847377.4901306],
-			center: [1531627.8847864927, 6632124.286850829],
-			zoom: 4
+		'view': new ol.View({
+			'projection': 'EPSG:900913',
+	        'minResolution': 1.194328566789627,
+	        'maxResolution': 2445.9849047851562,
+	        'extent': [640161.933,5958026.134,3585834.8011505,7847377.4901306],
+	        'center': [1531627.8847864927, 6632124.286850829],
+			'zoom': 4
 		})
 	});
 	

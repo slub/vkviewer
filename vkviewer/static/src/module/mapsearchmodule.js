@@ -271,7 +271,7 @@ vk2.module.MapSearchModule.prototype.refresh_ = function(event){
 	
 	this.updateHeading_(event.target.totalFeatureCount);
 	this.searchListEl_.innerHTML = '';
-	this.appendFeaturesToList_(event.target.features);
+	this.appendFeaturesToList_(event.target['features']);
 };
 
 /**
@@ -284,7 +284,7 @@ vk2.module.MapSearchModule.prototype.update_ = function(event){
 	};
 	
 	this.updateHeading_(event.target.totalFeatureCount);
-	this.appendFeaturesToList_(event.target.features);
+	this.appendFeaturesToList_(event.target['features']);
 };
 
 /**
