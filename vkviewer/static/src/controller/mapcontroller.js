@@ -148,10 +148,11 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 		
 	// register addmtb event
 	goog.events.listen(this.map_search, 'addmtb', function(event){
-		if (goog.DEBUG)
-			console.log('Trigger map search event')
+		if (goog.DEBUG){
+			console.log('Trigger map search event');
+		};			
 			
-		var feature = event.target.feature;
+		var feature = event.target['feature'];
 		this.map_.addLayer(this._createHistoricMapForFeature(feature));
 	}, undefined, this);
 	
@@ -166,7 +167,7 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 vk2.controller.MapController.prototype.registerPermalinkTool = function(permalink){
 	// register addmtb event
 	goog.events.listen(permalink, 'addmtb', function(event){
-		var feature = event.target.feature;
+		var feature = event.target['feature'];
 		
 		// request associated messtischblaetter for a blattnr
 		this.map_.addLayer(this._createHistoricMapForFeature(feature));
