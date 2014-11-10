@@ -77,7 +77,7 @@ vk2.utils.getAllQueryParams = function(href){
  */
 vk2.utils.getClosestParentElementForClass = function(element, className){
 	var element = goog.dom.classes.has(element, className) ? element : 
-		this.getClosestParentElementForClass(goog.dom.getParentElement(element), className);
+		vk2.utils.getClosestParentElementForClass(goog.dom.getParentElement(element), className);
 	return element;
 };
 
@@ -216,13 +216,13 @@ vk2.utils.sendReport = function(url_string, success_callback, error_callback){
 			success_callback(xhr);
 		xhr.dispose();
 
-	}, false, this);
+	});
 	
 	goog.events.listenOnce(xhr, 'error', function(e){
 		var xhr = /** @type {goog.net.XhrIo} */ (e.target);
 		if (goog.isDef(error_callback))
 			error_callback(xhr);
-	}, false, this);
+	});
 	
 	// send request
 	xhr.send(url_string);	
