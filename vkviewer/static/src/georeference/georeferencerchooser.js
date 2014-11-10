@@ -32,9 +32,9 @@ vk2.georeference.GeoreferencerChooser = function(parentEl, map){
 	 * @private
 	 */
 	this._layer = new ol.layer.Image({
-		source: new ol.source.ImageWMS({
-			url: vk2.settings.GEOREFERENCECHOOSER_WMS,
-			params: {
+		'source': new ol.source.ImageWMS({
+			'url': vk2.settings.GEOREFERENCECHOOSER_WMS,
+			'params': {
 				'LAYERS': vk2.settings.GEOREFERENCECHOOSER_LAYERID,
 				'TRANSPARENT': true
 			}

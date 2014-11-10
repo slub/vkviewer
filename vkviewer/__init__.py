@@ -50,6 +50,7 @@ def loadLogger(debug=True):
 def addRoutes(config):
     # add routes
     config.add_static_view(ROUTE_PREFIX+'/static', 'vkviewer:static/', cache_max_age=3600)
+    
     config.add_route('proxy', ROUTE_PREFIX+'/proxy/')
     config.add_route('home', ROUTE_PREFIX + '/')
     config.add_route('home1', ROUTE_PREFIX)

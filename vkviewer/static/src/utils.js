@@ -115,9 +115,9 @@ vk2.utils.getPolygonFromExtent = function(extent){
  */
 vk2.utils.getQueryParam = function(name, href){
 	if (goog.isDef(href)){
-		return this.getAllQueryParams(href).get(name);
+		return vk2.utils.getAllQueryParams(href).get(name);
 	} else {
-		return this.getAllQueryParams().get(name);
+		return vk2.utils.getAllQueryParams().get(name);
 	}
 };
 
