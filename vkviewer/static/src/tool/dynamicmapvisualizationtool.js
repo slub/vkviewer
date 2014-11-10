@@ -1,12 +1,14 @@
 goog.provide('vk2.tool.DynamicMapVisualization');
 
 goog.require('goog.Timer');
+goog.require('goog.dom.classes');
 
 /**
+ * @param {Element=} opt_parentEl
  * @param {Element=} opt_feedbackEl
  * @constructor
  */
-vk2.tool.DynamicMapVisualization = function(opt_feedbackEl){
+vk2.tool.DynamicMapVisualization = function(opt_parentEl, opt_feedbackEl){
 	
 	if (goog.DEBUG){
 		console.log('Initialize vk2.tool.DynamicMapVisualization ...');		
@@ -17,6 +19,12 @@ vk2.tool.DynamicMapVisualization = function(opt_feedbackEl){
 	 * @private
 	 */
 	this.feedbackEl_ = goog.isDef(opt_feedbackEl) ? opt_feedbackEl : undefined;
+	
+	/**
+	 * @type {Element}
+	 * @private
+	 */
+	this.parentEl_ = goog.isDef(opt_parentEl) ? opt_parentEl : undefined;
 	
 	/**
 	 * @type {boolean}
@@ -193,6 +201,11 @@ vk2.tool.DynamicMapVisualization.prototype.startTimerseriesAnimation = function(
 			console.log(sortedLayers);
 		
 		this.startAnimation_(sortedLayers);
+		
+		// append class to parentEl
+		if (goog.isDef(this.parentEl_) && !goog.dom.classes.has(this.parentEl_, 'play'))
+			goog.dom.classes.add(this.parentEl_, 'play');
+		
 	} else {
 		if (goog.DEBUG)
 			console.log('Dynamic timeseries visualization is already running ...');
@@ -209,6 +222,9 @@ vk2.tool.DynamicMapVisualization.prototype.stopTimerseriesAnimation = function()
 	
 	this.active_ = false;
 	this.updateFeedback_();	
+	
+	if (goog.isDef(this.parentEl_))
+		goog.dom.classes.remove(this.parentEl_, 'play');
 };
 
 /**

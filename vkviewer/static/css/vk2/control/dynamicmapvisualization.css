@@ -1,13 +1,21 @@
 .dyn-vis-control { 
 	right: 10px;
-	top: 5px;
+	top: 3px;
 	position: absolute;
 }
 
 .dyn-vis-control .open-dyn-vis {
-	position: relative; 
+	position: relative;
+	margin: 2px -2px;
 	float: left;
+	background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAQAAABuvaSwAAAAkUlEQVR4Ac3SMRGAMAxG4SchUioBKZWABCQgoRKQUgmVUAfhLkOW/sDK68Lw0Qs5+GuVjsfpVF6yhOQLhi5o4uSyigvs7PpejQci1xj/xu0dT5xB5WQCyTU2TiyO0wC4nmZubIDRAQ9emPF0rNTZKIzl47qizs5cNtExQcXaBgf29EfkzUAh0zxn/sq4cht/7wZc0or49SnPHgAAAABJRU5ErkJggg==') no-repeat 0 0;
+	opacity: 0.5;
+	cursor: pointer;
 }
+
+.dyn-vis-control .open-dyn-vis:hover { opacity: 0.8; }
+
+.dyn-vis-control .open-dyn-vis.open { opacity: 0.3; }
 
 .dyn-vis-control .content, .dyn-vis-control .content > div {
 	position: relative;
@@ -16,17 +24,27 @@
 
 .dyn-vis-control .content > div > a, .dyn-vis-control > a {
 	display: block;
-	margin: 1px;
+	margin: 1px 2px;
 	padding: 0;
 	color: white;
 	font-weight: bold;
 	text-decoration: none;
 	text-align: center;
-	height: 15px;
-	width: 15px;
+	height: 22px;
+	width: 22px;
 	text-indent: 200%;
 	white-space: nowrap;
 	overflow: hidden;
 	border-radius: 0;
 	background: rgb(0,177,158);
 }
+
+.dyn-vis-control .content .start-container a {
+	background: rgb(0,177,158) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAIAAABL1vtsAAAAbUlEQVR4AWNg2DiPQjTMjRDYtoRSI+5//exwdBtFRvwHg/67VykwAgbOf3hrcGAD2UYgQMON8xQagXAOeUYgADCMKTJi/qPbwJgm04j3v34GnNxDfljsf/McYjmZRhRcPkF+uoCE/xDNqaNGAABxTMj1IlIT4wAAAABJRU5ErkJggg==') no-repeat 0 0;
+}
+
+.dyn-vis-control .content .stop-container a {
+	background: rgb(0,177,158) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAIAAABL1vtsAAAAIElEQVR4AWNg2DiPQjQ0jBg14j8OMAyNGDVipCTwUSMAXNLk+6hgFsMAAAAASUVORK5CYII=') no-repeat 0 0;
+}
+
+.dyn-vis-control .content .feedback { font-weight: 700; font-size: 11px; margin: 4px 6px; color: #f33; }

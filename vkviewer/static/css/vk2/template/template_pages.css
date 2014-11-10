@@ -116,8 +116,9 @@ div.faq{
 
 .contact-formular .panel-heading { background: transparent; padding: 0; color: #f33; font-size: 30px; margin-bottom: 20px; }
 .contact-formular label { display: none; }
-.contact-formular .form-control { background: #eee; border-radius: 0; padding: 20px 10px; border: 1px solid #eee; box-shadow: none; } 
-.contact-formular .form-control:focus { border: 1px solid #ccc; border-radius: 0; padding: 20px 10px; background: #fff; box-shadow:  inherit; }
+.contact-formular .form-control { background: #eee; border-radius: 0; padding: 10px 20px; border: 1px solid #eee; box-shadow: none; } 
+.contact-formular #input-email { height: 44px; }
+.contact-formular .form-control:focus { border: 1px solid #ccc; border-radius: 0; background: #fff; box-shadow:  inherit; }
 .contact-formular .btn { border-radius: 0; width: 100%; text-transform: uppercase; font-weight: 300; background: rgb(0,177,158); border: 0 none;  }
 
 
