@@ -13,13 +13,13 @@ goog.require('vk2.settings');
  * @param {string}
  * @static
  */
-vk2.request.CSW._parentElement = 'gmd:MD_Metadata';
+vk2.request.CSW.METADATA_PARENT_NODE = 'gmd:MD_Metadata';
 
 /**
  * @param {Object} 
  * @static
  */
-vk2.request.CSW.SearchPaths = {
+vk2.request.CSW.SEARCH_PATHS = {
 		'ONLINE_RESSOURCE':		['gmd:distributionInfo','gmd:MD_Distribution','gmd:transferOptions','gmd:MD_DigitalTransferOptions','gmd:onLine',
 			            		 	'gmd:CI_OnlineResource','gmd:linkage','gmd:URL'],
 		'ID':				['gmd:fileIdentifier','gco:CharacterString'],
@@ -55,7 +55,7 @@ vk2.request.CSW.getRecord = function(record_id, service_url, callback){
 		var responseXml = xhr.getResponseXml();
 		var parsedResponse = vk2.request.CSW.parseGetRecordResponse(responseXml, callback);
 		xhr.dispose();
-	}, false, this);
+	});
 	
 	// send request
 	xhr.send(requestUrl, 'POST', xmlRequest, {'Content-Type':'application/xml;charset=UTF-8'});	
@@ -68,16 +68,15 @@ vk2.request.CSW.getRecord = function(record_id, service_url, callback){
  */
 vk2.request.CSW.parseGetRecordResponse = function(xml_document, opt_callback){
 	
-	var parentNodeString = this._parentElement;
 	var parentNode = goog.dom.findNode(xml_document, function(n){
-		return n.nodeType == goog.dom.NodeType.ELEMENT && n.tagName == parentNodeString;
+		return n.nodeType == goog.dom.NodeType.ELEMENT && n.tagName == vk2.request.CSW.METADATA_PARENT_NODE;
 	});
 	
 	var response = {}
 	
-	for (var key in this.SearchPaths){
-		if (this.SearchPaths.hasOwnProperty(key)){
-			response[key] = this._getChildNode(parentNode, this.SearchPaths[key]);
+	for (var key in vk2.request.CSW.SEARCH_PATHS){
+		if (vk2.request.CSW.SEARCH_PATHS.hasOwnProperty(key)){
+			response[key] = vk2.request.CSW._getChildNode(parentNode, vk2.request.CSW.SEARCH_PATHS[key]);
 		}
 	}
 
@@ -104,7 +103,7 @@ vk2.request.CSW._getChildNode = function(root_node, rest_path){
 	var new_path = goog.array.slice(rest_path, 1);
 	if (new_path.length > 0){
 		for (var i = 0; i < nodes.length; i++){
-			goog.array.extend(response, this._getChildNode(nodes[i], new_path));
+			goog.array.extend(response, vk2.request.CSW._getChildNode(nodes[i], new_path));
 		}
 	} else {
 		for (var i = 0; i < nodes.length; i++){
