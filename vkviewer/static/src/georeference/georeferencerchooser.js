@@ -43,7 +43,7 @@ vk2.georeference.GeoreferencerChooser = function(parentEl, map){
 	
 	this._selectEventHandler = function(event){
 		// get blattnr for click
-		var click_coords = event.map.getCoordinateFromPixel(event.pixel);
+		var click_coords = event.map.getCoordinateFromPixel(event['pixel']);
 		
 		// get request and request blattnr
 		var featureType = vk2.settings.WFS_PARSER_CONFIG[vk2.settings.GEOREFERENCECHOOSER_LAYERID]['featureType'];
@@ -59,7 +59,7 @@ vk2.georeference.GeoreferencerChooser = function(parentEl, map){
 		    		// check if there are features with no georef params
 		    		var blattnr = features[0].get('blattnr');
 		    		if (goog.isDefAndNotNull(blattnr))
-		    			this._showChooseGeoreferencePage(blattnr, map.getTarget());
+		    			this._showChooseGeoreferencePage(blattnr, map['getTarget']());
 		    	} else {
 		    		alert(vk2.utils.getMsg('clickout'));
 		    	};
