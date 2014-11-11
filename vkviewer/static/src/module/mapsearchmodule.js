@@ -269,7 +269,7 @@ vk2.module.MapSearchModule.prototype.refresh_ = function(event){
 		console.log('Refresh MapSearchModule.')
 	};
 	
-	this.updateHeading_(event.target.totalFeatureCount);
+	this.updateHeading_(event.target['totalFeatureCount']);
 	this.searchListEl_.innerHTML = '';
 	this.appendFeaturesToList_(event.target['features']);
 };

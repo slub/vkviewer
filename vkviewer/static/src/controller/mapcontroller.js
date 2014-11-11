@@ -114,7 +114,7 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 vk2.controller.MapController.prototype._addFeatureClickBehavior = function(map){
 	map.on('click', function(evt){
 		var features = [];
-		map.forEachFeatureAtPixel(evt.pixel, function(feature, layer){
+		map.forEachFeatureAtPixel(evt['pixel'], function(feature, layer){
 			features.push(feature);
 		});
 		
