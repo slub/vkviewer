@@ -76,13 +76,15 @@ vk2.tool.TimeSlider.prototype._appendSliderBehavior = function(sliderEl){
         'orientation': 'horizontal',
         'step': 1,
         'slide': function( event, ui ) {
-        	updatePosition(ui.values[0], minValueEl);
-        	updatePosition(ui.values[1], maxValueEl);
+        	var values = ui['values'];
+        	updatePosition(values[0], minValueEl);
+        	updatePosition(values[1], maxValueEl);
         },
         'change': goog.bind(function( event, ui ){
-        	updatePosition(ui.values[0], minValueEl);
-        	updatePosition(ui.values[1], maxValueEl);
-        	this.dispatchEvent(new goog.events.Event(vk2.tool.TimeSlider.EventType.TIMECHANGE,{'time':ui.values}));
+        	var values = ui['values'];
+        	updatePosition(values[0], minValueEl);
+        	updatePosition(values[1], maxValueEl);
+        	this.dispatchEvent(new goog.events.Event(vk2.tool.TimeSlider.EventType.TIMECHANGE,{'time':values}));
         }, this)
     });
 	
