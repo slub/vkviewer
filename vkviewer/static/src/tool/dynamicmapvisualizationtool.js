@@ -86,8 +86,13 @@ vk2.tool.DynamicMapVisualization.prototype.startAnimation_ = function(sortedLaye
 			// update user feedback
 			context.updateFeedback_(startkey);			
 			
-			if (!goog.isDef(startkey))
+			if (!goog.isDef(startkey)){
+				console.log('Visualization finished ....');
+							
 				context.active_ = false;
+				if (goog.isDef(context.parentEl_))
+					goog.dom.classes.remove(context.parentEl_, 'play');
+			};				
 		}
 	};
 	
