@@ -37,7 +37,7 @@
 	    <!--<script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/deps.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/src/vkviewer-deps.js')}"></script> -->
-	     <script src="${request.static_url('vkviewer:static/vkviewer-min.js')}"></script> 
+	    <script src="${request.static_url('vkviewer:static/vkviewer-min.js')}"></script> 
 	     
 		<%block name="header_content" />
 	     

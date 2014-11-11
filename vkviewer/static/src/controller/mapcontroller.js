@@ -130,8 +130,9 @@ vk2.controller.MapController.prototype._registerGazetteerSearchTool = function(g
 	// jumps to extent
 	goog.events.listen(gazetteersearch, 'jumpto', function(event){
 		var view = this.map_.getView();
-		view.setCenter(ol.proj.transform([parseFloat(event.target.lonlat[0]),parseFloat(event.target.lonlat[1])], 
-				event.target.srs, 'EPSG:900913'));
+		var lonlat = event.target['lonlat'];
+		view.setCenter(ol.proj.transform([parseFloat(lonlat[0]),parseFloat(lonlat[1])], 
+				event.target['srs'], 'EPSG:900913'));
 		view.setZoom(5);
 	}, undefined, this);
 };
