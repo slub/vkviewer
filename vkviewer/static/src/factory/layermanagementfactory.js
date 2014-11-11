@@ -17,56 +17,54 @@ goog.require('vk2.tool.OpacitySlider');
  */
 vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, index, map){
 
-	var eventListener = {
-			'changevisibility': function(event){
-				if (goog.DEBUG)
-					console.log('Change visiblity event');
-				
-				if (goog.dom.classes.has(containerListEl, 'visible')){
-					// hide layer
-					goog.dom.classes.addRemove(containerListEl, 'visible', 'notvisible');
-					layer.setVisible(false);
-				} else {
-					// display layer
-					goog.dom.classes.addRemove(containerListEl, 'notvisible', 'visible');
-					layer.setVisible(true);
-				};
-			},
-			'updatevisibility': function(event){
-				if (!layer.getVisible() && goog.dom.classes.has(containerListEl, 'visible')){
-					// hide layer
-					goog.dom.classes.addRemove(containerListEl, 'visible', 'notvisible');
-				} else if (layer.getVisible() && goog.dom.classes.has(containerListEl, 'notvisible')){
-					// display layer
-					goog.dom.classes.addRemove(containerListEl, 'notvisible', 'visible');
-				};
-			},
-			'maximize': function(event){
-				if (goog.style.getStyle(maximizeList, 'display') !== 'none'){
-					if (goog.DEBUG)
-						console.log('Minimize view');
-					
-					$(maximizeList).slideToggle();
-				} else {
-					if (goog.DEBUG)
-						console.log('Maximize view');
-					
-					$(maximizeList).slideToggle();
-				};
-				
-				// for not trigger other events
-				event.stopPropagation();
-			},
-			'moveontop': function(event){
-				map.removeLayer(layer);
-				map.addLayer(layer);
-				event.stopPropagation();
-			},
-			'removelayer': function(event){
-				map.removeLayer(layer);
-				event.stopPropagation();
-			}
-			
+	var eventListener = {};
+	eventListener.changevisibility = function(event){
+		if (goog.DEBUG)
+			console.log('Change visiblity event');
+		
+		if (goog.dom.classes.has(containerListEl, 'visible')){
+			// hide layer
+			goog.dom.classes.addRemove(containerListEl, 'visible', 'notvisible');
+			layer.setVisible(false);
+		} else {
+			// display layer
+			goog.dom.classes.addRemove(containerListEl, 'notvisible', 'visible');
+			layer.setVisible(true);
+		};
+	};
+	eventListener.updatevisibility = function(event){
+		if (!layer.getVisible() && goog.dom.classes.has(containerListEl, 'visible')){
+			// hide layer
+			goog.dom.classes.addRemove(containerListEl, 'visible', 'notvisible');
+		} else if (layer.getVisible() && goog.dom.classes.has(containerListEl, 'notvisible')){
+			// display layer
+			goog.dom.classes.addRemove(containerListEl, 'notvisible', 'visible');
+		};
+	};
+//	eventListener.maximize = function(event){
+//		if (goog.style.getStyle(maximizeList, 'display') !== 'none'){
+//			if (goog.DEBUG)
+//				console.log('Minimize view');
+//			
+//			$(maximizeList).slideToggle();
+//		} else {
+//			if (goog.DEBUG)
+//				console.log('Maximize view');
+//			
+//			$(maximizeList).slideToggle();
+//		};
+//		
+//		// for not trigger other events
+//		event.stopPropagation();
+//	};
+	eventListener.moveontop = function(event){
+		map.removeLayer(layer);
+		map.addLayer(layer);
+		event.stopPropagation();
+	};
+	eventListener.removelayer = function(event){
+		map.removeLayer(layer);
+		event.stopPropagation();
 	};
 	
 	//
@@ -90,7 +88,7 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 		'innerHTML':vk2.utils.getMsg('moveToTop')
 	});
 	goog.dom.appendChild(controlContainer, moveUp_button);	
-	goog.events.listen(moveUp_button, 'click', eventListener['moveontop']);
+	goog.events.listen(moveUp_button, 'click', eventListener.moveontop);
 	
 	var disableLayer = goog.dom.createDom('button', {
 		'class':'disable-layer minimize-tool',
@@ -99,7 +97,7 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 		'innerHTML': vk2.utils.getMsg('showLayer')
 	});
 	goog.dom.appendChild(controlContainer, disableLayer);
-	goog.events.listen(disableLayer, 'click', eventListener['changevisibility']);
+	goog.events.listen(disableLayer, 'click', eventListener.changevisibility.);
 	
 	var delete_button = goog.dom.createDom('button', {
 		'class':'remove-layer minimize-tool',
@@ -108,7 +106,7 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 		'innerHTML':vk2.utils.getMsg('removeLayer')
 	});
 	goog.dom.appendChild(controlContainer, delete_button);
-	goog.events.listen(delete_button, 'click', eventListener['removelayer']);
+	goog.events.listen(delete_button, 'click', eventListener.removelayer.);
 	
 	var dragContainerEl = goog.dom.createDom('div',{'class':'drag-btn'});
 	goog.dom.appendChild(controlContainer, dragContainerEl);
@@ -159,6 +157,6 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 	var opacitySlider = new vk2.tool.OpacitySlider(containerListEl, layer, 'vertical');
 	
 	// append listeners for update view regarding to extern layer controls
-	layer.on('change:visible', eventListener['updatevisibility']);
+	layer.on('change:visible', eventListener.updatevisibility);
 	return containerListEl;
 };
