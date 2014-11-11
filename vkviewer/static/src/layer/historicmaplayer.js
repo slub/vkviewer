@@ -10,7 +10,7 @@ goog.require('vk2.utils.Styles');
  * @param {Object} settings
  * @param {ol.Map} map
  * @constructor
- * @extends {ol.layer.LayerGroup}
+ * @extends {ol.layer.Group}
  */
 vk2.layer.HistoricMap = function(settings, map){
 	
@@ -107,7 +107,7 @@ vk2.layer.HistoricMap = function(settings, map){
 		}
 	});
 	
-	settings.layers = [rasterLayer, borderLayer];
+	settings['layers'] = [rasterLayer, borderLayer];
 	ol.layer.Group.call(this, settings);
 };
 ol.inherits(vk2.layer.HistoricMap, ol.layer.Group);

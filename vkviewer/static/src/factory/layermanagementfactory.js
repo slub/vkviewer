@@ -25,18 +25,18 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 		if (goog.dom.classes.has(containerListEl, 'visible')){
 			// hide layer
 			goog.dom.classes.addRemove(containerListEl, 'visible', 'notvisible');
-			layer.setVisible(false);
+			layer['setVisible'](false);
 		} else {
 			// display layer
 			goog.dom.classes.addRemove(containerListEl, 'notvisible', 'visible');
-			layer.setVisible(true);
+			layer['setVisible'](true);
 		};
 	};
 	eventListener.updatevisibility = function(event){
-		if (!layer.getVisible() && goog.dom.classes.has(containerListEl, 'visible')){
+		if (!layer['getVisible']() && goog.dom.classes.has(containerListEl, 'visible')){
 			// hide layer
 			goog.dom.classes.addRemove(containerListEl, 'visible', 'notvisible');
-		} else if (layer.getVisible() && goog.dom.classes.has(containerListEl, 'notvisible')){
+		} else if (layer['getVisible']() && goog.dom.classes.has(containerListEl, 'notvisible')){
 			// display layer
 			goog.dom.classes.addRemove(containerListEl, 'notvisible', 'visible');
 		};
@@ -70,7 +70,7 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 	//
 	// Build html content
 	// 
-	var classVisible = layer.getVisible() ? 'visible' : 'notvisible';
+	var classVisible = layer['getVisible']() ? 'visible' : 'notvisible';
 	var containerListEl = goog.dom.createDom('li', {
 		'class':'layermanagement-record ' + classVisible,
 		'id': index,
@@ -97,7 +97,7 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 		'innerHTML': vk2.utils.getMsg('showLayer')
 	});
 	goog.dom.appendChild(controlContainer, disableLayer);
-	goog.events.listen(disableLayer, 'click', eventListener.changevisibility.);
+	goog.events.listen(disableLayer, 'click', eventListener.changevisibility);
 	
 	var delete_button = goog.dom.createDom('button', {
 		'class':'remove-layer minimize-tool',
@@ -106,7 +106,7 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 		'innerHTML':vk2.utils.getMsg('removeLayer')
 	});
 	goog.dom.appendChild(controlContainer, delete_button);
-	goog.events.listen(delete_button, 'click', eventListener.removelayer.);
+	goog.events.listen(delete_button, 'click', eventListener.removelayer);
 	
 	var dragContainerEl = goog.dom.createDom('div',{'class':'drag-btn'});
 	goog.dom.appendChild(controlContainer, dragContainerEl);

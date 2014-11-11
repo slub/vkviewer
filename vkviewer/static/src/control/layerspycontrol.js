@@ -113,9 +113,9 @@ vk2.control.LayerSpy = function(opt_options) {
 	
 	  goog.events.listen(activate_button, goog.events.EventType.CLICK, function(event){
 			if (goog.dom.classes.has(activate_button, 'active')){
-				this._deactivate(activate_button);
+				this.deactivate_(activate_button);
 			} else {			
-				this._activate(activate_button);
+				this.activate_(activate_button);
 			}
 	  }, undefined, this);
 	  
@@ -137,7 +137,7 @@ vk2.control.LayerSpy.prototype._buildHtmlElement = function(){
  * @param {Element} activate_button
  * @private
  */
-vk2.control.LayerSpy.prototype._activate = function(activate_button){
+vk2.control.LayerSpy.prototype.activate_ = function(activate_button){
 	// activate critical layerspy behavior
 	this.getMap().addLayer(this._spyLayer);
 	this._spyLayer.on('precompose', this.eventHandler_.precompose, this);
@@ -158,7 +158,7 @@ vk2.control.LayerSpy.prototype._activate = function(activate_button){
  * @param {Element} activate_button
  * @private
  */
-vk2.control.LayerSpy.prototype._deactivate = function(activate_button){
+vk2.control.LayerSpy.prototype.deactivate_ = function(activate_button){
 	// deactivate critical layerspy behavior
 	this._spyLayer.un('precompose', this.eventHandler_.precompose, this);
 	this._spyLayer.un('postcompose', this.eventHandler_.postcompose, this);
