@@ -8,21 +8,23 @@
 	position: relative;
 	margin: 2px -2px;
 	float: left;
-	background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAQAAABuvaSwAAAAkUlEQVR4Ac3SMRGAMAxG4SchUioBKZWABCQgoRKQUgmVUAfhLkOW/sDK68Lw0Qs5+GuVjsfpVF6yhOQLhi5o4uSyigvs7PpejQci1xj/xu0dT5xB5WQCyTU2TiyO0wC4nmZubIDRAQ9emPF0rNTZKIzl47qizs5cNtExQcXaBgf29EfkzUAh0zxn/sq4cht/7wZc0or49SnPHgAAAABJRU5ErkJggg==') no-repeat 0 0;
+	background: transparent url('../../../images/clockBtnStatic.gif') no-repeat 0 0;
 	opacity: 0.5;
 	cursor: pointer;
 }
 
+.dyn-vis-control.play .open-dyn-vis { background: transparent url('../../../images/clockBtnAnimated.gif') no-repeat 0 0; opacity: 1; }
+
 .dyn-vis-control .open-dyn-vis:hover { opacity: 0.8; }
 
-.dyn-vis-control .open-dyn-vis.open { opacity: 0.3; }
+
 
 .dyn-vis-control .content, .dyn-vis-control .content > div {
 	position: relative;
 	float: left;
 }
 
-.dyn-vis-control .content > div > a, .dyn-vis-control > a {
+.dyn-vis-control a {
 	display: block;
 	margin: 1px 2px;
 	padding: 0;
@@ -36,15 +38,18 @@
 	white-space: nowrap;
 	overflow: hidden;
 	border-radius: 0;
-	background: rgb(0,177,158);
+	background-color: rgb(0,177,158);
 }
 
 .dyn-vis-control .content .start-container a {
-	background: rgb(0,177,158) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAIAAABL1vtsAAAAbUlEQVR4AWNg2DiPQjTMjRDYtoRSI+5//exwdBtFRvwHg/67VykwAgbOf3hrcGAD2UYgQMON8xQagXAOeUYgADCMKTJi/qPbwJgm04j3v34GnNxDfljsf/McYjmZRhRcPkF+uoCE/xDNqaNGAABxTMj1IlIT4wAAAABJRU5ErkJggg==') no-repeat 0 0;
+	background: rgb(0,177,158) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAQAAABuvaSwAAAAW0lEQVR4AWMYYeD/+v8y/xlwQXSB//8//c//z0ycYgg489+YGMUw8Pv/hP88hBUjwKP//sQr/vo/gVjF1/7rEOuM+f+5CHoQ1XrCiq9CrSesGGI9QcUIOIIVAwAbVJl2ApU1vwAAAABJRU5ErkJggg==') no-repeat 0 0;
+
 }
 
 .dyn-vis-control .content .stop-container a {
-	background: rgb(0,177,158) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAIAAABL1vtsAAAAIElEQVR4AWNg2DiPQjQ0jBg14j8OMAyNGDVipCTwUSMAXNLk+6hgFsMAAAAASUVORK5CYII=') no-repeat 0 0;
+	background: rgb(0,177,158) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWAQAAAADsz1GWAAAAAnRSTlMAAHaTzTgAAAAQSURBVHgBY8AHGP/hxfgAAF8PB/kohvR0AAAAAElFTkSuQmCC') no-repeat 0 0;
+
 }
 
+.dyn-vis-control .content .start-container a:hover, .dyn-vis-control .content .stop-container a:hover, .dyn-vis-control.play .content .start-container a { background-color: #f33; }
 .dyn-vis-control .content .feedback { font-weight: 700; font-size: 11px; margin: 4px 6px; color: #f33; }
