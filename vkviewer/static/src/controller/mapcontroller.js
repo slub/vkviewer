@@ -213,7 +213,7 @@ vk2.controller.MapController.prototype._appendMapClickBehavior = function(map){
 			console.log('Pixel: '+event.pixel);
 		
 		var features = [];
-		this.forEachFeatureAtPixel(event.pixel, function(feature){
+		this.forEachFeatureAtPixel(event['pixel'], function(feature){
 			features.push(feature);
 		});
 		

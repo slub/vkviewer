@@ -84,9 +84,9 @@ vk2.viewer.ZoomifyViewer.prototype.initialize_ = function(url, height, width, co
 	// are only measured in pixels.  So, we create a fake projection that the map
 	// can use to properly display the layer.
 	var proj = new ol.proj.Projection({
-		code: 'ZOOMIFY',
-		units: 'pixels',
-		extent: [0, 0, width, height]
+		'code': 'ZOOMIFY',
+		'units': 'pixels',
+		'extent': [0, 0, width, height]
 	});
 	
 	/**
@@ -94,9 +94,9 @@ vk2.viewer.ZoomifyViewer.prototype.initialize_ = function(url, height, width, co
 	 * @private
 	 */
 	this._zoomifySource = new ol.source.Zoomify({
-		  url: url,
-		  size: [width, height],
-		  crossOrigin: '*'
+		  'url': url,
+		  'size': [width, height],
+		  'crossOrigin': '*'
 	});
 	
 	/**
@@ -104,31 +104,31 @@ vk2.viewer.ZoomifyViewer.prototype.initialize_ = function(url, height, width, co
 	 * @private
 	 */
 	this._map = new ol.Map({
-		layers: [
+		'layers': [
 		    new ol.layer.Tile({
-		    	source: this._zoomifySource
+		    	'source': this._zoomifySource
 		    })
 		],
-		interactions: ol.interaction.defaults().extend([
+		'interactions': ol.interaction.defaults().extend([
             new ol.interaction.DragZoom()
         ]),
-        controls: [
+        'controls': [
 	   	    new ol.control.FullScreen(),
 		    new ol.control.Zoom()
 	    ],
-	    renderer: renderer,
-	    target: containerEl,
-	    view: new ol.View({
-		    projection: proj,
-		    center: [width / 2, - height / 2],
-			zoom: 1,
-			maxZoom: 9
+	    'renderer': renderer,
+	    'target': containerEl,
+	    'view': new ol.View({
+		    'projection': proj,
+		    'center': [width / 2, - height / 2],
+			'zoom': 1,
+			'maxZoom': 9
 	    })
 	});
 	
 	// add zoom to extent control
 	this._map.addControl(new ol.control.ZoomToExtent({
-		extent: this._map.getView().calculateExtent(this._map.getSize())
+		'extent': this._map.getView().calculateExtent(this._map['getSize']())
 	}));
 	
 	// dispatch for other observers who are waiting 

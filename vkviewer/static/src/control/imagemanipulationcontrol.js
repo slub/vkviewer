@@ -20,7 +20,6 @@ vk2.control.ImageManipulation = function(opt_options) {
   var tooltip = goog.dom.createDom('span', {'role':'tooltip','innerHTML':vk2.utils.getMsg('openImagemanipulation')})
   goog.dom.appendChild(anchor, tooltip);
   
-  var this_ = this;
   var openToolbox = goog.bind(function(event) {
 	  event.preventDefault();
 	  
@@ -101,14 +100,14 @@ vk2.control.ImageManipulation.prototype.createSlider_ = function(className, orie
         'orientation': orientation,
         'step': 1,
         'slide': function( event, ui ) {
-        	updatePosition(ui.value, valueEl);
-        	updateFn(ui.value);
-        	//layer.setOpacity(ui.value/100);        	
+        	var value = ui['value'];
+        	updatePosition(value, valueEl);
+        	updateFn(value);       	
         },
         'change': goog.bind(function( event, ui ){
-        	updatePosition(ui.value, valueEl);
-        	updateFn(ui.value);
-        	//layer.setOpacity(ui.value/100);
+        	var value = ui['value'];
+        	updatePosition(value, valueEl);
+        	updateFn(value);
         }, this)
     });
 	
@@ -143,13 +142,13 @@ vk2.control.ImageManipulation.prototype.initializeSliderContainer_ = function(pa
 	
 	// add contrast slider
 	var contrastSlider = this.createSlider_('slider-contrast', 'horizontal', goog.bind(function(value){
-		this.getBaseLayer_().setContrast(value/100);
+		this.getBaseLayer_()['setContrast'](value/100);
 	}, this));
 	goog.dom.appendChild(sliderContainer, contrastSlider);
 	
 	// add satuartion slider
 	var saturationSlider = this.createSlider_('slider-saturation', 'horizontal', goog.bind(function(value){
-		this.getBaseLayer_().setSaturation(value/100);
+		this.getBaseLayer_()['setSaturation'](value/100);
 	}, this));
 	goog.dom.appendChild(sliderContainer, saturationSlider);
 	
@@ -157,7 +156,7 @@ vk2.control.ImageManipulation.prototype.initializeSliderContainer_ = function(pa
 	var brightnessSlider = this.createSlider_('slider-brightness', 'horizontal', goog.bind(function(value){
 		// doing linar mapping (normalisierung)
 		var linarMapping = 2 * value / 100 -1;
-		this.getBaseLayer_().setBrightness(linarMapping);
+		this.getBaseLayer_()['setBrightness'](linarMapping);
 	}, this), 50);
 	goog.dom.appendChild(sliderContainer, brightnessSlider);
 
@@ -166,8 +165,8 @@ vk2.control.ImageManipulation.prototype.initializeSliderContainer_ = function(pa
 	var hueSlider = this.createSlider_('slider-hue', 'horizontal', goog.bind(function(value){
 		// doing arbitray mapping 
 		var mapping = (value - baseValue) * 0.25;
-		var hueValue = mapping == 0 ? 0 : mapping + this.getBaseLayer_().getHue();
-		this.getBaseLayer_().setHue(hueValue);
+		var hueValue = mapping == 0 ? 0 : mapping + this.getBaseLayer_()['getHue']();
+		this.getBaseLayer_()['setHue'](hueValue);
 	}, this), baseValue);
 	goog.dom.appendChild(sliderContainer, hueSlider);
 		
