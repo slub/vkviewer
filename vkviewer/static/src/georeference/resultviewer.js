@@ -33,7 +33,7 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 	 * @private
 	 */
 	this._baseLayer = new ol.layer.Tile({
-		source: new ol.source.OSM()
+		'source': new ol.source.OSM()
 	});
 	
 	/**
@@ -41,7 +41,7 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 	 * @private
 	 */
 	this._controlZoomToExtent = new ol.control.ZoomToExtent({
-			extent: this._settings['extent']
+			'extent': this._settings['extent']
 	});
 	
 	/**
@@ -49,25 +49,25 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 	 * @private
 	 */
 	this._map = new ol.Map({
-		  layers: [ this._baseLayer ],
-		  interactions: ol.interaction.defaults().extend([
+		  'layers': [ this._baseLayer ],
+		  'interactions': ol.interaction.defaults().extend([
 		      new ol.interaction.DragZoom()
 		  ]),
-		  renderer: 'canvas',
-		  target: map_container,
-		  view: new ol.View({
-			  	projection: 'EPSG:900913',
-			    center: [0, 0],
-			    zoom: 2
+		  'renderer': 'canvas',
+		  'target': map_container,
+		  'view': new ol.View({
+			  	'projection': 'EPSG:900913',
+			    'center': [0, 0],
+			    'zoom': 2
 		  }),
-		  controls: [
+		  'controls': [
 		       new ol.control.FullScreen(),
 		       new ol.control.Zoom(),
 		       new ol.control.Attribution(),
 			   new vk2.control.LayerSpy({
 					'spyLayer':new ol.layer.Tile({
-						attribution: undefined,
-						source: new ol.source.OSM()
+						'attribution': undefined,
+						'source': new ol.source.OSM()
 					})
 			   }),
 		  ]
@@ -75,7 +75,7 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 	
 	// zoom to map extent
 	if (this._settings.hasOwnProperty('extent'))
-		this._map.getView().fitExtent(this._settings['extent'], this._map.getSize());
+		this._map.getView().fitExtent(this._settings['extent'], this._map['getSize']());
 	
 	// add zoom to extent control
 	this._map.addControl(this._controlZoomToExtent);

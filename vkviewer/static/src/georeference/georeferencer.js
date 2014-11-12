@@ -172,64 +172,54 @@ vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(tog
 	var drawSource = this._gcpHandler.getFeatureSource();
 	var map = this._zoomifyViewer.getMap()
 	map.addLayer(new ol.layer.Vector({
-		  source: drawSource,
-		  styleFunction: function(feature, resolution) {
+		  'source': drawSource,
+		  'styleFunction': function(feature, resolution) {
 			  return [vk2.utils.Styles.GEOREFERENCE_POINT];
 		  }
 	}));
 	
-	/**
-	 * @type {ol.interaction.Select}
-	 * @private
-	 */
 	var select = new ol.interaction.Select({
-		style: function(feature, resolution) {
+		'style': function(feature, resolution) {
 			return [vk2.utils.Styles.GEOREFERENCE_POINT_HOVER];
 		}
 	});
 	
-	var interactions = {
-			'addpoint': [
-			    new ol.interaction.Draw({
-			    	source: drawSource,
-			    	type: 'Point',
-			    	style: function(feature, resolution) {
-			    		return [vk2.utils.Styles.GEOREFERENCE_POINT_HOVER]
-					}
-			    })
-			],
-			'dragpoint': [
-			    select,       
-				new ol.interaction.Modify({
-			    	features: select.getFeatures(),
-			    	pixelTolerance: 10,
-			    	style: function(feature, resolution) {
-						return [vk2.utils.Styles.GEOREFERENCE_POINT_HOVER];
-			    	}
-				})	    
-			],
-			'deletepoint': [        
-			   new ol.interaction.Select({
-				   style: function(feature, resolution) {
-					   return [vk2.utils.Styles.GEOREFERENCE_POINT_HOVER];
-				   },
-				   'condition': goog.bind(function(event){
-					   if (event.type === 'click'){
-						   map.forEachFeatureAtPixel(event.pixel, function(feature){
-							   drawSource.removeFeature(feature); 
-						   });
-					   }
-					   return false;
-				   })
-			   })
-		   ]
-	};
+	var interactions = {};
+	interactions.addpoint = [
+	    new ol.interaction.Draw({
+	    	'source': drawSource,
+	    	'type': 'Point',
+	    	'style': function(feature, resolution) {
+	    		return [vk2.utils.Styles.GEOREFERENCE_POINT_HOVER]
+			}
+	    })
+	];
+	interactions.dragpoint = [
+	    select,       
+		new ol.interaction.Modify({
+	    	'features': select.getFeatures(),
+	    	'pixelTolerance': 10,
+	    	'style': function(feature, resolution) {
+				return [vk2.utils.Styles.GEOREFERENCE_POINT_HOVER];
+	    	}
+		})	    
+	];
+	interactions.deletepoint = [        
+	   new ol.interaction.Select({
+		   'style': function(feature, resolution) {
+			   return [vk2.utils.Styles.GEOREFERENCE_POINT_HOVER];
+		   },
+		   'condition': goog.bind(function(event){
+			   if (event.type === 'click'){
+				   map.forEachFeatureAtPixel(event['pixel'], function(feature){
+					   drawSource.removeFeature(feature); 
+				   });
+			   }
+			   return false;
+		   })
+	   })
+   ];
 	
-	/**
-	 * @param {Array.<ol.interaction>} interactions
-	 * @param {ol.Map} map
-	 * @private
-	 */
 	var removeInteraction =  function(interactions, map){
 		// at first remove all interactions
 		for (var key in interactions){
@@ -243,9 +233,6 @@ vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(tog
 		}
 	};
 	
-	/**
-	 * @param {Element} active_element
-	 */
 	var setActive = function(active_element){
 		var toggleControlElements = goog.dom.getElementsByClass(toggleControlClassName);
 		for (var i = 0; i < toggleControlElements.length; i++){
@@ -255,22 +242,25 @@ vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(tog
 		goog.dom.classes.add(active_element,'active')
 	};
 		
-	// toggle controller
-	var toggleControlElements = goog.dom.getElementsByClass(toggleControlClassName)
-	for (var i = 0; i < toggleControlElements.length; i++){
-		goog.events.listen(toggleControlElements[i], goog.events.EventType.CLICK, function(event){
-			removeInteraction(interactions, map);
-			
-			// add choosen interaction
-			if (goog.isDef(event.currentTarget.value) && event.currentTarget.value != ''){
-				setActive(event.currentTarget);
-				if (interactions.hasOwnProperty(event.currentTarget.value)){
-					for (var i = 0; i < interactions[event.currentTarget.value].length; i++){
-						map.addInteraction(interactions[event.currentTarget.value][i]);
-					}
+	var clickHandler = function(event){
+		removeInteraction(interactions, map);
+		
+		// add choosen interaction
+		if (goog.isDef(event.currentTarget.value) && event.currentTarget.value != ''){
+			setActive(event.currentTarget);
+			if (interactions.hasOwnProperty(event.currentTarget.value)){
+				for (var i = 0; i < interactions[event.currentTarget.value].length; i++){
+					map.addInteraction(interactions[event.currentTarget.value][i]);
 				}
-			}				
-		}, undefined, this);
+			}
+		}				
+	};
+	
+	// toggle controller
+	var toggleControlElements = goog.dom.getElementsByClass(toggleControlClassName);
+	for (var i = 0; i < toggleControlElements.length; i++){
+		var element = toggleControlElements[i];
+		goog.events.listen(element, goog.events.EventType.CLICK, clickHandler, undefined, this);
 	};
 };
 
