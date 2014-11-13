@@ -289,7 +289,7 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 			console.log(response);
 
 		this._resultViewer.displayValidationMap(response['wms_url'], response['layer_id'], 
-				ol.proj.transform(response['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS ));
+				ol.proj.transformExtent(response['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS ));
 	}, this);
 	
 	/**

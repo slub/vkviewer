@@ -100,7 +100,7 @@ vk2.app.GeoreferenceApp.prototype.loaderFunction_ = function(originalMapContaine
 	
 	// load validation map
 	this._resultViewer = new vk2.georeference.ResultViewer(geoMapContainerId, {
-		'extent':ol.proj.transform(data['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS )
+		'extent':ol.proj.transformExtent(data['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS )
 	});		
 	
 	// before calling this function the zoomify layer has to be loaded

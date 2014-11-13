@@ -41,22 +41,6 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 			goog.dom.classes.addRemove(containerListEl, 'notvisible', 'visible');
 		};
 	};
-//	eventListener.maximize = function(event){
-//		if (goog.style.getStyle(maximizeList, 'display') !== 'none'){
-//			if (goog.DEBUG)
-//				console.log('Minimize view');
-//			
-//			$(maximizeList).slideToggle();
-//		} else {
-//			if (goog.DEBUG)
-//				console.log('Maximize view');
-//			
-//			$(maximizeList).slideToggle();
-//		};
-//		
-//		// for not trigger other events
-//		event.stopPropagation();
-//	};
 	eventListener.moveontop = function(event){
 		map.removeLayer(layer);
 		map.addLayer(layer);

@@ -32,14 +32,14 @@
 		<script src="${request.static_url('vkviewer:static/lib/proj4.js')}"></script>	
 	    <script src="${request.static_url('vkviewer:static/lib/jquery-ui-custom.min.js')}"></script>
 	   	<script src="${request.static_url('vkviewer:static/src/locale/'+_('js_library')+'.js')}"></script> 
-	 	<script src="${request.static_url('vkviewer:static/lib/ol.js')}"></script>
+	 	<script src="${request.static_url('vkviewer:static/lib/ol-vkviewer.js')}"></script>
 	    
-	    <!-- <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
+	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/deps.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/src/vkviewer-deps.js')}"></script> 
-	    <script src="${request.static_url('vkviewer:static/vkviewer-require.js')}"></script> -->
-	    <script src="${request.static_url('vkviewer:static/vkviewer-min.js')}"></script>
-	     
+	    <script src="${request.static_url('vkviewer:static/vkviewer-require.js')}"></script>
+	    <!-- <script src="${request.static_url('vkviewer:static/vkviewer-min.js')}"></script> -->
+	    
 		<%block name="header_content" />
 	     
     </head>
