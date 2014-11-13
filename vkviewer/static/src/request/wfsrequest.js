@@ -87,7 +87,7 @@ vk2.request.WFS.getFeatureRequestForObjectIds = function(objectids){
 /**
  * @param {string} projection
  * @param {Array.<number>} extent
- * @param {Enum.<number>} timeFilter - START|END
+ * @param {Object} timeFilter - START|END
  * @param {string} sortBy
  * @param {number} startIndex
  * @param {number} maxFeatures

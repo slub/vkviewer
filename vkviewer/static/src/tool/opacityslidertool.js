@@ -3,8 +3,8 @@ goog.provide('vk2.tool.OpacitySlider');
 goog.require('goog.dom');
 
 /**
- * @param {Element|string} parentEl_id
- * @param {ol.layer.Layer} layer
+ * @param {Element|string} parentEl
+ * @param {ol.layer.Base} layer
  * @param {string=} opt_orientation
  * @constructor
  * @extends {goog.events.EventTarget}
@@ -47,7 +47,7 @@ vk2.tool.OpacitySlider.prototype._loadHtmlContent = function(parentEl){
 
 /**
  * @param {Element} sliderEl
- * @param {ol.layer.Layer} layer
+ * @param {ol.layer.Base} layer
  * @param {string} orientation
  * @private
  */

@@ -4,16 +4,17 @@ goog.require('goog.object');
 goog.require('goog.events');
 
 /**
- * @param {vk2.georeference.ZoomifyViewer} zoomifyViewer
+ * @param {vk2.viewer.ZoomifyViewer} zoomifyViewer
  * @param {ol.source.Vector} featureSource
  * @param {Object=} opt_gcps
  * @param {string=} opt_type
  * @constructor
+ * @extends {goog.events.EventTarget}
  */
 vk2.georeference.MesstischblattGcpHandler = function(zoomifyViewer, featureSource, opt_gcps, opt_type){
 	
 	/**
-	 * @type {vk2.georeference.ZoomifyViewer}
+	 * @type {vk2.viewer.ZoomifyViewer}
 	 * @private
 	 */
 	this._zoomifyViewer = zoomifyViewer;
@@ -96,7 +97,7 @@ vk2.georeference.MesstischblattGcpHandler.prototype._appendUpdateEventBehavior =
 					distX = distX.replace(/\-/g, "");
 					distY = distY.replace(/\-/g, "");
 					//change distance buffer here
-					if ((parseInt(distX) < 3000) & (parseInt(distY) < 3000))  {
+					if ((parseInt(distX, 0) < 3000) & (parseInt(distY, 0) < 3000))  {
 						alert (vk2.utils.getMsg('checkCornerPoint_distance'));
 						event.target.removeFeature(allFeatures[allFeatures.length-1]);
 						return undefined;
@@ -210,11 +211,10 @@ vk2.georeference.MesstischblattGcpHandler.prototype._parseMtbCornerPoints = func
 
 /**
  * @param {Array.<number>} pixel_coordinates
- * @param {number} height
  * @private
  * @returns {Array.<number>}
  */
-vk2.georeference.MesstischblattGcpHandler.prototype._transformGeoCoordsToPixel = function(pixel_coordinates, height){
+vk2.georeference.MesstischblattGcpHandler.prototype._transformGeoCoordsToPixel = function(pixel_coordinates){
 	return [Math.round(pixel_coordinates[0]), Math.round(-1*pixel_coordinates[1])];
 };
 
@@ -236,7 +236,7 @@ vk2.georeference.MesstischblattGcpHandler.prototype.getFeatureSource = function(
 };
 
 /**
- * @returns {Array.<Object>}
+ * @returns {Object}
  */
 vk2.georeference.MesstischblattGcpHandler.prototype.getGcps = function(){
 	var features = this._featureSource.getFeatures();
@@ -259,10 +259,9 @@ vk2.georeference.MesstischblattGcpHandler.prototype.getGcps = function(){
 };
 
 /**
- * @returns {Array.<Object>}
+ * @returns {Object}
  */
-vk2.georeference.MesstischblattGcpHandler.prototype.getUpdateGcps = function(){
-	var response = {};
+vk2.georeference.MesstischblattGcpHandler.prototype.getUpdateGcps = function(){	
 	var actualGcps = this.getGcps();
 	var removeGcp = goog.array.clone(this._gcps['gcps']);
 	for (var i = 0; i < actualGcps['gcps'].length; i++){
@@ -275,6 +274,7 @@ vk2.georeference.MesstischblattGcpHandler.prototype.getUpdateGcps = function(){
 	};
 	
 	// create response
+	var response = {};
 	response['new'] = actualGcps;
 	response['remove'] = goog.object.clone(this._gcps);
 	response['remove']['gcps'] = removeGcp;
@@ -296,7 +296,7 @@ vk2.georeference.MesstischblattGcpHandler.prototype.isValide = function(){
 
 /**
  * @param {Object} gcps
- * @param {string=} opt_type;
+ * @param {string=} opt_type
  */
 vk2.georeference.MesstischblattGcpHandler.prototype.registerGcps = function(gcps, opt_type){
 	this._gcps = gcps;

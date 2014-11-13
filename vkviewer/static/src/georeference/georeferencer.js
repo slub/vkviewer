@@ -29,7 +29,7 @@ vk2.georeference.Georeferencer = function(parentEl, settings){
 	this._parentEl = goog.isString(parentEl) ? goog.dom.getElement(parentEl) : parentEl;
 	
 	/**
-	 * @type {vk2.georeference.ZoomifyViewer}
+	 * @type {vk2.viewer.ZoomifyViewer}
 	 * @private
 	 */
 	this._zoomifyViewer = goog.isDef(settings['unreferencedviewer']) ? settings['unreferencedviewer'] : undefined;
@@ -173,7 +173,7 @@ vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(tog
 	var map = this._zoomifyViewer.getMap()
 	map.addLayer(new ol.layer.Vector({
 		  'source': drawSource,
-		  'styleFunction': function(feature, resolution) {
+		  'style': function(feature, resolution) {
 			  return [vk2.utils.Styles.GEOREFERENCE_POINT];
 		  }
 	}));
@@ -185,7 +185,7 @@ vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(tog
 	});
 	
 	var interactions = {};
-	interactions.addpoint = [
+	interactions['addpoint'] = [
 	    new ol.interaction.Draw({
 	    	'source': drawSource,
 	    	'type': 'Point',
@@ -194,7 +194,7 @@ vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(tog
 			}
 	    })
 	];
-	interactions.dragpoint = [
+	interactions['dragpoint'] = [
 	    select,       
 		new ol.interaction.Modify({
 	    	'features': select.getFeatures(),
@@ -204,7 +204,7 @@ vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(tog
 	    	}
 		})	    
 	];
-	interactions.deletepoint = [        
+	interactions['deletepoint'] = [        
 	   new ol.interaction.Select({
 		   'style': function(feature, resolution) {
 			   return [vk2.utils.Styles.GEOREFERENCE_POINT_HOVER];
@@ -216,7 +216,7 @@ vk2.georeference.Georeferencer.prototype._loadGcpControlsBehavior = function(tog
 				   });
 			   }
 			   return false;
-		   })
+		   }, this)
 	   })
    ];
 	
@@ -290,7 +290,7 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 
 		this._resultViewer.displayValidationMap(response['wms_url'], response['layer_id'], 
 				ol.proj.transform(response['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS ));
-	});
+	}, this);
 	
 	/**
 	 * @type {Function}
@@ -415,7 +415,7 @@ vk2.georeference.Georeferencer.prototype.open = function(){
 };
 
 /**
- * @return {vk2.georeference.GcpHandler}
+ * @return {vk2.georeference.MesstischblattGcpHandler}
  */
 vk2.georeference.Georeferencer.prototype.getGcpHandler = function(){
 	return this._gcpHandler;

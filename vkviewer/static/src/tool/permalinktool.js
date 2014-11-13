@@ -36,12 +36,12 @@ vk2.tool.Permalink.prototype.parsePermalink = function(){
 		if (qData.containsKey('z') && qData.containsKey('c')){
 			// zoom to given center
 			var center = qData.get('c').split(',')
-			this._map.getView().setCenter([parseInt(center[0]),parseInt(center[1])]);
-			this._map.getView().setZoom(parseInt(qData.get('z')));
+			this._map.getView().setCenter([parseInt(center[0], 0),parseInt(center[1], 0)]);
+			this._map.getView().setZoom(parseInt(qData.get('z'), 0));
 		};	
 		
 		if (qData.containsKey('oid')){
-			objectids = qData.get('oid').split(',');
+			var objectids = qData.get('oid').split(',');
 			
 			// remove empty strings
 			for (var i = 0; i < objectids.length; i++){

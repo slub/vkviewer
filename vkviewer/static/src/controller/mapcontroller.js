@@ -5,6 +5,7 @@ goog.require('goog.object');
 goog.require('goog.array');
 goog.require('goog.events');
 goog.require('vk2.utils');
+goog.require('vk2.utils.Modal');
 goog.require('vk2.tool.TimeSlider');
 goog.require('vk2.tool.GazetteerSearch');
 goog.require('vk2.module.SpatialTemporalSearchModule');
@@ -108,7 +109,7 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 };
 
 /**
- * @param {ol.Map}
+ * @param {ol.Map} map
  * @private
  */
 vk2.controller.MapController.prototype._addFeatureClickBehavior = function(map){
@@ -156,10 +157,6 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 		var feature = event.target['feature'];
 		this.map_.addLayer(this._createHistoricMapForFeature(feature));
 	}, undefined, this);
-	
-	if (goog.DEBUG){
-		window['mapsearchLayer'] = this.map_searchLayer;
-	};
 };
 
 /**

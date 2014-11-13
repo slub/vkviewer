@@ -8,7 +8,6 @@ goog.require('goog.events.EventType');
 
 goog.require('vk2.settings');
 goog.require('vk2.utils');
-goog.require('vk2.utils.Modal');
 goog.require('vk2.controller.MapController');
 goog.require('vk2.tool.Permalink');
 goog.require('vk2.module.SpatialTemporalSearchModule');

@@ -334,7 +334,7 @@ vk2.app.AdminEvaluationApp.prototype.registerShowMapEventListener_ = function(el
 		
 		// parse request parameter
 		var georefParams = JSON.parse(event.currentTarget.getAttribute('data-params'));
-		var mapId = parseInt(event.currentTarget.getAttribute('data-mapid'));
+		var mapId = parseInt(event.currentTarget.getAttribute('data-mapid'), 0);
 		
 		var gcps = goog.isDef(georefParams['new']) ? georefParams['new'] : georefParams;
 		var request = {

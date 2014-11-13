@@ -8,49 +8,33 @@ goog.require('vk2.utils');
 /**
  * @param {Object} settings
  * @param {ol.Map} map
- * @constructor
+ * @return {ol.layer.Tile}
  */
 vk2.layer.Messtischblatt = function(settings, map){
 	var extent = goog.isDef(settings['extent']) ? settings['extent'] : [];
 	
-	var time = goog.isDef(settings['time'])? settings['time'] : undefined;
-	
-	var projection = goog.isDef(settings.projection) ? settings.projection : 'EPSG:900913';
+	var projection = goog.isDef(settings.projection) ? settings['projection'] : 'EPSG:900913';
 	
 	var wms_url = goog.isDef(settings['wms_url'])? settings['wms_url'] : undefined;
 	
 	var layerid = goog.isDef(settings['layerid'])? settings['layerid'] : undefined;
-	
-	// define source
-	if (goog.isDef(time)){
-		settings.source = new ol.source.TileWMS({
-			'url': 'http://194.95.145.43/mapcache',
-			'params': {
-				'LAYERS':'messtischblaetter',
-				'TIME':time,
-				'VERSION': '1.1.1'
-			}, 
-			'projection': projection,
-			'extent': extent
-		});
-	} else if (goog.isDef(wms_url) && goog.isDef(layerid)){
-		settings.source = new ol.source.TileWMS({
-			url: wms_url,
-			params: {
-				'LAYERS':layerid,
-				'VERSION': '1.1.1'
-			},
-			'projection': projection,
-			'extent': extent
-		});
-	};
+
+	settings['source'] = new ol.source.TileWMS({
+		'url': wms_url,
+		'params': {
+			'LAYERS':layerid,
+			'VERSION': '1.1.1'
+		},
+		'projection': projection,
+		'extent': extent
+	});
 	
 	// define preload behavior
-	settings.preload = Infinity; 
+	settings['preload'] = Infinity; 
 	var messtischblattLayer = new ol.layer.Tile(settings);
 	
 	/**
-	 * @type {<Array.<Array.<number>>}
+	 * @type {Array.<Array.<number>>}
 	 * @private
 	 */
 	messtischblattLayer._borderPolygon = goog.isDef(settings['border']) ? settings['border'] : undefined;
@@ -133,7 +117,7 @@ vk2.layer.Messtischblatt = function(settings, map){
 //					console.log('------------------------------------------');
 //				}
 				
-				var pixelRatio = event.frameState.pixelRatio;
+				var pixelRatio = event.frameState['pixelRatio'];
 				this._drawClipPolygonOnCanvas(clip_pixel, pixelRatio, canvas);		
 				canvas.clip();
 			//};

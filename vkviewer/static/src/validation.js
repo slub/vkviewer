@@ -64,8 +64,8 @@ vk2.validation.checkRegexp = function( string, regexp ){
 
 /**
  * Clear error Msg
- * @param {string=} failureElementId The id of a dom element where to write the failure message
- * @param {string=} failureClass The failure class
+ * @param {string} validationMsgContainerId The id of a dom element where to write the failure message
+ * @param {string} validationErrorClasses The failure class
  */
 vk2.validation.clearValidationMsg = function(validationMsgContainerId, validationErrorClasses){
 	var errorMsgContainer = goog.dom.getElement(validationMsgContainerId);
@@ -79,8 +79,8 @@ vk2.validation.clearValidationMsg = function(validationMsgContainerId, validatio
 /**
  * Set error message
  * @param {string} msg
- * @param {string=} failureElementId The id of a dom element where to write the failure message
- * @param {string=} failureClass The failure class
+ * @param {string} failureElementId The id of a dom element where to write the failure message
+ * @param {string} failureClass The failure class
  */
 vk2.validation.setErrorMsg = function(msg, failureElementId, failureClass){
 	var failureElement = goog.dom.getElement(failureElementId);
@@ -314,6 +314,7 @@ vk2.validation.checkEmailAdress = function( elementId, failureElementId, failure
 };
 
 /**
+ * @expose
  * Functions for the login screen (login_screen.mako)
  */
 vk2.validation.validateLoginForm = function(){
@@ -333,6 +334,9 @@ vk2.validation.validateLoginForm = function(){
 	return true;
 };
 
+/**
+ * @expose
+ */
 vk2.validation.validateRegisterNewUser = function(){
 	var isValide = true;
 	var validationMsgContainerId = 'validationTipsRegisterUser';
@@ -364,6 +368,9 @@ vk2.validation.validateRegisterNewUser = function(){
 	return true;
 };
 
+/**
+ * @expose
+ */
 vk2.validation.resetPasswordForm = function(){			
 	var isValide = true;
 	var validationMsgContainerId = 'validationTips';

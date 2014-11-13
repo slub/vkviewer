@@ -10,7 +10,7 @@ goog.require('vk2.utils');
 goog.require('vk2.tool.OpacitySlider');
 
 /**
- * @param {vk2.layer.HistoricMap} layer
+ * @param {ol.layer.Base} layer
  * @param {number} index
  * @param {ol.Map} map
  * @static
@@ -126,7 +126,7 @@ vk2.factory.LayerManagementFactory.getLayerManagementRecord = function(layer, in
 	goog.dom.appendChild(anchor_thumbnail, img_thumbnail);
 	
 	// metadata container
-	metadataContainer = goog.dom.createDom('div',{'class':'metadata-container'});
+	var metadataContainer = goog.dom.createDom('div',{'class':'metadata-container'});
 	goog.dom.appendChild(containerListEl, metadataContainer);
 
 	var title = goog.dom.createDom('h4',{'innerHTML':layer.getTitle()});

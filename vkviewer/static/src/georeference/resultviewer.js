@@ -15,16 +15,16 @@ goog.require('vk2.tool.OpacitySlider');
 
 /**
  * @param {string} map_container
- * @param {Object} result_settings
+ * @param {Object=} opt_result_settings
  * @constructor
  */
-vk2.georeference.ResultViewer = function(map_container, result_settings){
+vk2.georeference.ResultViewer = function(map_container, opt_result_settings){
 	
 	/**
 	 * @type {Object}
 	 * @private
 	 */
-	this._settings = goog.isDef(result_settings) ? result_settings : {
+	this._settings = goog.isDef(opt_result_settings) ? opt_result_settings : {
 		'extent': [640161.933,5958026.134,3585834.8011505,7847377.4901306]
 	};
 	
@@ -80,6 +80,7 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 	// add zoom to extent control
 	this._map.addControl(this._controlZoomToExtent);
 
+	window['map'] = this._map;	
 };
 
 /**
@@ -101,10 +102,10 @@ vk2.georeference.ResultViewer.prototype.displayValidationMap = function(wms_url,
 	this._map.addControl(this._controlZoomToExtent);
 	
 	/**
-	 * @type {vk2.layer.Messtischblatt}
+	 * @type {ol.layer.Tile}
 	 * @private
 	 */
-	this._validationLayer = new vk2.layer.Messtischblatt({
+	this._validationLayer = vk2.layer.Messtischblatt({
 		'wms_url':wms_url, 
 		'layerid':layer_id,
 		'border':vk2.utils.getPolygonFromExtent(clip_extent),
@@ -114,14 +115,14 @@ vk2.georeference.ResultViewer.prototype.displayValidationMap = function(wms_url,
 	this._map.addLayer(this._validationLayer); 
 	
 	// zoom to extent by parsing getcapabilites request from wms
-	this._map.getView().fitExtent(clip_extent, this._map.getSize());
+	this._map.getView().fitExtent(clip_extent, this._map['getSize']());
 	
 	// remove old opactiy slider and add new one
 	if (goog.dom.getElement('opacity-slider-container')){
 		var opacitySliderEl = goog.dom.getElement('opacity-slider-container');
 		opacitySliderEl.innerHTML = '';
 		var opacitySlider = new vk2.tool.OpacitySlider(goog.dom.getElement('opacity-slider-container'), this._validationLayer, 'vertical')
-	};
+	};	
 };
 
 /**

@@ -18,7 +18,7 @@ vk2.control.LayerSpy = function(opt_options) {
 	  var options = opt_options || {};
 
 	  /**
-	   * @type {ol.Layer}
+	   * @type {ol.layer.Layer}
 	   */
 	  this._spyLayer = goog.isDef(options['spyLayer']) ? options['spyLayer'] : new ol.layer.Tile({
 			'attribution': undefined,
@@ -45,7 +45,7 @@ vk2.control.LayerSpy = function(opt_options) {
 	   * @type {number}
 	   * @private
 	   */
-	  this._clipRadius = goog.isDef(options.radius)? parseInt(options.radius) : 75;
+	  this._clipRadius = goog.isDef(options.radius)? parseInt(options.radius, 0) : 75;
 	  
 	  // get the pixel position with every move
 	  var mousePosition = null;
@@ -151,7 +151,7 @@ vk2.control.LayerSpy.prototype.activate_ = function(activate_button){
 	goog.events.listen(this._keyHandler, goog.events.KeyHandler.EventType.KEY, this.eventHandler_.keyhandler, undefined, this);
 	
 	// add event listener for holding the spylayer on top of all other layers
-	goog.events.listen(this.getMap().getLayers(), 'add', this.eventHandler_.addlayer, undefined, this);
+	this.getMap().getLayers().un('add', this.eventHandler_.addlayer, this);
 };
 
 /**
@@ -169,5 +169,5 @@ vk2.control.LayerSpy.prototype.deactivate_ = function(activate_button){
 	
 	// deactivate advanced layerspy behavior
 	goog.events.unlisten(this._keyHandler, goog.events.KeyHandler.EventType.KEY, this.eventHandler_.keyhandler, undefined, this);
-	goog.events.unlisten(this.getMap().getLayers(), 'add', this.eventHandler_.addlayer, undefined, this);
+	this.getMap().getLayers().on('add', this.eventHandler_.addlayer, this);
 };

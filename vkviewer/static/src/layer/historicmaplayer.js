@@ -64,7 +64,7 @@ vk2.layer.HistoricMap = function(settings, map){
 			settings['displayinlayermanagement'] : true;
 	
 	/**
-	 * @type {<Array.<Array.<number>>}
+	 * @type {Array.<Array.<number>>}
 	 * @private
 	 */
 	this._borderPolygon = goog.isDef(settings['border']) ? settings['border'] : undefined;
@@ -77,10 +77,6 @@ vk2.layer.HistoricMap = function(settings, map){
 		'title':this._title
 	});
 	
-	/**
-	 * @type {ol.layer.Tile}
-	 * @private
-	 */
 	var urls = [];
 	for (var i = 0; i < vk2.settings.TMS_URL.length; i++){
 		urls.push(vk2.settings.TMS_URL[i] + settings['dataid'] + '/{z}/{x}/{-y}.png');

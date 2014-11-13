@@ -10,7 +10,7 @@ goog.require('vk2.tool.GazetteerSearch');
 goog.require('vk2.module.MapSearchModule');
 
 /**
- * @param {Element|string} parentEl_id
+ * @param {Element|string} parentEl
  * @param {ol.Map} map
  * @constructor
  */

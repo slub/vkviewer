@@ -10,13 +10,13 @@ goog.require('goog.object');
 goog.require('vk2.settings');
 
 /**
- * @param {string}
+ * @type {string}
  * @static
  */
 vk2.request.CSW.METADATA_PARENT_NODE = 'gmd:MD_Metadata';
 
 /**
- * @param {Object} 
+ * @type {Object}
  * @static
  */
 vk2.request.CSW.SEARCH_PATHS = {
@@ -41,9 +41,9 @@ vk2.request.CSW.SEARCH_PATHS = {
  * @param {Function} callback
  */
 vk2.request.CSW.getRecord = function(record_id, service_url, callback){
-	requestUrl = vk2.settings.PROXY_URL + service_url; 
+	var requestUrl = vk2.settings.PROXY_URL + service_url; 
 		
-	xmlRequest = '<?xml version="1.0"?><csw:GetRecordById xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" outputSchema="csw:IsoRecord">' +
+	var xmlRequest = '<?xml version="1.0"?><csw:GetRecordById xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" outputSchema="csw:IsoRecord">' +
 			'<csw:Id>' + record_id + '</csw:Id></csw:GetRecordById>';
 	
 	// create request object
@@ -62,7 +62,7 @@ vk2.request.CSW.getRecord = function(record_id, service_url, callback){
 };
 
 /**
- * @param {string} xml_document
+ * @param {Document} xml_document
  * @param {Function=} opt_callback
  * @static
  */
@@ -88,13 +88,16 @@ vk2.request.CSW.parseGetRecordResponse = function(xml_document, opt_callback){
 };
 
 /**
- * @param {Node} root_node
- * @param {array} rest_path
+ * @param {Node|undefined} root_node
+ * @param {Array.<string>} rest_path
  * @static
  */
 vk2.request.CSW._getChildNode = function(root_node, rest_path){
 	
 	var response = [];
+	
+	if (!goog.isDef(root_node))
+		return response;
 	
 	var nodes = goog.dom.findNodes(root_node, function(n){
 		return n.nodeType == goog.dom.NodeType.ELEMENT && n.tagName == rest_path[0];

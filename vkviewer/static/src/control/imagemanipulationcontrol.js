@@ -64,7 +64,7 @@ vk2.control.ImageManipulation.prototype.close_ = function(parentEl){
  * @param {string} className
  * @param {string} orientation
  * @param {Function} updateFn
- * @param {number} opt_baseValue
+ * @param {number=} opt_baseValue
  * @return {Element}
  * @private
  */
@@ -124,7 +124,7 @@ vk2.control.ImageManipulation.prototype.createSlider_ = function(className, orie
 
 /**
  * @private
- * @return {ol.Layer}
+ * @return {ol.layer.Base}
  */
 vk2.control.ImageManipulation.prototype.getBaseLayer_ = function(){
 	return this.getMap().getLayers().getArray()[0];

@@ -12,8 +12,7 @@ goog.require('vk2.source.ServerPagination');
 
 
 /**
- * @param {Element|string} parentEl_id
- * @param {ol.FeatureOverlay=} featureOverlay
+ * @param {Element|string} parentEl
  * @param {ol.Map} map
  * @constructor
  * @extends {goog.events.EventTarget}
@@ -44,7 +43,7 @@ vk2.module.MapSearchModule = function(parentEl, map){
 	this._searchCols = ['time','title','georeference'];
 	
 	/**
-	 * @type {ol.featureOverlay}
+	 * @type {ol.FeatureOverlay}
 	 * @private
 	 */
 	this.featureOverlay_ = new ol.FeatureOverlay({
@@ -215,7 +214,7 @@ vk2.module.MapSearchModule.prototype.appendFeaturesToList_ = function(features){
 };
 
 /**
- * @return {Array.<ol.Features>} 
+ * @return {ol.Collection} 
  */
 vk2.module.MapSearchModule.prototype.getFeatures = function(){
 	return this.featureSource_.getFeatures();
@@ -233,11 +232,11 @@ vk2.module.MapSearchModule.prototype.getFeatureSource = function(){
  */
 vk2.module.MapSearchModule.prototype.refreshMapSearchList_ = function(){
 	this.searchListEl_.innerHTML = '';
-	this.appendFeaturesToList_();
+	//this.appendFeaturesToList_();
 };
 
 /**
- * @param {string|number}
+ * @param {string} type
  * @private
  */
 vk2.module.MapSearchModule.prototype.sort_ = function(type){

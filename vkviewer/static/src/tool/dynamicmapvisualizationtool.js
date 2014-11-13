@@ -15,13 +15,13 @@ vk2.tool.DynamicMapVisualization = function(opt_parentEl, opt_feedbackEl){
 	};
 	
 	/**
-	 * @type {Element}
+	 * @type {Element|undefined}
 	 * @private
 	 */
 	this.feedbackEl_ = goog.isDef(opt_feedbackEl) ? opt_feedbackEl : undefined;
 	
 	/**
-	 * @type {Element}
+	 * @type {Element|undefined}
 	 * @private
 	 */
 	this.parentEl_ = goog.isDef(opt_parentEl) ? opt_parentEl : undefined;
@@ -40,7 +40,7 @@ vk2.tool.DynamicMapVisualization = function(opt_parentEl, opt_feedbackEl){
  * @private
  */
 vk2.tool.DynamicMapVisualization.prototype.setLayersToInitialState_ = function(sortedLayers){
-	for (key in sortedLayers){
+	for (var key in sortedLayers){
 		if (sortedLayers.hasOwnProperty(key)){
 			var layersArr = sortedLayers[key];
 			
@@ -100,7 +100,7 @@ vk2.tool.DynamicMapVisualization.prototype.startAnimation_ = function(sortedLaye
 };
 
 /**
- * @param {Array.<vk2.layer.HistoricMap>} layer
+ * @param {Array.<vk2.layer.HistoricMap>} layers
  * @param {ol.Map} map
  * @return {Object} 
  * 		{number} key

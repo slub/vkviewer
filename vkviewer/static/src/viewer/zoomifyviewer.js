@@ -28,7 +28,7 @@ vk2.viewer.ZoomifyViewerEventType = {
 /**
  * @param {string} containerEl
  * @param {string} zoomify_properties_url
- * @param {boolean} opt_withWebGL
+ * @param {boolean=} opt_withWebGL
  * @constructor
  * @extends {goog.events.EventTarget}
  */
@@ -46,8 +46,8 @@ vk2.viewer.ZoomifyViewer = function(containerEl, zoomify_properties_url, opt_wit
 			return n.nodeType == goog.dom.NodeType.ELEMENT && n.tagName == 'IMAGE_PROPERTIES';
 		});
 		
-		var width = parseInt(node.getAttribute('WIDTH'));
-		var height = parseInt(node.getAttribute('HEIGHT'));
+		var width = parseInt(node.getAttribute('WIDTH'), 0);
+		var height = parseInt(node.getAttribute('HEIGHT'), 0);
 		var url = zoomify_properties_url.substring(0,zoomify_properties_url.lastIndexOf("/")+1)
 		this.initialize_(url, height, width, containerEl, renderer);
 	}, this), 'GET');
@@ -99,6 +99,13 @@ vk2.viewer.ZoomifyViewer.prototype.initialize_ = function(url, height, width, co
 		  'crossOrigin': '*'
 	});
 	
+	var view = new ol.View({
+	    'projection': proj,
+	    'center': [width / 2, - height / 2],
+		'zoom': 1,
+		'maxZoom': 9
+    });
+	
 	/**
 	 * @type {ol.Map}
 	 * @private
@@ -118,17 +125,12 @@ vk2.viewer.ZoomifyViewer.prototype.initialize_ = function(url, height, width, co
 	    ],
 	    'renderer': renderer,
 	    'target': containerEl,
-	    'view': new ol.View({
-		    'projection': proj,
-		    'center': [width / 2, - height / 2],
-			'zoom': 1,
-			'maxZoom': 9
-	    })
+	    'view': view
 	});
 	
 	// add zoom to extent control
 	this._map.addControl(new ol.control.ZoomToExtent({
-		'extent': this._map.getView().calculateExtent(this._map['getSize']())
+		'extent': view.calculateExtent(this._map['getSize']())
 	}));
 	
 	// dispatch for other observers who are waiting 
@@ -153,12 +155,12 @@ vk2.viewer.ZoomifyViewer.prototype.getZoomifySource = function(){
  * @returns {number}
  */
 vk2.viewer.ZoomifyViewer.prototype.getHeight = function(){
-	return parseInt(this._height);
+	return parseInt(this._height, 0);
 };
 
 /**
  * @returns {number}
  */
 vk2.viewer.ZoomifyViewer.prototype.getWidth = function(){
-	return parseInt(this._width);
+	return parseInt(this._width, 0);
 };

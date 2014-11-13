@@ -10,7 +10,7 @@ goog.require('goog.events.EventType');
  * @constructor
  * @extends {goog.events.EventTarget}
  */
-vk2.tool.TimeSlider = function(parentEl, feature_layer){
+vk2.tool.TimeSlider = function(parentEl){
 	
 	/**
 	 * @type {Element}

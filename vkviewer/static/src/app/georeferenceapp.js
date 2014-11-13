@@ -29,8 +29,8 @@ vk2.app.GeoreferenceApp = function(originalMapContainerId, geoMapContainerId){
 	// parse object id
 	var url = new goog.Uri(window.location.href);
 	
-	var objectid = url.getQueryData().get('id');
-	var georeferenceid = url.getQueryData().get('georeferenceid')
+	var objectid = /** @type {string} */ (url.getQueryData().get('id'));
+	var georeferenceid = /** @type {string} */ (url.getQueryData().get('georeferenceid'));
 
 	// now load the process and necessary data 
 	if (goog.isDef(georeferenceid)){

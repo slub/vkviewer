@@ -131,7 +131,7 @@ vk2.settings.EVALUATION_GETPROCESS = '/vkviewer/admin/getprocess';
 vk2.settings.EVALUATION_API = '/vkviewer/admin';
 
 /**
- * @type {string}
+ * @type {Array.<string>}
  */
 vk2.settings.TMS_URL = [
      'http://vk2-cdn1.slub-dresden.de/tms/', 

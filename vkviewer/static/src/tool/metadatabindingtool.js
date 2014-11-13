@@ -15,12 +15,12 @@ goog.require('vk2.request.CSW');
 vk2.tool.MetadataBinding = function(parentEl, metadataId){
 
 	/**
-	 * @type {Object}
+	 * @type {Node}
 	 * @private
 	 */
 	this._parentEl = goog.isString(parentEl) ? goog.dom.getElement(parentEl) : parentEl;;
 	
-	response = vk2.request.CSW.getRecord(metadataId, vk2.settings.CSW_URL, goog.bind(function(data){
+	var response = vk2.request.CSW.getRecord(metadataId, vk2.settings.CSW_URL, goog.bind(function(data){
 		this.displayCswIsoRecord(data);
 	}, this));
 };
@@ -125,7 +125,7 @@ vk2.tool.MetadataBinding.prototype._setTitle = function(container, description, 
 
 /**
  * @param {Element} container
- * @param {string} container
+ * @param {string} thumbnail_link
  * @private
  */
 vk2.tool.MetadataBinding.prototype._setThumbnail = function(container, thumbnail_link){
@@ -200,7 +200,7 @@ vk2.tool.MetadataBinding.prototype._setOnlineRessource = function(container, lab
 	goog.dom.appendChild(row, content_container);	
 	
 		
-	url = new goog.Uri(ahref);
+	var url = new goog.Uri(ahref);
 	
 	// check if it is a download link
 	var isDownloadLink = false;
