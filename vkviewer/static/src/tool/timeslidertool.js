@@ -6,7 +6,7 @@ goog.require('goog.events.EventTarget');
 goog.require('goog.events.EventType');
 
 /**
- * @param {Element|string} parentEl_id
+ * @param {Element|string} parentEl
  * @constructor
  * @extends {goog.events.EventTarget}
  */

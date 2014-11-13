@@ -44,13 +44,13 @@ vk2.layer.Messtischblatt = function(settings, map){
 	 * @private
 	 * @return {Array.<Array.<number>>}
 	 */
-	messtischblattLayer._getPixelForClipPolygon = function(map){	
+	messtischblattLayer._getPixelForClipPolygon = goog.bind(function(map){	
 		var clip_pixel = [];
 		for (var i = 0; i < this._borderPolygon.length; i++){
 			clip_pixel.push(map.getPixelFromCoordinate(this._borderPolygon[i]));
 		};
 		return clip_pixel;
-	};
+	}, messtischblattLayer);
 
 	/**
 	 * @param {Array.<Array.<number>>} clip_pixel
@@ -72,14 +72,14 @@ vk2.layer.Messtischblatt = function(settings, map){
 	 * @private
 	 * @return boolean;
 	 */
-	messtischblattLayer._isExtentWithinClipPolygon = function(extent){
+	messtischblattLayer._isExtentWithinClipPolygon = goog.bind(function(extent){
 		var polygon = vk2.utils.getPolygonFromExtent(extent);
 		for (var i = 0; i < polygon.length; i++){
 			if (!this.isPointInPolygon(this._borderPolygon, polygon[i]))
 				return false;
 		};
 		return true;
-	};
+	}, messtischblattLayer);
 
 	/**
 	 * The function counts the number of line crosses if a line is drawed from the point and cross the polygon
