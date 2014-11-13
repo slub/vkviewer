@@ -205,7 +205,7 @@ vk2.utils.Modal.prototype.open = function(opt_title, opt_modal_class, opt_remote
 	if (goog.isDefAndNotNull(opt_title) && opt_title){
 		this._setTitle(opt_title);
 	} else {
-		goog.style.showElement(this._modal_header, false);
+		goog.style.setElementShown(this._modal_header, false);
 	};
 	
 	if (goog.isDef(opt_modal_class)){

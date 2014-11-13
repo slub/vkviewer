@@ -3,15 +3,15 @@
 .pydevproject
 
 # pyramid stuff which is not necessary
-production.ini
-development.ini
-pyramid.wsgi
-build
-dist
-vkviewer.egg-info
-python_env
-tmp
-scripts
+/production.ini
+/development.ini
+/pyramid.wsgi
+/build
+/dist
+/vkviewer.egg-info
+/python_env
+/tmp
+/scripts
 .settings
 
 # files which are holding sensible information

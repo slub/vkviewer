@@ -1,0 +1,33 @@
+{
+
+  "id": "vkviewer-simple",
+
+  "externs": [
+    "./externs/proj4.js",
+    "./externs/ol.js",
+    "./externs/jquery.js"
+  ],
+
+  "level": "DEFAULT",
+
+  "mode": "SIMPLE",
+
+  "inputs": [
+    "./exports.js"
+  ],
+
+  "paths": [
+    "../src"
+  ],
+
+  "define": {
+    "goog.DEBUG": false
+  },
+
+  "experimental-compiler-options": {
+    "languageIn": "ECMASCRIPT5"
+  },
+
+  "output-file": "../vkviewer-min.js"
+
+}

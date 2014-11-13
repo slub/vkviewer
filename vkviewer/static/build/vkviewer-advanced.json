@@ -1,0 +1,50 @@
+{
+
+  "id": "vkviewer-advanced",
+
+  "externs": [
+    "./externs/proj4.js",
+    "./externs/ol-externs.js",
+    "./externs/jquery.js",
+    "./externs/general.js"
+  ],
+
+  //"output-wrapper": "/*! \n//@ sourceMappingURL=vkviewer-min.map.js\n */\n%output%",
+
+  "level": "DEFAULT",
+
+  "mode": "ADVANCED",
+
+  "checks": {
+    "accessControls": "ERROR",
+    "checkRegExp": "ERROR",
+    "checkTypes": "ERROR",
+    "checkVars": "ERROR",
+    "deprecated": "ERROR",
+    "duplicate": "ERROR",
+    "fileoverviewTags": "ERROR",
+    "invalidCasts": "ERROR",
+    "missingProperties": "ERROR",
+    "nonStandardJsDocs": "ERROR",
+    "undefinedVars": "ERROR"
+  },
+
+  "inputs": [
+    "./exports.js"
+  ],
+
+  "paths": [
+    "../src"
+  ],
+
+  "define": {
+    "goog.DEBUG": false
+  },
+
+  "experimental-compiler-options": {
+    "languageIn": "ECMASCRIPT5"
+  },
+
+  "output-file": "../vkviewer-min.js"
+
+}

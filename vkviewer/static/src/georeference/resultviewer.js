@@ -79,8 +79,6 @@ vk2.georeference.ResultViewer = function(map_container, opt_result_settings){
 	
 	// add zoom to extent control
 	this._map.addControl(this._controlZoomToExtent);
-
-	window['map'] = this._map;	
 };
 
 /**
