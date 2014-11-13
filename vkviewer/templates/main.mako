@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 <%inherit file="basic_page.mako" />
 
-<%block name="header_content">
-	<script>
-	    goog.require('vk2.app.PresentationApp');
-	</script>
-</%block>
-
 <%block name="body_content">
 	<div id="main-page-container" class="body-container">
 		

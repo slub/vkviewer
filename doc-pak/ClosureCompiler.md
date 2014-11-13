@@ -50,5 +50,8 @@ When using plovr the vkviewer-min.json in the vkviewer/static/build folder is us
 
 	java -jar build/plovr-81ed862.jar build build/vkviewer-simple.json
 
+	java -jar build/plovr-81ed862.jar build --create_source_map ./vkviewer-min.map.js build/vkviewer-advanced-debug.json
+
+
 After building the minimified javascript / css version make sure your mako files are definied correctly. Then you can build a deployment version with the build_deploy.py in the deploy directory
 
