@@ -1,6 +1,8 @@
 goog.provide('vk2.control.ImageManipulation');
 
+goog.require('vk2.utils');
 goog.require('goog.events');
+goog.require('goog.dom');
 goog.require('goog.dom.classes');
 
 /**
@@ -65,11 +67,13 @@ vk2.control.ImageManipulation.prototype.close_ = function(parentEl){
  * @param {string} orientation
  * @param {Function} updateFn
  * @param {number=} opt_baseValue
+ * @param {string=} opt_title
  * @return {Element}
  * @private
  */
-vk2.control.ImageManipulation.prototype.createSlider_ = function(className, orientation, updateFn, opt_baseValue){
-	var sliderEl = goog.dom.createDom('div', {'class': 'slider ' + className});
+vk2.control.ImageManipulation.prototype.createSlider_ = function(className, orientation, updateFn, opt_baseValue, opt_title){
+	var title = goog.isDef('opt_title') ? opt_title : '';
+	var sliderEl = goog.dom.createDom('div', {'class': 'slider ' + className, 'title':title});
 	
 	var baseMin = 0, baseMax = 100;
 	var minValueEl, maxValueEl;
@@ -143,13 +147,13 @@ vk2.control.ImageManipulation.prototype.initializeSliderContainer_ = function(pa
 	// add contrast slider
 	var contrastSlider = this.createSlider_('slider-contrast', 'horizontal', goog.bind(function(value){
 		this.getBaseLayer_()['setContrast'](value/100);
-	}, this));
+	}, this), undefined, vk2.utils.getMsg('contrast'));
 	goog.dom.appendChild(sliderContainer, contrastSlider);
 	
 	// add satuartion slider
 	var saturationSlider = this.createSlider_('slider-saturation', 'horizontal', goog.bind(function(value){
 		this.getBaseLayer_()['setSaturation'](value/100);
-	}, this));
+	}, this), undefined, vk2.utils.getMsg('saturation'));
 	goog.dom.appendChild(sliderContainer, saturationSlider);
 	
 	// add brightness slider
@@ -157,7 +161,7 @@ vk2.control.ImageManipulation.prototype.initializeSliderContainer_ = function(pa
 		// doing linar mapping (normalisierung)
 		var linarMapping = 2 * value / 100 -1;
 		this.getBaseLayer_()['setBrightness'](linarMapping);
-	}, this), 50);
+	}, this), 50, vk2.utils.getMsg('brightness'));
 	goog.dom.appendChild(sliderContainer, brightnessSlider);
 
 	// add contrast slider
@@ -167,8 +171,39 @@ vk2.control.ImageManipulation.prototype.initializeSliderContainer_ = function(pa
 		var mapping = (value - baseValue) * 0.25;
 		var hueValue = mapping == 0 ? 0 : mapping + this.getBaseLayer_()['getHue']();
 		this.getBaseLayer_()['setHue'](hueValue);
-	}, this), baseValue);
+	}, this), baseValue, vk2.utils.getMsg('hue'));
 	goog.dom.appendChild(sliderContainer, hueSlider);
+	
+	// button for reset to default state
+	var resetBtn = goog.dom.createDom('button', {
+		'class':'reset-btn',
+		'title': vk2.utils.getMsg('reset')
+	});
+	goog.dom.appendChild(sliderContainer, resetBtn);
+	 
+	var defaultValues = {
+		hue: 0,
+		brightness:0,
+		contrast: 1,
+		saturation: 1
+	};
+	
+	goog.events.listen(resetBtn, 'click', function(e){
+		// reset the layer
+		var layer = this.getBaseLayer_();
+		layer['setHue'](defaultValues.hue);
+		layer['setBrightness'](defaultValues.brightness);
+		layer['setContrast'](defaultValues.contrast);
+		layer['setSaturation'](defaultValues.saturation);
+		
+		// reset the sliders
+		var sliderEls = goog.dom.getElementsByClass('slider', sliderContainer);
+		for (var i = 0; i < sliderEls.length; i++){
+			var sliderEl = sliderEls[i];
+			var resetValue = goog.dom.classes.has(sliderEl, 'slider-hue') || goog.dom.classes.has(sliderEl, 'slider-brightness') ? 50 : 100;
+			$(sliderEl).slider('value', resetValue);
+		};
+	}, undefined, this);
 		
 	return sliderContainer;
 };
