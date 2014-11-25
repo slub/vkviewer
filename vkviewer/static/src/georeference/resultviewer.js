@@ -87,7 +87,7 @@ vk2.georeference.ResultViewer = function(map_container, opt_result_settings){
  * @param {Array.<number>} clip_extent
  */
 vk2.georeference.ResultViewer.prototype.displayValidationMap = function(wms_url, layer_id, clip_extent){
-	
+		
 	// remove old layer
 	if (goog.isDef(this._validationLayer))
 		this._map.removeLayer(this._validationLayer);

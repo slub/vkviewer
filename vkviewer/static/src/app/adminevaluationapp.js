@@ -346,7 +346,7 @@ vk2.app.AdminEvaluationApp.prototype.registerShowMapEventListener_ = function(el
 		vk2.georeference.GeoreferencerService.requestValidationResult(request, goog.bind(function(response){
 			var data = response.target.getResponseJson();
 			this.resultViewer_.displayValidationMap(data['wms_url'], data['layer_id'], 
-				ol.proj.transform(data['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS ));
+				ol.proj.transformExtent(data['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS ));
 		}, this), function(response){
 			alert('Something went wrong while trying to fetch a georeference validation result from server ....');
 		});
