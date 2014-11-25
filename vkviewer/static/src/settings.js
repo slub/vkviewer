@@ -28,7 +28,7 @@ vk2.settings.WFS_GEOSERVER_URL = 'http://kartenforum.slub-dresden.de/geoserver/p
 /**
  * @type {string}
  */
-vk2.settings.WFS_GEOSERVER_SEARCHLAYER = 'vkdb:vmapsearch'//'vkdb-test:mapsearch-test'// 
+vk2.settings.WFS_GEOSERVER_SEARCHLAYER = 'vkdb:vmapsearch'; //'vkdb-test:mapsearch-test'// 
 
 /**
  * @type {string}
