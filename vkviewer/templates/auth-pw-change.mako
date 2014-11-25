@@ -6,7 +6,7 @@
 			<div class="panel-heading" id="panelHeading"><p id="validationTips" class="validationTips">${_('change_pw_header')}</p></div>
 				
 			<div class="panel-body change-pw">
-				<form  class="change-pw" action="${request.route_url('change_pw', action='update')}" target="_top" 
+				<form  class="change-pw" action="${request.route_url('pw-change', action='update')}" target="_top" 
 						role="form" onsubmit="return validateForm()" method="POST">
 					<div class="form-group">
 						<label for="inputOldPassword" class="col-sm-4 control-label">${_('old_password')}</label>
