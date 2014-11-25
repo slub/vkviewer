@@ -151,7 +151,7 @@ vk2.control.LayerSpy.prototype.activate_ = function(activate_button){
 	goog.events.listen(this._keyHandler, goog.events.KeyHandler.EventType.KEY, this.eventHandler_.keyhandler, undefined, this);
 	
 	// add event listener for holding the spylayer on top of all other layers
-	this.getMap().getLayers().un('add', this.eventHandler_.addlayer, this);
+	this.getMap().getLayers().on('add', this.eventHandler_.addlayer, this);
 };
 
 /**
@@ -169,5 +169,5 @@ vk2.control.LayerSpy.prototype.deactivate_ = function(activate_button){
 	
 	// deactivate advanced layerspy behavior
 	goog.events.unlisten(this._keyHandler, goog.events.KeyHandler.EventType.KEY, this.eventHandler_.keyhandler, undefined, this);
-	this.getMap().getLayers().on('add', this.eventHandler_.addlayer, this);
+	this.getMap().getLayers().un('add', this.eventHandler_.addlayer, this);
 };
