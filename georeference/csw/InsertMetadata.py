@@ -11,10 +11,11 @@ from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.Metadata import Metadata
 from vkviewer.python.utils.idgenerator import createOAI
 from vkviewer.python.georef.utils import getImageSize
-from georeference.settings import TEMPLATE_FILES, GN_SETTINGS, DATABASE_SRID, TEMPLATE_OGC_SERVICE_LINK, DBCONFIG_PARAMS, PERMALINK_RESOLVER
+from georeference.settings import TEMPLATE_FILES, GN_SETTINGS, DATABASE_SRID, TEMPLATE_OGC_SERVICE_LINK, DBCONFIG_PARAMS, PERMALINK_RESOLVER,GN_SETTINGS
 from georeference.csw.ChildMetadataBinding import ChildMetadataBinding
 from georeference.csw.CswTransactionBinding import gn_transaction_insert
 from georeference.utils.tools import loadDbSession
+from georeference.csw.CswTransactionBinding import gn_transaction_delete
 
 def insertMetadata(id, db, logger):
     logger.debug('Start inserting metadata')
@@ -52,6 +53,14 @@ def getOnlineResourceData(mapObj, metadataObj, time, bboxObj, oai):
     
     onlineResList = [
         {
+            'url':TEMPLATE_OGC_SERVICE_LINK['dynamic_ows_template']%({
+                'mapid':mapObj.id,
+                'service':'WMS'                
+            }),
+            'protocol':'OGC:WMS-1.1.1-http-get-map',
+            'name':'WEB MAP SERVICE (WMS)',
+            'description':'Basic WMS'
+        }, {
             'url':TEMPLATE_OGC_SERVICE_LINK['wms_template']%({
                 'westBoundLongitude':str(bboxObj.llc.x),
                 'southBoundLatitude':str(bboxObj.llc.y),
@@ -63,7 +72,8 @@ def getOnlineResourceData(mapObj, metadataObj, time, bboxObj, oai):
                 'height':256
             }),
             'protocol':'OGC:WMS-1.1.1-http-get-map',
-            'name':'WEB MAP SERVICE (WMS)'
+            'name':'WEB MAP SERVICE (WMS)',
+            'description':'Time-enabled WMS'
         },{
             'url':PERMALINK_RESOLVER+oai,
             'protocol':'HTTP',
@@ -76,6 +86,17 @@ def getOnlineResourceData(mapObj, metadataObj, time, bboxObj, oai):
     ]
     
     if time <= 1900:
+        # append normal wcs     
+        onlineResList.append({
+            'url':TEMPLATE_OGC_SERVICE_LINK['dynamic_ows_template']%({
+                'mapid':mapObj.id,
+                'service':'WCS'                
+            }),
+            'protocol':'OGC:WCS-1.0.0-http-get-coverage',
+            'name':'WEB COVERAGE SERVICE (WCS)',
+            'description':'Basic WCS'
+        })  
+        # append time-enabled WCS
         onlineResList.append({
             'url':TEMPLATE_OGC_SERVICE_LINK['wcs_template']%({
                 'westBoundLongitude':str(bboxObj.llc.x),
@@ -88,8 +109,9 @@ def getOnlineResourceData(mapObj, metadataObj, time, bboxObj, oai):
                 'height':str(image_size['y'])
             }),
             'protocol':'OGC:WCS-1.0.0-http-get-coverage',
-            'name':'WEB COVERAGE SERVICE (WCS)'
-        })  
+            'name':'WEB COVERAGE SERVICE (WCS)',
+            'description':'Time-enabled WCS'
+        })
     return onlineResList
          
 def getMetadataForMapObj(id, db, logger):
@@ -176,11 +198,18 @@ if __name__ == '__main__':
     dbSession = loadDbSession(DBCONFIG_PARAMS, logger) 
     # get all messtischblätter
     maps = Map.all(dbSession)
-    for map in maps:
-        if map.isttransformiert:
-            #response = gn_transaction_delete(messtischblatt.dateiname, gn_settings['gn_username'], gn_settings['gn_password'], logger)
-            response = insertMetadata(id=map.id,db=dbSession,logger=logger)
+    counter = 0
+    for mapObj in maps:
+        if mapObj.isttransformiert:
+            counter += 1
+        if mapObj.isttransformiert and counter >= 0:
+            print "========================"
+            oai = createOAI(mapObj.id)
+            response = gn_transaction_delete(oai, GN_SETTINGS['gn_username'], GN_SETTINGS['gn_password'], logger)
             print "Response - delete record"
             print "========================"
+            response = insertMetadata(id=mapObj.id,db=dbSession,logger=logger)
             print response
-            
+            print "========================"
+            print "Insert record number %s"%counter
+            print "========================"

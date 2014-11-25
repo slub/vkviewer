@@ -16,7 +16,6 @@ class Georeferenzierungsprozess(Base):
     timestamp = Column(DateTime(timezone=False))
     type = Column(String(255))
     nutzerid = Column(String(255))
-    refzoomify = Column(Boolean)
     processed = Column(Boolean)
     isactive = Column(Boolean)
     overwrites = Column(Integer)

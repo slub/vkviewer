@@ -299,13 +299,19 @@ class ChildMetadataBinding(object):
                 protocolRes.append(charRes)
                 onlineResourceElem.append(protocolRes)
 
-                
                 nameRes = ET.Element(self.ns['gmd']+'name')
                 charRes = ET.Element(self.ns['gco']+'CharacterString')
                 charRes.text = dict['name']
                 nameRes.append(charRes)
                 onlineResourceElem.append(nameRes)
-
+                
+                # if description than insert it
+                if 'description' in dict:
+                    descriptionRes = ET.Element(self.ns['gmd']+'description')
+                    charRes = ET.Element(self.ns['gco']+'CharacterString')
+                    charRes.text = dict['description']
+                    descriptionRes.append(charRes)
+                    onlineResourceElem.append(descriptionRes)
 
             return True
         except:
