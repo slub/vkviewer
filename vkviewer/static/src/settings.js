@@ -23,12 +23,12 @@ vk2.settings.WFS_PARSER_CONFIG = {
 /**
  * @type {string}
  */
-vk2.settings.WFS_GEOSERVER_URL = 'http://194.95.145.43:8080/geoserver/testing/ows'; //'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows';
+vk2.settings.WFS_GEOSERVER_URL = 'http://kartenforum.slub-dresden.de/geoserver/production/ows'; //'http://194.95.145.43:8080/geoserver/testing/ows'; 
 
 /**
  * @type {string}
  */
-vk2.settings.WFS_GEOSERVER_SEARCHLAYER = 'vkdb-test:mapsearch-test'// 'virtuelles_kartenforum:mapsearch' 
+vk2.settings.WFS_GEOSERVER_SEARCHLAYER = 'vkdb:vmapsearch'//'vkdb-test:mapsearch-test'// 
 
 /**
  * @type {string}

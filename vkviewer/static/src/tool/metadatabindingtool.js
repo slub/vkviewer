@@ -204,7 +204,8 @@ vk2.tool.MetadataBinding.prototype._setOnlineRessource = function(container, lab
 	
 	// check if it is a download link
 	var isDownloadLink = false;
-	if (goog.isDef(url.getParameterValue('SERVICE')) && url.getParameterValue('SERVICE').toLowerCase() == 'wcs')
+	if (goog.isDef(url.getParameterValue('SERVICE')) && url.getParameterValue('SERVICE').toLowerCase() == 'wcs' && 
+			url.getParameterValue('REQUEST') && url.getParameterValue('REQUEST').toLowerCase() == 'getcoverage')
 		isDownloadLink = true;
 
 	// for preventing to long urls cut query

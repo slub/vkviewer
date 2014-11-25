@@ -202,7 +202,7 @@ if __name__ == '__main__':
     for mapObj in maps:
         if mapObj.isttransformiert:
             counter += 1
-        if mapObj.isttransformiert and counter >= 0:
+        if mapObj.isttransformiert and counter >= 2847:
             print "========================"
             oai = createOAI(mapObj.id)
             response = gn_transaction_delete(oai, GN_SETTINGS['gn_username'], GN_SETTINGS['gn_password'], logger)
