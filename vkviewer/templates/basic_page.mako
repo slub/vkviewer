@@ -22,7 +22,7 @@
 	    <script src="${request.static_url('vkviewer:static/lib/ol-vkviewer.js')}"></script>
 		<script src="${request.static_url('vkviewer:static/vkviewer-min.js')}"></script> -->
 		
-		<!-- for development  -->
+		<!-- for development -->
 		<link rel="stylesheet" href="${request.static_url('vkviewer:static/lib/css/bootstrap.min.css')}">		
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/ol.css')}" />
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/jquery-ui-custom.min.css')}" media="screen" />
@@ -34,11 +34,11 @@
 	   	<script src="${request.static_url('vkviewer:static/src/locale/'+_('js_library')+'.js')}"></script> 
 	 	<script src="${request.static_url('vkviewer:static/lib/ol-vkviewer.js')}"></script>
 	    
-	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
+	    <!-- <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/deps.js')}"></script>
 	    <script src="${request.static_url('vkviewer:static/src/vkviewer-deps.js')}"></script> 
-	    <script src="${request.static_url('vkviewer:static/vkviewer-require.js')}"></script>
-	    <!-- <script src="${request.static_url('vkviewer:static/vkviewer-min.js')}"></script> -->
+	    <script src="${request.static_url('vkviewer:static/vkviewer-require.js')}"></script> -->
+	    <script src="${request.static_url('vkviewer:static/vkviewer-min.js')}"></script> 
 	    
 		<%block name="header_content" />
 	     

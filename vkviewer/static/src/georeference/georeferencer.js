@@ -349,8 +349,8 @@ vk2.georeference.Georeferencer.prototype._loadSubmitControls = function(toolCont
 	var submitHandler = {
 			'update': goog.bind(function(event){
 				var request = {
-						'id': this._objectId,
-						'georeference': this._gcpHandler.getGcps()
+					'id': this._objectId,
+					'georeference': this._gcpHandler.getGcps()
 				};
 				vk2.georeference.GeoreferencerService.requestValidationResult(request, validationHandler, errorHandler);
 			}, this),

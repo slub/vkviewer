@@ -67,7 +67,7 @@ vk2.app.GeoreferenceApp.prototype.initializeWithGeoreferenceId_ = function(geore
 		console.log('Load georeference application for georeferenceid.')
 	};
 	
-	this.fetchProcessDataFromServer_({'georeferenceid':georeferenceid}, goog.partial(this.loaderFunction_, originalMapContainerId, geoMapContainerId));
+	this.fetchProcessDataFromServer_({'georeferenceid':georeferenceid}, goog.bind(this.loaderFunction_, this, originalMapContainerId, geoMapContainerId));
 };
 
 /**
@@ -81,7 +81,7 @@ vk2.app.GeoreferenceApp.prototype.initializeWithObjectId_ = function(objectid, o
 		console.log('Load georeference application for objectid.')
 	};
 	
-	this.fetchProcessDataFromServer_({'objectid':objectid}, goog.partial(this.loaderFunction_, originalMapContainerId, geoMapContainerId));
+	this.fetchProcessDataFromServer_({'objectid':objectid}, goog.bind(this.loaderFunction_, this, originalMapContainerId, geoMapContainerId));
 };
 
 /**
@@ -95,10 +95,18 @@ vk2.app.GeoreferenceApp.prototype.loaderFunction_ = function(originalMapContaine
 		console.log('Sucessfully fetch data from server - ' + data);
 	};
 		
-	// load unreferenced layer 
+	/**
+	 *  load unreferenced layer
+	 *  @private
+	 *  @type {vk2.viewer.ZoomifyViewer}
+	 */ 
 	this._zoomifyViewer = new vk2.viewer.ZoomifyViewer(originalMapContainerId, data['zoomify']);
 	
-	// load validation map
+	/**
+	 *  load validation map
+	 *  @private
+	 *  @type {vk2.georeference.ResultViewer}
+	 */ 
 	this._resultViewer = new vk2.georeference.ResultViewer(geoMapContainerId, {
 		'extent':ol.proj.transformExtent(data['extent'], 'EPSG:4314', vk2.settings.DISPLAY_SRS )
 	});		
