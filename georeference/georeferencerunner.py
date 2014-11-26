@@ -3,7 +3,8 @@ Created on Sep 23, 2014
 
 @author: mendt
 '''
-import time, os
+import time, os, logging
+from logging.handlers import TimedRotatingFileHandler
 from lockfile import LockTimeout
 from daemon import runner 
 from vkviewer.python.utils.logger import createLogger, getLoggerFileHandler
@@ -16,7 +17,9 @@ from georeference.utils.tools import loadDbSession
 if not os.path.exists(LOGGER_FILE):
     open(LOGGER_FILE, 'a').close()
 
-handler = getLoggerFileHandler(LOGGER_FILE, LOGGER_FORMATTER)
+formatter = logging.Formatter(LOGGER_FORMATTER)
+handler = TimedRotatingFileHandler(LOGGER_FILE, when='d', interval=1, backupCount=14)
+handler.setFormatter(formatter)
 logger = createLogger(name = LOGGER_NAME, level = LOGGER_LEVEL, handler = handler)
     
 class GeoreferenceDaemonApp():
@@ -41,7 +44,7 @@ class GeoreferenceDaemonApp():
             dbsession.close_all()
             
             logger.info('Go to sleep ...')
-            time.sleep(10)
+            time.sleep(DAEMON_SETTINGS['sleep_time'])
 
 
 # Initialize DaemonRunner
