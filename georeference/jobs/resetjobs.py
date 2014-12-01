@@ -72,5 +72,9 @@ def resetMapObject(mapObj, logger):
     logger.debug('Reset map object into unreferenced state.')
     
     mapObj.isttransformiert = False
-    mapObj.hasgeorefparams = 0
+    
+    # reset georef params
+    newGeorefParams = 0 if mapObj.hasgeorefparams - 1 < 0 else mapObj.hasgeorefparams - 1
+    mapObj.hasgeorefparams = newGeorefParams
+    
     mapObj.georefimage = ''

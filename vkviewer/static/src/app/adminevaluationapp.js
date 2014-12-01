@@ -5,6 +5,7 @@ goog.require('goog.events');
 goog.require('goog.net.XhrIo');
 goog.require('goog.net.EventType');
 goog.require('vk2.settings');
+goog.require('vk2.utils');
 goog.require('vk2.georeference.utils');
 goog.require('vk2.georeference.ResultViewer');
 goog.require('vk2.georeference.GeoreferencerService');
@@ -275,25 +276,20 @@ vk2.app.AdminEvaluationApp.prototype.initializeEvaluationMap_ = function(idMapCo
  * @private
  */
 vk2.app.AdminEvaluationApp.prototype.registerSetIsInvalideEventListener_ = function(element, parentEl){
-	goog.events.listen(element, 'click', function(event){
-		if (goog.DEBUG)
-			console.log('Fire set is invalide map event ...');
-		
-		// add confirm method
-		var confirmResponse = confirm('Are you sure you wanna set this georeference process to invalide?');
-				
-		if (confirmResponse == true) {
-			var url = event.currentTarget.getAttribute('data-href');
-				
+	var callback = goog.partial(
+		vk2.utils.getConfirmationDialog, 
+		'Georeference process is invalide?', 
+		'Are you sure you wanna set this georeference process to invalide?', 
+		function(event){
+			var url = element.getAttribute('data-href');	
 			goog.net.XhrIo.send(url, function(event){
 				alert(event.target.getResponseJson()['message']);
 				goog.dom.removeNode(parentEl);
 			}, 'GET');	
-		} else {
-			if (goog.DEBUG)
-				console.log('No we won\'t will do this.');
-		};		
-	});
+		}
+	);
+		
+	goog.events.listen(element, 'click', callback);
 };
 
 /**
@@ -302,25 +298,21 @@ vk2.app.AdminEvaluationApp.prototype.registerSetIsInvalideEventListener_ = funct
  * @private
  */
 vk2.app.AdminEvaluationApp.prototype.registerSetIsValideEventListener_ = function(element, parentEl){
-	goog.events.listen(element, 'click', function(event){
-		if (goog.DEBUG)
-			console.log('Fire set is valide map event ...');
-		
-		// add confirm method
-		var confirmResponse = confirm('Are you sure you wanna set this georeference process to isvalide?');
-				
-		if (confirmResponse == true) {
-			var url = event.currentTarget.getAttribute('data-href');
-				
+	var callback = goog.partial(
+		vk2.utils.getConfirmationDialog, 
+		'Georeference process is valide?', 
+		'Are you sure you wanna set this georeference process to isvalide?', 
+		function(event){
+			var url = element.getAttribute('data-href');
+			
 			goog.net.XhrIo.send(url, function(event){
 				alert(event.target.getResponseJson()['message']);
 				goog.dom.removeNode(parentEl);
 			}, 'GET');	
-		} else {
-			if (goog.DEBUG)
-				console.log('No we won\'t will do this.');
-		};		
-	});
+		}
+	);
+	
+	goog.events.listen(element, 'click', callback);
 };
 
 /**

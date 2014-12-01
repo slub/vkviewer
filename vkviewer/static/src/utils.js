@@ -144,7 +144,7 @@ vk2.utils.getConfirmationDialog = function(title, message, submitCallback, opt_c
 			'id="confirm-dialog-btn-no">' + vk2.utils.getMsg('no') + '</button>');
 	
 	var callback = goog.isDef(submitCallback) ? submitCallback : function(){};
-	goog.events.listen(goog.dom.getElement('confirm-dialog-btn-yes'), 'click', function(event){callback();});	
+	goog.events.listen(goog.dom.getElement('confirm-dialog-btn-yes'), 'click', function(event){callback();modal.close();});	
 	goog.events.listen(goog.dom.getElement('confirm-dialog-btn-no'), 'click', function(event){modal.close();});
 };
 

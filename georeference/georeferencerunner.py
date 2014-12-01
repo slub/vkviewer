@@ -41,7 +41,7 @@ class GeoreferenceDaemonApp():
             dbsession = loadDbSession(DBCONFIG_PARAMS, logger)  
             lookForUpdateProcess(dbsession, logger, True)
             dbsession.commit()
-            dbsession.close_all()
+            dbsession.close()
             
             logger.info('Go to sleep ...')
             time.sleep(DAEMON_SETTINGS['sleep_time'])
