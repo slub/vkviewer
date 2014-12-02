@@ -18,6 +18,9 @@ def setProcessToInValide(request):
             georeferenceprocess = Georeferenzierungsprozess.by_id(georeferenceid, request.db)
             georeferenceprocess.adminvalidation = 'invalide'
                 
+            if 'comment' in request.params:
+                georeferenceprocess.comment = request.params['comment']
+                
             return {'message':'The georeference process has been set to invalide.'}
         else:
             raise Exception('Missing parameter (georeferenceid) ...')
@@ -34,7 +37,18 @@ def setProcessToIsValide(request):
         if 'georeferenceid' in request.params:
             georeferenceid = request.params['georeferenceid']
             georeferenceprocess = Georeferenzierungsprozess.by_id(georeferenceid, request.db)
+            
+            # check if there is no other active georeference process for this mapid
+            # and if this is the case check if the earlier state was "invalide" and the
+            # process should now be updated again
+            activeGeorefprocess = Georeferenzierungsprozess.getActualGeoreferenceProcessForMapId(georeferenceprocess.mapid, request.db)
+            if georeferenceprocess.adminvalidation == 'invalide' and activeGeorefprocess is None:
+                georeferenceprocess.processed = False
+                
             georeferenceprocess.adminvalidation = 'isvalide'
+            
+            if 'comment' in request.params:
+                georeferenceprocess.comment = request.params['comment']
                 
             return {'message':'The georeference process has been set to isvalide.'}
         else:
@@ -43,4 +57,3 @@ def setProcessToIsValide(request):
         log.error(e)
         log.error(traceback.format_exc())
         return HTTPBadRequest(GENERAL_ERROR_MESSAGE);
-    

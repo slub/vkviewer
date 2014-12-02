@@ -80,4 +80,4 @@ class Map(Base):
         
     @classmethod
     def getCountIsGeoref(cls, session):
-        return session.query(Map).filter(Map.isttransformiert == True).count()
+        return session.query(Map).filter(Map.istaktiv == True).filter(Map.isttransformiert == True).count()

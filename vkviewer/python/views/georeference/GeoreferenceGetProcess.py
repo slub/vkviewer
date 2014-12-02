@@ -127,11 +127,16 @@ def createResponseForSpecificGeoreferenceProcess(mapObj, request, georeferenceid
                 
     # check if there is an other user is working on this map right now
     # @TODO use babel lingua fpr translation
-    areTherePendingUpdateProcesses = Georeferenzierungsprozess.arePendingProcessForMapId(mapObj.id, request.db)
-    if areTherePendingUpdateProcesses:
-        if request.locale_name == 'de':
-            warnMsg = 'Aktuell wird das Kartenblatt von anderen Nutzern bearbeitet. Um Informationsverluste zu vermeiden versuchen Sie es bitte noch einmal in ein 15 Minuten.'
-        else:
-            warnMsg = 'Right now another users is working on the georeferencing of this map sheet. For preventing information losses please try again in 15 minutes.'
-        response['warn'] = warnMsg         
+    try:
+        areTherePendingUpdateProcesses = Georeferenzierungsprozess.arePendingProcessForMapId(mapObj.id, request.db)
+        
+        if areTherePendingUpdateProcesses:
+            if request.locale_name == 'de':
+                warnMsg = 'Aktuell wird das Kartenblatt von anderen Nutzern bearbeitet. Um Informationsverluste zu vermeiden versuchen Sie es bitte noch einmal in ein 15 Minuten.'
+            else:
+                warnMsg = 'Right now another users is working on the georeferencing of this map sheet. For preventing information losses please try again in 15 minutes.'
+            response['warn'] = warnMsg         
+        return response
+    except ProcessIsInvalideException as e:
+        pass
     return response

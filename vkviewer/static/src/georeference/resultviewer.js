@@ -33,7 +33,7 @@ vk2.georeference.ResultViewer = function(map_container, opt_result_settings){
 	 * @private
 	 */
 	this._baseLayer = new ol.layer.Tile({
-		'source': new ol.source.OSM()
+		'source': new ol.source.MapQuest({layer: 'osm'})
 	});
 	
 	/**
@@ -67,7 +67,7 @@ vk2.georeference.ResultViewer = function(map_container, opt_result_settings){
 			   new vk2.control.LayerSpy({
 					'spyLayer':new ol.layer.Tile({
 						'attribution': undefined,
-						'source': new ol.source.OSM()
+						'source': new ol.source.MapQuest({layer: 'osm'})
 					})
 			   }),
 		  ]

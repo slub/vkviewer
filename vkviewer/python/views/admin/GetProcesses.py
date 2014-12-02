@@ -27,6 +27,11 @@ def getProcesses(request):
             queryData = request.db.query(Georeferenzierungsprozess, Metadata).join(Metadata, Georeferenzierungsprozess.mapid == Metadata.mapid)\
                 .filter(Georeferenzierungsprozess.nutzerid == request.params['userid'])\
                 .order_by(desc(Georeferenzierungsprozess.id))
+        elif 'validation' in request.params:
+            log.debug('Get processes for adminvalidation %s ...'%request.params['validation'])
+            queryData = request.db.query(Georeferenzierungsprozess, Metadata).join(Metadata, Georeferenzierungsprozess.mapid == Metadata.mapid)\
+                .filter(Georeferenzierungsprozess.adminvalidation == request.params['validation'])\
+                .order_by(desc(Georeferenzierungsprozess.id))
         else:
             log.debug('Get all pending processes ...')
             queryData = request.db.query(Georeferenzierungsprozess, Metadata).join(Metadata, Georeferenzierungsprozess.mapid == Metadata.mapid)\
