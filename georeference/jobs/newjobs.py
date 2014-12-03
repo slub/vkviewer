@@ -5,53 +5,19 @@ Created on Oct 13, 2014
 author: mendt
 '''
 from vkviewer.python.models.messtischblatt.Map import Map
-from vkviewer.python.models.messtischblatt.RefMapLayer import RefMapLayer
-from vkviewer.python.utils.exceptions import GeoreferenceProcessingError
+from georeference.jobs.georeferencejobs import activate
 
-from georeference.settings import MAPPING_LAYERID
-from georeference.csw.InsertMetadata import insertMetadata
-from georeference.jobs.genericjobs import updateServices, processGeorefImage, getParsedGeorefParams
-
-def runNewGeoreferenceProcess(job, dbsession, logger, testing = False):
-    logger.info('Run georeference process with type "new" with id %s ...'%job.id)
+def runNewGeoreferenceProcess(georefProcess, dbsession, logger, testing = False):
+    """ This function process new georeference result for a given map object.
         
-    # calculate georeference result 
-    logger.info('Create persistent georeference result ...')
-    mapObj = Map.by_id(job.mapid, dbsession)
-    georefParams = getParsedGeorefParams(job)
-    destPath = processGeorefImage(mapObj, georefParams, dbsession, logger)
-        
-    # update vrt and tms services
-    updateServices(mapObj, destPath, dbsession, logger)
-    
-    if destPath is None:
-        logger.error('Something went wrong while trying to process a georeference process.')
-        raise GeoreferenceProcessingError('Something went wrong while trying to process a georeference process.')
- 
-    logger.info('Register new georeferenced map into database ...')
-    updateNewGeoreferenceMapInDatabase(mapObj, job, destPath, dbsession)
-
-    if not testing:
-        # push metadata to catalogue
-        logger.debug('Push metadata record for map %s to cataloge service ...'%mapObj.id)
-        insertMetadata(id=mapObj.id,db=dbsession,logger=logger)
-    
-    return str(destPath)
-
-def updateNewGeoreferenceMapInDatabase(mapObj, job, destPath, dbsession):
-    mapObj.georefimage = destPath
-    mapObj.isttransformiert = True
-    
-    # has to be updated
-    layerid = MAPPING_LAYERID[mapObj.maptype]
-    refmapslayer = RefMapLayer.by_id(layerid, mapObj.id, dbsession)
-    if not refmapslayer:
-        refmapslayer = RefMapLayer(layerid=layerid, mapid=mapObj.id)
-        dbsession.add(refmapslayer)
-    
-    # update process
-    job.processed = True
-    job.isactive = True
-    dbsession.flush()
+        @param vkviewer.python.models.messtischblatt.AdminJobs: georefProcess
+        @param sqlalchemy.orm.session.Session: dbsession
+        @param logging.Logger: logger
+        @param boolean: testing (Default: False)
+    """ 
+    logger.info('Run georeference process with type "new" with id %s ...'%georefProcess.id)
+    mapObj = Map.by_id(georefProcess.mapid, dbsession)
+    logger.info('Activate new georeference processes ...')
+    activate(georefProcess, mapObj, dbsession, logger)    
     
     

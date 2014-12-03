@@ -6,7 +6,6 @@ from vkviewer import log
 from vkviewer.python.utils.exceptions import GENERAL_ERROR_MESSAGE
 from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.Users import Users
-from vkviewer.python.models.messtischblatt.Utils import getCountOfPublishedMaps, getCountOfGeorefMaps
 
 @view_config(route_name='welcome', renderer='welcome.mako', permission='view',http_cache=0)
 def getWelcomePage(request):  
