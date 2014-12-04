@@ -8,7 +8,7 @@
 			<div class="panel-body">
 				<p class="contant-message" id="contant-message">${_('contact_header_text')}</p><br>
 				<div id="contact-form-validation-message" class="alert validation-error" style="display:none;"></div>
-				<form role="form" onsubmit="return validateForm()">
+				<form id="contact-form" role="form" onsubmit="return vk2.validation.validateContactForm()" href="${request.route_url('report', action='contact')}">
 					<div class="form-group">
 						<label for="contactMessage">Email:</label>
 						<input type="text" class="form-control" name="email" placeholder="Email" autocomplete="on" id="input-email" autofocus></input>
@@ -27,30 +27,4 @@
 	</div>
 </%block>
 
-<%block name="js_content">
-    <script>
-    	var validateForm = function(){
-    		var email = document.getElementById('input-email').value;
-			var message = document.getElementById('input-message').value;
-			var actual_url = window.location.href ? window.location.href : document.URL;
-			
-			// check email adress
-			var isValide = true;
-			isValide = isValide && vk2.validation.checkEmailAdress('input-email', 'contact-form-validation-message', 'alert-danger');
-			if (!isValide){
-				$('#contact-form-validation-message').show();
-				return isValide;
-			}
-			$('#contact-form-validation-message').hide();
-			
-			// build request
-			var url = '${request.route_url('report', action='contact')}' + '?message=' + message + '&email=' + email + '&reference=' + actual_url;
-			var success_callback = function(xhrio){alert(vk2.utils.getMsg('send_con_message_suc'));};
-			var error_callback = function(xhrio){alert(vk2.utils.getMsg('send_con_message_err'));};
-			vk2.utils.sendReport(url, success_callback, error_callback);
-			
-			return false;
-    	}
-    </script> 
-</%block>
 

@@ -314,6 +314,34 @@ vk2.validation.checkEmailAdress = function( elementId, failureElementId, failure
 };
 
 /**
+ * @static
+ * @expose
+ */
+vk2.validation.validateContactForm = function(){
+	var url = goog.dom.getElement('contact-form').getAttribute('href');
+	var email = goog.dom.getElement('input-email').value;
+	var message = goog.dom.getElement('input-message').value;
+	var actual_url = window.location.href ? window.location.href : document.URL;
+	
+	// check email adress
+	var isValide = true;
+	isValide = isValide && vk2.validation.checkEmailAdress('input-email', 'contact-form-validation-message', 'alert-danger');
+	if (!isValide){
+		$('#contact-form-validation-message').show();
+		return isValide;
+	}
+	$('#contact-form-validation-message').hide();
+	
+	// build request
+	var url = url + '?message=' + message + '&email=' + email + '&reference=' + actual_url;
+	var success_callback = function(xhrio){alert(vk2.utils.getMsg('send_con_message_suc'));};
+	var error_callback = function(xhrio){alert(vk2.utils.getMsg('send_con_message_err'));};
+	vk2.utils.sendReport(url, success_callback, error_callback);
+	
+	return false;
+};
+
+/**
  * @expose
  * Functions for the login screen (login_screen.mako)
  */
