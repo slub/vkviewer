@@ -8,12 +8,12 @@
 	position: relative;
 	margin: 2px -2px;
 	float: left;
-	background: transparent url('../../../images/clockBtnStatic.gif') no-repeat 0 0;
+	background: transparent url('/vkviewer/static/images/clockBtnStatic.gif') no-repeat 0 0;
 	opacity: 0.5;
 	cursor: pointer;
 }
 
-.dyn-vis-control.play .open-dyn-vis { background: transparent url('../../../images/clockBtnAnimated.gif') no-repeat 0 0; opacity: 1; }
+.dyn-vis-control.play .open-dyn-vis { background: transparent url('/vkviewer/static/images/clockBtnAnimated.gif') no-repeat 0 0; opacity: 1; }
 
 .dyn-vis-control .open-dyn-vis:hover { opacity: 0.8; }
 

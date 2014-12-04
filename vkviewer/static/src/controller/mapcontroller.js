@@ -64,14 +64,14 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 	 */
 	this.map_ = new ol.Map({
 		'layers': [
-//		   new ol.layer.Tile({
-//			 //  preload: Infinity,
-//			   source: new ol.source.OSM()
-//		   })
-				new ol.layer.Tile({
-					style: 'Road',
-			    	source: new ol.source.MapQuest({layer: 'osm'})
-				})
+		   new ol.layer.Tile({
+			 //  preload: Infinity,
+			   source: new ol.source.OSM()
+		   })
+//				new ol.layer.Tile({
+//					style: 'Road',
+//			    	source: new ol.source.MapQuest({layer: 'osm'})
+//				})
 		],
 		'renderer': 'canvas',
 		'target': map_container,
