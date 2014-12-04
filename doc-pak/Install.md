@@ -22,7 +22,7 @@ Than we install pyramid together with the needed python libraries.
 
 After that we manually add the gdal and mapscript bindings.apt-g
 
-    	ln -s /usr/lib/python2.7/dist-packages/gdal* ./python_env/lib/python2.7/site-packages/ 
+    ln -s /usr/lib/python2.7/dist-packages/gdal* ./python_env/lib/python2.7/site-packages/ 
 	ln -s /usr/lib/python2.7/dist-packages/MapScript-6.0.1.egg-info ./python_env/lib/python2.7/site-packages/ 
 	ln -s /usr/lib/python2.7/dist-packages/GDAL-1.9.0.egg-info ./python_env/lib/python2.7/site-packages/
 	ln -s /usr/lib/python2.7/dist-packages/mapscript.py* ./python_env/lib/python2.7/site-packages/ 
