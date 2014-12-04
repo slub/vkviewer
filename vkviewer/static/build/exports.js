@@ -45,3 +45,8 @@ goog.exportSymbol('vk2.validation', vk2.validation);
 goog.exportProperty(vk2.validation, 'validateLoginForm', vk2.validation.validateLoginForm);
 goog.exportProperty(vk2.validation, 'validateRegisterNewUser', vk2.validation.validateRegisterNewUser);
 goog.exportProperty(vk2.validation, 'resetPasswordForm', vk2.validation.resetPasswordForm);
+goog.exportProperty(vk2.validation, 'checkEmailAdress', vk2.validation.checkEmailAdress);
+goog.exportSymbol('vk2.utils', vk2.utils);
+goog.exportProperty(vk2.utils, 'setCookie', vk2.utils.setCookie);
+goog.exportProperty(vk2.utils, 'getMsg', vk2.utils.getMsg);
+goog.exportProperty(vk2.utils, 'sendReport', vk2.utils.sendReport);

@@ -43,7 +43,7 @@ vk2.app.AdminEvaluationApp = function(settings){
 /**
  * @param {string} idEventTrigger
  * @param {string} resultContainer
- * @param {string} opt_param
+ * @param {string=} opt_param
  * @private
  */
 vk2.app.AdminEvaluationApp.prototype.addFetchProcessEvent_ = function(idEventTrigger, resultContainer, opt_param){
@@ -280,7 +280,7 @@ vk2.app.AdminEvaluationApp.prototype.initializeEvaluationMap_ = function(idMapCo
 /**
  * @param {Element} element
  * @param {Element} parentEl
- * @parma {string} title
+ * @param {string} title
  * @param {string} msg
  * @private
  */

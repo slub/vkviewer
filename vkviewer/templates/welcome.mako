@@ -5,9 +5,6 @@
 	<style>
 		.vk2WelcomePageBody .vk2GeoreferenceProgressText .content:after { left: ${georef_rel}%; }
 	</style>
-	<script>
-		goog.require('vk2.utils');
-	</script>
 </%block>
 
 <%block name="body_content">

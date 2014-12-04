@@ -155,7 +155,7 @@ vk2.utils.Modal.prototype._registerRemoteSrc = function(remote_src){
 	
 	var iframe = goog.dom.createDom('iframe',{
 		'frameborder':'0',
-		'src':remote_src.href
+		'src':remote_src['href']
 	});
 	
 	// set attributes for allowing fullscreen behavior of ol3
@@ -163,14 +163,14 @@ vk2.utils.Modal.prototype._registerRemoteSrc = function(remote_src){
 	iframe.setAttribute('mozallowfullscreen',''); // @deprecated
 	iframe.setAttribute('allowfullscreen','');
 	
-	if (goog.isDef(remote_src.width))
-		goog.style.setStyle(iframe, 'width',remote_src.width);
+	if (goog.isDef(remote_src['width']))
+		goog.style.setStyle(iframe, 'width',remote_src['width']);
 	
-	if (goog.isDef(remote_src.height))
-		goog.style.setStyle(iframe, 'height',remote_src.height);
+	if (goog.isDef(remote_src['height']))
+		goog.style.setStyle(iframe, 'height',remote_src['height']);
 	
-	if (goog.isDef(remote_src.classes))
-		goog.dom.classes.add(iframe, remote_src.classes);
+	if (goog.isDef(remote_src['classes']))
+		goog.dom.classes.add(iframe, remote_src['classes']);
 		
 	goog.dom.appendChild(modal_body, iframe);
 };
