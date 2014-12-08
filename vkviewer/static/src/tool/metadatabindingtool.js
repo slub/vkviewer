@@ -248,7 +248,8 @@ vk2.tool.MetadataBinding.prototype._setResolution = function(container, label_na
  * @private
  */
 vk2.tool.MetadataBinding.prototype._setUniqueId = function(container, dataset_id){
-	var span = goog.dom.createDom('span', {'class':'unique-id','innerHTML':vk2.utils.getMsg('mdrecord_uniqueid') + ' | ' + dataset_id});
+	var span = goog.dom.createDom('span', {'class':'unique-id metadata-content-row','innerHTML':
+		'<div class="label">' + vk2.utils.getMsg('mdrecord_uniqueid') + '</div><div>' + dataset_id + '</div>'});
 	goog.dom.appendChild(container, span);
 };
 

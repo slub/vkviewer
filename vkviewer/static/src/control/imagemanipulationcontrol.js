@@ -177,7 +177,8 @@ vk2.control.ImageManipulation.prototype.initializeSliderContainer_ = function(pa
 	// button for reset to default state
 	var resetBtn = goog.dom.createDom('button', {
 		'class':'reset-btn',
-		'title': vk2.utils.getMsg('reset')
+		'title': vk2.utils.getMsg('reset'),
+		'innerHTML': 'Reset'
 	});
 	goog.dom.appendChild(sliderContainer, resetBtn);
 	 
