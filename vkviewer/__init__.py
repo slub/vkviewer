@@ -96,6 +96,10 @@ def addRoutes(config):
     # permalink page
     config.add_route('permalink', ROUTE_PREFIX+'/permalink')
     config.add_route('permalinkv2', ROUTE_PREFIX+'/permalinkv2')
+    
+    # upload services routes
+    config.add_route('upload', ROUTE_PREFIX + '/upload/{action}')
+    config.add_route('upload-profile', ROUTE_PREFIX + '/profile/upload')
  
 def db(request):
     return request.registry.dbmaker()   

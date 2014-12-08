@@ -39,7 +39,11 @@
 							              		<li class="listelement">
 													<a href="${request.route_url('evaluation-georeference', action='evaluation')}" data-src="${request.route_url('evaluation-georeference', action='evaluation')}" data-classes="admin-evaluation" 
 													  		data-title="">Evaluierung</a>
-												</li> 
+												</li>
+												<li><a href="${request.route_url('upload', action='form')}" data-src="${request.route_url('upload', action='form')}" data-classes="upload" 
+													class="vk2-modal-anchor" data-title="Karten-Upload">Karten-Upload</a></li>
+								        		<li><a href="${request.route_url('upload-profile')}" data-src="${request.route_url('upload-profile')}" data-classes="upload-profile" 
+													class="vk2-modal-anchor" data-title="">Meine Karten</a></li>
 											% endif 
 											
 							                <li class="divider"></li>
