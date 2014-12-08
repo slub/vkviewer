@@ -1,13 +1,6 @@
 <%inherit file="basic_page.mako" />
 
 <%block name="header_content">
-    <link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/vk2/single/georeference_profile.css')}" />	
-    <link rel="stylesheet" href="${request.static_url('vkviewer:static/lib/css/bootstrap.min.css')}">		
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/jquery-ui-custom.min.css')}" media="screen" />
-	<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
-	<script>
-	    goog.require('vk2.utils.AppLoader');
-	</script>
 	<style>
 		body { overflow: initial; }
 		.container { margin: 30px auto 60px auto; }
@@ -47,10 +40,10 @@
     					<div class="media">
     						<a class="pull-right" href="${request.route_url('profile-map')}?objectid=${record['upload_mapid']}">
     						
-    							% if 'upload_id' in record:
-					 				<img onerror="this.onerror=null;this.src='Dresden.jpg'" alt="hochgeladene Karte" src="Dresden.jpg'"></a>
+    							% if 'thumbnail' in record:
+					 				<img onerror="this.onerror=null;this.src='/vkviewer/static/images/layer_default.png'" alt="hochgeladene Karte" src="${record['thumbnail']}"></a>
 					 			% else:
-					 				<img onerror="this.onerror=null;this.src='thumbnail.png'" alt="" src="F:\workspace\maps\1f98a39f-9a6f-42f0-aea3-ebb7e28c3d23.jpeg">
+					 				<img alt="" src="/vkviewer/static/images/layer_default.png">
 					 			% endif
 					 		</a>
 					 		

@@ -13,7 +13,7 @@ from vkviewer import log
 
 # query for getting all upload-maps from a special user
 upload_profile_query = 'SELECT uploads.id as upload_id, uploads.mapid as upload_mapid, map.originalimage as imagepath, uploads.time as upload_time, \
-metadata.title as title, metadata.timepublish as time, metadata.imagelicence as licence \
+metadata.title as title, metadata.timepublish as time, metadata.imagelicence as licence, metadata.thumbsmid as thumbnail \
 FROM uploads, map, metadata WHERE uploads.userid = \'%s\' AND uploads.mapid = map.id AND uploads.mapid = metadata.mapid ORDER BY upload_time'
 
 
@@ -37,7 +37,7 @@ def getUploadProfilePage(request):
         for record in resultSet:
             upload_profile.append({'upload_id':record['upload_id'], 'upload_mapid':record['upload_mapid'], 
                     'time': record['time'], 'licence': record['licence'], 'title': record['title'],
-                    'upload_time':record['upload_time'], 'imagepath':record['imagepath']})  
+                    'upload_time':record['upload_time'], 'imagepath':record['imagepath'], 'thumbnail': record['thumbnail']})  
                    
         log.debug('Response: %s'%upload_profile)   
             

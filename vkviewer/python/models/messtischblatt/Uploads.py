@@ -8,8 +8,9 @@ class Uploads(Base):
     __table_args__ = {'extend_existing':True}
     id = Column(Integer, primary_key=True)
     time = Column(DateTime(timezone=False))
-    userid = Column(String(255)) 
-    mapid = Column(String(255)) 
+    userid = Column(Integer) 
+    mapid = Column(Integer) 
+    params = Column(String(255))
  
     @classmethod
     def all(cls, session):

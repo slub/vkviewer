@@ -64,7 +64,7 @@ goog.inherits(vk2.viewer.ZoomifyViewer, goog.events.EventTarget);
  * @param {string} renderer
  */
 vk2.viewer.ZoomifyViewer.prototype.initialize_ = function(url, height, width, containerEl, renderer){
-
+	
 	/**
 	 * @type {number}
 	 * @private
@@ -76,7 +76,7 @@ vk2.viewer.ZoomifyViewer.prototype.initialize_ = function(url, height, width, co
 	 * @private
 	 */
 	this._width = width;
-			
+	
 	//var imgCenter = [width / 2, - height / 2];
 	//var extent = [0, 0, width, height];
 	

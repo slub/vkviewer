@@ -22,6 +22,8 @@ class Metadata(Base):
     imagezoomify = Column(String(255))
     timepublish = Column(DateTime(timezone=False))
     blattnr = Column(String(10))
+    thumbssmall = Column(String(255))
+    thumbsmid = Column(String(255))
     
     @classmethod
     def by_id(cls, id, session):

@@ -1,40 +1,27 @@
 import os
-import cgi
 import uuid
-import datetime
-from pyramid.response import Response
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPNotFound, HTTPBadRequest, HTTPFound
-from pyramid.security import remember
-from sqlalchemy import func
+from pyramid.httpexceptions import HTTPBadRequest, HTTPInternalServerError, HTTPFound
 from sqlalchemy.exc import DBAPIError
-# from werkzeug import secure_filename
-from vkviewer.settings import ALLOWED_EXTENSIONS, UPLOAD_DIR
+
+from vkviewer import log 
+from vkviewer.settings import ALLOWED_EXTENSIONS, UPLOAD_DIR, UPLOAD_THUMBS_SMALL_DIR, UPLOAD_THUMBS_MID_DIR, \
+    UPLOAD_ZOOMIFY_DIR, UPLOAD_SERVICE_URL_ZOOMIFY, UPLOAD_SERVICE_URL_THUMBS_SMALL, UPLOAD_SERVICE_URL_THUMBS_MID
 from vkviewer.python.models.messtischblatt.Uploads import Uploads
 from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.Metadata import Metadata
 from vkviewer.python.models.messtischblatt.Users import Users
-from vkviewer.python.models.messtischblatt.Geometry import Geometry
-# from vkviewer.python.utils import saveImage
 from vkviewer.python.georef.utils import getTimestampAsPGStr
-from vkviewer.python.georef.geometry import BoundingBox
+from vkviewer.python.utils.imagetool import createSmallThumbnail, createMidThumbnail
 from vkviewer.python.utils.exceptions import NotFoundException
 from vkviewer.python.utils.exceptions import MissingQueryParameterError, WrongParameterException, GENERAL_ERROR_MESSAGE
 from vkviewer.python.tools import checkIsUser
-from vkviewer import log
-import json
-import transaction
+from vkviewer.python.script.CreateZoomifyTiles import processZoomifyTiles
 
-ERROR_MSG = "Please check the syntax of your request parameters or contact the administrator."        
-
-# check Dateiendung
-def allowed_file(filename):
-    response = '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-    return response
 
 """ 
     @TODO Return a json reponse instead of an redirect
+    @TODO check if correct metadata is send at the beginning / validation
 """
 @view_config(route_name='upload', renderer='string', permission='moderator', match_param='action=push', request_method='POST')
 def store_image(request):
@@ -43,70 +30,66 @@ def store_image(request):
         username = checkIsUser(request)
         user = Users.by_username(username, request.db)
 
-        # ``filename`` contains the name of the file in string format.
-        filename = request.POST['file'].filename
+        # check if need metadata is send
+        log.debug('Check if mandatory metadata is send ...')
+        params = request.params
+        if not 'title' in params or not 'titleshort' in params or \
+                not 'imagelicence' in params or not 'imageowner' in params:
+            raise MissingQueryParameterError('Missing query parameter ...')
+        
+        # register upload process in database
+        log.debug('Register upload process to database ...')
+        uploadObj = Uploads(userid = user.id, time = getTimestampAsPGStr(), params = '%s'%request.params)
+        request.db.add(uploadObj)
+        
+        log.debug('Create and add mapObj ...')
+        mapObj = Map(istaktiv = False, isttransformiert = False, maptype = 'A', hasgeorefparams = 0)
+        request.db.add(mapObj)
+        request.db.flush()
         
         # check if image allowed extensions
-        if allowed_file(filename):
+        # ``filename`` contains the name of the file in string format.
+        log.debug('Create filename for persistent saving ...')
+        filename = request.POST['file'].filename
+        if not allowed_file(filename):
+            raise WrongParameterException('Format of the image is not supported through the upload API.')
+            
+        
         # ``input_file`` contains the actual file data which needs to be
         # stored somewhere.
-    
-            input_file = request.POST['file'].file
+        inputFile = request.POST['file'].file
     
         # Note that we are generating our own filename instead of trusting
         # the incoming filename since that might result in insecure paths.
         # Please note that in a real application you would not use /tmp,
         # and if you write to an untrusted location you will need to do
-        # some extra work to prevent symlink attacks.
+        # some extra work to prevent symlink attacks.    
+        newFilename = '%s.%s' % ('df_dk_%s'%mapObj.id, filename.rsplit('.', 1)[1])
+        filePath = os.path.join(UPLOAD_DIR, newFilename)
     
-            file_path = os.path.join(UPLOAD_DIR, '%s.jpeg' % uuid.uuid4()) # os.path.join fuegt die uebergebenen Pfadangaben zu einem einzigen Pfad zusammen, indem sie verkettet werden
-    
-        # We first write to a temporary file to prevent incomplete files from
-        # being used.
-    
-            temp_file_path = file_path + '~'
-            output_file = open(temp_file_path, 'wb') 
-            
-        # um eine Datei zu lesen oder schreiben open(filename[,mode]) w- write, b-binaerDaten
-    
-        # Finally write the data to a temporary file
-            input_file.seek(0)
-            while True:
-                data = input_file.read()
-                if not data:
-                    break
-                output_file.write(data)
-    
-        # If your data is really critical you may want to force it to disk first
-        # using output_file.flush(); os.fsync(output_file.fileno())
-    
-            output_file.close()
-    
-        # Now that we know the file has been fully saved to disk move it into place.
-    
-            os.rename(temp_file_path, file_path)
-            
-        # BoundingBox
-            if 'minlon' in request.params:
-                lowX = request.params['minlon']
-            if 'minlat' in request.params:
-                lowY = request.params['minlat']        
-            if 'maxlon' in request.params:
-                highX = request.params['maxlon']
-            if 'maxlat' in request.params:
-                highY = request.params['maxlat']
-            if 'epsg' in request.params:
-                epsg = request.params['epsg']
-            
-            # newbbox = BoundingBox(lowX, lowY, highX, highY, epsg)
-            # bbox = newbbox.getCornerPointsAsList()
-            uploadedMap = Map(apsdateiname = filename, originalimage = file_path, istaktiv = False, isttransformiert = False)
-            request.db.add(uploadedMap)
-            request.db.flush()
-            Map.updateGeometry(uploadedMap.id, "POLYGON((%s %s, %s %s, %s %s, %s %s, %s %s))"%(lowX, lowY, lowX, highY, highX, highY, highX, lowY, lowX, lowY), request.db)        
-            request.db.flush()
+        # save file to disk
+        log.debug('Save file to datastore ...')
+        saveFile(inputFile, filePath)
         
-        # read upload request
+        # process thumbnails
+        log.debug('Create thumbnails ...')
+        thumbSmall = createSmallThumbnail(filePath, UPLOAD_THUMBS_SMALL_DIR)
+        thumbMid = createMidThumbnail(filePath, UPLOAD_THUMBS_MID_DIR)   
+        log.debug('Create zoomify tiles')    
+        zoomifyTiles = processZoomifyTiles(filePath, UPLOAD_ZOOMIFY_DIR, log)
+        
+        # parse boundinbBox
+        pgBoundingBoxStr = parseBoundingBoxFromRequest(request.params)
+            
+        # add geometry to map object and update other attributes
+        # work around --> should be replaced through adding the geomtry on initial adding
+        log.debug('Update mapObj and create metadataObj ...')
+        mapObj.apsdateiname = newFilename
+        mapObj.originalimage = filePath
+        Map.updateGeometry(mapObj.id, pgBoundingBoxStr, request.db)        
+        request.db.flush()
+        
+        # parse and create metadataObj
         if 'title' in request.params:
             title = request.params['title']
         if 'titleshort' in request.params:
@@ -123,165 +106,96 @@ def store_image(request):
             scale = request.params['scale']
         if 'imageowner' in request.params:
             imageowner = request.params['imageowner']
-
-        # check if the input parameters are valide
-        log.debug('Validate the query parameters ...')
-        if not title or not titleshort or not imagelicence or not imageowner:
-            raise Exception('Missing query parameter ...')
-        if len(title) <= 3:
-            raise Exception('Title is to short.')
-            
+           
         # create metadata obj 
-        newMetadata = Metadata(mapid = uploadedMap.id, title = title, titleshort = titleshort, serientitle = serientitle, description = description,
-                                         timepublish = "%s-01-01 00:00:00"%(timepublish), imagelicence = imagelicence, imageowner = imageowner, scale = scale)
-        # add metadata obj to database
-        request.db.add(newMetadata)
+        # the creating of the paths are right now quite verbose
+        imagezoomify = UPLOAD_SERVICE_URL_ZOOMIFY + os.path.basename(filePath).split('.')[0] + '/ImageProperties.xml' 
+        thumbssmall = UPLOAD_SERVICE_URL_THUMBS_SMALL + os.path.basename(thumbSmall)
+        thumbsmid = UPLOAD_SERVICE_URL_THUMBS_MID + os.path.basename(thumbMid)
+        metadataObj = Metadata(mapid = mapObj.id, title = title, titleshort = titleshort, 
+                serientitle = serientitle, description = description, timepublish = "%s-01-01 00:00:00"%(timepublish), 
+                imagelicence = imagelicence, imageowner = imageowner, scale = scale,
+                imagezoomify = imagezoomify,
+                thumbssmall = thumbssmall,
+                thumbsmid = thumbsmid)
+        request.db.add(metadataObj)
         
-        # create uplaodObject
-        uploads = Uploads(userid = user.id, time = getTimestampAsPGStr(), mapid = uploadedMap.id)
-        request.db.add(uploads)
-          
+        # update uploadObj and create response
+        uploadObj.mapid = mapObj.id
+        
+        log.debug('Create response ...')
         target_url = request.route_url('upload-profile')
-        return HTTPFound(location = target_url)       
+        return HTTPFound(location = target_url)  
+    
+    # Exception handling     
     except NotFoundException as e:
-        log.error(e)
-        # raise HTTPNotFound(ERROR_MSG)
+        log.exception(e)
         ERR_MSG = GENERAL_ERROR_MESSAGE + "We're sorry, but something went wrong. Please be sure that your file respects the upload conditions."
-        return HTTPNotFound(ERR_MSG, content_type='text/plain', status_int=500)
-    except DBAPIError:
-        raise
-        log.error('Problems while trying to register report uploadprocess in database')
-        return HTTPBadRequest(GENERAL_ERROR_MESSAGE, content_type='text/plain', status_int=500)
-    except Exception:
-        log.error('Unknown error while trying to process an upload request ...')
-        return HTTPBadRequest(GENERAL_ERROR_MESSAGE, content_type='text/plain', status_int=500)
+        return HTTPBadRequest(ERR_MSG)
+    except DBAPIError as e:
+        log.error('Database error within a upload process')
+        log.exception(e)
+        return HTTPInternalServerError(GENERAL_ERROR_MESSAGE)
+    except MissingQueryParameterError or WrongParameterException as e:
+        log.exception(e)
+        raise HTTPBadRequest(GENERAL_ERROR_MESSAGE)
     except Exception as e:
-        log.error(e)
-        raise HTTPBadRequest(ERROR_MSG)
+        log.exception(e)
+        raise HTTPInternalServerError(GENERAL_ERROR_MESSAGE)
 
-
-
-'''def upload_file(request):
-        if request.method == 'POST':
-            input_file = request.params['file']
-            if input_file and allowed_file(input_file.filename):
-                filename = input_file.filename
-                input_file.save(os.path.join('E:\workspace', filename))'''
-
-
-'''def pushUploadData(request):
-    try:
-        log.info('Receive a upload request.')
-        # userid = checkIsUser(request)
-        # user = Users.by_username(userid, request.db)
-        if request.method == 'POST':
-            # log into database
-            dbsession = request.db
-            # create uplaodObject
-            # uploads = Uploads(userid = user.login, time = getTimestampAsPGStr())
-            # dbsession.add(uploads)
-               
-            # request image
-            input_file = request.params['file']
-            filename = input_file.filename
-            # check if image allowed extensions
-            allowed = allowed_file(filename)
-        if allowed:
-            # filename = secure_filename(filename)
-    
-            # parse path
-            originalimagepath = os.path.join('E:\workspace', filename) # os.path.join fuegt die uebergebenen Pfadangaben zu einem einzigen Pfad zusammen, indem sie verkettet werden
-            # output_file = open(originalimagepath, 'wb')
-            # save image
-            data = input_file.read()
-            output_file = open(originalimagepath, 'wb')
-            output_file.write(data)
-            # path = saveImage(dateipfad)
-            # create map object
-            # uploadedMap = Map(apsfilename = filename, originalimage = originalimagepath)
-            # add map object to db
-            dbsession.add(Map)
-            
-
-            # dbsession.add(uploads)
-            # request.db.flush()
-            dbsession.flush()
-            # mapid = mapObj.id
-            
-    
-    # 
-
-            # read upload request
-        try:
-            log.info('Receive get upload push request.')
-            if 'title' in request.params:
-                title = request.params['title']
-            if 'titleshort' in request.params:
-                titleshort = request.params['titleshort']    
-            if 'serientitle' in request.params:
-                serientitle = request.params['serientitle'] 
-            if 'description' in request.params:
-                description = request.params['description']  
-            if 'timepublish' in request.params:
-                timepublish = request.params['timepublish']                         
-            if 'imagelicence' in request.params:
-                imagelicence = request.params['imagelicence']
-            if 'scale' in request.params:
-                scale = request.params['scale']
-            if 'imageowner' in request.params:
-                imageowner = request.params['imageowner']    
-
-            # check if the input parameters are valide
-            log.debug('Validate the query parameters ...')
-            if not title or not titleshort or not imagelicence or not imageowner:
-                raise Exception('Missing query parameter ...')
-            if len(title) <= 3:
-                raise Exception('Title is to short.')
-            
-            # create metadata obj 
-            uploadMetadata = Metadata(title = title, titleshort = titleshort, serientitle = serientitle, description = description,
-                                         timepublish = timepublish, imagelicence = imagelicence, imageowner = imageowner, scale = scale)
-            # add metadata obj to database
-            dbsession.add(uploadMetadata)
-            
-            # request.db.commit()
-            # create response (json, mako)
    
+def allowed_file(filename):
+    """ Checks if the ending of an image file is within an allowed set of extensions.
     
-        
-            # log.debug('Save uploads in the database ...')
-            return {'url':'push'}
-        except NotFoundException as e:
-            log.error(e)
-            raise HTTPNotFound(ERROR_MSG)
-    except Exception as e:
-        log.error(e)
-        raise HTTPBadRequest(ERROR_MSG)'''
- 
-    
-# def save_uploadedImage(request):
-#     if request.method == 'POST':
-#         input_file = request.params['file']
-#         filename = input_file.filename
-#         allowed = allowed_file(filename)
-#         if allowed:
-#             newfilename = secure_filename(filename)
-#             # mapobject = Mapfile(filename=filename, user=userid)
-#         
-#             # os.path.join fuegt die uebergebenen Pfadangaben zu einem einzigen Pfad zusammen, indem sie verkettet werden
-#             file_path = input_file(os.path.join('E:\workspace', newfilename), 'wb')
-#             
-#             temp_file_path = file_path + '~'
-#             output_file = open(file_path, 'wb')
-#             imagedata = read(output_file)
-#             output_file.write(imagedata)
-#             #   data = input_file.read(2<<16) 
-#             #   if not data:
-#             #       break
-#             #    output_file.write(data)
-#             
-#             #output_file.close()
-#             os.rename(temp_file_path, file_path)
-#     
-#         return Response('ok')
+    @param String: filename
+    @return Boolean
+    """
+    if '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS:
+        return True
+    return False
 
+def parseBoundingBoxFromRequest(params):
+    """ Parse the boundingbox parameter from the request and returns then in the form of an 
+        POSTGIS geometry string.
+        
+    @param webob.multidict.NestedMultiDict: params
+    @return String 
+    """ 
+    if 'minlon' in params:
+        lowX = params['minlon']
+    if 'minlat' in params:
+        lowY = params['minlat']        
+    if 'maxlon' in params:
+        highX = params['maxlon']
+    if 'maxlat' in params:
+        highY = params['maxlat']
+    if 'epsg' in params:
+        epsg = params['epsg']
+    return "POLYGON((%s %s, %s %s, %s %s, %s %s, %s %s))"%(lowX, lowY, lowX, highY, highX, highY, highX, lowY, lowX, lowY)
+
+def saveFile(inputFile, filePath):
+    """ Method saves a given file to disk 
+    
+    @param cgi.FieldStorage: inputFile
+    @param String: filePath Path to which the file should be wrote
+    """
+    # We first write to a temporary file to prevent incomplete files from
+    # being used.
+    temp_file_path = filePath + '~'
+    # um eine Datei zu lesen oder schreiben open(filename[,mode]) w- write, b-binaerDaten
+    output_file = open(temp_file_path, 'wb') 
+    
+    # Finally write the data to a temporary file
+    inputFile.seek(0)
+    while True:
+        data = inputFile.read()
+        if not data:
+            break
+        output_file.write(data)
+        
+    # If your data is really critical you may want to force it to disk first
+    # using output_file.flush(); os.fsync(output_file.fileno())  
+    output_file.close()
+        
+    # Now that we know the file has been fully saved to disk move it into place.
+    os.rename(temp_file_path, filePath)
