@@ -38,7 +38,7 @@
 					
     				<article id="${record['upload_id']}" class="">
     					<div class="media">
-    						<a class="pull-right" href="${request.route_url('profile-map')}?objectid=${record['upload_mapid']}">
+    						<a class="pull-right" href="${request.route_url('profile-map')}?objectid=${record['upload_mapid']}" target="_blank">
     						
     							% if 'thumbnail' in record:
 					 				<img onerror="this.onerror=null;this.src='/vkviewer/static/images/layer_default.png'" alt="hochgeladene Karte" src="${record['thumbnail']}"></a>

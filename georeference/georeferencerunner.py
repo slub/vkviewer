@@ -3,12 +3,18 @@ Created on Sep 23, 2014
 
 @author: mendt
 '''
-import time, os, logging
+import time, os, logging, sys
 from logging.handlers import TimedRotatingFileHandler
-from lockfile import LockTimeout
 from daemon import runner 
-from vkviewer.python.utils.logger import createLogger, getLoggerFileHandler
 
+BASE_PATH = os.path.dirname(os.path.realpath(__file__))
+BASE_PATH_PARENT = os.path.abspath(os.path.join(BASE_PATH, os.pardir))
+ROOT_PATH = os.path.abspath(os.path.join(os.path.abspath(os.path.join(BASE_PATH_PARENT, os.pardir)), os.pardir))
+sys.path.insert(0, BASE_PATH)
+sys.path.append(BASE_PATH_PARENT)
+sys.path.append(ROOT_PATH)
+
+from vkviewer.python.utils.logger import createLogger
 from georeference.settings import DAEMON_SETTINGS, LOGGER_NAME, LOGGER_FILE, LOGGER_LEVEL, LOGGER_FORMATTER, DBCONFIG_PARAMS
 from georeference.georeferenceupdate import lookForUpdateProcess
 from georeference.utils.tools import loadDbSession

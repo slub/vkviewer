@@ -18,7 +18,7 @@ For creating the virtual envrionment the tool `virtualenv` (could be install tho
 
 Than we install pyramid together with the needed python libraries.
 
-	./python_env/bin/easy_install pyramid pyramid_mako SQLAlchemy==0.8.3 psycopg2 WebHelpers pyramid_tm waitress Babel lingua PIL requests
+	./python_env/bin/easy_install pyramid pyramid_mako SQLAlchemy==0.8.3 psycopg2 WebHelpers pyramid_tm waitress Babel lingua PIL requests python-daemon
 
 After that we manually add the gdal and mapscript bindings.apt-g
 

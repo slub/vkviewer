@@ -10,7 +10,7 @@
         <title>Virtuelles Kartenforum 2.0 Upload Form</title>
 
 		<!-- for development -->
-		<link rel="stylesheet" href="${request.static_url('vkviewer:static/lib/css/bootstrap.min.css')}">		
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	 		
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/lib/css/jquery-ui-custom.min.css')}" media="screen" />
 		<link rel="stylesheet" type="text/css" href="${request.static_url('vkviewer:static/css/styles.css')}" />
 		<style>
@@ -32,15 +32,9 @@
     		#bbox_adjust_instruction { height:1.5em; display:none;  }
 		</style>
 		<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-		<script src="${request.static_url('vkviewer:static/lib/jquery.min.js')}"></script>
-		<script src="${request.static_url('vkviewer:static/lib/bootstrap.min.js')}"></script>	
-	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/base.js')}"></script>
-	    <script src="${request.static_url('vkviewer:static/lib/closure-library/closure/goog/deps.js')}"></script>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	    <script src="http://svn.osgeo.org/metacrs/proj4js/trunk/lib/proj4js-combined.js"></script>
-	    <script>
-	    	goog.require('goog.dom');
-	    	goog.require('goog.events');
-	    </script>
 	    <script>
 	    	var vectors;
 		    var box;
