@@ -1,26 +1,29 @@
 # Install instruction for the vkviewer application
 
-The vkviewer uses the Pyramid-Webframework, which is based on Python, a PostgreSQL database and for the georeferencing client a mapserver and gdal. The easiest way for installing the necessary libraries is the creating of python virtual environment.
+Actual the vkviewer project contains two parts. On part is the portal application. The portal application is mainly based on the <a href="http://www.pylonsproject.org/">python pyramid webframework </a> and uses a <a href="http://www.postgresql.org/">PostgreSQL / PostGIS</a> database as database backend. The portal application contains `python` and `javascript` code for searching, displaying and georeferencing historic plane survey sheets. Next to the portal application the georeference directory contains a georeferencedaemon. This daemon has it own setting files and could be run on a seperate system. It main task is to update the different data backends of the spatial data infrastructure. Especially to push changes on the georeference data to the services.
 
-## Package dependencies (on a debian system)
+## Installation of the vkviewer portal application (debian)
 
-	* Postgresql 9.1 / PostGis 1.5
-	* libgdal1  1.9 / libgdal1-dev / python-gdal 
+### Package Dependencies
+
+	* postgresql-9.1 (>9.1) / postgis (1.5)
+	* libgdal1  (1.9) / libgdal1-dev / python-gdal 
 	* python-mapscript
 	* python-dev
 	* cgi-mapserver
+	* imagemagick
 
-## Creating of python virtual environment
+### Creating of python virtual environment
 
-For creating the virtual envrionment the tool `virtualenv` (could be install thorugh python-virtualenv) is used. Frist we create the virtual environment.
+For creating the virtual envrionment the tool `virtualenv` (could be install through python-virtualenv) is used. Frist we create the virtual environment.
 
 	virtualenv --no-site-packages python_env
 
 Than we install pyramid together with the needed python libraries.
 
-	./python_env/bin/easy_install pyramid pyramid_mako SQLAlchemy==0.8.3 psycopg2 WebHelpers pyramid_tm waitress Babel lingua PIL requests python-daemon
+	./python_env/bin/easy_install pyramid pyramid_mako SQLAlchemy==0.8.3 psycopg2 WebHelpers pyramid_tm waitress Babel lingua PIL requests lockfile python-daemon
 
-After that we manually add the gdal and mapscript bindings.apt-g
+After that we manually add the gdal and mapscript bindings from the system wide installation.
 
     ln -s /usr/lib/python2.7/dist-packages/gdal* ./python_env/lib/python2.7/site-packages/ 
 	ln -s /usr/lib/python2.7/dist-packages/MapScript-6.0.1.egg-info ./python_env/lib/python2.7/site-packages/ 
@@ -33,18 +36,16 @@ After that we manually add the gdal and mapscript bindings.apt-g
 
 	<900913> +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +over no_defs
 
-## Installation of the application 
+### Installation of the application 
 
 The vkviewer application right now hosts two main parts. One part is the pure web application. The other is a directory of scripts for updating the data backend. Both parts a greping some configuration parameter from the `vkviewer/settings.py`. So before running the application this file has to be configured properbly. 
-
-Important for the script to run are the parameters `TEMPLATE_FILES`, `GN_SETTINGS` and `TEMPLATE_OGC_SERVICE_LINK`. 
 
 Before the application or the scripts could be used the application has to be install, so further dependencies could be download and installed. 
 
 	./python_env/bin/python setup.py install (for production)
 	./python_env/bin/python setup.py develop (for development)
 
-## Install or Update your backend language dictionary
+### Install or Update your backend language dictionary
 
 The backend language dictionary is based on **Babel** and **Lingua**. The language files are found in `vkviewer/locale`. To update the dictionary run the following commands.
 
@@ -65,7 +66,7 @@ At the end compile your dictionaries.
 	./python_env/bin/python setup.py compile_catalog
 
 
-## Run vkviewer as a WSGI application over apache.
+##' Run vkviewer as a WSGI application over apache.
 
 It is possible to run the vkviewer as WSGI application with the apache server. For this mod_wsgi for apache has to be installed. Also you have to first install your application with `setup.py install`.
 
@@ -104,7 +105,9 @@ WSGIScriptAlias /vkviewer ~/vkviewer/pyramid.wsgi
 
 The `python-path` reference to your python interpreter and the `WSGIScriptAlias` defines your server endpoint and your pyramid.wsgi file. For more information see the [pyramid docs](http://docs.pylonsproject.org/projects/pyramid/en/1.0-branch/tutorials/modwsgi/index.html).
 
-## Install mail client
+##' Install mail client
+
+For supporting the sending of contact requests by automatic sending a mail to administrator address install and configure the exim4 email client.
 
 	apt-get install exim4
 	dpkg-reconfigure exim4-config (configure mail client)
