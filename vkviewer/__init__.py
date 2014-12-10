@@ -100,6 +100,7 @@ def addRoutes(config):
     # upload services routes
     config.add_route('upload', ROUTE_PREFIX + '/upload/{action}')
     config.add_route('upload-profile', ROUTE_PREFIX + '/profile/upload')
+    config.add_route('upload-tos', ROUTE_PREFIX + '/tos/upload')
  
 def db(request):
     return request.registry.dbmaker()   

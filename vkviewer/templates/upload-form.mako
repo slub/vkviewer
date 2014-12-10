@@ -156,13 +156,16 @@
 	    
 
     </head>
-<%block name="body_content">
 	<body onload="init();">
 
 	<div class="container">	
 		<div>
 			<h2>Upload Service für Altkarten</h2>
-			<p>Dieser Service ermöglicht es Ihnen, Altkarten hochzuladen und diese anschliessend auf unserer Webseite zu visualisieren und veröffentlichen. </p>
+			<p>
+				Dieser Service ermöglicht es Ihnen, Altkarten hochzuladen und diese anschliessend auf unserer Webseite zu visualisieren und veröffentlichen. 
+				<br><br><input type="checkbox"> Hiermit akzeptiere ich die 
+				<a href="${request.route_url('upload-tos')}" target="_blank">Nutzungsbedingungen</a> des Upload Service.</input>                                       
+			</p>
 				<div class="panel panel-default">
 					<form role="form" action="${request.route_url('upload', action='push')}" method="post" enctype="multipart/form-data" name="uploadForm">				
 						## 	<div class="panel-body">
@@ -180,10 +183,10 @@
   							<div class="form-group">
 								<label for="bbox" class="control-label">Boundingbox: </label>
 								<p id="bbox_result"> </p>
-								<input type="text" id="minlon" name="minlon"/>
-								<input type="text" id="minlat" name="minlat"/>
-								<input type="text" id="maxlon" name="maxlon"/>
-								<input type="text" id="maxlat" name="maxlat"/>
+								<input type="hidden" id="minlon" name="minlon"/>
+								<input type="hidden" id="minlat" name="minlat"/>
+								<input type="hidden" id="maxlon" name="maxlon"/>
+								<input type="hidden" id="maxlat" name="maxlat"/>
 								<input type="hidden" id="epsg" name="epsg" value="4314"/>
 							</div>
     						
@@ -216,7 +219,6 @@
 									<label class="col-sm-3 control-label" value="">Kategorie </label>
 									<div class="col-sm-9">
 										<select id="kategorie" name="kategorie" class="form-control" required>
-											<option value="">bitte auswählen</option>
 											<option value="Altkarte">Altkarte</option>
 											<option value="Stadtplan">Stadtplan</option>
 											<option value="Ortsansicht">Ortsansicht</option>
@@ -229,7 +231,7 @@
 									</div>	
 								</div>
 								<div class="form-group">
-									<label for="description" class="col-sm-3 control-label">Beschreibung *</label>
+									<label for="description" class="col-sm-3 control-label">Beschreibung</label>
 									<div class="col-sm-9">
 										<textarea class="form-control" rows="3" name="description" placeholder="Bitte beschreiben Sie Ihre Karte so detailliert wie möglich." id="description" required ></textarea>
 									</div>
@@ -269,25 +271,12 @@
 										<span class="help-block">Informationen zu den einzelnen Lizenzen finden Sie <a href="http://creativecommons.org/licenses/" target=\"_blank\">hier.</a></span>
 									</div>
 								</div>
-							</fieldset>
+							</fieldset>							
 							
 							<div class="form-group right">
 	    						<button type="submit" id="submit" name="submit" class="btn btn-primary" value="Submit Content">Speichern</button>
 	   							<button class="btn" >Abbrechen</button>
-  							</div>
-  							
-  							
-<!-------------------  error message ----------------------------------------------------------->		  							
-  							<div class="error-container">
-								<div class="alert alert-danger">
-									% if error_msg: 
-										${error_msg}
-									% endif
-									<br>
-									<a href="${request.route_url('upload', action='form')}" class"alert-link">Laden Sie noch eine Karte hoch.</a>
-								</div>		
-							</div>  
-							
+  							</div>							
   					</form>
     
 					<b><div id="response"></div></b>
@@ -296,8 +285,6 @@
 	</div>	
 	## end "contact-formular page-container"
 	</body>
-</%block>		
-
 
 	<!--  function to handle file upload----------------------------------------------------------->			
 		## serialize the form as a JSON object
