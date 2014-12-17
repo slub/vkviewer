@@ -31,7 +31,7 @@ def getPermalinkForObjectid(request):
         return {'url':permalink}
     except ParsingException as e:
         log.debug(e)
-        return {}
+        return HTTPBadRequest(GENERAL_ERROR_MESSAGE)
     except NotFoundException as e:
         log.error(e)
         log.error(traceback.format_exc())
