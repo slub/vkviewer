@@ -40,7 +40,7 @@ deploy/vkviewer
 deploy/settings.py
 
 # log directory 
-log
+/log
 
 vkviewer/python/tests/test-data/
 /home/mendt/workspaces/vkviewer/template-files/metadaten-templates/tmp/
