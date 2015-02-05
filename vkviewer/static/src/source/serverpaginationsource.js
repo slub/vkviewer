@@ -16,7 +16,7 @@ goog.require('vk2.request.WFS');
  * A vector source in one of the supported formats, using a custom function to
  * read in the data from a remote server.
  *
- * @param {olx.source.ServerPaginationOptions} options Options.
+ * @param {Object} options Options.
  * @constructor
  * @extends {goog.events.EventTarget}
  */
@@ -37,7 +37,7 @@ vk2.source.ServerPagination = function(options) {
 	
 	/**
 	 * @private
-	 * @type {ol.extent}
+	 * @type {Array.<number>|undefined} An array of numbers representing an extent: [minx, miny, maxx, maxy]
 	 */
 	this.lastUpdateExtent_ = undefined;
 	  
@@ -68,7 +68,7 @@ vk2.source.ServerPagination = function(options) {
 	
 	/**
 	 * @private
-	 * @type {number}
+	 * @type {number|undefined}
 	 */
 	this.totalFeatures_ = undefined;
 	  
@@ -76,7 +76,7 @@ vk2.source.ServerPagination = function(options) {
 	var start = goog.isDef(options.start_time) ? options.start_time : 1868,
 		end = goog.isDef(options.end_time) ? options.end_time : 1945;
 	/**
-	 * @enum {number}
+	 * @type {Object}
 	 * @private
 	 */
 	this.timeFilter_ = {
@@ -164,7 +164,7 @@ vk2.source.ServerPagination.prototype.getFeatureForBlattnr = function(blattnr){
 };
 
 /**
- * @return {number}
+ * @return {number|undefined}
  */
 vk2.source.ServerPagination.prototype.getTotalFeatures = function(){
 	return this.totalFeatures_;
@@ -193,7 +193,7 @@ vk2.source.ServerPagination.prototype.isComplete = function(){
 };
 
 /**
- * @param {ol.Extent} extent
+ * @param {Array.<number>} extent An array of numbers representing an extent: [minx, miny, maxx, maxy]
  * @param {string} projection
  * @param {Function} event_callback
  */
@@ -265,7 +265,7 @@ vk2.source.ServerPagination.prototype.update_ = function(){
 };
 
 /**
- * @param {ol.Extent} extent Extent
+ * @param {Array.<number>} extent An array of numbers representing an extent: [minx, miny, maxx, maxy]
  * @param {string} projection
  */
 vk2.source.ServerPagination.prototype.refreshFeatures_ = function(extent, projection) {

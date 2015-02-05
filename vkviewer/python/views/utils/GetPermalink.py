@@ -6,7 +6,7 @@ from vkviewer import log
 from vkviewer.python.utils.exceptions import GENERAL_ERROR_MESSAGE
 from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.utils.idgenerator import parseOAI
-from vkviewer.python.utils.exceptions import NotFoundException
+from vkviewer.python.utils.exceptions import NotFoundException, ParsingException
     
 def createPermalink(request, objectid):
     try:
@@ -20,7 +20,7 @@ def createPermalink(request, objectid):
 def getPermalinkForObjectid(request):
     """ Contains a permalink url for the given objectid"""
     try:
-        log.info('Receive get permalink request.')
+        log.debug('Receive get permalink request.')
         objectid = request.GET.get('objectid')
         
         # right now we need a bridge hear for moving from old number schema to new one
@@ -29,6 +29,9 @@ def getPermalinkForObjectid(request):
         # create the permalink
         permalink = createPermalink(request, parsed_id)            
         return {'url':permalink}
+    except ParsingException as e:
+        log.debug(e)
+        return HTTPBadRequest(GENERAL_ERROR_MESSAGE)
     except NotFoundException as e:
         log.error(e)
         log.error(traceback.format_exc())

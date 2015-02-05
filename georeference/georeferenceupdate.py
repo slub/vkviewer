@@ -3,39 +3,36 @@ Created on Sep 25, 2014
 
 @author: mendt
 '''
+import logging
 from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Georeferenzierungsprozess
-from georeference.jobs.resetjobs import rollbackGeoreferenceProcess, resetGeoreferenceProcess
+from vkviewer.python.models.messtischblatt.AdminJobs import AdminJobs
+from vkviewer.python.utils.logger import createLogger
 from georeference.jobs.newjobs import runNewGeoreferenceProcess 
 from georeference.jobs.updatejobs import runUpdateGeoreferenceProcess
-
+from georeference.jobs.adminjobs import setIsValide, setInValide
+from georeference.settings import DBCONFIG_PARAMS
+from georeference.utils.tools import loadDbSession
 
 def lookForUpdateProcess(dbsession, logger, testing = False):
-    runningResetJobs(dbsession, logger, testing)
     runningNewJobs(dbsession, logger, testing)
     runningUpdateJobs(dbsession, logger, testing)
+    runningAdminJobs(dbsession, logger, testing)
     
     if not testing:
         dbsession.commit()    
     
-def runningResetJobs(dbsession, logger, testing = False):
-    logger.info('Check for reset jobs ...')
-    resetJobs = Georeferenzierungsprozess.getResetJobs(dbsession)
+def runningAdminJobs(dbsession, logger, testing):
+    logger.info('Check for admin jobs')
+    jobs = AdminJobs.getUnprocessedJobs(dbsession)
     
-    counterRollbacks = 0
-    counterResets = 0
-    for job in resetJobs:
-        if job.type == 'update':
-            logger.debug('Doing a rollback for georeference process id - %s'%job.id)
-            rollbackGeoreferenceProcess(job, dbsession, logger, testing)
-            counterRollbacks += 1
-        elif job.type == 'new':
-            logger.debug('Doing a reset for georeference process id - %s'%job.id)
-            resetGeoreferenceProcess(job, dbsession, logger, testing)
-            counterResets += 1
-        else:
-            raise Exception('Missing type information for georeference process ...')
-    
-    logger.info('Processed %s rollbacks and %s resets.'%(counterRollbacks, counterResets))
+    # process jobs
+    for job in jobs:
+        if job.setto == 'isvalide':
+            setIsValide(job, dbsession, logger)
+            job.processed = True
+        elif job.setto == 'invalide':
+            setInValide(job, dbsession, logger)
+            job.processed = True
     
 def runningNewJobs(dbsession, logger, testing = False):
     logger.info('Check for unprocessed georeference jobs ...')
@@ -90,3 +87,11 @@ def clearRaceConflicts(overwrite, dbsession):
                 dbsession.delete(conflictJob)  
         return True
     return False
+
+""" Main """    
+if __name__ == '__main__':
+    logger = createLogger(name = 'test', level = logging.DEBUG)
+    logger.info('Looking for pending georeference processes ...')
+    dbsession = loadDbSession(DBCONFIG_PARAMS, logger)  
+    lookForUpdateProcess(dbsession, logger, True)
+    dbsession.commit()

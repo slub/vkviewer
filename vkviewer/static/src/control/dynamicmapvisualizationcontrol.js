@@ -33,7 +33,7 @@ vk2.control.DynamicMapVisualization = function(map){
 	 * @type {vk2.tool.DynamicMapVisualization}
 	 * @private
 	 */
-	this.dynamicMapVis_ = new vk2.tool.DynamicMapVisualization(feedbackEl);
+	this.dynamicMapVis_ = new vk2.tool.DynamicMapVisualization(this.parentEl_, feedbackEl);
 
 	this.createContentEl_(contentEl);
 	

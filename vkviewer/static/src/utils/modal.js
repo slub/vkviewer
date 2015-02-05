@@ -118,7 +118,7 @@ vk2.utils.Modal.prototype._initBehavior = function(modal_el, onclose_destroy){
 
 /**
  * @param {Element} node
- * @param {String} className
+ * @param {string} className
  * @private
  */
 vk2.utils.Modal.prototype._openAnchorInIframe = function(node, className){
@@ -155,7 +155,7 @@ vk2.utils.Modal.prototype._registerRemoteSrc = function(remote_src){
 	
 	var iframe = goog.dom.createDom('iframe',{
 		'frameborder':'0',
-		'src':remote_src.href
+		'src':remote_src['href']
 	});
 	
 	// set attributes for allowing fullscreen behavior of ol3
@@ -163,14 +163,14 @@ vk2.utils.Modal.prototype._registerRemoteSrc = function(remote_src){
 	iframe.setAttribute('mozallowfullscreen',''); // @deprecated
 	iframe.setAttribute('allowfullscreen','');
 	
-	if (goog.isDef(remote_src.width))
-		goog.style.setStyle(iframe, 'width',remote_src.width);
+	if (goog.isDef(remote_src['width']))
+		goog.style.setStyle(iframe, 'width',remote_src['width']);
 	
-	if (goog.isDef(remote_src.height))
-		goog.style.setStyle(iframe, 'height',remote_src.height);
+	if (goog.isDef(remote_src['height']))
+		goog.style.setStyle(iframe, 'height',remote_src['height']);
 	
-	if (goog.isDef(remote_src.classes))
-		goog.dom.classes.add(iframe, remote_src.classes);
+	if (goog.isDef(remote_src['classes']))
+		goog.dom.classes.add(iframe, remote_src['classes']);
 		
 	goog.dom.appendChild(modal_body, iframe);
 };
@@ -205,7 +205,7 @@ vk2.utils.Modal.prototype.open = function(opt_title, opt_modal_class, opt_remote
 	if (goog.isDefAndNotNull(opt_title) && opt_title){
 		this._setTitle(opt_title);
 	} else {
-		goog.style.showElement(this._modal_header, false);
+		goog.style.setElementShown(this._modal_header, false);
 	};
 	
 	if (goog.isDef(opt_modal_class)){
@@ -221,7 +221,7 @@ vk2.utils.Modal.prototype.open = function(opt_title, opt_modal_class, opt_remote
 };
 
 /**
- * @param {string|Element} content
+ * @param {Element} content
  * @param {string} className
  */
 vk2.utils.Modal.prototype.appendToBody = function(content, className){
@@ -233,9 +233,15 @@ vk2.utils.Modal.prototype.appendToBody = function(content, className){
 			this._openAnchorInIframe(content, className);
 			goog.dom.appendChild(modal_body, goog.dom.createDom('br'));
 		};
-	};		
+	};
+};
+
+/**
+ * @param {string} content
+ */
+vk2.utils.Modal.prototype.appendStringToBody = function(content){
+	var modal_body = goog.dom.getElementByClass('modal-body', this.modalEl_);
 	
 	if (goog.isString(content))
 		modal_body.innerHTML = content;
 };
-

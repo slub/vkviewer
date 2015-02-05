@@ -3,8 +3,8 @@ goog.provide('vk2.tool.OpacitySlider');
 goog.require('goog.dom');
 
 /**
- * @param {Element|string} parentEl_id
- * @param {ol.layer.Layer} layer
+ * @param {Element|string} parentEl
+ * @param {ol.layer.Base} layer
  * @param {string=} opt_orientation
  * @constructor
  * @extends {goog.events.EventTarget}
@@ -47,7 +47,7 @@ vk2.tool.OpacitySlider.prototype._loadHtmlContent = function(parentEl){
 
 /**
  * @param {Element} sliderEl
- * @param {ol.layer.Layer} layer
+ * @param {ol.layer.Base} layer
  * @param {string} orientation
  * @private
  */
@@ -81,12 +81,14 @@ vk2.tool.OpacitySlider.prototype._appendSliderBehavior = function(sliderEl, laye
         'orientation': orientation,
         'step': 1,
         'slide': function( event, ui ) {
-        	updatePosition(ui.value, valueEl);
-        	layer.setOpacity(ui.value/100);        	
+        	var value = ui['value'];
+        	updatePosition(value, valueEl);
+        	layer.setOpacity(value/100);        	
         },
         'change': goog.bind(function( event, ui ){
-        	updatePosition(ui.value, valueEl);
-        	layer.setOpacity(ui.value/100);
+        	var value = ui['value'];
+        	updatePosition(value, valueEl);
+        	layer.setOpacity(value/100);
         }, this)
     });
 	

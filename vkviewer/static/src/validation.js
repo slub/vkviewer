@@ -19,8 +19,8 @@ vk2.validation.isBlattnumber = function(string){
 	
 	if (blattNrParts.length == 2){
 		var areNumbers = true;
-		areNumbers = areNumbers && this.isInt(blattNrParts[0]) ? true : false;
-		areNumbers = areNumbers && this.isInt(blattNrParts[1]) ? true : false;
+		areNumbers = areNumbers && vk2.validation.isInt(blattNrParts[0]) ? true : false;
+		areNumbers = areNumbers && vk2.validation.isInt(blattNrParts[1]) ? true : false;
 		
 		areNumbers = areNumbers && blattNrParts[0].length <= 3 ? true : false;
 		areNumbers = areNumbers && blattNrParts[1].length <= 3 ? true : false;
@@ -64,8 +64,8 @@ vk2.validation.checkRegexp = function( string, regexp ){
 
 /**
  * Clear error Msg
- * @param {string=} failureElementId The id of a dom element where to write the failure message
- * @param {string=} failureClass The failure class
+ * @param {string} validationMsgContainerId The id of a dom element where to write the failure message
+ * @param {string} validationErrorClasses The failure class
  */
 vk2.validation.clearValidationMsg = function(validationMsgContainerId, validationErrorClasses){
 	var errorMsgContainer = goog.dom.getElement(validationMsgContainerId);
@@ -79,8 +79,8 @@ vk2.validation.clearValidationMsg = function(validationMsgContainerId, validatio
 /**
  * Set error message
  * @param {string} msg
- * @param {string=} failureElementId The id of a dom element where to write the failure message
- * @param {string=} failureClass The failure class
+ * @param {string} failureElementId The id of a dom element where to write the failure message
+ * @param {string} failureClass The failure class
  */
 vk2.validation.setErrorMsg = function(msg, failureElementId, failureClass){
 	var failureElement = goog.dom.getElement(failureElementId);
@@ -110,17 +110,17 @@ vk2.validation.checkPassword = function( elementId, failureElementId, failureCla
 	isValide = isValide && goog.isDefAndNotNull(password);
 	
 	// check length
-	isValide = isValide && this.checkLength( password.value, 5, 16)
+	isValide = isValide && vk2.validation.checkLength( password.value, 5, 16)
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(vk2.utils.getMsg('password_to_short'), failureElementId, failureClass);
+		vk2.validation.setErrorMsg(vk2.utils.getMsg('password_to_short'), failureElementId, failureClass);
 		goog.dom.classes.add(password.parentElement, 'has-error');
 		return isValide;
 	};
 	
 	// check tokens
-	isValide = isValide && this.checkRegexp( password.value, /^([0-9a-zA-Z])+$/);
+	isValide = isValide && vk2.validation.checkRegexp( password.value, /^([0-9a-zA-Z])+$/);
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(vk2.utils.getMsg('password_wrong_token'), failureElementId, failureClass);
+		vk2.validation.setErrorMsg(vk2.utils.getMsg('password_wrong_token'), failureElementId, failureClass);
 		goog.dom.classes.add(password.parentElement, 'has-error');
 		return isValide
 	};
@@ -158,7 +158,7 @@ vk2.validation.checkPasswordMatch = function( elementId_Pw1, elementId_Pw2, fail
 	isValide = isValide && goog.isDefAndNotNull(password_1) && goog.isDefAndNotNull(password_2);
 	isValide = isValide && (password_1.value == password_2.value)
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(vk2.utils.getMsg('password_is_same'), failureElementId, failureClass);
+		vk2.validation.setErrorMsg(vk2.utils.getMsg('password_is_same'), failureElementId, failureClass);
 		goog.dom.classes.add(password_2.parentElement, 'has-error');
 		return isValide
 	};
@@ -194,17 +194,17 @@ vk2.validation.checkUsername = function( elementId, failureElementId, failureCla
 	isValide = isValide && goog.isDefAndNotNull(username);
 	
 	// check length
-	isValide = isValide && this.checkLength( username.value, 3, 16)
+	isValide = isValide && vk2.validation.checkLength( username.value, 3, 16)
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(vk2.utils.getMsg('username_to_short'), failureElementId, failureClass);
+		vk2.validation.setErrorMsg(vk2.utils.getMsg('username_to_short'), failureElementId, failureClass);
 		goog.dom.classes.add(username.parentElement, 'has-error');
 		return isValide;
 	};
 	
 	// check tokens
-	isValide = isValide && this.checkRegexp( username.value, /^([0-9a-zA-Z])+$/);
+	isValide = isValide && vk2.validation.checkRegexp( username.value, /^([0-9a-zA-Z])+$/);
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(vk2.utils.getMsg('username_wrong_token'), failureElementId, failureClass);
+		vk2.validation.setErrorMsg(vk2.utils.getMsg('username_wrong_token'), failureElementId, failureClass);
 		goog.dom.classes.add(username.parentElement, 'has-error');
 		return isValide
 	};
@@ -241,17 +241,17 @@ vk2.validation.checkPersonName = function( elementId, failureElementId, failureC
 	isValide = isValide && goog.isDefAndNotNull(name);
 	
 	// check length
-	isValide = isValide && this.checkLength( name.value, 3, 16)
+	isValide = isValide && vk2.validation.checkLength( name.value, 3, 16)
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(vk2.utils.getMsg('personname_to_short'), failureElementId, failureClass);
+		vk2.validation.setErrorMsg(vk2.utils.getMsg('personname_to_short'), failureElementId, failureClass);
 		goog.dom.classes.add(name.parentElement, 'has-error');
 		return isValide;
 	};
 	
 	// check tokens
-	isValide = isValide && this.checkRegexp( name.value, /^([a-zA-Z])+$/);
+	isValide = isValide && vk2.validation.checkRegexp( name.value, /^([a-zA-Z])+$/);
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(vk2.utils.getMsg('personname_wrong_token'), failureElementId, failureClass);
+		vk2.validation.setErrorMsg(vk2.utils.getMsg('personname_wrong_token'), failureElementId, failureClass);
 		goog.dom.classes.add(name.parentElement, 'has-error');
 		return isValide
 	};
@@ -287,18 +287,18 @@ vk2.validation.checkEmailAdress = function( elementId, failureElementId, failure
 	isValide = isValide && goog.isDefAndNotNull(email);
 	
 	// check length
-	isValide = isValide && this.checkLength( email.value, 6, 80)
+	isValide = isValide && vk2.validation.checkLength( email.value, 6, 80)
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(vk2.utils.getMsg('email_to_short'), failureElementId, failureClass);
+		vk2.validation.setErrorMsg(vk2.utils.getMsg('email_to_short'), failureElementId, failureClass);
 		goog.dom.classes.add(email.parentElement, 'validation-has-error');
 		return isValide;
 	};
 	
 	// check tokens
 	var regexp_email = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i;
-	isValide = isValide && this.checkRegexp( email.value, regexp_email);
+	isValide = isValide && vk2.validation.checkRegexp( email.value, regexp_email);
 	if (goog.isDef(failureElementId) && goog.isDef(failureClass) && !isValide){
-		this.setErrorMsg(vk2.utils.getMsg('email_wrong_token'), failureElementId, failureClass);
+		vk2.validation.setErrorMsg(vk2.utils.getMsg('email_wrong_token'), failureElementId, failureClass);
 		goog.dom.classes.add(email.parentElement, 'has-error');
 		return isValide
 	};
@@ -314,6 +314,35 @@ vk2.validation.checkEmailAdress = function( elementId, failureElementId, failure
 };
 
 /**
+ * @static
+ * @expose
+ */
+vk2.validation.validateContactForm = function(){
+	var url = goog.dom.getElement('contact-form').getAttribute('href');
+	var email = goog.dom.getElement('input-email').value;
+	var message = goog.dom.getElement('input-message').value;
+	var actual_url = window.location.href ? window.location.href : document.URL;
+	
+	// check email adress
+	var isValide = true;
+	isValide = isValide && vk2.validation.checkEmailAdress('input-email', 'contact-form-validation-message', 'alert-danger');
+	if (!isValide){
+		$('#contact-form-validation-message').show();
+		return isValide;
+	}
+	$('#contact-form-validation-message').hide();
+	
+	// build request
+	var url = url + '?message=' + message + '&email=' + email + '&reference=' + actual_url;
+	var success_callback = function(xhrio){alert(vk2.utils.getMsg('send_con_message_suc'));};
+	var error_callback = function(xhrio){alert(vk2.utils.getMsg('send_con_message_err'));};
+	vk2.utils.sendReport(url, success_callback, error_callback);
+	
+	return false;
+};
+
+/**
+ * @expose
  * Functions for the login screen (login_screen.mako)
  */
 vk2.validation.validateLoginForm = function(){
@@ -333,6 +362,9 @@ vk2.validation.validateLoginForm = function(){
 	return true;
 };
 
+/**
+ * @expose
+ */
 vk2.validation.validateRegisterNewUser = function(){
 	var isValide = true;
 	var validationMsgContainerId = 'validationTipsRegisterUser';
@@ -364,6 +396,9 @@ vk2.validation.validateRegisterNewUser = function(){
 	return true;
 };
 
+/**
+ * @expose
+ */
 vk2.validation.resetPasswordForm = function(){			
 	var isValide = true;
 	var validationMsgContainerId = 'validationTips';

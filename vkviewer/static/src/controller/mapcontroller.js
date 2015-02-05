@@ -5,6 +5,7 @@ goog.require('goog.object');
 goog.require('goog.array');
 goog.require('goog.events');
 goog.require('vk2.utils');
+goog.require('vk2.utils.Modal');
 goog.require('vk2.tool.TimeSlider');
 goog.require('vk2.tool.GazetteerSearch');
 goog.require('vk2.module.SpatialTemporalSearchModule');
@@ -62,22 +63,22 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 	 * @private
 	 */
 	this.map_ = new ol.Map({
-		layers: [
-//		   new ol.layer.Tile({
-//			 //  preload: Infinity,
-//			   source: new ol.source.OSM()
-//		   })
-				new ol.layer.Tile({
-					style: 'Road',
-			    	source: new ol.source.MapQuest({layer: 'osm'})
-				})
+		'layers': [
+		   new ol.layer.Tile({
+			 //  preload: Infinity,
+			   source: new ol.source.OSM()
+		   })
+//				new ol.layer.Tile({
+//					style: 'Road',
+//			    	source: new ol.source.MapQuest({layer: 'osm'})
+//				})
 		],
-		renderer: 'canvas',
-		target: map_container,
-		interactions: ol.interaction.defaults().extend([
+		'renderer': 'canvas',
+		'target': map_container,
+		'interactions': ol.interaction.defaults().extend([
 		    new ol.interaction.DragRotateAndZoom()
 		]),
-		controls: [
+		'controls': [
 		    new ol.control.Attribution({
 		    	collapsible:false,
 		    	collapsed:false
@@ -94,13 +95,13 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 			new ol.control.ScaleLine(),
 			new vk2.control.Permalink()
 		],
-		view: new ol.View({
-			projection: 'EPSG:900913',
-	        minResolution: 1.194328566789627,
-	        maxResolution: 2445.9849047851562,
-	        extent: [640161.933,5958026.134,3585834.8011505,7847377.4901306],
-			center: [1531627.8847864927, 6632124.286850829],
-			zoom: 4
+		'view': new ol.View({
+			'projection': 'EPSG:900913',
+	        'minResolution': 1.194328566789627,
+	        'maxResolution': 2445.9849047851562,
+	        'extent': [640161.933,5958026.134,3585834.8011505,7847377.4901306],
+	        'center': [1531627.8847864927, 6632124.286850829],
+			'zoom': 4
 		})
 	});
 	
@@ -108,13 +109,13 @@ vk2.controller.MapController.prototype._loadBaseMap = function(map_container){
 };
 
 /**
- * @param {ol.Map}
+ * @param {ol.Map} map
  * @private
  */
 vk2.controller.MapController.prototype._addFeatureClickBehavior = function(map){
 	map.on('click', function(evt){
 		var features = [];
-		map.forEachFeatureAtPixel(evt.pixel, function(feature, layer){
+		map.forEachFeatureAtPixel(evt['pixel'], function(feature, layer){
 			features.push(feature);
 		});
 		
@@ -130,8 +131,9 @@ vk2.controller.MapController.prototype._registerGazetteerSearchTool = function(g
 	// jumps to extent
 	goog.events.listen(gazetteersearch, 'jumpto', function(event){
 		var view = this.map_.getView();
-		view.setCenter(ol.proj.transform([parseFloat(event.target.lonlat[0]),parseFloat(event.target.lonlat[1])], 
-				event.target.srs, 'EPSG:900913'));
+		var lonlat = event.target['lonlat'];
+		view.setCenter(ol.proj.transform([parseFloat(lonlat[0]),parseFloat(lonlat[1])], 
+				event.target['srs'], 'EPSG:900913'));
 		view.setZoom(5);
 	}, undefined, this);
 };
@@ -148,16 +150,13 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 		
 	// register addmtb event
 	goog.events.listen(this.map_search, 'addmtb', function(event){
-		if (goog.DEBUG)
-			console.log('Trigger map search event')
+		if (goog.DEBUG){
+			console.log('Trigger map search event');
+		};			
 			
-		var feature = event.target.feature;
+		var feature = event.target['feature'];
 		this.map_.addLayer(this._createHistoricMapForFeature(feature));
 	}, undefined, this);
-	
-	if (goog.DEBUG){
-		window['mapsearchLayer'] = this.map_searchLayer;
-	};
 };
 
 /**
@@ -166,7 +165,7 @@ vk2.controller.MapController.prototype._registerMapSearchModule = function(mapse
 vk2.controller.MapController.prototype.registerPermalinkTool = function(permalink){
 	// register addmtb event
 	goog.events.listen(permalink, 'addmtb', function(event){
-		var feature = event.target.feature;
+		var feature = event.target['feature'];
 		
 		// request associated messtischblaetter for a blattnr
 		this.map_.addLayer(this._createHistoricMapForFeature(feature));
@@ -211,7 +210,7 @@ vk2.controller.MapController.prototype._appendMapClickBehavior = function(map){
 			console.log('Pixel: '+event.pixel);
 		
 		var features = [];
-		this.forEachFeatureAtPixel(event.pixel, function(feature){
+		this.forEachFeatureAtPixel(event['pixel'], function(feature){
 			features.push(feature);
 		});
 		

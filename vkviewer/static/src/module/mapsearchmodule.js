@@ -1,4 +1,5 @@
 goog.provide('vk2.module.MapSearchModule');
+goog.provide('vk2.module.MapSearchModuleEventType');
 
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
@@ -10,10 +11,15 @@ goog.require('goog.events.EventType');
 goog.require('vk2.factory.MapSearchFactory');
 goog.require('vk2.source.ServerPagination');
 
+/**
+ * @enum {string}
+ */
+vk2.module.MapSearchModuleEventType = {
+	ADDMTB: 'addmtb'
+};
 
 /**
- * @param {Element|string} parentEl_id
- * @param {ol.FeatureOverlay=} featureOverlay
+ * @param {Element|string} parentEl
  * @param {ol.Map} map
  * @constructor
  * @extends {goog.events.EventTarget}
@@ -44,7 +50,7 @@ vk2.module.MapSearchModule = function(parentEl, map){
 	this._searchCols = ['time','title','georeference'];
 	
 	/**
-	 * @type {ol.featureOverlay}
+	 * @type {ol.FeatureOverlay}
 	 * @private
 	 */
 	this.featureOverlay_ = new ol.FeatureOverlay({
@@ -150,8 +156,7 @@ vk2.module.MapSearchModule.prototype.appendClickBehavior_ = function(){
 				if (ft.get('id') == origin_target.id)
 					feature = ft;
 			});
-
-			this.dispatchEvent(new goog.events.Event(vk2.module.MapSearchModule.EventType.ADDMTB,{'feature':feature}));
+			this.dispatchEvent(new goog.events.Event(vk2.module.MapSearchModuleEventType.ADDMTB,{'feature':feature}));
 		}, undefined, this);
 	};
 };
@@ -215,7 +220,7 @@ vk2.module.MapSearchModule.prototype.appendFeaturesToList_ = function(features){
 };
 
 /**
- * @return {Array.<ol.Features>} 
+ * @return {ol.Collection} 
  */
 vk2.module.MapSearchModule.prototype.getFeatures = function(){
 	return this.featureSource_.getFeatures();
@@ -233,11 +238,11 @@ vk2.module.MapSearchModule.prototype.getFeatureSource = function(){
  */
 vk2.module.MapSearchModule.prototype.refreshMapSearchList_ = function(){
 	this.searchListEl_.innerHTML = '';
-	this.appendFeaturesToList_();
+	//this.appendFeaturesToList_();
 };
 
 /**
- * @param {string|number}
+ * @param {string} type
  * @private
  */
 vk2.module.MapSearchModule.prototype.sort_ = function(type){
@@ -269,9 +274,9 @@ vk2.module.MapSearchModule.prototype.refresh_ = function(event){
 		console.log('Refresh MapSearchModule.')
 	};
 	
-	this.updateHeading_(event.target.totalFeatureCount);
+	this.updateHeading_(event.target['totalFeatureCount']);
 	this.searchListEl_.innerHTML = '';
-	this.appendFeaturesToList_(event.target.features);
+	this.appendFeaturesToList_(event.target['features']);
 };
 
 /**
@@ -284,7 +289,7 @@ vk2.module.MapSearchModule.prototype.update_ = function(event){
 	};
 	
 	this.updateHeading_(event.target.totalFeatureCount);
-	this.appendFeaturesToList_(event.target.features);
+	this.appendFeaturesToList_(event.target['features']);
 };
 
 /**
@@ -297,11 +302,4 @@ vk2.module.MapSearchModule.prototype.updateHeading_ = function(count_features){
 		return undefined;
 	};
 	this._headingContentEl.innerHTML = vk2.utils.getMsg('found_no_maps');
-};
-	
-/**
- * @enum {string}
- */
-vk2.module.MapSearchModule.EventType = {
-		ADDMTB: 'addmtb'
 };

@@ -9,8 +9,8 @@ goog.require('vk2.factory.LayerManagementFactory');
 goog.require('vk2.control.DynamicMapVisualization');
 
 /**
- * @param {Element|string} parentEl_id
- * @param {ol.Collection} layerCollection
+ * @param {Element|string} parentEl
+ * @param {ol.Collection} layers
  * @param {ol.Map} map
  * @constructor
  * @extends {goog.events.EventTarget}
@@ -48,7 +48,7 @@ goog.inherits(vk2.module.LayerManagementModule, goog.events.EventTarget);
 
 /**
  * This methods returns an array of layer which have should be display in the layerswitcher
- * @return {Array.<ol.Layer>}
+ * @return {Array.<ol.layer.Base>}
  * @private
  */
 vk2.module.LayerManagementModule.prototype._getLayers = function(){
@@ -63,7 +63,7 @@ vk2.module.LayerManagementModule.prototype._getLayers = function(){
 };
 
 /**
- * @param {ol.Layer} layer
+ * @param {ol.layer.Base} layer
  * @return {number}
  * @private
  */
@@ -74,7 +74,6 @@ vk2.module.LayerManagementModule.prototype._getIndexToLayer = function(layer){
 			return i
 		};
 	};
-	return undefined;
 };
 
 /**
@@ -133,10 +132,10 @@ vk2.module.LayerManagementModule.prototype._refresh = function(event){
 		'stop': goog.bind(function(event, ui){
 			var layers = this._getLayers();
 			var listElements = goog.dom.getElementsByClass('layermanagement-record', this._bodyEl);
-			var oldListIndex = listElements.length - parseInt(listElements[ui.item.index()].id) - 1;
+			var oldListIndex = listElements.length - parseInt(listElements[ui.item.index()].id, 0) - 1;
 			var newListIndex = ui.item.index();
 			var newLayerIndex = (layers.length - 1) - newListIndex;
-			var oldLayerIndex = parseInt(listElements[newListIndex].id);
+			var oldLayerIndex = parseInt(listElements[newListIndex].id, 0);
 			
 			if (goog.DEBUG){
 				console.log('Sort event stop!');
@@ -156,7 +155,6 @@ vk2.module.LayerManagementModule.prototype._refresh = function(event){
 				this._layers.removeAt(removeLayerIndex);
 					
 				// add new layer
-				
 				var index = this._getIndexToLayer(layers[newLayerIndex]);
 				if (newLayerIndex > oldLayerIndex){
 					this._layers.insertAt(index + 1, layer);
@@ -185,7 +183,7 @@ vk2.module.LayerManagementModule.prototype._deactivate = function(){
 };
 
 /**
- * @return {ol.Collection}
+ * @return {Array.<ol.layer.Base>}
  */
 vk2.module.LayerManagementModule.prototype.getLayers = function(){
 	return this._layers.getArray();

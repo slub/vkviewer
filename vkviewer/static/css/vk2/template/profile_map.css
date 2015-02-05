@@ -3,9 +3,29 @@
 	padding: 10px 10px 5px 5px;
 }
 
-.map-profile-page .container .row.metadata {
-	display: none;
-}
 
 .map-profile-page { height: 100%; }
-.map-profile-page .container { height: 100%; }
+.map-profile-page .container { height: 100%; width: 100%; margin: 0; }
+
+.map-profile-page h1 { color: #f33; font-weight: 100; margin: 0; }
+.map-profile-page h3#singlemapview-title { margin: 5px 0 20px 0; color: #999; font-size: 14px; }
+.map-profile-page .header-btn .btn, .map-profile-page .description a { border-radius: 0; border: 1px solid rgba(0, 154, 139, 1); border-width: 0 1px 1px 0; background: rgb(0,177,158); color: #fff; padding: 5px 10px; }
+.map-profile-page .description a { display: none; } /*  maybe temp?! */
+
+.map-profile-page .metdata-col { width: 100%; padding: 0; margin: -4px; }
+.map-profile-page .thumbnail-col { display: none; }
+
+.map-profile-page .description h3 { margin: 0 4px 10px 4px; }
+
+.map-profile-page .metadata-content-row, .map-profile-page .unique-id { display: inline-block; padding: 3px 10px; background: rgba(0,177,158,0.2); margin: 4px; color: #555; }
+.map-profile-page .metadata-content-row > div { display: inline; font-size: 12px; margin: 0; padding: 0; }
+.map-profile-page .metadata-content-row .label { font-weight: 500; color: #555; }
+.map-profile-page .metadata-content-row label { margin: 0 4px 0 0; font-weight: inherit }
+.map-profile-page .metadata-content-row a { color: rgb(20, 124, 112); }
+.map-profile-page .metadata-content-row .label:after { content: ":\00a0"; }
+
+.map-profile-page .metadata-content-row a.download { color: rgb(17, 129, 128); font-weight: 700; text-decoration: underline; padding-right: 20px; background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAA00lEQVR4Aa3LsSvEYRzH8a/dcDpS3GXxN1xRdtMzWmQ1k8V6pWR2gwy6VeoGYTK68f4EJRlQtquznJ/XyPU8iXzq9dne8b9rt+sc80zFKx1miW8cwCIPXNCizgo9HmkUYy45JTLOGLDN9GTcZMRMIa5xwB33NMPNcc0HA+IHU5zQC3fFOQ3miS82iIwl3sONaRAZFZGxwCjcG61fxkfchNvnhUN2WC3Ea+xxyxPL4YJ1OnTZLMRbdNmlRoTL6ZOoSPSJCcU4MaRiSCrFJYlxIQT3Z58Aav4tHeynkgAAAABJRU5ErkJggg==') no-repeat right center; }
+
+
+.map-profile-page .zoomify-container { box-shadow: 0 1px 2px rgba(0,0,0,0.3); border: 3px solid #fff; margin-top: 20px; }
+.map-profile-page .zoomify-container .ol-viewport { background: #eee }

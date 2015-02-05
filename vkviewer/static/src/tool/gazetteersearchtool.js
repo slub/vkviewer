@@ -118,23 +118,23 @@ vk2.tool.GazetteerSearch.prototype._loadHtmlContent = function(parentEl){
  */
 vk2.tool.GazetteerSearch.prototype._appendAutoCompleteBehavior = function(){
 	$(this._inputText).autocomplete({
-    	source: goog.bind(function( request, response ){
-    		if (!vk2.validation.isBlattnumber(request.term)){
-    			this._requestPlacenameData(request.term, response);
+    	'source': goog.bind(function( request, response ){
+    		if (!vk2.validation.isBlattnumber(request['term'])){
+    			this._requestPlacenameData(request['term'], response);
     			return undefined;
     		}
     		response([])
     	}, this),
-    	delay: 300,
-        minLength: 3,
-        autoFocus: true,
-    	select: goog.bind(function( event, ui ){
-    		this._createJumpToEvent(ui.item);
+    	'delay': 300,
+        'minLength': 3,
+        'autoFocus': true,
+    	'select': goog.bind(function( event, ui ){
+    		this._createJumpToEvent(ui['item']);
     	}, this),
-    	open: function(){
+    	'open': function(){
     		$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
     	},
-    	close: function(){
+    	'close': function(){
     		$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
     	},
     });
@@ -209,10 +209,10 @@ vk2.tool.GazetteerSearch.prototype._requestPlacenameData = function(placename, c
 		    	// parse data
 				var parsed_data = $.map( data, function( item ){
 					return {
-						label: item.display_name,
-						value: item.display_name,
-						lonlat: {'x':item.lon,'y':item.lat},
-						type: item.type
+						'label': item['display_name'],
+						'value': item['display_name'],
+						'lonlat': {'x':item['lon'],'y':item['lat']},
+						'type': item['type']
 						}
 				});
 				// set this for other submit events
@@ -246,7 +246,7 @@ vk2.tool.GazetteerSearch.prototype._requestBlattnumber = function(blattnumber){
 		if (goog.isDef(point) && goog.isObject(point)){
     		var event_object = {
         		'location_type':'blattnr',
-        		'lonlat':[point.coordinates[0],point.coordinates[1]],
+        		'lonlat':[point['coordinates'][0],point['coordinates'][1]],
         		'srs':'EPSG:4326'
         	};
         	this._dispatchJumpToEvent(event_object);
@@ -269,7 +269,7 @@ vk2.tool.GazetteerSearch.prototype._createJumpToEvent = function(feature, srs){
 	var epsg = goog.isDef(srs) ? srs : 'EPSG:4326';
 	var jumpto_event = {
     	'location_type':feature.type,
-    	'lonlat':[feature.lonlat.x,feature.lonlat.y],
+    	'lonlat':[feature['lonlat']['x'],feature['lonlat']['y']],
     	'srs':epsg
     };
     this._dispatchJumpToEvent(jumpto_event);

@@ -100,9 +100,8 @@ def buildCreateShapeTileIndexCmd(timestamp, shp_path, database_params):
             database_params {dict}
         Returns: {String} """    
     createShapeTileIndexCmd = "pgsql2shp -f %(shp_path)s -h %(host)s -u %(user)s -P '%(password)s' %(db)s \
-    \"SELECT mtb.boundingbox, mtb.verzeichnispfad as location, zeit.time as time \
-    FROM messtischblatt as mtb, md_zeit as zeit WHERE mtb.isttransformiert = True \
-    AND mtb.id = zeit.id AND zeit.typ::text = 'a5064'::text AND zeit.datierung = %(timestamp)s\""             
+    \"SELECT map.boundingbox, map.georefimage as location, metadata.timepublish as time \
+    FROM map, metadata WHERE map.isttransformiert = True AND map.id = metadata.mapid AND EXTRACT('year' from metadata.timepublish) = %(timestamp)s\""             
     return createShapeTileIndexCmd % (dict({
         'shp_path': shp_path,                                  
         'timestamp': str(timestamp) 
@@ -154,8 +153,8 @@ def updateVrt( database_params, vrt_target_dir, tmp_dir, logger = None, dbsessio
         logger.info('Update database state for virtual datasets ...')
         # update boundingbox of virtual dataset
         query = "UPDATE virtualdatasets SET boundingbox = ( SELECT st_setsrid(st_envelope(st_extent(boundingbox)),4314) \
-            FROM (SELECT mtb.boundingbox as boundingbox FROM messtischblatt as mtb, md_zeit as zeit WHERE mtb.isttransformiert = True \
-            AND mtb.id = zeit.id AND zeit.typ::text = 'a5064'::text AND zeit.datierung = %s) as foo) WHERE id = %s;"
+            FROM (SELECT map.boundingbox as boundingbox, metadata.timepublish as zeit FROM map, metadata WHERE map.isttransformiert = True \
+            AND map.id = metadata.mapid AND EXTRACT('year' from metadata.timepublish) = %s) as foo) WHERE id = %s;"
         dbsession.execute(query%(vrt.timestamp.year, vrt.id))
         # update last update timestamp
         vrt.lastupdate = str(datetime.now())
@@ -208,10 +207,10 @@ if __name__ == '__main__':
     if arguments.log_file:
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         sqlalchemy_logger = createLogger('sqlalchemy.engine', logging.DEBUG, logFile=''.join(arguments.log_file), formatter=formatter)     
-        logger = createLogger('UpdateGeorefDataSources', logging.DEBUG, logFile=''.join(arguments.log_file), formatter=formatter)
+        logger = createLogger('UpdateVRT', logging.DEBUG, logFile=''.join(arguments.log_file), formatter=formatter)
     else: 
         sqlalchemy_logger = createLogger('sqlalchemy.engine', logging.WARN)
-        logger = createLogger('UpdateGeorefDataSources', logging.DEBUG)   
+        logger = createLogger('UpdateVRT', logging.DEBUG)   
 
     # parse parameter parameters
     database_params = {}

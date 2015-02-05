@@ -25,7 +25,7 @@ vk2.georeference.GeoreferencerService.requestValidationResult = function(data, s
 		return;
 	};
 	
-	goog.net.XhrIo.send(vk2.settings.GEOREFERENCE_VALIDATION, callback, 'POST', JSON.stringify(data), {'Content-Type':'application/json;charset=UTF-8'});	
+	goog.net.XhrIo.send(vk2.settings.GEOREFERENCE_VALIDATION, success_callback, 'POST', JSON.stringify(data), {'Content-Type':'application/json;charset=UTF-8'});	
 	return undefined;
 };
 

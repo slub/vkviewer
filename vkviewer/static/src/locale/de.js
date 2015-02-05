@@ -118,7 +118,15 @@ var lang_dictionary = {
 		
 		// vk2.control.DynamicMapVisualization
 		'dynMapVisStart':'Starte Zeitreihen Visualisierung',
-		'dynMapVisStop':'Stoppe Zeitreihen Visualisierung'
+		'dynMapVisStop':'Stoppe Zeitreihen Visualisierung',
+
+		
+		// vk2.control.ImageManipulation
+		'hue':'Farbton',
+		'saturation': 'Sättigung',
+		'contrast': 'Kontrast',
+		'brightness': 'Helligkeit',
+		'reset':'Zurücksetzen'
 }
 	
 

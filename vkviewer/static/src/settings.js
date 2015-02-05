@@ -23,17 +23,17 @@ vk2.settings.WFS_PARSER_CONFIG = {
 /**
  * @type {string}
  */
-vk2.settings.WFS_GEOSERVER_URL = 'http://194.95.145.43:8080/geoserver/testing/ows'; //'http://kartenforum.slub-dresden.de/geoserver/virtuelles_kartenforum/ows';
+vk2.settings.WFS_GEOSERVER_URL = 'http://kartenforum.slub-dresden.de/geoserver/production/ows'; //'http://194.95.145.43:8080/geoserver/testing/ows'; 
 
 /**
  * @type {string}
  */
-vk2.settings.WFS_GEOSERVER_SEARCHLAYER = 'vkdb-test:mapsearch-test'// 'virtuelles_kartenforum:mapsearch' 
+vk2.settings.WFS_GEOSERVER_SEARCHLAYER = 'vkdb:vmapsearch'; //'vkdb-test:mapsearch-test'// 
 
 /**
  * @type {string}
  */
-vk2.settings.WFS_GRID_URL = 'http://kartenforum.slub-dresden.de/cgi-bin/testows'; //'http://kartenforum.slub-dresden.de/cgi-bin/mtb_grid';
+vk2.settings.WFS_GRID_URL = 'http://kartenforum.slub-dresden.de/cgi-bin/georef-grid'; //'http://kartenforum.slub-dresden.de/cgi-bin/mtb_grid';
 
 /**
  * @type {string}
@@ -58,7 +58,7 @@ vk2.settings.THUMBNAIL_URL =  'http://fotothek.slub-dresden.de/thumbs/df/dk/0010
 /**
  * @type {string}
  */
-vk2.settings.GEOREFERENCECHOOSER_WMS = 'http://kartenforum.slub-dresden.de/cgi-bin/testows'; //'http://kartenforum.slub-dresden.de/cgi-bin/mtb_grid';
+vk2.settings.GEOREFERENCECHOOSER_WMS = 'http://kartenforum.slub-dresden.de/cgi-bin/georef-grid'; //'http://kartenforum.slub-dresden.de/cgi-bin/mtb_grid';
 
 /**
  * @type {string}
@@ -131,7 +131,7 @@ vk2.settings.EVALUATION_GETPROCESS = '/vkviewer/admin/getprocess';
 vk2.settings.EVALUATION_API = '/vkviewer/admin';
 
 /**
- * @type {string}
+ * @type {Array.<string>}
  */
 vk2.settings.TMS_URL = [
      'http://vk2-cdn1.slub-dresden.de/tms/', 

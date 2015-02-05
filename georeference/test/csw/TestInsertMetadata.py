@@ -4,8 +4,8 @@ Created on Jan 9, 2014
 @author: mendt
 '''    
 import unittest, logging, tempfile, shutil, os
-from vkviewer.settings import DBCONFIG, TEMPLATE_FILES, GN_SETTINGS
-from vkviewer.python.models.Meta import initializeDb
+from georeference.utils.tools import loadDbSession
+from georeference.settings import DBCONFIG_PARAMS, TEMPLATE_FILES, GN_SETTINGS
 from georeference.csw.InsertMetadata import insertMetadata, createTemporaryCopy, getMetadataForMapObj, updateMetadata
 from georeference.csw.CswTransactionBinding import gn_transaction_delete
 
@@ -15,7 +15,7 @@ class TestInsertMetadata(unittest.TestCase):
     def setUpClass(cls):
         logging.basicConfig(level=logging.DEBUG)
         cls.logger = logging.getLogger('sqlalchemy.engine')
-        cls.dbSession = initializeDb(DBCONFIG)
+        cls.dbSession = loadDbSession(DBCONFIG_PARAMS, cls.logger)
     
     @unittest.skip('testInsertMetadata')    
     def testInsertMetadata(self):

@@ -50,6 +50,7 @@ def loadLogger(debug=True):
 def addRoutes(config):
     # add routes
     config.add_static_view(ROUTE_PREFIX+'/static', 'vkviewer:static/', cache_max_age=3600)
+    
     config.add_route('proxy', ROUTE_PREFIX+'/proxy/')
     config.add_route('home', ROUTE_PREFIX + '/')
     config.add_route('home1', ROUTE_PREFIX)
@@ -95,6 +96,11 @@ def addRoutes(config):
     # permalink page
     config.add_route('permalink', ROUTE_PREFIX+'/permalink')
     config.add_route('permalinkv2', ROUTE_PREFIX+'/permalinkv2')
+    
+    # upload services routes
+    config.add_route('upload', ROUTE_PREFIX + '/upload/{action}')
+    config.add_route('upload-profile', ROUTE_PREFIX + '/profile/upload')
+    config.add_route('upload-tos', ROUTE_PREFIX + '/tos/upload')
  
 def db(request):
     return request.registry.dbmaker()   

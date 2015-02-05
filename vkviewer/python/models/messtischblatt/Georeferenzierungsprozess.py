@@ -16,12 +16,12 @@ class Georeferenzierungsprozess(Base):
     timestamp = Column(DateTime(timezone=False))
     type = Column(String(255))
     nutzerid = Column(String(255))
-    refzoomify = Column(Boolean)
     processed = Column(Boolean)
     isactive = Column(Boolean)
     overwrites = Column(Integer)
     adminvalidation = Column(String(20))
     mapid = Column(Integer)
+    comment = Column(String(255))
     
     @classmethod
     def all(cls, session):
@@ -108,7 +108,7 @@ class Georeferenzierungsprozess(Base):
     def getJobsWithSameOverwrites(cls, overwrites, session):
         return session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.overwrites == overwrites)\
             .order_by(desc(Georeferenzierungsprozess.timestamp))
-            
+    
     @classmethod
     def isGeoreferenced(cls, mapId, session):
         georefProcess = session.query(Georeferenzierungsprozess).filter(Georeferenzierungsprozess.mapid == mapId)\

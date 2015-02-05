@@ -73,3 +73,17 @@ class Map(Base):
     def getBox2d(cls, id, session, epsg=4314):
         query = 'SELECT box2d(st_transform(map.boundingbox, %s)) as box FROM map WHERE id = %s'%(epsg, id)
         return session.execute(query).fetchone()[0]
+    
+    @classmethod
+    def getCountIsActive(cls, session):
+        return session.query(Map).filter(Map.istaktiv == True).count()
+        
+    @classmethod
+    def getCountIsGeoref(cls, session):
+        return session.query(Map).filter(Map.istaktiv == True).filter(Map.isttransformiert == True).count()
+    
+    @classmethod
+    def updateGeometry(cls, id, pgStr, session):
+        query = "UPDATE map SET boundingbox = ST_GeomFromText(('%s'), 4314) WHERE id = %s"%(pgStr, id)
+        session.execute(query)
+        return True

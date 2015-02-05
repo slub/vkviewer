@@ -4,8 +4,8 @@ from pyramid.httpexceptions import HTTPInternalServerError
 
 from vkviewer import log
 from vkviewer.python.utils.exceptions import GENERAL_ERROR_MESSAGE
+from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.models.messtischblatt.Users import Users
-from vkviewer.python.models.messtischblatt.Utils import getCountOfPublishedMaps, getCountOfGeorefMaps
 
 @view_config(route_name='welcome', renderer='welcome.mako', permission='view',http_cache=0)
 def getWelcomePage(request):  
@@ -13,8 +13,8 @@ def getWelcomePage(request):
     try:
         dbsession = request.db
         # get occurrence of georeferenced messtischblaetter
-        occurrenceGeorefMtbs = int(getCountOfGeorefMaps(dbsession))
-        possibleMtbs = int(getCountOfPublishedMaps(dbsession))
+        occurrenceGeorefMtbs = Map.getCountIsGeoref(dbsession)
+        possibleMtbs = Map.getCountIsActive(dbsession)
         georefRelation = int((float(occurrenceGeorefMtbs) / float(possibleMtbs)) * 100) 
         # get paginator for user ranking list
         paginator = Users.get_paginator(request, dbsession)

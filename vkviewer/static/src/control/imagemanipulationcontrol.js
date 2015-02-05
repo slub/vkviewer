@@ -1,6 +1,8 @@
 goog.provide('vk2.control.ImageManipulation');
 
+goog.require('vk2.utils');
 goog.require('goog.events');
+goog.require('goog.dom');
 goog.require('goog.dom.classes');
 
 /**
@@ -20,7 +22,6 @@ vk2.control.ImageManipulation = function(opt_options) {
   var tooltip = goog.dom.createDom('span', {'role':'tooltip','innerHTML':vk2.utils.getMsg('openImagemanipulation')})
   goog.dom.appendChild(anchor, tooltip);
   
-  var this_ = this;
   var openToolbox = goog.bind(function(event) {
 	  event.preventDefault();
 	  
@@ -65,12 +66,14 @@ vk2.control.ImageManipulation.prototype.close_ = function(parentEl){
  * @param {string} className
  * @param {string} orientation
  * @param {Function} updateFn
- * @param {number} opt_baseValue
+ * @param {number=} opt_baseValue
+ * @param {string=} opt_title
  * @return {Element}
  * @private
  */
-vk2.control.ImageManipulation.prototype.createSlider_ = function(className, orientation, updateFn, opt_baseValue){
-	var sliderEl = goog.dom.createDom('div', {'class': 'slider ' + className});
+vk2.control.ImageManipulation.prototype.createSlider_ = function(className, orientation, updateFn, opt_baseValue, opt_title){
+	var title = goog.isDef('opt_title') ? opt_title : '';
+	var sliderEl = goog.dom.createDom('div', {'class': 'slider ' + className, 'title':title});
 	
 	var baseMin = 0, baseMax = 100;
 	var minValueEl, maxValueEl;
@@ -101,21 +104,22 @@ vk2.control.ImageManipulation.prototype.createSlider_ = function(className, orie
         'orientation': orientation,
         'step': 1,
         'slide': function( event, ui ) {
-        	updatePosition(ui.value, valueEl);
-        	updateFn(ui.value);
-        	//layer.setOpacity(ui.value/100);        	
+        	var value = ui['value'];
+        	updatePosition(value, valueEl);
+        	updateFn(value);       	
         },
         'change': goog.bind(function( event, ui ){
-        	updatePosition(ui.value, valueEl);
-        	updateFn(ui.value);
-        	//layer.setOpacity(ui.value/100);
+        	var value = ui['value'];
+        	updatePosition(value, valueEl);
+        	updateFn(value);
         }, this)
     });
 	
 	// append tooltips
+	var innerHtml = goog.isDef(opt_baseValue) ? opt_baseValue + '%' : '100%'; 
 	var valueEl = goog.dom.createDom('div',{
 		'class':'tooltip value '+className,
-		'innerHTML':'100%'
+		'innerHTML': innerHtml
 	});
 	goog.dom.appendChild(sliderEl, valueEl);
 	
@@ -124,7 +128,7 @@ vk2.control.ImageManipulation.prototype.createSlider_ = function(className, orie
 
 /**
  * @private
- * @return {ol.Layer}
+ * @return {ol.layer.Base}
  */
 vk2.control.ImageManipulation.prototype.getBaseLayer_ = function(){
 	return this.getMap().getLayers().getArray()[0];
@@ -141,34 +145,66 @@ vk2.control.ImageManipulation.prototype.initializeSliderContainer_ = function(pa
 	goog.dom.appendChild(parentEl, sliderContainer);
 	
 	// add contrast slider
-	var contrastSlider = this.createSlider_('slider-contrast', 'vertical', goog.bind(function(value){
-		this.getBaseLayer_().setContrast(value/100);
-	}, this));
+	var contrastSlider = this.createSlider_('slider-contrast', 'horizontal', goog.bind(function(value){
+		this.getBaseLayer_()['setContrast'](value/100);
+	}, this), undefined, vk2.utils.getMsg('contrast'));
 	goog.dom.appendChild(sliderContainer, contrastSlider);
 	
 	// add satuartion slider
-	var saturationSlider = this.createSlider_('slider-saturation', 'vertical', goog.bind(function(value){
-		this.getBaseLayer_().setSaturation(value/100);
-	}, this));
+	var saturationSlider = this.createSlider_('slider-saturation', 'horizontal', goog.bind(function(value){
+		this.getBaseLayer_()['setSaturation'](value/100);
+	}, this), undefined, vk2.utils.getMsg('saturation'));
 	goog.dom.appendChild(sliderContainer, saturationSlider);
 	
 	// add brightness slider
-	var brightnessSlider = this.createSlider_('slider-brightness', 'vertical', goog.bind(function(value){
+	var brightnessSlider = this.createSlider_('slider-brightness', 'horizontal', goog.bind(function(value){
 		// doing linar mapping (normalisierung)
 		var linarMapping = 2 * value / 100 -1;
-		this.getBaseLayer_().setBrightness(linarMapping);
-	}, this), 50);
+		this.getBaseLayer_()['setBrightness'](linarMapping);
+	}, this), 50, vk2.utils.getMsg('brightness'));
 	goog.dom.appendChild(sliderContainer, brightnessSlider);
 
 	// add contrast slider
 	var baseValue = 50;
-	var hueSlider = this.createSlider_('slider-hue', 'vertical', goog.bind(function(value){
+	var hueSlider = this.createSlider_('slider-hue', 'horizontal', goog.bind(function(value){
 		// doing arbitray mapping 
 		var mapping = (value - baseValue) * 0.25;
-		var hueValue = mapping == 0 ? 0 : mapping + this.getBaseLayer_().getHue();
-		this.getBaseLayer_().setHue(hueValue);
-	}, this), baseValue);
+		var hueValue = mapping == 0 ? 0 : mapping + this.getBaseLayer_()['getHue']();
+		this.getBaseLayer_()['setHue'](hueValue);
+	}, this), baseValue, vk2.utils.getMsg('hue'));
 	goog.dom.appendChild(sliderContainer, hueSlider);
+	
+	// button for reset to default state
+	var resetBtn = goog.dom.createDom('button', {
+		'class':'reset-btn',
+		'title': vk2.utils.getMsg('reset'),
+		'innerHTML': 'Reset'
+	});
+	goog.dom.appendChild(sliderContainer, resetBtn);
+	 
+	var defaultValues = {
+		hue: 0,
+		brightness:0,
+		contrast: 1,
+		saturation: 1
+	};
+	
+	goog.events.listen(resetBtn, 'click', function(e){
+		// reset the layer
+		var layer = this.getBaseLayer_();
+		layer['setHue'](defaultValues.hue);
+		layer['setBrightness'](defaultValues.brightness);
+		layer['setContrast'](defaultValues.contrast);
+		layer['setSaturation'](defaultValues.saturation);
+		
+		// reset the sliders
+		var sliderEls = goog.dom.getElementsByClass('slider', sliderContainer);
+		for (var i = 0; i < sliderEls.length; i++){
+			var sliderEl = sliderEls[i];
+			var resetValue = goog.dom.classes.has(sliderEl, 'slider-hue') || goog.dom.classes.has(sliderEl, 'slider-brightness') ? 50 : 100;
+			$(sliderEl).slider('value', resetValue);
+		};
+	}, undefined, this);
 		
 	return sliderContainer;
 };

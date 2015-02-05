@@ -1,11 +1,5 @@
 <%inherit file="basic_page.mako" />
 
-<%block name="header_content">	 
-	<script>
-		goog.require('vk2.app.GeoreferenceApp');
-	</script>
-</%block>
-
 <%block name="body_content">
 	<div class="georeference-validate page-container full-display">
 		<!-- Header -->

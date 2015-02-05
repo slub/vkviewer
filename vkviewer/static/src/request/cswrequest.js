@@ -10,16 +10,16 @@ goog.require('goog.object');
 goog.require('vk2.settings');
 
 /**
- * @param {string}
+ * @type {string}
  * @static
  */
-vk2.request.CSW._parentElement = 'gmd:MD_Metadata';
+vk2.request.CSW.METADATA_PARENT_NODE = 'gmd:MD_Metadata';
 
 /**
- * @param {Object} 
+ * @type {Object}
  * @static
  */
-vk2.request.CSW.SearchPaths = {
+vk2.request.CSW.SEARCH_PATHS = {
 		'ONLINE_RESSOURCE':		['gmd:distributionInfo','gmd:MD_Distribution','gmd:transferOptions','gmd:MD_DigitalTransferOptions','gmd:onLine',
 			            		 	'gmd:CI_OnlineResource','gmd:linkage','gmd:URL'],
 		'ID':				['gmd:fileIdentifier','gco:CharacterString'],
@@ -41,9 +41,9 @@ vk2.request.CSW.SearchPaths = {
  * @param {Function} callback
  */
 vk2.request.CSW.getRecord = function(record_id, service_url, callback){
-	requestUrl = vk2.settings.PROXY_URL + service_url; 
+	var requestUrl = vk2.settings.PROXY_URL + service_url; 
 		
-	xmlRequest = '<?xml version="1.0"?><csw:GetRecordById xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" outputSchema="csw:IsoRecord">' +
+	var xmlRequest = '<?xml version="1.0"?><csw:GetRecordById xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" outputSchema="csw:IsoRecord">' +
 			'<csw:Id>' + record_id + '</csw:Id></csw:GetRecordById>';
 	
 	// create request object
@@ -55,29 +55,28 @@ vk2.request.CSW.getRecord = function(record_id, service_url, callback){
 		var responseXml = xhr.getResponseXml();
 		var parsedResponse = vk2.request.CSW.parseGetRecordResponse(responseXml, callback);
 		xhr.dispose();
-	}, false, this);
+	});
 	
 	// send request
 	xhr.send(requestUrl, 'POST', xmlRequest, {'Content-Type':'application/xml;charset=UTF-8'});	
 };
 
 /**
- * @param {string} xml_document
+ * @param {Document} xml_document
  * @param {Function=} opt_callback
  * @static
  */
 vk2.request.CSW.parseGetRecordResponse = function(xml_document, opt_callback){
 	
-	var parentNodeString = this._parentElement;
 	var parentNode = goog.dom.findNode(xml_document, function(n){
-		return n.nodeType == goog.dom.NodeType.ELEMENT && n.tagName == parentNodeString;
+		return n.nodeType == goog.dom.NodeType.ELEMENT && n.tagName == vk2.request.CSW.METADATA_PARENT_NODE;
 	});
 	
 	var response = {}
 	
-	for (var key in this.SearchPaths){
-		if (this.SearchPaths.hasOwnProperty(key)){
-			response[key] = this._getChildNode(parentNode, this.SearchPaths[key]);
+	for (var key in vk2.request.CSW.SEARCH_PATHS){
+		if (vk2.request.CSW.SEARCH_PATHS.hasOwnProperty(key)){
+			response[key] = vk2.request.CSW._getChildNode(parentNode, vk2.request.CSW.SEARCH_PATHS[key]);
 		}
 	}
 
@@ -89,13 +88,16 @@ vk2.request.CSW.parseGetRecordResponse = function(xml_document, opt_callback){
 };
 
 /**
- * @param {Node} root_node
- * @param {array} rest_path
+ * @param {Node|undefined} root_node
+ * @param {Array.<string>} rest_path
  * @static
  */
 vk2.request.CSW._getChildNode = function(root_node, rest_path){
 	
 	var response = [];
+	
+	if (!goog.isDef(root_node))
+		return response;
 	
 	var nodes = goog.dom.findNodes(root_node, function(n){
 		return n.nodeType == goog.dom.NodeType.ELEMENT && n.tagName == rest_path[0];
@@ -104,7 +106,7 @@ vk2.request.CSW._getChildNode = function(root_node, rest_path){
 	var new_path = goog.array.slice(rest_path, 1);
 	if (new_path.length > 0){
 		for (var i = 0; i < nodes.length; i++){
-			goog.array.extend(response, this._getChildNode(nodes[i], new_path));
+			goog.array.extend(response, vk2.request.CSW._getChildNode(nodes[i], new_path));
 		}
 	} else {
 		for (var i = 0; i < nodes.length; i++){

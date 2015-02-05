@@ -4,10 +4,11 @@
 
 .vk2-overlay-modal { z-index: 10000;}
 
-.modal-body { padding: 5px; }
+.modal-body { padding: 15px; }
+.modal-body:after { position: relative; display: table; clear: both; content: ""; }
 
 .modal-header { background: #eee; border: 0 none; padding: 6px 15px; }
-.modal-header h4  { font-weight: 300; text-transform: uppercase; font-size: 14px; }
+.modal-header h4  { font-weight: 700; text-transform: uppercase; font-size: 12px; color: #999; }
 .modal-header .close { position: absolute; top: -5px; right: -5px; padding: 3px 7px 5px 7px; background: rgb(19,141,141); border: 1px solid #eee; opacity: 1; text-shadow: none; color: #fff; z-index: 901; }
 .modal-header .close:hover { background: #f33; }
 
@@ -173,4 +174,34 @@
 
 .modal-footer{ background: #eee; padding: 0; height: 5px; }
 .modal-footer .btn { display: none; }
+
+/** Modal behavior for the upload page */
+.modal-content.upload{
+	width: auto;
+	margin-left: -300px;
+}
+			
+.modal-content.upload iframe.upload{
+	width: 100%;
+	height: 700px;
+}
+
+/** Modal behavior for the upload user page */
+.modal-content.upload-profile{
+	width: auto;
+	margin-left: -300px;
+}
+			
+.modal-content.upload-profile iframe.upload-profile{
+	width: 100%;
+	height: 700px;
+}
+
+
+/** confirm buttons in geo referencer */
+#confirm-dialog-btn-yes,#confirm-dialog-btn-no { border-radius: 0; margin-right: 10px; border: 1px solid #ccc; text-transform: uppercase; padding: 6px 20px; float: right; }
+#confirm-dialog-btn-yes { background: #090; color: #fff; border-color: #090;  }
+#confirm-dialog-btn-no { background: #eee; color: #999; border-color: #ccc }
+#confirm-dialog-btn-yes:hover { background: #0c0; }
+#confirm-dialog-btn-no:hover { background: #f33; color: #fff; border-color: #c00; }
 

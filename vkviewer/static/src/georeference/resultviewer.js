@@ -15,16 +15,16 @@ goog.require('vk2.tool.OpacitySlider');
 
 /**
  * @param {string} map_container
- * @param {Object} result_settings
+ * @param {Object=} opt_result_settings
  * @constructor
  */
-vk2.georeference.ResultViewer = function(map_container, result_settings){
+vk2.georeference.ResultViewer = function(map_container, opt_result_settings){
 	
 	/**
 	 * @type {Object}
 	 * @private
 	 */
-	this._settings = goog.isDef(result_settings) ? result_settings : {
+	this._settings = goog.isDef(opt_result_settings) ? opt_result_settings : {
 		'extent': [640161.933,5958026.134,3585834.8011505,7847377.4901306]
 	};
 	
@@ -33,7 +33,7 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 	 * @private
 	 */
 	this._baseLayer = new ol.layer.Tile({
-		source: new ol.source.OSM()
+		'source': new ol.source.OSM()
 	});
 	
 	/**
@@ -41,7 +41,7 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 	 * @private
 	 */
 	this._controlZoomToExtent = new ol.control.ZoomToExtent({
-			extent: this._settings['extent']
+			'extent': this._settings['extent']
 	});
 	
 	/**
@@ -49,25 +49,25 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 	 * @private
 	 */
 	this._map = new ol.Map({
-		  layers: [ this._baseLayer ],
-		  interactions: ol.interaction.defaults().extend([
+		  'layers': [ this._baseLayer ],
+		  'interactions': ol.interaction.defaults().extend([
 		      new ol.interaction.DragZoom()
 		  ]),
-		  renderer: 'canvas',
-		  target: map_container,
-		  view: new ol.View({
-			  	projection: 'EPSG:900913',
-			    center: [0, 0],
-			    zoom: 2
+		  'renderer': 'canvas',
+		  'target': map_container,
+		  'view': new ol.View({
+			  	'projection': 'EPSG:900913',
+			    'center': [0, 0],
+			    'zoom': 2
 		  }),
-		  controls: [
+		  'controls': [
 		       new ol.control.FullScreen(),
 		       new ol.control.Zoom(),
 		       new ol.control.Attribution(),
 			   new vk2.control.LayerSpy({
 					'spyLayer':new ol.layer.Tile({
-						attribution: undefined,
-						source: new ol.source.OSM()
+						'attribution': undefined,
+						'source': new ol.source.OSM()
 					})
 			   }),
 		  ]
@@ -75,11 +75,10 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
 	
 	// zoom to map extent
 	if (this._settings.hasOwnProperty('extent'))
-		this._map.getView().fitExtent(this._settings['extent'], this._map.getSize());
+		this._map.getView().fitExtent(this._settings['extent'], this._map['getSize']());
 	
 	// add zoom to extent control
 	this._map.addControl(this._controlZoomToExtent);
-
 };
 
 /**
@@ -88,7 +87,7 @@ vk2.georeference.ResultViewer = function(map_container, result_settings){
  * @param {Array.<number>} clip_extent
  */
 vk2.georeference.ResultViewer.prototype.displayValidationMap = function(wms_url, layer_id, clip_extent){
-	
+		
 	// remove old layer
 	if (goog.isDef(this._validationLayer))
 		this._map.removeLayer(this._validationLayer);
@@ -101,10 +100,10 @@ vk2.georeference.ResultViewer.prototype.displayValidationMap = function(wms_url,
 	this._map.addControl(this._controlZoomToExtent);
 	
 	/**
-	 * @type {vk2.layer.Messtischblatt}
+	 * @type {ol.layer.Tile}
 	 * @private
 	 */
-	this._validationLayer = new vk2.layer.Messtischblatt({
+	this._validationLayer = vk2.layer.Messtischblatt({
 		'wms_url':wms_url, 
 		'layerid':layer_id,
 		'border':vk2.utils.getPolygonFromExtent(clip_extent),
@@ -114,14 +113,14 @@ vk2.georeference.ResultViewer.prototype.displayValidationMap = function(wms_url,
 	this._map.addLayer(this._validationLayer); 
 	
 	// zoom to extent by parsing getcapabilites request from wms
-	this._map.getView().fitExtent(clip_extent, this._map.getSize());
+	this._map.getView().fitExtent(clip_extent, this._map['getSize']());
 	
 	// remove old opactiy slider and add new one
 	if (goog.dom.getElement('opacity-slider-container')){
 		var opacitySliderEl = goog.dom.getElement('opacity-slider-container');
 		opacitySliderEl.innerHTML = '';
 		var opacitySlider = new vk2.tool.OpacitySlider(goog.dom.getElement('opacity-slider-container'), this._validationLayer, 'vertical')
-	};
+	};	
 };
 
 /**

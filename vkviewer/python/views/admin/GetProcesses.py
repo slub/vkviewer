@@ -10,6 +10,7 @@ from vkviewer.python.models.messtischblatt.Georeferenzierungsprozess import Geor
 from vkviewer.python.models.messtischblatt.Metadata import Metadata
 from vkviewer.python.utils.exceptions import GENERAL_ERROR_MESSAGE
 from vkviewer.python.utils.parser import convertUnicodeDictToUtf
+from sqlalchemy.sql.expression import or_
 
 @view_config(route_name='evaluation-georeference', renderer='json', permission='moderator', match_param='action=getprocess')
 def getProcesses(request):
@@ -26,10 +27,15 @@ def getProcesses(request):
             queryData = request.db.query(Georeferenzierungsprozess, Metadata).join(Metadata, Georeferenzierungsprozess.mapid == Metadata.mapid)\
                 .filter(Georeferenzierungsprozess.nutzerid == request.params['userid'])\
                 .order_by(desc(Georeferenzierungsprozess.id))
+        elif 'validation' in request.params:
+            log.debug('Get processes for adminvalidation %s ...'%request.params['validation'])
+            queryData = request.db.query(Georeferenzierungsprozess, Metadata).join(Metadata, Georeferenzierungsprozess.mapid == Metadata.mapid)\
+                .filter(Georeferenzierungsprozess.adminvalidation == request.params['validation'])\
+                .order_by(desc(Georeferenzierungsprozess.id))
         else:
             log.debug('Get all pending processes ...')
             queryData = request.db.query(Georeferenzierungsprozess, Metadata).join(Metadata, Georeferenzierungsprozess.mapid == Metadata.mapid)\
-                .filter(Georeferenzierungsprozess.adminvalidation == '')\
+                .filter(or_(Georeferenzierungsprozess.adminvalidation == '', Georeferenzierungsprozess.adminvalidation == None))\
                 .order_by(desc(Georeferenzierungsprozess.id))
     
         response = []

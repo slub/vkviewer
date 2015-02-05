@@ -40,15 +40,16 @@ vk2.utils.calculateMapExtentForPixelViewport = function(map){
  * @static
  */
 vk2.utils.checkIfCookiesAreEnabble = function(){
-	if (!navigator.cookieEnabled){
-		alert('This page needs cookies for correct behavior. So please activate them in your browser.');
-	} else if (goog.DEBUG) {
+	if (!navigator.cookieEnabled)
+		alert('For proper working of the virtuel map forum 2.0 please activate cookies in your browser');
+	
+	if (goog.DEBUG) {
 		console.log('Cookies are enabled');		
-	}
+	};
 };
 
 /**
- * @param {string} dateiname
+ * @param {*} dateiname
  * @return {string}
  */
 vk2.utils.generateMesstischblattThumbnailLink = function(dateiname){
@@ -57,7 +58,7 @@ vk2.utils.generateMesstischblattThumbnailLink = function(dateiname){
 
 /**
  * This function parse the query parameters of the given href. If href is undefined it tooks the actual window.location.href 
- * @param {string|undefined} href
+ * @param {string=} href
  * @return {goog.Uri.QueryData}
  * @static
  */
@@ -77,7 +78,7 @@ vk2.utils.getAllQueryParams = function(href){
  */
 vk2.utils.getClosestParentElementForClass = function(element, className){
 	var element = goog.dom.classes.has(element, className) ? element : 
-		this.getClosestParentElementForClass(goog.dom.getParentElement(element), className);
+		vk2.utils.getClosestParentElementForClass(goog.dom.getParentElement(element), className);
 	return element;
 };
 
@@ -85,16 +86,20 @@ vk2.utils.getClosestParentElementForClass = function(element, className){
  * 
  * This function encapsulate the json lang_dictionary from the locale javascript folder.
  * @static
- * @param key - {String}
- * @return {String}
+ * @param {string=} opt_key
+ * @return {string}
  */
-vk2.utils.getMsg = function(key){
-	try{
-		if (goog.isDef(window['lang_dictionary'])) return window['lang_dictionary'][key];
-	} catch (ReferenceError){
-		console.log('Could not found dictionary.');
+vk2.utils.getMsg = function(opt_key){
+	if (!goog.isDef(opt_key))
 		return '';
-	}
+	
+	try{
+		if (goog.isDef(window['lang_dictionary'])) return window['lang_dictionary'][opt_key];
+	} catch (ReferenceError){
+		if (goog.DEBUG)
+			console.log('Could not found dictionary.');
+		return '';
+	};
 };
 
 /**
@@ -109,15 +114,15 @@ vk2.utils.getPolygonFromExtent = function(extent){
  * This function parse for the given href the query parameter with the given name. If href is undefined it tooks the 
  * actual window.location.href
  * @param {string} name
- * @param {string|undefined} href
- * @return {string}
+ * @param {string=} opt_href
+ * @return {*}
  * @static
  */
-vk2.utils.getQueryParam = function(name, href){
-	if (goog.isDef(href)){
-		return this.getAllQueryParams(href).get(name);
+vk2.utils.getQueryParam = function(name, opt_href){
+	if (goog.isDef(opt_href)){
+		return vk2.utils.getAllQueryParams(opt_href).get(name);
 	} else {
-		return this.getAllQueryParams().get(name);
+		return vk2.utils.getAllQueryParams().get(name);
 	}
 };
 
@@ -134,12 +139,12 @@ vk2.utils.getConfirmationDialog = function(title, message, submitCallback, opt_c
 	var msg = message;
 	
 	modal.open(title, classes);
-	modal.appendToBody('<p>' + msg + '</p><br><button type="button" class="btn btn-primary" id="confirm-dialog-btn-yes"' +
+	modal.appendStringToBody('<p>' + msg + '</p><br><button type="button" class="btn btn-primary" id="confirm-dialog-btn-yes"' +
 			'>' + vk2.utils.getMsg('yes') + '</button><button type="button" class="btn btn-primary"' +
 			'id="confirm-dialog-btn-no">' + vk2.utils.getMsg('no') + '</button>');
 	
 	var callback = goog.isDef(submitCallback) ? submitCallback : function(){};
-	goog.events.listen(goog.dom.getElement('confirm-dialog-btn-yes'), 'click', function(event){callback();});	
+	goog.events.listen(goog.dom.getElement('confirm-dialog-btn-yes'), 'click', function(event){callback();modal.close();});	
 	goog.events.listen(goog.dom.getElement('confirm-dialog-btn-no'), 'click', function(event){modal.close();});
 };
 
@@ -216,13 +221,13 @@ vk2.utils.sendReport = function(url_string, success_callback, error_callback){
 			success_callback(xhr);
 		xhr.dispose();
 
-	}, false, this);
+	});
 	
 	goog.events.listenOnce(xhr, 'error', function(e){
 		var xhr = /** @type {goog.net.XhrIo} */ (e.target);
 		if (goog.isDef(error_callback))
 			error_callback(xhr);
-	}, false, this);
+	});
 	
 	// send request
 	xhr.send(url_string);	

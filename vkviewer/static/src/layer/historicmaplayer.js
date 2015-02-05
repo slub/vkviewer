@@ -10,7 +10,7 @@ goog.require('vk2.utils.Styles');
  * @param {Object} settings
  * @param {ol.Map} map
  * @constructor
- * @extends {ol.layer.LayerGroup}
+ * @extends {ol.layer.Group}
  */
 vk2.layer.HistoricMap = function(settings, map){
 	
@@ -64,7 +64,7 @@ vk2.layer.HistoricMap = function(settings, map){
 			settings['displayinlayermanagement'] : true;
 	
 	/**
-	 * @type {<Array.<Array.<number>>}
+	 * @type {Array.<Array.<number>>}
 	 * @private
 	 */
 	this._borderPolygon = goog.isDef(settings['border']) ? settings['border'] : undefined;
@@ -77,10 +77,6 @@ vk2.layer.HistoricMap = function(settings, map){
 		'title':this._title
 	});
 	
-	/**
-	 * @type {ol.layer.Tile}
-	 * @private
-	 */
 	var urls = [];
 	for (var i = 0; i < vk2.settings.TMS_URL.length; i++){
 		urls.push(vk2.settings.TMS_URL[i] + settings['dataid'] + '/{z}/{x}/{-y}.png');
@@ -107,7 +103,7 @@ vk2.layer.HistoricMap = function(settings, map){
 		}
 	});
 	
-	settings.layers = [rasterLayer, borderLayer];
+	settings['layers'] = [rasterLayer, borderLayer];
 	ol.layer.Group.call(this, settings);
 };
 ol.inherits(vk2.layer.HistoricMap, ol.layer.Group);

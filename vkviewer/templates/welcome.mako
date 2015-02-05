@@ -5,9 +5,6 @@
 	<style>
 		.vk2WelcomePageBody .vk2GeoreferenceProgressText .content:after { left: ${georef_rel}%; }
 	</style>
-	<script>
-		goog.require('vk2.utils');
-	</script>
 </%block>
 
 <%block name="body_content">
@@ -39,9 +36,17 @@
 					##
 					% if occurrence_mtbs and possible_mtbs and georef_rel:
 					<div class="vk2GeoreferenceProgressText">
+						## if georef_rel > 72 set 72 as max value
+						% if georef_rel > 72:
+						<div class="contentContainer" style="margin-left: 72%;">
+							<div class="content" style="margin-left: -35%;">Bereits <b>${occurrence_mtbs}</b> von <b>${possible_mtbs}</b> Messtischblättern georeferenziert.</div>
+						</div>
+						% else:
 						<div class="contentContainer" style="margin-left: ${georef_rel}%;">
 							<div class="content" style="margin-left: -${georef_rel}%;">Bereits <b>${occurrence_mtbs}</b> von <b>${possible_mtbs}</b> Messtischblättern georeferenziert.</div>
 						</div>
+						% endif
+						
 					</div>
 					<div class="vk2GeoreferenceProgressBar">
 						<div class="done" style="width: ${georef_rel}%;"></div>

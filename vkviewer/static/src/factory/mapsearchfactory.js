@@ -20,7 +20,7 @@ vk2.factory.MapSearchFactory.getMapSearchRecord = function(feature){
 	// add hidden cols
 	var timeCol = goog.dom.createDom('span',{
 		'class':'data-col time',
-		'innerHTML': parseInt(feature.get('time'))
+		'innerHTML': parseInt(feature.get('time'), 0)
 	});
 	goog.dom.appendChild(containerEl, timeCol);
 	
