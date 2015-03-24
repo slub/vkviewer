@@ -21,10 +21,12 @@ class Map(Base):
 
     @classmethod
     def all(cls, session):
+        """This method will return query object that can return whole dataset to us when needed."""
         return session.query(Map).order_by(desc(Map.id))
         
     @classmethod
     def by_id(cls, id, session):
+        """This method will return a single map by id, or None object if nothing is found."""
         return session.query(Map).filter(Map.id == id).first()
     
     @classmethod
@@ -33,12 +35,17 @@ class Map(Base):
     
     @classmethod
     def getBoundingBoxObjWithEpsg(cls, id, session, epsg=4314):
+        """This method creates a Bounding-Box from PostGIS-String of a given map-id."""
         query = 'SELECT st_astext(st_transform(boundingbox,  %s)) FROM map WHERE id = %s'%(epsg, id)
         pg_geometry = session.execute(query,{'id':id}).fetchone()[0]
         return createBBoxFromPostGISString(pg_geometry, epsg)
     
     @classmethod
     def getExtent(cls, id, session, epsg=4314):
+        """This method get the extent from a boundingbox of a given map.
+        
+        :rtype: list 
+        """
         query = 'SELECT st_extent(st_transform(boundingbox, %s)) FROM map WHERE id = :id;'%epsg
         pg_extent = session.execute(query,{'id':id}).fetchone()[0]
         extent = pg_extent.replace(' ',',')[4:-1].split(',')
@@ -49,6 +56,12 @@ class Map(Base):
     
     @classmethod
     def getCentroid(cls, id, session, epsg=4314):
+        """This method get the center from a boundingbox of a given map.
+        
+        Used for creating a permalink.
+        
+        :rtype: list 
+        """
         # Used for creating a permalink
         query = 'SELECT st_astext(st_centroid(st_transform(boundingbox, %s))) FROM map WHERE id = %s'%(epsg, id)
         pg_centroid = session.execute(query,{'id':id}).fetchone()[0]
@@ -80,10 +93,12 @@ class Map(Base):
         
     @classmethod
     def getCountIsGeoref(cls, session):
+        """This method counts the maps with georeference."""
         return session.query(Map).filter(Map.istaktiv == True).filter(Map.isttransformiert == True).count()
     
     @classmethod
     def updateGeometry(cls, id, pgStr, session):
+        """This method updates the Bounding-Box-Geometry of a given Map-id."""
         query = "UPDATE map SET boundingbox = ST_GeomFromText(('%s'), 4314) WHERE id = %s"%(pgStr, id)
         session.execute(query)
         return True

@@ -1,12 +1,16 @@
 '''
-Created on Jan 27, 2014
+This module contains a collection of exception classes. Exceptions typically be derived from the `Exception`_ class. 
+Errors are thrown when something during the processing of the user request went wrong.
 
-@author: mendt
+:Date: Created on Jan 27, 2014
+:Authors: mendt
+
+.. _Exception: https://docs.python.org/2/library/exceptions.html#exceptions.Exception
 '''
 
 class InternalAuthentificationError(Exception):
     """ Generic error which is raised instead an InternalServerError 
-        in cases of failures in the authentification process
+        in cases of failures in the authentification process.
         
         Attributes:
             msg  -- explanation of the error

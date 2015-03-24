@@ -1,11 +1,12 @@
 '''
-Created on May 23, 2014
+:Date: Created on May 23, 2014
 
-@author: mendt
+:Authors: mendt
 '''
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 
 def validateId(id):
+    """Validate the id of a given object."""
     errorMsg = "Object identifier is not valide."
     try:
         # check if mtbid is valide

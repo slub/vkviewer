@@ -1,7 +1,7 @@
 '''
-Created on Apr 14, 2014
+:Date: Created on Apr 14, 2014
 
-@author: mendt
+:Authors: mendt
 '''
 import gdal, os, uuid, shapefile, sys, subprocess
 from gdalconst import *
@@ -17,6 +17,14 @@ SRC_DICT_WKT = {
 }
 
 def georeference(src_file, dest_file, tmp_dir, gcps, src_srs, dest_srs, algorithm, logger, clip_shp = None):
+    """Run georeferencing of a given source file, create a vrt dataset and crop the result to a given shapefile geometry. 
+    
+    :param src_file:
+    :param dest_file:
+    :param tmp_dir:
+    :param gcps:
+    
+    """
     try:
         vrt_dataset = None
         dest_dataset = None
@@ -58,12 +66,14 @@ def georeference(src_file, dest_file, tmp_dir, gcps, src_srs, dest_srs, algorith
             os.remove('%s.shx'%shp_file)
             
 def createVrt(gdal_src_dataset, dest_file):
+    """This method create a VRT -Virtual Dataset."""
     out_format = 'VRT'
     dst_driver = gdal.GetDriverByName(out_format)
     dst_dataset = dst_driver.CreateCopy(dest_file, gdal_src_dataset,0)
     return dst_dataset
 
 def createClipShapefile(polygon_coords, dst_path, src_srs):
+    """This method create a shapefile from given poygon coordinates."""
     # create the shapefile
     shpWriter = shapefile.Writer(shapefile.POLYGON)
     shpWriter.poly(parts=[polygon_coords])
