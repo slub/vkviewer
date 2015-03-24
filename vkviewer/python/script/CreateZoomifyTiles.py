@@ -1,7 +1,7 @@
 '''
 The MIT License (MIT)
 
-Copyright (c) 2014 Jacob Mendt
+Copyright: (c) 2014 Jacob Mendt 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Created on Feb 24, 2014
+:Date: Created on Feb 24, 2014
 
-@author: jacmendt
-@dependencies: imagemagick, gdal
+:Authors: jacmendt
+:requires:
+    imagemagick, gdal
 '''
-import subprocess, math, tempfile, shutil, sys, os, copy, logging, argparse, gdal, logging
+import subprocess, math, tempfile, shutil, sys, os, copy, logging, argparse, gdal, locale
+from gdalconst import GA_ReadOnly
 
 # set path of the project directory for finding the correct modules
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -36,24 +38,26 @@ sys.path.append(BASE_PATH_PARENT)
 
 def getImageSize(imageFile):
     """
-    Functions looks for the image size of an given path
-    @param {string} filePath
-    @return {Dictionary}
+    Functions looks for the image size of an given path.
+    
+    :param imageFile: the file Path  
+    :type imageFile: String
+    :rtype: Dictionary
     """
-    datafile = gdal.Open(imageFile)
+    datafile = gdal.Open(imageFile.encode(locale.getpreferredencoding(),'ignore'), GA_ReadOnly) #encode return an encoded version of the string
     if datafile:
         return {'x':float(datafile.RasterXSize), 'y':float(datafile.RasterYSize)}
     return None
      
 def calculateTierSize(imageWidth, imageHeight, tileSize=256):
-    """ The function calculate the number of tiles per tier
+    """The function calculate the number of tiles per tier
     
-    Arguments:
-        imageWidth {Float}
-        imageHeight {Float}
-        tileSize {Integer} Default is 256 pixel
-    Return:
-        {Array} """
+    :type imageWidth: Float
+    :type imageHeight: Float
+    :type tileSize: Integer
+    :param tileSize: Default is 256 pixel   
+    :rtype: Array 
+    """
     tierSizeInTiles = []
     while (imageWidth > tileSize or imageHeight > tileSize):
         tileWidth = imageWidth / tileSize
@@ -64,11 +68,12 @@ def calculateTierSize(imageWidth, imageHeight, tileSize=256):
     return tierSizeInTiles
     
 def calculateTileCountUpToTier(tierSizeInTiles):
-    """ The function caclulate the tileCount up to the top tier
+    """The function caclulate the tileCount up to the top tier
     
-    Arguments:
-        tileSizeInTiles {Array}
-    Return: {Array} """
+    :type tierSizeInTiles: Array
+    :return: tileCountUpToTier
+    :rtype: Array
+    """
     tileCountUpToTier = [0]
     tmp_tierSizeInTiles = copy.copy(tierSizeInTiles)
     tmp_tierSizeInTiles.reverse()
@@ -78,14 +83,14 @@ def calculateTileCountUpToTier(tierSizeInTiles):
     return tileCountUpToTier
 
 def sortTileToTileGroups(tierSizeInTiles, tileCountUpToTier, tileDir, targetPath):
-    """ Create the commands for sorting the tile to tile groups 
+    """Create the commands for sorting the tile to tile groups.
     
-    Arguments:
-        tileDir {String}
-        tierSizeInTiles {List}
-        targetPath {String}
-        tileCountUpToTier {List}
-    Return: {Dict} """
+    :type tileDir: String
+    :type tierSizeInTiles: List
+    :type targetPath: String
+    :type tileCountUpToTier: List
+    :rtype: Dictionary 
+    """
     template_command_copy = "cp %s %s"
     
     commands = []
@@ -113,16 +118,16 @@ def sortTileToTileGroups(tierSizeInTiles, tileCountUpToTier, tileDir, targetPath
     return {'commands':commands, 'tilegroups':tileGroupeDirs}
 
 def createTiles(imgPath, tierSizeInTiles, tileCountUpToTier, imgWidth, imgHeight, targetDir, logger):
-    """ The function create via imagemagick a tile pyramid for the given image
+    """The function create via imagemagick a tile pyramid for the given image.
     
-    @param String: imgPath 
-    @param List: tierSizeInTiles 
-    @param List: tileCountUpToTier
-    @param Float: imgWidth
-    @param Float: imgHeight
-    @param String: targetDir 
-    @param logging.Logger: logger        logger {LOGGER}
-    @return: String
+    :type imgPath: string
+    :type tierSizeInTiles: List
+    :type tileCountUpToTier: List
+    :type imgWidth: Float
+    :type imgHeight: Float
+    :type targetDir: String
+    :type logger: logging.Logger
+    :rtype: String
     """
     try:
         logger.debug('Create temporary tiles directory ...')
@@ -199,12 +204,14 @@ def createTiles(imgPath, tierSizeInTiles, tileCountUpToTier, imgWidth, imgHeight
                 raise
             
 def processZoomifyTiles(inputFile, outputDir, logger = None):
-    """ Parent method for processing the zoomify tiles 
+    """ Parent method for processing the zoomify tiles.
     
-    @param String: inputFile
-    @param String: outputDir
-    @param logging.Logger: logger (=None)
-    @return String Path to image properties files
+    :type inputFile: String 
+    :type outputDir: String 
+    :type logger: logging.Logger
+    :param logger: Default is =None
+    :return: Path to image properties files
+    :rtype: String
     """
     if not logger:
         logging.basicConfig()

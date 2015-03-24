@@ -1,7 +1,7 @@
-'''
-Created on May 23, 2014
+'''This module parses different input parameters.
 
-@author: mendt
+:Date: Created on May 23, 2014
+:Authors: mendt
 '''
 import gdal
 
@@ -10,12 +10,20 @@ from vkviewer.python.models.messtischblatt.Map import Map
 from vkviewer.python.georef.georeferenceexceptions import GeoreferenceParameterError
 
 def parseGcps(georeference):
+    """ This function parse the georeferenced coordinates to GCPs.
+    
+    :rtype: Array
+    """
     gcps = []
     for i in range(0,len(georeference)):
         gcps.append(gdal.GCP(georeference[i]['target'][0], georeference[i]['target'][1], 0, georeference[i]['source'][0],georeference[i]['source'][1]))
     return gcps
 
 def convertUnicodeDictToUtf(input):
+    """ This function convert an unicode dictionary to utf-8 encoding.
+    
+    :type input: dictionary or list
+    """
     if isinstance(input, dict):
         return {convertUnicodeDictToUtf(key): convertUnicodeDictToUtf(value) for key, value in input.iteritems()}
     elif isinstance(input, list):
@@ -26,7 +34,7 @@ def convertUnicodeDictToUtf(input):
         return input
     
 def parseMapObjForId(request_data, name, dbsession):
-    """ This functions parses a map objectid from an objectid """
+    """ This functions parses a map objectid from an objectid. """
     if name in request_data:
         validateId(request_data[name])         
         # @deprecated     

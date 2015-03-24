@@ -8,6 +8,13 @@ from email.mime.text import MIMEText
 from vkviewer.settings import admin_addr, mail_server,sendmail_location
 
 def sendMailSMTP(addr_to, subject, msg):
+    """This function contruct the email and send the message via our own mail server
+    
+    :param addr_to: the recipent's email address
+    :type addr_to: String
+    :type subject: String
+    :type msg: String
+    """
     try:
         # construct the email
         msg = MIMEText(msg)
@@ -25,6 +32,13 @@ def sendMailSMTP(addr_to, subject, msg):
         raise
 
 def sendMailCommandLine(addr_to, subject, msg):
+    """This function contruct the email an send the message via command line.
+    
+    :param addr_to: the recipent's email address
+    :type addr_to: String
+    :type subject: String
+    :type msg: String
+    """
     try:
         # construct the email
         mail = os.popen('%s -t' % sendmail_location, 'w')
